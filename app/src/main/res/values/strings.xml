@@ -1,3 +1,14 @@
 <resources>
-    <string name="app_name">SSN App</string>
+	<string name="app_name">The SSN App</string>
+	<string name="menu_button">Menu button</string>
+
+	<!-- TODO: Remove or change this placeholder text -->
+	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="track_bus">Track bus</string>
+	<string name="bus_routes">Bus routes</string>
+	<string name="coming_soon">Coming soon</string>
+	<string name="internals">Internals</string>
+	<string name="results">Results</string>
+	<string name="seating_arrangement">Seating arrangement</string>
+	<string name="exam_schedule">Exam schedule</string>
 </resources>

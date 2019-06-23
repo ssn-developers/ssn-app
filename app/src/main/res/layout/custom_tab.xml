@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_gravity="center">
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textSize="18sp"
+		android:id="@+id/customTabTV"
+		android:gravity="center"
+		android:textStyle="bold"
+		android:textColor="@color/custom_tab"
+		android:paddingTop="5dp"
+		android:paddingBottom="5dp"
+		android:paddingEnd="30dp"
+		android:paddingRight="30dp"
+		android:paddingStart="30dp"
+		android:paddingLeft="30dp"/>
+</RelativeLayout>
