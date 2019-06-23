@@ -57,7 +57,7 @@ public class HomeActivity extends BaseActivity {
         adapter.addFragment(new EventsFragment(), "Events");
         adapter.addFragment(new BusAlertsFragment(), "Bus alerts");
         adapter.addFragment(new ExamCellFragment(), "Exam cell");
-        adapter.addFragment(new GlobalChatFragment(), "Global chat");
+        //adapter.addFragment(new GlobalChatFragment(), "Global chat");
         viewPager.setAdapter(adapter);
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
         viewPagerTab.setViewPager(viewPager);
