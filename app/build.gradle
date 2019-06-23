@@ -31,11 +31,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.google.firebase:firebase-firestore:19.0.2'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
+    implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
+    implementation 'com.github.vipulasri:timelineview:1.1.0'
 
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'

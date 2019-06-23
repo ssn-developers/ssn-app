@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:background="@android:color/white"
+	tools:context=".BusRoutesActivity">
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/fakeAppbarLL"
+		android:orientation="horizontal">
+		<ImageView
+			android:layout_width="40dp"
+			android:layout_height="40dp"
+			android:layout_margin="8dp"
+			android:src="@drawable/back_icon"
+			android:id="@+id/backIV"
+			android:layout_gravity="center"
+			android:clickable="true"
+			android:focusable="true"
+			android:foreground="?selectableItemBackground"
+			android:tint="@color/colorAccent"
+			android:padding="2.5dp"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:textSize="20sp"
+			android:text="@string/bus_routes"
+			android:textColor="@color/colorAccent"
+			android:textStyle="bold"/>
+	</LinearLayout>
+	<android.support.v7.widget.RecyclerView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingTop="8dp"
+		android:layout_below="@id/fakeAppbarLL"
+		android:paddingBottom="8dp"
+		android:clipToPadding="false"
+		android:id="@+id/busRoutesRV">
+	</android.support.v7.widget.RecyclerView>
+</RelativeLayout>

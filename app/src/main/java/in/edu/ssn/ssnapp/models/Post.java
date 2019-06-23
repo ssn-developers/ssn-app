@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Post {
     private String id;
+    private String timestamp;
     private String title;
     private String description;
     private List<String> imageUrls;
@@ -74,5 +75,13 @@ public class Post {
 
     public void setAuthorPosition(String authorPosition) {
         this.authorPosition = authorPosition;
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 }
