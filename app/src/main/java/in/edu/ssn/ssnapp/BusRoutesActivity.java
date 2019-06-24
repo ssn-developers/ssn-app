@@ -1,8 +1,10 @@
 package in.edu.ssn.ssnapp;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -107,9 +109,17 @@ public class BusRoutesActivity extends BaseActivity {
 
         adapter = new FirestoreRecyclerAdapter<BusRoute, BusRouteViewHolder>(options) {
             @Override
-            public void onBindViewHolder(BusRouteViewHolder holder, int position, BusRoute model) {
+            public void onBindViewHolder(BusRouteViewHolder holder, int position, final BusRoute model) {
                 holder.routeNameTV.setText("Route "+model.getRouteName());
                 holder.busStopsRV.setAdapter(new BusStopAdapter(getApplicationContext(),model.getStop()));
+                holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);
+                        intent.putExtra("route",model);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -128,11 +138,13 @@ public class BusRoutesActivity extends BaseActivity {
     public class BusRouteViewHolder extends RecyclerView.ViewHolder {
         public TextView routeNameTV;
         public RecyclerView busStopsRV;
+        public CardView busRouteCV;
         public BusRouteViewHolder(View itemView) {
             super(itemView);
             routeNameTV = itemView.findViewById(R.id.routeNameTV);
             routeNameTV.setTypeface(bold);
             busStopsRV = itemView.findViewById(R.id.busStopsRV);
+            busRouteCV = itemView.findViewById(R.id.busRouteCV);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
             busStopsRV.setHasFixedSize(true);
             busStopsRV.setLayoutManager(layoutManager);

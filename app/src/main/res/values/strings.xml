@@ -11,4 +11,5 @@
 	<string name="results">Results</string>
 	<string name="seating_arrangement">Seating arrangement</string>
 	<string name="exam_schedule">Exam schedule</string>
+	<string name="driver">Driver</string>
 </resources>

@@ -13,6 +13,7 @@
 		android:clickable="true"
 		android:focusable="true"
 		app:cardElevation="0dp"
+		android:id="@+id/busRouteCV"
 		app:cardBackgroundColor="#f2f2f2"
 		android:layout_marginRight="16dp"
 		android:layout_marginTop="8dp"

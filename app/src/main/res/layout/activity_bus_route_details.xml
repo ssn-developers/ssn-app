@@ -5,11 +5,13 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
+	android:background="#ECECEC"
 	tools:context=".BusRouteDetailsActivity">
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/fakeAppbarLL"
+		android:background="@android:color/white"
 		android:orientation="horizontal">
 		<ImageView
 			android:layout_width="40dp"
@@ -30,19 +32,154 @@
 			android:layout_gravity="center"
 			android:textSize="20sp"
 			android:id="@+id/routeNameTV"
-			android:text="@string/bus_routes"
 			android:textColor="@color/colorAccent"
 			android:textStyle="bold"/>
 	</LinearLayout>
-	<ScrollView
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:fillViewport="true">
+
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
+			android:background="@drawable/bus_route_detail_bg"
 			android:orientation="vertical">
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<ImageView
+					android:layout_width="30dp"
+					android:layout_height="30dp"
+					android:layout_marginStart="20dp"
+					android:src="@drawable/steering_icon"
+					android:tint="#4D4D4D"
+					android:layout_marginLeft="20dp" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="10dp"
+						android:textSize="18sp"
+						android:textStyle="bold"
+						android:textColor="@color/colorAccent"
+						android:text="@string/driver"
+						android:layout_marginLeft="16dp" />
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="10dp"
+						android:layout_marginTop="2dp"
+						android:textSize="18sp"
+						android:textStyle="bold"
+						android:id="@+id/driverNameTV"
+						android:textColor="@android:color/black"
+						android:layout_marginLeft="16dp" />
+				</LinearLayout>
+			</LinearLayout>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:orientation="horizontal">
+				<ImageView
+					android:layout_width="30dp"
+					android:layout_height="30dp"
+					android:layout_marginStart="20dp"
+					android:src="@drawable/call_icon"
+					android:tint="#4D4D4D"
+					android:layout_marginLeft="20dp" />
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical">
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="10dp"
+						android:textSize="18sp"
+						android:textStyle="bold"
+						android:textColor="@color/colorAccent"
+						android:text="Phone number"
+						android:layout_marginLeft="16dp" />
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginStart="10dp"
+						android:layout_marginTop="2dp"
+
+						android:textSize="18sp"
+						android:textStyle="bold"
+						android:id="@+id/driverNumberTV"
+						android:textColor="@android:color/black"
+						android:layout_marginLeft="16dp" />
+				</LinearLayout>
+			</LinearLayout>
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:weightSum="2"
+				android:orientation="horizontal">
+				<android.support.v7.widget.CardView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					app:cardCornerRadius="10dp"
+					app:cardElevation="0dp"
+					android:clickable="true"
+					android:foreground="?attr/selectableItemBackground"
+					app:cardBackgroundColor="@color/colorAccentAlpha"
+					android:layout_marginLeft="16dp"
+					android:layout_marginRight="8dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginBottom="16dp"
+					android:layout_weight="1">
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:paddingTop="10dp"
+						android:textStyle="bold"
+						android:textSize="18sp"
+						android:textColor="@color/colorAccent"
+						android:paddingBottom="10dp"
+						android:text="Call"/>
+				</android.support.v7.widget.CardView>
+				<android.support.v7.widget.CardView
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					app:cardCornerRadius="10dp"
+					app:cardElevation="0dp"
+					android:clickable="true"
+					android:foreground="?attr/selectableItemBackground"
+					app:cardBackgroundColor="@color/colorAccentAlpha"
+					android:layout_marginLeft="8dp"
+					android:layout_marginRight="16dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginBottom="16dp"
+					android:layout_weight="1">
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_gravity="center"
+						android:paddingTop="10dp"
+						android:textStyle="bold"
+						android:textSize="18sp"
+						android:textColor="@color/colorAccent"
+						android:paddingBottom="10dp"
+						android:text="Share"/>
+				</android.support.v7.widget.CardView>
+
+			</LinearLayout>
 
 		</LinearLayout>
-	</ScrollView>
+	<android.support.v7.widget.RecyclerView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/busStopsRV"
+		android:clipToPadding="false"
+		android:padding="20dp">
+
+	</android.support.v7.widget.RecyclerView>
+
 </LinearLayout>
