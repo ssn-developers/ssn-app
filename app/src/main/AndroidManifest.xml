@@ -23,12 +23,11 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".BusRouteDetailsActivity" />
+		<activity android:name=".BusRouteDetailsActivity"/>
 		<activity android:name=".BusRoutesActivity" />
 		<activity android:name=".BaseActivity" />
-		<activity android:name=".HomeActivity">
-		</activity>
 		<activity android:name=".MainActivity" />
+		<activity android:name=".HomeActivity"/>
 	</application>
 
 </manifest>

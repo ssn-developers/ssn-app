@@ -67,5 +67,4 @@ public class BusAlertsFragment extends Fragment {
         FontChanger fontChanger = new FontChanger(bold);
         fontChanger.replaceFonts((ViewGroup) view);
     }
-
 }
