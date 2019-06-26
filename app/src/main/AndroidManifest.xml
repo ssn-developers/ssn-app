@@ -16,17 +16,18 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme"
 		tools:ignore="GoogleAppIndexingWarning">
-		<activity android:name=".BusRouteDetailsActivity"/>
-		<activity android:name=".BusRoutesActivity" />
-		<activity android:name=".BaseActivity" />
-		<activity android:name=".MainActivity" />
-		<activity android:name=".HomeActivity">
+		<activity android:name=".LoginActivity">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
+		<activity android:name=".BusRouteDetailsActivity"/>
+		<activity android:name=".BusRoutesActivity" />
+		<activity android:name=".BaseActivity" />
+		<activity android:name=".MainActivity" />
+		<activity android:name=".HomeActivity"/>
 	</application>
 
 </manifest>

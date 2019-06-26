@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#0D4BA0</color>
     <color name="colorAccentAlpha">#1A0D4BA0</color>
+    <color name="skyBlue">#9BD8E5</color>
+    <!--<color name="skyBlue">#5B7FEB</color>-->
 </resources>

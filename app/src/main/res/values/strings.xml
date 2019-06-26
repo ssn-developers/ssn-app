@@ -12,4 +12,5 @@
 	<string name="seating_arrangement">Seating arrangement</string>
 	<string name="exam_schedule">Exam schedule</string>
 	<string name="driver">Driver</string>
+	<string name="sign_in_with_you_ssn_mail_id">Sign in with your SSN mail id</string>
 </resources>
