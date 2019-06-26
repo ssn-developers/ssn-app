@@ -9,7 +9,6 @@ import java.util.List;
 
 public class BusRoute implements Parcelable {
 
-
     boolean avail;
     String routeName;
     String dname;

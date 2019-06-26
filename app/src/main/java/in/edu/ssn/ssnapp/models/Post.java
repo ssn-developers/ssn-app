@@ -1,25 +1,20 @@
 package in.edu.ssn.ssnapp.models;
 
+import java.util.Date;
 import java.util.List;
 
 public class Post {
-    private String id;
-    private String timestamp;
-    private String title;
-    private String description;
-    private List<String> imageUrls;
-    private int likes;
-    private int comments;
-    private String authorName;
-    private String authorPosition;
+    String id;
+    Date time;
+    String title;
+    String description;
+    List<String> imageUrl;
+    //private int likes;
+    //private int comments;
+    String author;
+    String position;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    public Post() { }
 
     public String getTitle() {
         return title;
@@ -37,51 +32,43 @@ public class Post {
         this.description = description;
     }
 
-    public List<String> getImageUrls() {
-        return imageUrls;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setImageUrls(List<String> imageUrls) {
-        this.imageUrls = imageUrls;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public int getLikes() {
-        return likes;
+    public String getPosition() {
+        return position;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
-    public int getComments() {
-        return comments;
+    public String getId() {
+        return id;
     }
 
-    public void setComments(int comments) {
-        this.comments = comments;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getAuthorName() {
-        return authorName;
+    public Date getTime() {
+        return time;
     }
 
-    public void setAuthorName(String authorName) {
-        this.authorName = authorName;
+    public void setTime(Date time) {
+        this.time = time;
     }
 
-    public String getAuthorPosition() {
-        return authorPosition;
+    public List<String> getImageUrl() {
+        return imageUrl;
     }
 
-    public void setAuthorPosition(String authorPosition) {
-        this.authorPosition = authorPosition;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setImageUrl(List<String> imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
