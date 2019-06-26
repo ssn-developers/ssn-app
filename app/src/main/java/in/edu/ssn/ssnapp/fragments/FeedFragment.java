@@ -64,6 +64,13 @@ public class FeedFragment extends Fragment {
 
         setupFireStore();
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("ttest","hello");
+            }
+        });
+
         return view;
     }
 
@@ -80,8 +87,7 @@ public class FeedFragment extends Fragment {
     }
 
     void setupFireStore(){
-
-        Query query = FirebaseFirestore.getInstance().collection("post_cse").orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("post_cse").whereEqualTo("year",2016).orderBy("time", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, new SnapshotParser<Post>() {
