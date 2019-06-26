@@ -32,11 +32,11 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:scaleType="centerCrop"
-				android:src="@drawable/sky"/>
+				android:id="@+id/skyIV" />
 			<ImageView
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:src="@drawable/road_with_grass"/>
+				android:id="@+id/roadIV" />
 		</RelativeLayout>
 	</android.support.v7.widget.CardView>
 
@@ -45,10 +45,10 @@
 		android:layout_height="170dp"
 		android:layout_centerVertical="true"
 		android:layout_above="@id/circleCV"
+		android:id="@+id/signBoardIV"
 		android:layout_marginBottom="-255dp"
 		android:layout_marginLeft="45dp"
-		android:layout_marginStart="45dp"
-		android:src="@drawable/sign_board"/>
+		android:layout_marginStart="45dp" />
 
 	<android.support.v7.widget.CardView
 		android:layout_width="match_parent"

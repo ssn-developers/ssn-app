@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -31,6 +32,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -87,7 +89,7 @@ public class FeedFragment extends Fragment {
     }
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post_cse").whereEqualTo("year",2016).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("post_cse").whereEqualTo("year",2016);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, new SnapshotParser<Post>() {
@@ -100,6 +102,7 @@ public class FeedFragment extends Fragment {
                         post.setAuthor(snapshot.getString("author"));
                         post.setPosition(snapshot.getString("position"));
                         post.setTime(snapshot.getTimestamp("time").toDate());
+                        post.setAuthorImageUrl(snapshot.getString("author_image_url"));
 
                         return post;
                     }
@@ -112,6 +115,7 @@ public class FeedFragment extends Fragment {
                 holder.tv_author.setText(model.getAuthor());
                 holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
+                Picasso.get().load(model.getAuthorImageUrl()).into(holder.userImageIV);
 
                 Date time = model.getTime();
                 Date now = new Date();
@@ -153,6 +157,7 @@ public class FeedFragment extends Fragment {
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.tv_description.setText(ss);
                     holder.tv_description.setMovementMethod(LinkMovementMethod.getInstance());
+
                 }
                 else
                     holder.tv_description.setText(model.getDescription());
@@ -170,6 +175,7 @@ public class FeedFragment extends Fragment {
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_author, tv_position, tv_title, tv_description, tv_time;
+        public ImageView userImageIV;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
@@ -179,6 +185,13 @@ public class FeedFragment extends Fragment {
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_description = itemView.findViewById(R.id.tv_description);
             tv_time = itemView.findViewById(R.id.tv_time);
+            userImageIV = itemView.findViewById(R.id.userImageIV);
+
+            tv_author.setTypeface(regular);
+            tv_position.setTypeface(regular);
+            tv_title.setTypeface(bold);
+            tv_description.setTypeface(regular);
+            tv_time.setTypeface(regular);
         }
     }
 

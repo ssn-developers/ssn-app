@@ -37,6 +37,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:17.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
     implementation 'com.github.vipulasri:timelineview:1.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'

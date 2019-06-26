@@ -13,6 +13,7 @@ public class Post {
     //private int comments;
     String author;
     String position;
+    String authorImageUrl;
 
     public Post() { }
 
@@ -70,5 +71,13 @@ public class Post {
 
     public void setImageUrl(List<String> imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getAuthorImageUrl() {
+        return authorImageUrl;
+    }
+
+    public void setAuthorImageUrl(String authorImageUrl) {
+        this.authorImageUrl = authorImageUrl;
     }
 }

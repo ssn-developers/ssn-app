@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
 
 public class LoginActivity extends BaseActivity {
 
     CardView signInCV;
-
+    ImageView roadIV, skyIV, signBoardIV;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +31,12 @@ public class LoginActivity extends BaseActivity {
     void initUI(){
         changeFont(regular,(ViewGroup) this.findViewById(android.R.id.content));
         signInCV = findViewById(R.id.signInCV);
+        roadIV = findViewById(R.id.roadIV);
+        skyIV = findViewById(R.id.skyIV);
+        signBoardIV = findViewById(R.id.signBoardIV);
+        Picasso.get().load("file:///android_asset/sky.png").into(skyIV);
+        Picasso.get().load("file:///android_asset/road_with_grass.png").into(roadIV);
+        Picasso.get().load("file:///android_asset/sign_board.png").into(signBoardIV);
     }
 
 }
