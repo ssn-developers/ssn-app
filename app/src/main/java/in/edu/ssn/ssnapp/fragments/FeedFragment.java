@@ -112,18 +112,12 @@ public class FeedFragment extends Fragment {
                 Long t = now.getTime() - time.getTime();
                 SimpleDateFormat sdf;
 
-                if(t < 60000) {
-                    sdf = new SimpleDateFormat("ss", Locale.US);
-                    holder.tv_time.setText(sdf.format(t) + "s ago");
-                }
-                else if(t < 3600000) {
-                    sdf = new SimpleDateFormat("mm", Locale.US);
+                if(t < 60000)
+                    holder.tv_time.setText(Long.toString(t / 1000) + "s ago");
+                else if(t < 3600000)
                     holder.tv_time.setText(Long.toString(t / 60000) + "m ago");
-                }
-                else if(t < 86400000) {
-                    sdf = new SimpleDateFormat("HH", Locale.US);
+                else if(t < 86400000)
                     holder.tv_time.setText(Long.toString(t / 3600000) + "h ago");
-                }
                 else if(t < 604800000)
                     holder.tv_time.setText(Long.toString(t/86400000) + "d ago");
                 else if(t < 2592000000L)
