@@ -108,9 +108,10 @@ public class FeedFragment extends Fragment {
                         final Post post = new Post();
                         post.setTitle(snapshot.getString("title"));
                         post.setDescription(snapshot.getString("description"));
+                        post.setAuthor(snapshot.getString("author"));
+                        post.setPosition(snapshot.getString("position"));
                         post.setTime(snapshot.getTimestamp("time").toDate());
-                        post.setDocs(snapshot.getDocumentReference("ref"));
-
+                        post.setAuthor_image_url(snapshot.getString("author_image_url"));
                         return post;
                     }
                 })
@@ -119,26 +120,9 @@ public class FeedFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, int position, final Post model) {
-
-                model.getDocs().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-                            DocumentSnapshot ds = task.getResult();
-                            if(ds != null) {
-                                holder.tv_author.setText(ds.getString("name"));
-                                Picasso.get().load(ds.getString("dp_url")).into(holder.userImageIV);
-
-                                String dept = ds.getString("dept");
-                                String pos = ds.getString("position");
-                                if (pos.equals("HOD"))
-                                    pos += ", dept of " + dept.toUpperCase();
-                                holder.tv_position.setText(pos);
-                            }
-                        }
-                    }
-                });
-
+                holder.tv_author.setText(model.getAuthor());
+                Picasso.get().load(model.getAuthor_image_url()).into(holder.userImageIV);
+                holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
                 Date time = model.getTime();

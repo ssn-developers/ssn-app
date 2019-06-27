@@ -15,9 +15,11 @@ public class Post {
     String title;
     String description;
     List<String> imageUrl;
+    String author;
+    String author_image_url;
+    String position;
     //private int likes;
     //private int comments;
-    DocumentReference userRef;
 
     public Post() { }
 
@@ -61,11 +63,27 @@ public class Post {
         this.imageUrl = imageUrl;
     }
 
-    public DocumentReference getDocs() {
-        return userRef;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setDocs(DocumentReference userRef) {
-        this.userRef = userRef;
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getAuthor_image_url() {
+        return author_image_url;
+    }
+
+    public void setAuthor_image_url(String author_image_url) {
+        this.author_image_url = author_image_url;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
     }
 }
