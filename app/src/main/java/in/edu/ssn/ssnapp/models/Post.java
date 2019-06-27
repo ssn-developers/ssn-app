@@ -1,5 +1,8 @@
 package in.edu.ssn.ssnapp.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.model.Document;
@@ -9,7 +12,7 @@ import java.lang.ref.Reference;
 import java.util.Date;
 import java.util.List;
 
-public class Post {
+public class Post implements Parcelable {
     String id;
     Date time;
     String title;
@@ -22,6 +25,28 @@ public class Post {
     //private int comments;
 
     public Post() { }
+
+    protected Post(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        imageUrl = in.createStringArrayList();
+        author = in.readString();
+        author_image_url = in.readString();
+        position = in.readString();
+    }
+
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
+
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -85,5 +110,19 @@ public class Post {
 
     public void setPosition(String position) {
         this.position = position;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeString(this.author);
+        dest.writeString(this.author_image_url);
+        dest.writeString(this.position);
     }
 }

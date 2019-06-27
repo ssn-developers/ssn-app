@@ -38,7 +38,7 @@ public class HomeActivity extends BaseActivity {
         menuIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.START);
+                //drawerLayout.openDrawer(Gravity.START);
             }
         });
 

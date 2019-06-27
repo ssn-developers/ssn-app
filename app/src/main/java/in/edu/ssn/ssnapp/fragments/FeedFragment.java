@@ -23,6 +23,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -52,6 +53,8 @@ import javax.annotation.Nullable;
 
 import in.edu.ssn.ssnapp.BusRouteDetailsActivity;
 import in.edu.ssn.ssnapp.BusRoutesActivity;
+import in.edu.ssn.ssnapp.MainActivity;
+import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.BusStopAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
@@ -74,13 +77,6 @@ public class FeedFragment extends Fragment {
         initUI(view);
 
         setupFireStore();
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("ttest","hello");
-            }
-        });
 
         return view;
     }
@@ -168,6 +164,16 @@ public class FeedFragment extends Fragment {
                 }
                 else
                     holder.tv_description.setText(model.getDescription());
+
+                holder.feed_view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getContext(), PostDetailsActivity.class);
+                        intent.putExtra("post", model);
+                        intent.putExtra("time", holder.tv_time.getText().toString());
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -183,6 +189,7 @@ public class FeedFragment extends Fragment {
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_author, tv_position, tv_title, tv_description, tv_time;
         public ImageView userImageIV;
+        public RelativeLayout feed_view;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
@@ -193,6 +200,7 @@ public class FeedFragment extends Fragment {
             tv_description = itemView.findViewById(R.id.tv_description);
             tv_time = itemView.findViewById(R.id.tv_time);
             userImageIV = itemView.findViewById(R.id.userImageIV);
+            feed_view = itemView.findViewById(R.id.feed_view);
 
             tv_author.setTypeface(regular);
             tv_position.setTypeface(regular);
