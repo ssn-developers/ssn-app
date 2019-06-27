@@ -11,73 +11,75 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:weightSum="2"
-		android:layout_marginTop="6dp"
+		android:layout_marginTop="@dimen/_4sdp"
 		android:orientation="horizontal">
+
 		<android.support.v7.widget.CardView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="16dp"
+			android:layout_marginBottom="@dimen/_14sdp"
 			android:layout_weight="1"
-			app:cardCornerRadius="10dp"
+			app:cardCornerRadius="@dimen/_8sdp"
 			app:cardElevation="0dp"
-			android:layout_marginLeft="16dp"
-			android:layout_marginStart="16dp"
-			android:layout_marginRight="8dp"
-			android:layout_marginEnd="8dp">
+			android:layout_marginLeft="@dimen/_14sdp"
+			android:layout_marginStart="@dimen/_14sdp"
+			android:layout_marginRight="@dimen/_7sdp"
+			android:layout_marginEnd="@dimen/_7sdp">
+
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:padding="16dp"
+				android:padding="@dimen/_14sdp"
 				android:background="@color/colorAccentAlpha"
 				android:orientation="vertical">
 				<ImageView
-					android:layout_width="35dp"
-					android:layout_height="35dp"
+					android:layout_width="@dimen/_24sdp"
+					android:layout_height="@dimen/_24sdp"
 					android:tint="@color/colorAccent"
-					android:layout_marginBottom="40dp"
+					android:layout_marginBottom="@dimen/_35sdp"
 					android:src="@drawable/ic_internals" />
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="22sp"
+					android:textSize="@dimen/_16ssp"
 					android:textStyle="bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/internals"/>
 			</LinearLayout>
 		</android.support.v7.widget.CardView>
+
 		<android.support.v7.widget.CardView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="16dp"
+			android:layout_marginBottom="@dimen/_14sdp"
 			android:layout_weight="1"
-			app:cardCornerRadius="10dp"
+			app:cardCornerRadius="@dimen/_8sdp"
 			app:cardElevation="0dp"
-			android:layout_marginLeft="8dp"
-			android:layout_marginStart="8dp"
-			android:layout_marginRight="16dp"
-			android:layout_marginEnd="16dp">
+			android:layout_marginLeft="@dimen/_8sdp"
+			android:layout_marginStart="@dimen/_8sdp"
+			android:layout_marginRight="@dimen/_14sdp"
+			android:layout_marginEnd="@dimen/_14sdp">
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:padding="16dp"
+				android:padding="@dimen/_14sdp"
 				android:background="@color/colorAccentAlpha"
 				android:orientation="vertical">
 				<ImageView
-					android:layout_width="35dp"
-					android:layout_height="35dp"
+					android:layout_width="@dimen/_24sdp"
+					android:layout_height="@dimen/_24sdp"
 					android:tint="@color/colorAccent"
-					android:layout_marginBottom="40dp"
+					android:layout_marginBottom="@dimen/_35sdp"
 					android:src="@drawable/ic_exam" />
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="22sp"
+					android:textSize="@dimen/_16ssp"
 					android:textStyle="bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/results"/>
 			</LinearLayout>
 		</android.support.v7.widget.CardView>
-
 	</LinearLayout>
 
 	<LinearLayout
@@ -85,69 +87,68 @@
 		android:layout_height="wrap_content"
 		android:weightSum="2"
 		android:orientation="horizontal">
+
 		<android.support.v7.widget.CardView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="16dp"
+			android:layout_marginBottom="@dimen/_14sdp"
 			android:layout_weight="1"
-			app:cardCornerRadius="10dp"
+			app:cardCornerRadius="@dimen/_8sdp"
 			app:cardElevation="0dp"
-			android:layout_marginLeft="16dp"
-			android:layout_marginStart="16dp"
-			android:layout_marginRight="8dp"
-			android:layout_marginEnd="8dp">
+			android:layout_marginLeft="@dimen/_14sdp"
+			android:layout_marginStart="@dimen/_14sdp"
+			android:layout_marginRight="@dimen/_7sdp"
+			android:layout_marginEnd="@dimen/_7sdp">
+
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:padding="16dp"
+				android:padding="@dimen/_14sdp"
 				android:background="@color/colorAccentAlpha"
 				android:orientation="vertical">
 				<ImageView
-					android:layout_width="35dp"
-					android:layout_height="35dp"
+					android:layout_width="@dimen/_24sdp"
+					android:layout_height="@dimen/_24sdp"
 					android:tint="@color/colorAccent"
-					android:layout_marginBottom="40dp"
+					android:layout_marginBottom="@dimen/_20sdp"
 					android:src="@drawable/ic_seating" />
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="22sp"
+					android:textSize="@dimen/_16ssp"
 					android:textStyle="bold"
-					android:singleLine="true"
-					android:ellipsize="marquee"
 					android:textColor="@color/colorAccent"
 					android:text="@string/seating_arrangement"/>
 			</LinearLayout>
 		</android.support.v7.widget.CardView>
+
 		<android.support.v7.widget.CardView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="16dp"
+			android:layout_marginBottom="@dimen/_14sdp"
 			android:layout_weight="1"
-			app:cardCornerRadius="10dp"
+			app:cardCornerRadius="@dimen/_8sdp"
 			app:cardElevation="0dp"
-			android:layout_marginLeft="8dp"
-			android:layout_marginStart="8dp"
-			android:layout_marginRight="16dp"
-			android:layout_marginEnd="16dp">
+			android:layout_marginLeft="@dimen/_8sdp"
+			android:layout_marginStart="@dimen/_8sdp"
+			android:layout_marginRight="@dimen/_14sdp"
+			android:layout_marginEnd="@dimen/_14sdp">
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:padding="16dp"
+				android:padding="@dimen/_14sdp"
 				android:background="@color/colorAccentAlpha"
 				android:orientation="vertical">
 				<ImageView
-					android:layout_width="35dp"
-					android:layout_height="35dp"
+					android:layout_width="@dimen/_24sdp"
+					android:layout_height="@dimen/_24sdp"
 					android:tint="@color/colorAccent"
-					android:layout_marginBottom="40dp"
+					android:layout_marginBottom="@dimen/_20sdp"
 					android:src="@drawable/ic_calendar" />
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="22sp"
-					android:singleLine="true"
-					android:ellipsize="marquee"
+					android:textSize="@dimen/_16ssp"
 					android:textStyle="bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/exam_schedule"/>

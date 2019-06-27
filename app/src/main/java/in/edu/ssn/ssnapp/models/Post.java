@@ -1,5 +1,11 @@
 package in.edu.ssn.ssnapp.models;
 
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.model.Document;
+import com.google.firebase.firestore.model.value.ReferenceValue;
+
+import java.lang.ref.Reference;
 import java.util.Date;
 import java.util.List;
 
@@ -11,9 +17,7 @@ public class Post {
     List<String> imageUrl;
     //private int likes;
     //private int comments;
-    String author;
-    String position;
-    String authorImageUrl;
+    DocumentReference userRef;
 
     public Post() { }
 
@@ -31,22 +35,6 @@ public class Post {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public String getId() {
@@ -73,11 +61,11 @@ public class Post {
         this.imageUrl = imageUrl;
     }
 
-    public String getAuthorImageUrl() {
-        return authorImageUrl;
+    public DocumentReference getDocs() {
+        return userRef;
     }
 
-    public void setAuthorImageUrl(String authorImageUrl) {
-        this.authorImageUrl = authorImageUrl;
+    public void setDocs(DocumentReference userRef) {
+        this.userRef = userRef;
     }
 }

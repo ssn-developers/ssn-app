@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.squareup.picasso.Picasso;
 
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
@@ -31,6 +32,8 @@ public class HomeActivity extends BaseActivity {
         setContentView(R.layout.activity_home);
 
         initUI();
+
+            Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/user%2Fprofile%2FU0001.jpg?alt=media&token=8d27e31e-3622-4ec9-bbeb-51897858070f").into(userImageIV);
 
         menuIV.setOnClickListener(new View.OnClickListener() {
             @Override

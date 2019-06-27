@@ -28,10 +28,17 @@ import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -40,6 +47,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.annotation.Nullable;
 
 import in.edu.ssn.ssnapp.BusRouteDetailsActivity;
 import in.edu.ssn.ssnapp.BusRoutesActivity;
@@ -96,13 +105,11 @@ public class FeedFragment extends Fragment {
                     @NonNull
                     @Override
                     public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                        Post post = new Post();
+                        final Post post = new Post();
                         post.setTitle(snapshot.getString("title"));
                         post.setDescription(snapshot.getString("description"));
-                        post.setAuthor(snapshot.getString("author"));
-                        post.setPosition(snapshot.getString("position"));
                         post.setTime(snapshot.getTimestamp("time").toDate());
-                        post.setAuthorImageUrl(snapshot.getString("author_image_url"));
+                        post.setDocs(snapshot.getDocumentReference("ref"));
 
                         return post;
                     }
@@ -112,15 +119,31 @@ public class FeedFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, int position, final Post model) {
-                holder.tv_author.setText(model.getAuthor());
-                holder.tv_position.setText(model.getPosition());
+
+                model.getDocs().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            DocumentSnapshot ds = task.getResult();
+                            if(ds != null) {
+                                holder.tv_author.setText(ds.getString("name"));
+                                Picasso.get().load(ds.getString("dp_url")).into(holder.userImageIV);
+
+                                String dept = ds.getString("dept");
+                                String pos = ds.getString("position");
+                                if (pos.equals("HOD"))
+                                    pos += ", dept of " + dept.toUpperCase();
+                                holder.tv_position.setText(pos);
+                            }
+                        }
+                    }
+                });
+
                 holder.tv_title.setText(model.getTitle());
-                Picasso.get().load(model.getAuthorImageUrl()).into(holder.userImageIV);
 
                 Date time = model.getTime();
                 Date now = new Date();
                 Long t = now.getTime() - time.getTime();
-                SimpleDateFormat sdf;
 
                 if(t < 60000)
                     holder.tv_time.setText(Long.toString(t / 1000) + "s ago");
