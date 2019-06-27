@@ -31,12 +31,12 @@ public class LoginActivity extends BaseActivity {
     void initUI(){
         changeFont(regular,(ViewGroup) this.findViewById(android.R.id.content));
         signInCV = findViewById(R.id.signInCV);
-        roadIV = findViewById(R.id.roadIV);
+        /*roadIV = findViewById(R.id.roadIV);
         skyIV = findViewById(R.id.skyIV);
-        signBoardIV = findViewById(R.id.signBoardIV);
-        Picasso.get().load("file:///android_asset/sky.png").into(skyIV);
+        signBoardIV = findViewById(R.id.signBoardIV);*/
+        /*Picasso.get().load("file:///android_asset/sky.png").into(skyIV);
         Picasso.get().load("file:///android_asset/road_with_grass.png").into(roadIV);
-        Picasso.get().load("file:///android_asset/sign_board.png").into(signBoardIV);
+        Picasso.get().load("file:///android_asset/sign_board.png").into(signBoardIV);*/
     }
 
 }

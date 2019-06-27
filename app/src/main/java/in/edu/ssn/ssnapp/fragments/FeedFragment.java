@@ -67,7 +67,6 @@ public class FeedFragment extends Fragment {
 
     RecyclerView feedsRV;
     FirestoreRecyclerAdapter adapter;
-    Handler handler;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,6 +107,7 @@ public class FeedFragment extends Fragment {
                         post.setPosition(snapshot.getString("position"));
                         post.setTime(snapshot.getTimestamp("time").toDate());
                         post.setAuthor_image_url(snapshot.getString("author_image_url"));
+                        //TODO images, files upload
                         return post;
                     }
                 })
@@ -211,7 +211,6 @@ public class FeedFragment extends Fragment {
     }
 
     void initUI(View view){
-        handler = new Handler();
         feedsRV = view.findViewById(R.id.feedsRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);

@@ -27,10 +27,10 @@ public class Post implements Parcelable {
     public Post() { }
 
     protected Post(Parcel in) {
-        id = in.readString();
+        //id = in.readString();
         title = in.readString();
         description = in.readString();
-        imageUrl = in.createStringArrayList();
+        //imageUrl = in.createStringArrayList();
         author = in.readString();
         author_image_url = in.readString();
         position = in.readString();

@@ -6,7 +6,15 @@
 	android:layout_height="match_parent"
 	android:background="@android:color/white"
 	tools:context=".LoginActivity">
-	<RelativeLayout
+
+	<ImageView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layout_marginTop="@dimen/_70sdp"
+		android:scaleType="centerCrop"
+		android:src="@drawable/login_bg" />
+
+	<!--<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_below="@id/circleCV"
@@ -48,7 +56,7 @@
 		android:id="@+id/signBoardIV"
 		android:layout_marginBottom="-255dp"
 		android:layout_marginLeft="45dp"
-		android:layout_marginStart="45dp" />
+		android:layout_marginStart="45dp" />-->
 
 	<android.support.v7.widget.CardView
 		android:layout_width="match_parent"

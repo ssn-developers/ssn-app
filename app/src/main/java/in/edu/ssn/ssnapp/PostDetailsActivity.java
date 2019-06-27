@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -31,10 +32,11 @@ public class PostDetailsActivity extends BaseActivity {
         String time = getIntent().getParcelableExtra("time");
 
         tv_title.setText(post.getTitle());
-        //tv_author.setText(post.getAuthor());
-        //tv_description.setText(post.getDescription());
-        //tv_position.setText(post.getPosition());
+        tv_description.setText(post.getDescription());
+        tv_author.setText(post.getAuthor());
+        tv_position.setText(post.getPosition());
         Picasso.get().load(post.getAuthor_image_url()).into(userImageIV);
+        //TODO images, files upload
 
         tv_time.setText(time);
 
@@ -54,7 +56,6 @@ public class PostDetailsActivity extends BaseActivity {
     }
 
     void initUI(){
-        //changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
         backIV = findViewById(R.id.backIV);
         userImageIV = findViewById(R.id.userImageIV);
         tv_author = findViewById(R.id.tv_author);
