@@ -1,5 +1,6 @@
 package in.edu.ssn.ssnapp;
 
+import android.animation.Animator;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,17 +9,20 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
@@ -33,6 +37,7 @@ public class BusRoutesActivity extends BaseActivity {
     ImageView backIV;
     RecyclerView busRoutesRV;
     FirestoreRecyclerAdapter adapter;
+    LottieAnimationView loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +53,26 @@ public class BusRoutesActivity extends BaseActivity {
             }
         });
 
-        setupFireStore();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setupFireStore();
+            }
+        },1500);
+
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        adapter.startListening();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                adapter.startListening();
+            }
+        },1500);
+
     }
 
     @Override
@@ -67,6 +84,8 @@ public class BusRoutesActivity extends BaseActivity {
     void initUI(){
         backIV = findViewById(R.id.backIV);
         busRoutesRV = findViewById(R.id.busRoutesRV);
+        loadingView = findViewById(R.id.animation_view);
+        loadingView.setSpeed(2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         busRoutesRV.setLayoutManager(layoutManager);
         busRoutesRV.setHasFixedSize(true);
@@ -128,6 +147,62 @@ public class BusRoutesActivity extends BaseActivity {
 
                 return new BusRouteViewHolder(view);
             }
+
+            @Override
+            public void onDataChanged() {
+                // Called each time there is a new query snapshot. You may want to use this method
+                // to hide a loading spinner or check for the "no documents" state and update your UI.
+                loadingView.animate().setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        loadingView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).alpha(0).setDuration(250).start();
+            }
+
+            @Override
+            public void onError(FirebaseFirestoreException e) {
+                // Called when there is an error getting a query snapshot. You may want to update
+                // your UI to display an error message to the user.
+                loadingView.animate().setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        loadingView.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animation) {
+
+                    }
+                }).alpha(0).setDuration(250).start();
+            }
+
+
         };
 
         busRoutesRV.setAdapter(adapter);

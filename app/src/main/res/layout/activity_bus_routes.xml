@@ -111,7 +111,7 @@
 		<androidx.recyclerview.widget.RecyclerView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+			app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
 			android:paddingBottom="100dp"
 			android:paddingTop="10dp"
 			android:clipToPadding="false"
@@ -119,5 +119,15 @@
 		</androidx.recyclerview.widget.RecyclerView>
 
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+	<com.airbnb.lottie.LottieAnimationView
+		android:id="@+id/animation_view"
+		android:layout_width="300dp"
+		android:layout_height="300dp"
+		android:layout_centerInParent="true"
+		app:lottie_fileName="bus_location_animation.json"
+		app:lottie_loop="true"
+		app:lottie_autoPlay="true" />
+
 
 </RelativeLayout>

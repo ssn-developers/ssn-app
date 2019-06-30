@@ -1,5 +1,6 @@
 package in.edu.ssn.ssnapp;
 
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import es.voghdev.pdfviewpager.library.PDFViewPager;
 import es.voghdev.pdfviewpager.library.RemotePDFViewPager;
@@ -26,7 +29,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
 
     //View
-    ProgressBar pb_pdf;
+    LottieAnimationView loadingView;
     TextView pageNumberTV;
     RemotePDFViewPager remotePDFViewPager;
     PDFViewPager pdfViewPager;
@@ -63,8 +66,8 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     }
 
     void initUI(){
-        pb_pdf = findViewById(R.id.pb_pdf);
-        pb_pdf.setIndeterminate(false);
+        loadingView = findViewById(R.id.animation_view);
+        loadingView.setSpeed(2);
         pageNumberTV = findViewById(R.id.pageNumberTV);
         pdfViewPager = findViewById(R.id.pdfViewPager);
         backIV = findViewById(R.id.backIV);
@@ -99,7 +102,28 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     public void onSuccess(String url, String destinationPath) {
 
         pageNumberTV.setText("1");
-        pb_pdf.setVisibility(View.GONE);
+        loadingView.animate().alpha(0).setDuration(200).setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                loadingView.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        }).start();
+
         Log.d(TAG,"url "+url+" path "+destinationPath);
         adapter = new PDFPagerAdapter(this, destinationPath);
         pdfViewPager.setAdapter(adapter);
@@ -107,14 +131,14 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
     @Override
     public void onFailure(Exception e) {
-        pb_pdf.setVisibility(View.GONE);
+        loadingView.setVisibility(View.GONE);
         showAlertDialog();
     }
 
     @Override
     public void onProgressUpdate(int progress, int total) {
-        pb_pdf.setMax(total);
-        pb_pdf.setProgress(progress);
+        /*pb_pdf.setMax(total);
+        pb_pdf.setProgress(progress);*/
     }
 
 

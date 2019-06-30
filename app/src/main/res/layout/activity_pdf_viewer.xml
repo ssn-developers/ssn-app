@@ -43,12 +43,14 @@
         android:layout_below="@id/fakeAppbarLL"
         android:layout_above="@id/pageNumberTV"/>
 
-    <ProgressBar
-        android:id="@+id/pb_pdf"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        app:lottie_fileName="bus_location_animation.json"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />
 
     <TextView
         android:id="@+id/pageNumberTV"
