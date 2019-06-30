@@ -126,7 +126,7 @@
 				android:layout_height="wrap_content"
 				android:weightSum="2"
 				android:orientation="horizontal">
-				<android.support.v7.widget.CardView
+				<androidx.cardview.widget.CardView
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					app:cardCornerRadius="10dp"
@@ -150,8 +150,8 @@
 						android:textColor="@color/colorAccent"
 						android:paddingBottom="10dp"
 						android:text="Call"/>
-				</android.support.v7.widget.CardView>
-				<android.support.v7.widget.CardView
+				</androidx.cardview.widget.CardView>
+				<androidx.cardview.widget.CardView
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					app:cardCornerRadius="10dp"
@@ -175,18 +175,18 @@
 						android:textColor="@color/colorAccent"
 						android:paddingBottom="10dp"
 						android:text="Share"/>
-				</android.support.v7.widget.CardView>
+				</androidx.cardview.widget.CardView>
 
 			</LinearLayout>
 
 		</LinearLayout>
-	<android.support.v7.widget.RecyclerView
+	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/busStopsRV"
 		android:clipToPadding="false"
 		android:padding="20dp">
 
-	</android.support.v7.widget.RecyclerView>
+	</androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

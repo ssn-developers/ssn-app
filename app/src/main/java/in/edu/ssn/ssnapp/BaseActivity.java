@@ -1,7 +1,7 @@
 package in.edu.ssn.ssnapp;
 
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 

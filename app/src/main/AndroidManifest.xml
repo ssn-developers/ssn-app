@@ -9,15 +9,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        tools:replace="android:appComponentFactory">
-        <activity android:name=".PdfViewerActivity"/>
+        tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +23,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".PdfViewerActivity"/>
         <activity android:name=".HomeActivity" />
         <activity android:name=".PostDetailsActivity" />
         <activity android:name=".BusRouteDetailsActivity" />
         <activity
             android:name=".BusRoutesActivity"
-            android:theme="@style/AppTheme1"
-            />
+            android:theme="@style/AppTheme1" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".GistActivity" />

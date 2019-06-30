@@ -1,45 +1,21 @@
 package in.edu.ssn.ssnapp;
 
-import android.content.Context;
-import android.os.AsyncTask;
-import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.EventsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FeedFragment;
-import in.edu.ssn.ssnapp.fragments.GlobalChatFragment;
 
 public class HomeActivity extends BaseActivity {
 
