@@ -29,7 +29,7 @@ public class PostDetailsActivity extends BaseActivity {
         initUI();
 
         post = getIntent().getParcelableExtra("post");
-        String time = getIntent().getParcelableExtra("time");
+        String time = getIntent().getStringExtra("time");
 
         tv_title.setText(post.getTitle());
         tv_description.setText(post.getDescription());

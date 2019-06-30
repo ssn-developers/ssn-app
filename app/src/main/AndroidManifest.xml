@@ -27,7 +27,10 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".PostDetailsActivity" />
         <activity android:name=".BusRouteDetailsActivity" />
-        <activity android:name=".BusRoutesActivity" />
+        <activity
+            android:name=".BusRoutesActivity"
+            android:theme="@style/AppTheme1"
+            />
         <activity android:name=".BaseActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".GistActivity" />

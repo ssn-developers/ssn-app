@@ -77,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:textColor="#0D4BA0"
+                android:fontFamily="@font/open_sans"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginRight="@dimen/_12sdp"
                 android:text=""/>
@@ -84,7 +85,7 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_12sdp"
         android:layout_marginRight="@dimen/_12sdp"
         android:layout_below="@+id/fakeAppbarLL"
