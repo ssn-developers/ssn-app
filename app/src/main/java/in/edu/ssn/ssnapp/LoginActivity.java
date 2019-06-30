@@ -27,11 +27,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.regex.Matcher;
@@ -74,7 +76,7 @@ public class LoginActivity extends BaseActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
-                Pattern pat = Pattern.compile("@[a-z]{3}(.ssn.edu.in)$");
+                Pattern pat = Pattern.compile("@[a-z]{2,3}(.ssn.edu.in)$");
                 Matcher m = pat.matcher(acct.getEmail());
 
                 if (m.find()) {
@@ -102,28 +104,24 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void checkForSignin(final FirebaseUser user){
-        final String email = user.getEmail();
+        String id = user.getUid();
 
-        FirebaseFirestore.getInstance().collection("user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirebaseFirestore.getInstance().collection("user").whereEqualTo("id", id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String emailId = (String) document.get("email");
-                        if(emailId.equals(email)) {
-                            signIn(user, document);
-                            return;
-                        }
+                    if(task.getResult().isEmpty())
+                        signUp(user);
+                    else {
+                        List<DocumentSnapshot> document = task.getResult().getDocuments();
+                        signIn(user, document.get(0));
                     }
-
-                    String id = "U000" + Integer.toString(task.getResult().size() + 1);
-                    signUp(user, id);
                 }
             }
         });
     }
 
-    public void signIn(FirebaseUser user, QueryDocumentSnapshot document){
+    public void signIn(FirebaseUser user, DocumentSnapshot document){
         String dept = (String) document.get("dept");
         String dp_url = (String) document.get("dp_url");
         String email = user.getEmail();
@@ -136,21 +134,25 @@ public class LoginActivity extends BaseActivity {
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
+        SharedPref.putInt(getApplicationContext(),"clearance",0);
         SharedPref.putInt(getApplicationContext(),"year", Integer.parseInt(year.toString()));
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
-        Log.d("test_set", "signin3");
+        Log.d("test_set", "signin");
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
-    public void signUp(FirebaseUser user, String id){
+    public void signUp(FirebaseUser user){
         String email = user.getEmail();
-        int x = email.indexOf("@");
+        String id = user.getUid();
 
-        String dept = email.substring(x+1, x+4);
+        String[] split = email.split("@");
+        int y = split[1].indexOf(".");
+        String dept = split[1].substring(0, y);
+
         String dp_url = user.getPhotoUrl().toString();
         String name = user.getDisplayName();
-        int year = Integer.parseInt(email.substring(x-5, x-3)) + 2000;
+        int year = Integer.parseInt(split[0].substring(split[0].length() - 5, split[0].length() - 3)) + 2000;
 
         Map<String, Object> users = new HashMap<>();
         users.put("dept", dept);
@@ -159,7 +161,7 @@ public class LoginActivity extends BaseActivity {
         users.put("id", id);
         users.put("name", name);
         users.put("year", year);
-        users.put("rollno", "");
+        users.put("clearance", 0);
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
 
         SharedPref.putString(getApplicationContext(),"dept", dept);
@@ -168,6 +170,7 @@ public class LoginActivity extends BaseActivity {
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
         SharedPref.putInt(getApplicationContext(),"year", year);
+        SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signup");

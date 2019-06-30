@@ -54,10 +54,9 @@ public class SplashActivity extends AppCompatActivity {
                             SharedPref.putString(getApplicationContext(),"faculty", id + "_position", position);
                         }
 
-                        //TODO check for condition & delay-timer during release
-                        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in"))
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        else
+                        //if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in"))
+                            //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        //else
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     }
                 }
