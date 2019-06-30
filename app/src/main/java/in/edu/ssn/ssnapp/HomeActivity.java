@@ -16,6 +16,7 @@ import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.EventsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FeedFragment;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HomeActivity extends BaseActivity {
 
@@ -30,7 +31,7 @@ public class HomeActivity extends BaseActivity {
 
         initUI();
 
-        Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/user%2Fprofile%2FU0001.jpg?alt=media&token=8d27e31e-3622-4ec9-bbeb-51897858070f").placeholder(R.drawable.ic_user_white).into(userImageIV);
+        Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
 
         menuIV.setOnClickListener(new View.OnClickListener() {
             @Override

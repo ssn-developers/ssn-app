@@ -1,9 +1,23 @@
 package in.edu.ssn.ssnapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class GistActivity extends AppCompatActivity {
 
@@ -15,9 +29,36 @@ public class GistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gist);
 
+        Log.d(TAG, "hello");
+
         db = FirebaseFirestore.getInstance();
 
-        /*
+        /*db.collection("user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if(document.getId().startsWith("dummy")) {
+                            String access = (String) document.get("access");
+                            String dept = (String) document.get("dept");
+                            String email = (String) document.get("email");
+                            String name = (String) document.get("name");
+                            String position = (String) document.get("position");
+
+                            Map<String, Object> user = new HashMap<>();
+
+                            user.put("access", access);
+                            user.put("dept", dept);
+                            user.put("email", email);
+                            user.put("name", name);
+                            user.put("position", position);
+                            user.put("clearance", 1);
+                            db.collection("faculty").document(email).set(user);
+                        }
+                    }
+                }
+            }
+        });
 
         db.collection("bus_route").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
