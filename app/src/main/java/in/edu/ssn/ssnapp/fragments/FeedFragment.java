@@ -1,16 +1,14 @@
 package in.edu.ssn.ssnapp.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -29,37 +27,28 @@ import android.widget.TextView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
 
-import java.text.SimpleDateFormat;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
-import in.edu.ssn.ssnapp.BusRouteDetailsActivity;
-import in.edu.ssn.ssnapp.BusRoutesActivity;
-import in.edu.ssn.ssnapp.MainActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
-import in.edu.ssn.ssnapp.adapters.BusStopAdapter;
-import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.FontChanger;
+import io.grpc.internal.JsonParser;
 
 public class FeedFragment extends Fragment {
 
@@ -93,7 +82,8 @@ public class FeedFragment extends Fragment {
     }
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post_cse").whereEqualTo("year",2016);
+        final String json = CommonUtils.getData(getContext());
+        Query query = FirebaseFirestore.getInstance().collection("post_cse").whereArrayContains("year",2016);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, new SnapshotParser<Post>() {
@@ -103,10 +93,25 @@ public class FeedFragment extends Fragment {
                         final Post post = new Post();
                         post.setTitle(snapshot.getString("title"));
                         post.setDescription(snapshot.getString("description"));
-                        post.setAuthor(snapshot.getString("author"));
-                        post.setPosition(snapshot.getString("position"));
                         post.setTime(snapshot.getTimestamp("time").toDate());
-                        post.setAuthor_image_url(snapshot.getString("author_image_url"));
+
+                        String id = snapshot.getString("author");
+                        try {
+                            JSONArray arr = new JSONArray(json);
+                            JSONObject obj = arr.getJSONObject(Integer.parseInt(id.substring(4))-1);
+                            JSONObject docId = obj.getJSONObject(id);
+
+                            post.setAuthor(docId.getString("name"));
+                            post.setAuthor_image_url(docId.getString("dp_url"));
+                            post.setPosition(docId.getString("position"));
+                        }
+                        catch (Exception e){
+                            post.setAuthor("No name");
+                            post.setAuthor_image_url("");
+                            post.setPosition("Dept Incharge");
+                            e.printStackTrace();
+                        }
+
                         //TODO images, files upload
                         return post;
                     }
@@ -117,7 +122,12 @@ public class FeedFragment extends Fragment {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, int position, final Post model) {
                 holder.tv_author.setText(model.getAuthor());
-                Picasso.get().load(model.getAuthor_image_url()).into(holder.userImageIV);
+
+                if(!model.getAuthor_image_url().equals(""))
+                    Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(holder.userImageIV);
+                else
+                    holder.userImageIV.setImageResource(R.drawable.ic_user_white);
+
                 holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
