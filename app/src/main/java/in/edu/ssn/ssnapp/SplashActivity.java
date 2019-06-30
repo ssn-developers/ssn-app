@@ -22,6 +22,10 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -59,7 +63,6 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
-                        JSONArray fac_array = new JSONArray();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String dp_url = (String) document.get("dp_url");
                             String access = (String) document.get("access");
@@ -69,10 +72,13 @@ public class SplashActivity extends AppCompatActivity {
                             String name = (String) document.get("name");
                             String position = (String) document.get("position");
 
-                            CommonUtils.saveData(access,dept,dp_url,email,id,name,position,document.getId(),fac_array);
+                            SharedPref.putString(getApplicationContext(),"faculty", id + "_access", access);
+                            SharedPref.putString(getApplicationContext(),"faculty", id + "_dept", dept);
+                            SharedPref.putString(getApplicationContext(),"faculty", id + "_dp_url", dp_url);
+                            SharedPref.putString(getApplicationContext(),"faculty", id + "_email", email);
+                            SharedPref.putString(getApplicationContext(),"faculty", id + "_name", name);
+                            SharedPref.putString(getApplicationContext(),"faculty", id + "_position", position);
                         }
-                        CommonUtils.exportFile(getApplicationContext(), fac_array);
-                        //Log.d("test_set",CommonUtils.getData(getApplicationContext()));
                         startActivity(new Intent(getApplicationContext(),HomeActivity.class));
                     }
                 }
