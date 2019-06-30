@@ -10,10 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,8 +25,8 @@ public class LoginActivity extends BaseActivity {
 
     CardView signInCV;
     ImageView roadIV, skyIV, signBoardIV;
-    FirebaseAuth mAuth;
-    GoogleSignInClient mGoogleSignInClient;
+    //FirebaseAuth mAuth;
+    //GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 100;
 
     @Override
@@ -39,7 +35,7 @@ public class LoginActivity extends BaseActivity {
         setContentView(R.layout.activity_login);
         initUI();
 
-        signInCV.setOnClickListener(new View.OnClickListener() {
+        /*signInCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -52,10 +48,10 @@ public class LoginActivity extends BaseActivity {
 
                 //startActivity(new Intent(getApplicationContext(),HomeActivity.class));
             }
-        });
+        });*/
     }
 
-    private void signIn() {
+    /*private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -99,12 +95,12 @@ public class LoginActivity extends BaseActivity {
                         }
                     }
                 });
-    }
+    }*/
 
     void initUI(){
         changeFont(regular,(ViewGroup) this.findViewById(android.R.id.content));
         signInCV = findViewById(R.id.signInCV);
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
         /*roadIV = findViewById(R.id.roadIV);
         skyIV = findViewById(R.id.skyIV);
         signBoardIV = findViewById(R.id.signBoardIV);*/

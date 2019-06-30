@@ -38,9 +38,9 @@ dependencies {
 
     //Don't update version for firebase as Manifest-Debug error is obtained
     implementation 'com.google.firebase:firebase-core:17.0.0'
-    implementation 'com.google.firebase:firebase-auth:17.0.0'
-    implementation 'com.google.firebase:firebase-firestore:19.0.2'
-    implementation 'com.google.firebase:firebase-storage:17.0.0'
+    implementation 'com.google.firebase:firebase-auth:18.0.0'
+    implementation 'com.google.firebase:firebase-firestore:20.1.0'
+    implementation 'com.google.firebase:firebase-storage:18.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
