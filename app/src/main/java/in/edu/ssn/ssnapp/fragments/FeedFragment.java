@@ -42,12 +42,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.FontChanger;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 import io.grpc.internal.JsonParser;
 
 public class FeedFragment extends Fragment {
@@ -82,7 +84,6 @@ public class FeedFragment extends Fragment {
     }
 
     void setupFireStore(){
-        final String json = CommonUtils.getData(getContext());
         Query query = FirebaseFirestore.getInstance().collection("post_cse").whereArrayContains("year",2016);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
@@ -96,21 +97,10 @@ public class FeedFragment extends Fragment {
                         post.setTime(snapshot.getTimestamp("time").toDate());
 
                         String id = snapshot.getString("author");
-                        try {
-                            JSONArray arr = new JSONArray(json);
-                            JSONObject obj = arr.getJSONObject(Integer.parseInt(id.substring(4))-1);
-                            JSONObject docId = obj.getJSONObject(id);
 
-                            post.setAuthor(docId.getString("name"));
-                            post.setAuthor_image_url(docId.getString("dp_url"));
-                            post.setPosition(docId.getString("position"));
-                        }
-                        catch (Exception e){
-                            post.setAuthor("No name");
-                            post.setAuthor_image_url("");
-                            post.setPosition("Dept Incharge");
-                            e.printStackTrace();
-                        }
+                        post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
+                        post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",id + "_dp_url"));
+                        post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
 
                         //TODO images, files upload
                         return post;
