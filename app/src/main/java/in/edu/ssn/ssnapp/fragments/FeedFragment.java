@@ -212,11 +212,11 @@ public class FeedFragment extends Fragment {
             userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
 
-            tv_author.setTypeface(regular);
+            /*tv_author.setTypeface(regular);
             tv_position.setTypeface(regular);
             tv_title.setTypeface(bold);
             tv_description.setTypeface(regular);
-            tv_time.setTypeface(regular);
+            tv_time.setTypeface(regular);*/
         }
     }
 
@@ -235,6 +235,6 @@ public class FeedFragment extends Fragment {
         italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_italic.ttf");
         bold_italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold_italic.ttf");
         FontChanger fontChanger = new FontChanger(bold);
-        fontChanger.replaceFonts((ViewGroup) view);
+        //fontChanger.replaceFonts((ViewGroup) view);
     }
 }

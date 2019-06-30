@@ -31,6 +31,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:textSize="20sp"
+			android:fontFamily="@font/open_sans_bold"
 			android:id="@+id/routeNameTV"
 			android:textColor="@color/colorAccent"
 			android:textStyle="bold"/>
@@ -62,6 +63,7 @@
 						android:layout_marginStart="10dp"
 						android:textSize="18sp"
 						android:textStyle="bold"
+						android:fontFamily="@font/open_sans"
 						android:textColor="@color/colorAccent"
 						android:text="@string/driver"
 						android:layout_marginLeft="16dp" />
@@ -71,6 +73,7 @@
 						android:layout_marginStart="10dp"
 						android:layout_marginTop="2dp"
 						android:textSize="18sp"
+						android:fontFamily="@font/open_sans"
 						android:textStyle="bold"
 						android:id="@+id/driverNameTV"
 						android:textColor="@android:color/black"
@@ -99,6 +102,7 @@
 						android:layout_marginStart="10dp"
 						android:textSize="18sp"
 						android:textStyle="bold"
+						android:fontFamily="@font/open_sans"
 						android:textColor="@color/colorAccent"
 						android:text="Phone number"
 						android:layout_marginLeft="16dp" />
@@ -110,6 +114,7 @@
 
 						android:textSize="18sp"
 						android:textStyle="bold"
+						android:fontFamily="@font/open_sans"
 						android:id="@+id/driverNumberTV"
 						android:textColor="@android:color/black"
 						android:layout_marginLeft="16dp" />
@@ -139,6 +144,7 @@
 						android:layout_height="wrap_content"
 						android:layout_gravity="center"
 						android:paddingTop="10dp"
+						android:fontFamily="@font/open_sans"
 						android:textStyle="bold"
 						android:textSize="18sp"
 						android:textColor="@color/colorAccent"
@@ -165,6 +171,7 @@
 						android:paddingTop="10dp"
 						android:textStyle="bold"
 						android:textSize="18sp"
+						android:fontFamily="@font/open_sans"
 						android:textColor="@color/colorAccent"
 						android:paddingBottom="10dp"
 						android:text="Share"/>

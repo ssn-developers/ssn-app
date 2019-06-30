@@ -32,6 +32,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="center"
 			android:textSize="@dimen/_18ssp"
+			android:fontFamily="@font/open_sans_bold"
 			android:text="@string/bus_routes"
 			android:textColor="@color/colorAccent"
 			android:textStyle="bold"/>

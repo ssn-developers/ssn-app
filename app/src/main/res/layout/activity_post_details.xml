@@ -49,24 +49,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
+
             <TextView
                 android:id="@+id/tv_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/tv_time"
+                android:fontFamily="@font/open_sans"
                 android:paddingRight="@dimen/_5sdp"
-                android:textSize="@dimen/_13ssp"
                 android:text=""
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textSize="@dimen/_13ssp" />
 
             <TextView
                 android:id="@+id/tv_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#404040"
-                android:textSize="@dimen/_9ssp"
                 android:layout_below="@+id/tv_author"
-                android:text=""/>
+                android:fontFamily="@font/open_sans"
+                android:text=""
+                android:textColor="#404040"
+                android:textSize="@dimen/_9ssp" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -92,15 +95,17 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:text=""
             android:textColor="#000000"
             android:textSize="@dimen/_14ssp"
-            android:textStyle="bold"
-            android:text=""/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
             android:textColor="#000000"
             android:textSize="@dimen/_12ssp"
             android:layout_marginTop="@dimen/_5sdp"
@@ -114,6 +119,7 @@
             android:textColor="#0D4BA0"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
+            android:fontFamily="@font/open_sans_bold"
             android:layout_below="@+id/tv_description"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_alignParentRight="true"

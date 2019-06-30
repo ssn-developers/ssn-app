@@ -71,7 +71,7 @@ public class HomeActivity extends BaseActivity {
         userImageIV = findViewById(R.id.userImageIV);
         drawerLayout = findViewById(R.id.drawerLayout);
         viewPager = findViewById(R.id.viewPager);
-        changeFont(regular,(ViewGroup)this.findViewById(android.R.id.content));
+        //changeFont(regular,(ViewGroup)this.findViewById(android.R.id.content));
         setupViewPager();
     }
 

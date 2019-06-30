@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/feed_view"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
         android:background="@drawable/post_detail_bg">
 
         <RelativeLayout
@@ -35,6 +37,7 @@
                 android:layout_toEndOf="@+id/userImageIV"
                 android:textColor="#000000"
                 android:textSize="@dimen/_14ssp"
+                android:fontFamily="@font/open_sans"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:text=""/>
@@ -45,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/userImageIV"
                 android:textColor="#404040"
+                android:fontFamily="@font/open_sans"
                 android:textSize="@dimen/_10ssp"
                 android:layout_marginTop="@dimen/_1sdp"
                 android:layout_marginLeft="@dimen/_10sdp"
@@ -58,6 +62,7 @@
                 android:layout_alignParentRight="true"
                 android:textColor="#0D4BA0"
                 android:textStyle="bold"
+                android:fontFamily="@font/open_sans"
                 android:textSize="@dimen/_12ssp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginRight="@dimen/_10sdp"
@@ -79,6 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
+                android:fontFamily="@font/open_sans_bold"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold"
                 android:text=""/>
@@ -89,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
                 android:textSize="@dimen/_12ssp"
+                android:fontFamily="@font/open_sans"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_below="@+id/tv_title"
                 android:textColorLink="#00000000"

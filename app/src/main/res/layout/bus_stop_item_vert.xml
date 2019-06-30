@@ -39,6 +39,7 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/text_timeline_date"
 				android:textSize="17sp"
+				android:fontFamily="@font/open_sans"
 				android:textColor="@color/colorAccent"
 				tools:text=""/>
 
@@ -48,6 +49,7 @@
 				android:layout_marginTop="5dp"
 				android:textSize="17sp"
 				android:id="@+id/text_timeline_title"
+				android:fontFamily="@font/open_sans_bold"
 				android:textStyle="bold"
 				android:ellipsize="end"
 				android:textColor="@color/colorAccent"

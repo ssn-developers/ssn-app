@@ -185,6 +185,6 @@ public class BusAlertsFragment extends Fragment {
         italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_italic.ttf");
         bold_italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold_italic.ttf");
         FontChanger fontChanger = new FontChanger(bold);
-        fontChanger.replaceFonts((ViewGroup) view);
+        //fontChanger.replaceFonts((ViewGroup) view);
     }
 }

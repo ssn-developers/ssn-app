@@ -22,6 +22,8 @@
 			app:cardCornerRadius="@dimen/_8sdp"
 			app:cardElevation="0dp"
 			android:id="@+id/trackBusCV"
+			android:clickable="true"
+			android:foreground="?attr/selectableItemBackground"
 			android:layout_marginLeft="@dimen/_14sdp"
 			android:layout_marginStart="@dimen/_14sdp"
 			android:layout_marginRight="@dimen/_6sdp"
@@ -43,6 +45,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:textSize="@dimen/_16ssp"
+					android:fontFamily="@font/open_sans_bold"
 					android:textStyle="bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/track_bus"/>
@@ -56,6 +59,8 @@
 			android:layout_weight="1"
 			app:cardCornerRadius="@dimen/_8sdp"
 			app:cardElevation="0dp"
+			android:clickable="true"
+			android:foreground="?attr/selectableItemBackground"
 			android:id="@+id/busRoutesCV"
 			android:layout_marginLeft="@dimen/_8sdp"
 			android:layout_marginStart="@dimen/_8sdp"
@@ -78,6 +83,7 @@
 					android:layout_height="wrap_content"
 					android:textSize="@dimen/_16ssp"
 					android:textStyle="bold"
+					android:fontFamily="@font/open_sans_bold"
 					android:textColor="@color/colorAccent"
 					android:text="Bus route"/>
 			</LinearLayout>
@@ -88,8 +94,8 @@
 	<android.support.v7.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginLeft="@dimen/_14sdp"
-		android:layout_marginRight="@dimen/_14sdp"
+		android:layout_marginLeft="@dimen/_9sdp"
+		android:layout_marginRight="@dimen/_9sdp"
 		android:id="@+id/alertRV">
 	</android.support.v7.widget.RecyclerView>
 

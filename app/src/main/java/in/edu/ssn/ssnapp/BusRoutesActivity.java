@@ -72,7 +72,7 @@ public class BusRoutesActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         busRoutesRV.setLayoutManager(layoutManager);
         busRoutesRV.setHasFixedSize(true);
-        changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
+        //changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
     }
 
     void setupFireStore(){
@@ -142,7 +142,7 @@ public class BusRoutesActivity extends BaseActivity {
         public BusRouteViewHolder(View itemView) {
             super(itemView);
             routeNameTV = itemView.findViewById(R.id.routeNameTV);
-            routeNameTV.setTypeface(bold);
+            //routeNameTV.setTypeface(bold);
             busStopsRV = itemView.findViewById(R.id.busStopsRV);
             busRouteCV = itemView.findViewById(R.id.busRouteCV);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);

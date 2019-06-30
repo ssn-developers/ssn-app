@@ -59,8 +59,8 @@ public class BusStopAdapterVert extends RecyclerView.Adapter<BusStopAdapterVert.
             mTimelineView.initLine(viewType);
             titleTV = itemView.findViewById(R.id.text_timeline_title);
             timeTV = itemView.findViewById(R.id.text_timeline_date);
-            titleTV.setTypeface(bold);
-            timeTV.setTypeface(regular);
+            //titleTV.setTypeface(bold);
+            //timeTV.setTypeface(regular);
         }
     }
 }  

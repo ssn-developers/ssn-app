@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     TextView pageNumberTV;
     RemotePDFViewPager remotePDFViewPager;
     PDFViewPager pdfViewPager;
+    ImageView backIV;
+
     PDFPagerAdapter adapter;
 
 
@@ -47,7 +50,16 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         Intent intent=getIntent();
         url = intent.getStringExtra(Constants.PDF_URL);
 
+        backIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         setupPdf();
+
+
 
 
 
@@ -59,7 +71,8 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         pb_pdf.setIndeterminate(false);
         pageNumberTV = findViewById(R.id.pageNumberTV);
         pdfViewPager = findViewById(R.id.pdfViewPager);
-        changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
+        backIV = findViewById(R.id.backIV);
+        //changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
     }
 
     private void setupPdf() {

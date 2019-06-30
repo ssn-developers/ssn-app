@@ -1,17 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context=".PdfViewerActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fakeAppbarLL"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_margin="@dimen/_6sdp"
+            android:src="@drawable/back_icon"
+            android:id="@+id/backIV"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?selectableItemBackground"
+            android:tint="@color/colorAccent"
+            android:padding="@dimen/_2sdp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="@dimen/_18ssp"
+            android:textColor="@color/colorAccent"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
 
     <es.voghdev.pdfviewpager.library.PDFViewPager
         android:id="@+id/pdfViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/fakeAppbarLL"
         android:layout_above="@id/pageNumberTV"/>
 
     <ProgressBar
@@ -27,6 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:textStyle="bold"
+        android:fontFamily="@font/open_sans_bold"
+        android:textSize="@dimen/_16ssp"
         android:textColor="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>

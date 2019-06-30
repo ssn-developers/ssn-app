@@ -32,6 +32,7 @@
 				android:textColor="@android:color/black"
 				android:layout_margin="16dp"
 				android:textSize="@dimen/_12ssp"
+				android:fontFamily="@font/open_sans_bold"
 				android:id="@+id/routeNameTV"
 				android:layout_marginLeft="16dp"
 				android:layout_marginRight="16dp"/>
