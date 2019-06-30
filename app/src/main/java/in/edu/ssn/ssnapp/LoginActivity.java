@@ -129,12 +129,12 @@ public class LoginActivity extends BaseActivity {
         String name = (String) document.get("name");
         Long year = (Long) document.get("year");
 
+        SharedPref.putInt(getApplicationContext(),"clearance",0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
         SharedPref.putString(getApplicationContext(),"dp_url", dp_url);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
-        SharedPref.putInt(getApplicationContext(),"clearance",0);
         SharedPref.putInt(getApplicationContext(),"year", Integer.parseInt(year.toString()));
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
@@ -155,22 +155,23 @@ public class LoginActivity extends BaseActivity {
         int year = Integer.parseInt(split[0].substring(split[0].length() - 5, split[0].length() - 3)) + 2000;
 
         Map<String, Object> users = new HashMap<>();
+        users.put("access", "");
+        users.put("clearance", 0);
         users.put("dept", dept);
         users.put("dp_url", dp_url);
         users.put("email", email);
         users.put("id", id);
         users.put("name", name);
         users.put("year", year);
-        users.put("clearance", 0);
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
 
+        SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
         SharedPref.putString(getApplicationContext(),"dp_url", dp_url);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
         SharedPref.putInt(getApplicationContext(),"year", year);
-        SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signup");

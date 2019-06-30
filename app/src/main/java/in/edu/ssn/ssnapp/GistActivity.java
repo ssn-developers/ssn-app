@@ -33,35 +33,29 @@ public class GistActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        /*
-
-        db.collection("user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        /*db.collection("user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        String email = (String) document.get("email");
-                        String id = (String) document.get("id");
-                        if(email.equals("logesh16055@cse.ssn.edu.in")){
-                            Log.d(TAG, "signin");
-                            Log.d(TAG,id);
+                        if(document.getId().startsWith("dummy")) {
+                            String access = (String) document.get("access");
+                            String dept = (String) document.get("dept");
+                            String email = (String) document.get("email");
+                            String name = (String) document.get("name");
+                            String position = (String) document.get("position");
+
+                            Map<String, Object> user = new HashMap<>();
+
+                            user.put("access", access);
+                            user.put("dept", dept);
+                            user.put("email", email);
+                            user.put("name", name);
+                            user.put("position", position);
+                            user.put("clearance", 1);
+                            db.collection("faculty").document(email).set(user);
                         }
                     }
-
-                    Log.d(TAG, "signup");
-                    Log.d(TAG,Integer.toString(task.getResult().size()));
-
-                    Map<String, Object> user = new HashMap<>();
-
-                    String id="U000"+Integer.toString(task.getResult().size() + 1);
-                    user.put("name", name);
-                    user.put("dp_url", dp_url);
-                    user.put("email", email);
-                    user.put("id", id);
-                    user.put("dept", dept);
-                    user.put("year", year);
-                    user.put("rollno", "");
-                    db.collection("user").document(id).set(user);
                 }
             }
         });

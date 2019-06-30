@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            db.collection("faculty").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            db.collection("user").whereEqualTo("clearance",1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
@@ -54,15 +54,21 @@ public class SplashActivity extends AppCompatActivity {
                             SharedPref.putString(getApplicationContext(),"faculty", id + "_position", position);
                         }
 
-                        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in"))
-                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        else
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                        passIntent();
                     }
+                    else
+                        passIntent();
                 }
             });
 
             return null;
         }
+    }
+
+    public void passIntent(){
+        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in"))
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        else
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 }
