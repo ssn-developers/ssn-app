@@ -35,10 +35,12 @@ import com.squareup.picasso.Picasso;
 import java.util.Date;
 
 import in.edu.ssn.ssnapp.BusRoutesActivity;
+import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusPost;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FontChanger;
 
 /**
@@ -132,6 +134,16 @@ public class BusAlertsFragment extends Fragment {
                     holder.tv_time.setText(Long.toString(t/2592000000L) + "M ago");
                 else
                     holder.tv_time.setText(Long.toString(t/31536000000L) + "y ago");
+
+
+                holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i=new Intent(getContext(), PdfViewerActivity.class);
+                        i.putExtra(Constants.PDF_URL,model.getUrl());
+                        startActivity(i);
+                    }
+                });
             }
 
             @Override
@@ -146,12 +158,13 @@ public class BusAlertsFragment extends Fragment {
 
     public class BusAlertHolder extends RecyclerView.ViewHolder {
         public TextView tv_date, tv_time;
+        RelativeLayout rl_bus_alert_item;
 
         public BusAlertHolder(View itemView) {
             super(itemView);
-
             tv_date = itemView.findViewById(R.id.tv_date);
             tv_time = itemView.findViewById(R.id.tv_time);
+            rl_bus_alert_item=itemView.findViewById(R.id.bus_alert_item);
         }
     }
 

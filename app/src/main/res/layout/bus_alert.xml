@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/_40sdp"
     android:layout_margin="@dimen/_5sdp"
+    android:id="@+id/bus_alert_item"
     android:background="@drawable/bus_alert_detail_bg">
 
     <TextView
