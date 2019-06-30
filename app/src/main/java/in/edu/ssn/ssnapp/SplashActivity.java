@@ -6,6 +6,7 @@ import android.os.Handler;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,20 +25,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //TODO check for condition & delay-timer during release
-        if(!SharedPref.getBoolean(getApplicationContext(),"is_logged_in")){
-            db = FirebaseFirestore.getInstance();
-            new updateFaculty().execute();
-        }
-        else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                }
-            },500);
-            //2000
-        }
+        db = FirebaseFirestore.getInstance();
+        new updateFaculty().execute();
     }
 
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
@@ -64,7 +53,12 @@ public class SplashActivity extends AppCompatActivity {
                             SharedPref.putString(getApplicationContext(),"faculty", id + "_name", name);
                             SharedPref.putString(getApplicationContext(),"faculty", id + "_position", position);
                         }
-                        startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+
+                        //TODO check for condition & delay-timer during release
+                        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in"))
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        else
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                     }
                 }
             });
