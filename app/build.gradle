@@ -37,11 +37,12 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 
     //Don't update version for firebase as Manifest-Debug error is obtained
-    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation 'com.google.firebase:firebase-core:17.0.0'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
     implementation 'com.google.firebase:firebase-firestore:19.0.2'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
     implementation 'com.intuit.ssp:ssp-android:1.0.6'
