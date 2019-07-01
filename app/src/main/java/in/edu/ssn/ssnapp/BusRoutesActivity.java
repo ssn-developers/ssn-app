@@ -45,6 +45,7 @@ public class BusRoutesActivity extends BaseActivity {
         setContentView(R.layout.activity_bus_routes);
 
         initUI();
+        setupFireStore();
 
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,12 +54,12 @@ public class BusRoutesActivity extends BaseActivity {
             }
         });
 
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 setupFireStore();
             }
-        },1500);
+        },1500);*/
 
 
     }
@@ -66,12 +67,13 @@ public class BusRoutesActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        new Handler().postDelayed(new Runnable() {
+        adapter.startListening();
+        /*new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 adapter.startListening();
             }
-        },1500);
+        },1500);*/
 
     }
 

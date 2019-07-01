@@ -11,12 +11,14 @@
 	<androidx.coordinatorlayout.widget.CoordinatorLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
+
 		<com.google.android.material.appbar.AppBarLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:id="@+id/appbar_layout"
 			android:background="@color/colorAccent"
 			app:expanded="true" >
+
 			<com.google.android.material.appbar.CollapsingToolbarLayout
 				android:id="@+id/collapsing_toolbar"
 				android:layout_width="match_parent"
@@ -25,6 +27,7 @@
 				app:contentScrim="@android:color/white"
 				app:expandedTitleTextAppearance="@android:color/transparent"
 				android:fitsSystemWindows="true">
+
 				<RelativeLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -80,7 +83,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:layout_gravity="center"
-							android:textSize="@dimen/_18ssp"
+							android:textSize="@dimen/_16ssp"
 							android:fontFamily="@font/open_sans_bold"
 							android:text="@string/bus_routes"
 							android:textColor="@android:color/white"
@@ -94,17 +97,22 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:background="@drawable/bus_search_et_bg"
-				android:layout_marginLeft="16dp"
+				android:layout_marginLeft="@dimen/_16sdp"
 				android:gravity="start|center"
-				android:drawablePadding="10dp"
-				android:layout_marginBottom="16dp"
+				android:drawablePadding="@dimen/_8sdp"
+				android:layout_marginBottom="@dimen/_14sdp"
 				android:fontFamily="@font/open_sans"
 				android:textColor="@android:color/white"
-				android:textColorHint="#f2f2f2"
+				android:textColorHint="#CCF2F2F2"
+				android:textSize="@dimen/_12ssp"
+				android:singleLine="true"
 				android:drawableStart="@drawable/search_icon"
 				android:hint="Enter area or bus number"
-				android:padding="10dp"
-				android:layout_marginRight="16dp"
+				android:paddingLeft="@dimen/_8sdp"
+				android:paddingRight="@dimen/_8sdp"
+				android:paddingTop="@dimen/_6sdp"
+				android:paddingBottom="@dimen/_6sdp"
+				android:layout_marginRight="@dimen/_16sdp"
 				android:drawableLeft="@drawable/search_icon" />
 
 		</com.google.android.material.appbar.AppBarLayout>
@@ -112,8 +120,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-			android:paddingBottom="100dp"
-			android:paddingTop="10dp"
+			android:paddingBottom="@dimen/_8sdp"
+			android:paddingTop="@dimen/_8sdp"
 			android:clipToPadding="false"
 			android:id="@+id/busRoutesRV">
 		</androidx.recyclerview.widget.RecyclerView>
@@ -124,6 +132,7 @@
 		android:id="@+id/animation_view"
 		android:layout_width="300dp"
 		android:layout_height="300dp"
+		android:visibility="gone"
 		android:layout_centerInParent="true"
 		app:lottie_fileName="bus_location_animation.json"
 		app:lottie_loop="true"

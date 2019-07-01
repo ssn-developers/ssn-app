@@ -8,17 +8,17 @@
 	<androidx.cardview.widget.CardView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginLeft="16dp"
-		app:cardCornerRadius="10dp"
+		android:layout_marginLeft="@dimen/_14sdp"
+		app:cardCornerRadius="@dimen/_8sdp"
 		android:foreground="?android:attr/selectableItemBackground"
 		android:clickable="true"
 		android:focusable="true"
 		app:cardElevation="0dp"
 		android:id="@+id/busRouteCV"
 		app:cardBackgroundColor="#f2f2f2"
-		android:layout_marginRight="16dp"
-		android:layout_marginTop="8dp"
-		android:layout_marginBottom="8dp">
+		android:layout_marginRight="@dimen/_14sdp"
+		android:layout_marginTop="@dimen/_6sdp"
+		android:layout_marginBottom="@dimen/_6sdp">
 
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -27,22 +27,21 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="16dp"
 				android:textStyle="bold"
 				android:textColor="@android:color/black"
-				android:layout_margin="16dp"
 				android:textSize="@dimen/_12ssp"
 				android:fontFamily="@font/open_sans_bold"
 				android:id="@+id/routeNameTV"
-				android:layout_marginLeft="16dp"
-				android:layout_marginRight="16dp"/>
+				android:layout_marginTop="@dimen/_14sdp"
+				android:layout_marginLeft="@dimen/_14sdp"
+				android:layout_marginStart="@dimen/_14sdp" />
 
 			<androidx.recyclerview.widget.RecyclerView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginBottom="16dp"
+				android:layout_marginLeft="@dimen/_6sdp"
+				android:layout_marginBottom="@dimen/_14sdp"
 				android:id="@+id/busStopsRV">
-
 			</androidx.recyclerview.widget.RecyclerView>
 		</LinearLayout>
 	</androidx.cardview.widget.CardView>

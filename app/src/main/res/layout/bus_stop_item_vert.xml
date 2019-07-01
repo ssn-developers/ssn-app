@@ -11,9 +11,9 @@
 		android:id="@+id/timeline"
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
-		app:markerSize="30dp"
+		app:markerSize="@dimen/_16sdp"
 		app:marker="@drawable/bus_icon"
-		app:lineWidth="3dp"
+		app:lineWidth="@dimen/_2sdp"
 		app:startLineColor="@android:color/tab_indicator_text"
 		app:endLineColor="@android:color/tab_indicator_text"
 		app:lineStyle="dash"/>
@@ -21,10 +21,10 @@
 	<androidx.cardview.widget.CardView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_margin="10dp"
-		app:contentPadding="10dp"
+		android:layout_margin="@dimen/_7sdp"
+		app:contentPadding="@dimen/_7sdp"
 		app:cardElevation="0dp"
-		app:cardCornerRadius="5dp"
+		app:cardCornerRadius="@dimen/_4sdp"
 		app:cardBackgroundColor="@color/colorAccentAlpha">
 
 		<LinearLayout
@@ -38,22 +38,21 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:id="@+id/text_timeline_date"
-				android:textSize="17sp"
+				android:textSize="@dimen/_10ssp"
 				android:fontFamily="@font/open_sans"
 				android:textColor="@color/colorAccent"
-				tools:text=""/>
+				tools:text="Hello"/>
 
 			<TextView
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_marginTop="5dp"
-				android:textSize="17sp"
+				android:layout_marginTop="@dimen/_3sdp"
 				android:id="@+id/text_timeline_title"
 				android:fontFamily="@font/open_sans_bold"
 				android:textStyle="bold"
 				android:ellipsize="end"
 				android:textColor="@color/colorAccent"
-				tools:text=""/>
+				tools:text="Ambattur"/>
 
 		</LinearLayout>
 
