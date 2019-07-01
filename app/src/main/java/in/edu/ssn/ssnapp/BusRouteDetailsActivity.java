@@ -31,7 +31,7 @@ public class BusRouteDetailsActivity extends BaseActivity {
         driverNameTV.setTypeface(regular);
         driverNumberTV.setText(busRoute.getDphone());
         driverNumberTV.setTypeface(regular);
-        busStopsRV.setAdapter(new BusStopAdapterVert(getApplication(),busRoute.getStop()));
+        busStopsRV.setAdapter(new BusStopAdapterVert(getApplicationContext(), busRoute.getStop(), busRoute.getTime()));
 
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override

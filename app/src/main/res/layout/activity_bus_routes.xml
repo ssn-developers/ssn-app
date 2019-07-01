@@ -94,6 +94,7 @@
 			</com.google.android.material.appbar.CollapsingToolbarLayout>
 
 			<EditText
+				android:id="@+id/et_num"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:background="@drawable/bus_search_et_bg"

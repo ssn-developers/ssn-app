@@ -10,9 +10,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,22 +26,29 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.gms.common.util.NumberUtils;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import in.edu.ssn.ssnapp.adapters.BusStopAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
+import io.opencensus.internal.StringUtils;
 
 public class BusRoutesActivity extends BaseActivity {
 
     ImageView backIV;
     RecyclerView busRoutesRV;
+    EditText et_num;
     FirestoreRecyclerAdapter adapter;
     LottieAnimationView loadingView;
 
@@ -45,12 +58,34 @@ public class BusRoutesActivity extends BaseActivity {
         setContentView(R.layout.activity_bus_routes);
 
         initUI();
-        setupFireStore();
+        Query query = FirebaseFirestore.getInstance().collection("bus_route").orderBy("id");
+        setupFireStore(query);
 
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        et_num.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String val = s.toString().trim().toLowerCase();
+
+                Query query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name",val);
+                setupFireStore(query);
+                adapter.startListening();
             }
         });
 
@@ -60,8 +95,6 @@ public class BusRoutesActivity extends BaseActivity {
                 setupFireStore();
             }
         },1500);*/
-
-
     }
 
     @Override
@@ -85,6 +118,7 @@ public class BusRoutesActivity extends BaseActivity {
 
     void initUI(){
         backIV = findViewById(R.id.backIV);
+        et_num = findViewById(R.id.et_num);
         busRoutesRV = findViewById(R.id.busRoutesRV);
         loadingView = findViewById(R.id.animation_view);
         loadingView.setSpeed(2);
@@ -94,43 +128,31 @@ public class BusRoutesActivity extends BaseActivity {
         //changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
     }
 
-    void setupFireStore(){
+    void setupFireStore(Query query){
+        FirestoreRecyclerOptions<BusRoute> options = new FirestoreRecyclerOptions.Builder<BusRoute>().setQuery(query, new SnapshotParser<BusRoute>() {
+            @NonNull
+            @Override
+            public BusRoute parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                BusRoute busRoute = new BusRoute();
+                busRoute.setRouteName(snapshot.getString("name"));
+                busRoute.setAvail(snapshot.getBoolean("avail"));
+                busRoute.setDname(snapshot.getString("dname"));
+                busRoute.setDphone(snapshot.getString("dphone"));
 
-        Query query = FirebaseFirestore.getInstance()
-                .collection("bus_route")
-                .orderBy("id");
+                List<String> stops = (List<String>) snapshot.get("stop");
+                List<String> time = (List<String>) snapshot.get("time");
+                busRoute.setStop(stops);
+                busRoute.setTime(time);
 
-        FirestoreRecyclerOptions<BusRoute> options = new FirestoreRecyclerOptions.Builder<BusRoute>()
-                .setQuery(query, new SnapshotParser<BusRoute>() {
-                    @NonNull
-                    @Override
-                    public BusRoute parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                        BusRoute busRoute = new BusRoute();
-                        busRoute.setRouteName(snapshot.getString("name"));
-                        busRoute.setAvail(snapshot.getBoolean("avail"));
-                        busRoute.setDname(snapshot.getString("dname"));
-                        busRoute.setDphone(snapshot.getString("dphone"));
-                        List<BusRoute.stop> stops = new ArrayList<>();
-                        List<Map<String,String>> temp = (List<Map<String, String>>) snapshot.get("stop");
-                        for(int i=0;i<temp.size();i++){
-                            BusRoute.stop stop = new BusRoute.stop();
-                            stop.setPlace(temp.get(i).get("place"));
-                            stop.setTime(temp.get(i).get("time"));
-                            stops.add(stop);
-                        }
-                        busRoute.setStop(stops);
-                        //Log.d("PARSE CHECK", String.valueOf(busRoute.getStop().get(0)));
-
-                        return busRoute;
-                    }
-                })
-                .build();
+                return busRoute;
+            }
+        }).build();
 
         adapter = new FirestoreRecyclerAdapter<BusRoute, BusRouteViewHolder>(options) {
             @Override
             public void onBindViewHolder(BusRouteViewHolder holder, int position, final BusRoute model) {
-                holder.routeNameTV.setText("Route "+model.getRouteName());
-                holder.busStopsRV.setAdapter(new BusStopAdapter(getApplicationContext(),model.getStop()));
+                holder.routeNameTV.setText("Route " + model.getRouteName());
+                holder.busStopsRV.setAdapter(new BusStopAdapter(getApplicationContext(),model.getStop(),model.getTime()));
                 holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -143,10 +165,7 @@ public class BusRoutesActivity extends BaseActivity {
 
             @Override
             public BusRouteViewHolder onCreateViewHolder(ViewGroup group, int i) {
-
-                View view = LayoutInflater.from(group.getContext())
-                        .inflate(R.layout.bus_route_item, group, false);
-
+                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_route_item, group, false);
                 return new BusRouteViewHolder(view);
             }
 
@@ -203,10 +222,7 @@ public class BusRoutesActivity extends BaseActivity {
                     }
                 }).alpha(0).setDuration(250).start();
             }
-
-
         };
-
         busRoutesRV.setAdapter(adapter);
     }
 
@@ -214,10 +230,11 @@ public class BusRoutesActivity extends BaseActivity {
         public TextView routeNameTV;
         public RecyclerView busStopsRV;
         public CardView busRouteCV;
+
         public BusRouteViewHolder(View itemView) {
             super(itemView);
+
             routeNameTV = itemView.findViewById(R.id.routeNameTV);
-            //routeNameTV.setTypeface(bold);
             busStopsRV = itemView.findViewById(R.id.busStopsRV);
             busRouteCV = itemView.findViewById(R.id.busRouteCV);
             LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -225,5 +242,4 @@ public class BusRoutesActivity extends BaseActivity {
             busStopsRV.setLayoutManager(layoutManager);
         }
     }
-
 }

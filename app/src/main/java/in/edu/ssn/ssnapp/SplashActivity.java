@@ -14,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,7 +27,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         db = FirebaseFirestore.getInstance();
-        new updateFaculty().execute();
+        startActivity(new Intent(getApplicationContext(), BusRoutesActivity.class));
+        //new updateFaculty().execute();
     }
 
     public class updateFaculty extends AsyncTask<Void, Void, Void> {

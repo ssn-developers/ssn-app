@@ -6,23 +6,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.github.vipulasri.timelineview.TimelineView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
 
-public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder>{
-    private List<BusRoute.stop> stops;
+public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder> {
+    private List<String> stops;
+    private List<String> time;
+//    private List<String> filteredStops;
     private Context context;
     Typeface regular,bold;
-    // RecyclerView recyclerView;  
-    public BusStopAdapter(Context contex, List<BusRoute.stop> stops) {
+
+    public BusStopAdapter(Context contex, List<String> stops, List<String> time) {
         this.context = contex;
         this.stops = stops;
+//        this.filteredStops = filteredStops;
+        this.time = time;
         regular = Typeface.createFromAsset(context.getAssets(), "fonts/product_san_regular.ttf");
         bold = Typeface.createFromAsset(context.getAssets(), "fonts/product_sans_bold.ttf");
     }
@@ -35,9 +42,10 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
 
     @Override
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
-        final BusRoute.stop data = stops.get(position);
-        holder.timeTV.setText(data.getTime());
-        holder.titleTV.setText(data.getPlace());
+        final String stop_data = stops.get(position);
+        final String time_data = time.get(position);
+        holder.titleTV.setText(stop_data);
+        holder.timeTV.setText(time_data);
     }
 
     @Override

@@ -10,10 +10,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,11 +32,24 @@ public class GistActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gist);
 
-        Log.d(TAG, "hello");
-
         db = FirebaseFirestore.getInstance();
 
-        /*db.collection("user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        /*
+        db.collection("bus_route").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String name = (String) document.get("name");
+                        ArrayList<String> ap = (ArrayList<String>) document.get("stop");
+                        ArrayList<String> ap_time = (ArrayList<String>) document.get("time");
+                        //db.collection("bus_route").document(name).set(maps, SetOptions.merge());
+                    }
+                }
+            }
+        });
+
+        db.collection("user").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
@@ -54,26 +70,6 @@ public class GistActivity extends AppCompatActivity {
                             user.put("position", position);
                             user.put("clearance", 1);
                             db.collection("faculty").document(email).set(user);
-                        }
-                    }
-                }
-            }
-        });
-
-        db.collection("bus_route").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        //String dname = (String) document.get("dname");
-                        GeoPoint cur_gp = (GeoPoint) document.get("loc");
-                        //Double.toString(cur_gp.getLatitude())
-
-                        ArrayList<Map<Object,Object>> ap = (ArrayList<Map<Object,Object>>) document.get("stop");
-                        for(Map<Object,Object> mp : ap){
-                            //String time = (String)mp.get("time");
-                            //String place = (String)mp.get("place");
-                            //GeoPoint pl_gp = (GeoPoint) mp.get("loc");
                         }
                     }
                 }

@@ -16,13 +16,15 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
 
 public class BusStopAdapterVert extends RecyclerView.Adapter<BusStopAdapterVert.TimeLineViewHolder>{
-    private List<BusRoute.stop> stops;
+    private List<String> stops;
+    private List<String> time;
     private Context context;
     Typeface regular,bold;
-    // RecyclerView recyclerView;
-    public BusStopAdapterVert(Context contex, List<BusRoute.stop> stops) {
+
+    public BusStopAdapterVert(Context contex, List<String> stops, List<String> time) {
         this.context = contex;
         this.stops = stops;
+        this.time = time;
         regular = Typeface.createFromAsset(context.getAssets(), "fonts/product_san_regular.ttf");
         bold = Typeface.createFromAsset(context.getAssets(), "fonts/product_sans_bold.ttf");
     }
@@ -35,9 +37,10 @@ public class BusStopAdapterVert extends RecyclerView.Adapter<BusStopAdapterVert.
 
     @Override
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
-        final BusRoute.stop data = stops.get(position);
-        holder.timeTV.setText(data.getTime());
-        holder.titleTV.setText(data.getPlace());
+        final String stop_data = stops.get(position);
+        final String time_data = time.get(position);
+        holder.titleTV.setText(stop_data);
+        holder.timeTV.setText(time_data);
     }
 
     @Override

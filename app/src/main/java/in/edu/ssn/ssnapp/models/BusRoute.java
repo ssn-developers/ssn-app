@@ -15,9 +15,113 @@ public class BusRoute implements Parcelable {
     String dphone;
     //TODO add lat lng
     String via;
-    List<stop> stop;
+    List<String> stop;
+    List<String> time;
 
-    public static class stop implements Parcelable{
+    public boolean isAvail() {
+        return avail;
+    }
+
+    public void setAvail(boolean avail) {
+        this.avail = avail;
+    }
+
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
+    }
+
+    public String getDname() {
+        return dname;
+    }
+
+    public void setDname(String dname) {
+        this.dname = dname;
+    }
+
+    public String getDphone() {
+        return dphone;
+    }
+
+    public void setDphone(String dphone) {
+        this.dphone = dphone;
+    }
+
+    public String getVia() {
+        return via;
+    }
+
+    public void setVia(String via) {
+        this.via = via;
+    }
+
+    public List<String> getStop() {
+        return stop;
+    }
+
+    public void setStop(List<String> stop) {
+        this.stop = stop;
+    }
+
+    public List<String> getTime() {
+        return time;
+    }
+
+    public void setTime(List<String> time) {
+        this.time = time;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeByte(this.avail ? (byte) 1 : (byte) 0);
+        dest.writeString(this.routeName);
+        dest.writeString(this.dname);
+        dest.writeString(this.dphone);
+        dest.writeString(this.via);
+        dest.writeList(this.stop);
+        dest.writeList(this.time);
+    }
+
+    public BusRoute() {
+    }
+
+    protected BusRoute(Parcel in) {
+        this.avail = in.readByte() != 0;
+        this.routeName = in.readString();
+        this.dname = in.readString();
+        this.dphone = in.readString();
+        this.via = in.readString();
+        this.stop = new ArrayList<String>();
+        this.time = new ArrayList<String>();
+        in.readList(this.stop, String.class.getClassLoader());
+        in.readList(this.time, String.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<BusRoute> CREATOR = new Parcelable.Creator<BusRoute>() {
+        @Override
+        public BusRoute createFromParcel(Parcel source) {
+            return new BusRoute(source);
+        }
+
+        @Override
+        public BusRoute[] newArray(int size) {
+            return new BusRoute[size];
+        }
+    };
+}
+
+
+//List<stop> stop;
+
+    /*public static class stop implements Parcelable{
         String place;
         String time;
         //TODO add lat lng
@@ -68,93 +172,4 @@ public class BusRoute implements Parcelable {
                 return new stop[size];
             }
         };
-    }
-
-    public boolean isAvail() {
-        return avail;
-    }
-
-    public void setAvail(boolean avail) {
-        this.avail = avail;
-    }
-
-    public String getRouteName() {
-        return routeName;
-    }
-
-    public void setRouteName(String routeName) {
-        this.routeName = routeName;
-    }
-
-    public String getDname() {
-        return dname;
-    }
-
-    public void setDname(String dname) {
-        this.dname = dname;
-    }
-
-    public String getDphone() {
-        return dphone;
-    }
-
-    public void setDphone(String dphone) {
-        this.dphone = dphone;
-    }
-
-    public String getVia() {
-        return via;
-    }
-
-    public void setVia(String via) {
-        this.via = via;
-    }
-
-    public List<BusRoute.stop> getStop() {
-        return stop;
-    }
-
-    public void setStop(List<BusRoute.stop> stop) {
-        this.stop = stop;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeByte(this.avail ? (byte) 1 : (byte) 0);
-        dest.writeString(this.routeName);
-        dest.writeString(this.dname);
-        dest.writeString(this.dphone);
-        dest.writeString(this.via);
-        dest.writeList(this.stop);
-    }
-
-    public BusRoute() {
-    }
-
-    protected BusRoute(Parcel in) {
-        this.avail = in.readByte() != 0;
-        this.routeName = in.readString();
-        this.dname = in.readString();
-        this.dphone = in.readString();
-        this.via = in.readString();
-        this.stop = new ArrayList<BusRoute.stop>();
-        in.readList(this.stop, BusRoute.stop.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<BusRoute> CREATOR = new Parcelable.Creator<BusRoute>() {
-        @Override
-        public BusRoute createFromParcel(Parcel source) {
-            return new BusRoute(source);
-        }
-
-        @Override
-        public BusRoute[] newArray(int size) {
-            return new BusRoute[size];
-        }
-    };
-}
+    }*/
