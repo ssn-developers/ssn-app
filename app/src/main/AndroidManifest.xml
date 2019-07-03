@@ -30,7 +30,8 @@
         <activity android:name=".BusRouteDetailsActivity" />
         <activity
             android:name=".BusRoutesActivity"
-            android:theme="@style/AppTheme1" />
+            android:theme="@style/AppTheme1"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity android:name=".BaseActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".GistActivity" />

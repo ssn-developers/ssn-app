@@ -107,6 +107,7 @@
 				android:textColorHint="#CCF2F2F2"
 				android:textSize="@dimen/_12ssp"
 				android:singleLine="true"
+				android:focusableInTouchMode="true"
 				android:drawableStart="@drawable/search_icon"
 				android:hint="Enter area or bus number"
 				android:paddingLeft="@dimen/_8sdp"
