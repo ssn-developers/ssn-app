@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.io.InputStream;
+
 import es.voghdev.pdfviewpager.library.PDFViewPager;
 import es.voghdev.pdfviewpager.library.RemotePDFViewPager;
 import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter;
@@ -25,8 +27,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
     private static final String TAG ="PdfViewerActivity" ;
     String url;
-
-
 
     //View
     LottieAnimationView loadingView;
@@ -43,7 +43,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_viewer);
 
-
         initUI();
 
         Intent intent=getIntent();
@@ -57,12 +56,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         });
 
         setupPdf();
-
-
-
-
-
-
     }
 
     void initUI(){

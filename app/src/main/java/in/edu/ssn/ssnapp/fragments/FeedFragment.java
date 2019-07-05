@@ -71,7 +71,7 @@ public class FeedFragment extends Fragment {
     }
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post_cse").whereArrayContains("year",2016);
+        Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept","cse").whereEqualTo("year.2016",true).orderBy("time", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, new SnapshotParser<Post>() {
@@ -130,23 +130,8 @@ public class FeedFragment extends Fragment {
                 if(model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
-
-                    ClickableSpan clickableSpan = new ClickableSpan() {
-                        @Override
-                        public void onClick(View textView) {
-                            holder.tv_description.setText(model.getDescription());
-                        }
-
-                        @Override
-                        public void updateDrawState(TextPaint ds) {
-                            super.updateDrawState(ds);
-                            ds.setUnderlineText(false);
-                        }
-                    };
-                    ss.setSpan(clickableSpan,ss.length() - 12, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.tv_description.setText(ss);
-                    holder.tv_description.setMovementMethod(LinkMovementMethod.getInstance());
 
                 }
                 else

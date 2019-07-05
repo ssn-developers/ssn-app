@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     tools:context=".PdfViewerActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,10 +46,10 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/animation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
         android:layout_centerInParent="true"
-        app:lottie_fileName="bus_location_animation.json"
+        app:lottie_fileName="loading.json"
         app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 
@@ -56,10 +57,10 @@
         android:id="@+id/pageNumberTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/_14sdp"
         android:textStyle="bold"
         android:fontFamily="@font/open_sans_bold"
-        android:textSize="@dimen/_16ssp"
+        android:textSize="@dimen/_12ssp"
         android:textColor="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>

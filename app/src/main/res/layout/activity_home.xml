@@ -110,10 +110,37 @@
 			/>
 	</RelativeLayout>
 	<com.google.android.material.navigation.NavigationView
-		android:layout_width="wrap_content"
+		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_gravity="start"
 		android:id="@+id/navigationView">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/_100sdp"
+				android:background="@drawable/drawer_top"/>
+
+			<RelativeLayout
+				android:layout_width="@dimen/_100sdp"
+				android:layout_height="@dimen/_100sdp"
+				android:layout_centerHorizontal="true"
+				android:layout_marginTop="@dimen/_40sdp"
+				android:background="@drawable/ic_profile_background">
+
+				<ImageView
+					android:id="@+id/iv_profile"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					android:src="@drawable/android_icon"
+					android:tint="#000000"
+					android:padding="@dimen/_10sdp" />
+
+			</RelativeLayout>
+
+		</RelativeLayout>
 
 	</com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

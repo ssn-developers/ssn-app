@@ -37,7 +37,6 @@ import in.edu.ssn.ssnapp.utils.FontChanger;
  */
 public class BusAlertsFragment extends Fragment {
 
-
     public BusAlertsFragment() {}
 
     CardView busRoutesCV;
@@ -84,7 +83,7 @@ public class BusAlertsFragment extends Fragment {
     }
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post_bus").orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("post_bus").orderBy("time", Query.Direction.DESCENDING).limit(5);
 
         FirestoreRecyclerOptions<BusPost> options = new FirestoreRecyclerOptions.Builder<BusPost>()
                 .setQuery(query, new SnapshotParser<BusPost>() {

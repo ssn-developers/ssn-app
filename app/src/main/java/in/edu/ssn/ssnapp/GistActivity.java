@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -35,6 +36,40 @@ public class GistActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         /*
+        db.collection("post_cse").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String author = (String) document.get("author");
+                        String description = (String) document.get("description");
+                        String title = (String) document.get("title");
+                        Timestamp time = (Timestamp) document.get("time");
+                        ArrayList<String> file_urls = (ArrayList<String>) document.get("file_urls");
+                        ArrayList<String> img_urls = (ArrayList<String>) document.get("img_urls");
+                        ArrayList<Integer> year = (ArrayList<Integer>) document.get("year");
+                        String id = document.getId();
+
+                        Map<String, Object> user = new HashMap<>();
+
+                        ArrayList<String> dept = new ArrayList<>();
+                        dept.add("cse");
+                        dept.add("it");
+
+                        user.put("author", author);
+                        user.put("description", description);
+                        user.put("title", title);
+                        user.put("time", time);
+                        user.put("file_urls", file_urls);
+                        user.put("img_urls", img_urls);
+                        user.put("year", year);
+                        user.put("dept", dept);
+                        db.collection("post").document(id).set(user);
+                    }
+                }
+            }
+        });
+
         db.collection("bus_route").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
