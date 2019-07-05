@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
+
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -31,10 +33,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.FontChanger;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -83,6 +87,11 @@ public class FeedFragment extends Fragment {
                         post.setDescription(snapshot.getString("description"));
                         post.setTime(snapshot.getTimestamp("time").toDate());
 
+                        ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
+                        if(images != null){
+                            post.setImageUrl(images);
+                        }
+
                         String id = snapshot.getString("author");
 
                         post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
@@ -107,6 +116,11 @@ public class FeedFragment extends Fragment {
 
                 holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
+
+                if(model.getImageUrl()!=null) {
+                    ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl());
+                    //holder.viewPager.setAdapter(imageAdapter);
+                }
 
                 Date time = model.getTime();
                 Date now = new Date();
@@ -162,6 +176,7 @@ public class FeedFragment extends Fragment {
         public TextView tv_author, tv_position, tv_title, tv_description, tv_time;
         public ImageView userImageIV;
         public RelativeLayout feed_view;
+        public ViewPager viewPager;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
@@ -173,6 +188,7 @@ public class FeedFragment extends Fragment {
             tv_time = itemView.findViewById(R.id.tv_time);
             userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
+            viewPager = itemView.findViewById(R.id.viewPager);
 
             /*tv_author.setTypeface(regular);
             tv_position.setTypeface(regular);
