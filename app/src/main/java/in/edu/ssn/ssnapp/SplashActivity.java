@@ -27,8 +27,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         db = FirebaseFirestore.getInstance();
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-        //new updateFaculty().execute();
+        //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        new updateFaculty().execute();
     }
 
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
