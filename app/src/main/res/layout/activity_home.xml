@@ -112,10 +112,10 @@
 	<com.google.android.material.navigation.NavigationView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_marginRight="@dimen/_50sdp"
+		android:layout_gravity="start"
 		android:id="@+id/navigationView">
 
-		<!--android:layout_gravity="start"-->
+		<!--android:layout_marginRight="@dimen/_50sdp"-->
 
 		<RelativeLayout
 			android:layout_width="match_parent"

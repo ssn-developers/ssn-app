@@ -51,20 +51,28 @@
 			android:paddingLeft="32dp"
 			android:paddingRight="32dp">
 		</LinearLayout>
-		<com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-			android:id="@+id/dots_indicator"
-			android:layout_width="wrap_content"
-			android:layout_height="30dp"
-			app:selectedDotColor="@color/pageColor1"
-			app:dotsColor="#ACABAB"
-			android:layout_gravity="center"
-			android:duplicateParentState="true"
-			app:dotsCornerRadius="6dp"
-			android:clickable="false"
-			app:dotsSize="12dp"
-			app:dotsSpacing="4dp"
-			app:dotsWidthFactor="2.5"
-			/>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+				android:id="@+id/dots_indicator"
+				android:layout_width="wrap_content"
+				android:layout_height="30dp"
+				app:selectedDotColor="@color/pageColor1"
+				app:dotsColor="#ACABAB"
+				android:layout_gravity="center"
+				android:layout_centerInParent="true"
+				app:dotsCornerRadius="6dp"
+				android:clickable="false"
+				app:dotsSize="12dp"
+				app:dotsSpacing="4dp"
+				app:dotsWidthFactor="2.5"
+				/>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="50dp"/>
+
+		</RelativeLayout>
 
 	</LinearLayout>
 	<androidx.viewpager.widget.ViewPager
@@ -73,4 +81,68 @@
 		android:id="@+id/viewPager">
 
 	</androidx.viewpager.widget.ViewPager>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_centerInParent="true">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="32dp"
+			android:layout_marginRight="32dp"
+			android:layout_marginTop="32dp">
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:layout_centerInParent="true"
+				android:alpha="0"
+				android:scaleX="0.5"
+				android:scaleY="0.5"
+				/>
+
+		</RelativeLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="150dp"
+			android:paddingTop="32dp"
+			android:paddingLeft="32dp"
+			android:paddingRight="32dp">
+		</LinearLayout>
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="30dp"/>
+			<androidx.cardview.widget.CardView
+				android:layout_width="match_parent"
+				android:layout_height="50dp"
+				app:cardCornerRadius="5dp"
+				android:clickable="true"
+				android:scaleX="0"
+				android:scaleY="0"
+				android:id="@+id/signInCV"
+				android:foreground="?attr/selectableItemBackground"
+				app:cardBackgroundColor="@color/colorAccent"
+				android:layout_marginStart="32dp"
+				android:layout_marginEnd="32dp"
+				android:focusable="true">
+
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_gravity="center"
+					android:gravity="center"
+					android:fontFamily="@font/open_sans_bold"
+					android:textSize="18dp"
+					android:textColor="@android:color/white"
+					android:text="Get started"/>
+			</androidx.cardview.widget.CardView>
+
+		</RelativeLayout>
+
+	</LinearLayout>
+
+
 </RelativeLayout>
