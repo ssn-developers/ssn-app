@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".onboarding.TwoFragment">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_centerInParent="true">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="32dp"
+			android:layout_marginRight="32dp"
+			android:layout_marginTop="32dp">
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:id="@+id/tempIV"
+				android:layout_centerInParent="true"/>
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:id="@+id/towerIV"
+				android:scaleX="0"
+				android:scaleY="0"
+				android:translationY="100dp"
+				android:layout_centerInParent="true" />
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:id="@+id/treesIV"
+				android:scaleX="0"
+				android:scaleY="0"
+				android:alpha="0"
+				android:translationY="150dp"
+				android:layout_centerInParent="true" />
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:id="@+id/landIV"
+				android:scaleY="0"
+				android:scaleX="0"
+				android:translationY="175dp"
+				android:layout_centerInParent="true" />
+
+		</RelativeLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="150dp"
+			android:orientation="vertical"
+			android:background="@android:color/white"
+			android:paddingTop="32dp"
+			android:paddingLeft="32dp"
+			android:paddingRight="32dp">
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/open_sans_bold"
+			android:textColor="@color/onboardingTextColor1"
+			android:gravity="center"
+			android:text="@string/find_buses"
+			android:textStyle="bold"
+			android:textSize="@dimen/_14sdp"/>
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:fontFamily="@font/open_sans"
+			android:layout_marginTop="@dimen/_5sdp"
+			android:textColor="@android:color/tab_indicator_text"
+			android:gravity="center"
+			android:text="@string/track_your_bus_routes_on_the_go"
+			android:textSize="@dimen/_14sdp"/>
+
+		</LinearLayout>
+		<View
+			android:layout_width="match_parent"
+			android:layout_height="30dp"/>
+	</LinearLayout>
+
+</RelativeLayout>

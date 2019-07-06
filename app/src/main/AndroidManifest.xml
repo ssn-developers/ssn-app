@@ -15,23 +15,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".onboarding.OnboardingActivity">
 
-        <activity android:name=".SplashActivity">
+        </activity>
+        <activity
+            android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".PdfViewerActivity"/>
+        <activity android:name=".PdfViewerActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".PostDetailsActivity" />
         <activity android:name=".BusRouteDetailsActivity" />
         <activity
             android:name=".BusRoutesActivity"
             android:theme="@style/AppTheme1"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".BaseActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".GistActivity" />

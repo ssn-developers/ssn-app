@@ -1,13 +1,17 @@
 package in.edu.ssn.ssnapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -19,33 +23,96 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import pl.droidsonroids.gif.AnimationListener;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class SplashActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
-    Intent intent;
+    Intent intent, notif_intent;
     private final static String TAG="test_set";
+    private GifDrawable gifFromResource;
+
+    private static Boolean flag = false;
+    private static Boolean worst_case = true;
+    private int currentApiVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        initUI();
+
+        try {
+            GifImageView splashIV = findViewById(R.id.splashIV);
+            gifFromResource = (GifDrawable) new GifDrawable(getAssets(), "splashscreen/splash_loading.gif");
+            splashIV.setBackground(gifFromResource);
+
+            gifFromResource.addAnimationListener(new AnimationListener() {
+                @Override
+                public void onAnimationCompleted(int loopNumber) {
+                    gifFromResource.stop();
+                    if(flag)
+                        passIntent();
+                }
+            });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        new updateFaculty().execute();
+
+        //Worst-case scenario (it will intent to any other activity) after 5s
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(worst_case)
+                    passIntent();
+            }
+        },5000);
+    }
+
+    void initUI(){
+        currentApiVersion = Build.VERSION.SDK_INT;
+        final int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+
+        if (currentApiVersion >= Build.VERSION_CODES.KITKAT) {
+            getWindow().getDecorView().setSystemUiVisibility(flags);
+            final View decorView = getWindow().getDecorView();
+            decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int visibility) {
+                    if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                        decorView.setSystemUiVisibility(flags);
+                    }
+                }
+            });
+        }
+
         db = FirebaseFirestore.getInstance();
         intent=getIntent();
-        //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-        new updateFaculty().execute();
+        notif_intent = null;
     }
 
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
-
         @Override
         protected Void doInBackground(Void... voids) {
             db.collection("user").whereEqualTo("clearance",1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -68,11 +135,8 @@ public class SplashActivity extends AppCompatActivity {
                             SharedPref.putString(getApplicationContext(),"faculty", id + "_name", name);
                             SharedPref.putString(getApplicationContext(),"faculty", id + "_position", position);
                         }
-
-                        passIntent();
                     }
-                    else
-                        passIntent();
+                    handleIntent();
                 }
             });
 
@@ -80,22 +144,13 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    public void passIntent(){
-        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in")) {
-            //handleIntent(intent);
-            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-        }
-        else
-            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-    }
+    void handleIntent(){
+        String postType="";
+        String postId="";
+        String pdfUrl="";
+        Bundle bundle = intent.getExtras();
 
-    void handleIntent(Intent intent){
-        // handling the payload from the push notification
-        String postType=" ", postId="", pdfUrl="";
-
-        Bundle bundle=intent.getExtras();
-
-        if(bundle!=null){
+        if(bundle != null){
             if(bundle.containsKey("PostType")){
                 postType=intent.getStringExtra("PostType");
             }
@@ -105,25 +160,63 @@ public class SplashActivity extends AppCompatActivity {
             if(bundle.containsKey("PdfUrl")){
                 pdfUrl=intent.getStringExtra("PdfUrl");
             }
-
             Log.d(TAG,"post details: "+postId+" "+postType);
 
             if(postType.equals("1")){
-                FetchPostById(this,postId);
+                final Post post = new Post();
+                /*post.setTitle();
+                post.setDescription();
+                post.setTime();
+                post.setImageUrl();
+
+                String id = getString("author");
+                post.setAuthor(SharedPref.getString(getApplicationContext(),"faculty",id + "_name"));
+                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty",id + "_dp_url"));
+                post.setPosition(SharedPref.getString(getApplicationContext(),"faculty",id + "_position"));*/
+
+                notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
+                notif_intent.putExtra("post", post);
+                notif_intent.putExtra("time", FCMHelper.getTime(post.getTime()));
             }
             else if(postType.equals("2")){
-                intent=new Intent(this,PdfViewerActivity.class);
-                intent.putExtra(Constants.PDF_URL,pdfUrl);
-                startActivity(intent);
+                notif_intent = new Intent(this, PdfViewerActivity.class);
+                notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
             }
         }
-        else {
-            Log.d(TAG,"no extras to handle");
+        if(gifFromResource.isAnimationCompleted())
+            passIntent();
+        else
+            flag=true;
+    }
+
+    public void passIntent(){
+        worst_case = false;
+        if(notif_intent != null)
+            startActivity(notif_intent);
+        else if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in"))
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        else {
+            startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+            Bungee.slideLeft(this);
         }
     }
 
-    public static void FetchPostById(final Context context, String postId){
+    @SuppressLint("NewApi")
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (currentApiVersion >= Build.VERSION_CODES.KITKAT && hasFocus) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
+    }
+
+    /*public static void FetchPostById(final Context context, String postId){
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("post").document(postId);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -160,6 +253,5 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
-
-    }
+    }*/
 }
