@@ -31,7 +31,7 @@ public class SplashActivity extends AppCompatActivity {
 
     FirebaseFirestore db;
     Intent intent;
-    private final static String TAG="SplashActivity";
+    private final static String TAG="test_set";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,28 +81,24 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void passIntent(){
-        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in")){
-
-            handleIntent(intent);
+        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in")) {
+            //handleIntent(intent);
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         }
         else
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
     }
 
-
-
     void handleIntent(Intent intent){
         // handling the payload from the push notification
-        String postType=" ",postId="",pdfUrl="";
+        String postType=" ", postId="", pdfUrl="";
 
         Bundle bundle=intent.getExtras();
 
         if(bundle!=null){
-
             if(bundle.containsKey("PostType")){
                 postType=intent.getStringExtra("PostType");
             }
-
             if(bundle.containsKey("PostId")){
                 postId=intent.getStringExtra("PostId");
             }
@@ -120,7 +116,6 @@ public class SplashActivity extends AppCompatActivity {
                 intent.putExtra(Constants.PDF_URL,pdfUrl);
                 startActivity(intent);
             }
-
         }
         else {
             Log.d(TAG,"no extras to handle");
@@ -128,15 +123,13 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-
-
     public static void FetchPostById(final Context context, String postId){
-
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("post").document(postId);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot postSnapShot) {
                 Log.d(TAG,"post fetched successfully");
+
                 final Post post = new Post();
                 Log.d(TAG,postSnapShot.getString("title"));
                 post.setTitle(postSnapShot.getString("title"));
@@ -169,7 +162,4 @@ public class SplashActivity extends AppCompatActivity {
         });
 
     }
-
-
-
 }

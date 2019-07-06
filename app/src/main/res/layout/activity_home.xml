@@ -108,11 +108,14 @@
 			android:layout_marginTop="@dimen/_8sdp"
 			android:layout_below="@+id/viewPagerTab" />
 	</RelativeLayout>
+
 	<com.google.android.material.navigation.NavigationView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:layout_gravity="start"
+		android:layout_marginRight="@dimen/_50sdp"
 		android:id="@+id/navigationView">
+
+		<!--android:layout_gravity="start"-->
 
 		<RelativeLayout
 			android:layout_width="match_parent"
@@ -120,23 +123,73 @@
 
 			<ImageView
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/_100sdp"
+				android:layout_height="@dimen/_80sdp"
 				android:background="@drawable/drawer_top"/>
 
 			<RelativeLayout
-				android:layout_width="@dimen/_100sdp"
-				android:layout_height="@dimen/_100sdp"
+				android:id="@+id/layout_profile"
+				android:layout_width="@dimen/_90sdp"
+				android:layout_height="@dimen/_90sdp"
 				android:layout_centerHorizontal="true"
-				android:layout_marginTop="@dimen/_40sdp"
+				android:layout_marginTop="@dimen/_30sdp"
 				android:background="@drawable/ic_profile_background">
 
 				<ImageView
 					android:id="@+id/iv_profile"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:src="@drawable/android_icon"
-					android:tint="#000000"
-					android:padding="@dimen/_10sdp" />
+					android:src="@drawable/harsha_profile"
+					android:padding="@dimen/_12sdp" />
+
+				<ImageView
+					android:id="@+id/iv_camera"
+					android:layout_width="@dimen/_20sdp"
+					android:layout_height="@dimen/_20sdp"
+					android:layout_marginRight="@dimen/_9sdp"
+					android:layout_marginBottom="@dimen/_9sdp"
+					android:layout_alignParentRight="true"
+					android:layout_alignParentBottom="true"
+					android:src="@drawable/ic_camera"/>
+
+			</RelativeLayout>
+
+			<TextView
+				android:id="@+id/tv_name"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:singleLine="true"
+				android:text="Harshavardhan P"
+				android:textColor="#317BC0"
+				android:textSize="@dimen/_14ssp"
+				android:fontFamily="@font/open_sans_bold"
+				android:layout_centerHorizontal="true"
+				android:layout_below="@+id/layout_profile" />
+
+			<TextView
+				android:id="@+id/tv_email"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:singleLine="true"
+				android:text="harshavardhan16039@cse.ssn.edu.in"
+				android:textColor="#69000000"
+				android:textSize="@dimen/_10ssp"
+				android:fontFamily="@font/open_sans"
+				android:layout_centerHorizontal="true"
+				android:layout_below="@+id/tv_name" />
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/tv_email"
+				android:background="@drawable/ic_drawer_bg">
+
+				<ListView
+					android:id="@+id/lv_items"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_margin="@dimen/_14sdp"
+					android:divider="@null"
+					android:scrollbars="none" />
 
 			</RelativeLayout>
 

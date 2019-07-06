@@ -10,11 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
@@ -35,6 +32,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
@@ -49,6 +52,10 @@ public class FeedFragment extends Fragment {
 
     RecyclerView feedsRV;
     FirestoreRecyclerAdapter adapter;
+    Runnable runnable;
+    Handler handler;
+    Map<Integer,Integer> page = new LinkedHashMap<>();
+    Map<Integer,Integer> size = new LinkedHashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,38 +82,39 @@ public class FeedFragment extends Fragment {
     }
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept","cse").whereEqualTo("year.2016",true).orderBy("time", Query.Direction.DESCENDING);
+        String dept = SharedPref.getString(getContext(),"dept");
+        String year = "year." + Integer.toString(SharedPref.getInt(getContext(),"year"));
 
-        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>()
-                .setQuery(query, new SnapshotParser<Post>() {
-                    @NonNull
-                    @Override
-                    public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                        final Post post = new Post();
-                        post.setTitle(snapshot.getString("title"));
-                        post.setDescription(snapshot.getString("description"));
-                        post.setTime(snapshot.getTimestamp("time").toDate());
+        //TODO: Needs to manually create composite query before release for each year & dept. [VERY IMPORTANT]
 
-                        ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                        if(images != null){
-                            post.setImageUrl(images);
-                        }
+        Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept",dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
+            @NonNull
+            @Override
+            public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                final Post post = new Post();
+                post.setTitle(snapshot.getString("title"));
+                post.setDescription(snapshot.getString("description"));
+                post.setTime(snapshot.getTimestamp("time").toDate());
 
-                        String id = snapshot.getString("author");
+                ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
+                if(images != null){
+                    post.setImageUrl(images);
+                }
+                String id = snapshot.getString("author");
 
-                        post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
-                        post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",id + "_dp_url"));
-                        post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
+                post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
+                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",id + "_dp_url"));
+                post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
 
-                        //TODO images, files upload
-                        return post;
-                    }
-                })
-                .build();
+                return post;
+            }
+        })
+        .build();
 
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
-            public void onBindViewHolder(final FeedViewHolder holder, int position, final Post model) {
+            public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
                 holder.tv_author.setText(model.getAuthor());
 
                 if(!model.getAuthor_image_url().equals(""))
@@ -119,8 +127,30 @@ public class FeedFragment extends Fragment {
 
                 if(model.getImageUrl()!=null) {
                     holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg_for_img);
-                    ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl());
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl());
                     holder.viewPager.setAdapter(imageAdapter);
+
+                    handler = new Handler();
+                    page.put(position, 0);
+                    size.put(position, model.getImageUrl().size());
+
+                    Timer timerObj = new Timer();
+                    TimerTask timerTaskObj = new TimerTask() {
+                        public void run() {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    holder.viewPager.setCurrentItem(page.get(position), true);
+
+                                    if(page.get(position) == size.get(position) - 1)
+                                        page.put(position, 0);
+                                    else
+                                        page.put(position, page.get(position) + 1);
+                                }
+                            });
+                        }
+                    };
+                    timerObj.schedule(timerTaskObj,3000,3000);
                 }
                 else
                     holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg);
@@ -149,7 +179,6 @@ public class FeedFragment extends Fragment {
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.tv_description.setText(ss);
-
                 }
                 else
                     holder.tv_description.setText(model.getDescription());
@@ -216,6 +245,5 @@ public class FeedFragment extends Fragment {
         italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_italic.ttf");
         bold_italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold_italic.ttf");
         FontChanger fontChanger = new FontChanger(bold);
-        //fontChanger.replaceFonts((ViewGroup) view);
     }
 }

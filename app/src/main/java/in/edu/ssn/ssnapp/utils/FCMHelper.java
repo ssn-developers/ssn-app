@@ -44,23 +44,21 @@ public class FCMHelper {
 
         String token="null";
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+            @Override
+            public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                if (!task.isSuccessful()) {
+                    Log.w(TAG, "getInstanceId failed", task.getException());
+                    return;
+                }
 
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "getInstanceId failed", task.getException());
-                            return;
-                        }
-
-                        String token = task.getResult().getToken();
-                        Log.d(TAG, token);
-                        SharedPref.putString(context,"FCMToken",token);
-                        //UpdateFCM(context,token);
-                        //SubscribeToTopic(context,SharedPref.getString(context,"dept"));
-                    }
-                });
+                String token = task.getResult().getToken();
+                Log.d(TAG, token);
+                SharedPref.putString(context,"FCMToken",token);
+                //UpdateFCM(context,token);
+                //SubscribeToTopic(context,SharedPref.getString(context,"dept"));
+            }
+        });
 
         return token;
     }

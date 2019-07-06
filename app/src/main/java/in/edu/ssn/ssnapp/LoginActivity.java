@@ -141,7 +141,7 @@ public class LoginActivity extends BaseActivity {
 
         Log.d("test_set", "signin");
         FCMHelper.SubscribeToTopic(this,dept);
-        FCMHelper.UpdateFCM(this,SharedPref.getString(this,"FCMToken"));
+        FCMHelper.UpdateFCM(this, SharedPref.getString(this,"FCMToken"));
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
@@ -166,9 +166,9 @@ public class LoginActivity extends BaseActivity {
         users.put("id", id);
         users.put("name", name);
         users.put("year", year);
-        users.put("FCMToken",SharedPref.getString(this,"FCMToken"));
+        users.put("FCMToken", SharedPref.getString(this,"FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
-        FCMHelper.SubscribeToTopic(this,dept);
+        FCMHelper.SubscribeToTopic(this, dept);
 
         SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
