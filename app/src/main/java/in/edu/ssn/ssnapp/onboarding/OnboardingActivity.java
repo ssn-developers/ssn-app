@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
@@ -88,6 +89,20 @@ public class OnboardingActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
+                switch (position){
+                    case 0:{
+                        dotsIndicator.setSelectedPointColor(getResources().getColor(R.color.pageColor1));
+                        break;
+                    }
+                    case 1:{
+                        dotsIndicator.setSelectedPointColor(getResources().getColor(R.color.pageColor2));
+                        break;
+                    }
+                    case 2:{
+                        dotsIndicator.setSelectedPointColor(getResources().getColor(R.color.pageColor3));
+                        break;
+                    }
+                }
 
             }
 
@@ -104,6 +119,8 @@ public class OnboardingActivity extends AppCompatActivity {
         backgroundIV = findViewById(R.id.backgroundIV);
         backgroundIV1 = findViewById(R.id.backgroundIV1);
         backgroundIV2 = findViewById(R.id.backgroundIV2);
+        dotsIndicator = findViewById(R.id.dots_indicator);
+        dotsIndicator.setSelectedPointColor(getResources().getColor(R.color.pageColor1));
         Picasso.get().load("file:///android_asset/onboarding/bg1.png").into(backgroundIV);
         Picasso.get().load("file:///android_asset/onboarding/bg2.png").into(backgroundIV1);
         Picasso.get().load("file:///android_asset/onboarding/bg3.png").into(backgroundIV2);
@@ -111,6 +128,7 @@ public class OnboardingActivity extends AppCompatActivity {
         setupViewPager(viewPager);
     }
 
+    DotsIndicator dotsIndicator;
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new OneFragment(), "OneFragment");
@@ -118,8 +136,8 @@ public class OnboardingActivity extends AppCompatActivity {
         adapter.addFragment(new ThreeFragment(),"ThreeFragment");
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
-        //dotsIndicator.setViewPager(viewPager);
-        //dotsIndicator.setDotsClickable(false);
+        dotsIndicator.setViewPager(viewPager);
+        dotsIndicator.setDotsClickable(false);
     }
 
     public void startAnimation(){

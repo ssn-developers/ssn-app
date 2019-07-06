@@ -19,7 +19,8 @@
             android:name=".onboarding.OnboardingActivity">
 
         </activity>
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

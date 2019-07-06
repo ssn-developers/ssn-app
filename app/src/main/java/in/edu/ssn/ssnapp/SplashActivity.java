@@ -1,14 +1,26 @@
 package in.edu.ssn.ssnapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.gif.GifDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,15 +46,55 @@ public class SplashActivity extends AppCompatActivity {
     Intent intent;
     private final static String TAG="SplashActivity";
 
+    ImageView splashIV;
+    private int currentApiVersion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        initUI();
+
         db = FirebaseFirestore.getInstance();
         intent=getIntent();
         //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         new updateFaculty().execute();
+    }
+
+    void initUI(){
+        currentApiVersion = Build.VERSION.SDK_INT;
+        final int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
+        if (currentApiVersion >= Build.VERSION_CODES.KITKAT) {
+            getWindow().getDecorView().setSystemUiVisibility(flags);
+            final View decorView = getWindow().getDecorView();
+            decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+                @Override
+                public void onSystemUiVisibilityChange(int visibility) {
+                    if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                        decorView.setSystemUiVisibility(flags);
+                    }
+                }
+            });
+        }
+        splashIV = findViewById(R.id.splashIV);
+        Glide.with(getApplicationContext()).asGif().load("file:///android_asset/splashscreen/splash_loading.gif").listener(new RequestListener<GifDrawable>() {
+            @Override
+            public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<GifDrawable> target, boolean isFirstResource) {
+                return false;
+            }
+
+            @Override
+            public boolean onResourceReady(GifDrawable resource, Object model, Target<GifDrawable> target, DataSource dataSource, boolean isFirstResource) {
+
+                return false;
+            }
+        }).into(splashIV);
     }
 
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
@@ -82,11 +134,17 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void passIntent(){
-        if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in")){
-            handleIntent(intent);
-        }
-        else
-            startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in")){
+                    handleIntent(intent);
+                }
+                else
+                    startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+            }
+        },3000);
+
     }
 
 
@@ -168,6 +226,21 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (currentApiVersion >= Build.VERSION_CODES.KITKAT && hasFocus) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        }
     }
 
 
