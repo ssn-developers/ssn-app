@@ -1,12 +1,16 @@
 package in.edu.ssn.ssnapp;
 
+import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
@@ -35,7 +39,7 @@ public class HomeActivity extends BaseActivity {
         menuIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(Gravity.START);
+                drawerLayout.openDrawer(GravityCompat.START);
             }
         });
 
@@ -63,5 +67,21 @@ public class HomeActivity extends BaseActivity {
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
         viewPagerTab.setViewPager(viewPager);
         viewPager.setOffscreenPageLimit(3);
+    }
+
+    int count=0;
+    @Override
+    public void onBackPressed() {
+        if (count > 0) {
+            count=0;
+            Intent startMain = new Intent(Intent.ACTION_MAIN);
+            startMain.addCategory(Intent.CATEGORY_HOME);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(startMain);
+            finish();
+        } else {
+            count++;
+            Toast.makeText(getApplicationContext(), "Press back once again to exit !", Toast.LENGTH_SHORT).show();
+        }
     }
 }
