@@ -118,9 +118,12 @@ public class FeedFragment extends Fragment {
                 holder.tv_title.setText(model.getTitle());
 
                 if(model.getImageUrl()!=null) {
+                    holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg_for_img);
                     ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl());
-                    //holder.viewPager.setAdapter(imageAdapter);
+                    holder.viewPager.setAdapter(imageAdapter);
                 }
+                else
+                    holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg);
 
                 Date time = model.getTime();
                 Date now = new Date();
