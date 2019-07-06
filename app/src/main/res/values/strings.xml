@@ -3,6 +3,7 @@
     <string name="menu_button">Menu button</string>
 
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="default_notification_channel_id">default_message</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="track_bus">Track bus</string>
     <string name="bus_routes">Bus routes</string>

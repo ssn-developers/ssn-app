@@ -19,7 +19,6 @@ import in.edu.ssn.ssnapp.fragments.FeedFragment;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HomeActivity extends BaseActivity {
-
     ImageView menuIV, notificationIV, userImageIV;
     DrawerLayout drawerLayout;
     ViewPager viewPager;

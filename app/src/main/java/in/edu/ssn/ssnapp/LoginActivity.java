@@ -40,6 +40,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import in.edu.ssn.ssnapp.fragments.FeedFragment;
+import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class LoginActivity extends BaseActivity {
@@ -139,6 +140,8 @@ public class LoginActivity extends BaseActivity {
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signin");
+        FCMHelper.SubscribeToTopic(this,dept);
+        FCMHelper.UpdateFCM(this,SharedPref.getString(this,"FCMToken"));
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
@@ -163,7 +166,9 @@ public class LoginActivity extends BaseActivity {
         users.put("id", id);
         users.put("name", name);
         users.put("year", year);
+        users.put("FCMToken",SharedPref.getString(this,"FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
+        FCMHelper.SubscribeToTopic(this,dept);
 
         SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
