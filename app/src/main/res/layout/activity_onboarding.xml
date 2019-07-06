@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="@android:color/white"
+	tools:context=".onboarding.OnboardingActivity">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:layout_centerInParent="true">
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="32dp"
+			android:layout_marginRight="32dp"
+			android:layout_marginTop="32dp">
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:id="@+id/backgroundIV2"
+				android:layout_centerInParent="true"
+				android:alpha="0"
+				android:scaleX="0.5"
+				android:scaleY="0.5"
+				/>
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:id="@+id/backgroundIV1"
+				android:layout_centerInParent="true"
+				android:alpha="0" />
+
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="350dp"
+				android:id="@+id/backgroundIV"
+				android:layout_centerInParent="true"
+				android:alpha="0"
+				android:scaleX="0.5"
+				android:scaleY="0.5" />
+		</RelativeLayout>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="150dp"
+			android:paddingTop="32dp"
+			android:paddingLeft="32dp"
+			android:paddingRight="32dp">
+		</LinearLayout>
+	</LinearLayout>
+	<androidx.viewpager.widget.ViewPager
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:id="@+id/viewPager">
+
+	</androidx.viewpager.widget.ViewPager>
+</RelativeLayout>
