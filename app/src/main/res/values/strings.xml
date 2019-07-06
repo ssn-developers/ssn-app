@@ -2,21 +2,21 @@
 	<string name="app_name">The SSN App</string>
 	<string name="menu_button">Menu button</string>
 
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
-	<string name="track_bus">Track bus</string>
-	<string name="bus_routes">Bus routes</string>
-	<string name="coming_soon">Coming soon</string>
-	<string name="internals">Internals</string>
-	<string name="results">Results</string>
-	<string name="seating_arrangement">Seating arrangement</string>
-	<string name="exam_schedule">Exam schedule</string>
-	<string name="driver">Driver</string>
-	<string name="sign_in_with_you_ssn_mail_id">Sign in using SSN mail id</string>
 	<string name="timely_updates">Timely Updates</string>
 	<string name="get_notifications_on_bus_alerts_and_feeds_from_departments">Get notifications on bus alerts and feeds from departments</string>
 	<string name="find_buses">Find Buses</string>
 	<string name="track_your_bus_routes_on_the_go">Track your bus routes on the go!</string>
 	<string name="view_results">View Results</string>
 	<string name="manage_your_internals_exam_schedule_and_results_with_ease">Manage your internals, exam schedule and results with ease</string>
+    <string name="default_notification_channel_id">default_message</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="track_bus">Track bus</string>
+    <string name="bus_routes">Bus routes</string>
+    <string name="coming_soon">Coming soon</string>
+    <string name="internals">Internals</string>
+    <string name="results">Results</string>
+    <string name="seating_arrangement">Seating arrangement</string>
+    <string name="exam_schedule">Exam schedule</string>
+    <string name="driver">Driver</string>
+    <string name="sign_in_with_you_ssn_mail_id">Sign in using SSN mail id</string>
 </resources>

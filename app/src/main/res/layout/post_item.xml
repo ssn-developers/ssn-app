@@ -8,6 +8,11 @@
     android:layout_marginBottom="@dimen/_10sdp"
     android:orientation="vertical">
 
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
