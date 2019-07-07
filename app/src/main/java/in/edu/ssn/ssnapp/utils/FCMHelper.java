@@ -129,6 +129,7 @@ public class FCMHelper {
                     .setSmallIcon(R.drawable.ic_launcher_background)
                     .setContentText(message)
                     .setChannelId("1")
+                    .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
 
             notificationManager.notify(1,nbuilder.build());
@@ -137,7 +138,9 @@ public class FCMHelper {
             Notification.Builder nbuilder=new Notification.Builder(context)
                     .setContentTitle("hello")
                     .setSmallIcon(R.drawable.ic_launcher_background)
-                    .setContentText(message+" from zodiac");
+                    .setContentText(message)
+                    .setAutoCancel(true)
+                    .setContentIntent(pendingIntent);
 
             notificationManager.notify(1,nbuilder.build());
         }
