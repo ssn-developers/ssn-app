@@ -7,6 +7,7 @@
     <string name="find_buses">Find Buses</string>
     <string name="track_your_bus_routes_on_the_go">Look for bus routes on the go!</string>
     <string name="view_results">View Results</string>
+    <string name="welcome">Welcome back!</string>
     <string name="manage_your_internals_exam_schedule_and_results_with_ease">Manage your internals, exam schedule and results with ease</string>
     <string name="default_notification_channel_id">default_message</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

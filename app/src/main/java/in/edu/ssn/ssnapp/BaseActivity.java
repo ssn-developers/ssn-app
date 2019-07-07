@@ -2,6 +2,8 @@ package in.edu.ssn.ssnapp;
 
 import android.graphics.Typeface;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.os.Bundle;
 import android.view.ViewGroup;
 
@@ -10,7 +12,7 @@ import in.edu.ssn.ssnapp.utils.FontChanger;
 public class BaseActivity extends AppCompatActivity {
 
     //Fonts
-    public Typeface regular, bold, italic, bold_italic;
+    public Typeface regular, bold, semi_bold;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +20,12 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
 
         initFonts();
-
     }
 
     private void initFonts(){
-        regular = Typeface.createFromAsset(getAssets(), "fonts/product_san_regular.ttf");
-        bold = Typeface.createFromAsset(getAssets(), "fonts/product_sans_bold.ttf");
-        italic = Typeface.createFromAsset(getAssets(), "fonts/product_sans_italic.ttf");
-        bold_italic = Typeface.createFromAsset(getAssets(), "fonts/product_sans_bold_italic.ttf");
+        regular = ResourcesCompat.getFont(this, R.font.open_sans);
+        bold = ResourcesCompat.getFont(this, R.font.open_sans_bold);
+        semi_bold = ResourcesCompat.getFont(this, R.font.open_sans_semi_bold);
     }
 
     //This changes font for all the text views in a view group

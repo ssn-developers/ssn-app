@@ -15,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".AboutTeamActivity"></activity>
+        <activity android:name=".FavouritesActivity"></activity>
+        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".LogoutActivity" />
+        <activity android:name=".AboutTeamActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".onboarding.OnboardingActivity" />
         <activity android:name=".SplashActivity">
@@ -34,8 +37,6 @@
             android:theme="@style/AppTheme1"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".BaseActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".GistActivity" />
 
         <service
             android:name=".services.SSNFirebaseMessagingService"

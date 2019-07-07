@@ -10,7 +10,7 @@
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:weightSum="2"
+		android:weightSum="1"
 		android:layout_marginTop="@dimen/_4sdp"
 		android:orientation="horizontal">
 
@@ -24,16 +24,16 @@
 			android:id="@+id/busRoutesCV"
 			android:clickable="true"
 			android:foreground="?attr/selectableItemBackground"
-			android:layout_marginLeft="@dimen/_14sdp"
 			android:layout_marginStart="@dimen/_14sdp"
-			android:layout_marginRight="@dimen/_6sdp"
-			android:layout_marginEnd="@dimen/_6sdp">
+			android:layout_marginEnd="@dimen/_14sdp">
+
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/_112sdp"
 				android:padding="@dimen/_14sdp"
-				android:background="@color/colorAccentAlpha"
+				android:background="@drawable/bus_route_bg"
 				android:orientation="vertical">
+
 				<ImageView
 					android:layout_width="@dimen/_24sdp"
 					android:layout_height="@dimen/_24sdp"
@@ -49,45 +49,6 @@
 					android:fontFamily="@font/open_sans_bold"
 					android:textColor="@color/colorAccent"
 					android:text="Bus routes"/>
-			</LinearLayout>
-		</androidx.cardview.widget.CardView>
-
-		<androidx.cardview.widget.CardView
-			android:layout_width="0dp"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/_14sdp"
-			android:layout_weight="1"
-			app:cardCornerRadius="@dimen/_8sdp"
-			app:cardElevation="0dp"
-			android:id="@+id/trackBusCV"
-			android:clickable="true"
-			android:foreground="?attr/selectableItemBackground"
-			android:layout_marginLeft="@dimen/_8sdp"
-			android:layout_marginStart="@dimen/_8sdp"
-			android:layout_marginRight="@dimen/_14sdp"
-			android:layout_marginEnd="@dimen/_14sdp">
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/_112sdp"
-				android:padding="@dimen/_14sdp"
-				android:background="@color/colorAccentAlpha"
-				android:orientation="vertical">
-				<ImageView
-					android:layout_width="@dimen/_24sdp"
-					android:layout_height="@dimen/_24sdp"
-					android:tint="@color/colorAccent"
-					android:layout_marginBottom="@dimen/_35sdp"
-					android:src="@drawable/ic_tracking" />
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:textSize="@dimen/_16ssp"
-					android:singleLine="true"
-					android:fontFamily="@font/open_sans_bold"
-					android:textStyle="bold"
-					android:textColor="@color/colorAccent"
-					android:text="@string/track_bus"/>
 			</LinearLayout>
 		</androidx.cardview.widget.CardView>
 

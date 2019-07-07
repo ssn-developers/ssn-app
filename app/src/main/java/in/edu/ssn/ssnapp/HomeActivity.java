@@ -3,23 +3,19 @@ package in.edu.ssn.ssnapp;
 import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.GoogleApi;
-import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -29,7 +25,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
-import in.edu.ssn.ssnapp.fragments.EventsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
@@ -37,11 +32,12 @@ import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HomeActivity extends BaseActivity {
-    ImageView menuIV, notificationIV;
+    ImageView menuIV;
     CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
     TextView tv_name, tv_email;
+    RelativeLayout layout_profile;
 
     ListView lv_items;
     DrawerAdapter adapter;
@@ -62,6 +58,13 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
+        layout_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
         lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,32 +73,51 @@ public class HomeActivity extends BaseActivity {
                     case "Feeds":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
+                    case "Favourites":
+                        startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                        break;
+                    case "Library Renewals":
+                        //TODO: check whether its connected to SSN wifi.
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://opac.ssn.net:8081")));
+                        break;
+                    case "Alumni Connect":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssn.almaconnect.com")));
+                        break;
                     case "Notifications":
                         startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                        break;
+                    case "Invite Friends":
+                        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                        sharingIntent.setType("text/plain");
+                        String shareBody = "Hello! Manage your internals, results & exam schedule with ease and Find your bus routes on the go! Click here to stay updated on department feeds: https://play.google.com/store/apps/details?id=se.par.amsen.experimentshopdesign";
+                        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+                        break;
+                    case "Rate Our App":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=se.par.amsen.experimentshopdesign")));
+                        break;
+                    case "Make a Suggestion":
+                        startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
                         break;
                     case "About Team":
                         startActivity(new Intent(getApplicationContext(),AboutTeamActivity.class));
                         break;
                     case "Logout":
-                        startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+                        SharedPref.putBoolean(getApplicationContext(),"is_logged_in", false);
+                        startActivity(new Intent(getApplicationContext(), LogoutActivity.class));
                         break;
                 }
             }
         });
-
-        notificationIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
-            }
-        });
     }
+
+    /*********************************************************/
 
     void initUI(){
         menuIV = findViewById(R.id.menuIV);
-        notificationIV = findViewById(R.id.notificationIV);
         userImageIV = findViewById(R.id.userImageIV);
         iv_profile = findViewById(R.id.iv_profile);
+        layout_profile = findViewById(R.id.layout_profile);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -136,14 +158,14 @@ public class HomeActivity extends BaseActivity {
         adapter.addFragment(new FeedFragment(), "Feed");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         adapter.addFragment(new ExamCellFragment(), "Exam cell");
-        //adapter.addFragment(new EventsFragment(), "Workshop");
-        //adapter.addFragment(new EventsFragment(), "Event");
-        //adapter.addFragment(new GlobalChatFragment(), "Global chat");
         viewPager.setAdapter(adapter);
+
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
         viewPagerTab.setViewPager(viewPager);
         viewPager.setOffscreenPageLimit(3);
     }
+
+    /*********************************************************/
 
     @Override
     public void onBackPressed() {
@@ -151,10 +173,11 @@ public class HomeActivity extends BaseActivity {
             count=0;
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);
-            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(startMain);
             finish();
-        } else {
+        }
+        else {
             count++;
             Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT).show();
         }

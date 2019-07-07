@@ -44,13 +44,13 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //startActivity(new Intent(getApplicationContext(), AboutTeamActivity.class));
+        //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
 
         initUI();
 
         try {
             GifImageView splashIV = findViewById(R.id.splashIV);
-            gifFromResource = (GifDrawable) new GifDrawable(getAssets(), "splashscreen/splash_loading.gif");
+            gifFromResource = (GifDrawable) new GifDrawable(getAssets(), "splashscreen/splash_screen.gif");
             splashIV.setBackground(gifFromResource);
 
             gifFromResource.addAnimationListener(new AnimationListener() {
@@ -67,15 +67,6 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         new updateFaculty().execute();
-
-        //Worst-case scenario (it will intent to any other activity) after 5s
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(worst_case)
-                    passIntent();
-            }
-        },5000);
     }
 
     void initUI(){
@@ -209,6 +200,20 @@ public class SplashActivity extends AppCompatActivity {
                             | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //Worst-case scenario (it will intent to any other activity) after 5s
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(worst_case)
+                    passIntent();
+            }
+        },5000);
     }
 
     /*public static void FetchPostById(final Context context, String postId){

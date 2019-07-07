@@ -44,6 +44,9 @@ public class DrawerAdapter extends ArrayAdapter<Drawer> {
         if(position == 0){
             tv_title.setTextColor(Color.parseColor("#317BC0"));
         }
+        else{
+            tv_title.setTextColor(Color.parseColor("#9A000000"));
+        }
 
         if(position == getCount()-1)
             view_line.setVisibility(View.INVISIBLE);

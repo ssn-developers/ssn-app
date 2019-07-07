@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.FontChanger;
 
 /**
@@ -16,18 +17,12 @@ import in.edu.ssn.ssnapp.utils.FontChanger;
  */
 public class ExamCellFragment extends Fragment {
 
-
-    public ExamCellFragment() {
-        // Required empty public constructor
-    }
-
+    public ExamCellFragment() { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_exam_cell, container, false);
-        initFonts(view);
+        CommonUtils.initFonts(getContext(),view);
         initUI(view);
         return view;
     }
@@ -35,16 +30,4 @@ public class ExamCellFragment extends Fragment {
     void initUI(View view){
 
     }
-
-    //Fonts
-    public Typeface regular, bold, italic, bold_italic;
-    private void initFonts(View view){
-        regular = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_san_regular.ttf");
-        bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold.ttf");
-        italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_italic.ttf");
-        bold_italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold_italic.ttf");
-        FontChanger fontChanger = new FontChanger(bold);
-        //fontChanger.replaceFonts((ViewGroup) view);
-    }
-
 }

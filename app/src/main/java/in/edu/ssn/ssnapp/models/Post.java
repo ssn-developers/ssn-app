@@ -18,6 +18,7 @@ public class Post implements Parcelable {
     String title;
     String description;
     List<String> imageUrl;
+    List<String> fileUrl;
     String author;
     String author_image_url;
     String position;
@@ -37,6 +38,7 @@ public class Post implements Parcelable {
         title = in.readString();
         description = in.readString();
         imageUrl = in.createStringArrayList();
+        fileUrl = in.createStringArrayList();
         author = in.readString();
         author_image_url = in.readString();
         position = in.readString();
@@ -94,6 +96,14 @@ public class Post implements Parcelable {
         this.imageUrl = imageUrl;
     }
 
+    public List<String> getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(List<String> fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -129,6 +139,7 @@ public class Post implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeStringList(this.imageUrl);
+        dest.writeStringList(this.fileUrl);
         dest.writeString(this.author);
         dest.writeString(this.author_image_url);
         dest.writeString(this.position);

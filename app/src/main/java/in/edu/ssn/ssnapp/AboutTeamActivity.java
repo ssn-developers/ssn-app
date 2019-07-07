@@ -6,11 +6,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import in.edu.ssn.ssnapp.adapters.AboutTeamAdapter;
-import in.edu.ssn.ssnapp.adapters.NotifyAdapter;
-import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.models.TeamDetails;
 
 public class AboutTeamActivity extends AppCompatActivity {

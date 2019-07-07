@@ -48,24 +48,6 @@
 					android:src="@drawable/ssn_logo"
 					android:tint="@color/colorAccent" />
 			</RelativeLayout>
-			<ImageView
-				android:layout_width="@dimen/_22sdp"
-				android:layout_height="@dimen/_22sdp"
-				android:padding="@dimen/_2sdp"
-				android:layout_marginTop="@dimen/_8sdp"
-				android:layout_marginStart="@dimen/_8sdp"
-				android:layout_marginLeft="@dimen/_8sdp"
-				android:layout_marginBottom="@dimen/_8sdp"
-				android:layout_marginEnd="@dimen/_8sdp"
-				android:layout_marginRight="@dimen/_8sdp"
-				android:id="@+id/notificationIV"
-				android:layout_gravity="center"
-				android:tint="@color/colorAccent"
-				android:clickable="true"
-				android:focusable="true"
-				android:foreground="?selectableItemBackground"
-				android:src="@drawable/notification_icon"
-				android:contentDescription="@string/menu_button" />
 
 			<de.hdodenhof.circleimageview.CircleImageView
 				android:layout_width="@dimen/_30sdp"
@@ -101,6 +83,7 @@
 			app:stl_underlineThickness="0dp"
 			app:stl_customTabTextLayoutId="@layout/custom_tab"
 			app:stl_customTabTextViewId="@+id/customTabTV" />
+
 		<androidx.viewpager.widget.ViewPager
 			android:id="@+id/viewPager"
 			android:layout_width="match_parent"
@@ -158,7 +141,7 @@
 				android:layout_height="wrap_content"
 				android:singleLine="true"
 				android:text=""
-				android:textColor="#317BC0"
+				android:textColor="@color/colorAccent"
 				android:textSize="@dimen/_14ssp"
 				android:fontFamily="@font/open_sans_bold"
 				android:layout_centerHorizontal="true"
@@ -189,6 +172,7 @@
 					android:layout_marginTop="@dimen/_20sdp"
 					android:layout_marginLeft="@dimen/_15sdp"
 					android:layout_marginRight="@dimen/_15sdp"
+					android:layout_marginBottom="@dimen/_40sdp"
 					android:scrollbars="none"
 					android:divider="@null"/>
 

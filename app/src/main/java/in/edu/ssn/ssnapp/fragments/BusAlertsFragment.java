@@ -29,6 +29,7 @@ import in.edu.ssn.ssnapp.BusRoutesActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusPost;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FontChanger;
 
@@ -40,7 +41,6 @@ public class BusAlertsFragment extends Fragment {
     public BusAlertsFragment() {}
 
     CardView busRoutesCV;
-    CardView trackBusCV;
     RecyclerView alertRV;
     FirestoreRecyclerAdapter adapter;
 
@@ -48,7 +48,7 @@ public class BusAlertsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_bus_alerts, container, false);
-        initFonts(view);
+        CommonUtils.initFonts(getContext(),view);
         initUI(view);
 
         setupFireStore();
@@ -60,27 +60,10 @@ public class BusAlertsFragment extends Fragment {
             }
         });
 
-        trackBusCV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
+    /*********************************************************/
 
     void setupFireStore(){
         Query query = FirebaseFirestore.getInstance().collection("post_bus").orderBy("time", Query.Direction.DESCENDING).limit(5);
@@ -144,6 +127,16 @@ public class BusAlertsFragment extends Fragment {
         alertRV.setAdapter(adapter);
     }
 
+    void initUI(View view){
+        busRoutesCV = view.findViewById(R.id.busRoutesCV);
+        alertRV = view.findViewById(R.id.alertRV);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        alertRV.setLayoutManager(layoutManager);
+        alertRV.setHasFixedSize(true);
+    }
+
+    /*********************************************************/
+
     public class BusAlertHolder extends RecyclerView.ViewHolder {
         public TextView tv_date, tv_time;
         RelativeLayout rl_bus_alert_item;
@@ -156,23 +149,17 @@ public class BusAlertsFragment extends Fragment {
         }
     }
 
-    void initUI(View view){
-        busRoutesCV = view.findViewById(R.id.busRoutesCV);
-        trackBusCV = view.findViewById(R.id.trackBusCV);
-        alertRV = view.findViewById(R.id.alertRV);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        alertRV.setLayoutManager(layoutManager);
-        alertRV.setHasFixedSize(true);
+    /*********************************************************/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 
-    //Fonts
-    public Typeface regular, bold, italic, bold_italic;
-    private void initFonts(View view){
-        regular = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_san_regular.ttf");
-        bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold.ttf");
-        italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_italic.ttf");
-        bold_italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold_italic.ttf");
-        FontChanger fontChanger = new FontChanger(bold);
-        //fontChanger.replaceFonts((ViewGroup) view);
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }

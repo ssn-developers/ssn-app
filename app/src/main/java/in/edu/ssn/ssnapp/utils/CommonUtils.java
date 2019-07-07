@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -19,6 +20,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
 
+import androidx.core.content.res.ResourcesCompat;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,7 +31,19 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.edu.ssn.ssnapp.R;
+
 public class CommonUtils {
+
+    //Change Font
+    public static Typeface regular, bold, semi_bold;
+    public static void initFonts(Context context, View view){
+        regular = ResourcesCompat.getFont(context, R.font.open_sans);
+        bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
+        semi_bold = ResourcesCompat.getFont(context, R.font.open_sans_semi_bold);
+
+        FontChanger fontChanger = new FontChanger(bold);
+    }
 
     //Hides Keyboard
     public static void hideKeyboard(Activity activity){

@@ -58,9 +58,9 @@
 
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/progress"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_centerInParent="true"
-        android:background="@drawable/progress"/>
+        android:background="@drawable/progress_circle"/>
 
 </RelativeLayout>

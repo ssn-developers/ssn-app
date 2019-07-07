@@ -30,7 +30,7 @@ public class PostDetailsActivity extends BaseActivity {
         tv_description.setText(post.getDescription());
         tv_author.setText(post.getAuthor());
         tv_position.setText(post.getPosition());
-        Picasso.get().load(post.getAuthor_image_url()).into(userImageIV);
+        Picasso.get().load(post.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(userImageIV);
 
         //TODO images, files upload
 

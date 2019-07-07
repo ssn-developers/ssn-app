@@ -13,6 +13,7 @@
         android:id="@+id/fakeAppbarLL"
         android:layout_marginTop="@dimen/_10sdp"
         android:orientation="horizontal">
+
         <ImageView
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
@@ -26,24 +27,16 @@
             android:tint="@color/colorAccent"
             android:padding="@dimen/_2sdp"/>
 
-        <androidx.cardview.widget.CardView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            app:cardCornerRadius="@dimen/_15sdp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#D8D7D7"
-            android:layout_gravity="center"
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:id="@+id/userImageIV" />
-        </androidx.cardview.widget.CardView>
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:civ_circle_background_color="#D8D7D7"
+            android:src="@drawable/ic_user_white"
+            android:id="@+id/userImageIV" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -57,7 +50,6 @@
                 android:layout_toLeftOf="@+id/tv_time"
                 android:fontFamily="@font/open_sans"
                 android:paddingRight="@dimen/_5sdp"
-                android:text=""
                 android:textColor="#000000"
                 android:textSize="@dimen/_13ssp" />
 
@@ -67,7 +59,6 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_author"
                 android:fontFamily="@font/open_sans"
-                android:text=""
                 android:textColor="#404040"
                 android:textSize="@dimen/_9ssp" />
 
@@ -76,11 +67,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:textColor="#0D4BA0"
+                android:textColor="@color/colorAccent"
+                android:textStyle="bold"
                 android:fontFamily="@font/open_sans"
                 android:textSize="@dimen/_12ssp"
-                android:layout_marginRight="@dimen/_12sdp"
-                android:text=""/>
+                android:layout_marginRight="@dimen/_12sdp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -97,7 +88,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_bold"
-            android:text=""
             android:textColor="#000000"
             android:textSize="@dimen/_14ssp"
             android:textStyle="bold" />
@@ -110,16 +100,16 @@
             android:textColor="#000000"
             android:textSize="@dimen/_12ssp"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_below="@+id/tv_title"
-            android:text=""/>
+            android:layout_below="@+id/tv_title" />
 
         <TextView
             android:id="@+id/tv_share"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#0D4BA0"
+            android:textColor="@color/colorAccent"
             android:textSize="@dimen/_11ssp"
             android:textStyle="bold"
+            android:padding="@dimen/_5sdp"
             android:fontFamily="@font/open_sans_bold"
             android:layout_below="@+id/tv_description"
             android:layout_marginTop="@dimen/_5sdp"

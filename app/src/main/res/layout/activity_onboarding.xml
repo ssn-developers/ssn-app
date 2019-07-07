@@ -115,6 +115,7 @@
 			<View
 				android:layout_width="match_parent"
 				android:layout_height="30dp"/>
+
 			<androidx.cardview.widget.CardView
 				android:layout_width="match_parent"
 				android:layout_height="50dp"
@@ -143,6 +144,14 @@
 		</RelativeLayout>
 
 	</LinearLayout>
+
+	<pl.droidsonroids.gif.GifImageView
+		android:id="@+id/progress"
+		android:layout_width="@dimen/_80sdp"
+		android:layout_height="@dimen/_80sdp"
+		android:layout_centerInParent="true"
+		android:visibility="gone"
+		android:background="@drawable/progress_circle"/>
 
 
 </RelativeLayout>

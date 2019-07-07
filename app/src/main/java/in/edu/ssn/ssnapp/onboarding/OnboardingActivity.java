@@ -37,11 +37,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import in.edu.ssn.ssnapp.HomeActivity;
-import in.edu.ssn.ssnapp.LoginActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import pl.droidsonroids.gif.GifImageView;
 
 public class OnboardingActivity extends AppCompatActivity {
 
@@ -52,6 +52,7 @@ public class OnboardingActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
+    GifImageView progress;
 
     public static boolean firstRun1=false;
     public static boolean firstRun2=false;
@@ -70,7 +71,6 @@ public class OnboardingActivity extends AppCompatActivity {
         signInCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(),"Get started clicked",Toast.LENGTH_SHORT).show();
                 mAuth.signOut();
                 mGoogleSignInClient.signOut();
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -176,6 +176,7 @@ public class OnboardingActivity extends AppCompatActivity {
     void initUI(){
         viewPager = findViewById(R.id.viewPager);
         signInCV = findViewById(R.id.signInCV);
+        progress = findViewById(R.id.progress);
 
         backgroundIV = findViewById(R.id.backgroundIV);
         backgroundIV1 = findViewById(R.id.backgroundIV1);
@@ -209,7 +210,7 @@ public class OnboardingActivity extends AppCompatActivity {
     /************************************************************************/
     // Google Signin
 
-    void initGoogleSignIn(){
+    public void initGoogleSignIn(){
         mAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(OnboardingActivity.this, gso);
@@ -228,6 +229,7 @@ public class OnboardingActivity extends AppCompatActivity {
 
                 if (m.find()) {
                     AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+                    progress.setVisibility(View.VISIBLE);
                     mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -236,13 +238,16 @@ public class OnboardingActivity extends AppCompatActivity {
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 checkForSignin(user);
                             }
-                            else
+                            else {
                                 Log.d("test_set", "signInWithCredential:failure");
+                                progress.setVisibility(View.GONE);
+                            }
                         }
                     });
                 }
-                else
+                else {
                     Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT).show();
+                }
             }
             catch (ApiException e) {
                 Log.d("test_set", e.getMessage());
@@ -286,6 +291,7 @@ public class OnboardingActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signin");
+        progress.setVisibility(View.GONE);
         FCMHelper.SubscribeToTopic(this,dept);
         FCMHelper.UpdateFCM(this,SharedPref.getString(this,"FCMToken"));
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
@@ -326,6 +332,15 @@ public class OnboardingActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signup");
+        progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        startActivity(startMain);
     }
 }

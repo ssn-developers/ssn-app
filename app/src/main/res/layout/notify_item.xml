@@ -7,14 +7,12 @@
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/notify_item_comp"/>
+        android:layout_height="match_parent" />
 
     <ImageView
         android:id="@+id/iv_dp"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
-        android:src="@drawable/harsha_profile"
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_centerVertical="true" />
 

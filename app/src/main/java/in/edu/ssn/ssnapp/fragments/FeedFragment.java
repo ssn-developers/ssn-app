@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,7 @@ import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.FontChanger;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
@@ -52,16 +54,14 @@ public class FeedFragment extends Fragment {
 
     RecyclerView feedsRV;
     FirestoreRecyclerAdapter adapter;
-    Runnable runnable;
     Handler handler;
     Map<Integer,Integer> page = new LinkedHashMap<>();
     Map<Integer,Integer> size = new LinkedHashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        initFonts(view);
+        CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
         setupFireStore();
@@ -69,17 +69,7 @@ public class FeedFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
+    /*********************************************************/
 
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
@@ -101,6 +91,12 @@ public class FeedFragment extends Fragment {
                 if(images != null){
                     post.setImageUrl(images);
                 }
+
+                ArrayList<String> files = (ArrayList<String>) snapshot.get("file_urls");
+                if(files!= null){
+                    post.setFileUrl(images);
+                }
+
                 String id = snapshot.getString("author");
 
                 post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
@@ -221,6 +217,15 @@ public class FeedFragment extends Fragment {
         feedsRV.setAdapter(adapter);
     }
 
+    void initUI(View view){
+        feedsRV = view.findViewById(R.id.feedsRV);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        feedsRV.setLayoutManager(layoutManager);
+        feedsRV.setHasFixedSize(true);
+    }
+
+    /*********************************************************/
+
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_author, tv_position, tv_title, tv_description, tv_time;
         public ImageView userImageIV;
@@ -238,29 +243,20 @@ public class FeedFragment extends Fragment {
             userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
-
-            /*tv_author.setTypeface(regular);
-            tv_position.setTypeface(regular);
-            tv_title.setTypeface(bold);
-            tv_description.setTypeface(regular);
-            tv_time.setTypeface(regular);*/
         }
     }
 
-    void initUI(View view){
-        feedsRV = view.findViewById(R.id.feedsRV);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        feedsRV.setLayoutManager(layoutManager);
-        feedsRV.setHasFixedSize(true);
+    /*********************************************************/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
     }
 
-    //Fonts
-    public Typeface regular, bold, italic, bold_italic;
-    private void initFonts(View view){
-        regular = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_san_regular.ttf");
-        bold = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold.ttf");
-        italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_italic.ttf");
-        bold_italic = Typeface.createFromAsset(getActivity().getAssets(), "fonts/product_sans_bold_italic.ttf");
-        FontChanger fontChanger = new FontChanger(bold);
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapter.stopListening();
     }
 }
