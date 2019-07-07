@@ -15,6 +15,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +33,7 @@ import in.edu.ssn.ssnapp.fragments.EventsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
+import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HomeActivity extends BaseActivity {
@@ -60,6 +66,27 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Drawer rs=(Drawer)parent.getItemAtPosition(position);
+                switch (rs.getTitle()){
+                    case "Feeds":
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        break;
+                    case "Notifications":
+                        startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                        break;
+                    case "About Team":
+                        startActivity(new Intent(getApplicationContext(),AboutTeamActivity.class));
+                        break;
+                    case "Logout":
+                        startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+                        break;
+                }
+            }
+        });
+
+        notificationIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
             }
         });
     }

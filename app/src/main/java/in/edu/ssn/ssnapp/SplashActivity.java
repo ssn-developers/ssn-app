@@ -1,32 +1,23 @@
 package in.edu.ssn.ssnapp;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Build;
-import android.os.Handler;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -53,9 +44,9 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+        //startActivity(new Intent(getApplicationContext(), AboutTeamActivity.class));
 
-        /*initUI();
+        initUI();
 
         try {
             GifImageView splashIV = findViewById(R.id.splashIV);
@@ -84,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
                 if(worst_case)
                     passIntent();
             }
-        },5000);*/
+        },5000);
     }
 
     void initUI(){

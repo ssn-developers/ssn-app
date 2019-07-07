@@ -15,8 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NotificationActivity"></activity>
-        <activity android:name=".onboarding.OnboardingActivity"></activity>
+        <activity android:name=".AboutTeamActivity"></activity>
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".onboarding.OnboardingActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
