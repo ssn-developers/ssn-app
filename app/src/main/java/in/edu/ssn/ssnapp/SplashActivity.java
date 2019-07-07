@@ -53,7 +53,9 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        initUI();
+        startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+
+        /*initUI();
 
         try {
             GifImageView splashIV = findViewById(R.id.splashIV);
@@ -82,7 +84,7 @@ public class SplashActivity extends AppCompatActivity {
                 if(worst_case)
                     passIntent();
             }
-        },5000);
+        },5000);*/
     }
 
     void initUI(){
@@ -193,8 +195,10 @@ public class SplashActivity extends AppCompatActivity {
         worst_case = false;
         if(notif_intent != null)
             startActivity(notif_intent);
-        else if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in"))
+        else if(SharedPref.getBoolean(getApplicationContext(),"is_logged_in")) {
             startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            Bungee.fade(this);
+        }
         else {
             startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
             Bungee.slideLeft(this);

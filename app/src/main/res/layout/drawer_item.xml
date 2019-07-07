@@ -6,10 +6,9 @@
 
     <ImageView
         android:id="@+id/iv_icon"
-        android:layout_width="@dimen/_16sdp"
-        android:layout_height="@dimen/_16sdp"
-        android:layout_margin="@dimen/_12sdp"
-        android:background="@drawable/ic_feeds"/>
+        android:layout_width="@dimen/_14sdp"
+        android:layout_height="@dimen/_14sdp"
+        android:layout_margin="@dimen/_13sdp"/>
 
     <TextView
         android:id="@+id/tv_title"

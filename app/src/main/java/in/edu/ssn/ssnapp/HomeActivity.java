@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -19,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
@@ -29,11 +31,13 @@ import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HomeActivity extends BaseActivity {
-    ImageView menuIV, notificationIV, userImageIV;
+    ImageView menuIV, notificationIV;
+    CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
+    TextView tv_name, tv_email;
 
-    ListView ls;
+    ListView lv_items;
     DrawerAdapter adapter;
 
     static int count=0;
@@ -45,8 +49,6 @@ public class HomeActivity extends BaseActivity {
 
         initUI();
 
-        Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-
         menuIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +56,7 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
-        ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Drawer rs=(Drawer)parent.getItemAtPosition(position);
@@ -66,23 +68,40 @@ public class HomeActivity extends BaseActivity {
         menuIV = findViewById(R.id.menuIV);
         notificationIV = findViewById(R.id.notificationIV);
         userImageIV = findViewById(R.id.userImageIV);
+        iv_profile = findViewById(R.id.iv_profile);
+
         drawerLayout = findViewById(R.id.drawerLayout);
         viewPager = findViewById(R.id.viewPager);
 
-        ls = findViewById(R.id.lv_items);
+        tv_name = findViewById(R.id.tv_name);
+        tv_email = findViewById(R.id.tv_email);
+
+        lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());
+
+        tv_name.setText(SharedPref.getString(getApplicationContext(),"name"));
+        tv_email.setText(SharedPref.getString(getApplicationContext(),"email"));
+
+        Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
+        Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
 
         setUpDrawer();
         setupViewPager();
     }
 
     void setUpDrawer(){
-        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
+        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds_blue));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Alumni Connect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Notifications", R.drawable.ic_notify));
-        ls.setAdapter(adapter);
+
+        adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
+        adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
+        adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
+        adapter.add(new Drawer("About Team", R.drawable.ic_team));
+        adapter.add(new Drawer("Logout", R.drawable.ic_logout));
+        lv_items.setAdapter(adapter);
     }
 
     void setupViewPager(){

@@ -44,15 +44,6 @@
         android:layout_below="@id/fakeAppbarLL"
         android:layout_above="@id/pageNumberTV"/>
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animation_view"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
-        android:layout_centerInParent="true"
-        app:lottie_fileName="loading.json"
-        app:lottie_loop="true"
-        app:lottie_autoPlay="true" />
-
     <TextView
         android:id="@+id/pageNumberTV"
         android:layout_width="wrap_content"
@@ -64,5 +55,12 @@
         android:textColor="@color/colorAccent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/progress"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_centerInParent="true"
+        android:background="@drawable/progress"/>
 
 </RelativeLayout>

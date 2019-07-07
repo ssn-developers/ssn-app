@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_70sdp">
+
+    <ImageView
+        android:id="@+id/iv_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/notify_item_comp"/>
+
+    <ImageView
+        android:id="@+id/iv_dp"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:src="@drawable/harsha_profile"
+        android:layout_marginLeft="@dimen/_30sdp"
+        android:layout_centerVertical="true" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/iv_dp"
+        android:layout_marginLeft="@dimen/_12sdp"
+        android:layout_marginRight="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reminder - Class committee meeting"
+            android:singleLine="true"
+            android:textSize="@dimen/_12ssp"
+            android:textColor="#000000"
+            android:fontFamily="@font/open_sans_bold"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9h ago"
+            android:singleLine="true"
+            android:layout_below="@+id/tv_title"
+            android:textSize="@dimen/_10ssp"
+            android:textColor="#998FA2"
+            android:fontFamily="@font/open_sans"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

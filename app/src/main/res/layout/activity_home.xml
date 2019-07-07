@@ -12,6 +12,7 @@
 	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="match_parent">
+
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -78,6 +79,7 @@
 				android:id="@+id/userImageIV" />
 
 		</LinearLayout>
+
 		<com.ogaclejapan.smarttablayout.SmartTabLayout
 			android:id="@+id/viewPagerTab"
 			android:paddingStart="@dimen/_14sdp"
@@ -98,24 +100,22 @@
 			app:stl_underlineColor="@android:color/transparent"
 			app:stl_underlineThickness="0dp"
 			app:stl_customTabTextLayoutId="@layout/custom_tab"
-			app:stl_customTabTextViewId="@+id/customTabTV"
-
-			/>
+			app:stl_customTabTextViewId="@+id/customTabTV" />
 		<androidx.viewpager.widget.ViewPager
 			android:id="@+id/viewPager"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:layout_marginTop="@dimen/_8sdp"
 			android:layout_below="@+id/viewPagerTab" />
+
 	</RelativeLayout>
 
 	<com.google.android.material.navigation.NavigationView
+		android:id="@+id/navigationView"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_gravity="start"
-		android:id="@+id/navigationView">
-
-		<!--android:layout_marginRight="@dimen/_50sdp"-->
+		android:background="#F5F6F8">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
@@ -134,11 +134,10 @@
 				android:layout_marginTop="@dimen/_30sdp"
 				android:background="@drawable/ic_profile_background">
 
-				<ImageView
+				<de.hdodenhof.circleimageview.CircleImageView
 					android:id="@+id/iv_profile"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
-					android:src="@drawable/harsha_profile"
 					android:padding="@dimen/_12sdp" />
 
 				<ImageView
@@ -158,7 +157,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
-				android:text="Harshavardhan P"
+				android:text=""
 				android:textColor="#317BC0"
 				android:textSize="@dimen/_14ssp"
 				android:fontFamily="@font/open_sans_bold"
@@ -170,7 +169,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
-				android:text="harshavardhan16039@cse.ssn.edu.in"
+				android:text=""
 				android:textColor="#69000000"
 				android:textSize="@dimen/_10ssp"
 				android:fontFamily="@font/open_sans"
@@ -179,7 +178,7 @@
 
 			<RelativeLayout
 				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
+				android:layout_height="match_parent"
 				android:layout_below="@+id/tv_email"
 				android:background="@drawable/ic_drawer_bg">
 
@@ -187,13 +186,16 @@
 					android:id="@+id/lv_items"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_margin="@dimen/_14sdp"
-					android:divider="@null"
-					android:scrollbars="none" />
+					android:layout_marginTop="@dimen/_20sdp"
+					android:layout_marginLeft="@dimen/_15sdp"
+					android:layout_marginRight="@dimen/_15sdp"
+					android:scrollbars="none"
+					android:divider="@null"/>
 
 			</RelativeLayout>
 
 		</RelativeLayout>
 
 	</com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

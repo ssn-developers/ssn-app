@@ -15,12 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".onboarding.OnboardingActivity">
-
-        </activity>
-        <activity
-            android:name=".SplashActivity">
+        <activity android:name=".NotificationActivity"></activity>
+        <activity android:name=".onboarding.OnboardingActivity"></activity>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,7 +36,6 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".GistActivity" />
 
-
         <service
             android:name=".services.SSNFirebaseMessagingService"
             android:exported="false">
@@ -47,7 +43,6 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
 
         <meta-data
             android:name="preloaded_fonts"
@@ -61,7 +56,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
-
     </application>
 
 </manifest>

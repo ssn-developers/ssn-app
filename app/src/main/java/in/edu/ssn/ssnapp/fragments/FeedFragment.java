@@ -151,6 +151,23 @@ public class FeedFragment extends Fragment {
                         }
                     };
                     timerObj.schedule(timerTaskObj,3000,3000);
+
+                    holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                        @Override
+                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                        }
+
+                        @Override
+                        public void onPageSelected(int chosen_position) {
+                            page.put(position, chosen_position);
+                        }
+
+                        @Override
+                        public void onPageScrollStateChanged(int state) {
+
+                        }
+                    });
                 }
                 else
                     holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg);

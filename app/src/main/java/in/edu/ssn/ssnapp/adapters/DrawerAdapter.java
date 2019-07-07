@@ -1,6 +1,10 @@
 package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +14,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -36,6 +41,20 @@ public class DrawerAdapter extends ArrayAdapter<Drawer> {
         tv_title.setText(drawer.getTitle());
         iv_icon.setBackgroundResource(drawer.getImage());
 
+        if(position == 0){
+            tv_title.setTextColor(Color.parseColor("#317BC0"));
+        }
+
+        if(position == getCount()-1)
+            view_line.setVisibility(View.INVISIBLE);
+        else
+            view_line.setVisibility(View.VISIBLE);
+
         return convertView;
+    }
+
+    @Override
+    public int getCount() {
+        return super.getCount();
     }
 }

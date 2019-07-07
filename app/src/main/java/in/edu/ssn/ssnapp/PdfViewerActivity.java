@@ -22,21 +22,20 @@ import es.voghdev.pdfviewpager.library.RemotePDFViewPager;
 import es.voghdev.pdfviewpager.library.adapter.PDFPagerAdapter;
 import es.voghdev.pdfviewpager.library.remote.DownloadFile;
 import in.edu.ssn.ssnapp.utils.Constants;
+import pl.droidsonroids.gif.GifImageView;
 
 public class PdfViewerActivity extends BaseActivity implements DownloadFile.Listener {
 
     private static final String TAG ="PdfViewerActivity" ;
     String url;
 
-    //View
-    LottieAnimationView loadingView;
     TextView pageNumberTV;
     RemotePDFViewPager remotePDFViewPager;
     PDFViewPager pdfViewPager;
     ImageView backIV;
+    GifImageView progress;
 
     PDFPagerAdapter adapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +58,10 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     }
 
     void initUI(){
-        loadingView = findViewById(R.id.animation_view);
-        loadingView.setSpeed(2);
         pageNumberTV = findViewById(R.id.pageNumberTV);
         pdfViewPager = findViewById(R.id.pdfViewPager);
         backIV = findViewById(R.id.backIV);
-        //changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
+        progress = findViewById(R.id.progress);
     }
 
     private void setupPdf() {
@@ -80,7 +77,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
             public void onPageSelected(int i) {
                 //Toast.makeText(PdfViewerActivity.this, "current page "+i, Toast.LENGTH_SHORT).show();
                 pageNumberTV.setText(String.valueOf(i+1));
-
             }
 
             @Override
@@ -93,38 +89,15 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
     @Override
     public void onSuccess(String url, String destinationPath) {
-
         pageNumberTV.setText("1");
-        loadingView.animate().alpha(0).setDuration(200).setListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                loadingView.setVisibility(View.GONE);
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {
-
-            }
-        }).start();
-
-        Log.d(TAG,"url "+url+" path "+destinationPath);
         adapter = new PDFPagerAdapter(this, destinationPath);
         pdfViewPager.setAdapter(adapter);
+        progress.setVisibility(View.GONE);
     }
 
     @Override
     public void onFailure(Exception e) {
-        loadingView.setVisibility(View.GONE);
+        progress.setVisibility(View.GONE);
         showAlertDialog();
     }
 
