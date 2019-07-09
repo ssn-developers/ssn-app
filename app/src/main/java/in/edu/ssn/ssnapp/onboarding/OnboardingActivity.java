@@ -30,8 +30,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -308,6 +311,8 @@ public class OnboardingActivity extends AppCompatActivity {
         String dp_url = user.getPhotoUrl().toString();
         String name = user.getDisplayName();
         int year = Integer.parseInt(split[0].substring(split[0].length() - 5, split[0].length() - 3)) + 2000;
+        if(year <= 2016)
+            year = 2016;
 
         Map<String, Object> users = new HashMap<>();
         users.put("access", "");
