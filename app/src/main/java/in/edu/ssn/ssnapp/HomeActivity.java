@@ -31,6 +31,7 @@ import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HomeActivity extends BaseActivity {
@@ -72,7 +73,12 @@ public class HomeActivity extends BaseActivity {
                         break;
                     case "Library Renewals":
                         //TODO: check whether its connected to SSN wifi.
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://opac.ssn.net:8081")));
+                        // check for wifi connectivity and check if ssid is
+
+                        if(CommonUtils.checkWifiOnAndConnected(HomeActivity.this,"ssn"))
+                            startActivity(new Intent(HomeActivity.this,LibraryActivity.class));
+                        else
+                            Toast.makeText(HomeActivity.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT).show();
                         break;
                     case "Alumni Connect":
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssn.almaconnect.com")));

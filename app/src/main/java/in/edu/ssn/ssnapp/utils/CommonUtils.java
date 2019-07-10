@@ -12,6 +12,9 @@ import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -138,4 +141,51 @@ public class CommonUtils {
         else
             return MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
     }
+
+    // checks if wifi is connected to a particular network
+    public static boolean checkWifiOnAndConnected(Context context,String ssid) {
+        WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+
+        if (wifiMgr.isWifiEnabled()) { // Wi-Fi adapter is ON
+
+            WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+
+            if( wifiInfo.getNetworkId() == -1 ){
+                // Not connected to an access point
+                return false;
+            }
+
+            else{
+                // connected to the required wifi network
+                String temp=findSSIDForWifiInfo(wifiMgr,wifiInfo);
+
+                if(temp.toLowerCase().equalsIgnoreCase("\""+ssid+"\""))
+                    return true;
+                else
+                    return false;
+            }
+
+        }
+        else {
+            return false; // Wi-Fi adapter is OFF
+        }
+    }
+
+
+    public static String findSSIDForWifiInfo(WifiManager manager, WifiInfo wifiInfo) {
+
+        List<WifiConfiguration> listOfConfigurations = manager.getConfiguredNetworks();
+
+        for (int index = 0; index < listOfConfigurations.size(); index++) {
+            WifiConfiguration configuration = listOfConfigurations.get(index);
+            if (configuration.networkId == wifiInfo.getNetworkId()) {
+                return configuration.SSID;
+            }
+        }
+
+        return null;
+    }
+
+
+
 }
