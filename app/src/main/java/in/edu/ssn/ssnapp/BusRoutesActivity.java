@@ -43,6 +43,7 @@ import java.util.regex.Pattern;
 import in.edu.ssn.ssnapp.adapters.BusStopAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import io.opencensus.internal.StringUtils;
+import pl.droidsonroids.gif.GifImageView;
 
 public class BusRoutesActivity extends BaseActivity {
 
@@ -50,7 +51,6 @@ public class BusRoutesActivity extends BaseActivity {
     RecyclerView busRoutesRV;
     EditText et_num;
     FirestoreRecyclerAdapter adapter;
-    LottieAnimationView loadingView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,50 +82,27 @@ public class BusRoutesActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 String val = s.toString().trim().toLowerCase();
-
-                Query query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name",val);
+                Query query;
+                if(val.equals(""))
+                    query = FirebaseFirestore.getInstance().collection("bus_route").orderBy("id");
+                else
+                    query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name",val);
                 setupFireStore(query);
                 adapter.startListening();
             }
         });
-
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                setupFireStore();
-            }
-        },1500);*/
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-        /*new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                adapter.startListening();
-            }
-        },1500);*/
-
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
+    /*********************************************************/
 
     void initUI(){
         backIV = findViewById(R.id.backIV);
         et_num = findViewById(R.id.et_num);
         busRoutesRV = findViewById(R.id.busRoutesRV);
-        loadingView = findViewById(R.id.animation_view);
-        loadingView.setSpeed(2);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         busRoutesRV.setLayoutManager(layoutManager);
         busRoutesRV.setHasFixedSize(true);
-        //changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
     }
 
     void setupFireStore(Query query){
@@ -168,63 +145,26 @@ public class BusRoutesActivity extends BaseActivity {
                 View view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_route_item, group, false);
                 return new BusRouteViewHolder(view);
             }
-
-            @Override
-            public void onDataChanged() {
-                // Called each time there is a new query snapshot. You may want to use this method
-                // to hide a loading spinner or check for the "no documents" state and update your UI.
-                loadingView.animate().setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        loadingView.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                }).alpha(0).setDuration(250).start();
-            }
-
-            @Override
-            public void onError(FirebaseFirestoreException e) {
-                // Called when there is an error getting a query snapshot. You may want to update
-                // your UI to display an error message to the user.
-                loadingView.animate().setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        loadingView.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
-
-                    }
-
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
-
-                    }
-                }).alpha(0).setDuration(250).start();
-            }
         };
+
         busRoutesRV.setAdapter(adapter);
     }
+
+    /*********************************************************/
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    /*********************************************************/
 
     public class BusRouteViewHolder extends RecyclerView.ViewHolder {
         public TextView routeNameTV;

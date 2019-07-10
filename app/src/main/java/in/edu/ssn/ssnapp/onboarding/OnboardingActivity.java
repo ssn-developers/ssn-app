@@ -278,7 +278,6 @@ public class OnboardingActivity extends AppCompatActivity {
 
     public void signIn(FirebaseUser user, DocumentSnapshot document){
         String dept = (String) document.get("dept");
-        String dp_url = (String) document.get("dp_url");
         String email = user.getEmail();
         String id = (String) document.get("id");
         String name = (String) document.get("name");
@@ -286,7 +285,6 @@ public class OnboardingActivity extends AppCompatActivity {
 
         SharedPref.putInt(getApplicationContext(),"clearance",0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
-        SharedPref.putString(getApplicationContext(),"dp_url", dp_url);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
@@ -310,6 +308,8 @@ public class OnboardingActivity extends AppCompatActivity {
 
         String dp_url = user.getPhotoUrl().toString();
         String name = user.getDisplayName();
+
+        //TODO: Handle break year students accordingly by [admin]
         int year = Integer.parseInt(split[0].substring(split[0].length() - 5, split[0].length() - 3)) + 2000;
         if(year <= 2016)
             year = 2016;
@@ -329,7 +329,6 @@ public class OnboardingActivity extends AppCompatActivity {
 
         SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
-        SharedPref.putString(getApplicationContext(),"dp_url", dp_url);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);

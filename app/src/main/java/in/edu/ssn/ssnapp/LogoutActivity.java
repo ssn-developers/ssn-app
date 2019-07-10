@@ -133,7 +133,6 @@ public class LogoutActivity extends AppCompatActivity {
 
     public void signIn(FirebaseUser user, DocumentSnapshot document){
         String dept = (String) document.get("dept");
-        String dp_url = (String) document.get("dp_url");
         String email = user.getEmail();
         String id = (String) document.get("id");
         String name = (String) document.get("name");
@@ -141,7 +140,6 @@ public class LogoutActivity extends AppCompatActivity {
 
         SharedPref.putInt(getApplicationContext(),"clearance",0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
-        SharedPref.putString(getApplicationContext(),"dp_url", dp_url);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
@@ -182,7 +180,6 @@ public class LogoutActivity extends AppCompatActivity {
 
         SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
-        SharedPref.putString(getApplicationContext(),"dp_url", dp_url);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);

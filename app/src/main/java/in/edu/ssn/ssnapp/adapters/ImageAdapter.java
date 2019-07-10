@@ -42,7 +42,10 @@ public class ImageAdapter extends PagerAdapter {
         ImageView imageView = itemView.findViewById(R.id.imageView);
         container.addView(itemView);
 
-        Picasso.get().load(images.get(position)).into(imageView);
+        if(getCount() == 0)
+            imageView.setVisibility(View.GONE);
+        else
+            Picasso.get().load(images.get(position)).into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

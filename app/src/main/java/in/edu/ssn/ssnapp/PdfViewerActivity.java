@@ -32,10 +32,10 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     TextView pageNumberTV;
     RemotePDFViewPager remotePDFViewPager;
     PDFViewPager pdfViewPager;
+    PDFPagerAdapter adapter;
+
     ImageView backIV;
     GifImageView progress;
-
-    PDFPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +65,9 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     }
 
     private void setupPdf() {
-
         remotePDFViewPager = new RemotePDFViewPager(PdfViewerActivity.this, url,this);
         pdfViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
             public void onPageScrolled(int i, float v, int i1) {
 
@@ -109,7 +109,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
 
     void showAlertDialog(){
-
         new AlertDialog.Builder(PdfViewerActivity.this)
                 .setTitle("Oops")
                 .setMessage("Download Failed. Try Again Later")
@@ -121,11 +120,5 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                 })
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        adapter.close();
     }
 }

@@ -43,11 +43,11 @@ public class BusRouteDetailsActivity extends BaseActivity {
     }
 
     void initUI(){
-        //changeFont(bold,(ViewGroup)this.findViewById(android.R.id.content));
         backIV = findViewById(R.id.backIV);
         routeNameTV = findViewById(R.id.routeNameTV);
         driverNameTV = findViewById(R.id.driverNameTV);
         driverNumberTV = findViewById(R.id.driverNumberTV);
+
         busStopsRV = findViewById(R.id.busStopsRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false);
         busStopsRV.setLayoutManager(layoutManager);

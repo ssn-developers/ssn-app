@@ -1,7 +1,10 @@
 package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Typeface;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +24,15 @@ import in.edu.ssn.ssnapp.models.BusRoute;
 public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder> {
     private List<String> stops;
     private List<String> time;
-//    private List<String> filteredStops;
     private Context context;
-    Typeface regular,bold;
+    Typeface regular, bold;
 
     public BusStopAdapter(Context contex, List<String> stops, List<String> time) {
         this.context = contex;
         this.stops = stops;
-//        this.filteredStops = filteredStops;
         this.time = time;
-        regular = Typeface.createFromAsset(context.getAssets(), "fonts/product_san_regular.ttf");
-        bold = Typeface.createFromAsset(context.getAssets(), "fonts/product_sans_bold.ttf");
+        regular = ResourcesCompat.getFont(context, R.font.open_sans);
+        bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
     }
     @Override
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -61,14 +62,14 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
     public class TimeLineViewHolder extends RecyclerView.ViewHolder {
         public  TimelineView mTimelineView;
         public TextView titleTV,timeTV;
+
         public TimeLineViewHolder(View itemView, int viewType) {
             super(itemView);
+
             mTimelineView = itemView.findViewById(R.id.timeline);
             mTimelineView.initLine(viewType);
             titleTV = itemView.findViewById(R.id.text_timeline_title);
             timeTV = itemView.findViewById(R.id.text_timeline_date);
-            //titleTV.setTypeface(bold);
-            //timeTV.setTypeface(regular);
         }
     }
 }  

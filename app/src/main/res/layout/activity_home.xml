@@ -109,50 +109,31 @@
 				android:layout_height="@dimen/_80sdp"
 				android:background="@drawable/drawer_top"/>
 
-			<RelativeLayout
-				android:id="@+id/layout_profile"
-				android:layout_width="@dimen/_90sdp"
-				android:layout_height="@dimen/_90sdp"
+			<de.hdodenhof.circleimageview.CircleImageView
+				android:id="@+id/iv_profile"
+				android:layout_width="@dimen/_80sdp"
+				android:layout_height="@dimen/_80sdp"
+				app:civ_border_color="#ffffff"
+				app:civ_border_width="@dimen/_2sdp"
 				android:layout_centerHorizontal="true"
-				android:layout_marginTop="@dimen/_30sdp"
-				android:background="@drawable/ic_profile_background">
-
-				<de.hdodenhof.circleimageview.CircleImageView
-					android:id="@+id/iv_profile"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:padding="@dimen/_12sdp" />
-
-				<ImageView
-					android:id="@+id/iv_camera"
-					android:layout_width="@dimen/_20sdp"
-					android:layout_height="@dimen/_20sdp"
-					android:layout_marginRight="@dimen/_9sdp"
-					android:layout_marginBottom="@dimen/_9sdp"
-					android:layout_alignParentRight="true"
-					android:layout_alignParentBottom="true"
-					android:src="@drawable/ic_camera"/>
-
-			</RelativeLayout>
+				android:layout_marginTop="@dimen/_30sdp" />
 
 			<TextView
 				android:id="@+id/tv_name"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
-				android:text=""
 				android:textColor="@color/colorAccent"
 				android:textSize="@dimen/_14ssp"
 				android:fontFamily="@font/open_sans_bold"
 				android:layout_centerHorizontal="true"
-				android:layout_below="@+id/layout_profile" />
+				android:layout_below="@+id/iv_profile" />
 
 			<TextView
 				android:id="@+id/tv_email"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
-				android:text=""
 				android:textColor="#69000000"
 				android:textSize="@dimen/_10ssp"
 				android:fontFamily="@font/open_sans"

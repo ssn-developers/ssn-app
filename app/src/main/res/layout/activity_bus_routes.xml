@@ -130,15 +130,4 @@
 
 	</androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-	<com.airbnb.lottie.LottieAnimationView
-		android:id="@+id/animation_view"
-		android:layout_width="300dp"
-		android:layout_height="300dp"
-		android:visibility="gone"
-		android:layout_centerInParent="true"
-		app:lottie_fileName="bus_location_animation.json"
-		app:lottie_loop="true"
-		app:lottie_autoPlay="true" />
-
-
 </RelativeLayout>

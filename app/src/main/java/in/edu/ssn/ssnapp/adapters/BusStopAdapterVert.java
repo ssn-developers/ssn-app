@@ -2,6 +2,8 @@ package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +27,8 @@ public class BusStopAdapterVert extends RecyclerView.Adapter<BusStopAdapterVert.
         this.context = contex;
         this.stops = stops;
         this.time = time;
-        regular = Typeface.createFromAsset(context.getAssets(), "fonts/product_san_regular.ttf");
-        bold = Typeface.createFromAsset(context.getAssets(), "fonts/product_sans_bold.ttf");
+        regular = ResourcesCompat.getFont(context, R.font.open_sans);
+        bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
     }
     @Override
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,14 +58,14 @@ public class BusStopAdapterVert extends RecyclerView.Adapter<BusStopAdapterVert.
     public class TimeLineViewHolder extends RecyclerView.ViewHolder {
         public  TimelineView mTimelineView;
         public TextView titleTV,timeTV;
+
         public TimeLineViewHolder(View itemView, int viewType) {
             super(itemView);
+
             mTimelineView = itemView.findViewById(R.id.timeline);
             mTimelineView.initLine(viewType);
             titleTV = itemView.findViewById(R.id.text_timeline_title);
             timeTV = itemView.findViewById(R.id.text_timeline_date);
-            //titleTV.setTypeface(bold);
-            //timeTV.setTypeface(regular);
         }
     }
 }  

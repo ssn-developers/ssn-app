@@ -88,14 +88,17 @@ public class FeedFragment extends Fragment {
                 post.setTime(snapshot.getTimestamp("time").toDate());
 
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if(images != null){
+                if(images != null && images.size() != 0)
                     post.setImageUrl(images);
+                else {
+                    post.setImageUrl(null);
                 }
 
                 ArrayList<String> files = (ArrayList<String>) snapshot.get("file_urls");
-                if(files!= null){
+                if(files!= null)
                     post.setFileUrl(images);
-                }
+                else
+                    post.setFileUrl(null);
 
                 String id = snapshot.getString("author");
 
@@ -113,15 +116,21 @@ public class FeedFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
                 holder.tv_author.setText(model.getAuthor());
 
-                if(!model.getAuthor_image_url().equals(""))
-                    Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(holder.userImageIV);
-                else
+                try {
+                    if (model.getAuthor_image_url() != null)
+                        Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(holder.userImageIV);
+                    else
+                        holder.userImageIV.setImageResource(R.drawable.ic_user_white);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                     holder.userImageIV.setImageResource(R.drawable.ic_user_white);
+                }
 
                 holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
-                if(model.getImageUrl()!=null) {
+                if(model.getImageUrl()!=null && model.getImageUrl().size() != 0) {
                     holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg_for_img);
                     final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl());
                     holder.viewPager.setAdapter(imageAdapter);
@@ -165,8 +174,10 @@ public class FeedFragment extends Fragment {
                         }
                     });
                 }
-                else
+                else {
                     holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg);
+                    holder.viewPager.setVisibility(View.GONE);
+                }
 
                 Date time = model.getTime();
                 Date now = new Date();

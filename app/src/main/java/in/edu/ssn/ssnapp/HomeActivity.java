@@ -16,6 +16,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -37,7 +39,6 @@ public class HomeActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     ViewPager viewPager;
     TextView tv_name, tv_email;
-    RelativeLayout layout_profile;
 
     ListView lv_items;
     DrawerAdapter adapter;
@@ -55,13 +56,6 @@ public class HomeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-        layout_profile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
             }
         });
 
@@ -103,6 +97,7 @@ public class HomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(),AboutTeamActivity.class));
                         break;
                     case "Logout":
+                        FirebaseAuth.getInstance().signOut();
                         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", false);
                         startActivity(new Intent(getApplicationContext(), LogoutActivity.class));
                         break;
@@ -117,7 +112,6 @@ public class HomeActivity extends BaseActivity {
         menuIV = findViewById(R.id.menuIV);
         userImageIV = findViewById(R.id.userImageIV);
         iv_profile = findViewById(R.id.iv_profile);
-        layout_profile = findViewById(R.id.layout_profile);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         viewPager = findViewById(R.id.viewPager);
@@ -131,8 +125,8 @@ public class HomeActivity extends BaseActivity {
         tv_name.setText(SharedPref.getString(getApplicationContext(),"name"));
         tv_email.setText(SharedPref.getString(getApplicationContext(),"email"));
 
-        Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-        Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+        Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
+        Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
 
         setUpDrawer();
         setupViewPager();
@@ -148,7 +142,6 @@ public class HomeActivity extends BaseActivity {
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
-        adapter.add(new Drawer("About Team", R.drawable.ic_team));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }
