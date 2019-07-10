@@ -294,6 +294,7 @@ public class OnboardingActivity extends AppCompatActivity {
         Log.d("test_set", "signin");
         progress.setVisibility(View.GONE);
         FCMHelper.SubscribeToTopic(this,dept);
+        setUpNotification();
         FCMHelper.UpdateFCM(this,SharedPref.getString(this,"FCMToken"));
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
@@ -326,6 +327,7 @@ public class OnboardingActivity extends AppCompatActivity {
         users.put("FCMToken",SharedPref.getString(this,"FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
         FCMHelper.SubscribeToTopic(this,dept);
+        setUpNotification();
 
         SharedPref.putInt(getApplicationContext(),"clearance", 0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
@@ -338,6 +340,15 @@ public class OnboardingActivity extends AppCompatActivity {
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+    }
+
+    public void setUpNotification(){
+        SharedPref.putBoolean(getApplicationContext(),"switch_all", true);
+        SharedPref.putBoolean(getApplicationContext(),"switch_dept", true);
+        SharedPref.putBoolean(getApplicationContext(),"switch_bus", true);
+        SharedPref.putBoolean(getApplicationContext(),"switch_club", true);
+        SharedPref.putBoolean(getApplicationContext(),"switch_exam", true);
+        SharedPref.putBoolean(getApplicationContext(),"switch_workshop", true);
     }
 
     @Override

@@ -77,12 +77,24 @@
             android:fontFamily="@font/open_sans"
             android:textColor="#000000"/>
 
+        <com.suke.widget.SwitchButton
+            android:id="@+id/switch_all"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_22sdp"
+            android:layout_marginRight="@dimen/_30sdp"
+            app:sb_checked_color="@color/colorAccent"
+            app:sb_show_indicator="false"
+            app:sb_background="@color/colorAccentLight"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_20sdp"/>
+
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_below="@+id/layout2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_220sdp"
+        android:layout_height="@dimen/_230sdp"
         android:background="@drawable/card_shadow_bg">
 
         <RelativeLayout
@@ -101,6 +113,16 @@
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/open_sans"
                 android:textColor="#000000"/>
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/switch_dept"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                app:sb_checked_color="@color/colorAccent"
+                app:sb_show_indicator="false"
+                app:sb_background="@color/colorAccentLight"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_20sdp"/>
 
             <View
                 android:id="@+id/view1"
@@ -121,6 +143,17 @@
                 android:fontFamily="@font/open_sans"
                 android:textColor="#000000"/>
 
+            <com.suke.widget.SwitchButton
+                android:id="@+id/switch_bus"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_alignBottom="@+id/tv_text2"
+                app:sb_checked_color="@color/colorAccent"
+                app:sb_show_indicator="false"
+                app:sb_background="@color/colorAccentLight"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_20sdp"/>
+
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
@@ -139,6 +172,17 @@
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/open_sans"
                 android:textColor="#000000"/>
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/switch_club"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_alignBottom="@+id/tv_text3"
+                app:sb_checked_color="@color/colorAccent"
+                app:sb_show_indicator="false"
+                app:sb_background="@color/colorAccentLight"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_20sdp"/>
 
             <View
                 android:id="@+id/view3"
@@ -159,6 +203,17 @@
                 android:fontFamily="@font/open_sans"
                 android:textColor="#000000"/>
 
+            <com.suke.widget.SwitchButton
+                android:id="@+id/switch_exam"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_alignBottom="@+id/tv_text4"
+                app:sb_checked_color="@color/colorAccent"
+                app:sb_show_indicator="false"
+                app:sb_background="@color/colorAccentLight"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_20sdp"/>
+
             <View
                 android:id="@+id/view4"
                 android:layout_width="match_parent"
@@ -177,6 +232,17 @@
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/open_sans"
                 android:textColor="#000000"/>
+
+            <com.suke.widget.SwitchButton
+                android:id="@+id/switch_workshop"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/_5sdp"
+                android:layout_alignBottom="@+id/tv_text5"
+                app:sb_checked_color="@color/colorAccent"
+                app:sb_show_indicator="false"
+                app:sb_background="@color/colorAccentLight"
+                android:layout_width="@dimen/_40sdp"
+                android:layout_height="@dimen/_20sdp"/>
 
         </RelativeLayout>
 

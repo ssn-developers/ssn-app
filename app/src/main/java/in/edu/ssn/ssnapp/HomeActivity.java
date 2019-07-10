@@ -68,7 +68,7 @@ public class HomeActivity extends BaseActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
-                        startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                        startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
                         break;
                     case "Library Renewals":
                         //TODO: check whether its connected to SSN wifi.
