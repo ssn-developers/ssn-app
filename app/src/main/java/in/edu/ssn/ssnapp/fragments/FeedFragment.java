@@ -29,6 +29,7 @@ import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -83,6 +84,7 @@ public class FeedFragment extends Fragment {
             @Override
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 final Post post = new Post();
+                post.setId(snapshot.getString("id"));
                 post.setTitle(snapshot.getString("title"));
                 post.setDescription(snapshot.getString("description"));
                 post.setTime(snapshot.getTimestamp("time").toDate());
@@ -94,11 +96,11 @@ public class FeedFragment extends Fragment {
                     post.setImageUrl(null);
                 }
 
-                ArrayList<String> files = (ArrayList<String>) snapshot.get("file_urls");
+                /*ArrayList<String> files = (ArrayList<String>) snapshot.get("file_urls");
                 if(files!= null)
                     post.setFileUrl(images);
                 else
-                    post.setFileUrl(null);
+                    post.setFileUrl(null);*/
 
                 String id = snapshot.getString("author");
 
@@ -131,15 +133,40 @@ public class FeedFragment extends Fragment {
                 holder.tv_title.setText(model.getTitle());
 
                 if(model.getImageUrl()!=null && model.getImageUrl().size() != 0) {
-                    holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg_for_img);
+                    holder.viewPager.setVisibility(View.VISIBLE);
+                    //holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg_for_img);
+
                     final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl());
                     holder.viewPager.setAdapter(imageAdapter);
 
-                    handler = new Handler();
-                    page.put(position, 0);
-                    size.put(position, model.getImageUrl().size());
+                    if(model.getImageUrl().size()==1){
+                        holder.tv_current_image.setVisibility(View.GONE);
+                    }else {
+                        holder.tv_current_image.setVisibility(View.VISIBLE);
+                        holder.tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                            @Override
+                            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-                    Timer timerObj = new Timer();
+                            }
+
+                            @Override
+                            public void onPageSelected(int pos) {
+                                holder.tv_current_image.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
+                            }
+
+                            @Override
+                            public void onPageScrollStateChanged(int state) {
+
+                            }
+                        });
+                    }
+
+                    handler = new Handler();
+                    /*page.put(position, 0);
+                    size.put(position, model.getImageUrl().size());*/
+
+                    /*Timer timerObj = new Timer();
                     TimerTask timerTaskObj = new TimerTask() {
                         public void run() {
                             handler.post(new Runnable() {
@@ -155,9 +182,9 @@ public class FeedFragment extends Fragment {
                             });
                         }
                     };
-                    timerObj.schedule(timerTaskObj,3000,3000);
+                    timerObj.schedule(timerTaskObj,3000,3000);*/
 
-                    holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    /*holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                         @Override
                         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
@@ -172,11 +199,12 @@ public class FeedFragment extends Fragment {
                         public void onPageScrollStateChanged(int state) {
 
                         }
-                    });
+                    });*/
                 }
                 else {
-                    holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg);
+                    //holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg);
                     holder.viewPager.setVisibility(View.GONE);
+                    holder.tv_current_image.setVisibility(View.GONE);
                 }
 
                 Date time = model.getTime();
@@ -205,7 +233,7 @@ public class FeedFragment extends Fragment {
                     holder.tv_description.setText(ss);
                 }
                 else
-                    holder.tv_description.setText(model.getDescription());
+                    holder.tv_description.setText(model.getDescription().trim());
 
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -238,7 +266,8 @@ public class FeedFragment extends Fragment {
     /*********************************************************/
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_author, tv_position, tv_title, tv_description, tv_time;
+        public TextView tv_author, tv_position, tv_title, tv_time, tv_current_image;
+        public SocialTextView tv_description;
         public ImageView userImageIV;
         public RelativeLayout feed_view;
         public ViewPager viewPager;
@@ -251,9 +280,11 @@ public class FeedFragment extends Fragment {
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_description = itemView.findViewById(R.id.tv_description);
             tv_time = itemView.findViewById(R.id.tv_time);
+            tv_current_image = itemView.findViewById(R.id.currentImageTV);
             userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
+
         }
     }
 
@@ -266,8 +297,14 @@ public class FeedFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter.stopListening();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
+
     }
 }

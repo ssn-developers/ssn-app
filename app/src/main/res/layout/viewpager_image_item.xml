@@ -4,17 +4,18 @@
     android:layout_height="@dimen/_150sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        app:cardCornerRadius="@dimen/_5sdp">
+	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:cardCornerRadius="0dp"
+		app:cardBackgroundColor="@android:color/transparent"
+		app:cardElevation="0dp">
+		<ImageView
+			android:id="@+id/imageView"
+			android:layout_width="match_parent"
+			android:layout_height="@dimen/_150sdp"
+			android:scaleType="centerCrop"/>
+	</androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"/>
-
-    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

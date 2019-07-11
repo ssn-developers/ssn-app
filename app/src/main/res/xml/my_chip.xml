@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<chip
+	style="@style/Widget.MaterialComponents.Chip.Action"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:checkable="false"
+	app:chipIcon="@drawable/download_icon"
+	app:iconStartPadding="5dp"/>

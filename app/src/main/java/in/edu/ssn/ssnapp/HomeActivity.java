@@ -44,6 +44,7 @@ public class HomeActivity extends BaseActivity {
     ListView lv_items;
     DrawerAdapter adapter;
 
+
     static int count=0;
 
     @Override
@@ -144,7 +145,7 @@ public class HomeActivity extends BaseActivity {
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Alumni Connect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Notifications", R.drawable.ic_notify));
-
+        adapter.add(new Drawer("About Team", R.drawable.ic_team));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));

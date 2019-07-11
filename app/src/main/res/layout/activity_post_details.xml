@@ -11,7 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fakeAppbarLL"
-        android:layout_marginTop="@dimen/_10sdp"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_3sdp"
         android:orientation="horizontal">
 
         <ImageView
@@ -39,47 +40,85 @@
             android:id="@+id/userImageIV" />
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:layout_gravity="center">
 
-            <TextView
-                android:id="@+id/tv_author"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/tv_time"
-                android:fontFamily="@font/open_sans"
-                android:paddingRight="@dimen/_5sdp"
-                android:textColor="#000000"
-                android:textSize="@dimen/_13ssp" />
+                android:layout_centerVertical="true"
+                android:layout_toStartOf="@+id/shareIV">
 
-            <TextView
-                android:id="@+id/tv_position"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_author"
-                android:fontFamily="@font/open_sans"
-                android:textColor="#404040"
-                android:textSize="@dimen/_9ssp" />
+                <TextView
+                    android:id="@+id/tv_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:paddingRight="@dimen/_5sdp"
+                    android:textColor="#000000"
+                    android:textSize="@dimen/_13ssp" />
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                <TextView
+                    android:id="@+id/tv_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_author"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="#404040"
+                    android:textSize="@dimen/_9ssp" />
+
+            </RelativeLayout>
+
+            <ImageView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:padding="@dimen/_7sdp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:id="@+id/shareIV"
                 android:layout_alignParentRight="true"
-                android:textColor="@color/colorAccent"
-                android:textStyle="bold"
-                android:fontFamily="@font/open_sans"
-                android:textSize="@dimen/_12ssp"
-                android:layout_marginRight="@dimen/_12sdp" />
+                android:layout_marginRight="@dimen/_10sdp"
+                android:src="@drawable/share_icon"
+                android:tint="@color/colorAccent"/>
+
         </RelativeLayout>
     </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_below="@id/fakeAppbarLL"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/currentImageTV"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:background="@drawable/image_pos_bg"
+        android:text="1 / 2"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/open_sans"
+        android:paddingLeft="@dimen/_10sdp"
+        android:paddingRight="@dimen/_10sdp"
+        android:paddingTop="@dimen/_3sdp"
+        android:paddingBottom="@dimen/_3sdp"
+        android:layout_below="@id/fakeAppbarLL"/>
+
+
 
     <RelativeLayout
         android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_12sdp"
         android:layout_marginRight="@dimen/_12sdp"
-        android:layout_below="@+id/fakeAppbarLL"
+        android:layout_below="@+id/viewPager"
+        android:id="@+id/textGroupRL"
+        android:animateLayoutChanges="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -93,28 +132,55 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:textColor="#404040"
+            android:fontFamily="@font/open_sans"
+            android:textSize="@dimen/_8ssp"
+            />
+
+        <com.hendraanggrian.appcompat.widget.SocialTextView
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:textColor="#000000"
             android:textSize="@dimen/_12ssp"
+            app:fontFamily="@font/open_sans"
+            app:socialFlags="hashtag|mention|hyperlink"
+            app:hashtagColor="@color/colorAccent"
+            app:mentionColor="@color/colorAccent"
+            app:hyperlinkColor="@color/colorAccent"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_below="@+id/tv_title" />
+            android:layout_below="@+id/tv_time" />
 
         <TextView
-            android:id="@+id/tv_share"
+            android:id="@+id/tv_attachment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_11ssp"
-            android:textStyle="bold"
-            android:padding="@dimen/_5sdp"
             android:fontFamily="@font/open_sans_bold"
-            android:layout_below="@+id/tv_description"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_alignParentRight="true"
-            android:text="SHARE"/>
+            android:layout_below="@id/tv_description"
+            android:visibility="gone"
+            android:textColor="#000000"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/attachments"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_attachment"
+            app:chipSpacingVertical="@dimen/_8sdp"
+            app:chipSpacingHorizontal="@dimen/_10sdp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:id="@+id/attachmentsGroup">
+        </com.google.android.material.chip.ChipGroup>
+
 
     </RelativeLayout>
 

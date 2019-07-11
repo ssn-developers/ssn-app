@@ -52,8 +52,8 @@ dependencies {
     implementation 'es.voghdev.pdfviewpager:library:1.0.5'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
     implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
-
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
+    implementation "com.hendraanggrian.appcompat:socialview:0.2"
 }
 
 apply plugin: 'com.google.gms.google-services'
