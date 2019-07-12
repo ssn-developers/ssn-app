@@ -15,5 +15,10 @@
         <item name="colorAccent">@android:color/white</item>
     </style>
 
+    <style name="chipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+    </style>
+
 
 </resources>
