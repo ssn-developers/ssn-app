@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class BusPost {
     String title;
+    String desc;
     Date time;
     String url;
 
@@ -13,6 +14,14 @@ public class BusPost {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public Date getTime() {

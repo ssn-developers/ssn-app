@@ -77,6 +77,7 @@ public class BusAlertsFragment extends Fragment {
                         busPost.setTitle(snapshot.getString("title"));
                         busPost.setTime(snapshot.getTimestamp("time").toDate());
                         busPost.setUrl(snapshot.getString("url"));
+                        busPost.setDesc(snapshot.getString("desc"));
                         return busPost;
                     }
                 })
@@ -86,6 +87,7 @@ public class BusAlertsFragment extends Fragment {
             @Override
             public void onBindViewHolder(final BusAlertHolder holder, int position, final BusPost model) {
                 holder.tv_date.setText("Bus routes from " + model.getTitle());
+                holder.tv_desc.setText(model.getDesc());
 
                 Date time = model.getTime();
                 Date now = new Date();
@@ -138,13 +140,14 @@ public class BusAlertsFragment extends Fragment {
     /*********************************************************/
 
     public class BusAlertHolder extends RecyclerView.ViewHolder {
-        public TextView tv_date, tv_time;
+        public TextView tv_date, tv_time, tv_desc;
         RelativeLayout rl_bus_alert_item;
 
         public BusAlertHolder(View itemView) {
             super(itemView);
             tv_date = itemView.findViewById(R.id.tv_date);
             tv_time = itemView.findViewById(R.id.tv_time);
+            tv_desc = itemView.findViewById(R.id.tv_desc);
             rl_bus_alert_item=itemView.findViewById(R.id.bus_alert_item);
         }
     }

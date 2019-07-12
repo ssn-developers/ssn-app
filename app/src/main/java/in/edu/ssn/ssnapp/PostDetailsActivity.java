@@ -89,7 +89,7 @@ public class PostDetailsActivity extends BaseActivity {
         if(post.getImageUrl()!=null && post.getImageUrl().size()!=0){
             imageViewPager.setVisibility(View.VISIBLE);
             tv_current_image.setVisibility(View.VISIBLE);
-            final ImageAdapter imageAdapter = new ImageAdapter(getApplicationContext(), post.getImageUrl());
+            final ImageAdapter imageAdapter = new ImageAdapter(getApplicationContext(), post.getImageUrl(),false);
             imageViewPager.setAdapter(imageAdapter);
             if(post.getImageUrl().size()==1){
                 tv_current_image.setVisibility(View.GONE);

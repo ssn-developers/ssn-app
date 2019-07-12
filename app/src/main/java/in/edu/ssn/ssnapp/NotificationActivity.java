@@ -33,11 +33,11 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     void setUpDrawer(){
-        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid1.jfif?alt=media&token=b117fd84-9b3d-4173-8954-8f97e6a7ff76", new Date()));
-        adapter.add(new Post("New posts from Mr. Balasubramanian", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid2.jpg?alt=media&token=4839863a-c188-41f8-8288-979f7c044889", new Date()));
-        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid1.jfif?alt=media&token=b117fd84-9b3d-4173-8954-8f97e6a7ff76", new Date()));
-        adapter.add(new Post("New posts from Mr. Balasubramanian", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid2.jpg?alt=media&token=4839863a-c188-41f8-8288-979f7c044889", new Date()));
-        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid1.jfif?alt=media&token=b117fd84-9b3d-4173-8954-8f97e6a7ff76", new Date()));
+        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummyid1.jfif?alt=media&token=88f55c32-f8b1-48eb-8a05-656739c62d88", new Date()));
+        adapter.add(new Post("New posts from Mr. Balasubramanian", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummyid2.jpg?alt=media&token=bed026c0-384a-4818-8f06-b349f72b09e9", new Date()));
+        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummyid1.jfif?alt=media&token=88f55c32-f8b1-48eb-8a05-656739c62d88", new Date()));
+        adapter.add(new Post("New posts from Mr. Balasubramanian", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummyid2.jpg?alt=media&token=bed026c0-384a-4818-8f06-b349f72b09e9", new Date()));
+        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummyid1.jfif?alt=media&token=88f55c32-f8b1-48eb-8a05-656739c62d88", new Date()));
 
         lv_items.setAdapter(adapter);
     }

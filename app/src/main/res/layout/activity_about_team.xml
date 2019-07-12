@@ -85,19 +85,10 @@
                 android:background="@drawable/ic_fb"/>
 
             <ImageView
-                android:id="@+id/iv_insta"
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/iv_fb"
-                android:padding="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:background="@drawable/ic_insta"/>
-
-            <ImageView
                 android:id="@+id/iv_twit"
                 android:layout_width="@dimen/_25sdp"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@+id/iv_insta"
+                android:layout_toRightOf="@+id/iv_fb"
                 android:padding="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:background="@drawable/ic_twit"/>

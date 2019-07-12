@@ -64,7 +64,7 @@ public class AboutTeamAdapter extends ArrayAdapter<TeamDetails> implements View.
             case R.id.iv_img1:
             case R.id.iv_img2:
             case R.id.iv_img3:
-                getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(v.getTag().toString())));
+                //getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(v.getTag().toString())));
                 break;
         }
     }

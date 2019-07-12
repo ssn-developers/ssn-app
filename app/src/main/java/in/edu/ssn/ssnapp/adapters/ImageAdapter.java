@@ -1,6 +1,7 @@
 package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Point;
 import android.util.Log;
 import android.view.Display;
@@ -16,16 +17,35 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.squareup.picasso.Picasso;
 import java.util.List;
+
+import in.edu.ssn.ssnapp.OpenImageActivity;
+import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.models.Post;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ImageAdapter extends PagerAdapter {
     Context context;
     List<String> images;
     LayoutInflater layoutInflater;
+    Post model;
+    String timer;
+    Boolean flag;
 
-    public ImageAdapter(Context context, List<String> images) {
+    public ImageAdapter(Context context, List<String> images, Boolean flag, Post model, String timer) {
         this.context = context;
         this.images = images;
+        this.model= model;
+        this.timer = timer;
+        this.flag = flag;
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public ImageAdapter(Context context, List<String> images, Boolean flag) {
+        this.context = context;
+        this.images = images;
+        this.flag = flag;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -54,7 +74,18 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO navigate to post detail activity
+                if(flag) {
+                    Intent intent = new Intent(context, PostDetailsActivity.class);
+                    intent.putExtra("post", model);
+                    intent.putExtra("time", timer);
+                    context.startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(context, OpenImageActivity.class);
+                    intent.putExtra("url", images.get(position));
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
+                }
             }
         });
 

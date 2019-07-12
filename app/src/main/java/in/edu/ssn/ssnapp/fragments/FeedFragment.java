@@ -123,11 +123,41 @@ public class FeedFragment extends Fragment {
                 holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
+                Date time = model.getTime();
+                Date now = new Date();
+                Long t = now.getTime() - time.getTime();
+                String timer;
+
+                if(t < 60000)
+                    timer = Long.toString(t / 1000) + "s ago";
+                else if(t < 3600000)
+                    timer = Long.toString(t / 60000) + "m ago";
+                else if(t < 86400000)
+                    timer = Long.toString(t / 3600000) + "h ago";
+                else if(t < 604800000)
+                    timer = Long.toString(t/86400000) + "d ago";
+                else if(t < 2592000000L)
+                    timer = Long.toString(t/604800000) + "w ago";
+                else if(t < 31536000000L)
+                    timer = Long.toString(t/2592000000L) + "M ago";
+                else
+                    timer = Long.toString(t/31536000000L) + "y ago";
+
+                holder.tv_time.setText(timer);
+
+                if(model.getDescription().length() > 100) {
+                    SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
+                    ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
+                    ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
+                    holder.tv_description.setText(ss);
+                }
+                else
+                    holder.tv_description.setText(model.getDescription().trim());
+
                 if(model.getImageUrl()!=null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
-                    //holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg_for_img);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl());
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),true, model, timer);
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if(model.getImageUrl().size()==1){
@@ -157,34 +187,6 @@ public class FeedFragment extends Fragment {
                     holder.viewPager.setVisibility(View.GONE);
                     holder.tv_current_image.setVisibility(View.GONE);
                 }
-
-                Date time = model.getTime();
-                Date now = new Date();
-                Long t = now.getTime() - time.getTime();
-
-                if(t < 60000)
-                    holder.tv_time.setText(Long.toString(t / 1000) + "s ago");
-                else if(t < 3600000)
-                    holder.tv_time.setText(Long.toString(t / 60000) + "m ago");
-                else if(t < 86400000)
-                    holder.tv_time.setText(Long.toString(t / 3600000) + "h ago");
-                else if(t < 604800000)
-                    holder.tv_time.setText(Long.toString(t/86400000) + "d ago");
-                else if(t < 2592000000L)
-                    holder.tv_time.setText(Long.toString(t/604800000) + "w ago");
-                else if(t < 31536000000L)
-                    holder.tv_time.setText(Long.toString(t/2592000000L) + "M ago");
-                else
-                    holder.tv_time.setText(Long.toString(t/31536000000L) + "y ago");
-
-                if(model.getDescription().length() > 100) {
-                    SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
-                    ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
-                    ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
-                    holder.tv_description.setText(ss);
-                }
-                else
-                    holder.tv_description.setText(model.getDescription().trim());
 
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
                     @Override

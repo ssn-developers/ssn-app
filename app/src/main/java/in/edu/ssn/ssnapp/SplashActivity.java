@@ -55,7 +55,6 @@ public class SplashActivity extends AppCompatActivity {
 
         try {
             gifFromResource = (GifDrawable) new GifDrawable(getResources(), R.drawable.splash_screen);
-
             gifFromResource.addAnimationListener(new AnimationListener() {
                 @Override
                 public void onAnimationCompleted(int loopNumber) {

@@ -27,9 +27,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.adroitandroid.chipcloud.ChipCloud;
-import com.adroitandroid.chipcloud.ChipListener;
-import com.adroitandroid.chipcloud.FlowLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -73,6 +70,7 @@ public class BusRoutesActivity extends BaseActivity {
     LinearLayout searchRL1;
     ChipGroup chipCloud;
     FirestoreRecyclerAdapter adapter;
+    List<String> suggestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,15 +118,23 @@ public class BusRoutesActivity extends BaseActivity {
                     setupFireStore(query);
                     adapter.startListening();
                 }
+                else if(Character.isDigit(val.charAt(0))){
+                    if(val.equalsIgnoreCase("9a"))
+                        query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name", "9A");
+                    else if(val.equalsIgnoreCase("30a"))
+                        query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name", "30A");
+                    else
+                        query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name", val);
+                    setupFireStore(query);
+                    adapter.startListening();
+                }
                 else {
                     clearIV.setVisibility(View.VISIBLE);
                     if(val.length()>2) {
                         chipCloud.removeAllViews();
                         chipCloud.setVisibility(View.VISIBLE);
-                        //List<String> temp = new ArrayList<>();
                         for (int i = 0; i < suggestions.size(); i++) {
                             if (suggestions.get(i).toLowerCase().contains(val.toLowerCase())) {
-                                //temp.add(suggestions.get(i));
                                 Chip chip = getChip(chipCloud, suggestions.get(i));
                                 final int finalI = i;
                                 chip.setOnClickListener(new View.OnClickListener() {
@@ -148,39 +154,12 @@ public class BusRoutesActivity extends BaseActivity {
                                 chipCloud.addView(chip);
                             }
                         }
-                    }else {
-
+                    }
+                    else {
                         chipCloud.removeAllViews();
                         chipCloud.setVisibility(View.GONE);
                     }
-                    //String[] stockArr = new String[temp.size()];
-
-
-
-
-
-
-                    /*String successorKey="";
-                    char temp = val.charAt(val.length()-1);
-                    temp++;
-                    if(val.length()>1) {
-                        successorKey = val.substring(0, val.length() - 1) + temp;
-                    }else {
-                        successorKey = String.valueOf(temp);
-                    }
-                    Log.d("Successor key",successorKey);
-                    query = FirebaseFirestore.getInstance()
-                            .collection("bus_route")
-                            .whereGreaterThanOrEqualTo("dname", val)
-                            .whereLessThan("dname", successorKey);*/
-
-                    /*query = FirebaseFirestore.getInstance()
-                            .collection("bus_route")
-                            .whereArrayContains("stop",val);*/
-
                 }
-
-
             }
         });
     }
@@ -200,6 +179,8 @@ public class BusRoutesActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         busRoutesRV.setLayoutManager(layoutManager);
         busRoutesRV.setHasFixedSize(true);
+
+        suggestions = new ArrayList<>();
     }
 
     private Chip getChip(final ChipGroup entryChipGroup, String text) {
@@ -220,7 +201,6 @@ public class BusRoutesActivity extends BaseActivity {
         return chip;
     }
 
-    List<String> suggestions = new ArrayList<>();
     void getSuggestions(){
         final Set<String> linkedHashSet = new LinkedHashSet<>();
         FirebaseFirestore.getInstance().collection("bus_route").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -234,7 +214,6 @@ public class BusRoutesActivity extends BaseActivity {
                 }
                 suggestions.clear();
                 for(String s: linkedHashSet){
-                    //Log.d("test_set",s);
                     suggestions.add(s);
                 }
             }
