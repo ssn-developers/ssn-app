@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#317BC0</color>
     <color name="colorAccentAlpha">#26317BC0</color>
+    <color name="suggestionBgColor">#33000000</color>
     <color name="colorAccentLight">#F5F6F8</color>
 
     <color name="onboardingTextColor1">#504E49</color>

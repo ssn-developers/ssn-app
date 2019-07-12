@@ -1,9 +1,12 @@
 package in.edu.ssn.ssnapp;
 
 import android.animation.Animator;
+import android.animation.LayoutTransition;
 import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +16,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,28 +24,42 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.adroitandroid.chipcloud.ChipCloud;
+import com.adroitandroid.chipcloud.ChipListener;
+import com.adroitandroid.chipcloud.FlowLayout;
 import com.airbnb.lottie.LottieAnimationView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.google.android.gms.common.util.NumberUtils;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import in.edu.ssn.ssnapp.adapters.BusStopAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import io.opencensus.internal.StringUtils;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -50,6 +68,10 @@ public class BusRoutesActivity extends BaseActivity {
     ImageView backIV;
     RecyclerView busRoutesRV;
     EditText et_num;
+    ImageView clearIV;
+    AppBarLayout searchRL;
+    LinearLayout searchRL1;
+    ChipGroup chipCloud;
     FirestoreRecyclerAdapter adapter;
 
     @Override
@@ -58,6 +80,7 @@ public class BusRoutesActivity extends BaseActivity {
         setContentView(R.layout.activity_bus_routes);
 
         initUI();
+        getSuggestions();
         Query query = FirebaseFirestore.getInstance().collection("bus_route").orderBy("id");
         setupFireStore(query);
 
@@ -65,6 +88,13 @@ public class BusRoutesActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+            }
+        });
+
+        clearIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                et_num.setText("");
             }
         });
 
@@ -83,12 +113,74 @@ public class BusRoutesActivity extends BaseActivity {
             public void afterTextChanged(Editable s) {
                 String val = s.toString().trim().toLowerCase();
                 Query query;
-                if(val.equals(""))
+                if(val.equals("")) {
+                    clearIV.setVisibility(View.GONE);
                     query = FirebaseFirestore.getInstance().collection("bus_route").orderBy("id");
-                else
-                    query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name",val);
-                setupFireStore(query);
-                adapter.startListening();
+                    chipCloud.setVisibility(View.GONE);
+                    setupFireStore(query);
+                    adapter.startListening();
+                }
+                else {
+                    clearIV.setVisibility(View.VISIBLE);
+                    if(val.length()>2) {
+                        chipCloud.removeAllViews();
+                        chipCloud.setVisibility(View.VISIBLE);
+                        //List<String> temp = new ArrayList<>();
+                        for (int i = 0; i < suggestions.size(); i++) {
+                            if (suggestions.get(i).toLowerCase().contains(val.toLowerCase())) {
+                                //temp.add(suggestions.get(i));
+                                Chip chip = getChip(chipCloud, suggestions.get(i));
+                                final int finalI = i;
+                                chip.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        et_num.setText(suggestions.get(finalI));
+                                        et_num.clearFocus();
+                                        closeKeyboard(et_num);
+                                        chipCloud.setVisibility(View.GONE);
+                                        Query query = FirebaseFirestore.getInstance()
+                                                .collection("bus_route")
+                                                .whereArrayContains("stop",suggestions.get(finalI));
+                                        setupFireStore(query);
+                                        adapter.startListening();
+                                    }
+                                });
+                                chipCloud.addView(chip);
+                            }
+                        }
+                    }else {
+
+                        chipCloud.removeAllViews();
+                        chipCloud.setVisibility(View.GONE);
+                    }
+                    //String[] stockArr = new String[temp.size()];
+
+
+
+
+
+
+                    /*String successorKey="";
+                    char temp = val.charAt(val.length()-1);
+                    temp++;
+                    if(val.length()>1) {
+                        successorKey = val.substring(0, val.length() - 1) + temp;
+                    }else {
+                        successorKey = String.valueOf(temp);
+                    }
+                    Log.d("Successor key",successorKey);
+                    query = FirebaseFirestore.getInstance()
+                            .collection("bus_route")
+                            .whereGreaterThanOrEqualTo("dname", val)
+                            .whereLessThan("dname", successorKey);*/
+
+                    /*query = FirebaseFirestore.getInstance()
+                            .collection("bus_route")
+                            .whereArrayContains("stop",val);*/
+
+                }
+
+
             }
         });
     }
@@ -99,10 +191,55 @@ public class BusRoutesActivity extends BaseActivity {
         backIV = findViewById(R.id.backIV);
         et_num = findViewById(R.id.et_num);
         busRoutesRV = findViewById(R.id.busRoutesRV);
-
+        chipCloud = findViewById(R.id.chipCloud);
+        clearIV = findViewById(R.id.clearIV);
+        searchRL = findViewById(R.id.searchRL);
+        searchRL1 = findViewById(R.id.searchRL1);
+        searchRL.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        searchRL1.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         busRoutesRV.setLayoutManager(layoutManager);
         busRoutesRV.setHasFixedSize(true);
+    }
+
+    private Chip getChip(final ChipGroup entryChipGroup, String text) {
+        final Chip chip = new Chip(this);
+        chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.suggestion_item));
+        int paddingDp = (int) TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 10,
+                getResources().getDisplayMetrics()
+        );
+        chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
+        chip.setText(text);
+        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                entryChipGroup.removeView(chip);
+            }
+        });
+        return chip;
+    }
+
+    List<String> suggestions = new ArrayList<>();
+    void getSuggestions(){
+        final Set<String> linkedHashSet = new LinkedHashSet<>();
+        FirebaseFirestore.getInstance().collection("bus_route").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot ds:queryDocumentSnapshots){
+                    ArrayList<String> stop = (ArrayList<String>) ds.get("stop");
+                    for(String s:stop){
+                        linkedHashSet.add(s);
+                    }
+                }
+                suggestions.clear();
+                for(String s: linkedHashSet){
+                    //Log.d("test_set",s);
+                    suggestions.add(s);
+                }
+            }
+        });
+
     }
 
     void setupFireStore(Query query){

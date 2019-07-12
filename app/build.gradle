@@ -53,7 +53,8 @@ dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
     implementation 'com.github.Binary-Finery:Bungee:master-SNAPSHOT'
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
-    implementation "com.hendraanggrian.appcompat:socialview:0.2"
+    implementation 'com.hendraanggrian.appcompat:socialview:0.2'
+    implementation 'com.github.adroitandroid:ChipCloud:2.2.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

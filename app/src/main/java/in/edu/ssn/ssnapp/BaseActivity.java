@@ -1,11 +1,15 @@
 package in.edu.ssn.ssnapp;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import in.edu.ssn.ssnapp.utils.FontChanger;
 
@@ -33,5 +37,16 @@ public class BaseActivity extends AppCompatActivity {
     public void changeFont(Typeface typeface, ViewGroup viewGroup){
         FontChanger fontChanger = new FontChanger(typeface);
         fontChanger.replaceFonts(viewGroup);
+    }
+
+    public void closeKeyboard(EditText view) {
+        try {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }

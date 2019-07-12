@@ -15,7 +15,8 @@
 		<com.google.android.material.appbar.AppBarLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:id="@+id/appbar_layout"
+			android:animateLayoutChanges="true"
+			android:id="@+id/searchRL"
 			android:background="@color/colorAccent"
 			app:expanded="true" >
 
@@ -92,30 +93,63 @@
 
 				</androidx.appcompat.widget.Toolbar>
 			</com.google.android.material.appbar.CollapsingToolbarLayout>
-
-			<EditText
-				android:id="@+id/et_num"
+			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:background="@drawable/bus_search_et_bg"
-				android:layout_marginLeft="@dimen/_16sdp"
-				android:gravity="start|center"
-				android:drawablePadding="@dimen/_8sdp"
-				android:layout_marginBottom="@dimen/_14sdp"
-				android:fontFamily="@font/open_sans"
-				android:textColor="@android:color/white"
-				android:textColorHint="#CCF2F2F2"
-				android:textSize="@dimen/_12ssp"
-				android:singleLine="true"
-				android:focusableInTouchMode="true"
-				android:drawableStart="@drawable/search_icon"
-				android:hint="Enter area or bus number"
-				android:paddingLeft="@dimen/_8sdp"
-				android:paddingRight="@dimen/_8sdp"
-				android:paddingTop="@dimen/_6sdp"
-				android:paddingBottom="@dimen/_6sdp"
-				android:layout_marginRight="@dimen/_16sdp"
-				android:drawableLeft="@drawable/search_icon" />
+				android:id="@+id/searchRL1"
+				android:animateLayoutChanges="true"
+				android:orientation="vertical">
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/_14sdp"
+					android:layout_marginRight="@dimen/_16sdp"
+					android:layout_marginLeft="@dimen/_16sdp">
+					<EditText
+						android:id="@+id/et_num"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:background="@drawable/bus_search_et_bg"
+						android:gravity="start|center"
+						android:drawablePadding="@dimen/_8sdp"
+						android:fontFamily="@font/open_sans"
+						android:textColor="@android:color/white"
+						android:textColorHint="#CCF2F2F2"
+						android:textSize="@dimen/_12ssp"
+						android:singleLine="true"
+						android:focusableInTouchMode="true"
+						android:drawableStart="@drawable/search_icon"
+						android:hint="Enter area or bus number"
+						android:paddingLeft="@dimen/_8sdp"
+						android:paddingRight="40dp"
+						android:paddingTop="@dimen/_6sdp"
+						android:paddingBottom="@dimen/_6sdp"
+						android:drawableLeft="@drawable/search_icon" />
+					<ImageView
+						android:layout_width="35dp"
+						android:layout_height="35dp"
+						android:src="@drawable/close_icon"
+						android:padding="5dp"
+						android:id="@+id/clearIV"
+						android:visibility="gone"
+						android:foreground="?attr/selectableItemBackground"
+						android:clickable="true"
+						android:tint="@android:color/white"
+						android:layout_centerVertical="true"
+						android:layout_alignParentRight="true"/>
+				</RelativeLayout>
+				<com.google.android.material.chip.ChipGroup
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					app:chipSpacingVertical="@dimen/_8sdp"
+					app:chipSpacingHorizontal="@dimen/_10sdp"
+					android:visibility="gone"
+					android:layout_marginLeft="@dimen/_16sdp"
+					android:layout_marginRight="@dimen/_16sdp"
+					android:layout_marginBottom="@dimen/_10sdp"
+					android:id="@+id/chipCloud">
+				</com.google.android.material.chip.ChipGroup>
+			</LinearLayout>
 
 		</com.google.android.material.appbar.AppBarLayout>
 		<androidx.recyclerview.widget.RecyclerView
