@@ -55,9 +55,6 @@ public class FeedFragment extends Fragment {
 
     RecyclerView feedsRV;
     FirestoreRecyclerAdapter adapter;
-    Handler handler;
-    Map<Integer,Integer> page = new LinkedHashMap<>();
-    Map<Integer,Integer> size = new LinkedHashMap<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,12 +92,6 @@ public class FeedFragment extends Fragment {
                 else {
                     post.setImageUrl(null);
                 }
-
-                /*ArrayList<String> files = (ArrayList<String>) snapshot.get("file_urls");
-                if(files!= null)
-                    post.setFileUrl(images);
-                else
-                    post.setFileUrl(null);*/
 
                 String id = snapshot.getString("author");
 
@@ -161,48 +152,8 @@ public class FeedFragment extends Fragment {
                             }
                         });
                     }
-
-                    handler = new Handler();
-                    /*page.put(position, 0);
-                    size.put(position, model.getImageUrl().size());*/
-
-                    /*Timer timerObj = new Timer();
-                    TimerTask timerTaskObj = new TimerTask() {
-                        public void run() {
-                            handler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    holder.viewPager.setCurrentItem(page.get(position), true);
-
-                                    if(page.get(position) == size.get(position) - 1)
-                                        page.put(position, 0);
-                                    else
-                                        page.put(position, page.get(position) + 1);
-                                }
-                            });
-                        }
-                    };
-                    timerObj.schedule(timerTaskObj,3000,3000);*/
-
-                    /*holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                        @Override
-                        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-                        }
-
-                        @Override
-                        public void onPageSelected(int chosen_position) {
-                            page.put(position, chosen_position);
-                        }
-
-                        @Override
-                        public void onPageScrollStateChanged(int state) {
-
-                        }
-                    });*/
                 }
                 else {
-                    //holder.feed_view.setBackgroundResource(R.drawable.post_detail_bg);
                     holder.viewPager.setVisibility(View.GONE);
                     holder.tv_current_image.setVisibility(View.GONE);
                 }

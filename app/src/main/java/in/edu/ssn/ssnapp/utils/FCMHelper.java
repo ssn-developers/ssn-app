@@ -108,7 +108,7 @@ public class FCMHelper {
                             msg = "unsubscribe failed";
                         }
                         Log.d(TAG, msg);
-                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }

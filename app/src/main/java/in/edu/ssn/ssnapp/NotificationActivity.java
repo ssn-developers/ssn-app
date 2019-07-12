@@ -3,92 +3,42 @@ package in.edu.ssn.ssnapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import com.suke.widget.SwitchButton;
+import java.util.ArrayList;
+import java.util.Date;
 
-import in.edu.ssn.ssnapp.utils.FCMHelper;
-import in.edu.ssn.ssnapp.utils.SharedPref;
+import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
+import in.edu.ssn.ssnapp.adapters.NotifyAdapter;
+import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.models.Post;
 
 public class NotificationActivity extends AppCompatActivity {
 
-    com.suke.widget.SwitchButton switch_all, switch_dept, switch_bus, switch_club, switch_exam, switch_workshop;
+    ListView lv_items;
+    NotifyAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        initUI();
+        lv_items = findViewById(R.id.lv_items);
+        adapter = new NotifyAdapter(this, new ArrayList<Post>());
 
-        switch_all.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Boolean status = switch_all.isChecked();
-
-                try {
-                    switch_dept.setChecked(status);
-                    switch_bus.setChecked(status);
-                    switch_club.setChecked(status);
-                    switch_exam.setChecked(status);
-                    switch_workshop.setChecked(status);
-                    switch_all.setChecked(status);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        switch_dept.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                Boolean status = switch_dept.isChecked();
-
-                try {
-                    switch_dept.setChecked(status);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-        });
+        setUpDrawer();
     }
 
-    public void initUI(){
-        switch_all = (com.suke.widget.SwitchButton) findViewById(R.id.switch_all);
-        switch_dept = (com.suke.widget.SwitchButton) findViewById(R.id.switch_dept);
-        switch_bus = (com.suke.widget.SwitchButton) findViewById(R.id.switch_bus);
-        switch_club = (com.suke.widget.SwitchButton) findViewById(R.id.switch_club);
-        switch_exam = (com.suke.widget.SwitchButton) findViewById(R.id.switch_exam);
-        switch_workshop = (com.suke.widget.SwitchButton) findViewById(R.id.switch_workshop);
+    void setUpDrawer(){
+        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid1.jfif?alt=media&token=b117fd84-9b3d-4173-8954-8f97e6a7ff76", new Date()));
+        adapter.add(new Post("New posts from Mr. Balasubramanian", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid2.jpg?alt=media&token=4839863a-c188-41f8-8288-979f7c044889", new Date()));
+        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid1.jfif?alt=media&token=b117fd84-9b3d-4173-8954-8f97e6a7ff76", new Date()));
+        adapter.add(new Post("New posts from Mr. Balasubramanian", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid2.jpg?alt=media&token=4839863a-c188-41f8-8288-979f7c044889", new Date()));
+        adapter.add(new Post("New posts from Dr. Chitra Babu", "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/dummy_test%2Fdummyid1.jfif?alt=media&token=b117fd84-9b3d-4173-8954-8f97e6a7ff76", new Date()));
 
-        switch_all.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_all"));
-        switch_dept.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_dept"));
-        switch_bus.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_bus"));
-        switch_club.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_club"));
-        switch_exam.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_exam"));
-        switch_workshop.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_workshop"));
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        SharedPref.putBoolean(getApplicationContext(),"switch_all",switch_all.isChecked());
-        SharedPref.putBoolean(getApplicationContext(),"switch_dept",switch_dept.isChecked());
-        SharedPref.putBoolean(getApplicationContext(),"switch_bus",switch_bus.isChecked());
-        SharedPref.putBoolean(getApplicationContext(),"switch_club",switch_club.isChecked());
-        SharedPref.putBoolean(getApplicationContext(),"switch_exam",switch_exam.isChecked());
-        SharedPref.putBoolean(getApplicationContext(),"switch_workshop",switch_workshop.isChecked());
-
-        if(switch_dept.isChecked())
-            FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(),"dept"));
-        else {
-            FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept"));
-        }
-
-        //TODO: Perform the above for other categories
+        lv_items.setAdapter(adapter);
     }
 }

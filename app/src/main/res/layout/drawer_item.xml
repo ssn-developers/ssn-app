@@ -12,17 +12,21 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Feeds"
         android:textColor="#9A000000"
         android:textSize="@dimen/_12ssp"
+        android:singleLine="true"
+        android:layout_toLeftOf="@+id/iv_arrow"
+        android:paddingRight="@dimen/_5sdp"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/iv_icon"
         android:layout_marginLeft="@dimen/_5sdp"
         android:fontFamily="@font/open_sans_semi_bold"/>
 
     <ImageView
+        android:id="@+id/iv_arrow"
         android:layout_width="@dimen/_15sdp"
         android:layout_height="@dimen/_15sdp"
         android:layout_alignParentRight="true"

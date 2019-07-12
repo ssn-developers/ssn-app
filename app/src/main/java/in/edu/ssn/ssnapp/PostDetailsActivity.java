@@ -5,15 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.animation.LayoutTransition;
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,12 +32,23 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.hendraanggrian.appcompat.widget.SocialView;
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Array;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -70,7 +86,6 @@ public class PostDetailsActivity extends BaseActivity {
         tv_position.setText(post.getPosition().trim());
         Picasso.get().load(post.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(userImageIV);
 
-        //TODO files view
         if(post.getImageUrl()!=null && post.getImageUrl().size()!=0){
             imageViewPager.setVisibility(View.VISIBLE);
             tv_current_image.setVisibility(View.VISIBLE);
@@ -78,7 +93,8 @@ public class PostDetailsActivity extends BaseActivity {
             imageViewPager.setAdapter(imageAdapter);
             if(post.getImageUrl().size()==1){
                 tv_current_image.setVisibility(View.GONE);
-            }else {
+            }
+            else {
                 tv_current_image.setVisibility(View.VISIBLE);
                 tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(post.getImageUrl().size()));
                 imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -98,13 +114,11 @@ public class PostDetailsActivity extends BaseActivity {
                     }
                 });
             }
-        }else {
+        }
+        else {
             imageViewPager.setVisibility(View.GONE);
             tv_current_image.setVisibility(View.GONE);
         }
-
-
-
 
         tv_time.setText(time);
 
@@ -118,7 +132,6 @@ public class PostDetailsActivity extends BaseActivity {
         tv_description.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
             @Override
             public void onClick(@NonNull SocialView view, @NonNull CharSequence text) {
-                //Log.d("Hyperlink testing",text.toString());
                 String url = text.toString();
                 if (!url.startsWith("http") && !url.startsWith("https")) {
                     url = "http://" + url;
@@ -131,12 +144,15 @@ public class PostDetailsActivity extends BaseActivity {
         shareIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO share functionality
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/" + post.getId();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
 
         getFiles();
-
     }
 
     void initUI(){
@@ -156,7 +172,7 @@ public class PostDetailsActivity extends BaseActivity {
         textGroupRL.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
     }
 
-    private Chip getChip(final ChipGroup entryChipGroup, String text) {
+    private Chip getChip(final ChipGroup entryChipGroup, final String file_name, final String url) {
         final Chip chip = new Chip(this);
         chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.my_chip));
         int paddingDp = (int) TypedValue.applyDimension(
@@ -164,13 +180,30 @@ public class PostDetailsActivity extends BaseActivity {
                 getResources().getDisplayMetrics()
         );
         chip.setPadding(paddingDp, paddingDp, paddingDp, paddingDp);
-        chip.setText(text);
-        chip.setOnCloseIconClickListener(new View.OnClickListener() {
+        chip.setText(file_name);
+        chip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                entryChipGroup.removeView(chip);
+                Toast.makeText(PostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
+
+                try {
+                    DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+                    Uri downloadUri = Uri.parse(url);
+                    DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+
+                    request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS + "/SSN App/", file_name)
+                            .setTitle(file_name).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+                    dm.enqueue(request);
+                }
+                catch (Exception ex) {
+                    Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG).show();
+                    ex.printStackTrace();
+                }
             }
         });
+
         return chip;
     }
 
@@ -203,7 +236,7 @@ public class PostDetailsActivity extends BaseActivity {
                                     tv_attachments.setVisibility(View.VISIBLE);
                                     attachmentsChipGroup.setVisibility(View.VISIBLE);
                                     for(int i=0;i<fileDetails.size();i++){
-                                        Chip chip = getChip(attachmentsChipGroup, fileDetails.get(i).getName());
+                                        Chip chip = getChip(attachmentsChipGroup, fileDetails.get(i).getName(), fileDetails.get(i).getUrl());
                                         attachmentsChipGroup.addView(chip);
                                     }
                                 }else {
@@ -215,7 +248,5 @@ public class PostDetailsActivity extends BaseActivity {
                         }
                     }
                 });
-
-
     }
 }

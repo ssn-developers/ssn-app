@@ -7,17 +7,14 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
 
@@ -30,12 +27,11 @@ import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
-import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HomeActivity extends BaseActivity {
-    ImageView menuIV;
+    ImageView menuIV, notifUI;
     CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
@@ -43,7 +39,6 @@ public class HomeActivity extends BaseActivity {
 
     ListView lv_items;
     DrawerAdapter adapter;
-
 
     static int count=0;
 
@@ -61,6 +56,13 @@ public class HomeActivity extends BaseActivity {
             }
         });
 
+        notifUI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+            }
+        });
+
         lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,19 +75,16 @@ public class HomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
                         break;
                     case "Library Renewals":
-                        //TODO: check whether its connected to SSN wifi.
-                        // check for wifi connectivity and check if ssid is
-
-                        if(CommonUtils.checkWifiOnAndConnected(HomeActivity.this,"ssn"))
-                            startActivity(new Intent(HomeActivity.this,LibraryActivity.class));
+                        if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn"))
+                            startActivity(new Intent(getApplicationContext(), LibraryActivity.class));
                         else
                             Toast.makeText(HomeActivity.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT).show();
                         break;
                     case "Alumni Connect":
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssn.almaconnect.com")));
                         break;
-                    case "Notifications":
-                        startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                    case "Notification Settings":
+                        startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
                         break;
                     case "Invite Friends":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -101,7 +100,7 @@ public class HomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
                         break;
                     case "About Team":
-                        startActivity(new Intent(getApplicationContext(),AboutTeamActivity.class));
+                        startActivity(new Intent(getApplicationContext(), AboutTeamActivity.class));
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
@@ -117,6 +116,7 @@ public class HomeActivity extends BaseActivity {
 
     void initUI(){
         menuIV = findViewById(R.id.menuIV);
+        notifUI = findViewById(R.id.notifUI);
         userImageIV = findViewById(R.id.userImageIV);
         iv_profile = findViewById(R.id.iv_profile);
 
@@ -144,11 +144,11 @@ public class HomeActivity extends BaseActivity {
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Alumni Connect", R.drawable.ic_alumni));
-        adapter.add(new Drawer("Notifications", R.drawable.ic_notify));
-        adapter.add(new Drawer("About Team", R.drawable.ic_team));
+        adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
+        adapter.add(new Drawer("About Team", R.drawable.ic_team));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }

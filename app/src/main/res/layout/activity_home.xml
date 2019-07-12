@@ -50,6 +50,17 @@
 					android:tint="@color/colorAccent" />
 			</RelativeLayout>
 
+			<ImageView
+				android:layout_width="@dimen/_30sdp"
+				android:layout_height="@dimen/_30sdp"
+				android:layout_marginEnd="@dimen/_8sdp"
+				android:layout_marginRight="@dimen/_8sdp"
+				android:layout_marginTop="@dimen/_8sdp"
+				android:layout_marginBottom="@dimen/_8sdp"
+				android:src="@drawable/ic_notify_icon"
+				android:padding="@dimen/_7sdp"
+				android:id="@+id/notifUI" />
+
 			<de.hdodenhof.circleimageview.CircleImageView
 				android:layout_width="@dimen/_30sdp"
 				android:layout_height="@dimen/_30sdp"
@@ -97,7 +108,6 @@
 				app:stl_customTabTextViewId="@+id/customTabTV" />
 		</RelativeLayout>
 
-
 	</RelativeLayout>
 
 	<com.google.android.material.navigation.NavigationView
@@ -105,22 +115,16 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_gravity="start"
-		android:background="#F5F6F8">
+		android:background="#ffffff">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent">
 
-			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="@dimen/_80sdp" />
-
 			<de.hdodenhof.circleimageview.CircleImageView
 				android:id="@+id/iv_profile"
 				android:layout_width="@dimen/_80sdp"
 				android:layout_height="@dimen/_80sdp"
-				app:civ_border_color="#ffffff"
-				app:civ_border_width="@dimen/_2sdp"
 				android:layout_centerHorizontal="true"
 				android:layout_marginTop="@dimen/_15sdp" />
 
@@ -150,16 +154,20 @@
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_below="@+id/tv_email"
+				android:layout_marginTop="@dimen/_15sdp"
+				android:layout_marginLeft="@dimen/_15sdp"
+				android:layout_marginRight="@dimen/_15sdp"
+				android:layout_marginBottom="@dimen/_10sdp"
 				android:background="@drawable/ic_drawer_bg">
 
 				<ListView
 					android:id="@+id/lv_items"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/_20sdp"
-					android:layout_marginLeft="@dimen/_15sdp"
-					android:layout_marginRight="@dimen/_15sdp"
-					android:layout_marginBottom="@dimen/_40sdp"
+					android:layout_marginTop="@dimen/_5sdp"
+					android:layout_marginLeft="@dimen/_5sdp"
+					android:layout_marginRight="@dimen/_5sdp"
+					android:layout_marginBottom="@dimen/_5sdp"
 					android:scrollbars="none"
 					android:divider="@null"/>
 

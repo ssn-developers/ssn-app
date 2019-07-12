@@ -70,91 +70,15 @@ public class CommonUtils {
     }
 
     /************************************************************************/
-    //Uploading an Image
-
-    public static Intent getPickImageChooserIntent(Context context) {
-        Uri outputFileUri =  getOutputUri(context);
-
-        List<Intent> allIntents = new ArrayList<>();
-        PackageManager packageManager = context.getPackageManager();
-
-        Intent captureIntent = new  Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        List<ResolveInfo> listCam =  packageManager.queryIntentActivities(captureIntent, 0);
-        for (ResolveInfo res : listCam) {
-            Intent intent = new  Intent(captureIntent);
-            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-            intent.setPackage(res.activityInfo.packageName);
-            if (outputFileUri != null) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-            }
-            allIntents.add(intent);
-        }
-
-        Intent galleryIntent = new  Intent(Intent.ACTION_GET_CONTENT);
-        galleryIntent.setType("image/*");
-        List<ResolveInfo> listGallery =  packageManager.queryIntentActivities(galleryIntent, 0);
-        for (ResolveInfo res : listGallery) {
-            Intent intent = new  Intent(galleryIntent);
-            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-            intent.setPackage(res.activityInfo.packageName);
-            allIntents.add(intent);
-        }
-
-        Intent mainIntent =  allIntents.get(allIntents.size() - 1);
-        for (Intent intent : allIntents) {
-            if  (intent.getComponent().getClassName().equals("com.android.documentsui.DocumentsActivity"))  {
-                mainIntent = intent;
-                break;
-            }
-        }
-
-        allIntents.remove(mainIntent);
-        Intent chooserIntent =  Intent.createChooser(mainIntent, "Select source");
-        chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS,  allIntents.toArray(new Parcelable[allIntents.size()]));
-
-        return chooserIntent;
-    }
-
-    private static Uri getOutputUri(Context context) {
-        Uri outputFileUri = null;
-        File getImage = context.getExternalCacheDir();
-        if (getImage != null) {
-            outputFileUri = Uri.fromFile(new File(getImage.getPath(),"pickImageResult.jpg"));
-        }
-        return outputFileUri;
-    }
-
-    public static Uri getPickImageResultUri(Intent data,Context context) {
-        boolean isCamera = true;
-        if (data != null && data.getData() != null) {
-            String action = data.getAction();
-            isCamera = action != null  && action.equals(MediaStore.ACTION_IMAGE_CAPTURE);
-        }
-        return isCamera ? getOutputUri(context) : data.getData();
-    }
-
-    public static String getMimeType(Context context, Uri uri) {
-        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-            MimeTypeMap mime = MimeTypeMap.getSingleton();
-            return mime.getExtensionFromMimeType(context.getContentResolver().getType(uri));
-        }
-        else
-            return MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
-    }
-
     // checks if wifi is connected to a particular network
+
     public static boolean checkWifiOnAndConnected(Context context,String ssid) {
         WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
 
         if (wifiMgr.isWifiEnabled()) { // Wi-Fi adapter is ON
-
             WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
-
-            if( wifiInfo.getNetworkId() == -1 ){
-                // Not connected to an access point
-                return false;
-            }
-
+            if( wifiInfo.getNetworkId() == -1 )
+                return false;   // Not connected to an access point
             else{
                 // connected to the required wifi network
                 String temp=findSSIDForWifiInfo(wifiMgr,wifiInfo);
@@ -164,13 +88,10 @@ public class CommonUtils {
                 else
                     return false;
             }
-
         }
-        else {
+        else
             return false; // Wi-Fi adapter is OFF
-        }
     }
-
 
     public static String findSSIDForWifiInfo(WifiManager manager, WifiInfo wifiInfo) {
 
@@ -185,7 +106,4 @@ public class CommonUtils {
 
         return null;
     }
-
-
-
 }

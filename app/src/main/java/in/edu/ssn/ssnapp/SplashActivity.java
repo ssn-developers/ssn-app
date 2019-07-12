@@ -13,11 +13,17 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
@@ -45,14 +51,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        //startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-
         initUI();
 
         try {
-            GifImageView splashIV = findViewById(R.id.splashIV);
-            gifFromResource = (GifDrawable) new GifDrawable(getAssets(), "splashscreen/splash_screen.gif");
-            splashIV.setBackground(gifFromResource);
+            gifFromResource = (GifDrawable) new GifDrawable(getResources(), R.drawable.splash_screen);
 
             gifFromResource.addAnimationListener(new AnimationListener() {
                 @Override
@@ -255,4 +257,21 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }*/
+
+    /*final Set<String> linkedHashSet = new LinkedHashSet<>();
+        FirebaseFirestore.getInstance().collection("bus_route").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot ds:queryDocumentSnapshots){
+                    ArrayList<String> stop = (ArrayList<String>) ds.get("stop");
+                    for(String s:stop){
+                        linkedHashSet.add(s);
+                    }
+                }
+
+                for(String s: linkedHashSet){
+                    Log.d("test_set",s);
+                }
+            }
+        });*/
 }
