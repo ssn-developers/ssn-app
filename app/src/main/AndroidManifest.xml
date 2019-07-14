@@ -17,7 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".OpenImageActivity"></activity>
+        <activity android:name=".views.faculty_home"></activity>
+        <activity android:name=".OpenImageActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".FavouritesActivity" />
         <activity android:name=".FeedbackActivity" />
