@@ -407,7 +407,7 @@ public class OnboardingActivity extends AppCompatActivity {
         FCMHelper.SubscribeToTopic(this,dept);
         setUpNotification();
         FCMHelper.UpdateFCM(this,SharedPref.getString(this,"FCMToken"));
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        startActivity(new Intent(getApplicationContext(), faculty_home.class));
     }
 
     public void signUp_faculty(FirebaseUser user){
