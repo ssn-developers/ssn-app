@@ -15,6 +15,46 @@
       },
       "oauth_client": [
         {
+          "client_id": "143839020003-8k5igcmi605j1hvknbmh1lf76ol8i67d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.edu.ssn.ssnapp",
+            "certificate_hash": "c498ae9bcc9526a561cdf8c74665238f44b0ada9"
+          }
+        },
+        {
+          "client_id": "143839020003-d4lv09eng6kuk8qfbm171f9cj66kmbgg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.edu.ssn.ssnapp",
+            "certificate_hash": "defec49ef5dc3919afac6ab6ac25a94b6b4f383e"
+          }
+        },
+        {
+          "client_id": "143839020003-hk28jbgbj6ag5b1cpb9dcp3hniork2vh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.edu.ssn.ssnapp",
+            "certificate_hash": "1de45522631b6076abe1c20339f3097a3079df32"
+          }
+        },
+        {
+          "client_id": "143839020003-d6bet5j7o0droe473bhlda8pt34nu61f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.edu.ssn.ssnapp",
+            "certificate_hash": "426f22856aab33c32d21b39dc4263cb5c44542c6"
+          }
+        },
+        {
+          "client_id": "143839020003-hjof8faiqcnv8voo3h1gkhfumqkon7tf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "in.edu.ssn.ssnapp",
+            "certificate_hash": "9360ea2076986a48d25aabac6cb36df1809392f3"
+          }
+        },
+        {
           "client_id": "143839020003-f1uo3fnllrorq5ccqhlnefvbu6tvss4u.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

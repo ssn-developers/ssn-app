@@ -65,10 +65,7 @@ public class LogoutActivity extends AppCompatActivity {
 
     /************************************************************************/
     // Google Signin
-
-    public void initGoogleSignIn(){
-        progress = findViewById(R.id.progress);
-        signInCV = findViewById(R.id.signInCV);
+    public void initGoogleSignIn() {
         mAuth = FirebaseAuth.getInstance();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(LogoutActivity.this, gso);
@@ -82,10 +79,14 @@ public class LogoutActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
-                Pattern pat = Pattern.compile("@[a-z]{2,3}(.ssn.edu.in)$");
+                Pattern pat = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
                 Matcher m = pat.matcher(acct.getEmail());
 
+                //TODO: check for faculty regex
+
                 if (m.find()) {
+                    //Student only
+
                     AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                     progress.setVisibility(View.VISIBLE);
                     mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -94,9 +95,8 @@ public class LogoutActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Log.d("test_set", "signInWithCredential:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                checkForSignin(user);
-                            }
-                            else {
+                                checkForSignin(user,0);
+                            } else {
                                 Log.d("test_set", "signInWithCredential:failure");
                                 progress.setVisibility(View.GONE);
                             }
@@ -104,57 +104,116 @@ public class LogoutActivity extends AppCompatActivity {
                     });
                 }
                 else {
-                    Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT).show();
+                    //Faculty only
+
+                    AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+                    progress.setVisibility(View.VISIBLE);
+                    mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("test_set", "signInWithCredential:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                checkForSignin(user,1);
+                            } else {
+                                Log.d("test_set", "signInWithCredential:failure");
+                                progress.setVisibility(View.GONE);
+                            }
+                        }
+                    });
                 }
-            }
-            catch (ApiException e) {
+                //else
+                //Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT).show();
+            } catch (ApiException e) {
                 Log.d("test_set", e.getMessage());
             }
         }
     }
 
-    public void checkForSignin(final FirebaseUser user){
+    public void checkForSignin(final FirebaseUser user, final int clearance) {
         String id = user.getUid();
 
         FirebaseFirestore.getInstance().collection("user").whereEqualTo("id", id).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    if(task.getResult().isEmpty())
-                        signUp(user);
-                    else {
-                        List<DocumentSnapshot> document = task.getResult().getDocuments();
-                        signIn(user, document.get(0));
+                if (task.isSuccessful()) {
+                    if(clearance==0) {
+                        //Student only
+                        if (task.getResult().isEmpty())
+                            signUpStudent(user);
+                        else {
+                            List<DocumentSnapshot> document = task.getResult().getDocuments();
+                            signIn(user, document.get(0), clearance);
+                        }
+                    }
+                    else{
+                        //Faculty only
+                        if (task.getResult().isEmpty()) {
+                            FirebaseFirestore.getInstance().collection("faculty").whereEqualTo("email", user.getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    if(task.isSuccessful()) {
+                                        if (!task.getResult().getDocuments().isEmpty()) {
+                                            DocumentSnapshot document = task.getResult().getDocuments().get(0);
+                                            signUpFaculty(user, document);
+                                        } else {
+                                            progress.setVisibility(View.GONE);
+                                            Toast.makeText(LogoutActivity.this, "Please contact Admin!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            List<DocumentSnapshot> document = task.getResult().getDocuments();
+                            signIn(user, document.get(0), clearance);
+                        }
                     }
                 }
             }
         });
     }
 
-    public void signIn(FirebaseUser user, DocumentSnapshot document){
+    /*****************************************************************/
+    //Student signin and signup
+
+    public void signIn(FirebaseUser user, DocumentSnapshot document, int clearance) {
         String dept = (String) document.get("dept");
         String email = user.getEmail();
         String id = (String) document.get("id");
         String name = (String) document.get("name");
-        Long year = (Long) document.get("year");
+        String access = (String) document.get("access");
 
-        SharedPref.putInt(getApplicationContext(),"clearance",0);
+        if(clearance==1){
+            String position = (String) document.get("position");
+            SharedPref.putString(getApplicationContext(), "position", position);
+        }
+        else{
+            Long year = (Long) document.get("year");
+            SharedPref.putInt(getApplicationContext(),"year", Integer.parseInt(year.toString()));
+        }
+
+        SharedPref.putInt(getApplicationContext(),"clearance",clearance);
         SharedPref.putString(getApplicationContext(),"dept", dept);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
-        SharedPref.putInt(getApplicationContext(),"year", Integer.parseInt(year.toString()));
+        SharedPref.putString(getApplicationContext(), "access", access);
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signin");
         progress.setVisibility(View.GONE);
-        FCMHelper.SubscribeToTopic(this,dept);
+        FCMHelper.SubscribeToTopic(this, dept);
         setUpNotification();
-        FCMHelper.UpdateFCM(this,SharedPref.getString(this,"FCMToken"));
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        FCMHelper.UpdateFCM(this, SharedPref.getString(this, "FCMToken"));
+
+        if(clearance==1)
+            startActivity(new Intent(getApplicationContext(), faculty_home.class));
+        else
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
-    public void signUp(FirebaseUser user){
+    public void signUpStudent(FirebaseUser user) {
         String email = user.getEmail();
         String id = user.getUid();
 
@@ -164,7 +223,11 @@ public class LogoutActivity extends AppCompatActivity {
 
         String dp_url = user.getPhotoUrl().toString();
         String name = user.getDisplayName();
+
+        //TODO: Handle break year students accordingly by [admin]
         int year = Integer.parseInt(split[0].substring(split[0].length() - 5, split[0].length() - 3)) + 2000;
+        if (year <= 2016)
+            year = 2016;
 
         Map<String, Object> users = new HashMap<>();
         users.put("access", "");
@@ -175,31 +238,69 @@ public class LogoutActivity extends AppCompatActivity {
         users.put("id", id);
         users.put("name", name);
         users.put("year", year);
-        users.put("FCMToken",SharedPref.getString(this,"FCMToken"));
+        users.put("FCMToken", SharedPref.getString(this, "FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
-        FCMHelper.SubscribeToTopic(this,dept);
+        FCMHelper.SubscribeToTopic(this, dept);
         setUpNotification();
 
-        SharedPref.putInt(getApplicationContext(),"clearance", 0);
-        SharedPref.putString(getApplicationContext(),"dept", dept);
-        SharedPref.putString(getApplicationContext(),"email", email);
-        SharedPref.putString(getApplicationContext(),"id", id);
-        SharedPref.putString(getApplicationContext(),"name", name);
-        SharedPref.putInt(getApplicationContext(),"year", year);
-        SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
-
+        SharedPref.putInt(getApplicationContext(), "clearance", 0);
+        SharedPref.putString(getApplicationContext(), "dept", dept);
+        SharedPref.putString(getApplicationContext(), "email", email);
+        SharedPref.putString(getApplicationContext(), "id", id);
+        SharedPref.putString(getApplicationContext(), "name", name);
+        SharedPref.putInt(getApplicationContext(), "year", year);
+        SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
     }
 
-    public void setUpNotification(){
-        SharedPref.putBoolean(getApplicationContext(),"switch_all", true);
-        SharedPref.putBoolean(getApplicationContext(),"switch_dept", true);
-        SharedPref.putBoolean(getApplicationContext(),"switch_bus", true);
-        SharedPref.putBoolean(getApplicationContext(),"switch_club", true);
-        SharedPref.putBoolean(getApplicationContext(),"switch_exam", true);
-        SharedPref.putBoolean(getApplicationContext(),"switch_workshop", true);
+    public void signUpFaculty(FirebaseUser user, DocumentSnapshot document) {
+        String email = user.getEmail();
+        String id = user.getUid();
+        String dept = document.getString("dept");
+        String access = document.getString("access");
+        String position = document.getString("position");
+        String name = document.getString("name");
+        String dp_url = user.getPhotoUrl().toString();
+
+        Map<String, Object> users = new HashMap<>();
+        users.put("access", access);
+        users.put("position", position);
+        users.put("clearance", 1);
+        users.put("dept", dept);
+        users.put("dp_url", dp_url);
+        users.put("email", email);
+        users.put("id", id);
+        users.put("name", name);
+        users.put("FCMToken", SharedPref.getString(this, "FCMToken"));
+        FirebaseFirestore.getInstance().collection("user").document(id).set(users);
+        FCMHelper.SubscribeToTopic(this, dept);
+        setUpNotification();
+
+        SharedPref.putInt(getApplicationContext(), "clearance", 1);
+        SharedPref.putString(getApplicationContext(), "email", email);
+        SharedPref.putString(getApplicationContext(), "id", id);
+        SharedPref.putString(getApplicationContext(), "position", position);
+        SharedPref.putString(getApplicationContext(), "access", access);
+        SharedPref.putString(getApplicationContext(), "dept", dept);
+        SharedPref.putString(getApplicationContext(), "name", name);
+        SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
+
+        Log.d("test_set", "signup");
+        progress.setVisibility(View.GONE);
+        startActivity(new Intent(getApplicationContext(), faculty_home.class));
+    }
+
+    //*****************************************************************************************************************************
+
+    public void setUpNotification() {
+        SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_dept", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_club", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
     }
 
     @Override
