@@ -41,6 +41,7 @@ public class SplashActivity extends AppCompatActivity {
     Intent intent, notif_intent;
     private final static String TAG="test_set";
     private GifDrawable gifFromResource;
+    private GifImageView gifImageView;
 
     private static Boolean flag = false;
     private static Boolean worst_case = true;
@@ -55,6 +56,9 @@ public class SplashActivity extends AppCompatActivity {
 
         try {
             gifFromResource = (GifDrawable) new GifDrawable(getResources(), R.drawable.splash_screen);
+            gifImageView = (GifImageView) findViewById(R.id.splashIV);
+            gifImageView.setImageDrawable(gifFromResource);
+
             gifFromResource.addAnimationListener(new AnimationListener() {
                 @Override
                 public void onAnimationCompleted(int loopNumber) {

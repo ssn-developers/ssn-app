@@ -9,7 +9,6 @@
         android:id="@+id/splashIV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash_screen"
         android:scaleType="centerCrop"/>
 
 </RelativeLayout>

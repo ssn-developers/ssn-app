@@ -283,6 +283,12 @@ public class OnboardingActivity extends AppCompatActivity {
         String name = (String) document.get("name");
         Long year = (Long) document.get("year");
 
+        Log.d("test_set",dept);
+        Log.d("test_set",id);
+        Log.d("test_set",email);
+        Log.d("test_set",name);
+        Log.d("test_set",Long.toString(year));
+
         SharedPref.putInt(getApplicationContext(),"clearance",0);
         SharedPref.putString(getApplicationContext(),"dept", dept);
         SharedPref.putString(getApplicationContext(),"email", email);
