@@ -1,14 +1,12 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -27,14 +25,12 @@ import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
-import in.edu.ssn.ssnapp.fragments.FacultyFeedFragment;
-import in.edu.ssn.ssnapp.fragments.FeedFragment;
+import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class faculty_home extends BaseActivity {
-
+public class StudentHomeActivity extends BaseActivity {
     ImageView menuIV, notifUI;
     CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
@@ -49,8 +45,7 @@ public class faculty_home extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.faculty_home);
-
+        setContentView(R.layout.activity_student_home);
 
         initUI();
 
@@ -79,14 +74,14 @@ public class faculty_home extends BaseActivity {
                     case "Favourites":
                         //startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
                         break;
-                    case "View Admin":
-//                        if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn"))
-//                            startActivity(new Intent(getApplicationContext(), LibraryActivity.class));
-//                        else
-//                            Toast.makeText(faculty_home.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT).show();
+                    case "Library Renewals":
+                        if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn"))
+                            startActivity(new Intent(getApplicationContext(), LibraryActivity.class));
+                        else
+                            Toast.makeText(StudentHomeActivity.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT).show();
                         break;
-                    case "FAQ":
-//                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssn.almaconnect.com")));
+                    case "Alumni Connect":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssn.almaconnect.com")));
                         break;
                     case "Notification Settings":
                         startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
@@ -147,8 +142,8 @@ public class faculty_home extends BaseActivity {
     void setUpDrawer(){
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds_blue));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        adapter.add(new Drawer("View Admin", R.drawable.ic_book));
-        adapter.add(new Drawer("FAQ", R.drawable.ic_alumni));
+        adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
+        adapter.add(new Drawer("Alumni Connect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
@@ -160,9 +155,9 @@ public class faculty_home extends BaseActivity {
 
     void setupViewPager(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FacultyFeedFragment(), "Feed");
+        adapter.addFragment(new StudentFeedFragment(), "Feed");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
-//        adapter.addFragment(new ExamCellFragment(), "Exam cell");
+        adapter.addFragment(new ExamCellFragment(), "Exam cell");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);

@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import in.edu.ssn.ssnapp.HomeActivity;
+import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
-import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
@@ -58,7 +57,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
         // handling notification message
         else if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            Intent intent=new Intent(this, HomeActivity.class);
+            Intent intent=new Intent(this, StudentHomeActivity.class);
             FCMHelper.showNotification("test 1 "+remoteMessage.getNotification().getBody(),this,intent);
         }
 

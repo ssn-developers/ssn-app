@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,11 +25,15 @@ import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.protobuf.Value;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
@@ -47,7 +51,7 @@ public class FacultyFeedFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        View view = inflater.inflate(R.layout.fragment_feed , container, false);
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
@@ -60,7 +64,6 @@ public class FacultyFeedFragment extends Fragment {
 
     void setupFireStore(){
         String id = SharedPref.getString(getContext(),"id");
-//        String year = "year." + Integer.toString(SharedPref.getInt(getContext(),"year"));
 
         //TODO: Needs to manually create composite query before release for each author. [VERY IMPORTANT]
 
@@ -78,9 +81,41 @@ public class FacultyFeedFragment extends Fragment {
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
                 if(images != null && images.size() != 0)
                     post.setImageUrl(images);
-                else {
+                else
                     post.setImageUrl(null);
+
+                ArrayList<Map<String,String>> files = (ArrayList<Map<String,String>>) snapshot.get("file_urls");
+                if(files != null && files.size() != 0) {
+                    ArrayList<String> fileName = new ArrayList<>();
+                    ArrayList<String> fileUrl = new ArrayList<>();
+
+                    for(int i=0; i<files.size(); i++) {
+                        fileName.add((String)files.get(i).get("name"));
+                        fileUrl.add((String)files.get(i).get("url"));
+                    }
+                    post.setFileName(fileName);
+                    post.setFileUrl(fileUrl);
+                    Log.d("test_set","size:" + fileName.size());
                 }
+                else {
+                    post.setFileName(null);
+                    post.setFileUrl(null);
+                }
+
+                ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
+                if(dept != null && dept.size() != 0)
+                    post.setDept(dept);
+                else
+                    post.setDept(null);
+
+                ArrayList<String> years = new ArrayList<>();
+                Map<Object, Boolean> year = (HashMap<Object,Boolean>) snapshot.get("year");
+                for (Map.Entry<Object,Boolean> entry : year.entrySet()) {
+                    if(entry.getValue().booleanValue())
+                        years.add((String)entry.getKey());
+                }
+                Collections.sort(years);
+                post.setYear(years);
 
                 String id = snapshot.getString("author");
 
@@ -96,20 +131,6 @@ public class FacultyFeedFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
-                holder.tv_author.setText(model.getAuthor());
-
-                try {
-                    if (model.getAuthor_image_url() != null)
-                        Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(holder.userImageIV);
-                    else
-                        holder.userImageIV.setImageResource(R.drawable.ic_user_white);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    holder.userImageIV.setImageResource(R.drawable.ic_user_white);
-                }
-
-                holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
                 Date time = model.getTime();
@@ -151,7 +172,8 @@ public class FacultyFeedFragment extends Fragment {
 
                     if(model.getImageUrl().size()==1){
                         holder.tv_current_image.setVisibility(View.GONE);
-                    }else {
+                    }
+                    else {
                         holder.tv_current_image.setVisibility(View.VISIBLE);
                         holder.tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -190,7 +212,7 @@ public class FacultyFeedFragment extends Fragment {
 
             @Override
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.post_item, group, false);
+                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
                 return new FeedViewHolder(view);
             }
         };
@@ -208,25 +230,20 @@ public class FacultyFeedFragment extends Fragment {
     /*********************************************************/
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_author, tv_position, tv_title, tv_time, tv_current_image;
+        public TextView tv_title, tv_time, tv_current_image;
         public SocialTextView tv_description;
-        public ImageView userImageIV;
         public RelativeLayout feed_view;
         public ViewPager viewPager;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
 
-            tv_author = itemView.findViewById(R.id.tv_author);
-            tv_position = itemView.findViewById(R.id.tv_position);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_description = itemView.findViewById(R.id.tv_description);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_current_image = itemView.findViewById(R.id.currentImageTV);
-            userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
-
         }
     }
 

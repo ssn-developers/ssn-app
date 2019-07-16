@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:id="@+id/currentImageTV"
-                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/image_pos_bg"
                 android:text="1 / 2"

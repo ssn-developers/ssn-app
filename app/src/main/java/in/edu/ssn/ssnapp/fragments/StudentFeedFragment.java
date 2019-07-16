@@ -2,16 +2,13 @@ package in.edu.ssn.ssnapp.fragments;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -33,25 +30,21 @@ import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
-import in.edu.ssn.ssnapp.utils.FontChanger;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class FeedFragment extends Fragment {
+public class StudentFeedFragment extends Fragment {
 
-    public FeedFragment() { }
+    public StudentFeedFragment() { }
 
     RecyclerView feedsRV;
     FirestoreRecyclerAdapter adapter;
@@ -89,9 +82,41 @@ public class FeedFragment extends Fragment {
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
                 if(images != null && images.size() != 0)
                     post.setImageUrl(images);
-                else {
+                else
                     post.setImageUrl(null);
+
+                ArrayList<Map<String,String>> files = (ArrayList<Map<String,String>>) snapshot.get("file_urls");
+                if(files != null && files.size() != 0) {
+                    ArrayList<String> fileName = new ArrayList<>();
+                    ArrayList<String> fileUrl = new ArrayList<>();
+
+                    for(int i=0; i<files.size(); i++) {
+                        fileName.add((String)files.get(i).get("name"));
+                        fileUrl.add((String)files.get(i).get("url"));
+                    }
+                    post.setFileName(fileName);
+                    post.setFileUrl(fileUrl);
+                    Log.d("test_set","size:" + fileName.size());
                 }
+                else {
+                    post.setFileName(null);
+                    post.setFileUrl(null);
+                }
+
+                ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
+                if(dept != null && dept.size() != 0)
+                    post.setDept(dept);
+                else
+                    post.setDept(null);
+
+                ArrayList<String> years = new ArrayList<>();
+                Map<Object, Boolean> year = (HashMap<Object,Boolean>) snapshot.get("year");
+                for (Map.Entry<Object,Boolean> entry : year.entrySet()) {
+                    if(entry.getValue().booleanValue())
+                        years.add((String)entry.getKey());
+                }
+                Collections.sort(years);
+                post.setYear(years);
 
                 String id = snapshot.getString("author");
 
@@ -201,7 +226,7 @@ public class FeedFragment extends Fragment {
 
             @Override
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.post_item, group, false);
+                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
                 return new FeedViewHolder(view);
             }
         };

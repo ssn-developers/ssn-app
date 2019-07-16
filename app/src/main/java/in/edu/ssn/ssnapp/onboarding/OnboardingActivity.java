@@ -30,19 +30,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.edu.ssn.ssnapp.HomeActivity;
+import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
-import in.edu.ssn.ssnapp.faculty_home;
+import in.edu.ssn.ssnapp.FacultyHomeActivity;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import pl.droidsonroids.gif.GifImageView;
@@ -356,9 +353,9 @@ public class OnboardingActivity extends AppCompatActivity {
         FCMHelper.UpdateFCM(this, SharedPref.getString(this, "FCMToken"));
 
         if(clearance==1)
-            startActivity(new Intent(getApplicationContext(), faculty_home.class));
+            startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
         else
-            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
     }
 
     public void signUpStudent(FirebaseUser user) {
@@ -400,7 +397,7 @@ public class OnboardingActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
     }
 
     public void signUpFaculty(FirebaseUser user, DocumentSnapshot document) {
@@ -437,7 +434,7 @@ public class OnboardingActivity extends AppCompatActivity {
 
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
-        startActivity(new Intent(getApplicationContext(), faculty_home.class));
+        startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
     }
 
     //*****************************************************************************************************************************

@@ -7,7 +7,7 @@
 	android:layout_height="match_parent"
 	android:id="@+id/drawerLayout"
 	android:background="@android:color/white"
-	tools:context=".HomeActivity">
+	tools:context=".StudentHomeActivity">
 
 	<RelativeLayout
 		android:layout_width="match_parent"

@@ -10,20 +10,26 @@ import com.google.firebase.firestore.model.value.ReferenceValue;
 
 import java.lang.ref.Reference;
 import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
 
 public class Post implements Parcelable {
-    String id;
     Date time;
+
+    String id;
     String title;
     String description;
-    List<String> imageUrl;
-    List<String> fileUrl;
+
+    ArrayList<String> dept;
+    ArrayList<String> year;
+    ArrayList<String> imageUrl;
+
+    ArrayList<String> fileName;
+    ArrayList<String> fileUrl;
+
     String author;
     String author_image_url;
     String position;
-    //private int likes;
-    //private int comments;
 
     public Post() { }
 
@@ -37,8 +43,14 @@ public class Post implements Parcelable {
         id = in.readString();
         title = in.readString();
         description = in.readString();
+
+        dept = in.createStringArrayList();
+        year = in.createStringArrayList();
         imageUrl = in.createStringArrayList();
+
+        fileName = in.createStringArrayList();
         fileUrl = in.createStringArrayList();
+
         author = in.readString();
         author_image_url = in.readString();
         position = in.readString();
@@ -88,20 +100,12 @@ public class Post implements Parcelable {
         this.time = time;
     }
 
-    public List<String> getImageUrl() {
+    public ArrayList<String> getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(List<String> imageUrl) {
+    public void setImageUrl(ArrayList<String> imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public List<String> getFileUrl() {
-        return fileUrl;
-    }
-
-    public void setFileUrl(List<String> fileUrl) {
-        this.fileUrl = fileUrl;
     }
 
     public String getAuthor() {
@@ -118,6 +122,38 @@ public class Post implements Parcelable {
 
     public void setAuthor_image_url(String author_image_url) {
         this.author_image_url = author_image_url;
+    }
+
+    public ArrayList<String> getDept() {
+        return dept;
+    }
+
+    public void setDept(ArrayList<String> dept) {
+        this.dept = dept;
+    }
+
+    public ArrayList<String> getYear() {
+        return year;
+    }
+
+    public void setYear(ArrayList<String> year) {
+        this.year = year;
+    }
+
+    public ArrayList<String> getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(ArrayList<String> fileName) {
+        this.fileName = fileName;
+    }
+
+    public ArrayList<String> getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(ArrayList<String> fileUrl) {
+        this.fileUrl = fileUrl;
     }
 
     public String getPosition() {
@@ -138,8 +174,14 @@ public class Post implements Parcelable {
         dest.writeString(this.id);
         dest.writeString(this.title);
         dest.writeString(this.description);
+
+        dest.writeStringList(this.dept);
+        dest.writeStringList(this.year);
         dest.writeStringList(this.imageUrl);
+
+        dest.writeStringList(this.fileName);
         dest.writeStringList(this.fileUrl);
+
         dest.writeString(this.author);
         dest.writeString(this.author_image_url);
         dest.writeString(this.position);

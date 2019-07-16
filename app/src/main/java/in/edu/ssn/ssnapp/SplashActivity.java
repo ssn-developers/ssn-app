@@ -14,17 +14,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
@@ -68,7 +61,8 @@ public class SplashActivity extends AppCompatActivity {
                         passIntent();
                 }
             });
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -184,13 +178,15 @@ public class SplashActivity extends AppCompatActivity {
             startActivity(notif_intent);
         else if (SharedPref.getBoolean(getApplicationContext(), "is_logged_in")) {
             if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
-                startActivity(new Intent(getApplicationContext(), faculty_home.class));
-                Bungee.fade(this);
-            } else {
-                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
                 Bungee.fade(this);
             }
-        } else {
+            else {
+                startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                Bungee.fade(this);
+            }
+        }
+        else {
             startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
             Bungee.slideLeft(this);
         }

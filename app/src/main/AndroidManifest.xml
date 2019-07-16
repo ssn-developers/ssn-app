@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".faculty_home"></activity>
+        <activity android:name=".FacultyHomeActivity"></activity>
         <activity android:name=".OpenImageActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".FavouritesActivity" />
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PdfViewerActivity" />
-        <activity android:name=".HomeActivity" />
+        <activity android:name=".StudentHomeActivity" />
         <activity android:name=".PostDetailsActivity" />
         <activity android:name=".BusRouteDetailsActivity" />
         <activity

@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import pl.droidsonroids.gif.GifImageView;
@@ -49,6 +48,9 @@ public class LogoutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logout);
+
+        signInCV = findViewById(R.id.signInCV);
+        progress = findViewById(R.id.progress);
 
         initGoogleSignIn();
 
@@ -208,9 +210,9 @@ public class LogoutActivity extends AppCompatActivity {
         FCMHelper.UpdateFCM(this, SharedPref.getString(this, "FCMToken"));
 
         if(clearance==1)
-            startActivity(new Intent(getApplicationContext(), faculty_home.class));
+            startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
         else
-            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
     }
 
     public void signUpStudent(FirebaseUser user) {
@@ -252,7 +254,7 @@ public class LogoutActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
-        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+        startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
     }
 
     public void signUpFaculty(FirebaseUser user, DocumentSnapshot document) {
@@ -289,7 +291,7 @@ public class LogoutActivity extends AppCompatActivity {
 
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
-        startActivity(new Intent(getApplicationContext(), faculty_home.class));
+        startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
     }
 
     //*****************************************************************************************************************************
