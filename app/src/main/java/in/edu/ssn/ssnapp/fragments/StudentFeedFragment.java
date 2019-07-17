@@ -41,6 +41,7 @@ import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import pl.droidsonroids.gif.GifImageView;
 
 public class StudentFeedFragment extends Fragment {
 
@@ -48,6 +49,7 @@ public class StudentFeedFragment extends Fragment {
 
     RecyclerView feedsRV;
     FirestoreRecyclerAdapter adapter;
+    GifImageView progressIV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -232,11 +234,16 @@ public class StudentFeedFragment extends Fragment {
             }
         };
 
-        feedsRV.setAdapter(adapter);
+        if(options.getSnapshots().size() > 0)
+            feedsRV.setAdapter(adapter);
+        else {
+            //TODO: Empty feeds!
+        }
     }
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
+        progressIV = view.findViewById(R.id.progressIV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
         feedsRV.setHasFixedSize(true);

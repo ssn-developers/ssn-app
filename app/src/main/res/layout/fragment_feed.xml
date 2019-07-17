@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent">
 
@@ -9,7 +8,17 @@
 		android:layout_height="match_parent"
 		android:paddingTop="@dimen/_43sdp"
 		android:clipToPadding="false"
+		android:visibility="gone"
 		android:id="@+id/feedsRV">
 	</androidx.recyclerview.widget.RecyclerView>
 
-</LinearLayout>
+	<pl.droidsonroids.gif.GifImageView
+		android:id="@+id/progressIV"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:src="@drawable/splash_screen"
+		android:visibility="gone"
+		android:padding="@dimen/_50sdp"
+		android:scaleType="centerCrop"/>
+
+</RelativeLayout>
