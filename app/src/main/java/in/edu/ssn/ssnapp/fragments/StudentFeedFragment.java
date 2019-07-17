@@ -263,7 +263,6 @@ public class StudentFeedFragment extends Fragment {
             userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
-
         }
     }
 
