@@ -64,8 +64,13 @@ public class AboutTeamAdapter extends ArrayAdapter<TeamDetails> implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_img1:
-                if (v.getTag() != null)
-                    getContext().startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", v.getTag().toString(), null)));
+                if (v.getTag() != null) {
+                    CharSequence seq = "dribbble";
+                    if (!(v.getTag().toString().contains(seq)))
+                        getContext().startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", v.getTag().toString(), null)));
+                    else
+                        getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(v.getTag().toString())));
+                }
                 break;
             case R.id.iv_img2:
                 if (v.getTag() != null)
