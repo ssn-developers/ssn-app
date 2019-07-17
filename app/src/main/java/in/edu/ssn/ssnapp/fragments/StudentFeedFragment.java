@@ -179,7 +179,7 @@ public class StudentFeedFragment extends Fragment {
                 else
                     holder.tv_description.setText(model.getDescription().trim());
 
-                if(model.getImageUrl()!=null && model.getImageUrl().size() != 0) {
+                if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
                     final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),true, model, timer);
@@ -187,7 +187,8 @@ public class StudentFeedFragment extends Fragment {
 
                     if(model.getImageUrl().size()==1){
                         holder.tv_current_image.setVisibility(View.GONE);
-                    }else {
+                    }
+                    else {
                         holder.tv_current_image.setVisibility(View.VISIBLE);
                         holder.tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
