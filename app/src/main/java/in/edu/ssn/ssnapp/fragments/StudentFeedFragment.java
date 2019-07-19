@@ -70,7 +70,7 @@ public class StudentFeedFragment extends Fragment {
 
         //TODO: Needs to manually create composite query before release for each year & dept. [VERY IMPORTANT]
 
-        Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept",dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -234,11 +234,7 @@ public class StudentFeedFragment extends Fragment {
             }
         };
 
-        if(options.getSnapshots().size() > 0)
-            feedsRV.setAdapter(adapter);
-        else {
-            //TODO: Empty feeds!
-        }
+        feedsRV.setAdapter(adapter);
     }
 
     void initUI(View view){

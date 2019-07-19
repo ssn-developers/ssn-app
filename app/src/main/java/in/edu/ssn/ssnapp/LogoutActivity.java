@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -43,6 +44,7 @@ public class LogoutActivity extends AppCompatActivity {
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
     GifImageView progress;
+    TextView tv_msg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,14 @@ public class LogoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logout);
 
         signInCV = findViewById(R.id.signInCV);
+        tv_msg = findViewById(R.id.tv_msg);
         progress = findViewById(R.id.progress);
+
+        Boolean flag = getIntent().getBooleanExtra("is_log_in",false);
+        if(flag)
+            tv_msg.setText("Start exploring new feeds & bus alerts.");
+        else
+            tv_msg.setText("You were successfully signed out.");
 
         initGoogleSignIn();
 

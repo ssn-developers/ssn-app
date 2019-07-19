@@ -187,7 +187,13 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
         else {
-            startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+            if(!SharedPref.getBoolean(getApplicationContext(),"is_logged_out"))
+                startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+            else{
+                Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
+                intent.putExtra("is_log_in",true);
+                startActivity(intent);
+            }
             Bungee.slideLeft(this);
         }
     }
@@ -220,60 +226,4 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 5000);
     }
-
-    /*public static void FetchPostById(final Context context, String postId){
-        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("post").document(postId);
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot postSnapShot) {
-                Log.d(TAG,"post fetched successfully");
-
-                final Post post = new Post();
-                Log.d(TAG,postSnapShot.getString("title"));
-                post.setTitle(postSnapShot.getString("title"));
-                post.setDescription(postSnapShot.getString("description"));
-                post.setTime(postSnapShot.getTimestamp("time").toDate());
-
-                ArrayList<String> images = (ArrayList<String>) postSnapShot.get("img_urls");
-                if(images != null){
-                    post.setImageUrl(images);
-                }
-
-                String id = postSnapShot.getString("author");
-
-                post.setAuthor(SharedPref.getString(context,"faculty",id + "_name"));
-                post.setAuthor_image_url(SharedPref.getString(context,"faculty",id + "_dp_url"));
-                post.setPosition(SharedPref.getString(context,"faculty",id + "_position"));
-
-                Intent intent = new Intent(context, PostDetailsActivity.class);
-                intent.putExtra("post",post);
-                intent.putExtra("time",FCMHelper.getTime(post.getTime()));
-                context.startActivity(intent);
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"failed to fetch the post");
-
-            }
-        });
-    }*/
-
-    /*final Set<String> linkedHashSet = new LinkedHashSet<>();
-        FirebaseFirestore.getInstance().collection("bus_route").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot ds:queryDocumentSnapshots){
-                    ArrayList<String> stop = (ArrayList<String>) ds.get("stop");
-                    for(String s:stop){
-                        linkedHashSet.add(s);
-                    }
-                }
-
-                for(String s: linkedHashSet){
-                    Log.d("test_set",s);
-                }
-            }
-        });*/
 }

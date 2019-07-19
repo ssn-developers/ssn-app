@@ -46,13 +46,14 @@
                 android:textStyle="bold"
                 android:textSize="@dimen/_14sdp"/>
             <TextView
+                android:id="@+id/tv_msg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textColor="@android:color/tab_indicator_text"
                 android:gravity="center"
-                android:text="You were successfully signed out"
+                android:text="You were successfully signed out."
                 android:textSize="@dimen/_14sdp"/>
 
         </LinearLayout>

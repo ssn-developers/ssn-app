@@ -97,8 +97,13 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
+                        SharedPref.removeAll(getApplicationContext());
                         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", false);
-                        startActivity(new Intent(getApplicationContext(), LogoutActivity.class));
+                        SharedPref.putBoolean(getApplicationContext(),"is_logged_out", true);
+
+                        Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
+                        intent.putExtra("is_log_in",false);
+                        startActivity(intent);
                         break;
                 }
             }
