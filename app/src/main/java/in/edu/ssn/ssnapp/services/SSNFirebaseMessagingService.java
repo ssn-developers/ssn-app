@@ -44,7 +44,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 pdfUrl=remoteMessage.getData().get("PdfUrl");
 
             if(postType.equalsIgnoreCase("1")) {
-                FCMHelper.FetchPostById(this,postId);
+                FCMHelper.FetchPostById(this,postId,1);
             }
             else if(postType.equalsIgnoreCase("2")){
                 Intent intent=new Intent(this, PdfViewerActivity.class);
