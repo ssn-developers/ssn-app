@@ -7,6 +7,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -31,6 +32,7 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class StudentHomeActivity extends BaseActivity {
+    private static final String TAG ="StudentHomeActivity" ;
     ImageView menuIV, notifUI;
     CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
@@ -138,8 +140,13 @@ public class StudentHomeActivity extends BaseActivity {
         tv_name.setText(SharedPref.getString(getApplicationContext(),"name"));
         tv_email.setText(SharedPref.getString(getApplicationContext(),"email"));
 
-        Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
-        Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
+        try{
+            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
+        }catch (Exception e){
+            Log.d(TAG,e.getMessage());
+        }
+
 
         setUpDrawer();
         setupViewPager();
