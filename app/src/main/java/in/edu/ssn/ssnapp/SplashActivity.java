@@ -19,6 +19,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.Date;
+
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.database.Notification;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -166,6 +170,8 @@ public class SplashActivity extends AppCompatActivity {
             } else if (postType.equals("2")) {
                 notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
+                DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
+                dataBaseHelper.addNotification(new Notification("2",postId,pdfUrl,new Post("Bus Post","",new Date(),"2",pdfUrl)));
             }
         }
         if (gifFromResource.isAnimationCompleted())

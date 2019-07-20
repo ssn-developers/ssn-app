@@ -3,8 +3,13 @@ package in.edu.ssn.ssnapp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.util.HashSet;
 import java.util.Set;
+
+import in.edu.ssn.ssnapp.models.Post;
 
 public class SharedPref {
 
@@ -95,4 +100,7 @@ public class SharedPref {
     public static void removeAll(Context context, String name){
         getSharePref(context,name).edit().clear().apply();
     }
+
+
+
 }

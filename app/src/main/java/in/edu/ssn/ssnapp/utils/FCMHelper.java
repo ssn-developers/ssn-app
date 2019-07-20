@@ -27,6 +27,7 @@ import java.util.Date;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 
 public class FCMHelper {
@@ -141,7 +142,7 @@ public class FCMHelper {
     }
 
 
-    public static void FetchPostById(final Context context, String postId, final int operationId){
+    public static void FetchPostById(final Context context, final String postId, final int operationId){
 
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("post").document(postId);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -161,10 +162,12 @@ public class FCMHelper {
 
                 String id = postSnapShot.getString("author");
 
+                post.setId(postId);
                 post.setAuthor(SharedPref.getString(context,"faculty",id + "_name"));
                 post.setAuthor_image_url(SharedPref.getString(context,"faculty",id + "_dp_url"));
                 post.setPosition(SharedPref.getString(context,"faculty",id + "_position"));
-
+                DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(context);
+                dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));
                 RunFunction(context,operationId,post);
 
                 Log.d(TAG,"success fetching the post of type 1");

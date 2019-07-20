@@ -1,6 +1,7 @@
 package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 
@@ -19,9 +21,14 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import in.edu.ssn.ssnapp.PdfViewerActivity;
+import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.Constants;
+
+import static in.edu.ssn.ssnapp.utils.FCMHelper.getTime;
 
 public class NotifyAdapter extends ArrayAdapter<Post> {
 
@@ -30,8 +37,8 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Post drawer=(Post)getItem(position);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final Post drawer=(Post)getItem(position);
 
         if(convertView==null)
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.notify_item, parent,false);
@@ -40,6 +47,26 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
         TextView tv_time=convertView.findViewById(R.id.tv_time);
         CircleImageView iv_dp=convertView.findViewById(R.id.iv_dp);
         ImageView iv_bg=convertView.findViewById(R.id.iv_bg);
+
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Post drawer=getItem(position);
+                if(drawer.getId().equalsIgnoreCase("2")) {
+                    Intent intent = new Intent(getContext(), PdfViewerActivity.class);
+                    intent.putExtra(Constants.PDF_URL,drawer.getFileUrl().get(0));
+                    getContext().startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(getContext(), PostDetailsActivity.class);
+                    intent.putExtra("post",drawer);
+                    intent.putExtra("time",getTime(drawer.getTime()));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    getContext().startActivity(intent);
+                }
+            }
+        });
 
         tv_title.setText(drawer.getTitle());
         try {

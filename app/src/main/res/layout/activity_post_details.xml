@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toStartOf="@+id/shareIV">
+                android:layout_toStartOf="@+id/bookmarkIV">
 
                 <TextView
                     android:id="@+id/tv_author"
@@ -70,6 +70,13 @@
                     android:textSize="@dimen/_9ssp" />
 
             </RelativeLayout>
+
+            <ImageView
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:id="@+id/bookmarkIV"
+                android:layout_toLeftOf="@id/shareIV"
+                android:src="@drawable/ic_bookmark_unsaved" />
 
             <ImageView
                 android:layout_width="@dimen/_35sdp"

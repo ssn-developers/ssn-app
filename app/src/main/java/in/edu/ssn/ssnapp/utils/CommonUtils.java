@@ -5,8 +5,10 @@ import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
@@ -18,12 +20,16 @@ import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
+
+import com.google.common.io.BaseEncoding;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,6 +37,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,4 +114,35 @@ public class CommonUtils {
 
         return null;
     }
+
+
+
+    /************************************************************************/
+
+    // gets the key hash of the signing certificate
+
+    public static String getHash(Context context) {
+
+        // src: https://stackoverflow.com/questions/52041805/how-to-use-packageinfo-get-signing-certificates-in-api-28
+        // used the code from the accepted answer
+
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
+            final Signature[] signatures = packageInfo.signingInfo.getApkContentsSigners();
+            final MessageDigest md = MessageDigest.getInstance("SHA");
+            md.update(signatures[0].toByteArray());
+            final String signatureBase64 = new String(Base64.encode(md.digest(), Base64.DEFAULT));
+            return signatureBase64;
+
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
+
+        Toast.makeText(context, "Hash not found", Toast.LENGTH_SHORT).show();
+        return "null";
+    }
+    /************************************************************************/
+
 }

@@ -2,10 +2,17 @@ package in.edu.ssn.ssnapp.services;
 
 import android.content.Intent;
 import android.util.Log;
+
+import com.amitshekhar.utils.DatabaseHelper;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+
+import java.util.Date;
+
 import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.database.Notification;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
@@ -32,6 +39,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         Log.d(TAG, "From: " + remoteMessage.getFrom());
+        DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
 
         // handling data+notification messages
         if (remoteMessage.getData().size() > 0) {
@@ -46,10 +54,11 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
             if(postType.equalsIgnoreCase("1")) {
                 FCMHelper.FetchPostById(this,postId,1);
             }
-            else if(postType.equalsIgnoreCase("2")){
+            else{
                 Intent intent=new Intent(this, PdfViewerActivity.class);
                 intent.putExtra(Constants.PDF_URL,pdfUrl);
                 FCMHelper.showNotification(remoteMessage.getNotification().getBody(),this,intent);
+                dataBaseHelper.addNotification(new Notification("2",postId,pdfUrl,new Post(remoteMessage.getNotification().getTitle(),"",new Date(),"2",pdfUrl)));
             }
 
         }

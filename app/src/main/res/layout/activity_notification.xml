@@ -8,11 +8,13 @@
     tools:context=".NotificationActivity"
     android:background="#F5F6F8">
 
+
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_82sdp"
         android:background="@drawable/notify_top_comp"/>
+
 
     <RelativeLayout
         android:id="@+id/layout1"

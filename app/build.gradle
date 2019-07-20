@@ -55,6 +55,8 @@ dependencies {
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.hendraanggrian.appcompat:socialview:0.2'
     implementation 'com.github.adroitandroid:ChipCloud:2.2.1'
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'net.zetetic:android-database-sqlcipher:4.2.0@aar'
 }
 
 apply plugin: 'com.google.gms.google-services'

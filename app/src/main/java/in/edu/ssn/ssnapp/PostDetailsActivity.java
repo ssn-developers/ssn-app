@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,12 +31,14 @@ import java.util.List;
 
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class PostDetailsActivity extends BaseActivity {
 
+    final static String TAG="PostDetails";
     Post post;
-    ImageView backIV, userImageIV, shareIV;
+    ImageView backIV, userImageIV, shareIV,bookmarkIV;
     ViewPager imageViewPager;
     TextView tv_author, tv_position, tv_time, tv_title, tv_current_image,tv_attachments;
     SocialTextView tv_description;
@@ -47,10 +50,10 @@ public class PostDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
 
-        initUI();
-
         post = getIntent().getParcelableExtra("post");
         String time = getIntent().getStringExtra("time");
+
+        initUI();
 
         tv_title.setText(post.getTitle().trim());
         tv_description.setText(post.getDescription().trim());
@@ -163,6 +166,17 @@ public class PostDetailsActivity extends BaseActivity {
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
+
+        bookmarkIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    if(!checkSavedPost(post))
+                    {
+                        savePost(post);
+                    }
+            }
+        });
     }
 
     void initUI(){
@@ -183,6 +197,13 @@ public class PostDetailsActivity extends BaseActivity {
         textGroupRL = findViewById(R.id.textGroupRL);
         layout_receive = findViewById(R.id.layout_receive);
         textGroupRL.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+        bookmarkIV=findViewById(R.id.bookmarkIV);
+
+        if(checkSavedPost(post))
+            bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
+        else
+            bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
+
     }
 
     /*****************************************************************/
@@ -227,5 +248,47 @@ public class PostDetailsActivity extends BaseActivity {
         chip.setChipCornerRadius(30f);
         chip.setText(data);
         return chip;
+    }
+
+
+    Boolean savePost(Post post){
+
+        try{
+
+            //updating saved post count
+            int count=SharedPref.getInt(PostDetailsActivity.this,Constants.SAVED_POST_SP,Constants.SAVED_POST_COUNT);
+            count++;
+            SharedPref.putInt(PostDetailsActivity.this,Constants.SAVED_POST_SP,Constants.SAVED_POST_COUNT,count);
+
+            // saving the post object to sharedPreference
+            //SharedPref.putPost(PostDetailsActivity.this, Constants.SAVED_POST_SP,Integer.toString(count),post);
+
+            // updating the post status to saved in shared preference
+            SharedPref.putBoolean(PostDetailsActivity.this,Constants.SAVED_POST_SP,post.getId(),true);
+
+
+            bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
+
+        }catch (Exception e){
+            Log.d(TAG,e.getMessage());
+            return false;
+        }
+
+        Toast.makeText(this, "Saved post", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    void unSavePost(Post post){
+
+        // updating the post status to not saved in shared preference
+        SharedPref.putBoolean(PostDetailsActivity.this,Constants.SAVED_POST_SP,post.getId(),false);
+
+        bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
+    }
+
+
+
+    Boolean checkSavedPost(Post post){
+        return SharedPref.getBoolean(PostDetailsActivity.this,Constants.SAVED_POST_SP,post.getId());
     }
 }

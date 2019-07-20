@@ -33,10 +33,13 @@ public class Post implements Parcelable {
 
     public Post() { }
 
-    public Post(String title, String author_image_url, Date time) {
+    public Post(String title, String author_image_url, Date time,String id,String FileUrl) {
         this.title = title;
         this.author_image_url = author_image_url;
         this.time = time;
+        this.id=id;
+        this.fileUrl=new ArrayList<>();
+        this.fileUrl.add(FileUrl);
     }
 
     protected Post(Parcel in) {
