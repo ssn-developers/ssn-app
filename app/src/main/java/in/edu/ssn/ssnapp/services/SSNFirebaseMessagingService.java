@@ -40,8 +40,8 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 postType=remoteMessage.getData().get("PostType");
             if(remoteMessage.getData().containsKey("PostId"))
                 postId=remoteMessage.getData().get("PostId");
-            if(remoteMessage.getData().containsKey("PdfUrl"))
-                pdfUrl=remoteMessage.getData().get("PdfUrl");
+            if(remoteMessage.getData().containsKey("PostUrl"))
+                pdfUrl=remoteMessage.getData().get("PostUrl");
 
             if(postType.equalsIgnoreCase("1")) {
                 FCMHelper.FetchPostById(this,postId,1);

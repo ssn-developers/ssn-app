@@ -141,8 +141,8 @@ public class SplashActivity extends AppCompatActivity {
             if (bundle.containsKey("PostId")) {
                 postId = intent.getStringExtra("PostId");
             }
-            if (bundle.containsKey("PdfUrl")) {
-                pdfUrl = intent.getStringExtra("PdfUrl");
+            if (bundle.containsKey("PostUrl")) {
+                pdfUrl = intent.getStringExtra("PostUrl");
             }
             Log.d(TAG, "post details: " + postId + " " + postType);
 
