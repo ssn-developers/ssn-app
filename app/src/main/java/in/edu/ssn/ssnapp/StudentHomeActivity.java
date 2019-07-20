@@ -113,6 +113,7 @@ public class StudentHomeActivity extends BaseActivity {
                         Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
                         intent.putExtra("is_log_in",false);
                         startActivity(intent);
+                        finish();
 
                         break;
                 }
