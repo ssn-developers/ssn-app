@@ -141,7 +141,7 @@ public class FCMHelper {
     }
 
 
-    public static void FetchPostById(final Context context,String postId){
+    public static void FetchPostById(final Context context, String postId, final int operationId){
 
         DocumentReference documentReference = FirebaseFirestore.getInstance().collection("post").document(postId);
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -165,11 +165,8 @@ public class FCMHelper {
                 post.setAuthor_image_url(SharedPref.getString(context,"faculty",id + "_dp_url"));
                 post.setPosition(SharedPref.getString(context,"faculty",id + "_position"));
 
+                RunFunction(context,operationId,post);
 
-                Intent intent = new Intent(context, PostDetailsActivity.class);
-                intent.putExtra("post",post);
-                intent.putExtra("time",getTime(post.getTime()));
-                FCMHelper.showNotification(post.getDescription(),context,intent);
                 Log.d(TAG,"success fetching the post of type 1");
 
             }
@@ -205,5 +202,26 @@ public class FCMHelper {
             return Long.toString(t/31536000000L) + "y ago";
     }
 
+
+    private static void RunFunction(final Context context,final int type,Post post)
+    {
+        switch (type)
+        {
+            case 1:{
+                Intent intent = new Intent(context, PostDetailsActivity.class);
+                intent.putExtra("post",post);
+                intent.putExtra("time",getTime(post.getTime()));
+                FCMHelper.showNotification(post.getDescription(),context,intent);
+            }  break;
+
+            case 2:{
+                Intent intent = new Intent(context, PostDetailsActivity.class);
+                intent.putExtra("post",post);
+                intent.putExtra("time",getTime(post.getTime()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                context.startActivity(intent);
+            }
+        }
+    }
 
 }

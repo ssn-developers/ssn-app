@@ -141,8 +141,8 @@ public class SplashActivity extends AppCompatActivity {
             if (bundle.containsKey("PostId")) {
                 postId = intent.getStringExtra("PostId");
             }
-            if (bundle.containsKey("PdfUrl")) {
-                pdfUrl = intent.getStringExtra("PdfUrl");
+            if (bundle.containsKey("PostUrl")) {
+                pdfUrl = intent.getStringExtra("PostUrl");
             }
             Log.d(TAG, "post details: " + postId + " " + postType);
 
@@ -158,11 +158,13 @@ public class SplashActivity extends AppCompatActivity {
                 post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty",id + "_dp_url"));
                 post.setPosition(SharedPref.getString(getApplicationContext(),"faculty",id + "_position"));*/
 
-                notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
-                notif_intent.putExtra("post", post);
-                notif_intent.putExtra("time", FCMHelper.getTime(post.getTime()));
+                //notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
+                //notif_intent.putExtra("post", post);
+                //notif_intent.putExtra("time", FCMHelper.getTime(post.getTime()));
+                FCMHelper.FetchPostById(getApplicationContext(),postId,2);
+                notif_intent=null;
             } else if (postType.equals("2")) {
-                notif_intent = new Intent(this, PdfViewerActivity.class);
+                notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
             }
         }

@@ -98,6 +98,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     @Override
     public void onFailure(Exception e) {
         progress.setVisibility(View.GONE);
+        Log.d(TAG,e.getMessage());
         showAlertDialog();
     }
 
