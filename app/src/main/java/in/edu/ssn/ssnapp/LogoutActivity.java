@@ -57,7 +57,7 @@ public class LogoutActivity extends AppCompatActivity {
 
         Boolean flag = getIntent().getBooleanExtra("is_log_in",false);
         if(flag)
-            tv_msg.setText("Start exploring new feeds & bus alerts.");
+            tv_msg.setText("Start exploring new feeds.");
         else
             tv_msg.setText("You were successfully signed out.");
 
@@ -218,10 +218,14 @@ public class LogoutActivity extends AppCompatActivity {
         setUpNotification();
         FCMHelper.UpdateFCM(this, SharedPref.getString(this, "FCMToken"));
 
-        if(clearance==1)
+        if(clearance==1) {
             startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
-        else
+            finish();
+        }
+        else {
             startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+            finish();
+        }
     }
 
     public void signUpStudent(FirebaseUser user) {
@@ -264,6 +268,7 @@ public class LogoutActivity extends AppCompatActivity {
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+        finish();
     }
 
     public void signUpFaculty(FirebaseUser user, DocumentSnapshot document) {
@@ -301,6 +306,7 @@ public class LogoutActivity extends AppCompatActivity {
         Log.d("test_set", "signup");
         progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+        finish();
     }
 
     //*****************************************************************************************************************************
@@ -318,7 +324,7 @@ public class LogoutActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent startMain = new Intent(Intent.ACTION_MAIN);
         startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(startMain);
         finish();
     }

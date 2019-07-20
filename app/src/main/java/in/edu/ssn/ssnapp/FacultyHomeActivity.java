@@ -100,6 +100,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         SharedPref.removeAll(getApplicationContext());
                         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", false);
                         SharedPref.putBoolean(getApplicationContext(),"is_logged_out", true);
+                        finish();
 
                         Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
                         intent.putExtra("is_log_in",false);

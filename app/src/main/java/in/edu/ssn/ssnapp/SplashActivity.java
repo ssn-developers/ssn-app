@@ -174,25 +174,32 @@ public class SplashActivity extends AppCompatActivity {
 
     public void passIntent() {
         worst_case = false;
-        if (notif_intent != null)
+        if (notif_intent != null) {
             startActivity(notif_intent);
+            finish();
+        }
         else if (SharedPref.getBoolean(getApplicationContext(), "is_logged_in")) {
             if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
                 startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+                finish();
                 Bungee.fade(this);
             }
             else {
                 startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                finish();
                 Bungee.fade(this);
             }
         }
         else {
-            if(!SharedPref.getBoolean(getApplicationContext(),"is_logged_out"))
+            if(!SharedPref.getBoolean(getApplicationContext(),"is_logged_out")) {
                 startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+                finish();
+            }
             else{
                 Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
                 intent.putExtra("is_log_in",true);
                 startActivity(intent);
+                finish();
             }
             Bungee.slideLeft(this);
         }
