@@ -74,7 +74,7 @@ public class StudentHomeActivity extends BaseActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
-                        //startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
+                        startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         break;
                     case "Library Renewals":
                         if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn"))

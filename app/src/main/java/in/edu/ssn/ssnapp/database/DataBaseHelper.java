@@ -54,7 +54,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // add a post
     public void addPost(Post post){
         SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
-
         ContentValues cv=new ContentValues();
         cv.put(SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID,post.getId());
         String json=new Gson().toJson(post);
@@ -69,19 +68,29 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d(TAG,"insertion id "+id);
     }
 
-    // delete a post
 
-    public void deletePost(Post post){
+    // check if a post is saved in DB
+    public boolean checkPost(String postId){
+        SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
+
+        Cursor cursor=db.query(SavedPost.SavedPostEntry.TABLE_NAME,new String[]{SavedPost.SavedPostEntry.COLUMN_NAME_POST},SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID+"= ?",new String[]{postId},null,null,null,null);
+
+        return cursor.moveToFirst();
+    }
+
+    // delete a post
+    public void deletePost(String postID){
         SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
-        int rowsDeleted=db.delete(SavedPost.SavedPostEntry.TABLE_NAME,SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID+"= ?",new String[]{post.getId()});
+        int rowsDeleted=db.delete(SavedPost.SavedPostEntry.TABLE_NAME,SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID+"= ?",new String[]{postID});
         Log.d(TAG,"deleted rows cnt "+rowsDeleted);
     }
 
     // list the post
-
-    public void fetchSavedPost(){
+    public ArrayList<Post> getSavedPostList(){
 
         SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
+        ArrayList<Post> PostList=new ArrayList<>();
+
         long rowCount =DatabaseUtils.queryNumEntries(db,SavedPost.SavedPostEntry.TABLE_NAME);
         Log.d(TAG,"no of rows "+rowCount);
         String query = "select * from " + SavedPost.SavedPostEntry.TABLE_NAME;
@@ -96,15 +105,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String json=c.getString(1);
                 Post post= new Gson().fromJson(json, Post.class);
                 Log.d(TAG,i +" "+post.getTitle());
+                PostList.add(post);
                 i++;
             }while (c.moveToNext());
         }
+
+        return PostList;
     }
 
 
 
     // Add notification
-
     public void addNotification(Notification notification){
 
         SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);

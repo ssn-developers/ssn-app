@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,6 +41,7 @@ import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.FacultyHomeActivity;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import pl.droidsonroids.gif.GifImageView;
@@ -348,7 +350,8 @@ public class OnboardingActivity extends AppCompatActivity {
 
         Log.d("test_set", "signin");
         progress.setVisibility(View.GONE);
-        FCMHelper.SubscribeToTopic(this, dept);
+        //FCMHelper.SubscribeToTopic(this, dept);
+        SubscribeToAlerts(this,dept);
         setUpNotification();
         FCMHelper.UpdateFCM(this, SharedPref.getString(this, "FCMToken"));
 
@@ -385,7 +388,8 @@ public class OnboardingActivity extends AppCompatActivity {
         users.put("year", year);
         users.put("FCMToken", SharedPref.getString(this, "FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
-        FCMHelper.SubscribeToTopic(this, dept);
+        //FCMHelper.SubscribeToTopic(this, dept);
+        SubscribeToAlerts(this,dept);
         setUpNotification();
 
         SharedPref.putInt(getApplicationContext(), "clearance", 0);
@@ -420,7 +424,7 @@ public class OnboardingActivity extends AppCompatActivity {
         users.put("name", name);
         users.put("FCMToken", SharedPref.getString(this, "FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
-        FCMHelper.SubscribeToTopic(this, dept);
+        SubscribeToAlerts(this,dept);
         setUpNotification();
 
         SharedPref.putInt(getApplicationContext(), "clearance", 1);
@@ -454,5 +458,14 @@ public class OnboardingActivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(startMain);
+    }
+
+    public void SubscribeToAlerts(Context context,String dept){
+        FCMHelper.SubscribeToTopic(context,dept);
+        FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
+        FCMHelper.SubscribeToTopic(context, Constants.CLUB_ALERTS);
+        FCMHelper.SubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
+        FCMHelper.SubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
+
     }
 }

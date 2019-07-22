@@ -1,8 +1,10 @@
 package in.edu.ssn.ssnapp;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.DownloadManager;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcel;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -22,15 +25,19 @@ import android.widget.Toast;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
+import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.hendraanggrian.appcompat.widget.SocialView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
@@ -171,10 +178,11 @@ public class PostDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                    if(!checkSavedPost(post))
-                    {
+                    if(checkSavedPost(post))
+                        unSavePost(post);
+                    else
                         savePost(post);
-                    }
+
             }
         });
     }
@@ -218,6 +226,9 @@ public class PostDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 Toast.makeText(PostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
 
+                if(!CommonUtils.hasPermissions(PostDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})){
+                    ActivityCompat.requestPermissions(PostDetailsActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                }
                 try {
                     DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                     Uri downloadUri = Uri.parse(url);
@@ -225,7 +236,8 @@ public class PostDetailsActivity extends BaseActivity {
 
                     request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
                             .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS + "/SSN App/", file_name)
-                            .setTitle(file_name).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+                            .setTitle(file_name)
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
                     dm.enqueue(request);
                 }
@@ -255,17 +267,8 @@ public class PostDetailsActivity extends BaseActivity {
 
         try{
 
-            //updating saved post count
-            int count=SharedPref.getInt(PostDetailsActivity.this,Constants.SAVED_POST_SP,Constants.SAVED_POST_COUNT);
-            count++;
-            SharedPref.putInt(PostDetailsActivity.this,Constants.SAVED_POST_SP,Constants.SAVED_POST_COUNT,count);
-
-            // saving the post object to sharedPreference
-            //SharedPref.putPost(PostDetailsActivity.this, Constants.SAVED_POST_SP,Integer.toString(count),post);
-
-            // updating the post status to saved in shared preference
-            SharedPref.putBoolean(PostDetailsActivity.this,Constants.SAVED_POST_SP,post.getId(),true);
-
+            DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
+            dataBaseHelper.addPost(post);
 
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
 
@@ -281,14 +284,15 @@ public class PostDetailsActivity extends BaseActivity {
     void unSavePost(Post post){
 
         // updating the post status to not saved in shared preference
-        SharedPref.putBoolean(PostDetailsActivity.this,Constants.SAVED_POST_SP,post.getId(),false);
-
+        DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
+        dataBaseHelper.deletePost(post.getId());
         bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
     }
 
 
 
     Boolean checkSavedPost(Post post){
-        return SharedPref.getBoolean(PostDetailsActivity.this,Constants.SAVED_POST_SP,post.getId());
+        DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
+        return dataBaseHelper.checkPost(post.getId());
     }
 }

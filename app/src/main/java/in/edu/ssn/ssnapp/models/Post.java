@@ -57,6 +57,7 @@ public class Post implements Parcelable {
         author = in.readString();
         author_image_url = in.readString();
         position = in.readString();
+        time=new Date(in.readLong());
     }
 
     public static final Creator<Post> CREATOR = new Creator<Post>() {
@@ -188,5 +189,6 @@ public class Post implements Parcelable {
         dest.writeString(this.author);
         dest.writeString(this.author_image_url);
         dest.writeString(this.position);
+        dest.writeLong(this.time.getTime());
     }
 }
