@@ -119,8 +119,8 @@ public class FCMHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(new NotificationChannel("1","general",NotificationManager.IMPORTANCE_HIGH));
             Notification.Builder nbuilder=new Notification.Builder(context,"1")
-                    .setContentTitle("hello")
-                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setContentTitle("New post")
+                    .setSmallIcon(R.drawable.app_icon)
                     .setContentText(message)
                     .setChannelId("1")
                     .setAutoCancel(true)
@@ -130,8 +130,8 @@ public class FCMHelper {
 
         }else {
             Notification.Builder nbuilder=new Notification.Builder(context)
-                    .setContentTitle("hello")
-                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setContentTitle("New post")
+                    .setSmallIcon(R.drawable.app_icon)
                     .setContentText(message)
                     .setAutoCancel(true)
                     .setContentIntent(pendingIntent);
