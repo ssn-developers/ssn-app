@@ -96,7 +96,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
 
         url= new ArrayList<>();
         url.add("mfmevins@gmail.com");
-        url.add(null);
+        url.add("https://github.com/MevinFernando");
         url.add("https://www.linkedin.com/in/antonymevinfernando");
         adapter.add(new TeamDetails("Antony Mevin Fernando","Web Developer & Designer",R.drawable.mevin_profile, type, url));
 
