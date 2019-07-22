@@ -1,5 +1,6 @@
 package in.edu.ssn.ssnapp.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +26,7 @@ import android.widget.Toast;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -40,6 +43,7 @@ import java.util.Map;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -230,7 +234,7 @@ public class StudentFeedFragment extends Fragment {
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        Toast.makeText(getContext(), "Long Press detected", Toast.LENGTH_SHORT).show();
+                        handleBottomSheet(v,model);
                         return true;
                     }
                 });
@@ -297,4 +301,70 @@ public class StudentFeedFragment extends Fragment {
         super.onStop();
 
     }
+
+
+    /**********************************************************/
+
+    void handleBottomSheet(View v,final Post post)
+    {
+        LinearLayout ll_save,ll_share;
+        final TextView tv_save;
+        Context context;
+
+        context=v.getContext();
+
+        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
+        View sheetView=getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_main_feed,null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        ll_save=sheetView.findViewById(R.id.saveLL);
+        ll_share=sheetView.findViewById(R.id.shareLL);
+        tv_save=sheetView.findViewById(R.id.tv_save);
+
+
+        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(context);
+        if(dataBaseHelper.checkPost(post.getId()))
+            tv_save.setText("Remove from Favourites");
+        else
+            tv_save.setText("Add to Favourites");
+
+
+        bottomSheetDialog.show();
+
+
+
+
+
+        ll_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if(dataBaseHelper.checkPost(post.getId())){
+                    dataBaseHelper.deletePost(post.getId());
+                    tv_save.setText("Add to Favourites");
+
+                }
+                else{
+                    tv_save.setText("Remove from Favourites");
+                    dataBaseHelper.addPost(post);
+                }
+                bottomSheetDialog.hide();
+            }
+        });
+
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/" + post.getId();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
+
+    }
+
+
 }
