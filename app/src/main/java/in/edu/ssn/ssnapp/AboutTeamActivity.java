@@ -102,7 +102,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
 
         url= new ArrayList<>();
         url.add("kaushik.personal.98@gmail.com");
-        url.add(null);
+        url.add("https://github.com/kshake");
         url.add("https://www.linkedin.com/in/kaushik-p-2921aa178");
         adapter.add(new TeamDetails("Kaushik P","Web Developer",R.drawable.ic_profile_background, type, url));
 
