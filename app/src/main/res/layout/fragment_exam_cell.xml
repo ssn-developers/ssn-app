@@ -42,9 +42,8 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="@dimen/_15ssp"
+					android:textSize="@dimen/_13ssp"
 					android:fontFamily="@font/open_sans_bold"
-					android:textStyle="bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/internals"/>
 			</LinearLayout>
@@ -76,8 +75,7 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="@dimen/_15ssp"
-					android:textStyle="bold"
+					android:textSize="@dimen/_13ssp"
 					android:fontFamily="@font/open_sans_bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/results"/>
@@ -118,9 +116,8 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="@dimen/_15ssp"
+					android:textSize="@dimen/_13ssp"
 					android:fontFamily="@font/open_sans_bold"
-					android:textStyle="bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/seating_arrangement"/>
 			</LinearLayout>
@@ -152,8 +149,7 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textSize="@dimen/_15ssp"
-					android:textStyle="bold"
+					android:textSize="@dimen/_13ssp"
 					android:fontFamily="@font/open_sans_bold"
 					android:textColor="@color/colorAccent"
 					android:text="@string/exam_schedule"/>
