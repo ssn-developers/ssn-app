@@ -39,7 +39,7 @@ public class FacultyHomeActivity extends BaseActivity {
     ListView lv_items;
     DrawerAdapter adapter;
 
-    static int count=0;
+    static int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +65,8 @@ public class FacultyHomeActivity extends BaseActivity {
         lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Drawer rs=(Drawer)parent.getItemAtPosition(position);
-                switch (rs.getTitle()){
+                Drawer rs = (Drawer) parent.getItemAtPosition(position);
+                switch (rs.getTitle()) {
                     case "Feeds":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -74,7 +74,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         //startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
                         break;
                     case "View Admin":
-                        //startActivity(new Intent(getApplicationContext(), ViewAdmin.class));
+                        startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
                         break;
                     case "FAQ":
                         //startActivity(new Intent(getApplicationContext(), Faq.class));
@@ -93,17 +93,17 @@ public class FacultyHomeActivity extends BaseActivity {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=se.par.amsen.experimentshopdesign")));
                         break;
                     case "Make a Suggestion":
-                        //startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
+                        startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
                         SharedPref.removeAll(getApplicationContext());
-                        SharedPref.putBoolean(getApplicationContext(),"is_logged_in", false);
-                        SharedPref.putBoolean(getApplicationContext(),"is_logged_out", true);
+                        SharedPref.putBoolean(getApplicationContext(), "is_logged_in", false);
+                        SharedPref.putBoolean(getApplicationContext(), "is_logged_out", true);
                         finish();
 
                         Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
-                        intent.putExtra("is_log_in",false);
+                        intent.putExtra("is_log_in", false);
                         startActivity(intent);
                         break;
                 }
@@ -113,7 +113,7 @@ public class FacultyHomeActivity extends BaseActivity {
 
     /*********************************************************/
 
-    void initUI(){
+    void initUI() {
         menuIV = findViewById(R.id.menuIV);
         notifUI = findViewById(R.id.notifUI);
         userImageIV = findViewById(R.id.userImageIV);
@@ -129,13 +129,13 @@ public class FacultyHomeActivity extends BaseActivity {
         lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());
 
-        tv_name.setText(SharedPref.getString(getApplicationContext(),"name"));
-        tv_email.setText(SharedPref.getString(getApplicationContext(),"email"));
+        tv_name.setText(SharedPref.getString(getApplicationContext(), "name"));
+        tv_email.setText(SharedPref.getString(getApplicationContext(), "email"));
 
-        String access = SharedPref.getString(getApplicationContext(),"access");
-        if(access.equals("AD"))
+        String access = SharedPref.getString(getApplicationContext(), "access");
+        if (access.equals("AD"))
             tv_access.setText("ADMIN");
-        else if(access.equals("SA"))
+        else if (access.equals("SA"))
             tv_access.setText("SUPER ADMIN");
         else
             tv_access.setVisibility(View.GONE);
@@ -147,7 +147,7 @@ public class FacultyHomeActivity extends BaseActivity {
         setupViewPager();
     }
 
-    void setUpDrawer(){
+    void setUpDrawer() {
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds_blue));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("View Admin", R.drawable.ic_book));
@@ -160,11 +160,11 @@ public class FacultyHomeActivity extends BaseActivity {
         lv_items.setAdapter(adapter);
     }
 
-    void setupViewPager(){
+    void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FacultyFeedFragment(), "Feed");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
-        adapter.addFragment(new BusAlertsFragment(), "Bus alert");
+        //adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
@@ -177,14 +177,13 @@ public class FacultyHomeActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         if (count > 0) {
-            count=0;
+            count = 0;
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);
             startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(startMain);
             finish();
-        }
-        else {
+        } else {
             count++;
             Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT).show();
         }

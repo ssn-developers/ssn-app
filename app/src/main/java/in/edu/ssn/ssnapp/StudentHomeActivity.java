@@ -101,7 +101,7 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=se.par.amsen.experimentshopdesign")));
                         break;
                     case "Make a Suggestion":
-                        //startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
+                        startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
                         break;
                     case "About Team":
                         startActivity(new Intent(getApplicationContext(), AboutTeamActivity.class));

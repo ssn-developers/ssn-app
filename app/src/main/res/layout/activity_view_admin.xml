@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F6F8"
+    android:background="#ffffff"
     tools:context=".FeedbackActivity">
 
     <RelativeLayout
@@ -37,30 +37,17 @@
             android:layout_marginLeft="@dimen/_12sdp"
             android:layout_toRightOf="@+id/iv_bell"
             android:fontFamily="@font/open_sans_bold"
-            android:text="Feedback"
+            android:text="View Admin"
             android:textColor="#ffffff"
             android:textSize="@dimen/_16ssp" />
 
     </RelativeLayout>
-
-    <EditText
-        android:id="@+id/feedback_text"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_marginLeft="15dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:background="@drawable/rectangle"
-        android:textAlignment="textStart"
-        android:padding="10dp"
-        android:textSize="18dp"
-        />
-    <Button
-        android:id="@+id/submit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_marginTop="@dimen/_20sdp"/>
+        android:layout_height="match_parent"/>
+
+
 
 </LinearLayout>
