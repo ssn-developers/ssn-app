@@ -7,12 +7,14 @@
 	android:orientation="vertical"
 	android:background="#ECECEC"
 	tools:context=".BusRouteDetailsActivity">
+
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:id="@+id/fakeAppbarLL"
 		android:background="@android:color/white"
 		android:orientation="horizontal">
+
 		<ImageView
 			android:layout_width="@dimen/_35sdp"
 			android:layout_height="@dimen/_35sdp"

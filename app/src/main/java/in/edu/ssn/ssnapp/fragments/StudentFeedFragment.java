@@ -302,18 +302,13 @@ public class StudentFeedFragment extends Fragment {
 
     }
 
-
     /**********************************************************/
 
-    void handleBottomSheet(View v,final Post post)
-    {
-        LinearLayout ll_save,ll_share;
+    void handleBottomSheet(View v,final Post post) {
+        RelativeLayout ll_save,ll_share;
         final TextView tv_save;
-        Context context;
 
-        context=v.getContext();
-
-        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
+        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(getContext());
         View sheetView=getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_main_feed,null);
         bottomSheetDialog.setContentView(sheetView);
 
@@ -321,29 +316,20 @@ public class StudentFeedFragment extends Fragment {
         ll_share=sheetView.findViewById(R.id.shareLL);
         tv_save=sheetView.findViewById(R.id.tv_save);
 
-
-        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(context);
+        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getContext());
         if(dataBaseHelper.checkPost(post.getId()))
             tv_save.setText("Remove from Favourites");
         else
             tv_save.setText("Add to Favourites");
 
-
         bottomSheetDialog.show();
-
-
-
-
 
         ll_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 if(dataBaseHelper.checkPost(post.getId())){
                     dataBaseHelper.deletePost(post.getId());
                     tv_save.setText("Add to Favourites");
-
                 }
                 else{
                     tv_save.setText("Remove from Favourites");
@@ -363,8 +349,5 @@ public class StudentFeedFragment extends Fragment {
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
-
     }
-
-
 }

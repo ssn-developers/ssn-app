@@ -2,6 +2,7 @@ package in.edu.ssn.ssnapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,72 +16,71 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class FeedbackActivity extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference feedbackcolref = db.collection("feedback");
+    FirebaseFirestore db;
 
-    EditText feedback;
-    Button submit;
+    EditText et_feedback;
+    TextView tv_text1, tv_button;
+    LottieAnimationView lottie;
+    CardView submitCV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedback);
 
+        db = FirebaseFirestore.getInstance();
 
-        feedback = (EditText) findViewById(R.id.feedback_text);
-        submit = (Button) findViewById(R.id.submit_button);
+        et_feedback = findViewById(R.id.et_feedback);
+        submitCV = findViewById(R.id.submitCV);
+        lottie = findViewById(R.id.lottie);
+        tv_text1 = findViewById(R.id.tv_text1);
+        tv_button = findViewById(R.id.tv_button);
 
-        submit.setOnClickListener(submit_pressed);
+        submitCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(tv_button.getText().equals("Submit")) {
+                    String et_text = et_feedback.getEditableText().toString();
+                    final Map<String, Object> feedback_details = new HashMap<>();
+                    feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
+                    feedback_details.put("text", et_text);
+                    feedback_details.put("time", FieldValue.serverTimestamp());
 
-    }
-
-    View.OnClickListener submit_pressed = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            final Map<String, Object> feedback_details = new HashMap<>();
-            feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
-            feedback_details.put("text", feedback.getText().toString());
-
-            if (!(feedback.getText().toString().isEmpty())) {
-                feedbackcolref.add(feedback_details)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    if (et_text.length() > 0) {
+                        db.collection("feedback").add(feedback_details).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference) {
                                 if (documentReference != null) {
-                                    Toast.makeText(FeedbackActivity.this, "Upload successful !!!", Toast.LENGTH_SHORT).show();
+                                    lottie.setVisibility(View.VISIBLE);
+                                    tv_text1.setVisibility(View.VISIBLE);
+                                    et_feedback.setVisibility(View.INVISIBLE);
+                                    tv_button.setText("Continue");
                                 }
                             }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(FeedbackActivity.this, "Upload failure", Toast.LENGTH_SHORT).show();
-
-                            }
                         });
-                hide_keyboard(view);
-            }else{
-                Toast.makeText(FeedbackActivity.this, "Pls Provide Some Feedback", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                        Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    onBackPressed();
             }
-        }
-    };
-
-
-    public void hide_keyboard(View v) {
-        InputMethodManager imm = (InputMethodManager) this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        });
     }
 }

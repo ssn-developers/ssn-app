@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     app:layout_behavior="@string/bottom_sheet_behavior"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="180dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/saveLL"
         android:clickable="true"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="@dimen/_50sdp">
 
         <ImageView
-            android:src="@drawable/ic_bookmark_saved"
+            android:id="@+id/iv_icon"
+            android:src="@drawable/ic_bookmark_unsaved"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_width="wrap_content"
-            android:padding="10dp"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tv_save"
             android:text="Save"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="@dimen/_15sdp"
-            android:padding="15dp"
+            android:textColor="#000000"
+            android:fontFamily="@font/open_sans"
+            android:textSize="@dimen/_14ssp"
+            android:layout_toRightOf="@+id/iv_icon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 
-
-    <LinearLayout
+    <RelativeLayout
+        android:layout_below="@+id/saveLL"
         android:id="@+id/shareLL"
         android:clickable="true"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="@dimen/_50sdp">
 
         <ImageView
+            android:id="@+id/iv_icon1"
             android:src="@drawable/ic_share_blue_24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_width="wrap_content"
-            android:padding="10dp"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
         <TextView
+            android:id="@+id/tv_share"
             android:text="Share"
-            android:textColor="#000"
-            android:textStyle="bold"
-            android:textSize="@dimen/_15sdp"
-            android:padding="15dp"
-            android:textAlignment="center"
+            android:textColor="#000000"
+            android:fontFamily="@font/open_sans"
+            android:textSize="@dimen/_14ssp"
+            android:layout_toRightOf="@+id/iv_icon1"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_10sdp"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
-    </LinearLayout>
-
-
-
-</LinearLayout>
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -24,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
+import in.edu.ssn.ssnapp.fragments.FacultySentPostFragment;
 import in.edu.ssn.ssnapp.fragments.FacultyFeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -58,7 +59,7 @@ public class FacultyHomeActivity extends BaseActivity {
         notifUI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
+                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
             }
         });
 
@@ -71,16 +72,16 @@ public class FacultyHomeActivity extends BaseActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
-                        //startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
+                        startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         break;
                     case "View Admin":
                         startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
                         break;
                     case "FAQ":
-                        //startActivity(new Intent(getApplicationContext(), Faq.class));
+                        startActivity(new Intent(getApplicationContext(), FaqActivity.class));
                         break;
                     case "Notification Settings":
-                        //startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
+                        startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
                         break;
                     case "Invite Friends":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -105,6 +106,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
                         intent.putExtra("is_log_in", false);
                         startActivity(intent);
+                        finish();
                         break;
                 }
             }
@@ -150,8 +152,8 @@ public class FacultyHomeActivity extends BaseActivity {
     void setUpDrawer() {
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds_blue));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        adapter.add(new Drawer("View Admin", R.drawable.ic_book));
-        adapter.add(new Drawer("FAQ", R.drawable.ic_alumni));
+        adapter.add(new Drawer("View Admin", R.drawable.ic_team));
+        adapter.add(new Drawer("FAQ", R.drawable.ic_faq));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
@@ -163,8 +165,8 @@ public class FacultyHomeActivity extends BaseActivity {
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FacultyFeedFragment(), "Feed");
+        adapter.addFragment(new FacultySentPostFragment(), "Sent posts");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
-        //adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);

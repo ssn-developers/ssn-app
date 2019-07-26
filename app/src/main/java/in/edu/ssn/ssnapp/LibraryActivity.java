@@ -12,30 +12,18 @@ import android.widget.ProgressBar;
 
 public class LibraryActivity extends AppCompatActivity {
 
-
     WebView webView;
     ProgressBar pb_browser;
-    ImageView iv_icon;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_library);
 
-        initUI();
-
-    }
-
-
-
-    public void initUI(){
         webView=findViewById(R.id.wv_library);
         pb_browser=findViewById(R.id.pb_browser);
-        iv_icon=findViewById(R.id.iv_browserIcon);
         pb_browser.setMax(100);
     }
-
 
     @Override
     protected void onResume() {
@@ -54,7 +42,6 @@ public class LibraryActivity extends AppCompatActivity {
             @Override
             public void onReceivedIcon(WebView view, Bitmap icon) {
                 super.onReceivedIcon(view, icon);
-                iv_icon.setImageBitmap(icon);
             }
 
             @Override

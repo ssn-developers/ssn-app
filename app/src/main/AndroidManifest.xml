@@ -17,15 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity
-            android:name=".ViewAdminActivity"
-            android:label="@string/title_activity_view_admin"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".FaqActivity"></activity>
+        <activity android:name=".ViewAdminActivity" />
         <activity android:name=".SavedPostActivity" />
         <activity android:name=".FacultyHomeActivity" />
         <activity android:name=".OpenImageActivity" />
         <activity android:name=".NotificationActivity" />
-        <activity android:name=".FavouritesActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".LogoutActivity" />
         <activity android:name=".AboutTeamActivity" />

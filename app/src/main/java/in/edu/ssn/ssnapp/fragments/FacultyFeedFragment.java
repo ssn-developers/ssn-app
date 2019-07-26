@@ -1,5 +1,6 @@
 package in.edu.ssn.ssnapp.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,25 +25,27 @@ import androidx.viewpager.widget.ViewPager;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.protobuf.Value;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import pl.droidsonroids.gif.GifImageView;
 
 public class FacultyFeedFragment extends Fragment {
 
@@ -48,10 +53,11 @@ public class FacultyFeedFragment extends Fragment {
 
     RecyclerView feedsRV;
     FirestoreRecyclerAdapter adapter;
+    GifImageView progressIV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feed , container, false);
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
@@ -63,11 +69,11 @@ public class FacultyFeedFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
-        String id = SharedPref.getString(getContext(),"id");
+        String dept = SharedPref.getString(getContext(),"dept");
 
-        //TODO: Needs to manually create composite query before release for each author. [VERY IMPORTANT]
+        //TODO: Needs to manually create composite query before release for each dept. [VERY IMPORTANT]
 
-        Query query = FirebaseFirestore.getInstance().collection("post").whereEqualTo("author","dummyid1").orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -131,6 +137,20 @@ public class FacultyFeedFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
+                holder.tv_author.setText(model.getAuthor());
+
+                try {
+                    if (model.getAuthor_image_url() != null)
+                        Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(holder.userImageIV);
+                    else
+                        holder.userImageIV.setImageResource(R.drawable.ic_user_white);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    holder.userImageIV.setImageResource(R.drawable.ic_user_white);
+                }
+
+                holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
                 Date time = model.getTime();
@@ -164,7 +184,7 @@ public class FacultyFeedFragment extends Fragment {
                 else
                     holder.tv_description.setText(model.getDescription().trim());
 
-                if(model.getImageUrl()!=null && model.getImageUrl().size() != 0) {
+                if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
                     final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),true, model, timer);
@@ -208,11 +228,18 @@ public class FacultyFeedFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+                holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        handleBottomSheet(v,model);
+                        return true;
+                    }
+                });
             }
 
             @Override
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
+                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
                 return new FeedViewHolder(view);
             }
         };
@@ -222,6 +249,7 @@ public class FacultyFeedFragment extends Fragment {
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
+        progressIV = view.findViewById(R.id.progressIV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
         feedsRV.setHasFixedSize(true);
@@ -230,18 +258,22 @@ public class FacultyFeedFragment extends Fragment {
     /*********************************************************/
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_title, tv_time, tv_current_image;
+        public TextView tv_author, tv_position, tv_title, tv_time, tv_current_image;
         public SocialTextView tv_description;
+        public ImageView userImageIV;
         public RelativeLayout feed_view;
         public ViewPager viewPager;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
 
+            tv_author = itemView.findViewById(R.id.tv_author);
+            tv_position = itemView.findViewById(R.id.tv_position);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_description = itemView.findViewById(R.id.tv_description);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_current_image = itemView.findViewById(R.id.currentImageTV);
+            userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
         }
@@ -264,6 +296,54 @@ public class FacultyFeedFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
 
+    /**********************************************************/
+
+    void handleBottomSheet(View v,final Post post) {
+        RelativeLayout ll_save,ll_share;
+        final TextView tv_save;
+
+        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(getContext());
+        View sheetView=getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_main_feed,null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        ll_save=sheetView.findViewById(R.id.saveLL);
+        ll_share=sheetView.findViewById(R.id.shareLL);
+        tv_save=sheetView.findViewById(R.id.tv_save);
+
+        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getContext());
+        if(dataBaseHelper.checkPost(post.getId()))
+            tv_save.setText("Remove from Favourites");
+        else
+            tv_save.setText("Add to Favourites");
+
+        bottomSheetDialog.show();
+
+        ll_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dataBaseHelper.checkPost(post.getId())){
+                    dataBaseHelper.deletePost(post.getId());
+                    tv_save.setText("Add to Favourites");
+                }
+                else{
+                    tv_save.setText("Remove from Favourites");
+                    dataBaseHelper.addPost(post);
+                }
+                bottomSheetDialog.hide();
+            }
+        });
+
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/" + post.getId();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
     }
 }

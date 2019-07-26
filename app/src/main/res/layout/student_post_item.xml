@@ -75,7 +75,6 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
                     android:text="1h ago"/>
-
             </RelativeLayout>
 
             <androidx.viewpager.widget.ViewPager
@@ -137,10 +136,7 @@
                     app:mentionColor="@color/colorAccent"
                     app:hyperlinkColor="@color/colorAccent"
                     android:text=""/>
-
             </RelativeLayout>
-
         </RelativeLayout>
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>
