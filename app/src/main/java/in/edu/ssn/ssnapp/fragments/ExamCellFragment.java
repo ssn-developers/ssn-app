@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
@@ -28,6 +32,5 @@ public class ExamCellFragment extends Fragment {
     }
 
     void initUI(View view){
-
     }
 }

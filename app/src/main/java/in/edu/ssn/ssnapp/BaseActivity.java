@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.crashlytics.android.Crashlytics;
+
 import in.edu.ssn.ssnapp.utils.FontChanger;
 
 public class BaseActivity extends AppCompatActivity {
@@ -46,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         catch (Exception e){
             e.printStackTrace();
+            Crashlytics.log(" "+e.getStackTrace());
         }
 
     }

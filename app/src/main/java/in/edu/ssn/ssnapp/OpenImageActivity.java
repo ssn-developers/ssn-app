@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -51,6 +52,7 @@ public class OpenImageActivity extends AppCompatActivity {
                 catch (Exception ex) {
                     Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG).show();
                     ex.printStackTrace();
+                    Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
                 }
             }
         });

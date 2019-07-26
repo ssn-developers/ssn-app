@@ -80,3 +80,6 @@
 -keep class net.sqlcipher.database.** {
     *;
 }
+
+-keep class com.crashlytics.** { *; }
+-dontwarn com.crashlytics.**

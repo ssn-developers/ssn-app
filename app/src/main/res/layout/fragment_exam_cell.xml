@@ -28,6 +28,7 @@
 			android:layout_marginEnd="@dimen/_7sdp">
 
 			<LinearLayout
+				android:id="@+id/internalLL"
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/_112sdp"
 				android:padding="@dimen/_14sdp"

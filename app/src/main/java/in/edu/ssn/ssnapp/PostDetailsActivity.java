@@ -22,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
@@ -244,6 +245,7 @@ public class PostDetailsActivity extends BaseActivity {
                 catch (Exception ex) {
                     Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG).show();
                     ex.printStackTrace();
+                    Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
                 }
             }
         });
@@ -274,6 +276,7 @@ public class PostDetailsActivity extends BaseActivity {
 
         }catch (Exception e){
             Log.d(TAG,e.getMessage());
+            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
             return false;
         }
 

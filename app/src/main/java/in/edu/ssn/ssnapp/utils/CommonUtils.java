@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.common.io.BaseEncoding;
 
 import org.json.JSONArray;
@@ -65,6 +66,7 @@ public class CommonUtils {
         }
         catch (Exception e){
             e.printStackTrace();
+            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         }
     }
 
@@ -136,9 +138,9 @@ public class CommonUtils {
             return signatureBase64;
 
         } catch (PackageManager.NameNotFoundException e) {
-
+            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         } catch (NoSuchAlgorithmException e) {
-
+            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         }
 
         Toast.makeText(context, "Hash not found", Toast.LENGTH_SHORT).show();

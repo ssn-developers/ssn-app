@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -148,6 +149,7 @@ public class StudentHomeActivity extends BaseActivity {
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }catch (Exception e){
             Log.d(TAG,e.getMessage());
+            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         }
 
 

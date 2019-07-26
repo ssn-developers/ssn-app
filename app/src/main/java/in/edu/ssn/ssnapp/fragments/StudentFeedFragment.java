@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -146,6 +147,7 @@ public class StudentFeedFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     holder.userImageIV.setImageResource(R.drawable.ic_user_white);
                 }
 

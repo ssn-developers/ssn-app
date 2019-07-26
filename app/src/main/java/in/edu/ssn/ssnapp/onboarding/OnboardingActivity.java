@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -273,6 +274,7 @@ public class OnboardingActivity extends AppCompatActivity {
                     //Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT).show();
             } catch (ApiException e) {
                 Log.d("test_set", e.getMessage());
+                Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
             }
         }
     }

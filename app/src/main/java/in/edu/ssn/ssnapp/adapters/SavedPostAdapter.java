@@ -19,6 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.squareup.picasso.Picasso;
@@ -84,6 +85,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         catch (Exception e){
             e.printStackTrace();
             userImageIV.setImageResource(R.drawable.ic_user_white);
+            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         }
 
         tv_position.setText(model.getPosition());

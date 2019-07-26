@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -146,6 +147,7 @@ public class FacultyFeedFragment extends Fragment {
                 catch (Exception e){
                     e.printStackTrace();
                     holder.userImageIV.setImageResource(R.drawable.ic_user_white);
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
                 holder.tv_position.setText(model.getPosition());

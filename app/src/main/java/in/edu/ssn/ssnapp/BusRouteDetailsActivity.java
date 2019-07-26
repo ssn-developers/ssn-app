@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
+
 import in.edu.ssn.ssnapp.adapters.BusStopAdapterVert;
 import in.edu.ssn.ssnapp.models.BusRoute;
 
@@ -56,6 +58,7 @@ public class BusRouteDetailsActivity extends BaseActivity {
                 }
                 catch (Exception e){
                     e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
             }
         });
