@@ -1,6 +1,5 @@
 package in.edu.ssn.ssnapp.fragments;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,10 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -30,7 +27,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.squareup.picasso.Picasso;
 
@@ -309,7 +305,7 @@ public class StudentFeedFragment extends Fragment {
         final TextView tv_save;
 
         final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(getContext());
-        View sheetView=getActivity().getLayoutInflater().inflate(R.layout.bottom_sheet_main_feed,null);
+        View sheetView=getActivity().getLayoutInflater().inflate(R.layout.bottom_menu,null);
         bottomSheetDialog.setContentView(sheetView);
 
         ll_save=sheetView.findViewById(R.id.saveLL);

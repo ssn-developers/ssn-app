@@ -78,7 +78,7 @@ public class BusRoutesActivity extends BaseActivity {
         setContentView(R.layout.activity_bus_routes);
 
         initUI();
-        getSuggestions();
+        //getSuggestions();
         Query query = FirebaseFirestore.getInstance().collection("bus_route").orderBy("id");
         setupFireStore(query);
 
@@ -144,9 +144,7 @@ public class BusRoutesActivity extends BaseActivity {
                                         et_num.clearFocus();
                                         closeKeyboard(et_num);
                                         chipCloud.setVisibility(View.GONE);
-                                        Query query = FirebaseFirestore.getInstance()
-                                                .collection("bus_route")
-                                                .whereArrayContains("stop",suggestions.get(finalI));
+                                        Query query = FirebaseFirestore.getInstance().collection("bus_route").whereArrayContains("stop",suggestions.get(finalI));
                                         setupFireStore(query);
                                         adapter.startListening();
                                     }
@@ -218,7 +216,6 @@ public class BusRoutesActivity extends BaseActivity {
                 }
             }
         });
-
     }
 
     void setupFireStore(Query query){
@@ -247,6 +244,14 @@ public class BusRoutesActivity extends BaseActivity {
                 holder.routeNameTV.setText("Route " + model.getRouteName());
                 holder.busStopsRV.setAdapter(new BusStopAdapter(getApplicationContext(),model.getStop(),model.getTime()));
                 holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);
+                        intent.putExtra("route",model);
+                        startActivity(intent);
+                    }
+                });
+                holder.busStopsRV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);

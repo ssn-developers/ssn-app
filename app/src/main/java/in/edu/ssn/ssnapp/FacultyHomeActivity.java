@@ -77,9 +77,6 @@ public class FacultyHomeActivity extends BaseActivity {
                     case "View Admin":
                         startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
                         break;
-                    case "FAQ":
-                        startActivity(new Intent(getApplicationContext(), FaqActivity.class));
-                        break;
                     case "Notification Settings":
                         startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
                         break;
@@ -153,7 +150,6 @@ public class FacultyHomeActivity extends BaseActivity {
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds_blue));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("View Admin", R.drawable.ic_team));
-        adapter.add(new Drawer("FAQ", R.drawable.ic_faq));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
