@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -41,6 +42,7 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import io.fabric.sdk.android.Fabric;
 import pl.droidsonroids.gif.AnimationListener;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
@@ -65,6 +67,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
+        setUpCrashReport();
 
         //forceUpdate();
 
@@ -84,9 +87,19 @@ public class SplashActivity extends AppCompatActivity {
         }
         catch (Exception e) {
             e.printStackTrace();
+            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         }
 
         new updateFaculty().execute();
+    }
+
+    void setUpCrashReport()
+    {
+        // only enable bug tracking in release version
+        if (!BuildConfig.DEBUG) {
+            //https://stackoverflow.com/a/49836972/10664312
+            Fabric.with(this, new Crashlytics());
+        }
     }
 
     void initUI() {

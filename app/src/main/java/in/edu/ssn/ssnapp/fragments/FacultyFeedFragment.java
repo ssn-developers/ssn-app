@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -44,7 +45,6 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
-import pl.droidsonroids.gif.GifImageView;
 
 public class FacultyFeedFragment extends Fragment {
 
@@ -148,6 +148,7 @@ public class FacultyFeedFragment extends Fragment {
                 catch (Exception e){
                     e.printStackTrace();
                     holder.userImageIV.setImageResource(R.drawable.ic_user_white);
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
                 holder.tv_position.setText(model.getPosition());
