@@ -148,9 +148,9 @@ public class FCMHelper {
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot postSnapShot) {
-                Log.d(TAG,"post fetched successfully");
+                //Log.d(TAG,"post fetched successfully");
                 final Post post = new Post();
-                Log.d(TAG,postSnapShot.getString("title"));
+                //Log.d(TAG,postSnapShot.getString("title"));
                 post.setTitle(postSnapShot.getString("title"));
                 post.setDescription(postSnapShot.getString("description"));
                 post.setTime(postSnapShot.getTimestamp("time").toDate());

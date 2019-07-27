@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/shimmering_back"
+    app:cardCornerRadius="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/feed_view"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground">
+
+            <RelativeLayout
+                android:id="@+id/layout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    app:civ_circle_background_color="#D8D7D7"
+                    android:src="@drawable/ic_user_white"
+                    android:id="@+id/userImageIV" />
+
+                <View
+                    android:id="@+id/tv_author"
+                    android:layout_width="@dimen/_120sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:background="@color/shimmering_front"
+                    android:layout_toEndOf="@+id/userImageIV"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginStart="@dimen/_10sdp" />
+
+                <View
+                    android:id="@+id/tv_position"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_toEndOf="@+id/userImageIV"
+                    android:background="@color/shimmering_front"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_below="@+id/tv_author" />
+            </RelativeLayout>
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_below="@id/layout1"
+                android:background="@color/shimmering_front"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="@dimen/_150sdp" />
+
+            <RelativeLayout
+                android:layout_below="@+id/viewPager"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/tv_title"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_8sdp"
+                    android:background="@color/shimmering_front" />
+
+                <View
+                    android:id="@+id/tv_description1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_below="@+id/tv_title"
+                    android:background="@color/shimmering_front" />
+
+                <View
+                    android:id="@+id/tv_description2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_below="@+id/tv_description1"
+                    android:background="@color/shimmering_front" />
+
+                <View
+                    android:id="@+id/tv_description3"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_below="@+id/tv_description2"
+                    android:background="@color/shimmering_front" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

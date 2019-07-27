@@ -12,6 +12,9 @@
 		android:layout_margin="@dimen/_8sdp"
 		app:contentPadding="@dimen/_8sdp"
 		app:cardElevation="0dp"
+		android:clickable="true"
+		android:focusable="true"
+		android:id="@+id/busStopsCV"
 		app:cardCornerRadius="@dimen/_3sdp"
 		app:cardBackgroundColor="@color/colorAccentAlpha">
 
@@ -27,6 +30,7 @@
 				android:layout_height="wrap_content"
 				android:id="@+id/text_timeline_date"
 				android:textSize="@dimen/_10ssp"
+				android:clickable="false"
 				android:fontFamily="@font/open_sans"
 				android:textColor="@color/colorAccent"
 				tools:text=""/>
@@ -39,6 +43,7 @@
 				android:id="@+id/text_timeline_title"
 				android:textStyle="bold"
 				android:ellipsize="end"
+				android:clickable="false"
 				android:textColor="@color/colorAccent" />
 
 		</LinearLayout>
@@ -50,6 +55,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:markerSize="@dimen/_16sdp"
+		android:clickable="true"
 		app:marker="@drawable/bus_icon"
 		app:lineWidth="@dimen/_2sdp"
 		app:startLineColor="@android:color/tab_indicator_text"

@@ -1,9 +1,11 @@
 package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Typeface;
 
+import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,19 +20,25 @@ import com.github.vipulasri.timelineview.TimelineView;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.edu.ssn.ssnapp.BusRouteDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
+import in.edu.ssn.ssnapp.models.Post;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder> {
     private List<String> stops;
     private List<String> time;
+    private BusRoute model;
     private Context context;
     Typeface regular, bold;
 
-    public BusStopAdapter(Context contex, List<String> stops, List<String> time) {
-        this.context = contex;
-        this.stops = stops;
-        this.time = time;
+    public BusStopAdapter(Context context, BusRoute model) {
+        this.context = context;
+        this.stops = model.getStop();
+        this.time = model.getTime();
+        this.model = model;
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
         bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
     }
@@ -47,6 +55,25 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
         final String time_data = time.get(position);
         holder.titleTV.setText(stop_data);
         holder.timeTV.setText(time_data);
+
+        holder.busStopsCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BusRouteDetailsActivity.class);
+                intent.putExtra("route",model);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
+        holder.mTimelineView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BusRouteDetailsActivity.class);
+                intent.putExtra("route",model);
+                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -62,6 +89,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
     public class TimeLineViewHolder extends RecyclerView.ViewHolder {
         public  TimelineView mTimelineView;
         public TextView titleTV,timeTV;
+        public CardView busStopsCV;
 
         public TimeLineViewHolder(View itemView, int viewType) {
             super(itemView);
@@ -70,6 +98,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
             mTimelineView.initLine(viewType);
             titleTV = itemView.findViewById(R.id.text_timeline_title);
             timeTV = itemView.findViewById(R.id.text_timeline_date);
+            busStopsCV = itemView.findViewById(R.id.busStopsCV);
         }
     }
 }  

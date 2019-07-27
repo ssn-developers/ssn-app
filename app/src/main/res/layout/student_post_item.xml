@@ -46,9 +46,10 @@
                     android:textColor="#000000"
                     android:textSize="@dimen/_14ssp"
                     android:fontFamily="@font/open_sans"
+                    android:layout_toStartOf="@+id/tv_time"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginLeft="@dimen/_10sdp"
-                    android:text=""/>
+                    android:layout_marginStart="@dimen/_10sdp" />
 
                 <TextView
                     android:id="@+id/tv_position"
@@ -73,8 +74,7 @@
                     android:fontFamily="@font/open_sans"
                     android:textSize="@dimen/_12ssp"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:text="1h ago"/>
+                    android:layout_marginRight="@dimen/_10sdp" />
             </RelativeLayout>
 
             <androidx.viewpager.widget.ViewPager
@@ -82,7 +82,8 @@
                 android:layout_width="match_parent"
                 android:layout_below="@id/layout1"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_height="@dimen/_150sdp" />
+                android:layout_height="@dimen/_150sdp"
+                android:background="@color/shimmering_back"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -93,6 +94,7 @@
                 android:layout_marginTop="@dimen/_15sdp"
                 android:background="@drawable/image_pos_bg"
                 android:text="1 / 2"
+                android:visibility="gone"
                 android:textColor="@android:color/white"
                 android:fontFamily="@font/open_sans"
                 android:paddingLeft="@dimen/_10sdp"

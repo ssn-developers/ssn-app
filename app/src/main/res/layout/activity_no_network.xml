@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context=".NoNetworkActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_250sdp"
+        android:layout_centerInParent="true"
+        app:lottie_rawRes="@raw/network_error"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="true" />
+
+    <TextView
+        android:id="@+id/tv_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:text="Please check your mobile data or Wi-Fi connection!"
+        android:gravity="center"
+        android:textColor="#404040"
+        android:layout_below="@+id/lottie"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/_12ssp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardCornerRadius="5dp"
+        android:clickable="true"
+        android:id="@+id/retryCV"
+        android:layout_below="@+id/tv_text1"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorAccent"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:focusable="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/open_sans_bold"
+            android:textSize="@dimen/_16ssp"
+            android:textColor="@android:color/white"
+            android:text="Retry"/>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

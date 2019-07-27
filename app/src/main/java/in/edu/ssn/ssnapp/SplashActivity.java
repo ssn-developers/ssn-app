@@ -1,7 +1,15 @@
 package in.edu.ssn.ssnapp;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 
@@ -12,6 +20,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -19,12 +28,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+
 import java.util.Date;
 
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.database.Notification;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -44,6 +57,7 @@ public class SplashActivity extends AppCompatActivity {
     private static Boolean flag = false;
     private static Boolean worst_case = true;
     private int currentApiVersion;
+    private String latestVersion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +65,8 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
+
+        //forceUpdate();
 
         try {
             gifFromResource = (GifDrawable) new GifDrawable(getResources(), R.drawable.splash_screen);
@@ -98,6 +114,89 @@ public class SplashActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         intent = getIntent();
         notif_intent = null;
+    }
+
+    /**********************************************************************/
+    // check version on play store and force update
+
+    public void forceUpdate(){
+        PackageManager packageManager = this.getPackageManager();
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo =  packageManager.getPackageInfo(getPackageName(),0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        String currentVersion = packageInfo.versionName;
+        new ForceUpdateAsync(currentVersion,SplashActivity.this).execute();
+    }
+
+    public class ForceUpdateAsync extends AsyncTask<String, String, JSONObject> {
+        private String currentVersion;
+        private Context context;
+
+        public ForceUpdateAsync(String currentVersion, Context context) {
+            this.currentVersion = currentVersion;
+            this.context = context;
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+
+            try {
+                latestVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName()+ "&hl=en")
+                        .timeout(30000)
+                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                        .referrer("http://www.google.com")
+                        .get()
+                        .select("div.hAyfc:nth-child(4) > span:nth-child(2) > div:nth-child(1) > span:nth-child(1)")
+                        .first()
+                        .ownText();
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return new JSONObject();
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            if (latestVersion != null) {
+                if (!currentVersion.equalsIgnoreCase(latestVersion)) {
+                    // Toast.makeText(context,"update is available.",Toast.LENGTH_LONG).show();
+                    if (!(context instanceof SplashActivity)) {
+                        if (!((Activity) context).isFinishing()) {
+                            showForceUpdateDialog();
+                        }
+                    }
+                }
+            }
+            super.onPostExecute(jsonObject);
+        }
+    }
+
+    public void showForceUpdateDialog(){
+        final Dialog dialog = new Dialog(getApplicationContext());
+        dialog.setContentView(R.layout.custom_alert_dialog2);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView tv_ok = dialog.findViewById(R.id.tv_ok);
+        TextView tv_title= dialog.findViewById(R.id.tv_title);
+        TextView tv_message = dialog.findViewById(R.id.tv_message);
+
+        tv_title.setText("New Update available!");
+        tv_message.setText("Please update your app to the latest version: " + latestVersion);
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
@@ -182,34 +281,41 @@ public class SplashActivity extends AppCompatActivity {
 
     public void passIntent() {
         worst_case = false;
+
         if (notif_intent != null) {
             startActivity(notif_intent);
             finish();
         }
-        else if (SharedPref.getBoolean(getApplicationContext(), "is_logged_in")) {
-            if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
-                startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
-                finish();
-                Bungee.fade(this);
+        else if(!CommonUtils.alerter(getApplicationContext())){
+            if (SharedPref.getBoolean(getApplicationContext(), "is_logged_in")) {
+                if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
+                    startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+                    finish();
+                    Bungee.fade(this);
+                } else {
+                    startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                    finish();
+                    Bungee.fade(this);
+                }
             }
             else {
-                startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
-                finish();
-                Bungee.fade(this);
+                if (!SharedPref.getBoolean(getApplicationContext(), "is_logged_out")) {
+                    startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+                    finish();
+                } else {
+                    Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
+                    intent.putExtra("is_log_in", true);
+                    startActivity(intent);
+                    finish();
+                }
+                Bungee.slideLeft(this);
             }
         }
-        else {
-            if(!SharedPref.getBoolean(getApplicationContext(),"is_logged_out")) {
-                startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
-                finish();
-            }
-            else{
-                Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
-                intent.putExtra("is_log_in",true);
-                startActivity(intent);
-                finish();
-            }
-            Bungee.slideLeft(this);
+        else{
+            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+            intent.putExtra("key","splash");
+            startActivity(intent);
+            finish();
         }
     }
 

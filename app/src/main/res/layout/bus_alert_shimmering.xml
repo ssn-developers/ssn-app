@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_55sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:id="@+id/bus_alert_item"
+    android:background="@color/shimmering_back">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_centerVertical="true">
+
+        <View
+            android:id="@+id/tv_date"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:background="@color/shimmering_front"/>
+
+        <View
+            android:id="@+id/tv_desc"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_below="@+id/tv_date"
+            android:layout_height="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@color/shimmering_front"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

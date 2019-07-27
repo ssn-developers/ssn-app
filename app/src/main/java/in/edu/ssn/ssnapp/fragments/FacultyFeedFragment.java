@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -50,8 +51,8 @@ public class FacultyFeedFragment extends Fragment {
     public FacultyFeedFragment() { }
 
     RecyclerView feedsRV;
+    ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
-    GifImageView progressIV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -67,6 +68,7 @@ public class FacultyFeedFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
+        shimmer_view.setVisibility(View.VISIBLE);
         String dept = SharedPref.getString(getContext(),"dept");
 
         //TODO: Needs to manually create composite query before release for each dept. [VERY IMPORTANT]
@@ -233,6 +235,8 @@ public class FacultyFeedFragment extends Fragment {
                         return true;
                     }
                 });
+
+                shimmer_view.setVisibility(View.GONE);
             }
 
             @Override
@@ -247,10 +251,11 @@ public class FacultyFeedFragment extends Fragment {
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
-        progressIV = view.findViewById(R.id.progressIV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
         feedsRV.setHasFixedSize(true);
+        shimmer_view = view.findViewById(R.id.shimmer_view);
+        shimmer_view.setVisibility(View.VISIBLE);
     }
 
     /*********************************************************/

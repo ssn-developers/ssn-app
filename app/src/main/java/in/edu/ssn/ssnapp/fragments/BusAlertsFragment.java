@@ -1,6 +1,5 @@
 package in.edu.ssn.ssnapp.fragments;
 
-
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -33,15 +33,13 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FontChanger;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class BusAlertsFragment extends Fragment {
 
     public BusAlertsFragment() {}
 
     CardView busRoutesCV;
     RecyclerView alertRV;
+    ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
 
     @Override
@@ -117,6 +115,7 @@ public class BusAlertsFragment extends Fragment {
                         startActivity(i);
                     }
                 });
+                shimmer_view.setVisibility(View.GONE);
             }
 
             @Override
@@ -135,6 +134,8 @@ public class BusAlertsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         alertRV.setLayoutManager(layoutManager);
         alertRV.setHasFixedSize(true);
+        shimmer_view = view.findViewById(R.id.shimmer_view);
+        shimmer_view.setVisibility(View.VISIBLE);
     }
 
     /*********************************************************/

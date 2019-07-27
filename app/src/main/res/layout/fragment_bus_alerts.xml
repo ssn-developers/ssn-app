@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -55,12 +56,37 @@
 
 	</LinearLayout>
 
-	<androidx.recyclerview.widget.RecyclerView
+	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_marginLeft="@dimen/_9sdp"
-		android:layout_marginRight="@dimen/_9sdp"
-		android:id="@+id/alertRV">
-	</androidx.recyclerview.widget.RecyclerView>
+		android:layout_height="match_parent">
+
+		<com.facebook.shimmer.ShimmerFrameLayout
+			android:id="@+id/shimmer_view"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/_9sdp"
+			android:layout_marginRight="@dimen/_9sdp"
+			app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<include layout="@layout/bus_alert_shimmering"/>
+				<include layout="@layout/bus_alert_shimmering"/>
+				<include layout="@layout/bus_alert_shimmering"/>
+			</LinearLayout>
+		</com.facebook.shimmer.ShimmerFrameLayout>
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="@dimen/_9sdp"
+			android:layout_marginRight="@dimen/_9sdp"
+			android:id="@+id/alertRV">
+		</androidx.recyclerview.widget.RecyclerView>
+
+	</RelativeLayout>
 
 </LinearLayout>

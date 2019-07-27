@@ -74,6 +74,7 @@ public class FeedbackActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                        CommonUtils.hideKeyboard(FeedbackActivity.this);
                     }
                     else
                         Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT).show();

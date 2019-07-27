@@ -2,10 +2,14 @@ package in.edu.ssn.ssnapp;
 
 import android.animation.Animator;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -110,16 +114,25 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
 
     void showAlertDialog(){
-        new AlertDialog.Builder(PdfViewerActivity.this)
-                .setTitle("Oops")
-                .setMessage("Download Failed. Try Again Later")
+        final Dialog dialog = new Dialog(PdfViewerActivity.this);
+        dialog.setContentView(R.layout.custom_alert_dialog2);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        onBackPressed();
-                    }
-                })
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+        TextView tv_title = dialog.findViewById(R.id.tv_title);
+        TextView tv_message = dialog.findViewById(R.id.tv_message);
+        TextView tv_ok = dialog.findViewById(R.id.tv_ok);
+
+        tv_title.setText("Can't open the file!");
+        tv_message.setText("Sorry, we were unable to open the file at the moment. So, please try again later.");
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                onBackPressed();
+            }
+        });
+
+        dialog.show();
     }
 }

@@ -16,9 +16,9 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content">
 
-			<include layout="@layout/student_post_item_shimmering"/>
-			<include layout="@layout/student_post_item_shimmering"/>
-			<include layout="@layout/student_post_item_shimmering"/>
+			<include layout="@layout/faculty_sent_post_item_shimmering"/>
+			<include layout="@layout/faculty_sent_post_item_shimmering"/>
+			<include layout="@layout/faculty_sent_post_item_shimmering"/>
 		</LinearLayout>
 	</com.facebook.shimmer.ShimmerFrameLayout>
 

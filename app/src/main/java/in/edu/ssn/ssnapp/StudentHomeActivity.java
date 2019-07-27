@@ -146,10 +146,12 @@ public class StudentHomeActivity extends BaseActivity {
         try{
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
             Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
-        }catch (Exception e){
-            Log.d(TAG,e.getMessage());
         }
-
+        catch (Exception e){
+            Log.d(TAG,e.getMessage());
+            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+        }
 
         setUpDrawer();
         setupViewPager();

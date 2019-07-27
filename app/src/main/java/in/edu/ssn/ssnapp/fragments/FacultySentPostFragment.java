@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -47,11 +48,12 @@ public class FacultySentPostFragment extends Fragment {
     public FacultySentPostFragment() { }
 
     RecyclerView feedsRV;
+    ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feed , container, false);
+        View view = inflater.inflate(R.layout.fragment_sent_feed , container, false);
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
@@ -208,6 +210,7 @@ public class FacultySentPostFragment extends Fragment {
                         startActivity(intent);
                     }
                 });
+                shimmer_view.setVisibility(View.GONE);
             }
 
             @Override
@@ -225,6 +228,8 @@ public class FacultySentPostFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
         feedsRV.setHasFixedSize(true);
+        shimmer_view = view.findViewById(R.id.shimmer_view);
+        shimmer_view.setVisibility(View.VISIBLE);
     }
 
     /*********************************************************/

@@ -326,6 +326,7 @@ public class OnboardingActivity extends AppCompatActivity {
 
     public void signIn(FirebaseUser user, DocumentSnapshot document, int clearance) {
         String dept = (String) document.get("dept");
+        String dp_url = (String) document.get("dp_url");
         String email = user.getEmail();
         String id = (String) document.get("id");
         String name = (String) document.get("name");
@@ -342,6 +343,7 @@ public class OnboardingActivity extends AppCompatActivity {
 
         SharedPref.putInt(getApplicationContext(),"clearance",clearance);
         SharedPref.putString(getApplicationContext(),"dept", dept);
+        SharedPref.putString(getApplicationContext(),"dp_url", dp_url);
         SharedPref.putString(getApplicationContext(),"email", email);
         SharedPref.putString(getApplicationContext(),"id", id);
         SharedPref.putString(getApplicationContext(),"name", name);
@@ -394,6 +396,7 @@ public class OnboardingActivity extends AppCompatActivity {
 
         SharedPref.putInt(getApplicationContext(), "clearance", 0);
         SharedPref.putString(getApplicationContext(), "dept", dept);
+        SharedPref.putString(getApplicationContext(), "dp_url", dp_url);
         SharedPref.putString(getApplicationContext(), "email", email);
         SharedPref.putString(getApplicationContext(), "id", id);
         SharedPref.putString(getApplicationContext(), "name", name);
@@ -433,6 +436,7 @@ public class OnboardingActivity extends AppCompatActivity {
         SharedPref.putString(getApplicationContext(), "position", position);
         SharedPref.putString(getApplicationContext(), "access", access);
         SharedPref.putString(getApplicationContext(), "dept", dept);
+        SharedPref.putString(getApplicationContext(), "dp_url", dp_url);
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
 

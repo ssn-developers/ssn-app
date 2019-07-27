@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".NoNetworkActivity"/>
         <activity android:name=".ViewAdminActivity" />
         <activity android:name=".SavedPostActivity" />
         <activity android:name=".FacultyHomeActivity" />

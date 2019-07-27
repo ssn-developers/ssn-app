@@ -38,15 +38,4 @@ public class BaseActivity extends AppCompatActivity {
         FontChanger fontChanger = new FontChanger(typeface);
         fontChanger.replaceFonts(viewGroup);
     }
-
-    public void closeKeyboard(EditText view) {
-        try {
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-    }
 }
