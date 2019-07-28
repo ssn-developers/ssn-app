@@ -365,10 +365,8 @@ public class OnboardingActivity extends AppCompatActivity {
 
         Log.d("test_set", "signin");
         layout_progress.setVisibility(View.GONE);
-        //FCMHelper.SubscribeToTopic(this, dept);
         SubscribeToAlerts(this,dept);
         setUpNotification();
-        FCMHelper.UpdateFCM(this, SharedPref.getString(this, "FCMToken"));
 
         if(clearance==1)
             startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
@@ -401,9 +399,9 @@ public class OnboardingActivity extends AppCompatActivity {
         users.put("id", id);
         users.put("name", name);
         users.put("year", year);
-        users.put("FCMToken", SharedPref.getString(this, "FCMToken"));
+        users.put("FCMToken", SharedPref.getString(this,"FCMToken","FCMToken"));
+        Log.d("SSNFireBaseMessaging", "dtud: " + SharedPref.getString(this,"FCMToken","FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
-        //FCMHelper.SubscribeToTopic(this, dept);
         SubscribeToAlerts(this,dept);
         setUpNotification();
 
@@ -438,7 +436,7 @@ public class OnboardingActivity extends AppCompatActivity {
         users.put("email", email);
         users.put("id", id);
         users.put("name", name);
-        users.put("FCMToken", SharedPref.getString(this, "FCMToken"));
+        users.put("FCMToken", SharedPref.getString(this,"FCMToken","FCMToken"));
         FirebaseFirestore.getInstance().collection("user").document(id).set(users);
         SubscribeToAlerts(this,dept);
         setUpNotification();

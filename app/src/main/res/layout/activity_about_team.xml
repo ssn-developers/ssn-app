@@ -11,7 +11,7 @@
         android:layout_width="@dimen/_70sdp"
         android:layout_height="@dimen/_70sdp"
         android:id="@+id/iv_app_icon"
-        android:background="@drawable/app_icon"
+        android:background="@mipmap/app_icon"
         android:layout_marginTop="@dimen/_25sdp"
         android:layout_marginLeft="@dimen/_10sdp" />
 
