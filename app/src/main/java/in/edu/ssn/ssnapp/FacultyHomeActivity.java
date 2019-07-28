@@ -26,6 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
+import in.edu.ssn.ssnapp.fragments.FacultySentBusPostFragment;
 import in.edu.ssn.ssnapp.fragments.FacultySentPostFragment;
 import in.edu.ssn.ssnapp.fragments.FacultyFeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
@@ -171,7 +172,10 @@ public class FacultyHomeActivity extends BaseActivity {
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FacultyFeedFragment(), "Feed");
-        adapter.addFragment(new FacultySentPostFragment(), "Sent posts");
+        if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
+            adapter.addFragment(new FacultySentBusPostFragment(), "Sent posts");
+        else
+            adapter.addFragment(new FacultySentPostFragment(), "Sent posts");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         viewPager.setAdapter(adapter);
 

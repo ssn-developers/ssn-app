@@ -49,13 +49,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
-
-
     // add a post
     public void addPost(Post post){
         SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
         ContentValues cv=new ContentValues();
-        cv.put(SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID,post.getId());
+        cv.put(SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID, post.getId());
         String json=new Gson().toJson(post);
         cv.put(SavedPost.SavedPostEntry.COLUMN_NAME_POST,json);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS");
@@ -104,7 +102,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String json=c.getString(1);
                 Post post= new Gson().fromJson(json, Post.class);
-                Log.d(TAG,i +" "+post.getTitle());
+                Log.d(TAG,i +" "+post.getAuthor_image_url());
                 PostList.add(post);
                 i++;
             }while (c.moveToNext());
@@ -135,18 +133,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         long id=db.insert(Notification.NotificationEntry.TABLE_NAME,null,cv);
-        Log.d(TAG,"insertion id "+id);
+        //Log.d(TAG,"insertion id "+id);
     }
 
     public ArrayList<Post> getNotificationList() {
         ArrayList<Post> postList=new ArrayList<Post>();
         SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
         long rowCount =DatabaseUtils.queryNumEntries(db,SavedPost.SavedPostEntry.TABLE_NAME);
-        Log.d(TAG,"no of rows "+rowCount);
+        //Log.d(TAG,"no of rows "+rowCount);
         String query = "select * from " + Notification.NotificationEntry.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        Log.d(TAG,"column count: "+c.getColumnCount());
-        Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
+        //Log.d(TAG,"column count: "+c.getColumnCount());
+        //Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
 
         int i=0;
         if (c.moveToFirst())
@@ -155,7 +153,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String json=c.getString(2);
                 Post post= new Gson().fromJson(json, Post.class);
                 postList.add(post);
-                Log.d(TAG,i +" "+post.getTitle());
+                Log.d(TAG,i  + " " + post.getAuthor_image_url());
                 i++;
             }while (c.moveToNext());
         }

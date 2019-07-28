@@ -46,12 +46,10 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
         TextView tv_title=convertView.findViewById(R.id.tv_title);
         TextView tv_time=convertView.findViewById(R.id.tv_time);
         CircleImageView iv_dp=convertView.findViewById(R.id.iv_dp);
-        ImageView iv_bg=convertView.findViewById(R.id.iv_bg);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Post drawer=getItem(position);
                 if(drawer.getId().equalsIgnoreCase("2")) {
                     Intent intent = new Intent(getContext(), PdfViewerActivity.class);
@@ -71,9 +69,21 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
         tv_title.setText(drawer.getTitle());
         try {
             Picasso.get().load(drawer.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(iv_dp);
+            iv_dp.setBorderColor(Color.TRANSPARENT);
+            iv_dp.setCircleBackgroundColor(Color.TRANSPARENT);
         }
         catch (Exception e){
             e.printStackTrace();
+            if(drawer.getId().equalsIgnoreCase("2")) {
+                iv_dp.setBorderColor(Color.parseColor("#D8D7D7"));
+                iv_dp.setCircleBackgroundColor(Color.TRANSPARENT);
+                iv_dp.setImageResource(R.drawable.ic_bus);
+            }
+            else{
+                iv_dp.setBorderColor(Color.TRANSPARENT);
+                iv_dp.setCircleBackgroundColor(Color.parseColor("#D8D7D7"));
+                iv_dp.setImageResource(R.drawable.ic_user_white);
+            }
         }
 
         Date time = drawer.getTime();
@@ -95,11 +105,6 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
             tv_time.setText(Long.toString(t/2592000000L) + "M ago");
         else
             tv_time.setText(Long.toString(t/31536000000L) + "y ago");
-
-        if(position > -1)
-            tv_title.setTypeface(ResourcesCompat.getFont(getContext(), R.font.open_sans));
-        else
-            tv_title.setTypeface(ResourcesCompat.getFont(getContext(), R.font.open_sans_bold));
 
         return convertView;
     }

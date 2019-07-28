@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/shimmering_back"
+    app:cardCornerRadius="5dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_9sdp"
+            android:layout_marginRight="@dimen/_9sdp"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+                <include layout="@layout/bus_alert_shimmering"/>
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

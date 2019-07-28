@@ -93,8 +93,7 @@ public class SplashActivity extends AppCompatActivity {
         new updateFaculty().execute();
     }
 
-    void setUpCrashReport()
-    {
+    void setUpCrashReport() {
         // only enable bug tracking in release version
         if (!BuildConfig.DEBUG) {
             //https://stackoverflow.com/a/49836972/10664312

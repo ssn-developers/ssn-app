@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_70sdp">
+    android:layout_height="@dimen/_70sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/iv_bg"
@@ -14,6 +14,7 @@
         android:id="@+id/iv_dp"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
+        app:civ_border_width="@dimen/_1sdp"
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_centerVertical="true" />
 
@@ -32,7 +33,7 @@
             android:singleLine="true"
             android:textSize="@dimen/_12ssp"
             android:textColor="#000000"
-            android:fontFamily="@font/open_sans_bold"/>
+            android:fontFamily="@font/open_sans"/>
 
         <TextView
             android:id="@+id/tv_time"

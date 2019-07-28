@@ -55,7 +55,7 @@ public class ViewAdminActivity extends AppCompatActivity {
     void setupFireStore(){
         String dept = SharedPref.getString(getApplicationContext(),"dept");
 
-        Query query = FirebaseFirestore.getInstance().collection("user").whereEqualTo("access","AD").whereEqualTo("dept",dept);
+        Query query = FirebaseFirestore.getInstance().collection("faculty").whereEqualTo("access","AD").whereEqualTo("dept",dept);
         FirestoreRecyclerOptions<AdminDetails> options = new FirestoreRecyclerOptions.Builder<AdminDetails>().setQuery(query, new SnapshotParser<AdminDetails>() {
             @NonNull
             @Override

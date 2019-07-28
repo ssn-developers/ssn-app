@@ -9,10 +9,11 @@ import android.widget.ImageView;
 
 import com.suke.widget.SwitchButton;
 
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class NotificationSettings extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener {
+public class NotificationSettings extends AppCompatActivity {
 
     com.suke.widget.SwitchButton switch_all, switch_dept, switch_bus, switch_club, switch_exam, switch_workshop;
     ImageView iv_back;
@@ -24,6 +25,17 @@ public class NotificationSettings extends AppCompatActivity implements SwitchBut
 
         initUI();
 
+        switch_all.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                switch_dept.setChecked(isChecked);
+                switch_bus.setChecked(isChecked);
+                switch_club.setChecked(isChecked);
+                switch_exam.setChecked(isChecked);
+                switch_workshop.setChecked(isChecked);
+            }
+        });
+
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,12 +45,12 @@ public class NotificationSettings extends AppCompatActivity implements SwitchBut
     }
 
     public void initUI(){
-        switch_all = (com.suke.widget.SwitchButton) findViewById(R.id.switch_all);              switch_all.setOnCheckedChangeListener(this);
-        switch_dept = (com.suke.widget.SwitchButton) findViewById(R.id.switch_dept);            switch_dept.setOnCheckedChangeListener(this);
-        switch_bus = (com.suke.widget.SwitchButton) findViewById(R.id.switch_bus);              switch_bus.setOnCheckedChangeListener(this);
-        switch_club = (com.suke.widget.SwitchButton) findViewById(R.id.switch_club);            switch_club.setOnCheckedChangeListener(this);
-        switch_exam = (com.suke.widget.SwitchButton) findViewById(R.id.switch_exam);            switch_exam.setOnCheckedChangeListener(this);
-        switch_workshop = (com.suke.widget.SwitchButton) findViewById(R.id.switch_workshop);    switch_workshop.setOnCheckedChangeListener(this);
+        switch_all = (com.suke.widget.SwitchButton) findViewById(R.id.switch_all);
+        switch_dept = (com.suke.widget.SwitchButton) findViewById(R.id.switch_dept);
+        switch_bus = (com.suke.widget.SwitchButton) findViewById(R.id.switch_bus);
+        switch_club = (com.suke.widget.SwitchButton) findViewById(R.id.switch_club);
+        switch_exam = (com.suke.widget.SwitchButton) findViewById(R.id.switch_exam);
+        switch_workshop = (com.suke.widget.SwitchButton) findViewById(R.id.switch_workshop);
 
         iv_back = findViewById(R.id.iv_back);
 
@@ -63,36 +75,27 @@ public class NotificationSettings extends AppCompatActivity implements SwitchBut
 
         if(switch_dept.isChecked())
             FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(),"dept"));
-        else {
+        else
             FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept"));
-        }
 
-        //TODO: Perform the above for other categories
-    }
+        if(switch_bus.isChecked())
+            FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
+        else
+            FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
 
-    @Override
-    public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-        switch (view.getId()) {
-            case R.id.switch_dept:
-            case R.id.switch_bus:
-            case R.id.switch_club:
-            case R.id.switch_exam:
-            case R.id.switch_workshop:
-                if (switch_all.isChecked() && !isChecked) {
-                    switch_all.setChecked(false);
-                    Log.d("test_set", Boolean.toString(isChecked) + " others");
-                }
-                break;
-            case R.id.switch_all:
-                if(isChecked) {
-                    Log.d("test_set", Boolean.toString(isChecked) + " all");
-                    switch_dept.setChecked(isChecked);
-                    switch_bus.setChecked(isChecked);
-                    switch_club.setChecked(isChecked);
-                    switch_exam.setChecked(isChecked);
-                    switch_workshop.setChecked(isChecked);
-                }
-                break;
-        }
+        if(switch_club.isChecked())
+            FCMHelper.SubscribeToTopic(this, Constants.CLUB_ALERTS);
+        else
+            FCMHelper.UnSubscribeToTopic(this, Constants.CLUB_ALERTS);
+
+        if(switch_exam.isChecked())
+            FCMHelper.SubscribeToTopic(this, Constants.EXAM_CELL_ALERTS);
+        else
+            FCMHelper.UnSubscribeToTopic(this, Constants.EXAM_CELL_ALERTS);
+
+        if(switch_workshop.isChecked())
+            FCMHelper.SubscribeToTopic(this, Constants.WORKSHOP_ALERTS);
+        else
+            FCMHelper.UnSubscribeToTopic(this, Constants.WORKSHOP_ALERTS);
     }
 }
