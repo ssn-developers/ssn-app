@@ -13,10 +13,10 @@
     <application
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".NoNetworkActivity"/>
         <activity android:name=".ViewAdminActivity" />
         <activity android:name=".SavedPostActivity" />
