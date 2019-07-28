@@ -82,12 +82,33 @@
 
     </LinearLayout>
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/progress"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
-        android:layout_centerInParent="true"
+    <RelativeLayout
+        android:id="@+id/layout_progress"
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_110sdp"
         android:visibility="gone"
-        android:background="@drawable/progress_circle"/>
+        android:layout_centerInParent="true"
+        android:background="@drawable/text_white_bg">
+
+        <TextView
+            android:id="@+id/tv_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Processing"
+            android:textColor="#000000"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/open_sans"
+            android:textSize="@dimen/_11ssp" />
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/progress"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_below="@+id/tv_message"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/progress_circle"/>
+    </RelativeLayout>
 
 </RelativeLayout>

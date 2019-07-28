@@ -19,7 +19,7 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_margin="@dimen/_6sdp"
-            android:src="@drawable/back_icon"
+            android:src="@drawable/ic_back"
             android:id="@+id/backIV"
             android:layout_gravity="center"
             android:clickable="true"
@@ -88,7 +88,7 @@
                 android:id="@+id/shareIV"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:src="@drawable/share_icon"
+                android:src="@drawable/ic_share"
                 android:tint="@color/colorAccent"/>
 
         </RelativeLayout>

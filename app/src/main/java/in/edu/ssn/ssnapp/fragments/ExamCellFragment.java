@@ -49,7 +49,7 @@ public class ExamCellFragment extends Fragment implements View.OnClickListener {
         TextView tv_ok = dialog.findViewById(R.id.tv_ok);
         TextView tv_message = dialog.findViewById(R.id.tv_message);
 
-        tv_message.setText(text + " will be updated soon and will be notified you shortly.");
+        tv_message.setText(text + " will be updated and notified shortly. Please try again later.");
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".NotificationActivity"
-    android:background="#F5F6F8">
+    android:background="#ffffff">
 
     <ImageView
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_82sdp"
-        android:background="@drawable/notify_top_comp"/>
+        android:background="@drawable/tool_bar_curve"/>
 
     <RelativeLayout
         android:id="@+id/layout1"
@@ -19,15 +19,12 @@
         android:layout_height="@dimen/_82sdp">
 
         <ImageView
-            android:id="@+id/iv_bell"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/notfiy_button_icon"
-            android:src="@drawable/ic_enable_notify"
-            android:tag="disable"
-            android:padding="@dimen/_7sdp"
-            android:layout_marginLeft="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_28sdp" />
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_22sdp"/>
 
         <TextView
             android:id="@+id/tv_title1"
@@ -38,8 +35,8 @@
             android:textSize="@dimen/_16ssp"
             android:layout_centerVertical="true"
             android:fontFamily="@font/open_sans_bold"
-            android:layout_toRightOf="@+id/iv_bell"
-            android:layout_marginLeft="@dimen/_12sdp" />
+            android:layout_toRightOf="@+id/iv_back"
+            android:layout_marginLeft="@dimen/_10sdp" />
 
     </RelativeLayout>
 
@@ -50,5 +47,53 @@
         android:layout_below="@+id/layout1"
         android:scrollbars="none"
         android:divider="@null"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_progress"
+        android:layout_below="@+id/layout1"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginTop="@dimen/_50sdp"
+            app:lottie_rawRes="@raw/notification"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:text="No Notifications"
+            android:layout_centerHorizontal="true"
+            android:textColor="#404040"
+            android:layout_below="@+id/lottie"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:gravity="center"
+            android:textSize="@dimen/_14ssp" />
+
+        <TextView
+            android:id="@+id/tv_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:text="You will be notified if the faculty posts any new feeds till then stay tuned."
+            android:layout_centerHorizontal="true"
+            android:textColor="#404040"
+            android:layout_below="@+id/tv_text1"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:gravity="center"
+            android:textSize="@dimen/_12ssp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

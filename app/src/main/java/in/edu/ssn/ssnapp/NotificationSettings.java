@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.suke.widget.SwitchButton;
 
@@ -13,6 +15,7 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 public class NotificationSettings extends AppCompatActivity implements SwitchButton.OnCheckedChangeListener {
 
     com.suke.widget.SwitchButton switch_all, switch_dept, switch_bus, switch_club, switch_exam, switch_workshop;
+    ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,13 @@ public class NotificationSettings extends AppCompatActivity implements SwitchBut
         setContentView(R.layout.activity_notification_settings);
 
         initUI();
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     public void initUI(){
@@ -29,6 +39,8 @@ public class NotificationSettings extends AppCompatActivity implements SwitchBut
         switch_club = (com.suke.widget.SwitchButton) findViewById(R.id.switch_club);            switch_club.setOnCheckedChangeListener(this);
         switch_exam = (com.suke.widget.SwitchButton) findViewById(R.id.switch_exam);            switch_exam.setOnCheckedChangeListener(this);
         switch_workshop = (com.suke.widget.SwitchButton) findViewById(R.id.switch_workshop);    switch_workshop.setOnCheckedChangeListener(this);
+
+        iv_back = findViewById(R.id.iv_back);
 
         switch_all.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_all"));
         switch_dept.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_dept"));

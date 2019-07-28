@@ -12,15 +12,19 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import in.edu.ssn.ssnapp.OpenImageActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
 import in.edu.ssn.ssnapp.models.Post;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -89,11 +93,69 @@ public class ImageAdapter extends PagerAdapter {
             }
         });
 
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(flag)
+                    handleBottomSheet(v,model);
+                return true;
+            }
+        });
+
         return itemView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((RelativeLayout) object);
+    }
+
+    /**********************************************************/
+
+    public void handleBottomSheet(View v,final Post post) {
+        RelativeLayout ll_save,ll_share;
+        final TextView tv_save;
+
+        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
+        View sheetView=LayoutInflater.from(context).inflate(R.layout.bottom_menu, null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        ll_save=sheetView.findViewById(R.id.saveLL);
+        ll_share=sheetView.findViewById(R.id.shareLL);
+        tv_save=sheetView.findViewById(R.id.tv_save);
+
+        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(context);
+        if(dataBaseHelper.checkPost(post.getId()))
+            tv_save.setText("Remove from Favourites");
+        else
+            tv_save.setText("Add to Favourites");
+
+        bottomSheetDialog.show();
+
+        ll_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dataBaseHelper.checkPost(post.getId())){
+                    dataBaseHelper.deletePost(post.getId());
+                    tv_save.setText("Add to Favourites");
+                }
+                else{
+                    tv_save.setText("Remove from Favourites");
+                    dataBaseHelper.addPost(post);
+                }
+                bottomSheetDialog.hide();
+            }
+        });
+
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/" + post.getId();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
     }
 }

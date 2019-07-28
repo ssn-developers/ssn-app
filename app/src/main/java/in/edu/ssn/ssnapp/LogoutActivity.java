@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,7 @@ public class LogoutActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
-    GifImageView progress;
+    RelativeLayout layout_progress;
     TextView tv_msg;
 
     @Override
@@ -54,7 +55,7 @@ public class LogoutActivity extends AppCompatActivity {
 
         signInCV = findViewById(R.id.signInCV);
         tv_msg = findViewById(R.id.tv_msg);
-        progress = findViewById(R.id.progress);
+        layout_progress = findViewById(R.id.layout_progress);
 
         Boolean flag = getIntent().getBooleanExtra("is_log_in",false);
         if(flag)
@@ -69,6 +70,7 @@ public class LogoutActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mAuth.signOut();
                 mGoogleSignInClient.signOut();
+                layout_progress.setVisibility(View.VISIBLE);
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
@@ -91,16 +93,20 @@ public class LogoutActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
-                Pattern pat = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
-                Matcher m = pat.matcher(acct.getEmail());
+                Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
+                Matcher m_s = pat_s.matcher(acct.getEmail());
+
+                Pattern pat_f = Pattern.compile("(@ssn.edu.in)$");
+                Matcher m_f = pat_f.matcher(acct.getEmail());
 
                 //TODO: check for faculty regex
 
-                if (m.find()) {
+                //if(acct.getEmail().endsWith("@cse.ssn.edu.in")){
+                if (m_s.find()) {
                     //Student only
 
                     AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-                    progress.setVisibility(View.VISIBLE);
+                    layout_progress.setVisibility(View.VISIBLE);
                     mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -110,16 +116,17 @@ public class LogoutActivity extends AppCompatActivity {
                                 checkForSignin(user,0);
                             } else {
                                 Log.d("test_set", "signInWithCredential:failure");
-                                progress.setVisibility(View.GONE);
+                                layout_progress.setVisibility(View.GONE);
                             }
                         }
                     });
                 }
                 else {
+                    //else if(m_f.find()) {
                     //Faculty only
 
                     AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-                    progress.setVisibility(View.VISIBLE);
+                    layout_progress.setVisibility(View.VISIBLE);
                     mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -129,7 +136,7 @@ public class LogoutActivity extends AppCompatActivity {
                                 checkForSignin(user,1);
                             } else {
                                 Log.d("test_set", "signInWithCredential:failure");
-                                progress.setVisibility(View.GONE);
+                                layout_progress.setVisibility(View.GONE);
                             }
                         }
                     });
@@ -170,7 +177,7 @@ public class LogoutActivity extends AppCompatActivity {
                                             DocumentSnapshot document = task.getResult().getDocuments().get(0);
                                             signUpFaculty(user, document);
                                         } else {
-                                            progress.setVisibility(View.GONE);
+                                            layout_progress.setVisibility(View.GONE);
                                             Toast.makeText(LogoutActivity.this, "Please contact Admin!", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -215,7 +222,7 @@ public class LogoutActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signin");
-        progress.setVisibility(View.GONE);
+        layout_progress.setVisibility(View.GONE);
         FCMHelper.SubscribeToTopic(this, dept);
         setUpNotification();
         FCMHelper.UpdateFCM(this, SharedPref.getString(this, "FCMToken"));
@@ -268,7 +275,7 @@ public class LogoutActivity extends AppCompatActivity {
         SharedPref.putInt(getApplicationContext(), "year", year);
         SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
         Log.d("test_set", "signup");
-        progress.setVisibility(View.GONE);
+        layout_progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
         finish();
     }
@@ -306,7 +313,7 @@ public class LogoutActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
 
         Log.d("test_set", "signup");
-        progress.setVisibility(View.GONE);
+        layout_progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
         finish();
     }

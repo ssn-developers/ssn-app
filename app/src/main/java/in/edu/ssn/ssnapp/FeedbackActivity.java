@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class FeedbackActivity extends AppCompatActivity {
     TextView tv_text1, tv_button;
     LottieAnimationView lottie;
     CardView submitCV;
+    ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,14 @@ public class FeedbackActivity extends AppCompatActivity {
         lottie = findViewById(R.id.lottie);
         tv_text1 = findViewById(R.id.tv_text1);
         tv_button = findViewById(R.id.tv_button);
+        iv_back = findViewById(R.id.iv_back);
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         submitCV.setOnClickListener(new View.OnClickListener() {
             @Override

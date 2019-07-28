@@ -4,7 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -24,6 +26,8 @@ public class NotificationActivity extends AppCompatActivity{
     ListView lv_items;
     NotifyAdapter adapter;
     DataBaseHelper dbHelper;
+    RelativeLayout layout_progress;
+    ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +35,19 @@ public class NotificationActivity extends AppCompatActivity{
         setContentView(R.layout.activity_notification);
 
         lv_items = findViewById(R.id.lv_items);
+        iv_back = findViewById(R.id.iv_back);
+        layout_progress = findViewById(R.id.layout_progress);
         adapter = new NotifyAdapter(this, new ArrayList<Post>());
         dbHelper=DataBaseHelper.getInstance(this);
 
         setUpDrawer();
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     void setUpDrawer(){
@@ -50,6 +63,15 @@ public class NotificationActivity extends AppCompatActivity{
         Collections.reverse(postList);
         adapter.addAll(postList);
         adapter.notifyDataSetChanged();
+
+        if(postList.size() > 0){
+            layout_progress.setVisibility(View.GONE);
+            lv_items.setVisibility(View.VISIBLE);
+        }
+        else{
+            layout_progress.setVisibility(View.VISIBLE);
+            lv_items.setVisibility(View.GONE);
+        }
     }
 
 

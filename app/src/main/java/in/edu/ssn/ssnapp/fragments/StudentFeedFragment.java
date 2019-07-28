@@ -54,6 +54,7 @@ public class StudentFeedFragment extends Fragment {
     public StudentFeedFragment() { }
 
     RecyclerView feedsRV;
+    RelativeLayout layout_progress;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
 
@@ -81,6 +82,9 @@ public class StudentFeedFragment extends Fragment {
             @NonNull
             @Override
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                shimmer_view.setVisibility(View.VISIBLE);
+                layout_progress.setVisibility(View.GONE);
+
                 final Post post = new Post();
                 post.setId(snapshot.getString("id"));
                 post.setTitle(snapshot.getString("title"));
@@ -88,49 +92,79 @@ public class StudentFeedFragment extends Fragment {
                 post.setTime(snapshot.getTimestamp("time").toDate());
 
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if(images != null && images.size() != 0)
+                if(images != null && images.size() > 0)
                     post.setImageUrl(images);
                 else
                     post.setImageUrl(null);
 
-                ArrayList<Map<String,String>> files = (ArrayList<Map<String,String>>) snapshot.get("file_urls");
-                if(files != null && files.size() != 0) {
-                    ArrayList<String> fileName = new ArrayList<>();
-                    ArrayList<String> fileUrl = new ArrayList<>();
+                try {
+                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
+                    if (files != null && files.size() != 0) {
+                        ArrayList<String> fileName = new ArrayList<>();
+                        ArrayList<String> fileUrl = new ArrayList<>();
 
-                    for(int i=0; i<files.size(); i++) {
-                        fileName.add((String)files.get(i).get("name"));
-                        fileUrl.add((String)files.get(i).get("url"));
+                        for (int i = 0; i < files.size(); i++) {
+                            fileName.add(files.get(i).get("name"));
+                            fileUrl.add(files.get(i).get("url"));
+                        }
+                        post.setFileName(fileName);
+                        post.setFileUrl(fileUrl);
                     }
-                    post.setFileName(fileName);
-                    post.setFileUrl(fileUrl);
-                    Log.d("test_set","size:" + fileName.size());
+                    else {
+                        post.setFileName(null);
+                        post.setFileUrl(null);
+                    }
                 }
-                else {
+                catch (Exception e){
+                    e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
                 }
 
-                ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
-                if(dept != null && dept.size() != 0)
-                    post.setDept(dept);
-                else
-                    post.setDept(null);
-
-                ArrayList<String> years = new ArrayList<>();
-                Map<Object, Boolean> year = (HashMap<Object,Boolean>) snapshot.get("year");
-                for (Map.Entry<Object,Boolean> entry : year.entrySet()) {
-                    if(entry.getValue().booleanValue())
-                        years.add((String)entry.getKey());
+                try {
+                    ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
+                    if (dept != null && dept.size() != 0)
+                        post.setDept(dept);
+                    else
+                        post.setDept(null);
                 }
-                Collections.sort(years);
-                post.setYear(years);
+                catch (Exception e){
+                    e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
+                    post.setDept(null);
+                }
+
+                try {
+                    ArrayList<String> years = new ArrayList<>();
+                    Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
+                    for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
+                        if (entry.getValue().booleanValue())
+                            years.add((String) entry.getKey());
+                    }
+                    Collections.sort(years);
+                    post.setYear(years);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
+                }
 
                 String id = snapshot.getString("author");
 
-                post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
                 post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",id + "_dp_url"));
-                post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
+
+                String name = SharedPref.getString(getContext(),"faculty",id + "_name");
+                if(name!=null && !name.equals(""))
+                    post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
+                else
+                    post.setAuthor("SSN Institutions");
+
+                String position = SharedPref.getString(getContext(),"faculty",id + "_position");
+                if(position!=null && !position.equals(""))
+                    post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
+                else
+                    post.setPosition("Admin");
 
                 return post;
             }
@@ -239,6 +273,7 @@ public class StudentFeedFragment extends Fragment {
                         return true;
                     }
                 });
+
                 shimmer_view.setVisibility(View.GONE);
             }
 
@@ -247,9 +282,15 @@ public class StudentFeedFragment extends Fragment {
                 View view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
                 return new FeedViewHolder(view);
             }
+
+            @Override
+            public int getItemCount() {
+                return super.getItemCount();
+            }
         };
 
         feedsRV.setAdapter(adapter);
+
     }
 
     void initUI(View view){
@@ -258,7 +299,7 @@ public class StudentFeedFragment extends Fragment {
         feedsRV.setLayoutManager(layoutManager);
         feedsRV.setHasFixedSize(true);
         shimmer_view = view.findViewById(R.id.shimmer_view);
-        shimmer_view.setVisibility(View.VISIBLE);
+        layout_progress = view.findViewById(R.id.layout_progress);
     }
 
     /*********************************************************/
@@ -307,7 +348,7 @@ public class StudentFeedFragment extends Fragment {
 
     /**********************************************************/
 
-    void handleBottomSheet(View v,final Post post) {
+    public void handleBottomSheet(View v,final Post post) {
         RelativeLayout ll_save,ll_share;
         final TextView tv_save;
 

@@ -138,11 +138,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Log.d(TAG,"insertion id "+id);
     }
 
-    public ArrayList<Post> getNotificationList()
-    {
-
+    public ArrayList<Post> getNotificationList() {
         ArrayList<Post> postList=new ArrayList<Post>();
-
         SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
         long rowCount =DatabaseUtils.queryNumEntries(db,SavedPost.SavedPostEntry.TABLE_NAME);
         Log.d(TAG,"no of rows "+rowCount);

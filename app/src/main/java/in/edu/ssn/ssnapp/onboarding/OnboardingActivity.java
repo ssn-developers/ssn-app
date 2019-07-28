@@ -5,12 +5,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
@@ -56,7 +61,7 @@ public class OnboardingActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
-    GifImageView progress;
+    RelativeLayout layout_progress;
 
     public static boolean firstRun1 = false;
     public static boolean firstRun2 = false;
@@ -77,6 +82,7 @@ public class OnboardingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 mAuth.signOut();
                 mGoogleSignInClient.signOut();
+                layout_progress.setVisibility(View.VISIBLE);
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
@@ -180,7 +186,7 @@ public class OnboardingActivity extends AppCompatActivity {
     void initUI() {
         viewPager = findViewById(R.id.viewPager);
         signInCV = findViewById(R.id.signInCV);
-        progress = findViewById(R.id.progress);
+        layout_progress = findViewById(R.id.layout_progress);
 
         backgroundIV = findViewById(R.id.backgroundIV);
         backgroundIV1 = findViewById(R.id.backgroundIV1);
@@ -227,16 +233,20 @@ public class OnboardingActivity extends AppCompatActivity {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
-                Pattern pat = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
-                Matcher m = pat.matcher(acct.getEmail());
+                Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
+                Matcher m_s = pat_s.matcher(acct.getEmail());
+
+                Pattern pat_f = Pattern.compile("(@ssn.edu.in)$");
+                Matcher m_f = pat_f.matcher(acct.getEmail());
 
                 //TODO: check for faculty regex
 
-                if (m.find()) {
+                //if(acct.getEmail().endsWith("@cse.ssn.edu.in")){
+                if (m_s.find()) {
                     //Student only
 
                     AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-                    progress.setVisibility(View.VISIBLE);
+                    layout_progress.setVisibility(View.VISIBLE);
                     mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -246,16 +256,17 @@ public class OnboardingActivity extends AppCompatActivity {
                                 checkForSignin(user,0);
                             } else {
                                 Log.d("test_set", "signInWithCredential:failure");
-                                progress.setVisibility(View.GONE);
+                                layout_progress.setVisibility(View.GONE);
                             }
                         }
                     });
                 }
                 else {
+                //else if(m_f.find()) {
                     //Faculty only
 
                     AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-                    progress.setVisibility(View.VISIBLE);
+                    layout_progress.setVisibility(View.VISIBLE);
                     mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -265,7 +276,7 @@ public class OnboardingActivity extends AppCompatActivity {
                                 checkForSignin(user,1);
                             } else {
                                 Log.d("test_set", "signInWithCredential:failure");
-                                progress.setVisibility(View.GONE);
+                                layout_progress.setVisibility(View.GONE);
                             }
                         }
                     });
@@ -306,7 +317,7 @@ public class OnboardingActivity extends AppCompatActivity {
                                             DocumentSnapshot document = task.getResult().getDocuments().get(0);
                                             signUpFaculty(user, document);
                                         } else {
-                                            progress.setVisibility(View.GONE);
+                                            layout_progress.setVisibility(View.GONE);
                                             Toast.makeText(OnboardingActivity.this, "Please contact Admin!", Toast.LENGTH_SHORT).show();
                                         }
                                     }
@@ -353,7 +364,7 @@ public class OnboardingActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(),"is_logged_in", true);
 
         Log.d("test_set", "signin");
-        progress.setVisibility(View.GONE);
+        layout_progress.setVisibility(View.GONE);
         //FCMHelper.SubscribeToTopic(this, dept);
         SubscribeToAlerts(this,dept);
         setUpNotification();
@@ -405,7 +416,7 @@ public class OnboardingActivity extends AppCompatActivity {
         SharedPref.putInt(getApplicationContext(), "year", year);
         SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
         Log.d("test_set", "signup");
-        progress.setVisibility(View.GONE);
+        layout_progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
     }
 
@@ -443,7 +454,7 @@ public class OnboardingActivity extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(), "is_logged_in", true);
 
         Log.d("test_set", "signup");
-        progress.setVisibility(View.GONE);
+        layout_progress.setVisibility(View.GONE);
         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
     }
 

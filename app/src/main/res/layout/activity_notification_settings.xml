@@ -12,7 +12,7 @@
         android:id="@+id/iv_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_82sdp"
-        android:background="@drawable/notify_top"/>
+        android:background="@drawable/tool_bar_curve"/>
 
     <RelativeLayout
         android:id="@+id/layout1"
@@ -20,15 +20,12 @@
         android:layout_height="@dimen/_82sdp">
 
         <ImageView
-            android:id="@+id/iv_bell"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:background="@drawable/notfiy_button_icon"
-            android:src="@drawable/ic_enable_notify"
-            android:tag="disable"
-            android:padding="@dimen/_7sdp"
-            android:layout_marginLeft="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_28sdp" />
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_22sdp"/>
 
         <TextView
             android:id="@+id/tv_title1"
@@ -38,9 +35,9 @@
             android:textColor="#ffffff"
             android:textSize="@dimen/_16ssp"
             android:fontFamily="@font/open_sans_bold"
-            android:layout_toRightOf="@+id/iv_bell"
+            android:layout_toRightOf="@+id/iv_back"
             android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_marginTop="@dimen/_19sdp"/>
+            android:layout_marginTop="@dimen/_15sdp"/>
 
         <TextView
             android:id="@+id/tv_desc"
@@ -51,7 +48,7 @@
             android:textSize="@dimen/_9ssp"
             android:paddingRight="@dimen/_5sdp"
             android:fontFamily="@font/open_sans"
-            android:layout_toRightOf="@+id/iv_bell"
+            android:layout_toRightOf="@+id/iv_back"
             android:layout_below="@+id/tv_title1"
             android:layout_marginLeft="@dimen/_12sdp" />
 

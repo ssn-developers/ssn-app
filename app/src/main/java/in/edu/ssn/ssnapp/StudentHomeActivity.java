@@ -11,13 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.squareup.picasso.Picasso;
@@ -160,11 +158,11 @@ public class StudentHomeActivity extends BaseActivity {
     }
 
     void setUpDrawer(){
-        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds_blue));
+        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Alumni Connect", R.drawable.ic_alumni));
-        adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify));
+        adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));

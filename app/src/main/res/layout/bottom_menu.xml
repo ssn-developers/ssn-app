@@ -42,7 +42,8 @@
 
         <ImageView
             android:id="@+id/iv_icon1"
-            android:src="@drawable/ic_share_blue_24dp"
+            android:src="@drawable/ic_share"
+            android:tint="@color/colorAccent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_width="wrap_content"

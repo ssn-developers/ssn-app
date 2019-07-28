@@ -35,7 +35,7 @@
 				android:clickable="true"
 				android:focusable="true"
 				android:foreground="?selectableItemBackground"
-				android:src="@drawable/menu_icon"
+				android:src="@drawable/ic_menu"
 				android:contentDescription="@string/menu_button"
 				/>
 			<RelativeLayout

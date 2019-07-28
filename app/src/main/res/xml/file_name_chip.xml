@@ -4,5 +4,5 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:checkable="false"
-	app:chipIcon="@drawable/download_icon"
+	app:chipIcon="@drawable/ic_download"
 	app:iconStartPadding="5dp"/>

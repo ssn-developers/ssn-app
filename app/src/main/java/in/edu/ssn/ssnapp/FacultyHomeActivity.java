@@ -157,10 +157,10 @@ public class FacultyHomeActivity extends BaseActivity {
     }
 
     void setUpDrawer() {
-        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds_blue));
+        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("View Admin", R.drawable.ic_team));
-        adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify));
+        adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));

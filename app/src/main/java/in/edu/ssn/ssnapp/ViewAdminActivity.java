@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -25,6 +26,7 @@ public class ViewAdminActivity extends AppCompatActivity {
 
     RecyclerView adminRV;
     FirestoreRecyclerAdapter adapter;
+    ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,18 @@ public class ViewAdminActivity extends AppCompatActivity {
 
         initUI();
         setupFireStore();
+
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
     }
 
     void initUI(){
         adminRV = findViewById(R.id.adminRV);
+        iv_back = findViewById(R.id.iv_back);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         adminRV.setLayoutManager(layoutManager);
         adminRV.setHasFixedSize(true);

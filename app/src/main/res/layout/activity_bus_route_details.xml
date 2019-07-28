@@ -22,7 +22,7 @@
 			android:layout_marginLeft="@dimen/_6sdp"
 			android:layout_marginRight="@dimen/_6sdp"
 			android:layout_marginBottom="@dimen/_6sdp"
-			android:src="@drawable/back_icon"
+			android:src="@drawable/ic_back"
 			android:id="@+id/backIV"
 			android:layout_gravity="center"
 			android:clickable="true"
@@ -57,7 +57,7 @@
 					android:layout_width="@dimen/_15sdp"
 					android:layout_height="@dimen/_15sdp"
 					android:layout_marginStart="@dimen/_16sdp"
-					android:src="@drawable/steering_icon"
+					android:src="@drawable/ic_steering"
 					android:tint="#4D4D4D"
 					android:layout_marginLeft="@dimen/_16sdp" />
 				<LinearLayout
@@ -96,7 +96,7 @@
 					android:layout_width="@dimen/_15sdp"
 					android:layout_height="@dimen/_15sdp"
 					android:layout_marginStart="@dimen/_16sdp"
-					android:src="@drawable/call_icon"
+					android:src="@drawable/ic_call"
 					android:tint="#4D4D4D"
 					android:layout_marginLeft="@dimen/_16sdp" />
 				<LinearLayout

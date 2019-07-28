@@ -96,11 +96,6 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
         else
             tv_time.setText(Long.toString(t/31536000000L) + "y ago");
 
-        if(position == getCount()-1)
-            iv_bg.setBackgroundResource(R.drawable.notify_item_bg);
-        else
-            iv_bg.setBackgroundResource(R.drawable.notify_item_bg_bottom);
-
         if(position > -1)
             tv_title.setTypeface(ResourcesCompat.getFont(getContext(), R.font.open_sans));
         else

@@ -56,7 +56,7 @@
 		android:layout_height="wrap_content"
 		app:markerSize="@dimen/_16sdp"
 		android:clickable="true"
-		app:marker="@drawable/bus_icon"
+		app:marker="@drawable/ic_bus"
 		app:lineWidth="@dimen/_2sdp"
 		app:startLineColor="@android:color/tab_indicator_text"
 		app:endLineColor="@android:color/tab_indicator_text"

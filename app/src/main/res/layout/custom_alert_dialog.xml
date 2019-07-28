@@ -80,7 +80,7 @@
                 android:textColor="@color/colorAccent"
                 android:layout_toRightOf="@+id/tv_cancel"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:background="@drawable/button_blue_solid_less_corner"
+                android:background="@drawable/button_white_solid_less_corner"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/open_sans"
                 android:textSize="@dimen/_10ssp" />
