@@ -20,22 +20,16 @@
             android:paddingTop="@dimen/_3sdp"
             android:paddingBottom="@dimen/_3sdp">
 
-            <ImageView
-                android:id="@+id/menuIV"
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_gravity="center"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/userImageIV"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:clickable="true"
-                android:contentDescription="@string/menu_button"
-                android:focusable="true"
-                android:foreground="?selectableItemBackground"
-                android:padding="@dimen/_4sdp"
-                android:src="@drawable/ic_menu"
-                android:tint="@color/colorAccent" />
+                android:src="@drawable/ic_user_white"
+                app:civ_circle_background_color="#D8D7D7" />
 
             <RelativeLayout
                 android:layout_width="0dp"
@@ -61,17 +55,6 @@
                 android:padding="@dimen/_5sdp"
                 android:tint="@color/colorAccent"
                 android:src="@drawable/ic_notify" />
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/userImageIV"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:src="@drawable/ic_user_white"
-                app:civ_circle_background_color="#D8D7D7" />
 
         </LinearLayout>
 

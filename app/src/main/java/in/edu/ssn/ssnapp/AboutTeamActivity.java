@@ -126,7 +126,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("yadhukrishnannair99@gmail.com");
         url.add(null);
         url.add("https://www.instagram.com/yk_2310");
-        adapter.add(new TeamDetails("Yadhu Nair","Web Designer",R.drawable.yadhuv_profile, type, url));
+        adapter.add(new TeamDetails("Yadhukrishnan P","Web Designer",R.drawable.yadhuv_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);

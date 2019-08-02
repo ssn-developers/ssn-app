@@ -65,32 +65,38 @@ public class FeedbackActivity extends AppCompatActivity {
         submitCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(tv_button.getText().equals("Submit")) {
-                    String et_text = et_feedback.getEditableText().toString();
-                    final Map<String, Object> feedback_details = new HashMap<>();
-                    feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
-                    feedback_details.put("text", et_text);
-                    feedback_details.put("time", FieldValue.serverTimestamp());
+                if(!CommonUtils.alerter(getApplicationContext())) {
+                    if (tv_button.getText().equals("Submit")) {
+                        String et_text = et_feedback.getEditableText().toString();
+                        final Map<String, Object> feedback_details = new HashMap<>();
+                        feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
+                        feedback_details.put("text", et_text);
+                        feedback_details.put("time", FieldValue.serverTimestamp());
 
-                    if (et_text.length() > 0) {
-                        db.collection("feedback").add(feedback_details).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                if (documentReference != null) {
-                                    lottie.setVisibility(View.VISIBLE);
-                                    tv_text1.setVisibility(View.VISIBLE);
-                                    et_feedback.setVisibility(View.INVISIBLE);
-                                    tv_button.setText("Continue");
+                        if (et_text.length() > 0) {
+                            db.collection("feedback").add(feedback_details).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    if (documentReference != null) {
+                                        lottie.setVisibility(View.VISIBLE);
+                                        tv_text1.setVisibility(View.VISIBLE);
+                                        et_feedback.setVisibility(View.INVISIBLE);
+                                        tv_button.setText("Continue");
+                                    }
                                 }
-                            }
-                        });
-                        CommonUtils.hideKeyboard(FeedbackActivity.this);
+                            });
+                            CommonUtils.hideKeyboard(FeedbackActivity.this);
+                        } else
+                            Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT).show();
                     }
                     else
-                        Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT).show();
+                        onBackPressed();
                 }
-                else
-                    onBackPressed();
+                else{
+                    Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                    intent.putExtra("key","feedback");
+                    startActivity(intent);
+                }
             }
         });
     }

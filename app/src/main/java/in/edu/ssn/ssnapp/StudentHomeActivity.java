@@ -34,7 +34,7 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class StudentHomeActivity extends BaseActivity {
     private static final String TAG ="StudentHomeActivity" ;
-    ImageView menuIV, notifUI;
+    ImageView notifUI;
     CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
@@ -52,7 +52,7 @@ public class StudentHomeActivity extends BaseActivity {
 
         initUI();
 
-        menuIV.setOnClickListener(new View.OnClickListener() {
+        userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -76,6 +76,9 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Favourites":
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
+                        break;
+                    case "View Admin":
+                        startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
                         break;
                     case "Library Renewals":
                         if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn"))
@@ -105,6 +108,9 @@ public class StudentHomeActivity extends BaseActivity {
                     case "About Team":
                         startActivity(new Intent(getApplicationContext(), AboutTeamActivity.class));
                         break;
+                    case "Privacy Policy":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af")));
+                        break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
                         SharedPref.removeAll(getApplicationContext());
@@ -125,7 +131,6 @@ public class StudentHomeActivity extends BaseActivity {
     /*********************************************************/
 
     void initUI(){
-        menuIV = findViewById(R.id.menuIV);
         notifUI = findViewById(R.id.notifUI);
         userImageIV = findViewById(R.id.userImageIV);
         iv_profile = findViewById(R.id.iv_profile);
@@ -160,6 +165,7 @@ public class StudentHomeActivity extends BaseActivity {
     void setUpDrawer(){
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
+        adapter.add(new Drawer("View Admin", R.drawable.ic_team));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Alumni Connect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
@@ -167,6 +173,7 @@ public class StudentHomeActivity extends BaseActivity {
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("About Team", R.drawable.ic_team));
+        adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }

@@ -21,6 +21,17 @@
 			android:paddingBottom="@dimen/_3sdp"
 			android:orientation="horizontal">
 
+			<de.hdodenhof.circleimageview.CircleImageView
+				android:layout_width="@dimen/_30sdp"
+				android:layout_height="@dimen/_30sdp"
+				android:layout_marginStart="@dimen/_8sdp"
+				android:layout_marginLeft="@dimen/_8sdp"
+				android:layout_marginTop="@dimen/_8sdp"
+				android:layout_marginBottom="@dimen/_8sdp"
+				app:civ_circle_background_color="#D8D7D7"
+				android:src="@drawable/ic_user_white"
+				android:id="@+id/userImageIV" />
+
 			<ImageView
 				android:layout_width="@dimen/_32sdp"
 				android:layout_height="@dimen/_32sdp"
@@ -34,10 +45,11 @@
 				android:tint="@color/colorAccent"
 				android:clickable="true"
 				android:focusable="true"
+				android:visibility="gone"
 				android:foreground="?selectableItemBackground"
 				android:src="@drawable/ic_menu"
-				android:contentDescription="@string/menu_button"
-				/>
+				android:contentDescription="@string/menu_button" />
+
 			<RelativeLayout
 				android:layout_width="0dp"
 				android:layout_height="wrap_content"
@@ -61,17 +73,6 @@
 				android:tint="@color/colorAccent"
 				android:src="@drawable/ic_notify"
 				android:id="@+id/notifUI" />
-
-			<de.hdodenhof.circleimageview.CircleImageView
-				android:layout_width="@dimen/_30sdp"
-				android:layout_height="@dimen/_30sdp"
-				android:layout_marginEnd="@dimen/_8sdp"
-				android:layout_marginRight="@dimen/_8sdp"
-				android:layout_marginTop="@dimen/_8sdp"
-				android:layout_marginBottom="@dimen/_8sdp"
-				app:civ_circle_background_color="#D8D7D7"
-				android:src="@drawable/ic_user_white"
-				android:id="@+id/userImageIV" />
 
 		</LinearLayout>
 

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,28 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/fakeAppbarLL"
-        android:layout_marginTop="@dimen/_5sdp"
         android:orientation="horizontal">
-        <ImageView
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_margin="@dimen/_6sdp"
-            android:src="@drawable/ic_back"
-            android:id="@+id/backIV"
-            android:layout_gravity="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?selectableItemBackground"
-            android:tint="@color/colorAccent"
-            android:padding="@dimen/_2sdp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="@dimen/_18ssp"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_margin="@dimen/_6sdp"
+                android:src="@drawable/ic_back"
+                android:id="@+id/backIV"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:tint="@color/colorAccent"
+                android:padding="@dimen/_2sdp"/>
+
+            <ImageView
+                android:id="@+id/iv_download"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_alignParentRight="true"
+                android:tint="@color/colorAccent"
+                android:layout_margin="@dimen/_6sdp"
+                android:src="@drawable/ic_download"/>
+
+        </RelativeLayout>
     </LinearLayout>
 
 

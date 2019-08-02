@@ -110,8 +110,8 @@ public class BusAlertsFragment extends Fragment {
                 holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i=new Intent(getContext(), PdfViewerActivity.class);
-                        i.putExtra(Constants.PDF_URL,model.getUrl());
+                        Intent i = new Intent(getContext(), PdfViewerActivity.class);
+                        i.putExtra(Constants.PDF_URL, model.getUrl());
                         startActivity(i);
                     }
                 });

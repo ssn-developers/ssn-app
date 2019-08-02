@@ -34,7 +34,7 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class FacultyHomeActivity extends BaseActivity {
 
-    ImageView menuIV, notifUI;
+    ImageView notifUI;
     CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
@@ -52,7 +52,7 @@ public class FacultyHomeActivity extends BaseActivity {
 
         initUI();
 
-        menuIV.setOnClickListener(new View.OnClickListener() {
+        userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
@@ -96,6 +96,9 @@ public class FacultyHomeActivity extends BaseActivity {
                     case "Make a Suggestion":
                         startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));
                         break;
+                    case "Privacy Policy":
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af")));
+                        break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
                         SharedPref.removeAll(getApplicationContext());
@@ -116,7 +119,6 @@ public class FacultyHomeActivity extends BaseActivity {
     /*********************************************************/
 
     void initUI() {
-        menuIV = findViewById(R.id.menuIV);
         notifUI = findViewById(R.id.notifUI);
         userImageIV = findViewById(R.id.userImageIV);
         iv_profile = findViewById(R.id.iv_profile);
@@ -165,6 +167,7 @@ public class FacultyHomeActivity extends BaseActivity {
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
+        adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }
