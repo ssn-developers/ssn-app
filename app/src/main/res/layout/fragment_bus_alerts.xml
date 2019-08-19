@@ -84,8 +84,7 @@
 			android:layout_height="match_parent"
 			android:layout_marginLeft="@dimen/_9sdp"
 			android:layout_marginRight="@dimen/_9sdp"
-			android:id="@+id/alertRV">
-		</androidx.recyclerview.widget.RecyclerView>
+			android:id="@+id/alertRV"/>
 
 	</RelativeLayout>
 

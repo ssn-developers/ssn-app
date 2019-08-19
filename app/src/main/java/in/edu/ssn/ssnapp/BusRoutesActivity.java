@@ -167,9 +167,6 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             public BusRoute parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 BusRoute busRoute = new BusRoute();
                 busRoute.setRouteName(snapshot.getString("name"));
-                busRoute.setAvail(snapshot.getBoolean("avail"));
-                busRoute.setDname(snapshot.getString("dname"));
-                busRoute.setDphone(snapshot.getString("dphone"));
 
                 List<String> stops = (List<String>) snapshot.get("stop");
                 List<String> time = (List<String>) snapshot.get("time");
@@ -185,14 +182,14 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             public void onBindViewHolder(BusRouteViewHolder holder, int position, final BusRoute model) {
                 holder.routeNameTV.setText("Route " + model.getRouteName());
                 holder.busStopsRV.setAdapter(new BusStopAdapter(getApplicationContext(),model));
-                holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);
-                        intent.putExtra("route",model);
-                        startActivity(intent);
-                    }
-                });
+//                holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);
+//                        intent.putExtra("route",model);
+//                        startActivity(intent);
+//                    }
+//                });
                 shimmer_view.setVisibility(View.GONE);
             }
 

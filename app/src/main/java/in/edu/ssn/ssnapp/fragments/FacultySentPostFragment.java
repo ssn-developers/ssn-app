@@ -24,6 +24,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -40,6 +41,7 @@ import java.util.Map;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -67,11 +69,11 @@ public class FacultySentPostFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
-        String id = SharedPref.getString(getContext(),"id");
+        final String email = SharedPref.getString(getContext(),"email");
 
         //TODO: Needs to manually create composite query before release for each author. [VERY IMPORTANT]
 
-        Query query = FirebaseFirestore.getInstance().collection("post").whereEqualTo("author",id).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("post").whereEqualTo("author",email).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -146,9 +148,9 @@ public class FacultySentPostFragment extends Fragment {
 
                 String id = snapshot.getString("author");
 
-                post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",id + "_dp_url"));
-                post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
+                post.setAuthor(SharedPref.getString(getContext(),"faculty",email + "_name"));
+                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",email + "_dp_url"));
+                post.setPosition(SharedPref.getString(getContext(),"faculty",email + "_position"));
 
                 return post;
             }
@@ -202,7 +204,7 @@ public class FacultySentPostFragment extends Fragment {
                     }
                     else {
                         holder.tv_current_image.setVisibility(View.VISIBLE);
-                        holder.tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        holder.tv_current_image.setText(String.valueOf(1)+" / " + String.valueOf(model.getImageUrl().size()));
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -233,6 +235,14 @@ public class FacultySentPostFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
+                    }
+                });
+
+                holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        handleBottomSheet(v,model);
+                        return true;
                     }
                 });
                 shimmer_view.setVisibility(View.GONE);
@@ -275,6 +285,55 @@ public class FacultySentPostFragment extends Fragment {
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
         }
+    }
+
+    /**********************************************************/
+
+    public void handleBottomSheet(View v,final Post post) {
+        RelativeLayout ll_save,ll_share;
+        final TextView tv_save;
+
+        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(getContext());
+        View sheetView=getActivity().getLayoutInflater().inflate(R.layout.bottom_menu,null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        ll_save=sheetView.findViewById(R.id.saveLL);
+        ll_share=sheetView.findViewById(R.id.shareLL);
+        tv_save=sheetView.findViewById(R.id.tv_save);
+
+        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getContext());
+        if(dataBaseHelper.checkPost(post.getId()))
+            tv_save.setText("Remove from Favourites");
+        else
+            tv_save.setText("Add to Favourites");
+
+        bottomSheetDialog.show();
+
+        ll_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dataBaseHelper.checkPost(post.getId())){
+                    dataBaseHelper.deletePost(post.getId());
+                    tv_save.setText("Add to Favourites");
+                }
+                else{
+                    tv_save.setText("Remove from Favourites");
+                    dataBaseHelper.addPost(post);
+                }
+                bottomSheetDialog.hide();
+            }
+        });
+
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/" + post.getId();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
     }
 
     /*********************************************************/

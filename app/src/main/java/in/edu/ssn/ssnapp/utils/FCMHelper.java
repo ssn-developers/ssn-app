@@ -34,47 +34,6 @@ public class FCMHelper {
 
     final static String TAG="FCMHelper";
 
-    public static String getToken(final Context context){
-
-        String token="null";
-
-        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-            @Override
-            public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                if (!task.isSuccessful()) {
-                    Log.w(TAG, "getInstanceId failed", task.getException());
-                    return;
-                }
-
-                String token = task.getResult().getToken();
-                Log.d(TAG, token);
-                SharedPref.putString(context,"FCMToken",token);
-                //UpdateFCM(context,token);
-                //SubscribeToTopic(context,SharedPref.getString(context,"dept"));
-            }
-        });
-
-        return token;
-    }
-
-    public static void UpdateFCM(final Context context,final String fcmToken){
-
-        String id=SharedPref.getString(context,"id");
-        FirebaseFirestore.getInstance().collection("user").document(id).update("FCMToken",fcmToken)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG,"Added the FCM token successfully");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d(TAG,"Failed to add the FCM token ");
-                    }
-                });
-    }
-
     public static void SubscribeToTopic(final Context context,String topic){
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -85,11 +44,9 @@ public class FCMHelper {
                             msg = "subscribe failed";
                         }
                         Log.d(TAG, msg);
-                        //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
 
     public static void UnSubscribeToTopic(final Context context, String topic){
 
@@ -102,11 +59,9 @@ public class FCMHelper {
                             msg = "unsubscribe failed";
                         }
                         Log.d(TAG, msg);
-                        //Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
-
 
     public static void showNotification(String message, Context context, Intent intent){
 

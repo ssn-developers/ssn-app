@@ -214,7 +214,7 @@ public class SplashActivity extends AppCompatActivity {
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            db.collection("user").whereEqualTo("clearance", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            db.collection("faculty").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
@@ -227,12 +227,12 @@ public class SplashActivity extends AppCompatActivity {
                             String name = (String) document.get("name");
                             String position = (String) document.get("position");
 
-                            SharedPref.putString(getApplicationContext(), "faculty", id + "_access", access);
-                            SharedPref.putString(getApplicationContext(), "faculty", id + "_dept", dept);
-                            SharedPref.putString(getApplicationContext(), "faculty", id + "_dp_url", dp_url);
-                            SharedPref.putString(getApplicationContext(), "faculty", id + "_email", email);
-                            SharedPref.putString(getApplicationContext(), "faculty", id + "_name", name);
-                            SharedPref.putString(getApplicationContext(), "faculty", id + "_position", position);
+                            SharedPref.putString(getApplicationContext(), "faculty", email + "_access", access);
+                            SharedPref.putString(getApplicationContext(), "faculty", email + "_dept", dept);
+                            SharedPref.putString(getApplicationContext(), "faculty", email + "_dp_url", dp_url);
+                            SharedPref.putString(getApplicationContext(), "faculty", email + "_id", id);
+                            SharedPref.putString(getApplicationContext(), "faculty", email + "_name", name);
+                            SharedPref.putString(getApplicationContext(), "faculty", email + "_position", position);
                         }
                     }
                     handleIntent();
@@ -299,27 +299,28 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }
         else if(!CommonUtils.alerter(getApplicationContext())){
-            if (SharedPref.getBoolean(getApplicationContext(), "is_logged_in")) {
+            if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 2) {
                 if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
                     startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
                     finish();
                     Bungee.fade(this);
-                } else {
+                }
+                else {
                     startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
                     finish();
                     Bungee.fade(this);
                 }
             }
-            else {
-                if (!SharedPref.getBoolean(getApplicationContext(), "is_logged_out")) {
-                    startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
-                    finish();
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
-                    intent.putExtra("is_log_in", true);
-                    startActivity(intent);
-                    finish();
-                }
+            else if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 1) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                intent.putExtra("is_log_in", true);
+                startActivity(intent);
+                finish();
+                Bungee.slideLeft(this);
+            }
+            else{
+                startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+                finish();
                 Bungee.slideLeft(this);
             }
         }

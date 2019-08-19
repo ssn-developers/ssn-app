@@ -12,7 +12,6 @@ import androidx.viewpager.widget.ViewPager;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,8 +37,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.edu.ssn.ssnapp.LogoutActivity;
-import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
@@ -47,7 +44,6 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
-import pl.droidsonroids.gif.GifImageView;
 
 public class StudentFeedFragment extends Fragment {
 
@@ -150,19 +146,19 @@ public class StudentFeedFragment extends Fragment {
                     Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
-                String id = snapshot.getString("author");
+                String email = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",id + "_dp_url"));
+                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",email + "_dp_url"));
 
-                String name = SharedPref.getString(getContext(),"faculty",id + "_name");
+                String name = SharedPref.getString(getContext(),"faculty",email + "_name");
                 if(name!=null && !name.equals(""))
-                    post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
+                    post.setAuthor(name);
                 else
                     post.setAuthor("SSN Institutions");
 
-                String position = SharedPref.getString(getContext(),"faculty",id + "_position");
+                String position = SharedPref.getString(getContext(),"faculty",email + "_position");
                 if(position!=null && !position.equals(""))
-                    post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
+                    post.setPosition(position);
                 else
                     post.setPosition("Admin");
 

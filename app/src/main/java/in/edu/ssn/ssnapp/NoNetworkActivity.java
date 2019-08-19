@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.airbnb.lottie.LottieDrawable;
 
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
@@ -48,7 +47,7 @@ public class NoNetworkActivity extends AppCompatActivity {
                                 startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
                                 finish();
                             } else {
-                                Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
+                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                                 intent.putExtra("is_log_in", true);
                                 startActivity(intent);
                                 finish();

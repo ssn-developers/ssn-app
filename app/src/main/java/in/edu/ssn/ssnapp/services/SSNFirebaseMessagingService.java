@@ -28,7 +28,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         Log.d(TAG,"new token generated is "+s);
-        SharedPref.putString(getApplicationContext(),"FCMToken","FCMToken",s);
+        SharedPref.putString(getApplicationContext(),"dont_delete","FCMToken",s);
     }
 
     @Override

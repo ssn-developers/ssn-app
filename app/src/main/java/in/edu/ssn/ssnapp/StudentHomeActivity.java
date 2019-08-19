@@ -114,11 +114,9 @@ public class StudentHomeActivity extends BaseActivity {
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
                         SharedPref.removeAll(getApplicationContext());
-                        SharedPref.putBoolean(getApplicationContext(),"is_logged_in", false);
-                        SharedPref.putBoolean(getApplicationContext(),"is_logged_out", true);
+                        SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in", 1);
 
-                        Intent intent = new Intent(getApplicationContext(), LogoutActivity.class);
-                        intent.putExtra("is_log_in",false);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();
 

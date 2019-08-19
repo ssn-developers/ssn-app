@@ -32,7 +32,7 @@
         <activity android:name=".OpenImageActivity" />
         <activity android:name=".NotificationActivity" />
         <activity android:name=".FeedbackActivity" />
-        <activity android:name=".LogoutActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".AboutTeamActivity" />
         <activity android:name=".NotificationSettings" />
         <activity android:name=".onboarding.OnboardingActivity" />

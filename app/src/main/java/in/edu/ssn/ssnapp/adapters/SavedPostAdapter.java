@@ -20,6 +20,7 @@ import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.squareup.picasso.Picasso;
@@ -30,6 +31,7 @@ import java.util.Date;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 
 public class SavedPostAdapter extends ArrayAdapter<Post> {
@@ -168,11 +170,6 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
             }
         });
 
-
-
-
-
-        //return super.getView(position, convertView, parent);
         return convertView;
     }
 }
