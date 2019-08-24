@@ -92,6 +92,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                         break;
                     case "Rate Our App":
+                        //TODO: change package name
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=se.par.amsen.experimentshopdesign")));
                         break;
                     case "Make a Suggestion":

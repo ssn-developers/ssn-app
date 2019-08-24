@@ -193,7 +193,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/school/ssn-college-of-engineering")));
                 break;
             case R.id.iv_insta:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("")));
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/ssninstitutions")));
                 break;
         }
     }
