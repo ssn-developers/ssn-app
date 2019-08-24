@@ -75,18 +75,13 @@ public class FeedbackActivity extends AppCompatActivity {
                         feedback_details.put("time", FieldValue.serverTimestamp());
 
                         if (et_text.length() > 0) {
-                            db.collection("feedback").add(feedback_details).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    if (documentReference != null) {
-                                        lottie.setVisibility(View.VISIBLE);
-                                        tv_text1.setVisibility(View.VISIBLE);
-                                        et_feedback.setVisibility(View.INVISIBLE);
-                                        tv_button.setText("Continue");
-                                    }
-                                }
-                            });
+                            lottie.setVisibility(View.VISIBLE);
+                            tv_text1.setVisibility(View.VISIBLE);
+                            et_feedback.setVisibility(View.INVISIBLE);
+                            tv_button.setText("Continue");
                             CommonUtils.hideKeyboard(FeedbackActivity.this);
+
+                            db.collection("feedback").add(feedback_details);
                         }
                         else {
                             Toast toast = Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT);
