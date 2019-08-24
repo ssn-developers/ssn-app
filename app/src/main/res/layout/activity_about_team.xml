@@ -102,6 +102,15 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:background="@drawable/ic_linkedin"/>
 
+            <ImageView
+                android:id="@+id/iv_insta"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/iv_linkedin"
+                android:padding="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_5sdp"
+                android:background="@drawable/ic_insta"/>
+
         </RelativeLayout>
 
     </RelativeLayout>

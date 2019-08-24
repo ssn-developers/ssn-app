@@ -56,7 +56,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
         holder.titleTV.setText(stop_data);
         holder.timeTV.setText(time_data);
 
-        holder.busStopsCV.setOnClickListener(new View.OnClickListener() {
+        /*holder.busStopsCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, BusRouteDetailsActivity.class);
@@ -73,7 +73,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
                 intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }
-        });
+        });*/
     }
 
     @Override

@@ -16,6 +16,7 @@ import android.os.Environment;
 import android.os.Parcel;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -225,11 +226,13 @@ public class PostDetailsActivity extends BaseActivity {
         chip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(PostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
-
-                if(!CommonUtils.hasPermissions(PostDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE})){
-                    ActivityCompat.requestPermissions(PostDetailsActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                if(!CommonUtils.hasPermissions(PostDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                    ActivityCompat.requestPermissions(PostDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 }
+
+                Toast toast = Toast.makeText(PostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
                 try {
                     DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                     Uri downloadUri = Uri.parse(url);
@@ -243,7 +246,9 @@ public class PostDetailsActivity extends BaseActivity {
                     dm.enqueue(request);
                 }
                 catch (Exception ex) {
-                    Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG).show();
+                    toast = Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                     ex.printStackTrace();
                     Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
                 }
@@ -264,9 +269,7 @@ public class PostDetailsActivity extends BaseActivity {
         return chip;
     }
 
-
-    Boolean savePost(Post post){
-
+    public Boolean savePost(Post post){
         try{
 
             DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
@@ -280,19 +283,18 @@ public class PostDetailsActivity extends BaseActivity {
             return false;
         }
 
-        Toast.makeText(this, "Saved post", Toast.LENGTH_SHORT).show();
+        Toast toast = Toast.makeText(this, "Saved post", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
         return true;
     }
 
     void unSavePost(Post post){
-
         // updating the post status to not saved in shared preference
         DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
         dataBaseHelper.deletePost(post.getId());
         bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
     }
-
-
 
     Boolean checkSavedPost(Post post){
         DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -86,8 +87,12 @@ public class FeedbackActivity extends AppCompatActivity {
                                 }
                             });
                             CommonUtils.hideKeyboard(FeedbackActivity.this);
-                        } else
-                            Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast toast = Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.show();
+                        }
                     }
                     else
                         onBackPressed();

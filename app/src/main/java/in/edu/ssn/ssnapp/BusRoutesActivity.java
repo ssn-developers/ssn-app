@@ -182,14 +182,14 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             public void onBindViewHolder(BusRouteViewHolder holder, int position, final BusRoute model) {
                 holder.routeNameTV.setText("Route " + model.getRouteName());
                 holder.busStopsRV.setAdapter(new BusStopAdapter(getApplicationContext(),model));
-//                holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);
-//                        intent.putExtra("route",model);
-//                        startActivity(intent);
-//                    }
-//                });
+                /*holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);
+                        intent.putExtra("route",model);
+                        startActivity(intent);
+                    }
+                });*/
                 shimmer_view.setVisibility(View.GONE);
             }
 

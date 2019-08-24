@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,7 +63,9 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Testing one", Toast.LENGTH_SHORT).show();
+                Toast toast = Toast.makeText(getContext(), "Testing one", Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();
             }
         });
 

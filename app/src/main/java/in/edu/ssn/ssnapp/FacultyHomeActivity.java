@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -198,7 +199,9 @@ public class FacultyHomeActivity extends BaseActivity {
             finish();
         } else {
             count++;
-            Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
         }
     }
 }

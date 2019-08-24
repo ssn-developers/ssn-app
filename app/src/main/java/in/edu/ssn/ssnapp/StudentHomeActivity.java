@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -83,8 +84,11 @@ public class StudentHomeActivity extends BaseActivity {
                     case "Library Renewals":
                         if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn"))
                             startActivity(new Intent(getApplicationContext(), LibraryActivity.class));
-                        else
-                            Toast.makeText(StudentHomeActivity.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast toast = Toast.makeText(StudentHomeActivity.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.show();
+                        }
                         break;
                     case "Alumni Connect":
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssn.almaconnect.com")));
@@ -202,7 +206,9 @@ public class StudentHomeActivity extends BaseActivity {
         }
         else {
             count++;
-            Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT).show();
+            Toast toast = Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER,0,0);
+            toast.show();
         }
     }
 }

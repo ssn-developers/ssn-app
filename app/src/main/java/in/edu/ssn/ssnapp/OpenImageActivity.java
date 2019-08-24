@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -38,7 +39,9 @@ public class OpenImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 try {
-                    Toast.makeText(OpenImageActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(OpenImageActivity.this, "Downloading...", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
 
                     DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                     DownloadManager.Request request = new DownloadManager.Request(downloadUri);
@@ -50,7 +53,9 @@ public class OpenImageActivity extends AppCompatActivity {
                     dm.enqueue(request);
                 }
                 catch (Exception ex) {
-                    Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                     ex.printStackTrace();
                     Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
                 }

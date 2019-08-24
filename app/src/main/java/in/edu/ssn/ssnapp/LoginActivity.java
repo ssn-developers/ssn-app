@@ -4,10 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -67,8 +73,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         cv_student.setOnClickListener(this);
         cv_faculty.setOnClickListener(this);
-        cv_club.setOnClickListener(this);
-        //cv_event.setOnClickListener(this);
+        cv_club.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog("Club member login");
+            }
+        });
+        cv_event.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog("Event feature");
+            }
+        });
     }
 
     /************************************************************************/
@@ -88,12 +104,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
-                Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
+                //Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
+                Pattern pat_s = Pattern.compile("(@cse.ssn.edu.in)$");
                 Matcher m_s = pat_s.matcher(acct.getEmail());
 
                 Pattern pat_f = Pattern.compile("(@ssn.edu.in)$");
-                //Matcher m_f = pat_f.matcher(acct.getEmail());
-                Matcher m_f = pat_f.matcher("balasubramanianv@ssn.edu.in");
+                Matcher m_f = pat_f.matcher(acct.getEmail());
 
                 if(clearance == 0) {
                     if (m_s.find()) {
@@ -119,7 +135,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     else {
                         layout_progress.setVisibility(View.GONE);
                         flag = true;
-                        Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                     }
                 }
                 else if(clearance == 1){
@@ -141,7 +159,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         });
                     }
                     else {
-                        Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                         layout_progress.setVisibility(View.GONE);
                         flag = true;
                     }
@@ -214,8 +234,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     DocumentSnapshot document = task.getResult().getDocuments().get(0);
                     signInFaculty(user, document);
                 }
-                else
-                    Toast.makeText(LoginActivity.this, "Please contact Admin for login issues!", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast toast = Toast.makeText(LoginActivity.this, "Please contact Admin for login issues!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
             }
         });
     }
@@ -262,7 +285,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 else {
                     flag = true;
                     layout_progress.setVisibility(View.GONE);
-                    Toast.makeText(LoginActivity.this, "Please contact Admin for login issues!", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(LoginActivity.this, "Please contact Admin for login issues!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                 }
             }
         });
@@ -324,6 +349,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         finish();
     }
 
+    void showDialog(String text){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View dialogView = getLayoutInflater().inflate(R.layout.custom_alert_dialog2, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(false);
+
+        TextView tv_ok = dialogView.findViewById(R.id.tv_ok);
+        TextView tv_message = dialogView.findViewById(R.id.tv_message);
+
+        tv_message.setText(text + " will be updated and notified shortly. Please try again later.");
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+
+        tv_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         if (flag) {
@@ -335,10 +383,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 case R.id.cv_faculty:
                     clearance = 1;
                     break;
-                case R.id.cv_club:
+                /*case R.id.cv_club:
                     clearance = 0;
                     access = "CA";
+                    showDialog("Club member login");
                     break;
+                case R.id.cv_event:
+                    clearance = 2;
+                    showDialog("Event feature");
+                    break;*/
             }
 
             mAuth.signOut();

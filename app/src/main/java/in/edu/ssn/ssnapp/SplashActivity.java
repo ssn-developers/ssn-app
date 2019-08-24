@@ -176,7 +176,7 @@ public class SplashActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             if (latestVersion != null) {
                 if (!currentVersion.equalsIgnoreCase(latestVersion)) {
-                    // Toast.makeText(context,"update is available.",Toast.LENGTH_LONG).show();
+                    // Toast toast = Toast.makeText(context,"update is available.",Toast.LENGTH_LONG).show();
                     if (!(context instanceof SplashActivity)) {
                         if (!((Activity) context).isFinishing()) {
                             showForceUpdateDialog();

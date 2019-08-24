@@ -18,7 +18,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
 
     ListView lv_items;
     AboutTeamAdapter adapter;
-    ImageView iv_web, iv_fb, iv_twit, iv_linkedin;
+    ImageView iv_web, iv_fb, iv_twit, iv_linkedin, iv_insta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         iv_fb = findViewById(R.id.iv_fb);               iv_fb.setOnClickListener(this);
         iv_twit = findViewById(R.id.iv_twit);           iv_twit.setOnClickListener(this);
         iv_linkedin = findViewById(R.id.iv_linkedin);   iv_linkedin.setOnClickListener(this);
+        iv_insta = findViewById(R.id.iv_insta);         iv_insta.setOnClickListener(this);
 
         setUpDrawer();
     }
@@ -59,7 +60,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("catcalm7698@gmail.com");
         url.add("https://github.com/shrikanth7698");
         url.add("https://www.linkedin.com/in/shrikanthravi");
-        adapter.add(new TeamDetails("Shrikanth Ravi","App Developer & UI/UX Designer",R.drawable.shrikanth_profile, type, url));
+        adapter.add(new TeamDetails("Shrikanth Ravi","App Developer",R.drawable.shrikanth_profile, type, url));
 
         type= new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -70,7 +71,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("jennifer.malathi@gmail.com");
         url.add("https://www.behance.net/jenniferj1");
         url.add("https://www.linkedin.com/in/jennifer-j-a77260142");
-        adapter.add(new TeamDetails("Jennifer J","UI/UX Designer",R.drawable.jenifer_profile, type, url));
+        adapter.add(new TeamDetails("Jennifer J","App Illustrator",R.drawable.jenifer_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_dribble);
@@ -81,52 +82,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("https://dribbble.com/Shibikannan");
         url.add("https://www.instagram.com/shibi_ssn");
         url.add("https://www.linkedin.com/in/shibikannan-t-m-a79493155");
-        adapter.add(new TeamDetails("Shibikannan T M","Motion Graphics Designer",R.drawable.shibi_profile, type, url));
-
-        type  = new ArrayList<>();
-        type.add(R.drawable.ic_google);
-        type.add(R.drawable.ic_git);
-        type.add(R.drawable.ic_linkedin_circle);
-
-        url= new ArrayList<>();
-        url.add("smohammedrizwan98@gmail.com");
-        url.add("https://github.com/smriz");
-        url.add("https://www.linkedin.com/in/mohammed-r-249034b2");
-        adapter.add(new TeamDetails("Mohammed Rizwan S","Web Developer & Designer",R.drawable.rizwan_profile, type, url));
-
-        url= new ArrayList<>();
-        url.add("mfmevins@gmail.com");
-        url.add("https://github.com/MevinFernando");
-        url.add("https://www.linkedin.com/in/antonymevinfernando");
-        adapter.add(new TeamDetails("Antony Mevin Fernando","Web Developer & Designer",R.drawable.mevin_profile, type, url));
-
-        url= new ArrayList<>();
-        url.add("kaushik.personal.98@gmail.com");
-        url.add("https://github.com/kshake");
-        url.add("https://www.linkedin.com/in/kaushik-p-2921aa178");
-        adapter.add(new TeamDetails("Kaushik P","Web Developer",R.drawable.ic_profile_background, type, url));
-
-        type  = new ArrayList<>();
-        type.add(R.drawable.ic_google);
-        type.add(R.drawable.ic_insta_circle);
-        type.add(R.drawable.ic_linkedin_circle);
-
-        url= new ArrayList<>();
-        url.add("sudhakar.jeeva7@gmail.com");
-        url.add("https://www.instagram.com/sudhakar_shady");
-        url.add("https://www.linkedin.com/in/sudhakar-j");
-        adapter.add(new TeamDetails("Sudhakar J","Web Designer",R.drawable.sudhakar_profile, type, url));
-
-        type  = new ArrayList<>();
-        type.add(R.drawable.ic_google);
-        type.add(R.drawable.ic_fb_circle);
-        type.add(R.drawable.ic_insta_circle);
-
-        url= new ArrayList<>();
-        url.add("yadhukrishnannair99@gmail.com");
-        url.add(null);
-        url.add("https://www.instagram.com/yk_2310");
-        adapter.add(new TeamDetails("Yadhukrishnan P","Web Designer",R.drawable.yadhuv_profile, type, url));
+        adapter.add(new TeamDetails("Shibikannan T M","Splash Screen Designer",R.drawable.shibi_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -152,6 +108,39 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
+        type.add(R.drawable.ic_fb_circle);
+        type.add(R.drawable.ic_linkedin_circle);
+
+        url= new ArrayList<>();
+        url.add("tarun.krithik@gmail.com");
+        url.add("https://www.facebook.com/tarung.kangeyan");
+        url.add("https://www.linkedin.com/in/tarun-ganesh-a35594181");
+        adapter.add(new TeamDetails("Tarun Ganesh K","Web Developer",R.drawable.tarun_profile, type, url));
+
+        type  = new ArrayList<>();
+        type.add(R.drawable.ic_google);
+        type.add(R.drawable.ic_insta_circle);
+        type.add(R.drawable.ic_linkedin_circle);
+
+        url= new ArrayList<>();
+        url.add("sudhakar.jeeva7@gmail.com");
+        url.add("https://www.instagram.com/sudhakar_shady");
+        url.add("https://www.linkedin.com/in/sudhakar-j");
+        adapter.add(new TeamDetails("Sudhakar J","Web UI Designer",R.drawable.sudhakar_profile, type, url));
+
+        type  = new ArrayList<>();
+        type.add(R.drawable.ic_google);
+        type.add(R.drawable.ic_fb_circle);
+        type.add(R.drawable.ic_insta_circle);
+
+        url= new ArrayList<>();
+        url.add("yadhukrishnannair99@gmail.com");
+        url.add("https://www.facebook.com/yadhukrishnan.nair.5");
+        url.add("https://www.instagram.com/yk_2310");
+        adapter.add(new TeamDetails("Yadhukrishnan P","Web UI Designer",R.drawable.yadhuv_profile, type, url));
+
+        type  = new ArrayList<>();
+        type.add(R.drawable.ic_google);
         type.add(R.drawable.ic_git);
         type.add(R.drawable.ic_linkedin_circle);
 
@@ -166,6 +155,24 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("https://github.com/nandy20");
         url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
         adapter.add(new TeamDetails("Nandhini R","Web Developer",R.drawable.nandhini_profile, type, url));
+
+        url= new ArrayList<>();
+        url.add("kaushik.personal.98@gmail.com");
+        url.add("https://github.com/kshake");
+        url.add("https://www.linkedin.com/in/kaushik-p-2921aa178");
+        adapter.add(new TeamDetails("Kaushik P","Web Developer",R.drawable.kaushik_profile, type, url));
+
+        url= new ArrayList<>();
+        url.add("smohammedrizwan98@gmail.com");
+        url.add("https://github.com/smriz");
+        url.add("https://www.linkedin.com/in/mohammed-r-249034b2");
+        adapter.add(new TeamDetails("Mohammed Rizwan S","Web Developer",R.drawable.rizwan_profile, type, url));
+
+        url= new ArrayList<>();
+        url.add("mfmevins@gmail.com");
+        url.add("https://github.com/MevinFernando");
+        url.add("https://www.linkedin.com/in/antonymevinfernando");
+        adapter.add(new TeamDetails("Antony Mevin Fernando","Web Developer",R.drawable.mevin_profile, type, url));
 
         lv_items.setAdapter(adapter);
     }
@@ -184,6 +191,9 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.iv_linkedin:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/school/ssn-college-of-engineering")));
+                break;
+            case R.id.iv_insta:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("")));
                 break;
         }
     }

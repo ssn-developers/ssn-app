@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -69,7 +70,9 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
             @Override
             public void onClick(View v) {
                 try {
-                    Toast.makeText(PdfViewerActivity.this, "Downloading...", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(PdfViewerActivity.this, "Downloading...", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
 
                     DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                     DownloadManager.Request request = new DownloadManager.Request(downloadUri);
@@ -85,7 +88,9 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                     dm.enqueue(request);
                 }
                 catch (Exception ex) {
-                    Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG).show();
+                    Toast toast = Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                     ex.printStackTrace();
                     Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
                 }
@@ -114,7 +119,9 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
             @Override
             public void onPageSelected(int i) {
-                //Toast.makeText(PdfViewerActivity.this, "current page "+i, Toast.LENGTH_SHORT).show();
+                /*Toast toast = Toast.makeText(PdfViewerActivity.this, "current page "+i, Toast.LENGTH_SHORT);
+                toast.setGravity(Gravity.CENTER,0,0);
+                toast.show();*/
                 pageNumberTV.setText(String.valueOf(i+1));
             }
 

@@ -22,6 +22,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
@@ -118,36 +119,7 @@ public class CommonUtils {
         return null;
     }
 
-
-
     /************************************************************************/
-
-    // gets the key hash of the signing certificate
-
-    public static String getHash(Context context) {
-
-        // src: https://stackoverflow.com/questions/52041805/how-to-use-packageinfo-get-signing-certificates-in-api-28
-        // used the code from the accepted answer
-
-        try {
-            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);
-            final Signature[] signatures = packageInfo.signingInfo.getApkContentsSigners();
-            final MessageDigest md = MessageDigest.getInstance("SHA");
-            md.update(signatures[0].toByteArray());
-            final String signatureBase64 = new String(Base64.encode(md.digest(), Base64.DEFAULT));
-            return signatureBase64;
-
-        } catch (PackageManager.NameNotFoundException e) {
-            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
-        } catch (NoSuchAlgorithmException e) {
-            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
-        }
-
-        Toast.makeText(context, "Hash not found", Toast.LENGTH_SHORT).show();
-        return "null";
-    }
-    /************************************************************************/
-
 
     public static boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
