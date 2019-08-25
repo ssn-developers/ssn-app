@@ -21,6 +21,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -249,7 +250,24 @@ public class SplashActivity extends AppCompatActivity {
         String pdfUrl = "";
         Bundle bundle = intent.getExtras();
 
-        if (bundle != null) {
+
+        Boolean loggedIn=true;
+        // handle intent only if the user is logged in
+        if(SharedPref.getInt(this,"is_logged_in")!=1)
+        {
+            loggedIn=false;
+            Toast.makeText(this, "Please login into the app", Toast.LENGTH_SHORT).show();
+        }
+
+        if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && loggedIn){
+            Log.d(TAG,"intent action is "+intent.getAction());
+            Uri uri=intent.getData();
+            Log.d(TAG,"url link is "+uri);
+            postId=uri.getQueryParameter("id");
+            FCMHelper.FetchPostById(getApplicationContext(),postId,2);
+            return;
+        }
+        if (bundle != null && loggedIn) {
             if (bundle.containsKey("PostType")) {
                 postType = intent.getStringExtra("PostType");
             }
