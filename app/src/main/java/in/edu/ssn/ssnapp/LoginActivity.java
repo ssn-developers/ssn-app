@@ -104,8 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
-                //Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
-                Pattern pat_s = Pattern.compile("(@cse.ssn.edu.in)$");
+                Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
                 Matcher m_s = pat_s.matcher(acct.getEmail());
 
                 Pattern pat_f = Pattern.compile("(@ssn.edu.in)$");
@@ -113,24 +112,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if(clearance == 0) {
                     if (m_s.find()) {
-                        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-                        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    if(access.equals("CA"))
-                                        checkForClub(user);
-                                    else
-                                        signInStudent(user);
+                        if(acct.getEmail().endsWith("@cse.ssn.edu.in")) {
+                            AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+                            mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        FirebaseUser user = mAuth.getCurrentUser();
+                                        if (access.equals("CA"))
+                                            checkForClub(user);
+                                        else
+                                            signInStudent(user);
+                                    } else {
+                                        Log.d("test_set", "signInWithCredential:failure");
+                                        layout_progress.setVisibility(View.GONE);
+                                        flag = true;
+                                    }
                                 }
-                                else {
-                                    Log.d("test_set", "signInWithCredential:failure");
-                                    layout_progress.setVisibility(View.GONE);
-                                    flag = true;
-                                }
-                            }
-                        });
+                            });
+                        }
+                        else
+                            Toast.makeText(this, "App is currently available to CSE dept only\nIt will be available to other dept soon & stay tuned", Toast.LENGTH_LONG).show();
                     }
                     else {
                         layout_progress.setVisibility(View.GONE);
@@ -195,8 +197,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //TODO: Handle break year students accordingly by [admin]
         int year = Integer.parseInt(split[0].substring(split[0].length() - 5, split[0].length() - 3)) + 2000;
-        if (year <= 2016)
-            year = 2016;
 
         Map<String, Object> users = new HashMap<>();
         users.put("access", "");
@@ -313,7 +313,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
-        FCMHelper.SubscribeToTopic(this, dept);
         setUpNotification();
 
         //TODO: Navigate to Club UI
@@ -338,6 +337,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FCMHelper.SubscribeToTopic(context, Constants.CLUB_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
+
+        if(clearance==0)
+            FCMHelper.SubscribeToTopic(context,dept+SharedPref.getInt(context,"year"));
+        else if(clearance==1)
+            FCMHelper.SubscribeToTopic(context,dept);
     }
 
     @Override

@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".LibraryActivity">
 
+    <WebView
+        android:id="@+id/wv_library"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/pb_browser"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <WebView
-        android:id="@+id/wv_library"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </RelativeLayout>

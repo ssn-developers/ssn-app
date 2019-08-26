@@ -251,15 +251,9 @@ public class SplashActivity extends AppCompatActivity {
         Bundle bundle = intent.getExtras();
 
 
-        Boolean loggedIn=true;
-        // handle intent only if the user is logged in
-        if(SharedPref.getInt(this,"is_logged_in")!=1)
-        {
-            loggedIn=false;
-            Toast.makeText(this, "Please login into the app", Toast.LENGTH_SHORT).show();
-        }
 
-        if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && loggedIn){
+
+        if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
             Log.d(TAG,"intent action is "+intent.getAction());
             Uri uri=intent.getData();
             Log.d(TAG,"url link is "+uri);
@@ -267,7 +261,7 @@ public class SplashActivity extends AppCompatActivity {
             FCMHelper.FetchPostById(getApplicationContext(),postId,2);
             return;
         }
-        if (bundle != null && loggedIn) {
+        if (bundle != null && SharedPref.getInt(this,"dont_delete","is_logged_in")==2) {
             if (bundle.containsKey("PostType")) {
                 postType = intent.getStringExtra("PostType");
             }
