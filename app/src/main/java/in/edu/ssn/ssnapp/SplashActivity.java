@@ -83,8 +83,9 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onAnimationCompleted(int loopNumber) {
                     gifFromResource.stop();
-                    if (flag && !isUpdate)
+                    if (flag && !isUpdate) {
                         passIntent();
+                    }
                 }
             });
         }
@@ -257,7 +258,7 @@ public class SplashActivity extends AppCompatActivity {
         if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
             Uri uri=intent.getData();
             postId=uri.getQueryParameter("id");
-            Log.d(TAG,"url link is " + postId);
+            flag = false;
             FCMHelper.FetchPostById(getApplicationContext(),postId,2);
             return;
         }
@@ -273,10 +274,11 @@ public class SplashActivity extends AppCompatActivity {
             }
 
             if (postType.equals("1")) {
-                Log.d("test_set","came1");
+                flag = false;
                 FCMHelper.FetchPostById(getApplicationContext(),postId,2);
             }
             else if (postType.equals("2")) {
+                flag = false;
                 notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
@@ -353,8 +355,9 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (worst_case && !isUpdate)
+                if (worst_case && !isUpdate) {
                     passIntent();
+                }
             }
         }, 5000);
     }
