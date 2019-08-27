@@ -1,13 +1,27 @@
 package in.edu.ssn.ssnapp.services;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
@@ -49,7 +63,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 pdfUrl=remoteMessage.getData().get("PostUrl");
 
             if(postType.equalsIgnoreCase("1")) {
-                FCMHelper.FetchPostById(this,postId,1);
+                FetchPostById(this,postId);
             }
             else{
                 Intent intent=new Intent(this, PdfViewerActivity.class);
@@ -66,6 +80,107 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
             Intent intent=new Intent(this, StudentHomeActivity.class);
             FCMHelper.showNotification("test 1 "+remoteMessage.getNotification().getBody(),this,intent);
         }
+    }
 
+    void FetchPostById(final Context context, final String postId){
+        FirebaseFirestore.getInstance().collection("post").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot snapshot) {
+                Post post = new Post();
+                post.setTitle(snapshot.getString("title"));
+                post.setDescription(snapshot.getString("description"));
+                post.setTime(snapshot.getTimestamp("time").toDate());
+
+                ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
+                if(images != null && images.size() > 0)
+                    post.setImageUrl(images);
+                else
+                    post.setImageUrl(null);
+
+                try {
+                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
+                    if (files != null && files.size() != 0) {
+                        ArrayList<String> fileName = new ArrayList<>();
+                        ArrayList<String> fileUrl = new ArrayList<>();
+
+                        for (int i = 0; i < files.size(); i++) {
+                            fileName.add(files.get(i).get("name"));
+                            fileUrl.add(files.get(i).get("url"));
+                        }
+                        post.setFileName(fileName);
+                        post.setFileUrl(fileUrl);
+                    }
+                    else {
+                        post.setFileName(null);
+                        post.setFileUrl(null);
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
+                    post.setFileName(null);
+                    post.setFileUrl(null);
+                }
+
+                try {
+                    ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
+                    if (dept != null && dept.size() != 0)
+                        post.setDept(dept);
+                    else
+                        post.setDept(null);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
+                    post.setDept(null);
+                }
+
+                try {
+                    ArrayList<String> years = new ArrayList<>();
+                    Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
+                    for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
+                        if (entry.getValue().booleanValue())
+                            years.add((String) entry.getKey());
+                    }
+                    Collections.sort(years);
+                    post.setYear(years);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
+                }
+
+                String email = snapshot.getString("author");
+
+                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty",email + "_dp_url"));
+
+                String name = SharedPref.getString(getApplicationContext(),"faculty",email + "_name");
+                if(name!=null && !name.equals(""))
+                    post.setAuthor(name);
+                else
+                    post.setAuthor("SSN Institutions");
+
+                String position = SharedPref.getString(getApplicationContext(),"faculty",email + "_position");
+                if(position!=null && !position.equals(""))
+                    post.setPosition(position);
+                else
+                    post.setPosition("Admin");
+
+                DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
+                dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));
+
+                Intent intent = new Intent(context, PostDetailsActivity.class);
+                intent.putExtra("post",post);
+                intent.putExtra("time",FCMHelper.getTime(post.getTime()));
+                FCMHelper.showNotification(post.getDescription(),context,intent);
+                ((Activity)context).finish();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"failed to fetch the post");
+            }
+        });
     }
 }
