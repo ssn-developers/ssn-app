@@ -173,8 +173,6 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 intent.putExtra("post",post);
                 intent.putExtra("time",FCMHelper.getTime(post.getTime()));
                 FCMHelper.showNotification(post.getDescription(),context,intent);
-                ((Activity)context).finish();
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

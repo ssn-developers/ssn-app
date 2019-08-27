@@ -143,6 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 else if(clearance == 1){
+                    //TODO: check for faculty login [uncomment lines]
                     //if(m_f.find()){
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -195,7 +196,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String dp_url = user.getPhotoUrl().toString();
         String name = user.getDisplayName();
 
-        //TODO: Handle break year students accordingly by [admin]
         int year = Integer.parseInt(split[0].substring(split[0].length() - 5, split[0].length() - 3)) + 2000;
 
         Map<String, Object> users = new HashMap<>();
@@ -318,7 +318,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         flag = true;
         setUpNotification();
 
-        //TODO: Navigate to Club UI
+        //Navigate to Club UI
         //startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
         //finish();
     }

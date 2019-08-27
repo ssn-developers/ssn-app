@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp.database;
 import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
+import android.util.Pair;
 
 import com.google.gson.Gson;
 
@@ -134,15 +135,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         //Log.d(TAG,"insertion id "+id);
     }
 
-    public ArrayList<Post> getNotificationList() {
-        ArrayList<Post> postList=new ArrayList<Post>();
+    public ArrayList<Pair<Post,String>> getNotificationList() {
+        ArrayList<Pair<Post,String>> postList=new ArrayList<Pair<Post,String>>();
         SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
         long rowCount =DatabaseUtils.queryNumEntries(db,SavedPost.SavedPostEntry.TABLE_NAME);
         //Log.d(TAG,"no of rows "+rowCount);
         String query = "select * from " + Notification.NotificationEntry.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        //Log.d(TAG,"column count: "+c.getColumnCount());
-        //Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
+        Log.d(TAG,"column count: "+c.getColumnCount());
+        Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
 
         int i=0;
         if (c.moveToFirst())
@@ -150,13 +151,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do {
                 String json=c.getString(2);
                 Post post= new Gson().fromJson(json, Post.class);
-                postList.add(post);
+                postList.add(new Pair<Post, String>(post,c.getString(1)));
                 Log.d(TAG,i  + " " + post.getAuthor_image_url());
                 i++;
             }while (c.moveToNext());
         }
 
         return postList;
+    }
+    public void dropAllTables(){
+        SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
+        db.delete(Notification.NotificationEntry.TABLE_NAME,null,null);
+        db.delete(SavedPost.SavedPostEntry.TABLE_NAME,null,null);
     }
 
 

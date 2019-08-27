@@ -13,7 +13,6 @@ public class BusRoute implements Parcelable {
     String routeName;
     String dname;
     String dphone;
-    //TODO add lat lng
     String via;
     List<String> stop;
     List<String> time;
@@ -124,7 +123,6 @@ public class BusRoute implements Parcelable {
     /*public static class stop implements Parcelable{
         String place;
         String time;
-        //TODO add lat lng
 
         public String getPlace() {
             return place;

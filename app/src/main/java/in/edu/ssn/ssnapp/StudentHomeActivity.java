@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
@@ -104,8 +105,7 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                         break;
                     case "Rate Our App":
-                        //TODO: change package name
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=se.par.amsen.experimentshopdesign")));
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName())));
                         break;
                     case "Make a Suggestion":
                         startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
@@ -118,9 +118,10 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
+                        DataBaseHelper dbHelper=DataBaseHelper.getInstance(StudentHomeActivity.this);
+                        dbHelper.dropAllTables();
                         SharedPref.removeAll(getApplicationContext());
                         SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in", 1);
-
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();

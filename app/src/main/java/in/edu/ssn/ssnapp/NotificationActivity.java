@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -28,6 +29,7 @@ public class NotificationActivity extends AppCompatActivity{
     DataBaseHelper dbHelper;
     RelativeLayout layout_progress;
     ImageView iv_back;
+    ArrayList<String> postType=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +56,20 @@ public class NotificationActivity extends AppCompatActivity{
         lv_items.setAdapter(adapter);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
         adapter.clear();
-        ArrayList<Post> postList=dbHelper.getNotificationList();
+        ArrayList<Pair<Post,String>> postList=dbHelper.getNotificationList();
         Collections.reverse(postList);
-        adapter.addAll(postList);
+
+        for(int i=0;i<postList.size();i++)
+        {
+            adapter.add(postList.get(i).first);
+            postType.add(postList.get(i).second);
+        }
+
+        adapter.setPostType(postType);
         adapter.notifyDataSetChanged();
 
         if(postList.size() > 0){
@@ -73,6 +81,4 @@ public class NotificationActivity extends AppCompatActivity{
             lv_items.setVisibility(View.GONE);
         }
     }
-
-
 }

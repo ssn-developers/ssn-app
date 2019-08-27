@@ -1,5 +1,6 @@
 package in.edu.ssn.ssnapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -32,8 +33,15 @@ import static in.edu.ssn.ssnapp.utils.FCMHelper.getTime;
 
 public class NotifyAdapter extends ArrayAdapter<Post> {
 
+    public ArrayList<String> postType;
     public NotifyAdapter(Context context, ArrayList<Post> objects) {
         super(context, 0, objects);
+        postType=new ArrayList<>();
+    }
+
+    public void setPostType(ArrayList<String> postType)
+    {
+        this.postType=postType;
     }
 
     @Override
@@ -51,7 +59,7 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
             @Override
             public void onClick(View v) {
                 Post drawer=getItem(position);
-                if(drawer.getId().equalsIgnoreCase("2")) {
+                if(postType.get(position).equals("2")) {
                     Intent intent = new Intent(getContext(), PdfViewerActivity.class);
                     intent.putExtra(Constants.PDF_URL,drawer.getFileUrl().get(0));
                     getContext().startActivity(intent);
@@ -60,7 +68,7 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
                     Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                     intent.putExtra("post",drawer);
                     intent.putExtra("time",getTime(drawer.getTime()));
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(intent);
                 }
             }
