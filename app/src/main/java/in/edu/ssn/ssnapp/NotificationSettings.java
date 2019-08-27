@@ -74,9 +74,9 @@ public class NotificationSettings extends AppCompatActivity {
         SharedPref.putBoolean(getApplicationContext(),"switch_workshop",switch_workshop.isChecked());
 
         if(switch_dept.isChecked())
-            FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(),"dept"));
+            FCMHelper.SubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year"));
         else
-            FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept"));
+            FCMHelper.UnSubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year"));
 
         if(switch_bus.isChecked())
             FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);

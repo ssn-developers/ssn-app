@@ -105,8 +105,8 @@ public class FacultySentPostFragment extends Fragment {
                         }
                         post.setFileName(fileName);
                         post.setFileUrl(fileUrl);
-                        Log.d("test_set", "size:" + fileName.size());
-                    } else {
+                    }
+                    else {
                         post.setFileName(null);
                         post.setFileUrl(null);
                     }
@@ -145,8 +145,6 @@ public class FacultySentPostFragment extends Fragment {
                     e.printStackTrace();
                     Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
-
-                String id = snapshot.getString("author");
 
                 post.setAuthor(SharedPref.getString(getContext(),"faculty",email + "_name"));
                 post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",email + "_dp_url"));
@@ -329,7 +327,7 @@ public class FacultySentPostFragment extends Fragment {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/" + post.getId();
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/share.html?id=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }

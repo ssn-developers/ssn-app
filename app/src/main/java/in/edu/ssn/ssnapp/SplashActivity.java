@@ -2,6 +2,7 @@ package in.edu.ssn.ssnapp;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -59,6 +60,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private static Boolean flag = false;
     private static Boolean worst_case = true;
+    private static Boolean isUpdate = false;
     private int currentApiVersion;
     private String latestVersion;
 
@@ -68,7 +70,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
-        setUpCrashReport();
+        //setUpCrashReport();
 
         //forceUpdate();
 
@@ -81,7 +83,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onAnimationCompleted(int loopNumber) {
                     gifFromResource.stop();
-                    if (flag)
+                    if (flag && !isUpdate)
                         passIntent();
                 }
             });
@@ -95,7 +97,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     void setUpCrashReport() {
-        // only enable bug tracking in release version
         if (!BuildConfig.DEBUG) {
             //https://stackoverflow.com/a/49836972/10664312
             Fabric.with(this, new Crashlytics());
@@ -137,11 +138,12 @@ public class SplashActivity extends AppCompatActivity {
         PackageInfo packageInfo = null;
         try {
             packageInfo =  packageManager.getPackageInfo(getPackageName(),0);
-        } catch (PackageManager.NameNotFoundException e) {
+            String currentVersion = packageInfo.versionName;
+            new ForceUpdateAsync(currentVersion,SplashActivity.this).execute();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
-        String currentVersion = packageInfo.versionName;
-        new ForceUpdateAsync(currentVersion,SplashActivity.this).execute();
     }
 
     public class ForceUpdateAsync extends AsyncTask<String, String, JSONObject> {
@@ -157,7 +159,7 @@ public class SplashActivity extends AppCompatActivity {
         protected JSONObject doInBackground(String... params) {
 
             try {
-                latestVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName()+ "&hl=en")
+                latestVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName() + "&hl=en")
                         .timeout(30000)
                         .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
                         .referrer("http://www.google.com")
@@ -177,12 +179,8 @@ public class SplashActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             if (latestVersion != null) {
                 if (!currentVersion.equalsIgnoreCase(latestVersion)) {
-                    // Toast toast = Toast.makeText(context,"update is available.",Toast.LENGTH_LONG).show();
-                    if (!(context instanceof SplashActivity)) {
-                        if (!((Activity) context).isFinishing()) {
-                            showForceUpdateDialog();
-                        }
-                    }
+                    isUpdate = true;
+                    showForceUpdateDialog();
                 }
             }
             super.onPostExecute(jsonObject);
@@ -190,26 +188,29 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void showForceUpdateDialog(){
-        final Dialog dialog = new Dialog(getApplicationContext());
-        dialog.setContentView(R.layout.custom_alert_dialog2);
-        dialog.setCancelable(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View dialogView = getLayoutInflater().inflate(R.layout.custom_alert_dialog2, null);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setCancelable(false);
 
-        TextView tv_ok = dialog.findViewById(R.id.tv_ok);
-        TextView tv_title= dialog.findViewById(R.id.tv_title);
-        TextView tv_message = dialog.findViewById(R.id.tv_message);
+        TextView tv_ok = dialogView.findViewById(R.id.tv_ok);
+        TextView tv_title= dialogView.findViewById(R.id.tv_title);
+        TextView tv_message = dialogView.findViewById(R.id.tv_message);
 
         tv_title.setText("New Update available!");
         tv_message.setText("Please update your app to the latest version: " + latestVersion);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
-                dialog.dismiss();
+                alertDialog.dismiss();
             }
         });
-
-        dialog.show();
     }
 
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
@@ -236,7 +237,8 @@ public class SplashActivity extends AppCompatActivity {
                             SharedPref.putString(getApplicationContext(), "faculty", email + "_position", position);
                         }
                     }
-                    handleIntent();
+                    if(!isUpdate)
+                        handleIntent();
                 }
             });
 
@@ -244,20 +246,18 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
+    /**********************************************************************/
+
     void handleIntent() {
         String postType = "";
         String postId = "";
         String pdfUrl = "";
         Bundle bundle = intent.getExtras();
 
-
-
-
         if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
-            Log.d(TAG,"intent action is "+intent.getAction());
             Uri uri=intent.getData();
-            Log.d(TAG,"url link is "+uri);
             postId=uri.getQueryParameter("id");
+            Log.d(TAG,"url link is " + postId);
             FCMHelper.FetchPostById(getApplicationContext(),postId,2);
             return;
         }
@@ -271,26 +271,12 @@ public class SplashActivity extends AppCompatActivity {
             if (bundle.containsKey("PostUrl")) {
                 pdfUrl = intent.getStringExtra("PostUrl");
             }
-            Log.d(TAG, "post details: " + postId + " " + postType);
 
             if (postType.equals("1")) {
-                final Post post = new Post();
-                /*post.setTitle();
-                post.setDescription();
-                post.setTime();
-                post.setImageUrl();
-
-                String id = getString("author");
-                post.setAuthor(SharedPref.getString(getApplicationContext(),"faculty",id + "_name"));
-                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty",id + "_dp_url"));
-                post.setPosition(SharedPref.getString(getApplicationContext(),"faculty",id + "_position"));*/
-
-                //notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
-                //notif_intent.putExtra("post", post);
-                //notif_intent.putExtra("time", FCMHelper.getTime(post.getTime()));
+                Log.d("test_set","came1");
                 FCMHelper.FetchPostById(getApplicationContext(),postId,2);
-                notif_intent=null;
-            } else if (postType.equals("2")) {
+            }
+            else if (postType.equals("2")) {
                 notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
@@ -367,7 +353,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (worst_case)
+                if (worst_case && !isUpdate)
                     passIntent();
             }
         }, 5000);

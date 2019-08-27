@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 else if(clearance == 1){
-                    if(m_f.find()){
+                    //if(m_f.find()){
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -159,14 +159,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             }
                         });
-                    }
+                    /*}
                     else {
                         Toast toast = Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         layout_progress.setVisibility(View.GONE);
                         flag = true;
-                    }
+                    }*/
                 }
             }
             catch (ApiException e) {
@@ -208,8 +208,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         users.put("year", year);
         users.put("FCMToken", SharedPref.getString(this,"dont_delete","FCMToken"));
         FirebaseFirestore.getInstance().collection("student").document(email).set(users);
-        SubscribeToAlerts(this,dept);
-        setUpNotification();
 
         SharedPref.putInt(getApplicationContext(), "clearance", 0);
         SharedPref.putString(getApplicationContext(), "dept", dept);
@@ -219,6 +217,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putInt(getApplicationContext(), "year", year);
         SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
+
+        SubscribeToAlerts(this);
+        setUpNotification();
+
         layout_progress.setVisibility(View.GONE);
         flag = true;
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
@@ -235,6 +237,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     signInFaculty(user, document);
                 }
                 else {
+                    layout_progress.setVisibility(View.GONE);
                     Toast toast = Toast.makeText(LoginActivity.this, "Please contact Admin for login issues!", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
@@ -251,11 +254,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String position = document.getString("position");
         String name = document.getString("name");
         String dp_url = user.getPhotoUrl().toString();
-        Log.d("test_set","hello "+SharedPref.getString(getApplicationContext(),"dont_delete","FCMToken"));
+        //Log.d("test_set","hello "+SharedPref.getString(getApplicationContext(),"dont_delete","FCMToken"));
         FirebaseFirestore.getInstance().collection("faculty").document(email).update("FCMToken",SharedPref.getString(getApplicationContext(),"dont_delete","FCMToken"));
-
-        SubscribeToAlerts(this,dept);
-        setUpNotification();
 
         SharedPref.putInt(getApplicationContext(), "clearance", 1);
         SharedPref.putString(getApplicationContext(), "email", email);
@@ -266,6 +266,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putString(getApplicationContext(), "dp_url", dp_url);
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
+
+        SubscribeToAlerts(this);
+        setUpNotification();
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
@@ -331,17 +334,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
     }
 
-    public void SubscribeToAlerts(Context context, String dept){
-        FCMHelper.SubscribeToTopic(context,dept);
+    public void SubscribeToAlerts(Context context){
         FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.CLUB_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
 
         if(clearance==0)
-            FCMHelper.SubscribeToTopic(context,dept+SharedPref.getInt(context,"year"));
+            FCMHelper.SubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
         else if(clearance==1)
-            FCMHelper.SubscribeToTopic(context,dept);
+            FCMHelper.SubscribeToTopic(context,SharedPref.getString(context,"dept"));
     }
 
     @Override

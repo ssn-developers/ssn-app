@@ -36,7 +36,7 @@ import in.edu.ssn.ssnapp.models.Post;
 
 public class FCMHelper {
 
-    final static String TAG="FCMHelper";
+    final static String TAG="test_set";
 
     public static void SubscribeToTopic(final Context context,String topic){
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
@@ -102,18 +102,13 @@ public class FCMHelper {
 
 
     public static void FetchPostById(final Context context, final String postId, final int operationId){
-
-        DocumentReference documentReference = FirebaseFirestore.getInstance().collection("post").document(postId);
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        FirebaseFirestore.getInstance().collection("post").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                //Log.d(TAG,"post fetched successfully");
-                final Post post = new Post();
-                //Log.d(TAG,postSnapShot.getString("title"));
+                Post post = new Post();
                 post.setTitle(snapshot.getString("title"));
                 post.setDescription(snapshot.getString("description"));
                 post.setTime(snapshot.getTimestamp("time").toDate());
-
 
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
                 if(images != null && images.size() > 0)
@@ -193,18 +188,13 @@ public class FCMHelper {
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(context);
                 dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));
                 RunFunction(context,operationId,post);
-
-                Log.d(TAG,"success fetching the post of type 1");
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG,"failed to fetch the post");
-
             }
         });
-
     }
 
     public static String getTime(Date time){
@@ -232,22 +222,23 @@ public class FCMHelper {
 
     private static void RunFunction(final Context context,final int type,Post post)
     {
+        Intent intent;
+
         switch (type)
         {
-            case 1:{
-                Intent intent = new Intent(context, PostDetailsActivity.class);
+            case 1:
+                intent = new Intent(context, PostDetailsActivity.class);
                 intent.putExtra("post",post);
                 intent.putExtra("time",getTime(post.getTime()));
                 FCMHelper.showNotification(post.getDescription(),context,intent);
-            }  break;
-
-            case 2:{
-                Intent intent = new Intent(context, PostDetailsActivity.class);
+                break;
+            case 2:
+                intent = new Intent(context, PostDetailsActivity.class);
                 intent.putExtra("post",post);
                 intent.putExtra("time",getTime(post.getTime()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 context.startActivity(intent);
-            }
+                break;
         }
     }
 

@@ -70,9 +70,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     // check if a post is saved in DB
     public boolean checkPost(String postId){
         SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
-
-        Cursor cursor=db.query(SavedPost.SavedPostEntry.TABLE_NAME,new String[]{SavedPost.SavedPostEntry.COLUMN_NAME_POST},SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID+"= ?",new String[]{postId},null,null,null,null);
-
+        Cursor cursor=db.query(SavedPost.SavedPostEntry.TABLE_NAME, new String[]{SavedPost.SavedPostEntry.COLUMN_NAME_POST},SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID+"= ?",new String[]{postId},null,null,null,null);
         return cursor.moveToFirst();
     }
 
@@ -122,7 +120,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(Notification.NotificationEntry.COLUMN_NAME_ROW_ID,System.currentTimeMillis());
         cv.put(Notification.NotificationEntry.COLUMN_NAME_POST_TYPE,notification.postType);
 
-        if(notification.postType=="1")
+        if(notification.postType.equals("1"))
         {
             String json=new Gson().toJson(notification.post);
             cv.put(Notification.NotificationEntry.COLUMN_NAME_POST,json);
