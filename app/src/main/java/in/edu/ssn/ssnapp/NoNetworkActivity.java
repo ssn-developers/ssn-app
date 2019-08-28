@@ -31,27 +31,26 @@ public class NoNetworkActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!CommonUtils.alerter(getApplicationContext())) {
                     if (key.equals("splash")) {
-                        if (SharedPref.getBoolean(getApplicationContext(), "is_logged_in")) {
+                        if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 2) {
                             if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
                                 startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
                                 finish();
                                 Bungee.fade(NoNetworkActivity.this);
-                            } else {
+                            }
+                            else {
                                 startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
                                 finish();
                                 Bungee.fade(NoNetworkActivity.this);
                             }
                         }
-                        else {
-                            if (!SharedPref.getBoolean(getApplicationContext(), "is_logged_out")) {
-                                startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
-                                finish();
-                            } else {
-                                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                                intent.putExtra("is_log_in", true);
-                                startActivity(intent);
-                                finish();
-                            }
+                        else if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 1) {
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
+                            Bungee.slideLeft(NoNetworkActivity.this);
+                        }
+                        else{
+                            startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+                            finish();
                             Bungee.slideLeft(NoNetworkActivity.this);
                         }
                     }

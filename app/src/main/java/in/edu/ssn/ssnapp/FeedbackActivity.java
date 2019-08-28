@@ -68,7 +68,7 @@ public class FeedbackActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!CommonUtils.alerter(getApplicationContext())) {
                     if (tv_button.getText().equals("Submit")) {
-                        String et_text = et_feedback.getEditableText().toString();
+                        String et_text = et_feedback.getEditableText().toString().trim();
                         final Map<String, Object> feedback_details = new HashMap<>();
                         feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
                         feedback_details.put("text", et_text);
@@ -99,5 +99,10 @@ public class FeedbackActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

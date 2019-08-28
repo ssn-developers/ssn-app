@@ -29,6 +29,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.crashlytics.android.Crashlytics;
 
 import java.io.InputStream;
+import java.util.Arrays;
 
 import es.voghdev.pdfviewpager.library.PDFViewPager;
 import es.voghdev.pdfviewpager.library.RemotePDFViewPager;
@@ -86,7 +87,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
 
                         String names = downloadUri.getLastPathSegment();
-                        if(names.startsWith("post_bus"))
+                        if(names!=null && names.startsWith("post_bus"))
                             names = names.substring(9);
 
                         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
@@ -100,7 +101,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                         toast.setGravity(Gravity.CENTER,0,0);
                         toast.show();
                         ex.printStackTrace();
-                        Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
+                        Crashlytics.log("stackTrace: "+ Arrays.toString(ex.getStackTrace()) +" \n Error: "+ex.getMessage());
                     }
 
                 }

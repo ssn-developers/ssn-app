@@ -136,13 +136,8 @@ public class ViewAdminActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        adapter.stopListening();
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
+        adapter.stopListening();
     }
 }

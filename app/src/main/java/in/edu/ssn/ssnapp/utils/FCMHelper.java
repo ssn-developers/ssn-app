@@ -6,6 +6,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
@@ -68,12 +70,9 @@ public class FCMHelper {
     }
 
     public static void showNotification(String message, Context context, Intent intent){
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
-
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         NotificationManager notificationManager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
-
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(new NotificationChannel("1","general",NotificationManager.IMPORTANCE_HIGH));
@@ -83,25 +82,25 @@ public class FCMHelper {
                     .setContentText(message)
                     .setChannelId("1")
                     .setAutoCancel(true)
+                    .setSound(alarmSound)
                     .setContentIntent(pendingIntent);
 
             notificationManager.notify(1,nbuilder.build());
-
-        }else {
+        }
+        else {
             Notification.Builder nbuilder=new Notification.Builder(context)
                     .setContentTitle("New post")
                     .setSmallIcon(R.mipmap.app_icon)
                     .setContentText(message)
                     .setAutoCancel(true)
+                    .setSound(alarmSound)
                     .setContentIntent(pendingIntent);
 
             notificationManager.notify(1,nbuilder.build());
         }
-
     }
 
     public static String getTime(Date time){
-
         Date now = new Date();
         Long t = now.getTime() - time.getTime();
 
@@ -121,28 +120,4 @@ public class FCMHelper {
         else
             return Long.toString(t/31536000000L) + "y ago";
     }
-
-
-    private static void RunFunction(final Context context,final int type,Post post)
-    {
-        Intent intent;
-
-        switch (type)
-        {
-            case 1:
-                intent = new Intent(context, PostDetailsActivity.class);
-                intent.putExtra("post",post);
-                intent.putExtra("time",getTime(post.getTime()));
-                FCMHelper.showNotification(post.getDescription(),context,intent);
-                break;
-            case 2:
-                intent = new Intent(context, PostDetailsActivity.class);
-                intent.putExtra("post",post);
-                intent.putExtra("time",getTime(post.getTime()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                context.startActivity(intent);
-                break;
-        }
-    }
-
 }

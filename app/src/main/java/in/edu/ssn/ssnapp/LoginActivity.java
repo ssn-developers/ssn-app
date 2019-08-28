@@ -131,8 +131,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             });
                         }
-                        else
+                        else {
+                            flag=true;
                             Toast.makeText(this, "App is currently available to CSE dept only\nIt will be available to other dept soon & stay tuned", Toast.LENGTH_LONG).show();
+                        }
                     }
                     else {
                         layout_progress.setVisibility(View.GONE);
@@ -237,6 +239,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     signInFaculty(user, document);
                 }
                 else {
+                    flag=true;
                     layout_progress.setVisibility(View.GONE);
                     Toast toast = Toast.makeText(LoginActivity.this, "Please contact Admin for login issues!", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -254,7 +257,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String position = document.getString("position");
         String name = document.getString("name");
         String dp_url = user.getPhotoUrl().toString();
-        //Log.d("test_set","hello "+SharedPref.getString(getApplicationContext(),"dont_delete","FCMToken"));
         FirebaseFirestore.getInstance().collection("faculty").document(email).update("FCMToken",SharedPref.getString(getApplicationContext(),"dont_delete","FCMToken"));
 
         SharedPref.putInt(getApplicationContext(), "clearance", 1);
@@ -346,15 +348,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             FCMHelper.SubscribeToTopic(context,SharedPref.getString(context,"dept"));
     }
 
-    @Override
-    public void onBackPressed() {
-        Intent startMain = new Intent(Intent.ACTION_MAIN);
-        startMain.addCategory(Intent.CATEGORY_HOME);
-        startMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(startMain);
-        finish();
-    }
-
     void showDialog(String text){
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View dialogView = getLayoutInflater().inflate(R.layout.custom_alert_dialog2, null);
@@ -407,5 +400,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Intent signInIntent = mGoogleSignInClient.getSignInIntent();
             startActivityForResult(signInIntent, RC_SIGN_IN);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent startMain = new Intent(Intent.ACTION_MAIN);
+        startMain.addCategory(Intent.CATEGORY_HOME);
+        startMain.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(startMain);
+        finish();
     }
 }

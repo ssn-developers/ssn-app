@@ -63,11 +63,14 @@ public class CommonUtils {
     public static void hideKeyboard(Activity activity){
         try {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            View view = activity.getCurrentFocus();
+            if (view == null) {
+                view = new View(activity);
+            }
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
         catch (Exception e){
             e.printStackTrace();
-            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         }
     }
 

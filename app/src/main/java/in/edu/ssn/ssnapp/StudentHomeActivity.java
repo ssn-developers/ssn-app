@@ -4,6 +4,7 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
+import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class StudentHomeActivity extends BaseActivity {
@@ -100,7 +103,7 @@ public class StudentHomeActivity extends BaseActivity {
                     case "Invite Friends":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
-                        String shareBody = "Hello! Manage your internals, results & exam schedule with ease and Find your bus routes on the go! Click here to stay updated on department feeds: https://play.google.com/store/apps/details?id=se.par.amsen.experimentshopdesign";
+                        String shareBody = "Hello! Manage your internals, results & exam schedule with ease and Find your bus routes on the go! Click here to stay updated on department feeds: https://play.google.com/store/apps/details?id="+StudentHomeActivity.this.getPackageName();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                         break;
@@ -118,6 +121,7 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
+                        UnSubscribeToAlerts(getApplicationContext());
                         DataBaseHelper dbHelper=DataBaseHelper.getInstance(StudentHomeActivity.this);
                         dbHelper.dropAllTables();
                         SharedPref.removeAll(getApplicationContext());
@@ -192,6 +196,14 @@ public class StudentHomeActivity extends BaseActivity {
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
         viewPagerTab.setViewPager(viewPager);
         viewPager.setOffscreenPageLimit(3);
+    }
+
+    public void UnSubscribeToAlerts(Context context){
+        FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
+        FCMHelper.UnSubscribeToTopic(context, Constants.CLUB_ALERTS);
+        FCMHelper.UnSubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
+        FCMHelper.UnSubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
+        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
     }
 
     /*********************************************************/
