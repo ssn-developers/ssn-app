@@ -134,7 +134,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                 /*Toast toast = Toast.makeText(PdfViewerActivity.this, "current page "+i, Toast.LENGTH_SHORT);
                 toast.setGravity(Gravity.CENTER,0,0);
                 toast.show();*/
-                pageNumberTV.setText(String.valueOf(i+1));
+                pageNumberTV.setText(i+1+"/"+adapter.getCount());
             }
 
             @Override
@@ -147,8 +147,8 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
     @Override
     public void onSuccess(String url, String destinationPath) {
-        pageNumberTV.setText("1");
         adapter = new PDFPagerAdapter(this, destinationPath);
+        pageNumberTV.setText("1/"+adapter.getCount());
         pdfViewPager.setAdapter(adapter);
         progress.setVisibility(View.GONE);
     }
