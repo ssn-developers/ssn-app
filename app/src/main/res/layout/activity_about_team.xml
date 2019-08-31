@@ -40,7 +40,7 @@
 
             <TextView
                 android:id="@+id/tv_version"
-                android:layout_width="@dimen/_30sdp"
+                android:layout_width="@dimen/_38sdp"
                 android:layout_height="@dimen/_18sdp"
                 android:textSize="@dimen/_10ssp"
                 android:text="v1.15"
