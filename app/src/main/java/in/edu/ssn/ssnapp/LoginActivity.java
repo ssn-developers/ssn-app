@@ -119,10 +119,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
                                         FirebaseUser user = mAuth.getCurrentUser();
-                                        if (access.equals("CA"))
+                                        /*if (access.equals("CA"))
                                             checkForClub(user);
-                                        else
-                                            signInStudent(user);
+                                        else*/
+                                        signInStudent(user);
                                     } else {
                                         Log.d("test_set", "signInWithCredential:failure");
                                         layout_progress.setVisibility(View.GONE);
@@ -148,8 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 else if(clearance == 1){
-                    //TODO: check for faculty login [uncomment lines]
-                    //if(m_f.find()){
+                    if(m_f.find()){
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -165,14 +164,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             }
                         });
-                    /*}
+                    }
                     else {
                         Toast toast = Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         layout_progress.setVisibility(View.GONE);
                         flag = true;
-                    }*/
+                    }
                 }
             }
             catch (ApiException e) {
