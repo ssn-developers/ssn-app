@@ -52,10 +52,10 @@ public class StudentFeedFragment extends Fragment {
 
     public StudentFeedFragment() { }
 
-    RecyclerView feedsRV;
-    RelativeLayout layout_progress;
-    ShimmerFrameLayout shimmer_view;
-    FirestoreRecyclerAdapter adapter;
+    private RecyclerView feedsRV;
+    private RelativeLayout layout_progress;
+    private ShimmerFrameLayout shimmer_view;
+    private FirestoreRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +64,8 @@ public class StudentFeedFragment extends Fragment {
         initUI(view);
 
         setupFireStore();
+
+        Log.d("ddlogesh","created");
 
         return view;
     }
@@ -82,7 +84,6 @@ public class StudentFeedFragment extends Fragment {
             @Override
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
-                layout_progress.setVisibility(View.GONE);
 
                 final Post post = new Post();
                 post.setId(snapshot.getString("id"));
@@ -272,6 +273,9 @@ public class StudentFeedFragment extends Fragment {
                     }
                 });
 
+                Log.d("ddlogesh",model.getId());
+
+                layout_progress.setVisibility(View.GONE);
                 shimmer_view.setVisibility(View.GONE);
             }
 
@@ -284,14 +288,12 @@ public class StudentFeedFragment extends Fragment {
         };
 
         feedsRV.setAdapter(adapter);
-
     }
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
-        feedsRV.setHasFixedSize(true);
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
@@ -327,12 +329,14 @@ public class StudentFeedFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
+        Log.d("ddlogesh","started");
     }
 
     @Override
     public void onStop() {
         super.onStop();
         adapter.stopListening();
+        Log.d("ddlogesh","stopped");
     }
 
     /**********************************************************/

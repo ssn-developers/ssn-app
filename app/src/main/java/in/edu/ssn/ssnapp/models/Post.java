@@ -14,22 +14,22 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Post implements Parcelable {
-    Date time;
+    private Date time;
 
-    String id;
-    String title;
-    String description;
+    private String id;
+    private String title;
+    private String description;
 
-    ArrayList<String> dept;
-    ArrayList<String> year;
-    ArrayList<String> imageUrl;
+    private ArrayList<String> dept;
+    private ArrayList<String> year;
+    private ArrayList<String> imageUrl;
 
-    ArrayList<String> fileName;
-    ArrayList<String> fileUrl;
+    private ArrayList<String> fileName;
+    private ArrayList<String> fileUrl;
 
-    String author;
-    String author_image_url;
-    String position;
+    private String author;
+    private String author_image_url;
+    private String position;
 
     public Post() { }
 
