@@ -42,6 +42,7 @@ import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class PostDetailsActivity extends BaseActivity {
 
@@ -308,5 +309,11 @@ public class PostDetailsActivity extends BaseActivity {
     Boolean checkSavedPost(Post post){
         DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
         return dataBaseHelper.checkPost(post.getId());
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideDown(PostDetailsActivity.this);
     }
 }

@@ -28,6 +28,7 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.models.AdminDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class ViewAdminActivity extends AppCompatActivity {
 
@@ -97,5 +98,11 @@ public class ViewAdminActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(ViewAdminActivity.this);
     }
 }

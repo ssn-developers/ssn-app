@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.daimajia.androidanimations.library.Techniques;
+import com.daimajia.androidanimations.library.YoYo;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -46,6 +49,7 @@ import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -56,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     RelativeLayout layout_progress;
     int clearance;
     String access;
-    Boolean flag=true;
+    Boolean flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         cv_club = findViewById(R.id.cv_club);
         cv_event = findViewById(R.id.cv_event);
         layout_progress = findViewById(R.id.layout_progress);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                cv_student.setVisibility(View.VISIBLE);
+                cv_faculty.setVisibility(View.VISIBLE);
+                cv_club.setVisibility(View.VISIBLE);
+                cv_event.setVisibility(View.VISIBLE);
+
+                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_student);
+                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_faculty);
+                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_club);
+                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_event);
+            }
+        },300);
 
         initGoogleSignIn();
 
@@ -229,6 +248,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         flag = true;
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
         finish();
+        Bungee.slideLeft(LoginActivity.this);
     }
 
     public void checkForFaculty(final FirebaseUser user) {
@@ -278,6 +298,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         flag = true;
         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
         finish();
+        Bungee.slideLeft(LoginActivity.this);
     }
 
     public void checkForClub(final FirebaseUser user) {
@@ -325,6 +346,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //Navigate to Club UI
         //startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
         //finish();
+        //Bungee.slideLeft(LoginActivity.this);
     }
 
     //*****************************************************************************************************************************

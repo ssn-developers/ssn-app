@@ -32,6 +32,7 @@ import in.edu.ssn.ssnapp.models.BusPost;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FontChanger;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class BusAlertsFragment extends Fragment {
 
@@ -54,6 +55,7 @@ public class BusAlertsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getActivity().getApplicationContext(), BusRoutesActivity.class));
+                Bungee.slideLeft(getContext());
             }
         });
 
@@ -111,6 +113,7 @@ public class BusAlertsFragment extends Fragment {
                         Intent i = new Intent(getContext(), PdfViewerActivity.class);
                         i.putExtra(Constants.PDF_URL, model.getUrl());
                         startActivity(i);
+                        Bungee.fade(getContext());
                     }
                 });
                 shimmer_view.setVisibility(View.GONE);
@@ -160,8 +163,13 @@ public class BusAlertsFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter.stopListening();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
     }
 }

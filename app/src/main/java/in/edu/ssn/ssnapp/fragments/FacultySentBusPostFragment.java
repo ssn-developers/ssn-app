@@ -44,6 +44,7 @@ import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class FacultySentBusPostFragment extends Fragment {
 
@@ -119,6 +120,7 @@ public class FacultySentBusPostFragment extends Fragment {
                         Intent i=new Intent(getContext(), PdfViewerActivity.class);
                         i.putExtra(Constants.PDF_URL,model.getUrl());
                         startActivity(i);
+                        Bungee.fade(getContext());
                     }
                 });
                 shimmer_view.setVisibility(View.GONE);

@@ -61,6 +61,7 @@ import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import io.opencensus.internal.StringUtils;
 import pl.droidsonroids.gif.GifImageView;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class BusRoutesActivity extends BaseActivity implements TextWatcher {
 
@@ -323,5 +324,11 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             busStopsRV.setHasFixedSize(true);
             busStopsRV.setLayoutManager(layoutManager);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(BusRoutesActivity.this);
     }
 }

@@ -38,6 +38,7 @@ import es.voghdev.pdfviewpager.library.remote.DownloadFile;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import pl.droidsonroids.gif.GifImageView;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class PdfViewerActivity extends BaseActivity implements DownloadFile.Listener {
 
@@ -77,17 +78,17 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                 if(!CommonUtils.hasPermissions(PdfViewerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
                     ActivityCompat.requestPermissions(PdfViewerActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 }
-                else{
+                else {
                     try {
                         Toast toast = Toast.makeText(PdfViewerActivity.this, "Downloading...", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
                         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
 
                         String names = downloadUri.getLastPathSegment();
-                        if(names!=null && names.startsWith("post_bus"))
+                        if (names != null && names.startsWith("post_bus"))
                             names = names.substring(9);
 
                         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
@@ -95,17 +96,14 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                                 .setTitle(names).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
                         dm.enqueue(request);
-                    }
-                    catch (Exception ex) {
-                        Toast toast = Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                    } catch (Exception ex) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Download failed!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         ex.printStackTrace();
-                        Crashlytics.log("stackTrace: "+ Arrays.toString(ex.getStackTrace()) +" \n Error: "+ex.getMessage());
+                        Crashlytics.log("stackTrace: " + Arrays.toString(ex.getStackTrace()) + " \n Error: " + ex.getMessage());
                     }
-
                 }
-
             }
         });
 
@@ -131,9 +129,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
             @Override
             public void onPageSelected(int i) {
-                /*Toast toast = Toast.makeText(PdfViewerActivity.this, "current page "+i, Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER,0,0);
-                toast.show();*/
                 pageNumberTV.setText(i+1+"/"+adapter.getCount());
             }
 
@@ -142,7 +137,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
             }
         });
-
     }
 
     @Override
@@ -163,7 +157,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     @Override
     public void onProgressUpdate(int progress, int total) {
     }
-
 
     void showAlertDialog(){
         final Dialog dialog = new Dialog(PdfViewerActivity.this);
@@ -192,5 +185,11 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(PdfViewerActivity.this);
     }
 }

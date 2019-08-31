@@ -45,6 +45,7 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class FacultySentPostFragment extends Fragment {
 
@@ -233,6 +234,7 @@ public class FacultySentPostFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
+                        Bungee.slideUp(getContext());
                     }
                 });
 

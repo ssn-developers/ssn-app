@@ -47,6 +47,7 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class StudentFeedFragment extends Fragment {
 
@@ -64,8 +65,6 @@ public class StudentFeedFragment extends Fragment {
         initUI(view);
 
         setupFireStore();
-
-        Log.d("ddlogesh","created");
 
         return view;
     }
@@ -263,6 +262,7 @@ public class StudentFeedFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
+                        Bungee.slideUp(getContext());
                     }
                 });
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
@@ -272,8 +272,6 @@ public class StudentFeedFragment extends Fragment {
                         return true;
                     }
                 });
-
-                Log.d("ddlogesh",model.getId());
 
                 layout_progress.setVisibility(View.GONE);
                 shimmer_view.setVisibility(View.GONE);
@@ -329,14 +327,17 @@ public class StudentFeedFragment extends Fragment {
     public void onStart() {
         super.onStart();
         adapter.startListening();
-        Log.d("ddlogesh","started");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter.stopListening();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        adapter.stopListening();
-        Log.d("ddlogesh","stopped");
     }
 
     /**********************************************************/

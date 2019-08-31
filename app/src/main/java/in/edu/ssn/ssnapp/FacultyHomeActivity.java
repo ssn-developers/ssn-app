@@ -36,6 +36,7 @@ import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class FacultyHomeActivity extends BaseActivity {
 
@@ -68,6 +69,7 @@ public class FacultyHomeActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+                Bungee.slideLeft(FacultyHomeActivity.this);
             }
         });
 
@@ -81,12 +83,15 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Favourites":
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
+                        Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                     case "View Admin":
                         startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
+                        Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                     case "Notification Settings":
                         startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
+                        Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                     case "Invite Friends":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -100,6 +105,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Make a Suggestion":
                         startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));
+                        Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                     case "Privacy Policy":
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af")));
@@ -116,6 +122,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();
+                        Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                 }
             }

@@ -28,6 +28,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
 import in.edu.ssn.ssnapp.models.Post;
+import spencerstudios.com.bungeelib.Bungee;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
@@ -85,12 +86,14 @@ public class ImageAdapter extends PagerAdapter {
                     intent.putExtra("post", model);
                     intent.putExtra("time", timer);
                     context.startActivity(intent);
+                    Bungee.slideUp(context);
                 }
                 else{
                     Intent intent = new Intent(context, OpenImageActivity.class);
                     intent.putExtra("url", images.get(position));
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
+                    Bungee.slideLeft(context);
                 }
             }
         });

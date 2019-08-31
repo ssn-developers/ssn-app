@@ -45,6 +45,7 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class FacultyFeedFragment extends Fragment {
 
@@ -79,7 +80,6 @@ public class FacultyFeedFragment extends Fragment {
             @Override
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
-                layout_progress.setVisibility(View.GONE);
 
                 final Post post = new Post();
                 post.setId(snapshot.getString("id"));
@@ -261,6 +261,7 @@ public class FacultyFeedFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
+                        Bungee.slideUp(getContext());
                     }
                 });
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
@@ -271,6 +272,7 @@ public class FacultyFeedFragment extends Fragment {
                     }
                 });
 
+                layout_progress.setVisibility(View.GONE);
                 shimmer_view.setVisibility(View.GONE);
             }
 

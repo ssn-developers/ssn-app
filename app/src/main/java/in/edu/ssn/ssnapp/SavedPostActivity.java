@@ -19,6 +19,7 @@ import in.edu.ssn.ssnapp.adapters.NotifyAdapter;
 import in.edu.ssn.ssnapp.adapters.SavedPostAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class SavedPostActivity extends AppCompatActivity {
 
@@ -65,5 +66,11 @@ public class SavedPostActivity extends AppCompatActivity {
             layout_progress.setVisibility(View.VISIBLE);
             lv_savedPost.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(SavedPostActivity.this);
     }
 }

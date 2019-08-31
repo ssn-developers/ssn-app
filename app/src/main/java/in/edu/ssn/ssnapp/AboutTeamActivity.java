@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.adapters.AboutTeamAdapter;
 import in.edu.ssn.ssnapp.models.TeamDetails;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class AboutTeamActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -180,5 +181,11 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/ssninstitutions")));
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(AboutTeamActivity.this);
     }
 }

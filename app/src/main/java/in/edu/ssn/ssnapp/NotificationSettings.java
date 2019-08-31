@@ -12,6 +12,7 @@ import com.suke.widget.SwitchButton;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class NotificationSettings extends AppCompatActivity {
 
@@ -97,5 +98,11 @@ public class NotificationSettings extends AppCompatActivity {
             FCMHelper.SubscribeToTopic(this, Constants.WORKSHOP_ALERTS);
         else
             FCMHelper.UnSubscribeToTopic(this, Constants.WORKSHOP_ALERTS);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(NotificationSettings.this);
     }
 }

@@ -31,6 +31,7 @@ import java.util.Map;
 
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class FeedbackActivity extends AppCompatActivity {
 
@@ -104,5 +105,6 @@ public class FeedbackActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Bungee.slideRight(FeedbackActivity.this);
     }
 }

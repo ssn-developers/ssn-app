@@ -21,6 +21,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class OpenImageActivity extends AppCompatActivity {
 
@@ -78,6 +79,7 @@ public class OpenImageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OpenImageActivity.super.onBackPressed();
+                Bungee.slideRight(OpenImageActivity.this);
             }
         });
     }

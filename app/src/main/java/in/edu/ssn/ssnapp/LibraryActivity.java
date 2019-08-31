@@ -11,6 +11,8 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class LibraryActivity extends AppCompatActivity {
 
     WebView webView;
@@ -52,5 +54,11 @@ public class LibraryActivity extends AppCompatActivity {
                 super.onReceivedTitle(view, title);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(LibraryActivity.this);
     }
 }

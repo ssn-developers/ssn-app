@@ -21,6 +21,7 @@ import in.edu.ssn.ssnapp.database.Notification;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class NotificationActivity extends AppCompatActivity{
 
@@ -80,5 +81,11 @@ public class NotificationActivity extends AppCompatActivity{
             layout_progress.setVisibility(View.VISIBLE);
             lv_items.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(NotificationActivity.this);
     }
 }
