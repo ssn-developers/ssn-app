@@ -156,24 +156,6 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
         adapter.add(new TeamDetails("Nandhini R","Web Developer",R.drawable.nandhini_profile, type, url));
 
-        url= new ArrayList<>();
-        url.add("kaushik.personal.98@gmail.com");
-        url.add("https://github.com/kshake");
-        url.add("https://www.linkedin.com/in/kaushik-p-2921aa178");
-        adapter.add(new TeamDetails("Kaushik P","Web Developer",R.drawable.kaushik_profile, type, url));
-
-        url= new ArrayList<>();
-        url.add("smohammedrizwan98@gmail.com");
-        url.add("https://github.com/smriz");
-        url.add("https://www.linkedin.com/in/mohammed-r-249034b2");
-        adapter.add(new TeamDetails("Mohammed Rizwan S","Web Developer",R.drawable.rizwan_profile, type, url));
-
-        url= new ArrayList<>();
-        url.add("mfmevins@gmail.com");
-        url.add("https://github.com/MevinFernando");
-        url.add("https://www.linkedin.com/in/antonymevinfernando");
-        adapter.add(new TeamDetails("Antony Mevin Fernando","Web Developer",R.drawable.mevin_profile, type, url));
-
         lv_items.setAdapter(adapter);
     }
 

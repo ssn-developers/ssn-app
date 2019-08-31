@@ -149,17 +149,17 @@ public class FacultyFeedFragment extends Fragment {
 
                 String id = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",id + "_dp_url"));
+                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty_dp_url",id));
 
-                String name = SharedPref.getString(getContext(),"faculty",id + "_name");
+                String name = SharedPref.getString(getContext(),"faculty_name",id);
                 if(name!=null && !name.equals(""))
-                    post.setAuthor(SharedPref.getString(getContext(),"faculty",id + "_name"));
+                    post.setAuthor(name);
                 else
                     post.setAuthor("SSN Institutions");
 
-                String position = SharedPref.getString(getContext(),"faculty",id + "_position");
+                String position = SharedPref.getString(getContext(),"faculty_position",id);
                 if(position!=null && !position.equals(""))
-                    post.setPosition(SharedPref.getString(getContext(),"faculty",id + "_position"));
+                    post.setPosition(position);
                 else
                     post.setPosition("Admin");
 

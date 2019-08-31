@@ -152,15 +152,15 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
 
                 String email = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty",email + "_dp_url"));
+                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty_dp_url",email));
 
-                String name = SharedPref.getString(getApplicationContext(),"faculty",email + "_name");
+                String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
                 else
                     post.setAuthor("SSN Institutions");
 
-                String position = SharedPref.getString(getApplicationContext(),"faculty",email + "_position");
+                String position = SharedPref.getString(getApplicationContext(),"faculty_position",email);
                 if(position!=null && !position.equals(""))
                     post.setPosition(position);
                 else

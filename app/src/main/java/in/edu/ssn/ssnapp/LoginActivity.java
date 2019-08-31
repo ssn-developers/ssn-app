@@ -133,7 +133,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                         else {
                             flag=true;
-                            Toast.makeText(this, "App is currently available to CSE dept only\nIt will be available to other dept soon & stay tuned", Toast.LENGTH_LONG).show();
+                            layout_progress.setVisibility(View.GONE);
+                            Toast toast = Toast.makeText(this, "App is currently available to CSE dept only\nIt will be available to other dept soon & stay tuned", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
                         }
                     }
                     else {

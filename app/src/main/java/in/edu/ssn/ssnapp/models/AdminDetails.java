@@ -3,11 +3,7 @@ package in.edu.ssn.ssnapp.models;
 public class AdminDetails {
     String name, email, url;
 
-    public AdminDetails() {
-        this.email = email;
-        this.name = name;
-        this.url = url;
-    }
+    public AdminDetails() { }
 
     public String getName() {
         return name;

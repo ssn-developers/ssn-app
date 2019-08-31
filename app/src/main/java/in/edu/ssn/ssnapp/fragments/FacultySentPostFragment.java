@@ -146,9 +146,9 @@ public class FacultySentPostFragment extends Fragment {
                     Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
-                post.setAuthor(SharedPref.getString(getContext(),"faculty",email + "_name"));
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",email + "_dp_url"));
-                post.setPosition(SharedPref.getString(getContext(),"faculty",email + "_position"));
+                post.setAuthor(SharedPref.getString(getContext(),"faculty_name",email));
+                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty_dp_url",email));
+                post.setPosition(SharedPref.getString(getContext(),"faculty_position",email));
 
                 return post;
             }

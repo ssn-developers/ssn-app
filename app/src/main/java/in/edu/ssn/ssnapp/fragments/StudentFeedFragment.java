@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -57,7 +60,7 @@ public class StudentFeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        CommonUtils.initFonts(getContext(), view);
+        CommonUtils.initFonts(getContext(),view);
         initUI(view);
 
         setupFireStore();
@@ -69,7 +72,7 @@ public class StudentFeedFragment extends Fragment {
 
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
-        String year = "year." + Integer.toString(SharedPref.getInt(getContext(),"year"));
+        String year = "year." + SharedPref.getInt(getContext(),"year");
 
         //TODO: Needs to manually create composite query before release for each year & dept. [VERY IMPORTANT]
 
@@ -113,7 +116,7 @@ public class StudentFeedFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
+                    Crashlytics.log("stackTrace: "+ Arrays.toString(e.getStackTrace()) +" \n Error: "+e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
                 }
@@ -148,15 +151,15 @@ public class StudentFeedFragment extends Fragment {
 
                 String email = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty",email + "_dp_url"));
+                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty_dp_url",email));
 
-                String name = SharedPref.getString(getContext(),"faculty",email + "_name");
+                String name = SharedPref.getString(getContext(),"faculty_name",email);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
                 else
                     post.setAuthor("SSN Institutions");
 
-                String position = SharedPref.getString(getContext(),"faculty",email + "_position");
+                String position = SharedPref.getString(getContext(),"faculty_position",email);
                 if(position!=null && !position.equals(""))
                     post.setPosition(position);
                 else
@@ -180,7 +183,6 @@ public class StudentFeedFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     holder.userImageIV.setImageResource(R.drawable.ic_user_white);
                 }
 
@@ -273,15 +275,11 @@ public class StudentFeedFragment extends Fragment {
                 shimmer_view.setVisibility(View.GONE);
             }
 
+            @NonNull
             @Override
-            public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
+            public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
                 return new FeedViewHolder(view);
-            }
-
-            @Override
-            public int getItemCount() {
-                return super.getItemCount();
             }
         };
 
@@ -294,6 +292,7 @@ public class StudentFeedFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
         feedsRV.setHasFixedSize(true);
+
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
     }
@@ -331,20 +330,14 @@ public class StudentFeedFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        adapter.stopListening();
-    }
-
-    @Override
     public void onStop() {
         super.onStop();
-
+        adapter.stopListening();
     }
 
     /**********************************************************/
 
-    public void handleBottomSheet(View v,final Post post) {
+    private void handleBottomSheet(View v,final Post post) {
         RelativeLayout ll_save,ll_share;
         final TextView tv_save;
 

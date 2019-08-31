@@ -89,11 +89,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         ArrayList<Post> PostList=new ArrayList<>();
 
         long rowCount =DatabaseUtils.queryNumEntries(db,SavedPost.SavedPostEntry.TABLE_NAME);
-        Log.d(TAG,"no of rows "+rowCount);
+        //Log.d(TAG,"no of rows "+rowCount);
         String query = "select * from " + SavedPost.SavedPostEntry.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        Log.d(TAG,"column count: "+c.getColumnCount());
-        Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
+        //Log.d(TAG,"column count: "+c.getColumnCount());
+        //Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
 
         int i=0;
         if (c.moveToFirst())

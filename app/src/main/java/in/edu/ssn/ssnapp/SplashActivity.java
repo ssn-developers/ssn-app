@@ -221,13 +221,14 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
+    @SuppressLint("StaticFieldLeak")
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
             db.collection("faculty").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() && task.getResult()!=null) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             String dp_url = (String) document.get("dp_url");
                             String access = (String) document.get("access");
@@ -237,12 +238,12 @@ public class SplashActivity extends AppCompatActivity {
                             String name = (String) document.get("name");
                             String position = (String) document.get("position");
 
-                            SharedPref.putString(getApplicationContext(), "faculty", email + "_access", access);
-                            SharedPref.putString(getApplicationContext(), "faculty", email + "_dept", dept);
-                            SharedPref.putString(getApplicationContext(), "faculty", email + "_dp_url", dp_url);
-                            SharedPref.putString(getApplicationContext(), "faculty", email + "_id", id);
-                            SharedPref.putString(getApplicationContext(), "faculty", email + "_name", name);
-                            SharedPref.putString(getApplicationContext(), "faculty", email + "_position", position);
+                            SharedPref.putString(getApplicationContext(), "faculty_access", email, access);
+                            SharedPref.putString(getApplicationContext(), "faculty_dept", email, dept);
+                            SharedPref.putString(getApplicationContext(), "faculty_dp_url", email, dp_url);
+                            SharedPref.putString(getApplicationContext(), "faculty_id", email, id);
+                            SharedPref.putString(getApplicationContext(), "faculty_name", email, name);
+                            SharedPref.putString(getApplicationContext(), "faculty_position", email, position);
                         }
                     }
                     if(!isUpdate)
@@ -412,15 +413,15 @@ public class SplashActivity extends AppCompatActivity {
 
                 String email = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty",email + "_dp_url"));
+                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty_dp_url",email));
 
-                String name = SharedPref.getString(getApplicationContext(),"faculty",email + "_name");
+                String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
                 else
                     post.setAuthor("SSN Institutions");
 
-                String position = SharedPref.getString(getApplicationContext(),"faculty",email + "_position");
+                String position = SharedPref.getString(getApplicationContext(),"faculty_position",email);
                 if(position!=null && !position.equals(""))
                     post.setPosition(position);
                 else

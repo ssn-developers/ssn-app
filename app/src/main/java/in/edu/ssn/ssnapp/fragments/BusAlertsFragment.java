@@ -44,7 +44,6 @@ public class BusAlertsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_bus_alerts, container, false);
         CommonUtils.initFonts(getContext(),view);
         initUI(view);
@@ -66,20 +65,19 @@ public class BusAlertsFragment extends Fragment {
     void setupFireStore(){
         Query query = FirebaseFirestore.getInstance().collection("post_bus").orderBy("time", Query.Direction.DESCENDING).limit(5);
 
-        FirestoreRecyclerOptions<BusPost> options = new FirestoreRecyclerOptions.Builder<BusPost>()
-                .setQuery(query, new SnapshotParser<BusPost>() {
-                    @NonNull
-                    @Override
-                    public BusPost parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                        final BusPost busPost = new BusPost();
-                        busPost.setTitle(snapshot.getString("title"));
-                        busPost.setTime(snapshot.getTimestamp("time").toDate());
-                        busPost.setUrl(snapshot.getString("url"));
-                        busPost.setDesc(snapshot.getString("desc"));
-                        return busPost;
-                    }
-                })
-                .build();
+        FirestoreRecyclerOptions<BusPost> options = new FirestoreRecyclerOptions.Builder<BusPost>().setQuery(query, new SnapshotParser<BusPost>() {
+            @NonNull
+            @Override
+            public BusPost parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+                final BusPost busPost = new BusPost();
+                busPost.setTitle(snapshot.getString("title"));
+                busPost.setTime(snapshot.getTimestamp("time").toDate());
+                busPost.setUrl(snapshot.getString("url"));
+                busPost.setDesc(snapshot.getString("desc"));
+                return busPost;
+            }
+        })
+        .build();
 
         adapter = new FirestoreRecyclerAdapter<BusPost, BusAlertHolder>(options) {
             @Override
