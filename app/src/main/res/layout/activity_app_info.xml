@@ -157,7 +157,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/rv_items1"
-            android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/final_years"
             android:textColor="@color/colorAccent"
@@ -167,7 +166,7 @@
             android:id="@+id/rv_items2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_below="@+id/tv_text2" />
 
         <TextView
@@ -177,7 +176,7 @@
             android:layout_below="@+id/rv_items2"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/open_sans_bold"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:text="@string/alumni"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/_10ssp" />

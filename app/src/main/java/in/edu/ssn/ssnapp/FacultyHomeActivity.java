@@ -107,6 +107,10 @@ public class FacultyHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
+                    case "App Info":
+                        startActivity(new Intent(getApplicationContext(), AppInfoActivity.class));
+                        Bungee.slideLeft(FacultyHomeActivity.this);
+                        break;
                     case "Privacy Policy":
                         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af")));
                         break;
@@ -180,6 +184,7 @@ public class FacultyHomeActivity extends BaseActivity {
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
+        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);

@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".AppInfoActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +45,7 @@
         <activity android:name=".NotificationActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".AppInfoActivity" />
         <activity android:name=".NotificationSettings" />
         <activity android:name=".onboarding.OnboardingActivity" />
         <activity android:name=".LibraryActivity" />
