@@ -121,7 +121,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_text1"
+            android:id="@+id/tv_text0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -132,31 +132,42 @@
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/_12ssp" />
 
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/tv_text0"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/pre_final_years"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_10ssp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
             android:layout_below="@+id/tv_text1" />
 
         <TextView
             android:id="@+id/tv_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rv_items1"
             android:layout_centerHorizontal="true"
+            android:layout_below="@+id/rv_items1"
+            android:layout_marginTop="@dimen/_3sdp"
             android:fontFamily="@font/open_sans_bold"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:text="@string/alumni_support"
+            android:text="@string/final_years"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_10ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_3sdp"
             android:layout_below="@+id/tv_text2" />
 
         <TextView
@@ -164,6 +175,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rv_items2"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/open_sans_bold"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/alumni"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_10ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_items3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:layout_below="@+id/tv_text3" />
+
+        <TextView
+            android:id="@+id/tv_text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_items3"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
@@ -174,7 +206,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_text3"
+            android:layout_below="@+id/tv_text4"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/open_sans"
