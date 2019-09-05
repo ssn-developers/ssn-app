@@ -28,13 +28,13 @@ public class DrawerAdapter extends ArrayAdapter<Drawer> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         Drawer drawer=(Drawer)getItem(position);
 
         if(convertView==null)
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.drawer_item,parent,false);
 
-        TextView tv_title=convertView.findViewById(R.id.tv_title);
+        final TextView tv_title=convertView.findViewById(R.id.tv_title);
         ImageView iv_icon=convertView.findViewById(R.id.iv_icon);
         View view_line = convertView.findViewById(R.id.view_line);
 

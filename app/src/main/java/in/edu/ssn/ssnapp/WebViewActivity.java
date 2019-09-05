@@ -8,12 +8,12 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class LibraryActivity extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity {
 
     WebView webView;
     ProgressBar pb_browser;
@@ -21,7 +21,7 @@ public class LibraryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_library);
+        setContentView(R.layout.activity_webview);
 
         webView=findViewById(R.id.wv_library);
         pb_browser=findViewById(R.id.pb_browser);
@@ -32,7 +32,9 @@ public class LibraryActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        webView.loadUrl("http://opac.ssn.net:8081/");
+        String url = SharedPref.getString(getApplicationContext(),"url");
+
+        webView.loadUrl(url);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient());
         webView.setWebChromeClient(new WebChromeClient(){
@@ -59,6 +61,7 @@ public class LibraryActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Bungee.slideRight(LibraryActivity.this);
+        SharedPref.remove(getApplicationContext(),"url");
+        Bungee.slideRight(WebViewActivity.this);
     }
 }

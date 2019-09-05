@@ -65,8 +65,10 @@ public class NoNetworkActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(!CommonUtils.alerter(getApplicationContext()))
+        if(!CommonUtils.alerter(getApplicationContext())) {
             super.onBackPressed();
+            Bungee.fade(NoNetworkActivity.this);
+        }
         else{
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);

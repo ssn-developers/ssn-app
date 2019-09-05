@@ -91,7 +91,8 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Library Renewals":
                         if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn")) {
-                            startActivity(new Intent(getApplicationContext(), LibraryActivity.class));
+                            SharedPref.putString(getApplicationContext(),"url","http://opac.ssn.net:8081/");
+                            startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(StudentHomeActivity.this);
                         }
                         else {
@@ -101,7 +102,17 @@ public class StudentHomeActivity extends BaseActivity {
                         }
                         break;
                     case "Alumni Connect":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://ssn.almaconnect.com")));
+                        if(!CommonUtils.alerter(getApplicationContext())) {
+                            SharedPref.putString(getApplicationContext(),"url","https://ssn.almaconnect.com");
+                            startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                            Bungee.slideLeft(StudentHomeActivity.this);
+                        }
+                        else{
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(StudentHomeActivity.this);
+                        }
                         break;
                     case "Notification Settings":
                         startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
@@ -115,7 +126,15 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                         break;
                     case "Rate Our App":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName())));
+                        if(!CommonUtils.alerter(getApplicationContext())) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName())));
+                        }
+                        else{
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(StudentHomeActivity.this);
+                        }
                         break;
                     case "Make a Suggestion":
                         startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
@@ -126,7 +145,17 @@ public class StudentHomeActivity extends BaseActivity {
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
                     case "Privacy Policy":
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af")));
+                        if(!CommonUtils.alerter(getApplicationContext())) {
+                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af");
+                            startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                            Bungee.slideLeft(StudentHomeActivity.this);
+                        }
+                        else{
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(StudentHomeActivity.this);
+                        }
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
@@ -214,6 +243,20 @@ public class StudentHomeActivity extends BaseActivity {
         FCMHelper.UnSubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
         FCMHelper.UnSubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
         FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
+    }
+
+    /*********************************************************/
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(CommonUtils.alerter(getApplicationContext())){
+            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+            intent.putExtra("key","home");
+            startActivity(intent);
+            Bungee.fade(StudentHomeActivity.this);
+        }
     }
 
     /*********************************************************/

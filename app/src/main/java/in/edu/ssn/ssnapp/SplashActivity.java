@@ -340,6 +340,7 @@ public class SplashActivity extends AppCompatActivity {
             intent.putExtra("key","splash");
             startActivity(intent);
             finish();
+            Bungee.fade(SplashActivity.this);
         }
     }
 

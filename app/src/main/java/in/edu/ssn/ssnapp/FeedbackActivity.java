@@ -97,6 +97,7 @@ public class FeedbackActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                     intent.putExtra("key","feedback");
                     startActivity(intent);
+                    Bungee.fade(FeedbackActivity.this);
                 }
             }
         });
