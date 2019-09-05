@@ -30,6 +30,7 @@ public class BusStopAdapterVert extends RecyclerView.Adapter<BusStopAdapterVert.
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
         bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
     }
+
     @Override
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());

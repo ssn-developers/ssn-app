@@ -7,8 +7,8 @@ android {
         applicationId "in.edu.ssn.ssnapp"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 7
-        versionName "1.16"
+        versionCode 8
+        versionName "1.17"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -64,6 +64,7 @@ dependencies {
     implementation 'com.github.adroitandroid:ChipCloud:2.2.1'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'net.zetetic:android-database-sqlcipher:4.2.0@aar'
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
     implementation 'com.facebook.shimmer:shimmer:0.4.0'
     implementation 'org.jsoup:jsoup:1.9.1'

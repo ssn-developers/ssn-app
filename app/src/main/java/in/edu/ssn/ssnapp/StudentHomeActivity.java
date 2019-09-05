@@ -121,8 +121,8 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
-                    case "About Team":
-                        startActivity(new Intent(getApplicationContext(), AboutTeamActivity.class));
+                    case "App Info":
+                        startActivity(new Intent(getApplicationContext(), AppInfoActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
                     case "Privacy Policy":
@@ -190,7 +190,7 @@ public class StudentHomeActivity extends BaseActivity {
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
-        adapter.add(new Drawer("About Team", R.drawable.ic_team));
+        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);

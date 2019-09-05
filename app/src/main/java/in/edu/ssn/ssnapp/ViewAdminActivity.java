@@ -26,7 +26,6 @@ import com.squareup.picasso.Picasso;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import in.edu.ssn.ssnapp.models.AdminDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 

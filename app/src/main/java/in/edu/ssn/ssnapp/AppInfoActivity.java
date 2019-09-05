@@ -1,35 +1,51 @@
 package in.edu.ssn.ssnapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.ScrollView;
 
 import java.util.ArrayList;
 
-import in.edu.ssn.ssnapp.adapters.AboutTeamAdapter;
+import in.edu.ssn.ssnapp.adapters.AboutAlumniAdapter;
+import in.edu.ssn.ssnapp.adapters.AboutContributorAdapter;
+import in.edu.ssn.ssnapp.models.AlumniDetails;
 import in.edu.ssn.ssnapp.models.TeamDetails;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class AboutTeamActivity extends AppCompatActivity implements View.OnClickListener {
+public class AppInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ListView lv_items;
-    AboutTeamAdapter adapter;
+    RecyclerView rv_items1, rv_items2;
+    ArrayList<TeamDetails> teams;
+    ArrayList<AlumniDetails> alumni;
     ImageView iv_web, iv_fb, iv_twit, iv_linkedin, iv_insta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about_team);
+        setContentView(R.layout.activity_app_info);
 
-        lv_items = findViewById(R.id.lv_items);
-        adapter = new AboutTeamAdapter(this, new ArrayList<TeamDetails>());
+        ScrollView scroll_view = findViewById(R.id.scroll_view);
+        scroll_view.smoothScrollTo(0,0);
+
+        rv_items1 = findViewById(R.id.rv_items1);
+        rv_items2 = findViewById(R.id.rv_items2);
+
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
+        rv_items1.setLayoutManager(layoutManager1);
+        rv_items1.setNestedScrollingEnabled(false);
+        rv_items2.setLayoutManager(layoutManager2);
+        rv_items2.setNestedScrollingEnabled(false);
+
+        teams = new ArrayList<>();
+        alumni = new ArrayList<>();
 
         iv_web = findViewById(R.id.iv_web);             iv_web.setOnClickListener(this);
         iv_fb = findViewById(R.id.iv_fb);               iv_fb.setOnClickListener(this);
@@ -37,10 +53,12 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         iv_linkedin = findViewById(R.id.iv_linkedin);   iv_linkedin.setOnClickListener(this);
         iv_insta = findViewById(R.id.iv_insta);         iv_insta.setOnClickListener(this);
 
-        setUpDrawer();
+        setUpContributors();
+
+        setUpAlumni();
     }
 
-    void setUpDrawer(){
+    void setUpContributors(){
         ArrayList<Integer> type  = new ArrayList<>();
         ArrayList<String> url = new ArrayList<>();
 
@@ -51,19 +69,19 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("ddlogesh@gmail.com");
         url.add("https://github.com/ddlogesh");
         url.add("https://www.linkedin.com/in/logesh-dinakaran");
-        adapter.add(new TeamDetails("Logesh D","App Developer",R.drawable.logesh_profile, type, url));
+        teams.add(new TeamDetails("Logesh D","App Development",R.drawable.logesh_profile, type, url));
 
         url= new ArrayList<>();
         url.add("harshavardhan.zodiac@gmail.com");
         url.add("https://github.com/harshavardhan98");
         url.add("https://www.linkedin.com/in/harshavardhan-p");
-        adapter.add(new TeamDetails("Harshavardhan P","App Developer",R.drawable.harsha_profile, type, url));
+        teams.add(new TeamDetails("Harshavardhan P","App Development",R.drawable.harsha_profile, type, url));
 
         url= new ArrayList<>();
         url.add("catcalm7698@gmail.com");
         url.add("https://github.com/shrikanth7698");
         url.add("https://www.linkedin.com/in/shrikanthravi");
-        adapter.add(new TeamDetails("Shrikanth Ravi","App Developer",R.drawable.shrikanth_profile, type, url));
+        teams.add(new TeamDetails("Shrikanth Ravi","App Development",R.drawable.shrikanth_profile, type, url));
 
         type= new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -74,7 +92,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("jennifer.malathi@gmail.com");
         url.add("https://www.behance.net/jenniferj1");
         url.add("https://www.linkedin.com/in/jennifer-j-a77260142");
-        adapter.add(new TeamDetails("Jennifer J","UI/UX Designer",R.drawable.jenifer_profile, type, url));
+        teams.add(new TeamDetails("Jennifer J","App Illustrations",R.drawable.jenifer_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_dribble);
@@ -85,7 +103,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("https://dribbble.com/Shibikannan");
         url.add("https://www.instagram.com/shibi_ssn");
         url.add("https://www.linkedin.com/in/shibikannan-t-m-a79493155");
-        adapter.add(new TeamDetails("Shibikannan T M","Motion Graphic Designer",R.drawable.shibi_profile, type, url));
+        teams.add(new TeamDetails("Shibikannan T M","Motion Graphic Designs",R.drawable.shibi_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -96,7 +114,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("ezhilprasanth17040@cse.ssn.edu.in");
         url.add("https://github.com/ezhilnero99");
         url.add("https://www.linkedin.com/in/ezhilnero-m");
-        adapter.add(new TeamDetails("Ezhil Prasanth M","App Developer",R.drawable.ezhil_profile, type, url));
+        teams.add(new TeamDetails("Ezhil Prasanth M","App Development",R.drawable.ezhil_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -107,7 +125,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("ajaykumar17006@cse.ssn.edu.in");
         url.add("https://github.com/ajaykumar047");
         url.add("https://instagram.com/ajaykumar_047");
-        adapter.add(new TeamDetails("Ajay Kumar U","App Developer",R.drawable.ajay_profile, type, url));
+        teams.add(new TeamDetails("Ajay Kumar U","App Development",R.drawable.ajay_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -118,7 +136,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("tarun.krithik@gmail.com");
         url.add("https://www.facebook.com/tarung.kangeyan");
         url.add("https://www.linkedin.com/in/tarun-ganesh-a35594181");
-        adapter.add(new TeamDetails("Tarun Ganesh K","Web Developer",R.drawable.tarun_profile, type, url));
+        teams.add(new TeamDetails("Tarun Ganesh K","Web Development",R.drawable.tarun_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -129,7 +147,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("sudhakar.jeeva7@gmail.com");
         url.add("https://www.instagram.com/sudhakar_shady");
         url.add("https://www.linkedin.com/in/sudhakar-j");
-        adapter.add(new TeamDetails("Sudhakar J","Web UI Designer",R.drawable.sudhakar_profile, type, url));
+        teams.add(new TeamDetails("Sudhakar J","Web UI Designs",R.drawable.sudhakar_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -140,7 +158,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("yadhukrishnannair99@gmail.com");
         url.add("https://www.facebook.com/yadhukrishnan.nair.5");
         url.add("https://www.instagram.com/yk_2310");
-        adapter.add(new TeamDetails("Yadhukrishnan P","Web UI Designer",R.drawable.yadhuv_profile, type, url));
+        teams.add(new TeamDetails("Yadhukrishnan P","Web UI Designs",R.drawable.yadhuv_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
@@ -151,15 +169,23 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("pavikaramanchu@gmail.com");
         url.add("https://github.com/pavithrakarumanchi");
         url.add("https://www.linkedin.com/in/pavithra-karumanchi-0420b9166");
-        adapter.add(new TeamDetails("Pavithra N","Web Developer",R.drawable.pavithra_profile, type, url));
+        teams.add(new TeamDetails("Pavithra N","Web Development",R.drawable.pavithra_profile, type, url));
 
         url= new ArrayList<>();
         url.add("nandhiniraja208@gmail.com");
         url.add("https://github.com/nandy20");
         url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
-        adapter.add(new TeamDetails("Nandhini R","Web Developer",R.drawable.nandhini_profile, type, url));
+        teams.add(new TeamDetails("Nandhini R","Web Development",R.drawable.nandhini_profile, type, url));
 
-        lv_items.setAdapter(adapter);
+        rv_items1.setAdapter(new AboutContributorAdapter(this, teams));
+    }
+
+    void setUpAlumni(){
+        alumni.add(new AlumniDetails("Karnik Ram","karnikram@gmail.com"));
+        alumni.add(new AlumniDetails("Adithya J","adithya321@hotmail.com"));
+        alumni.add(new AlumniDetails("Varun Ranganathan","dvarunranganathan@gmail.com"));
+        alumni.add(new AlumniDetails("Muthu Annamalai CT","muthuct@outlook.com"));
+        rv_items2.setAdapter(new AboutAlumniAdapter(this, alumni));
     }
 
     @Override
@@ -186,6 +212,6 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Bungee.slideRight(AboutTeamActivity.this);
+        Bungee.slideRight(AppInfoActivity.this);
     }
 }

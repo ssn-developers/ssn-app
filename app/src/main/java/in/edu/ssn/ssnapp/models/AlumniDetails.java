@@ -1,9 +1,14 @@
 package in.edu.ssn.ssnapp.models;
 
-public class AdminDetails {
-    String name, email, url;
+public class AlumniDetails {
+    String name, email;
 
-    public AdminDetails() { }
+    public AlumniDetails() { }
+
+    public AlumniDetails(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 
     public String getName() {
         return name;
@@ -19,13 +24,5 @@ public class AdminDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 }

@@ -17,7 +17,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".SplashActivity">
+        <activity android:name=".AppInfoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +31,8 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="ssnportal.cf/share.html"
+                    android:host="ssnportal.cf"
+                    android:pathPrefix="/share.html"
                     android:scheme="http" />
             </intent-filter>
         </activity>
@@ -44,7 +45,7 @@
         <activity android:name=".NotificationActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".AboutTeamActivity" />
+        <activity android:name=".SplashActivity" />
         <activity android:name=".NotificationSettings" />
         <activity android:name=".onboarding.OnboardingActivity" />
         <activity android:name=".LibraryActivity" />

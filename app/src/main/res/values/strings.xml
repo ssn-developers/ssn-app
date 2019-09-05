@@ -24,4 +24,7 @@
     <string name="year">Year</string>
     <string name="dept">Department</string>
     <string name="title_activity_view_admin">ViewAdminActivity</string>
+    <string name="contributors"><u>Contributors</u></string>
+    <string name="alumni_support"><u>Alumni Support</u></string>
+    <string name="special_thanks"><u>Special Thanks</u></string>
 </resources>
