@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:id="@+id/scroll_view"
+    android:scrollbars="none"
     tools:context=".AppInfoActivity">
 
     <RelativeLayout
@@ -153,6 +154,7 @@
             android:id="@+id/rv_items2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:layout_below="@+id/tv_text2" />
@@ -174,7 +176,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_text3"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/open_sans"
             android:textColor="#636363"
             android:textSize="@dimen/_10ssp"

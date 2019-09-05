@@ -1,58 +1,73 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="@dimen/_7sdp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            app:cardCornerRadius="@dimen/_15sdp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#D8D7D7">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/iv_dp"/>
-
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-            android:id="@+id/tv_name"
+        <RelativeLayout
+            android:id="@+id/layout1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/_12ssp"
-            android:singleLine="true"
-            android:textColor="#505050"
-            android:layout_marginLeft="@dimen/_60sdp"
-            android:fontFamily="@font/open_sans_semi_bold"/>
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_name"
-            android:textSize="@dimen/_10ssp"
-            android:singleLine="true"
-            android:textColor="#69000000"
-            android:layout_marginLeft="@dimen/_60sdp"
-            android:fontFamily="@font/open_sans" />
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_60sdp"
+                    android:fontFamily="@font/open_sans_semi_bold"
+                    android:singleLine="true"
+                    android:text="hello"
+                    android:textColor="#505050"
+                    android:textSize="@dimen/_12ssp" />
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_name"
+                    android:layout_marginLeft="@dimen/_60sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:singleLine="true"
+                    android:text="hello"
+                    android:textColor="#69000000"
+                    android:textSize="@dimen/_10ssp" />
+            </RelativeLayout>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/_25sdp"
+                app:cardBackgroundColor="#D8D7D7"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/iv_dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
 
         <View
             android:id="@+id/view"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_1sdp"
-            android:layout_below="@+id/tv_email"
-            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_below="@+id/layout1"
             android:layout_marginLeft="@dimen/_60sdp"
-            android:background="#c0c0c0"/>
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="#c0c0c0" />
 
     </RelativeLayout>
 
