@@ -74,7 +74,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("jennifer.malathi@gmail.com");
         url.add("https://www.behance.net/jenniferj1");
         url.add("https://www.linkedin.com/in/jennifer-j-a77260142");
-        adapter.add(new TeamDetails("Jennifer J","App Illustrator",R.drawable.jenifer_profile, type, url));
+        adapter.add(new TeamDetails("Jennifer J","UI/UX Designer",R.drawable.jenifer_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_dribble);
@@ -85,7 +85,7 @@ public class AboutTeamActivity extends AppCompatActivity implements View.OnClick
         url.add("https://dribbble.com/Shibikannan");
         url.add("https://www.instagram.com/shibi_ssn");
         url.add("https://www.linkedin.com/in/shibikannan-t-m-a79493155");
-        adapter.add(new TeamDetails("Shibikannan T M","Splash Screen Designer",R.drawable.shibi_profile, type, url));
+        adapter.add(new TeamDetails("Shibikannan T M","Motion Graphic Designer",R.drawable.shibi_profile, type, url));
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);

@@ -3,6 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="in.edu.ssn.ssnapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <application
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -25,7 +31,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="ssnportal.cf"
+                    android:host="ssnportal.cf/share.html"
                     android:scheme="http" />
             </intent-filter>
         </activity>
@@ -77,11 +83,5 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
