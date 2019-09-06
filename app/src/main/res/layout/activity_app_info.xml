@@ -39,7 +39,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/open_sans_bold"
-                    android:text="SSN App"
+                    android:text="@string/app_name"
                     android:textColor="#000000"
                     android:textSize="@dimen/_16ssp" />
 
