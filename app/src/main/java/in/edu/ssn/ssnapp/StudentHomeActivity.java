@@ -200,7 +200,6 @@ public class StudentHomeActivity extends BaseActivity {
         }
         catch (Exception e){
             Log.d(TAG,e.getMessage());
-            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
             Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
             Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }

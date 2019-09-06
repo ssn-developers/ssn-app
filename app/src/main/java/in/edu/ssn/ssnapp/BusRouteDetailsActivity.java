@@ -58,7 +58,6 @@ public class BusRouteDetailsActivity extends BaseActivity {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
             }
         });

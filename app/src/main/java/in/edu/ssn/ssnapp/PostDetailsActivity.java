@@ -130,7 +130,11 @@ public class PostDetailsActivity extends BaseActivity {
                 layout_receive.setVisibility(View.VISIBLE);
 
                 for(int i=0; i<depts.size(); i++){
-                    Chip dept_chip = getDataChip(deptChipGroup, depts.get(i).toUpperCase());
+                    String dept = depts.get(i).toUpperCase();
+                    if(dept.length()>3)
+                        dept = dept.substring(0,3);
+
+                    Chip dept_chip = getDataChip(deptChipGroup, dept);
                     deptChipGroup.addView(dept_chip);
                 }
 
@@ -289,7 +293,6 @@ public class PostDetailsActivity extends BaseActivity {
 
         }catch (Exception e){
             Log.d(TAG,e.getMessage());
-            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
             return false;
         }
 

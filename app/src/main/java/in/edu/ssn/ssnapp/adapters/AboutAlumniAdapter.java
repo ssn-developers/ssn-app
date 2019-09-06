@@ -1,6 +1,8 @@
 package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +46,7 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AboutAlumniAdapter.ContributionViewHolder holder, int position) {
-        AlumniDetails drawer = (AlumniDetails) alumniDetails.get(position);
+        final AlumniDetails drawer = (AlumniDetails) alumniDetails.get(position);
 
         holder.tv_name.setText(drawer.getName());
         holder.tv_email.setText(drawer.getEmail());
@@ -58,6 +60,13 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
             holder.view.setVisibility(View.GONE);
         else
             holder.view.setVisibility(View.VISIBLE);
+
+        holder.tv_email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", drawer.getEmail(), null)));
+            }
+        });
     }
 
     @Override

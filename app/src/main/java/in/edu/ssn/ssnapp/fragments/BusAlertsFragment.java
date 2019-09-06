@@ -134,7 +134,7 @@ public class BusAlertsFragment extends Fragment {
         alertRV = view.findViewById(R.id.alertRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         alertRV.setLayoutManager(layoutManager);
-        alertRV.setHasFixedSize(true);
+
         shimmer_view = view.findViewById(R.id.shimmer_view);
         shimmer_view.setVisibility(View.VISIBLE);
     }

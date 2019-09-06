@@ -117,7 +117,6 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
                 }
@@ -131,7 +130,6 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setDept(null);
                 }
 
@@ -147,7 +145,6 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
                 String email = snapshot.getString("author");

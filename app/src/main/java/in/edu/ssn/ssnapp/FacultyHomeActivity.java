@@ -186,7 +186,6 @@ public class FacultyHomeActivity extends BaseActivity {
         }
         catch (Exception e){
             Log.d("test_set",e.getMessage());
-            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
             Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
             Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
@@ -198,7 +197,8 @@ public class FacultyHomeActivity extends BaseActivity {
     void setUpDrawer() {
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        adapter.add(new Drawer("View Admin", R.drawable.ic_team));
+        if (!SharedPref.getString(getApplicationContext(), "access").equals("TI"))
+            adapter.add(new Drawer("View Admin", R.drawable.ic_team));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));

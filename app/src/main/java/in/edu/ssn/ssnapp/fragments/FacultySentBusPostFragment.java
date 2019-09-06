@@ -140,7 +140,7 @@ public class FacultySentBusPostFragment extends Fragment {
         feedsRV = view.findViewById(R.id.feedsRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
-        feedsRV.setHasFixedSize(true);
+
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
     }

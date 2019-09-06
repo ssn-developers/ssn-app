@@ -72,8 +72,6 @@ public class FacultySentPostFragment extends Fragment {
     void setupFireStore(){
         final String email = SharedPref.getString(getContext(),"email");
 
-        //TODO: Needs to manually create composite query before release for each author. [VERY IMPORTANT]
-
         Query query = FirebaseFirestore.getInstance().collection("post").whereEqualTo("author",email).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
@@ -114,7 +112,6 @@ public class FacultySentPostFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
                 }
@@ -128,7 +125,6 @@ public class FacultySentPostFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setDept(null);
                 }
 
@@ -144,7 +140,6 @@ public class FacultySentPostFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
                 post.setAuthor(SharedPref.getString(getContext(),"faculty_name",email));
@@ -262,7 +257,7 @@ public class FacultySentPostFragment extends Fragment {
         feedsRV = view.findViewById(R.id.feedsRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
-        feedsRV.setHasFixedSize(true);
+
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
     }

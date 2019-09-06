@@ -75,7 +75,8 @@ public class StudentFeedFragment extends Fragment {
         String dept = SharedPref.getString(getContext(),"dept");
         String year = "year." + SharedPref.getInt(getContext(),"year");
 
-        //TODO: Needs to manually create composite query before release for each year & dept. [VERY IMPORTANT]
+        // manually create composite query for each year & dept
+        // [cse | it | ece | eee | mech | bme | chemical | civil | admin]
 
         Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
@@ -130,7 +131,6 @@ public class StudentFeedFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setDept(null);
                 }
 
@@ -146,7 +146,6 @@ public class StudentFeedFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
                 String email = snapshot.getString("author");

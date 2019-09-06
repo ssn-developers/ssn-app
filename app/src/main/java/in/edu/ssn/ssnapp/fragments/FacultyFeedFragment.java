@@ -37,6 +37,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
@@ -72,8 +73,6 @@ public class FacultyFeedFragment extends Fragment {
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
 
-        //TODO: Needs to manually create composite query before release for each dept. [VERY IMPORTANT]
-
         Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
@@ -105,7 +104,6 @@ public class FacultyFeedFragment extends Fragment {
                         }
                         post.setFileName(fileName);
                         post.setFileUrl(fileUrl);
-                        Log.d("test_set", "size:" + fileName.size());
                     }
                     else {
                         post.setFileName(null);
@@ -114,7 +112,6 @@ public class FacultyFeedFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
                 }
@@ -128,23 +125,39 @@ public class FacultyFeedFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                     post.setDept(null);
                 }
 
                 try {
                     ArrayList<String> years = new ArrayList<>();
-                    Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
-                    for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
-                        if (entry.getValue().booleanValue())
-                            years.add((String) entry.getKey());
+                    Map<String, Boolean> year = (HashMap<String, Boolean>) snapshot.get("year");
+                    TreeMap<String, Boolean> sorted_year = new TreeMap<>(year);
+                    for (Map.Entry<String, Boolean> entry : sorted_year.entrySet()) {
+                        if (entry.getValue().booleanValue()) {
+
+                            //Change it yearly once using force_update
+                            switch (entry.getKey()){
+                                case "2016":
+                                    years.add("IV");
+                                    break;
+                                case "2017":
+                                    years.add("III");
+                                    break;
+                                case "2018":
+                                    years.add("II");
+                                    break;
+                                case "2019":
+                                    years.add("I");
+                                    break;
+                            }
+                        }
                     }
-                    Collections.sort(years);
+                    if(years.size() > 1)
+                        Collections.reverse(years);
                     post.setYear(years);
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
                 String id = snapshot.getString("author");
@@ -182,7 +195,6 @@ public class FacultyFeedFragment extends Fragment {
                 catch (Exception e){
                     e.printStackTrace();
                     holder.userImageIV.setImageResource(R.drawable.ic_user_white);
-                    Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
                 }
 
                 holder.tv_position.setText(model.getPosition());
@@ -290,7 +302,7 @@ public class FacultyFeedFragment extends Fragment {
         feedsRV = view.findViewById(R.id.feedsRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
-        feedsRV.setHasFixedSize(true);
+
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
     }

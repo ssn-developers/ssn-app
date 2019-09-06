@@ -90,7 +90,6 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         catch (Exception e){
             e.printStackTrace();
             userImageIV.setImageResource(R.drawable.ic_user_white);
-            Crashlytics.log("stackTrace: "+e.getStackTrace()+" \n Error: "+e.getMessage());
         }
 
         tv_position.setText(model.getPosition());
