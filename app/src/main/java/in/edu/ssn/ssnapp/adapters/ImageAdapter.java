@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
@@ -76,7 +77,7 @@ public class ImageAdapter extends PagerAdapter {
         if(getCount() == 0)
             imageView.setVisibility(View.GONE);
         else
-            Picasso.get().load(images.get(position)).into(imageView);
+            Glide.with(context).load(images.get(position)).into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

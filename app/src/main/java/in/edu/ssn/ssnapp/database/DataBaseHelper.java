@@ -22,7 +22,7 @@ import in.edu.ssn.ssnapp.utils.Constants;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    final static String TAG="DataBaseHelper";
+    final static String TAG="test_set";
     public static DataBaseHelper instance;
 
     public DataBaseHelper(Context context) {
@@ -88,71 +88,57 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
         ArrayList<Post> PostList=new ArrayList<>();
 
-        long rowCount =DatabaseUtils.queryNumEntries(db,SavedPost.SavedPostEntry.TABLE_NAME);
-        //Log.d(TAG,"no of rows "+rowCount);
         String query = "select * from " + SavedPost.SavedPostEntry.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        //Log.d(TAG,"column count: "+c.getColumnCount());
-        //Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
 
         int i=0;
-        if (c.moveToFirst())
-        {
+        if (c.moveToFirst()) {
             do {
                 String json=c.getString(1);
-                Post post= new Gson().fromJson(json, Post.class);
-                Log.d(TAG,i +" "+post.getAuthor_image_url());
+                Post post = new Gson().fromJson(json, Post.class);
+                Log.d(TAG,i +" "+post.getId());
                 PostList.add(post);
                 i++;
             }while (c.moveToNext());
         }
-
         return PostList;
     }
 
-
-
     // Add notification
     public void addNotification(Notification notification){
-
         SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
 
         ContentValues cv=new ContentValues();
         cv.put(Notification.NotificationEntry.COLUMN_NAME_ROW_ID,System.currentTimeMillis());
         cv.put(Notification.NotificationEntry.COLUMN_NAME_POST_TYPE,notification.postType);
 
-        if(notification.postType.equals("1"))
-        {
+        if(notification.postType.equals("1")) {
             String json=new Gson().toJson(notification.post);
             cv.put(Notification.NotificationEntry.COLUMN_NAME_POST,json);
-        }else{
+        }
+        else{
             String json=new Gson().toJson(notification.post);
             cv.put(Notification.NotificationEntry.COLUMN_NAME_POST,json);
             cv.put(Notification.NotificationEntry.COLUMN_NAME_POST_URL,notification.postUrl);
         }
 
-        long id=db.insert(Notification.NotificationEntry.TABLE_NAME,null,cv);
-        //Log.d(TAG,"insertion id "+id);
+        db.insert(Notification.NotificationEntry.TABLE_NAME,null,cv);
     }
 
     public ArrayList<Pair<Post,String>> getNotificationList() {
         ArrayList<Pair<Post,String>> postList=new ArrayList<Pair<Post,String>>();
         SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
-        long rowCount =DatabaseUtils.queryNumEntries(db,SavedPost.SavedPostEntry.TABLE_NAME);
-        //Log.d(TAG,"no of rows "+rowCount);
+
         String query = "select * from " + Notification.NotificationEntry.TABLE_NAME;
         Cursor c = db.rawQuery(query, null);
-        Log.d(TAG,"column count: "+c.getColumnCount());
-        Log.d(TAG,c.getColumnName(0)+" "+c.getColumnName(1)+" "+c.getColumnName(2));
 
         int i=0;
-        if (c.moveToFirst())
-        {
+        if (c.moveToFirst()) {
             do {
                 String json=c.getString(2);
                 Post post= new Gson().fromJson(json, Post.class);
                 postList.add(new Pair<Post, String>(post,c.getString(1)));
-                Log.d(TAG,i  + " " + post.getAuthor_image_url());
+                Log.d(TAG,i  + " " + post.getId());
                 i++;
             }while (c.moveToNext());
         }
@@ -164,9 +150,4 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.delete(Notification.NotificationEntry.TABLE_NAME,null,null);
         db.delete(SavedPost.SavedPostEntry.TABLE_NAME,null,null);
     }
-
-
-
-
-
 }

@@ -4,6 +4,7 @@ package in.edu.ssn.ssnapp.onboarding;
 import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
 
 import in.edu.ssn.ssnapp.R;
@@ -48,10 +50,10 @@ public class ThreeFragment extends Fragment {
         landIV = view.findViewById(R.id.landIV);
         tempIV = view.findViewById(R.id.tempIV);
 
-        Picasso.get().load("file:///android_asset/onboarding/hand1.png").into(hand1IV);
-        Picasso.get().load("file:///android_asset/onboarding/hand2.png").into(hand2IV);
-        Picasso.get().load("file:///android_asset/onboarding/hand3.png").into(hand3IV);
-        Picasso.get().load("file:///android_asset/onboarding/land2.png").into(landIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/hand1.png")).into(hand1IV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/hand2.png")).into(hand2IV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/hand3.png")).into(hand3IV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/land2.png")).into(landIV);
     }
 
     public static void startAnimation(){

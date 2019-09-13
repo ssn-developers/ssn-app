@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.core.content.res.ResourcesCompat;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.Constants;
+import spencerstudios.com.bungeelib.Bungee;
 
 import static in.edu.ssn.ssnapp.utils.FCMHelper.getTime;
 
@@ -53,7 +56,7 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
 
         TextView tv_title=convertView.findViewById(R.id.tv_title);
         TextView tv_time=convertView.findViewById(R.id.tv_time);
-        CircleImageView iv_dp=convertView.findViewById(R.id.iv_dp);
+        ImageView iv_dp=convertView.findViewById(R.id.iv_dp);
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,6 +66,7 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
                     Intent intent = new Intent(getContext(), PdfViewerActivity.class);
                     intent.putExtra(Constants.PDF_URL,drawer.getFileUrl().get(0));
                     getContext().startActivity(intent);
+                    Bungee.fade(getContext());
                 }
                 else{
                     Intent intent = new Intent(getContext(), PostDetailsActivity.class);
@@ -70,27 +74,27 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
                     intent.putExtra("time",getTime(drawer.getTime()));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(intent);
+                    Bungee.slideUp(getContext());
                 }
             }
         });
 
         tv_title.setText(drawer.getTitle());
         try {
-            Picasso.get().load(drawer.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(iv_dp);
-            iv_dp.setBorderColor(Color.TRANSPARENT);
-            iv_dp.setCircleBackgroundColor(Color.TRANSPARENT);
+            final TextDrawable.IBuilder builder = TextDrawable.builder()
+                    .beginConfig()
+                    .toUpperCase()
+                    .endConfig()
+                    .round();
+            ColorGenerator generator = ColorGenerator.MATERIAL;
+            int color = generator.getColor(drawer.getAuthor_image_url());
+            TextDrawable ic1 = builder.build(String.valueOf(drawer.getAuthor().charAt(0)), color);
+            iv_dp.setImageDrawable(ic1);
         }
         catch (Exception e){
             e.printStackTrace();
             if(drawer.getId().equalsIgnoreCase("2")) {
-                iv_dp.setBorderColor(Color.parseColor("#D8D7D7"));
-                iv_dp.setCircleBackgroundColor(Color.TRANSPARENT);
                 iv_dp.setImageResource(R.drawable.ic_bus);
-            }
-            else{
-                iv_dp.setBorderColor(Color.TRANSPARENT);
-                iv_dp.setCircleBackgroundColor(Color.parseColor("#D8D7D7"));
-                iv_dp.setImageResource(R.drawable.ic_user_white);
             }
         }
 

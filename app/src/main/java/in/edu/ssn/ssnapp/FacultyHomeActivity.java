@@ -17,6 +17,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -86,7 +87,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
-                    case "View Admin":
+                    case "View Heads":
                         startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
@@ -122,7 +123,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Privacy Policy":
                         if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af");
+                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/59fe74661969551554a7a886f0767308");
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(FacultyHomeActivity.this);
                         }
@@ -173,21 +174,19 @@ public class FacultyHomeActivity extends BaseActivity {
         tv_email.setText(SharedPref.getString(getApplicationContext(), "email"));
 
         String access = SharedPref.getString(getApplicationContext(), "access");
-        if (access.equals("AD"))
-            tv_access.setText("ADMIN");
-        else if (access.equals("SA"))
+        if (access.equals("SA"))
             tv_access.setText("SUPER ADMIN");
         else
             tv_access.setVisibility(View.GONE);
 
         try{
-            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
         catch (Exception e){
-            Log.d("test_set",e.getMessage());
-            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            e.printStackTrace();
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
 
         setUpDrawer();
@@ -197,14 +196,13 @@ public class FacultyHomeActivity extends BaseActivity {
     void setUpDrawer() {
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        if (!SharedPref.getString(getApplicationContext(), "access").equals("TI"))
-            adapter.add(new Drawer("View Admin", R.drawable.ic_team));
+        adapter.add(new Drawer("View Heads", R.drawable.ic_team));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
+        adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
-        adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
-        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
+        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }

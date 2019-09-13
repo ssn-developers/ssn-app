@@ -1,29 +1,41 @@
 package in.edu.ssn.ssnapp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,18 +45,40 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.sahurjt.objectcsv.CsvDelimiter;
+import com.sahurjt.objectcsv.CsvHolder;
+import com.sahurjt.objectcsv.ObjectCsv;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.channels.FileChannel;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
 
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.database.Notification;
+import in.edu.ssn.ssnapp.models.Faculty;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
@@ -77,7 +111,6 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
-        //setUpCrashReport();
 
         //forceUpdate();
 
@@ -100,13 +133,12 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        new updateFaculty().execute();
-    }
-
-    void setUpCrashReport() {
-        if (!BuildConfig.DEBUG) {
-            //https://stackoverflow.com/a/49836972/10664312
-            Fabric.with(this, new Crashlytics());
+        Calendar calendar = Calendar.getInstance();
+        Long current = calendar.getTimeInMillis();
+        Long prev = SharedPref.getLong(getApplicationContext(),"dont_delete","db_update");
+        if(current - prev > 604800000) {
+            new updateFaculty().execute();
+            SharedPref.putLong(getApplicationContext(), "dont_delete", "db_update", current);
         }
     }
 
@@ -164,7 +196,6 @@ public class SplashActivity extends AppCompatActivity {
 
         @Override
         protected JSONObject doInBackground(String... params) {
-
             try {
                 latestVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName() + "&hl=en")
                         .timeout(30000)
@@ -220,36 +251,59 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("StaticFieldLeak")
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            db.collection("faculty").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful() && task.getResult()!=null) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String dp_url = (String) document.get("dp_url");
-                            String access = (String) document.get("access");
-                            String dept = (String) document.get("dept");
-                            String email = (String) document.get("email");
-                            String id = (String) document.get("id");
-                            String name = (String) document.get("name");
-                            String position = (String) document.get("position");
+            if(!CommonUtils.hasPermissions(SplashActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || !CommonUtils.hasPermissions(SplashActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
+                ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            }
+            else {
+                Glide.with(SplashActivity.this).asFile().load("https://ssn-app-web.web.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
+                    @Override
+                    public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
+                        File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"SSN-App");
+                        if(!dir.exists())
+                            dir.mkdir();
 
-                            SharedPref.putString(getApplicationContext(), "faculty_access", email, access);
-                            SharedPref.putString(getApplicationContext(), "faculty_dept", email, dept);
-                            SharedPref.putString(getApplicationContext(), "faculty_dp_url", email, dp_url);
-                            SharedPref.putString(getApplicationContext(), "faculty_id", email, id);
-                            SharedPref.putString(getApplicationContext(), "faculty_name", email, name);
-                            SharedPref.putString(getApplicationContext(), "faculty_position", email, position);
+                        File file = new File(dir,"data_faculty.csv");
+                        try {
+                            FileInputStream inStream = new FileInputStream(resource);
+                            FileOutputStream outStream = new FileOutputStream(file);
+                            FileChannel inChannel = inStream.getChannel();
+                            FileChannel outChannel = outStream.getChannel();
+                            inChannel.transferTo(0, inChannel.size(), outChannel);
+                            inStream.close();
+                            outStream.close();
+
+                            if(file.exists()) {
+                                try {
+                                    CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
+                                    List<Faculty> models = holder.getCsvRecords();
+
+                                    for (Faculty m : models) {
+                                        String email = m.getEmail();
+                                        SharedPref.putString(getApplicationContext(), "faculty_access", email, m.getAccess());
+                                        SharedPref.putString(getApplicationContext(), "faculty_dept", email, m.getDept());
+                                        SharedPref.putString(getApplicationContext(), "faculty_name", email, m.getName());
+                                        SharedPref.putString(getApplicationContext(), "faculty_position", email, m.getPosition());
+                                    }
+
+                                    file.delete();
+
+                                    if(!isUpdate)
+                                        handleIntent();
+                                }
+                                catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
-                    if(!isUpdate)
-                        handleIntent();
-                }
-            });
-
+                });
+            }
             return null;
         }
     }
@@ -348,6 +402,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
                 Post post = new Post();
+                post.setId(postId);
                 post.setTitle(snapshot.getString("title"));
                 post.setDescription(snapshot.getString("description"));
                 post.setTime(snapshot.getTimestamp("time").toDate());
@@ -410,19 +465,19 @@ public class SplashActivity extends AppCompatActivity {
 
                 String email = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty_dp_url",email));
+                post.setAuthor_image_url(email);
 
                 String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
                 else
-                    post.setAuthor("SSN Institutions");
+                    post.setAuthor(email.split("@")[0]);
 
                 String position = SharedPref.getString(getApplicationContext(),"faculty_position",email);
                 if(position!=null && !position.equals(""))
                     post.setPosition(position);
                 else
-                    post.setPosition("Admin");
+                    post.setPosition("Faculty");
 
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
                 dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));
@@ -442,7 +497,6 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("NewApi")
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);

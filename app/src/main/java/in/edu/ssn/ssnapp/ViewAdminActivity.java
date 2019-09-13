@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -72,7 +73,7 @@ public class ViewAdminActivity extends AppCompatActivity {
                     tv_email1.setText(email);
                     try {
                         if (url != null)
-                            Picasso.get().load(url).placeholder(R.drawable.ic_user_white).into(userImageIV1);
+                            Glide.with(this).load(url).placeholder(R.drawable.ic_user_white).into(userImageIV1);
                         else
                             userImageIV1.setImageResource(R.drawable.ic_user_white);
                     } catch (Exception e) {
@@ -86,7 +87,7 @@ public class ViewAdminActivity extends AppCompatActivity {
                     tv_email2.setText(email);
                     try {
                         if (url != null)
-                            Picasso.get().load(url).placeholder(R.drawable.ic_user_white).into(userImageIV2);
+                            Glide.with(this).load(url).placeholder(R.drawable.ic_user_white).into(userImageIV2);
                         else
                             userImageIV2.setImageResource(R.drawable.ic_user_white);
                     } catch (Exception e) {

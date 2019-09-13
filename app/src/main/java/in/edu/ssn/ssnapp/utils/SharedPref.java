@@ -43,6 +43,16 @@ public class SharedPref {
 
     /*********************************************************/
 
+    public static long getLong(Context context, String key){
+        return getSharePref(context).getLong(key,0);
+    }
+
+    public static long getLong(Context context, String name, String key){
+        return getSharePref(context,name).getLong(key,0);
+    }
+
+    /*********************************************************/
+
     public static Boolean getBoolean(Context context, String key){
         return getSharePref(context).getBoolean(key,false);
     }
@@ -69,6 +79,16 @@ public class SharedPref {
 
     public static void putInt(Context context, String name, String key,int value){
         getSharePref(context,name).edit().putInt(key,value).apply();
+    }
+
+    /*********************************************************/
+
+    public static void putLong(Context context, String key,long value){
+        getSharePref(context).edit().putLong(key,value).apply();
+    }
+
+    public static void putLong(Context context, String name, String key,long value){
+        getSharePref(context,name).edit().putLong(key,value).apply();
     }
 
     /*********************************************************/

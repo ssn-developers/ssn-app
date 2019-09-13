@@ -52,7 +52,6 @@
         <activity android:name=".PdfViewerActivity" />
         <activity android:name=".StudentHomeActivity" />
         <activity android:name=".PostDetailsActivity" />
-        <activity android:name=".BusRouteDetailsActivity" />
 
         <activity
             android:name=".BusRoutesActivity"

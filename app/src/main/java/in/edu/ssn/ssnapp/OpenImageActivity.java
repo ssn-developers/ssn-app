@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +39,7 @@ public class OpenImageActivity extends AppCompatActivity {
         final Uri downloadUri = Uri.parse(url);
         final File f= new File(downloadUri.getPath());
 
-        Picasso.get().load(url).into(iv_image);
+        Glide.with(this).load(url).into(iv_image);
 
         iv_download.setOnClickListener(new View.OnClickListener() {
             @Override

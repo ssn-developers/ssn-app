@@ -23,6 +23,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -69,7 +71,21 @@ public class PostDetailsActivity extends BaseActivity {
         tv_description.setText(post.getDescription().trim());
         tv_author.setText(post.getAuthor().trim());
         tv_position.setText(post.getPosition().trim());
-        Picasso.get().load(post.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(userImageIV);
+
+        try {
+            final TextDrawable.IBuilder builder = TextDrawable.builder()
+                    .beginConfig()
+                    .toUpperCase()
+                    .endConfig()
+                    .round();
+            ColorGenerator generator = ColorGenerator.MATERIAL;
+            int color = generator.getColor(post.getAuthor_image_url());
+            TextDrawable ic1 = builder.build(String.valueOf(post.getAuthor().charAt(0)), color);
+            userImageIV.setImageDrawable(ic1);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         if(post.getImageUrl()!=null && post.getImageUrl().size()!=0){
             imageViewPager.setVisibility(View.VISIBLE);
@@ -184,12 +200,10 @@ public class PostDetailsActivity extends BaseActivity {
         bookmarkIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                    if(checkSavedPost(post))
-                        unSavePost(post);
-                    else
-                        savePost(post);
-
+                if(checkSavedPost(post))
+                    unSavePost(post);
+                else
+                    savePost(post);
             }
         });
     }
@@ -285,18 +299,16 @@ public class PostDetailsActivity extends BaseActivity {
 
     public Boolean savePost(Post post){
         try{
-
             DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
             dataBaseHelper.addPost(post);
-
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
 
         }catch (Exception e){
-            Log.d(TAG,e.getMessage());
+            e.printStackTrace();
             return false;
         }
 
-        Toast toast = Toast.makeText(this, "Saved post", Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(this, "Post saved!", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER,0,0);
         toast.show();
         return true;
@@ -307,6 +319,10 @@ public class PostDetailsActivity extends BaseActivity {
         DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
         dataBaseHelper.deletePost(post.getId());
         bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
+
+        Toast toast = Toast.makeText(this, "Post unsaved!", Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER,0,0);
+        toast.show();
     }
 
     Boolean checkSavedPost(Post post){
