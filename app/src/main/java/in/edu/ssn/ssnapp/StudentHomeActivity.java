@@ -30,6 +30,7 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
+import in.edu.ssn.ssnapp.fragments.WorkshopFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -77,7 +78,7 @@ public class StudentHomeActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Drawer rs=(Drawer)parent.getItemAtPosition(position);
                 switch (rs.getTitle()){
-                    case "Feeds":
+                    case "News Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
@@ -208,7 +209,7 @@ public class StudentHomeActivity extends BaseActivity {
     }
 
     void setUpDrawer(){
-        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
+        adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("AlmaConnect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
@@ -225,9 +226,10 @@ public class StudentHomeActivity extends BaseActivity {
 
     void setupViewPager(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new StudentFeedFragment(), "Feed");
+        adapter.addFragment(new StudentFeedFragment(), "News Feed");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         adapter.addFragment(new ExamCellFragment(), "Exam cell");
+        adapter.addFragment(new WorkshopFragment(), "Workshop");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);

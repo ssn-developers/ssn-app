@@ -457,7 +457,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             tv.setBackgroundResource(R.drawable.bus_alert_detail_bg);
                         else {
                             tv.setBackgroundResource(R.drawable.bus_alert_detail_selected_bg);
-                            flag1 = tv.getTag().toString();
+                            flag1 = CommonUtils.getYear(tv.getTag().toString());
                         }
                     }
                     break;

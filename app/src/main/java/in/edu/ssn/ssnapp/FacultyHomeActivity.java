@@ -78,7 +78,7 @@ public class FacultyHomeActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Drawer rs = (Drawer) parent.getItemAtPosition(position);
                 switch (rs.getTitle()) {
-                    case "Feeds":
+                    case "News Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
@@ -192,7 +192,7 @@ public class FacultyHomeActivity extends BaseActivity {
     }
 
     void setUpDrawer() {
-        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
+        adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
         adapter.add(new Drawer("Helpline", R.drawable.ic_team));
@@ -207,7 +207,7 @@ public class FacultyHomeActivity extends BaseActivity {
 
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FacultyFeedFragment(), "Feed");
+        adapter.addFragment(new FacultyFeedFragment(), "News Feed");
         if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
             adapter.addFragment(new FacultySentBusPostFragment(), "Sent posts");
         else

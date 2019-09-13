@@ -122,6 +122,17 @@ public class CommonUtils {
         return null;
     }
 
+    public static String getYear(String val){
+        if(val.equals("4"))
+            return Constants.fourth;
+        else if(val.equals("3"))
+            return Constants.third;
+        else if(val.equals("2"))
+            return Constants.second;
+        else
+            return Constants.first;
+    }
+
     /************************************************************************/
 
     public static boolean hasPermissions(Context context, String... permissions) {
