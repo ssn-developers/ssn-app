@@ -32,7 +32,7 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.hendraanggrian.appcompat.widget.SocialView;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.Date;

@@ -7,17 +7,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusRoute implements Parcelable {
-    String routeName;
+public class BusRoute implements Parcelable, Comparable {
+    int id;
+    String name;
     List<String> stop;
     List<String> time;
 
-    public String getRouteName() {
-        return routeName;
+    public int getId() {
+        return id;
     }
 
-    public void setRouteName(String routeName) {
-        this.routeName = routeName;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<String> getStop() {
@@ -43,7 +52,8 @@ public class BusRoute implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.routeName);
+        dest.writeInt(this.id);
+        dest.writeString(this.name);
         dest.writeList(this.stop);
         dest.writeList(this.time);
     }
@@ -52,7 +62,8 @@ public class BusRoute implements Parcelable {
     }
 
     protected BusRoute(Parcel in) {
-        this.routeName = in.readString();
+        this.id = in.readInt();
+        this.name = in.readString();
         this.stop = new ArrayList<String>();
         this.time = new ArrayList<String>();
         in.readList(this.stop, String.class.getClassLoader());
@@ -70,4 +81,11 @@ public class BusRoute implements Parcelable {
             return new BusRoute[size];
         }
     };
+
+    @Override
+    public int compareTo(Object o) {
+        if(this.getId() > ((BusRoute)o).getId())
+            return 1;
+        return -1;
+    }
 }

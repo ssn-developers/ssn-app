@@ -26,7 +26,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.Date;

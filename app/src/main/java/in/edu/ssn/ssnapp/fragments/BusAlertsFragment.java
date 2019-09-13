@@ -1,7 +1,6 @@
 package in.edu.ssn.ssnapp.fragments;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -31,7 +30,6 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusPost;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
-import in.edu.ssn.ssnapp.utils.FontChanger;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class BusAlertsFragment extends Fragment {

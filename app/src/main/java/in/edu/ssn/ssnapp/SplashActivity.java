@@ -48,9 +48,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.sahurjt.objectcsv.CsvDelimiter;
 import com.sahurjt.objectcsv.CsvHolder;
 import com.sahurjt.objectcsv.ObjectCsv;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 
@@ -58,7 +58,9 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.InputStream;
+import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.channels.FileChannel;
@@ -67,6 +69,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;

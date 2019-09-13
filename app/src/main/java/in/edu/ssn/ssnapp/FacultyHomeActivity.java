@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,10 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
@@ -87,8 +85,8 @@ public class FacultyHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
-                    case "View Heads":
-                        startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
+                    case "Helpline":
+                        startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                     case "Notification Settings":
@@ -196,8 +194,8 @@ public class FacultyHomeActivity extends BaseActivity {
     void setUpDrawer() {
         adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        adapter.add(new Drawer("View Heads", R.drawable.ic_team));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
+        adapter.add(new Drawer("Helpline", R.drawable.ic_team));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));

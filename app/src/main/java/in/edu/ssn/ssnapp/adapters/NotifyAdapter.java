@@ -18,7 +18,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.Date;

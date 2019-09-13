@@ -1,0 +1,1222 @@
+[
+  {
+    "id": 1,
+    "name": "1",
+    "stop": [
+      "Ambattur Estate",
+      "Wavin",
+      "College"
+    ],
+    "time": [
+      "06:10",
+      "06:13",
+      "07:40"
+    ]
+  },
+  {
+    "id": 11,
+    "name": "10",
+    "stop": [
+      "CPWD Quarters",
+      "Goldmine Hotel",
+      "CMBT Park",
+      "MMDA",
+      "Tirunagar (Periyar Pathai)",
+      "Kasi Theatre(Hondai Showroom)",
+      "Ekattuthangal(AlagappaUniversity)",
+      "College"
+    ],
+    "time": [
+      "06:15",
+      "06:17",
+      "06:18",
+      "06:24",
+      "06:26",
+      "06:32",
+      "06:35",
+      "07:40"
+    ]
+  },
+  {
+    "id": 12,
+    "name": "11",
+    "stop": [
+      "Perambur Market",
+      "Perambur RS",
+      "Perambur BS",
+      "Pattalam BS",
+      "Bhuvaneswari Theatre",
+      "Doveton",
+      "Gangadeeswaran Koil",
+      "Dhasprakash",
+      "Egmore (Stadium) ",
+      "DMS",
+      "Anna Arivalayam",
+      "College"
+    ],
+    "time": [
+      "06:00",
+      "06:06",
+      "06:07",
+      "06:11",
+      "06:13",
+      "06:16",
+      "06:18",
+      "06:22",
+      "06:25",
+      "06:30",
+      "06:31",
+      "07:40"
+    ]
+  },
+  {
+    "id": 13,
+    "name": "12",
+    "stop": [
+      "Villivakam (Shanthi Bhavan)",
+      "ICF",
+      "Iyanavaram Rly Qtrs",
+      "Joint Office",
+      "Sayani",
+      "Secretariat Colony",
+      "Kellys",
+      "Kilpauk Garden",
+      "College"
+    ],
+    "time": [
+      "06:05",
+      "06:10",
+      "06:12",
+      "06:15",
+      "06:18",
+      "06:21",
+      "06:22",
+      "06:25",
+      "07:40"
+    ]
+  },
+  {
+    "id": 14,
+    "name": "13",
+    "stop": [
+      "Nathamuni (Sidco Nagar BS)",
+      "K4 PS",
+      "Boojanvilla Jn",
+      "Chintamani",
+      "Kallarai",
+      "New Avadi Road PB",
+      "Pachiapas Signal",
+      "Chetput Signal-Gemini",
+      "Anna Arivalayam",
+      "SIET College",
+      "College"
+    ],
+    "time": [
+      "06:10",
+      "06:11",
+      "06:15",
+      "06:20",
+      "06:21",
+      "06:23",
+      "06:28",
+      "06:31",
+      "06:38",
+      "06:40",
+      "07:40"
+    ]
+  },
+  {
+    "id": 15,
+    "name": "14",
+    "stop": [
+      "Arumbakkam BS",
+      "Panjaliamman Koil",
+      "Anna Arch",
+      "Nelson Manickam Road",
+      "Metha Nagar",
+      "Choolaimedu",
+      "Pushpa Nagar",
+      "Valluvarkottam",
+      "T.Nagar TP Road",
+      "Vanimahal",
+      "Dr.Nair Road",
+      "T.Nagar PH",
+      "Kasi Arcade",
+      "Cenetaph Road",
+      "College"
+    ],
+    "time": [
+      "06:15",
+      "06:16",
+      "06:20",
+      "06:22",
+      "06:25",
+      "06:26",
+      "06:28",
+      "06:30",
+      "06:35",
+      "06:36",
+      "06:37",
+      "06:38",
+      "06:39",
+      "06:42",
+      "07:40"
+    ]
+  },
+  {
+    "id": 16,
+    "name": "15",
+    "stop": [
+      "Chinmaya Nagar (Sainagar IOB)",
+      "Natesan Nagar",
+      "Elango Nagar",
+      "Avichi School",
+      "Ram Theatre",
+      "Liberty",
+      "Kodambakkam Bridge",
+      "Venkatnarayana Road",
+      "College"
+    ],
+    "time": [
+      "06:15",
+      "06:16",
+      "06:25",
+      "06:28",
+      "06:35",
+      "06:38",
+      "06:39",
+      "06:41",
+      "07:40"
+    ]
+  },
+  {
+    "id": 17,
+    "name": "16",
+    "stop": [
+      "P.Thangal Subway (Amutha Medicals)",
+      "Chidambaram Store",
+      "Vanuvampet Church",
+      "Ulagaram",
+      "Badalavinayagar Temple",
+      "Madipakkam Mega Mart",
+      "Kovilambakkam",
+      "Vellakal",
+      "Medavakkam Koot Road",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:43",
+      "06:45",
+      "06:46",
+      "06:47",
+      "06:49",
+      "07:04",
+      "07:06",
+      "07:10",
+      "07:40"
+    ]
+  },
+  {
+    "id": 18,
+    "name": "17",
+    "stop": [
+      "Ram Theatre",
+      "Liberty",
+      "Power House",
+      "Periyar Road",
+      "North Usman Road",
+      "T.Nagar BS",
+      "CIT Nagar",
+      "Saidapet",
+      "Saidapet Court",
+      "Madhyakailash",
+      "College"
+    ],
+    "time": [
+      "06:25",
+      "06:30",
+      "06:38",
+      "06:40",
+      "06:42",
+      "06:44",
+      "06:45",
+      "06:50",
+      "06:52",
+      "06:57",
+      "07:40"
+    ]
+  },
+  {
+    "id": 19,
+    "name": "18",
+    "stop": [
+      "Korattur (G3 Police Station)",
+      "Post Office",
+      "Anna Nagar W.Depot",
+      "Blue Star (Saravana Bhavan)",
+      "Nerkundram (vengayamandi)",
+      "College"
+    ],
+    "time": [
+      "06:10",
+      "06:11",
+      "06:14",
+      "06:18",
+      "06:20",
+      "07:40"
+    ]
+  },
+  {
+    "id": 20,
+    "name": "19",
+    "stop": [
+      "Valasaravakkam MO",
+      "Kesavarthini",
+      "Alwarthirunagar",
+      "Virugambakkam",
+      "KK Nagar Pondy GH",
+      "Amman Koil",
+      "KK Nagar Rountana",
+      "Ashok Pillar",
+      "College"
+    ],
+    "time": [
+      "06:15",
+      "06:17",
+      "06:19",
+      "06:22",
+      "06:24",
+      "06:27",
+      "06:28",
+      "06:29",
+      "07:40"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "2",
+    "stop": [
+      "Chengalpettu Old BS",
+      "Chengalpettu New BS",
+      "Ratinakanaru",
+      "Thirukazhukundram",
+      "Thiruporur",
+      "College"
+    ],
+    "time": [
+      "06:20",
+      "06:21",
+      "06:23",
+      "06:40",
+      "07:30",
+      "07:40"
+    ]
+  },
+  {
+    "id": 21,
+    "name": "20",
+    "stop": [
+      "Chindadripet (Market-Church)",
+      "Egmore",
+      "Pudupet",
+      "Royapettah Clock Tower",
+      "Royapettah Hospital",
+      "Police Station",
+      "Ajantha",
+      "Valluvar Statue",
+      "LUZ Corner",
+      "Mylapore Tank",
+      "Tiruvanmiyur RTO",
+      "College"
+    ],
+    "time": [
+      "06:30",
+      "06:32",
+      "06:35",
+      "06:39",
+      "06:41",
+      "06:42",
+      "06:44",
+      "06:47",
+      "06:48",
+      "06:49",
+      "06:50",
+      "07:40"
+    ]
+  },
+  {
+    "id": 22,
+    "name": "21",
+    "stop": [
+      "Avichi School",
+      "Sooriya Hospital",
+      "Vadapalani Depot",
+      "Vadapalani Signal",
+      "Ashok Nagar Canara Bank(Lakshman Sruthi)",
+      "Ashok Nagar",
+      "Srinivasa Theatre",
+      "Aranganathan Subway",
+      "CIT Nagar",
+      "Saidapet Court",
+      "Anna University",
+      "MadhyaKailash",
+      "College"
+    ],
+    "time": [
+      "06:20",
+      "06:23",
+      "06:27",
+      "06:30",
+      "06:31",
+      "06:37",
+      "06:41",
+      "06:43",
+      "06:47",
+      "06:48",
+      "06:49",
+      "06:50",
+      "07:40"
+    ]
+  },
+  {
+    "id": 23,
+    "name": "22",
+    "stop": [
+      "PSBB School",
+      "Double Tank",
+      "KK Nagar Depot",
+      "ESI Hospital",
+      "Ashok Pillar",
+      "Govindan Road",
+      "Mettupalayam",
+      "Srinivasa Theatre",
+      "Aranganathan Subway",
+      "CIT Nagar",
+      "Saidapet Court",
+      "MadhyaKailash",
+      "College"
+    ],
+    "time": [
+      "06:20",
+      "06:23",
+      "06:25",
+      "06:27",
+      "06:28",
+      "06:34",
+      "06:35",
+      "06:36",
+      "06:37",
+      "06:38",
+      "06:41",
+      "06:45",
+      "07:40"
+    ]
+  },
+  {
+    "id": 24,
+    "name": "23",
+    "stop": [
+      "Jeyaraj Theatre",
+      "Govt Boys School",
+      "Hotel Sangamam",
+      "Postal Colony",
+      "Ayothya Mandapam (WM)",
+      "Panigrah Kalyanamandapam",
+      "Brindavan Street",
+      "Duraisamy Road",
+      "Venkatanarayana Road",
+      "TTD",
+      "College"
+    ],
+    "time": [
+      "06:25",
+      "06:27",
+      "06:33",
+      "06:35",
+      "06:38",
+      "06:40",
+      "06:41",
+      "06:43",
+      "06:45",
+      "06:46",
+      "07:40"
+    ]
+  },
+  {
+    "id": 25,
+    "name": "24",
+    "stop": [
+      "Samiyar Madam (PB)",
+      "Liberty Meenakshi College",
+      "Periyar Road (BBC)",
+      "Bharathi Nagar (NUR)",
+      "T.Nagar BS",
+      "CIT Nagar",
+      "Saidapet",
+      "Kalaignar Arch",
+      "Saidapet Court",
+      "Indira Nagar Rly St",
+      "College"
+    ],
+    "time": [
+      "06:25",
+      "06:30",
+      "06:40",
+      "06:41",
+      "06:43",
+      "06:44",
+      "06:48",
+      "06:49",
+      "06:50",
+      "06:56",
+      "07:40"
+    ]
+  },
+  {
+    "id": 26,
+    "name": "25",
+    "stop": [
+      "Chepauk Stadium (Bellsroad BS)",
+      "Pycrofts Road",
+      "Rathna Cafe",
+      "Triplicane UBI",
+      "ICE House NKT",
+      "ICE House",
+      "Kalyani Hospital",
+      "Sanskrit College",
+      "Mylapore Tank",
+      "Sathya Studio",
+      "Adayar Depot",
+      "Thiruvanmiyur PO",
+      "College"
+    ],
+    "time": [
+      "06:25",
+      "06:27",
+      "06:29",
+      "06:30",
+      "06:35",
+      "06:36",
+      "06:38",
+      "06:40",
+      "06:43",
+      "06:47",
+      "06:50",
+      "06:55",
+      "07:40"
+    ]
+  },
+  {
+    "id": 27,
+    "name": "26",
+    "stop": [
+      "Rangarajapuram (V.Bank)",
+      "Five Lights",
+      "Brindavan Street",
+      "Duraisamy Road",
+      "Venkatanarayana Road",
+      "TTD",
+      "Nandanam",
+      "Mc Donalds (velachery) ",
+      "College"
+    ],
+    "time": [
+      "06:20",
+      "06:22",
+      "06:23",
+      "06:25",
+      "06:28",
+      "06:30",
+      "06:35",
+      "06:48",
+      "07:40"
+    ]
+  },
+  {
+    "id": 28,
+    "name": "27",
+    "stop": [
+      "BSS Hospital",
+      "MRTS BS",
+      "Sangeetha",
+      "MGR Janaki College",
+      "Adyar Depot",
+      "LB Road",
+      "Thiruvanmiyur PO",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:41",
+      "06:45",
+      "06:47",
+      "06:48",
+      "06:50",
+      "06:55",
+      "07:40"
+    ]
+  },
+  {
+    "id": 29,
+    "name": "28",
+    "stop": [
+      "Kalpakkam",
+      "Baba Temple",
+      "Fountain Shop",
+      "Anupuram",
+      "Anupuram End",
+      "Pooncheri",
+      "Thiruporur",
+      "Kalavakkam",
+      "College"
+    ],
+    "time": [
+      "06:30",
+      "06:35",
+      "06:36",
+      "07:00",
+      "07:05",
+      "07:10",
+      "07:30",
+      "07:35",
+      "07:40"
+    ]
+  },
+  {
+    "id": 30,
+    "name": "29",
+    "stop": [
+      "Anagaputhur BS",
+      "Amman Koil",
+      "Pammal",
+      "Krishna Nagar",
+      "Puthu Koil",
+      "Pallavaram",
+      "Ponds ESI",
+      "Sanitorium",
+      "Perungalathur",
+      "College"
+    ],
+    "time": [
+      "06:25",
+      "06:29",
+      "06:30",
+      "06:35",
+      "06:36",
+      "06:40",
+      "06:42",
+      "06:43",
+      "06:50",
+      "07:40"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "3",
+    "stop": [
+      "Peravallur BS",
+      "Venus (Gandhi Statue)",
+      "Perambur Rly St",
+      "Jamalia",
+      "Ottery",
+      "College"
+    ],
+    "time": [
+      "06:05",
+      "06:07",
+      "06:13",
+      "06:17",
+      "06:25",
+      "07:40"
+    ]
+  },
+  {
+    "id": 31,
+    "name": "30",
+    "stop": [
+      "Church Park Convent",
+      "Stella Maris",
+      "Music Academy",
+      "Alwarpet Narathagana Sabha",
+      "CP Ramasamy Road",
+      "Chamiers Road",
+      "Park Sheraton",
+      "Madhyakailash",
+      "College"
+    ],
+    "time": [
+      "06:30",
+      "06:31",
+      "06:35",
+      "06:36",
+      "06:37",
+      "06:38",
+      "06:40",
+      "06:50",
+      "07:40"
+    ]
+  },
+  {
+    "id": 32,
+    "name": "30A",
+    "stop": [
+      "EGA",
+      "Chetput Signal",
+      "Shastri Bhavan (College Road)",
+      "Sterling Road Jn",
+      "Gemini",
+      "Anna Arivalayam",
+      "SIET College",
+      "Kotturpuram",
+      "IIT Madras",
+      "RTO Office",
+      "College"
+    ],
+    "time": [
+      "06:30",
+      "06:31",
+      "06:34",
+      "06:36",
+      "06:37",
+      "06:38",
+      "06:40",
+      "06:41",
+      "06:42",
+      "06:50",
+      "07:40"
+    ]
+  },
+  {
+    "id": 33,
+    "name": "31",
+    "stop": [
+      "ID Park",
+      "Saravana Square",
+      "Sri Krishna Sweets",
+      "Badalavinayagar Temple",
+      "UTI",
+      "Keelkattalai BS",
+      "S.Kolathur",
+      "College"
+    ],
+    "time": [
+      "06:35",
+      "06:40",
+      "06:43",
+      "06:45",
+      "06:47",
+      "06:49",
+      "06:53",
+      "07:40"
+    ]
+  },
+  {
+    "id": 34,
+    "name": "32",
+    "stop": [
+      "Hastinapuram BS",
+      "Amman Koil",
+      "Kumara Kundram",
+      "Nehrunagar BS",
+      "MIT",
+      "Sanitorium",
+      "Vandalur Rly.Gate",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:42",
+      "06:44",
+      "06:45",
+      "06:50",
+      "06:55",
+      "06:52",
+      "07:40"
+    ]
+  },
+  {
+    "id": 35,
+    "name": "33",
+    "stop": [
+      "St.Thomas Mount",
+      "Surendar Nagar",
+      "Oil Mill",
+      "Rajendra Stores",
+      "UTI Bank",
+      "Ponniamman Koil",
+      "Baliaya Garden",
+      "Sadasiva Nagar",
+      "Ram Nagar",
+      "Srinivasa Nagar",
+      "Okkiam",
+      "College"
+    ],
+    "time": [
+      "06:35",
+      "06:38",
+      "06:40",
+      "06:41",
+      "06:42",
+      "06:44",
+      "06:46",
+      "06:47",
+      "06:48",
+      "06:49",
+      "06:52",
+      "07:40"
+    ]
+  },
+  {
+    "id": 36,
+    "name": "34",
+    "stop": [
+      "Adambakkam P Koil",
+      "Vandikaran St",
+      "Kakkan Bridge",
+      "Balaji Dental",
+      "Narayanapuram Pallikaranai",
+      "College"
+    ],
+    "time": [
+      "06:35",
+      "06:40",
+      "06:43",
+      "06:55",
+      "06:56",
+      "07:40"
+    ]
+  },
+  {
+    "id": 37,
+    "name": "35",
+    "stop": [
+      "Avin (Opp Malar H)",
+      "Avvai Home",
+      "Rajaji Bhavan",
+      "Besant Nagar Depot",
+      "Reserve Bank Qtrs",
+      "Vannandurai",
+      "Jayanthi Theatre-Thiruvanmiyur",
+      "Thiruvanmiyur TMB Bank",
+      "Vettuvankani (Church)",
+      "Sholinganallur Jn -ECR",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:41",
+      "06:42",
+      "06:45",
+      "06:46",
+      "06:47",
+      "06:50",
+      "07:04",
+      "07:10",
+      "07:14",
+      "07:40"
+    ]
+  },
+  {
+    "id": 38,
+    "name": "36",
+    "stop": [
+      "Chromepet",
+      "Henkala Hotel",
+      "Hindumission Hospital",
+      "Erimbuliyur",
+      "Vandalur Rly Gate",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:45",
+      "06:46",
+      "06:47",
+      "06:50",
+      "07:40"
+    ]
+  },
+  {
+    "id": 39,
+    "name": "37",
+    "stop": [
+      "Ambikka Appalam",
+      "Indira Nagar PK",
+      "Indira Nagar CPWD",
+      "Jayanthi Theatre",
+      "Srinivasapuram(BATA-Showroom)",
+      "Palavakkam (Antony Church)",
+      "Neelankarai (Buhari Hotel)",
+      "Echampakkam",
+      "Uthandi (Toll Gate)",
+      "Kannathur",
+      "College"
+    ],
+    "time": [
+      "06:45",
+      "06:46",
+      "06:47",
+      "06:48",
+      "06:52",
+      "06:56",
+      "06:57",
+      "07:00",
+      "07:12",
+      "07:14",
+      "07:40"
+    ]
+  },
+  {
+    "id": 40,
+    "name": "38",
+    "stop": [
+      "Jayanthi Theatre",
+      "SRP Tools",
+      "Kandanchavadi",
+      "Perungudi Tollgate",
+      "Jain College",
+      "Mettukuppam",
+      "PTC Qtrs",
+      "Okkiampettai",
+      "Karapakkam Tank",
+      "Dollar Biscut",
+      "Sholinganallur BS",
+      "Ponniamman Koil",
+      "Navallur Cognizant",
+      "Sipcot",
+      "Padur",
+      "Hindustan College",
+      "Chettinad",
+      "Kelambakkam",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:45",
+      "06:50",
+      "07:53",
+      "07:00",
+      "07:02",
+      "07:04",
+      "07:06",
+      "07:09",
+      "07:11",
+      "07:12",
+      "07:14",
+      "07:23",
+      "07:25",
+      "07:28",
+      "07:29",
+      "07:30",
+      "07:32",
+      "07:11"
+    ]
+  },
+  {
+    "id": 41,
+    "name": "39",
+    "stop": [
+      "Guindy RS",
+      "Gurunanak College",
+      "Dandeeswaran",
+      "Vijayanagar",
+      "Tansi Nagar",
+      "Baby Nagar",
+      "Taramani Church",
+      "Kalyana Mandapam",
+      "Mettukuppam",
+      "Navalur (Cognizant)",
+      "Ekkatur",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:42",
+      "06:47",
+      "06:50",
+      "06:53",
+      "06:54",
+      "06:58",
+      "07:00",
+      "07:05",
+      "07:25",
+      "07:26",
+      "07:40"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "4",
+    "stop": [
+      "Porur (Kumar Sweets)",
+      "Shell PB",
+      "Mugalivakkam BS",
+      "Ramapuram BS",
+      "Kallarai BS",
+      "Butt Road",
+      "Kathipara BS",
+      "College"
+    ],
+    "time": [
+      "06:15",
+      "06:20",
+      "06:22",
+      "06:23",
+      "06:24",
+      "06:25",
+      "06:26",
+      "07:40"
+    ]
+  },
+  {
+    "id": 42,
+    "name": "40",
+    "stop": [
+      "Nesapakkam",
+      "Velachery 100' Road",
+      "Vijayanagar BS",
+      "Mc Donalds",
+      "Kaiveli Jain College",
+      "College"
+    ],
+    "time": [
+      "06:20",
+      "06:42",
+      "06:46",
+      "06:48",
+      "06:50",
+      "07:40"
+    ]
+  },
+  {
+    "id": 43,
+    "name": "41",
+    "stop": [
+      "East Tambaram (UCO Bank)",
+      "Aadhi Nagar BS",
+      "Selaiyur PS",
+      "Coromandel Flats",
+      "Camp Road",
+      "Mahalakshmi Nagar",
+      "Kamarajapuram",
+      "Gowrivakkam",
+      "Medavakkam Koot Road",
+      "Medavakkam (S.Nallur Road)",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:43",
+      "06:45",
+      "06:47",
+      "06:52",
+      "06:55",
+      "06:57",
+      "07:00",
+      "07:02",
+      "07:04",
+      "07:40"
+    ]
+  },
+  {
+    "id": 44,
+    "name": "42",
+    "stop": [
+      "Bharath Engg",
+      "Indira Nagar",
+      "Camp Road",
+      "Rajakilpakkam",
+      "Sembakkam",
+      "Santhosapuram",
+      "Puthukoil",
+      "Medavakkam",
+      "Perumbakkam",
+      "Global BS",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:41",
+      "06:43",
+      "06:47",
+      "06:51",
+      "06:56",
+      "06:57",
+      "07:00",
+      "07:02",
+      "07:03",
+      "07:40"
+    ]
+  },
+  {
+    "id": 45,
+    "name": "43",
+    "stop": [
+      "Ford BS",
+      "Maraimalai Nagar BS",
+      "Katangalathur",
+      "Potheri",
+      "Guduvanchery",
+      "EB",
+      "Urapakkam Teakadai",
+      "Urapakkam School",
+      "Vandalur Zoo",
+      "Kolapakkam",
+      "Tagore Engg College",
+      "Kandigai",
+      "Mambakkam",
+      "Pudupakkam",
+      "Kelambakkam",
+      "College"
+    ],
+    "time": [
+      "06:40",
+      "06:42",
+      "06:44",
+      "06:47",
+      "06:50",
+      "06:52",
+      "06:53",
+      "06:55",
+      "07:00",
+      "07:05",
+      "07:10",
+      "07:15",
+      "07:20",
+      "07:25",
+      "07:30",
+      "07:40"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "5",
+    "stop": [
+      "Beach Station",
+      "Light House",
+      "Santhome Church",
+      "Kutchery Road",
+      "LUZ Corner",
+      "Mylapore Tank",
+      "Kovalam",
+      "College"
+    ],
+    "time": [
+      "06:20",
+      "06:30",
+      "06:35",
+      "06:38",
+      "06:40",
+      "06:45",
+      "07:25",
+      "07:40"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "6",
+    "stop": [
+      "Beach Station",
+      "Light House",
+      "Santhome Church",
+      "F.Shore Estate",
+      "MRC Nagar",
+      "Kovalam",
+      "College"
+    ],
+    "time": [
+      "06:20",
+      "06:30",
+      "06:35",
+      "06:40",
+      "06:41",
+      "07:25",
+      "07:40"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "7",
+    "stop": [
+      "Golden Flats BS",
+      "Golden Flats(Mangaleri) Park",
+      "Ambattur Estate",
+      "Wavin",
+      "College"
+    ],
+    "time": [
+      "06:00",
+      "06:02",
+      "06:07",
+      "06:10",
+      "07:40"
+    ]
+  },
+  {
+    "id": 8,
+    "name": "8",
+    "stop": [
+      "Kannadasan Nagar EB",
+      "MKB Nagar BS",
+      "Nataraja Theatre",
+      "Choolai PO",
+      "Vepery Fire Service",
+      "Sathyam Theatre",
+      "Royapettah (Loyds Road)",
+      "Gopalapuram Ground",
+      "Royapettah TTK Road",
+      "Alwarpet",
+      "College"
+    ],
+    "time": [
+      "06:10",
+      "06:15",
+      "06:20",
+      "06:25",
+      "06:30",
+      "06:35",
+      "06:40",
+      "06:42",
+      "06:43",
+      "06:44",
+      "07:40"
+    ]
+  },
+  {
+    "id": 9,
+    "name": "9",
+    "stop": [
+      "TSK Nagar",
+      "Collector Nagar",
+      "Park Road",
+      "Toyota SR",
+      "Maduravoyal Erikarai",
+      "College"
+    ],
+    "time": [
+      "06:00",
+      "06:03",
+      "06:10",
+      "06:17",
+      "06:23",
+      "07:40"
+    ]
+  },
+  {
+    "id": 10,
+    "name": "9A",
+    "stop": [
+      "Golden Flats BS",
+      "Thirumangalam",
+      "Ration Kadai",
+      "College"
+    ],
+    "time": [
+      "06:05",
+      "06:10",
+      "06:15",
+      "07:40"
+    ]
+  }
+]

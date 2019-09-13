@@ -1,28 +1,14 @@
 package in.edu.ssn.ssnapp;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.firebase.ui.firestore.SnapshotParser;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.Map;
 
@@ -30,7 +16,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class ViewAdminActivity extends AppCompatActivity {
+public class HelpLineActivity extends AppCompatActivity {
 
     ImageView iv_back;
     TextView tv_name1, tv_email1, tv_name2, tv_email2;
@@ -39,7 +25,7 @@ public class ViewAdminActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_admin);
+        setContentView(R.layout.activity_help_line);
 
         iv_back = findViewById(R.id.iv_back);
         tv_name1 = findViewById(R.id.tv_name1);
@@ -103,6 +89,6 @@ public class ViewAdminActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Bungee.slideRight(ViewAdminActivity.this);
+        Bungee.slideRight(HelpLineActivity.this);
     }
 }
