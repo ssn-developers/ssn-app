@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.crashlytics.android.Crashlytics;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -32,11 +33,11 @@ import com.google.firebase.firestore.Query;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
@@ -44,23 +45,22 @@ import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
-import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class WorkshopFragment extends Fragment {
+public class PlacementFragment extends Fragment {
 
-    public WorkshopFragment() { }
+    public PlacementFragment() { }
 
-    RecyclerView feedsRV;
-    RelativeLayout layout_progress;
-    ShimmerFrameLayout shimmer_view;
-    FirestoreRecyclerAdapter adapter;
+    private RecyclerView feedsRV;
+    private RelativeLayout layout_progress;
+    private ShimmerFrameLayout shimmer_view;
+    private FirestoreRecyclerAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feed, container, false);
-        CommonUtils.initFonts(getContext(), view);
+        View view = inflater.inflate(R.layout.fragment_sent_feed, container, false);
+        CommonUtils.initFonts(getContext(),view);
         initUI(view);
 
         setupFireStore();
@@ -71,14 +71,9 @@ public class WorkshopFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
-        final TextDrawable.IBuilder builder = TextDrawable.builder()
-                .beginConfig()
-                .toUpperCase()
-                .endConfig()
-                .round();
         String dept = SharedPref.getString(getContext(),"dept");
 
-        Query query = FirebaseFirestore.getInstance().collection("workshop").whereArrayContains("dept",dept).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("placement").whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -92,7 +87,7 @@ public class WorkshopFragment extends Fragment {
                 post.setTime(snapshot.getTimestamp("time").toDate());
 
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if(images != null && images.size() != 0)
+                if(images != null && images.size() > 0)
                     post.setImageUrl(images);
                 else
                     post.setImageUrl(null);
@@ -108,7 +103,7 @@ public class WorkshopFragment extends Fragment {
                             if(name.length() > 13)
                                 name = name.substring(0,name.length()-13);
                             fileName.add(name);
-                            fileUrl.add((String) files.get(i).get("url"));
+                            fileUrl.add(files.get(i).get("url"));
                         }
                         post.setFileName(fileName);
                         post.setFileUrl(fileUrl);
@@ -120,28 +115,27 @@ public class WorkshopFragment extends Fragment {
                 }
                 catch (Exception e){
                     e.printStackTrace();
+                    Crashlytics.log("stackTrace: "+ Arrays.toString(e.getStackTrace()) +" \n Error: "+e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
                 }
 
-                post.setDept(null);
+                try {
+                    ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
+                    if (dept != null && dept.size() != 0)
+                        post.setDept(dept);
+                    else
+                        post.setDept(null);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    post.setDept(null);
+                }
+
                 post.setYear(null);
-
-                String id = snapshot.getString("author");
-
-                post.setAuthor_image_url(id);
-
-                String name = SharedPref.getString(getContext(),"faculty_name",id);
-                if(name!=null && !name.equals(""))
-                    post.setAuthor(name);
-                else
-                    post.setAuthor(id.split("@")[0]);
-
-                String position = SharedPref.getString(getContext(),"faculty_position",id);
-                if(position!=null && !position.equals(""))
-                    post.setPosition(position);
-                else
-                    post.setPosition("Faculty");
+                post.setAuthor_image_url(null);
+                post.setAuthor(null);
+                post.setPosition(null);
 
                 return post;
             }
@@ -151,14 +145,6 @@ public class WorkshopFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
-                holder.tv_author.setText(model.getAuthor());
-
-                ColorGenerator generator = ColorGenerator.MATERIAL;
-                int color = generator.getColor(model.getAuthor_image_url());
-                TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
-                holder.userImageIV.setImageDrawable(ic1);
-
-                holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
                 Date time = model.getTime();
@@ -249,9 +235,10 @@ public class WorkshopFragment extends Fragment {
                 shimmer_view.setVisibility(View.GONE);
             }
 
+            @NonNull
             @Override
-            public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
+            public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
+                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
                 return new FeedViewHolder(view);
             }
         };
@@ -271,22 +258,18 @@ public class WorkshopFragment extends Fragment {
     /*********************************************************/
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_author, tv_position, tv_title, tv_time, tv_current_image;
+        public TextView tv_title, tv_time, tv_current_image;
         public SocialTextView tv_description;
-        public ImageView userImageIV;
         public RelativeLayout feed_view;
         public ViewPager viewPager;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
 
-            tv_author = itemView.findViewById(R.id.tv_author);
-            tv_position = itemView.findViewById(R.id.tv_position);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_description = itemView.findViewById(R.id.tv_description);
             tv_time = itemView.findViewById(R.id.tv_time);
             tv_current_image = itemView.findViewById(R.id.currentImageTV);
-            userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
         }
@@ -313,7 +296,7 @@ public class WorkshopFragment extends Fragment {
 
     /**********************************************************/
 
-    void handleBottomSheet(View v,final Post post) {
+    private void handleBottomSheet(View v,final Post post) {
         RelativeLayout ll_save,ll_share;
         final TextView tv_save;
 
