@@ -6,27 +6,24 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-	<androidx.recyclerview.widget.RecyclerView
+	<ListView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:paddingTop="@dimen/_43sdp"
 		android:clipToPadding="false"
 		android:id="@+id/feedsRV_club">
-	</androidx.recyclerview.widget.RecyclerView>
+	</ListView>
 	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="You may like"
+		android:textStyle="italic"
+		android:textSize="13dp"
+		android:layout_margin="10dp"/>
+	<ListView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:text="you may like"
-		android:layout_marginTop="10dp"
-		android:fontFamily="@font/open_sans"
-		android:layout_marginBottom="10dp"
-		android:layout_marginLeft="8dp"/>
-	<androidx.recyclerview.widget.RecyclerView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:paddingTop="8dp"
-		android:clipToPadding="false"
-		android:id="@+id/feedsRV_unsubs_club">
-	</androidx.recyclerview.widget.RecyclerView>
+		android:paddingTop="10dp"
+		android:id="@+id/feedsRV_uns_club"/>
 
 </LinearLayout>

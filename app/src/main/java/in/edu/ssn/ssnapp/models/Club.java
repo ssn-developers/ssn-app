@@ -15,6 +15,7 @@ public class Club implements Parcelable {
     private ArrayList<String> imageUrl;
     private ArrayList<String> fileName;
     private ArrayList<String> fileUrl;
+    private ArrayList<String> heads;
     private String author;
     private String club_image_url;
     private String club_cover_image_url;
@@ -28,7 +29,17 @@ public class Club implements Parcelable {
 
     public Club() { }
 
-    public Club(String title, String club_image_url, Date time, String id, String FileUrl,int like,int comment) {
+    public Club(String id, String description, ArrayList<String> heads, String club_image_url, String club_name,int followers,String club_cover_image_url) {
+        this.id = id;
+        this.description = description;
+        this.heads = heads;
+        this.club_image_url = club_image_url;
+        this.club_name = club_name;
+        this.followers = followers;
+        this.club_cover_image_url = club_cover_image_url;
+    }
+
+    public Club(String title, String club_image_url, Date time, String id, String FileUrl, int like, int comment) {
         this.title = title;
         this.club_image_url = club_image_url;
         this.time = time;
