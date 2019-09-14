@@ -29,6 +29,7 @@ import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
+import in.edu.ssn.ssnapp.fragments.ClubFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
@@ -227,6 +228,7 @@ public class StudentHomeActivity extends BaseActivity {
     void setupViewPager(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new StudentFeedFragment(), "Feed");
+        adapter.addFragment(new ClubFragment(), "Club");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         adapter.addFragment(new ExamCellFragment(), "Exam cell");
         viewPager.setAdapter(adapter);
