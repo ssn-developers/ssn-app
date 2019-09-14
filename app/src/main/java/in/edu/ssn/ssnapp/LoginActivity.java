@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +74,7 @@ import spencerstudios.com.bungeelib.Bungee;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     CardView cv_student, cv_faculty;
+    ImageView iv_student, iv_faculty, iv_gate, iv_road;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
@@ -87,23 +89,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        cv_student = findViewById(R.id.cv_student);
-        cv_faculty = findViewById(R.id.cv_faculty);
+        initUI();
+    }
+
+    void initUI(){
+        cv_student = findViewById(R.id.cv_student);     cv_student.setOnClickListener(this);
+        cv_faculty = findViewById(R.id.cv_faculty);     cv_faculty.setOnClickListener(this);
+        iv_student = findViewById(R.id.iv_student);
+        iv_faculty = findViewById(R.id.iv_faculty);
+        iv_gate = findViewById(R.id.iv_gate);
+        iv_road = findViewById(R.id.iv_road);
         layout_progress = findViewById(R.id.layout_progress);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                cv_student.setVisibility(View.VISIBLE);
-                cv_faculty.setVisibility(View.VISIBLE);
+                iv_gate.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.ZoomIn).duration(500).playOn(iv_gate);
 
-                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_student);
-                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_faculty);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        iv_road.setVisibility(View.VISIBLE);
+                        YoYo.with(Techniques.FadeInDown).duration(800).playOn(iv_road);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                iv_student.setVisibility(View.VISIBLE);
+                                iv_faculty.setVisibility(View.VISIBLE);
+
+                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(iv_student);
+                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(iv_faculty);
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        cv_student.setVisibility(View.VISIBLE);
+                                        cv_faculty.setVisibility(View.VISIBLE);
+
+                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_student);
+                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_faculty);
+                                    }
+                                },500);
+                            }
+                        },800);
+                    }
+                },500);
             }
-        },300);
-
-        cv_student.setOnClickListener(this);
-        cv_faculty.setOnClickListener(this);
+        }, 300);
     }
 
     /************************************************************************/
@@ -442,7 +476,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     break;
             }
-            initGoogleSignIn();
+            if(!CommonUtils.alerter(getApplicationContext()))
+                initGoogleSignIn();
+            else{
+                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                intent.putExtra("key","login");
+                startActivity(intent);
+                Bungee.fade(LoginActivity.this);
+            }
         }
         else{
             switch (v.getId()){
