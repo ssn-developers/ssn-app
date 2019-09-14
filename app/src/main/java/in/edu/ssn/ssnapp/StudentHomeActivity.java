@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,10 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
@@ -31,7 +30,9 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.ClubFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
+import in.edu.ssn.ssnapp.fragments.PlacementFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
+import in.edu.ssn.ssnapp.fragments.WorkshopFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -79,15 +80,15 @@ public class StudentHomeActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Drawer rs=(Drawer)parent.getItemAtPosition(position);
                 switch (rs.getTitle()){
-                    case "Feeds":
+                    case "News Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
-                    case "View Admin":
-                        startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
+                    case "Helpline":
+                        startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
                     case "Library Renewals":
@@ -102,7 +103,7 @@ public class StudentHomeActivity extends BaseActivity {
                             toast.show();
                         }
                         break;
-                    case "Alumni Connect":
+                    case "AlmaConnect":
                         if(!CommonUtils.alerter(getApplicationContext())) {
                             SharedPref.putString(getApplicationContext(),"url","https://ssn.almaconnect.com");
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
@@ -147,7 +148,7 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Privacy Policy":
                         if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af");
+                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/59fe74661969551554a7a886f0767308");
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(StudentHomeActivity.this);
                         }
@@ -196,13 +197,13 @@ public class StudentHomeActivity extends BaseActivity {
         tv_email.setText(SharedPref.getString(getApplicationContext(),"email"));
 
         try{
-            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
         catch (Exception e){
-            Log.d(TAG,e.getMessage());
-            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            e.printStackTrace();
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
 
         setUpDrawer();
@@ -210,17 +211,17 @@ public class StudentHomeActivity extends BaseActivity {
     }
 
     void setUpDrawer(){
-        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
+        adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        adapter.add(new Drawer("View Admin", R.drawable.ic_team));
+        adapter.add(new Drawer("AlmaConnect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
-        adapter.add(new Drawer("Alumni Connect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
+        adapter.add(new Drawer("Helpline", R.drawable.ic_team));
+        adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
-        adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
-        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
+        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }
@@ -229,8 +230,12 @@ public class StudentHomeActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new StudentFeedFragment(), "Feed");
         adapter.addFragment(new ClubFragment(), "Club");
+        adapter.addFragment(new StudentFeedFragment(), "News Feed");
+        if(SharedPref.getInt(getApplicationContext(),"year") == Integer.parseInt(Constants.fourth))
+            adapter.addFragment(new PlacementFragment(), "Placement");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         adapter.addFragment(new ExamCellFragment(), "Exam cell");
+        adapter.addFragment(new WorkshopFragment(), "Workshop");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);

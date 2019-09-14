@@ -20,11 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -49,8 +51,8 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-
         final Post model=getItem(position);
+
         final TextView tv_author, tv_position, tv_title, tv_time, tv_current_image;
         SocialTextView tv_description;
         ImageView userImageIV;
@@ -59,15 +61,6 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
 
         if(convertView==null)
             convertView= LayoutInflater.from(getContext()).inflate(R.layout.student_post_item, parent,false);
-
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast toast = Toast.makeText(getContext(), "Testing one", Toast.LENGTH_SHORT);
-                toast.setGravity(Gravity.CENTER,0,0);
-                toast.show();
-            }
-        });
 
         tv_author = convertView.findViewById(R.id.tv_author);
         tv_position = convertView.findViewById(R.id.tv_position);
@@ -81,16 +74,15 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
 
         tv_author.setText(model.getAuthor());
 
-        try {
-            if (model.getAuthor_image_url() != null)
-                Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            else
-                userImageIV.setImageResource(R.drawable.ic_user_white);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            userImageIV.setImageResource(R.drawable.ic_user_white);
-        }
+        TextDrawable.IBuilder builder = TextDrawable.builder()
+                .beginConfig()
+                .toUpperCase()
+                .endConfig()
+                .round();
+        ColorGenerator generator = ColorGenerator.MATERIAL;
+        int color = generator.getColor(model.getAuthor_image_url());
+        TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
+        userImageIV.setImageDrawable(ic1);
 
         tv_position.setText(model.getPosition());
         tv_title.setText(model.getTitle());

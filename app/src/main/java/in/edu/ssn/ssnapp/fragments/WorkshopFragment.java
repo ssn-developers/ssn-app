@@ -48,9 +48,9 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class ExamCellFragment extends Fragment {
+public class WorkshopFragment extends Fragment {
 
-    public ExamCellFragment() { }
+    public WorkshopFragment() { }
 
     RecyclerView feedsRV;
     RelativeLayout layout_progress;
@@ -59,7 +59,7 @@ public class ExamCellFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sent_feed, container, false);
+        View view = inflater.inflate(R.layout.fragment_feed, container, false);
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
@@ -71,10 +71,14 @@ public class ExamCellFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
+        final TextDrawable.IBuilder builder = TextDrawable.builder()
+                .beginConfig()
+                .toUpperCase()
+                .endConfig()
+                .round();
         String dept = SharedPref.getString(getContext(),"dept");
-        String year = "year." + SharedPref.getInt(getContext(),"year");
 
-        Query query = FirebaseFirestore.getInstance().collection("exam_cell").whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection("workshop").whereArrayContains("dept",dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -120,35 +124,24 @@ public class ExamCellFragment extends Fragment {
                     post.setFileUrl(null);
                 }
 
-                try {
-                    ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
-                    if (dept != null && dept.size() != 0)
-                        post.setDept(dept);
-                    else
-                        post.setDept(null);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    post.setDept(null);
-                }
+                post.setDept(null);
+                post.setYear(null);
 
-                try {
-                    ArrayList<String> years = new ArrayList<>();
-                    Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
-                    for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
-                        if (entry.getValue().booleanValue())
-                            years.add((String) entry.getKey());
-                    }
-                    Collections.sort(years);
-                    post.setYear(years);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
+                String id = snapshot.getString("author");
 
-                post.setAuthor_image_url(null);
-                post.setAuthor(null);
-                post.setPosition(null);
+                post.setAuthor_image_url(id);
+
+                String name = SharedPref.getString(getContext(),"faculty_name",id);
+                if(name!=null && !name.equals(""))
+                    post.setAuthor(name);
+                else
+                    post.setAuthor(id.split("@")[0]);
+
+                String position = SharedPref.getString(getContext(),"faculty_position",id);
+                if(position!=null && !position.equals(""))
+                    post.setPosition(position);
+                else
+                    post.setPosition("Faculty");
 
                 return post;
             }
@@ -158,6 +151,14 @@ public class ExamCellFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
+                holder.tv_author.setText(model.getAuthor());
+
+                ColorGenerator generator = ColorGenerator.MATERIAL;
+                int color = generator.getColor(model.getAuthor_image_url());
+                TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
+                holder.userImageIV.setImageDrawable(ic1);
+
+                holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
 
                 Date time = model.getTime();
@@ -250,7 +251,7 @@ public class ExamCellFragment extends Fragment {
 
             @Override
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
+                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
                 return new FeedViewHolder(view);
             }
         };

@@ -1,70 +1,43 @@
 package in.edu.ssn.ssnapp;
 
-import android.animation.Animator;
-import android.animation.LayoutTransition;
-import android.content.Intent;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Color;
-import android.os.Bundle;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
+import android.animation.LayoutTransition;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.airbnb.lottie.LottieAnimationView;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
-import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.firebase.ui.firestore.SnapshotParser;
-import com.google.android.gms.common.util.NumberUtils;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import in.edu.ssn.ssnapp.adapters.BusStopAdapter;
+import in.edu.ssn.ssnapp.adapters.BusRouteAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
-import io.opencensus.internal.StringUtils;
-import pl.droidsonroids.gif.GifImageView;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class BusRoutesActivity extends BaseActivity implements TextWatcher {
-
     ImageView backIV;
     RecyclerView busRoutesRV;
     EditText et_num;
@@ -73,19 +46,18 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
     LinearLayout searchRL1;
     RelativeLayout layout_empty;
     ChipGroup chipCloud;
-    FirestoreRecyclerAdapter adapter;
     List<String> suggestions;
-    ShimmerFrameLayout shimmer_view;
+
+    BusRouteAdapter adapter;
+    ArrayList<BusRoute> busRoutesList, recyclerList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bus_routes);
+        setContentView(R.layout.activity_bus_route);
 
         initUI();
-        getSuggestions();
-        Query query = FirebaseFirestore.getInstance().collection("bus_route").orderBy("id");
-        setupFireStore(query);
+        new getBusRoute().execute();
 
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,26 +74,28 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         });
     }
 
-    /*********************************************************/
+    /********************************************************/
 
     void initUI(){
         backIV = findViewById(R.id.backIV);
         et_num = findViewById(R.id.et_num);     et_num.addTextChangedListener(this);
-        busRoutesRV = findViewById(R.id.busRoutesRV);
+
         chipCloud = findViewById(R.id.chipCloud);
         clearIV = findViewById(R.id.clearIV);
-        searchRL = findViewById(R.id.searchRL);
         layout_empty = findViewById(R.id.layout_empty);
+
+        searchRL = findViewById(R.id.searchRL);
         searchRL1 = findViewById(R.id.searchRL1);
         searchRL.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
         searchRL1.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
+
+        suggestions = new ArrayList<>();
+        busRoutesList = new ArrayList<>();
+
+        busRoutesRV = findViewById(R.id.busRoutesRV);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         busRoutesRV.setLayoutManager(layoutManager);
         busRoutesRV.setHasFixedSize(true);
-        shimmer_view = findViewById(R.id.shimmer_view);
-        shimmer_view.setVisibility(View.VISIBLE);
-
-        suggestions = new ArrayList<>();
     }
 
     private Chip getChip(final ChipGroup entryChipGroup, String text) {
@@ -142,77 +116,62 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         return chip;
     }
 
-    void getSuggestions(){
-        final Set<String> linkedHashSet = new LinkedHashSet<>();
-        FirebaseFirestore.getInstance().collection("bus_route").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot ds:queryDocumentSnapshots){
-                    ArrayList<String> stop = (ArrayList<String>) ds.get("stop");
-                    for(String s:stop){
+    public class getBusRoute extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... voids) {
+            try {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("data_bus.json")));
+                StringBuilder sb = new StringBuilder();
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+
+                final Set<String> linkedHashSet = new LinkedHashSet<>();
+                JSONArray arr = new JSONArray(sb.toString());
+                busRoutesList.clear();
+                suggestions.clear();
+                for(int i=0; i<arr.length(); i++){
+                    JSONObject obj = (JSONObject) arr.get(i);
+                    BusRoute bus = new Gson().fromJson(obj.toString(), BusRoute.class);
+                    busRoutesList.add(bus);
+                    ArrayList<String> stop = (ArrayList<String>) bus.getStop();
+                    for(String s : stop){
                         linkedHashSet.add(s);
                     }
                 }
-                suggestions.clear();
+
                 for(String s: linkedHashSet){
                     suggestions.add(s);
                 }
-            }
-        });
-    }
+                Collections.sort(busRoutesList);
+                recyclerList = new ArrayList<BusRoute>(busRoutesList);
 
-    void setupFireStore(Query query){
-        FirestoreRecyclerOptions<BusRoute> options = new FirestoreRecyclerOptions.Builder<BusRoute>().setQuery(query, new SnapshotParser<BusRoute>() {
-            @NonNull
-            @Override
-            public BusRoute parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                BusRoute busRoute = new BusRoute();
-                busRoute.setRouteName(snapshot.getString("name"));
-
-                List<String> stops = (List<String>) snapshot.get("stop");
-                List<String> time = (List<String>) snapshot.get("time");
-                busRoute.setStop(stops);
-                busRoute.setTime(time);
-
-                return busRoute;
-            }
-        }).build();
-
-        adapter = new FirestoreRecyclerAdapter<BusRoute, BusRouteViewHolder>(options) {
-            @Override
-            public void onBindViewHolder(BusRouteViewHolder holder, int position, final BusRoute model) {
-                holder.routeNameTV.setText("Route " + model.getRouteName());
-                holder.busStopsRV.setAdapter(new BusStopAdapter(getApplicationContext(),model));
-                /*holder.busRouteCV.setOnClickListener(new View.OnClickListener() {
+                runOnUiThread(new Runnable() {
                     @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(),BusRouteDetailsActivity.class);
-                        intent.putExtra("route",model);
-                        startActivity(intent);
+                    public void run() {
+                        adapter = new BusRouteAdapter(getApplicationContext(), recyclerList);
+                        busRoutesRV.setAdapter(adapter);
                     }
-                });*/
-                shimmer_view.setVisibility(View.GONE);
+                });
+            }
+            catch (Exception e) {
+                e.printStackTrace();
             }
 
-            @Override
-            public BusRouteViewHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_route_item, group, false);
-                return new BusRouteViewHolder(view);
-            }
-        };
-
-        busRoutesRV.setAdapter(adapter);
+            return null;
+        }
     }
 
-    /*********************************************************/
+    /********************************************************/
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
     }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
     }
 
@@ -222,30 +181,35 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         layout_empty.setVisibility(View.GONE);
 
         String val = s.toString().trim().toLowerCase();
-        Query query;
         if (val.equals("")) {
             clearIV.setVisibility(View.GONE);
             chipCloud.removeAllViews();
+            
+            recyclerList.clear();
+            for(BusRoute b:busRoutesList)
+                Collections.addAll(recyclerList, b);
 
-            shimmer_view.setVisibility(View.VISIBLE);
-            query = FirebaseFirestore.getInstance().collection("bus_route").orderBy("id");
-            setupFireStore(query);
-            adapter.startListening();
+            adapter.notifyDataSetChanged();
         }
         else if (Character.isDigit(val.charAt(0))) {
             clearIV.setVisibility(View.VISIBLE);
             chipCloud.removeAllViews();
 
-            shimmer_view.setVisibility(View.VISIBLE);
-            if (val.equalsIgnoreCase("9a"))
-                query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name", "9A");
-            else if (val.equalsIgnoreCase("30a"))
-                query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name", "30A");
-            else
-                query = FirebaseFirestore.getInstance().collection("bus_route").whereEqualTo("name", val);
+            recyclerList.clear();
+            for(BusRoute b:busRoutesList){
+                if(b.getName().equalsIgnoreCase(val))
+                    Collections.addAll(recyclerList, b);
+            }
 
-            setupFireStore(query);
-            adapter.startListening();
+            if(recyclerList.size()==0){
+                busRoutesRV.setVisibility(View.GONE);
+                layout_empty.setVisibility(View.VISIBLE);
+            }
+            else {
+                busRoutesRV.setVisibility(View.VISIBLE);
+                layout_empty.setVisibility(View.GONE);
+                adapter.notifyDataSetChanged();
+            }
         }
         else {
             clearIV.setVisibility(View.VISIBLE);
@@ -269,10 +233,14 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
                                 et_num.setText(suggestions.get(finalI));
                                 et_num.addTextChangedListener(BusRoutesActivity.this);
 
-                                shimmer_view.setVisibility(View.VISIBLE);
-                                Query query = FirebaseFirestore.getInstance().collection("bus_route").whereArrayContains("stop", suggestions.get(finalI));
-                                setupFireStore(query);
-                                adapter.startListening();
+                                recyclerList.clear();
+                                for(BusRoute b:busRoutesList){
+                                    for(String s:b.getStop()){
+                                        if(s.equalsIgnoreCase(suggestions.get(finalI)))
+                                            Collections.addAll(recyclerList, b);
+                                    }
+                                }
+                                adapter.notifyDataSetChanged();
                             }
                         });
                     }
@@ -293,38 +261,7 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         }
     }
 
-    /*********************************************************/
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        adapter.stopListening();
-    }
-
-    /*********************************************************/
-
-    public class BusRouteViewHolder extends RecyclerView.ViewHolder {
-        public TextView routeNameTV;
-        public RecyclerView busStopsRV;
-        public CardView busRouteCV;
-
-        public BusRouteViewHolder(View itemView) {
-            super(itemView);
-
-            routeNameTV = itemView.findViewById(R.id.routeNameTV);
-            busStopsRV = itemView.findViewById(R.id.busStopsRV);
-            busRouteCV = itemView.findViewById(R.id.busRouteCV);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.HORIZONTAL,false);
-            busStopsRV.setHasFixedSize(true);
-            busStopsRV.setLayoutManager(layoutManager);
-        }
-    }
+    /********************************************************/
 
     @Override
     public void onBackPressed() {

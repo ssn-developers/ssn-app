@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ import in.edu.ssn.ssnapp.OpenImageActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
-import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.models.Club;
 import spencerstudios.com.bungeelib.Bungee;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -29,11 +29,11 @@ public class ClubImageAdapter extends PagerAdapter {
     Context context;
     List<String> images;
     LayoutInflater layoutInflater;
-    Post model;
+    Club model;
     String timer;
     Boolean flag;
 
-    public ClubImageAdapter(Context context, List<String> images, Boolean flag, Post model, String timer) {
+    public ClubImageAdapter(Context context, List<String> images, Boolean flag, Club model, String timer) {
         this.context = context;
         this.images = images;
         this.model= model;
@@ -69,7 +69,7 @@ public class ClubImageAdapter extends PagerAdapter {
         if(getCount() == 0)
             imageView.setVisibility(View.GONE);
         else
-            Picasso.get().load(images.get(position)).into(imageView);
+            Glide.with(context).load(images.get(position)).into(imageView);
 
 
         return itemView;

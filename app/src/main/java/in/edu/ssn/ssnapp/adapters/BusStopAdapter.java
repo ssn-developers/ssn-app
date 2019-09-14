@@ -1,8 +1,6 @@
 package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Typeface;
 
 import androidx.cardview.widget.CardView;
@@ -11,21 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.github.vipulasri.timelineview.TimelineView;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import in.edu.ssn.ssnapp.BusRouteDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
-import in.edu.ssn.ssnapp.models.Post;
-
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder> {
     private List<String> stops;

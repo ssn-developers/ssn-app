@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -31,7 +33,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,6 +76,11 @@ public class StudentFeedFragment extends Fragment {
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
         String year = "year." + SharedPref.getInt(getContext(),"year");
+        final TextDrawable.IBuilder builder = TextDrawable.builder()
+                .beginConfig()
+                .toUpperCase()
+                .endConfig()
+                .round();
 
         // manually create composite query for each year & dept
         // [cse | it | ece | eee | mech | bme | chemical | civil | admin]
@@ -104,7 +111,10 @@ public class StudentFeedFragment extends Fragment {
                         ArrayList<String> fileUrl = new ArrayList<>();
 
                         for (int i = 0; i < files.size(); i++) {
-                            fileName.add(files.get(i).get("name"));
+                            String name = files.get(i).get("name");
+                            if(name.length() > 13)
+                                name = name.substring(0,name.length()-13);
+                            fileName.add(name);
                             fileUrl.add(files.get(i).get("url"));
                         }
                         post.setFileName(fileName);
@@ -150,19 +160,19 @@ public class StudentFeedFragment extends Fragment {
 
                 String email = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty_dp_url",email));
+                post.setAuthor_image_url(email);
 
                 String name = SharedPref.getString(getContext(),"faculty_name",email);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
                 else
-                    post.setAuthor("SSN Institutions");
+                    post.setAuthor(email.split("@")[0]);
 
                 String position = SharedPref.getString(getContext(),"faculty_position",email);
                 if(position!=null && !position.equals(""))
                     post.setPosition(position);
                 else
-                    post.setPosition("Admin");
+                    post.setPosition("Faculty");
 
                 return post;
             }
@@ -174,16 +184,10 @@ public class StudentFeedFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
                 holder.tv_author.setText(model.getAuthor());
 
-                try {
-                    if (model.getAuthor_image_url() != null)
-                        Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(holder.userImageIV);
-                    else
-                        holder.userImageIV.setImageResource(R.drawable.ic_user_white);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    holder.userImageIV.setImageResource(R.drawable.ic_user_white);
-                }
+                ColorGenerator generator = ColorGenerator.MATERIAL;
+                int color = generator.getColor(model.getAuthor_image_url());
+                TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
+                holder.userImageIV.setImageDrawable(ic1);
 
                 holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());

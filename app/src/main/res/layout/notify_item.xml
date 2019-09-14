@@ -10,11 +10,10 @@
         android:layout_height="match_parent"
         android:background="@drawable/notify_item_bg"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/iv_dp"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
-        app:civ_border_width="@dimen/_1sdp"
         android:layout_marginLeft="@dimen/_30sdp"
         android:layout_centerVertical="true" />
 

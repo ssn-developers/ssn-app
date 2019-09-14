@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,10 +16,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 
@@ -79,15 +78,15 @@ public class FacultyHomeActivity extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Drawer rs = (Drawer) parent.getItemAtPosition(position);
                 switch (rs.getTitle()) {
-                    case "Feeds":
+                    case "News Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
-                    case "View Admin":
-                        startActivity(new Intent(getApplicationContext(), ViewAdminActivity.class));
+                    case "Helpline":
+                        startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                     case "Notification Settings":
@@ -122,7 +121,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Privacy Policy":
                         if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/ceeff02f5d19727132dbc59d817f04af");
+                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/59fe74661969551554a7a886f0767308");
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(FacultyHomeActivity.this);
                         }
@@ -173,21 +172,19 @@ public class FacultyHomeActivity extends BaseActivity {
         tv_email.setText(SharedPref.getString(getApplicationContext(), "email"));
 
         String access = SharedPref.getString(getApplicationContext(), "access");
-        if (access.equals("AD"))
-            tv_access.setText("ADMIN");
-        else if (access.equals("SA"))
+        if (access.equals("SA"))
             tv_access.setText("SUPER ADMIN");
         else
             tv_access.setVisibility(View.GONE);
 
         try{
-            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Picasso.get().load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
         catch (Exception e){
-            Log.d("test_set",e.getMessage());
-            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Picasso.get().load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            e.printStackTrace();
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
 
         setUpDrawer();
@@ -195,23 +192,22 @@ public class FacultyHomeActivity extends BaseActivity {
     }
 
     void setUpDrawer() {
-        adapter.add(new Drawer("Feeds", R.drawable.ic_feeds));
+        adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        if (!SharedPref.getString(getApplicationContext(), "access").equals("TI"))
-            adapter.add(new Drawer("View Admin", R.drawable.ic_team));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
+        adapter.add(new Drawer("Helpline", R.drawable.ic_team));
+        adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
-        adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
-        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
+        adapter.add(new Drawer("App Info", R.drawable.ic_info));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }
 
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FacultyFeedFragment(), "Feed");
+        adapter.addFragment(new FacultyFeedFragment(), "News Feed");
         if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
             adapter.addFragment(new FacultySentBusPostFragment(), "Sent posts");
         else

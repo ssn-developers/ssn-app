@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="in.edu.ssn.ssnapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <application
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -23,7 +17,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -37,8 +30,11 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".BusRoutesActivity"/>
+        <activity android:name=".ClubPostDetailsActivity" />
+        <activity android:name=".ClubPageActivity" />
         <activity android:name=".NoNetworkActivity" />
-        <activity android:name=".ViewAdminActivity" />
+        <activity android:name=".HelpLineActivity" />
         <activity android:name=".SavedPostActivity" />
         <activity android:name=".FacultyHomeActivity" />
         <activity android:name=".OpenImageActivity" />
@@ -52,18 +48,11 @@
         <activity android:name=".PdfViewerActivity" />
         <activity android:name=".StudentHomeActivity" />
         <activity android:name=".PostDetailsActivity" />
-        <activity android:name=".BusRouteDetailsActivity" />
-
-        <activity
-            android:name=".BusRoutesActivity"
-            android:theme="@style/AppTheme1"
-            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".BaseActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_launcher_background" />
@@ -76,6 +65,7 @@
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="false" />
+
         <service
             android:name=".services.SSNFirebaseMessagingService"
             android:exported="false">
@@ -84,5 +74,11 @@
             </intent-filter>
         </service>
     </application>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

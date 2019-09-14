@@ -7,12 +7,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -28,7 +30,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
+
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.util.HashMap;
@@ -180,9 +182,9 @@ public class OnboardingActivity extends AppCompatActivity {
         dotsIndicator = findViewById(R.id.dots_indicator);
         dotsIndicator.setSelectedPointColor(getResources().getColor(R.color.pageColor1));
 
-        Picasso.get().load("file:///android_asset/onboarding/bg1.png").into(backgroundIV);
-        Picasso.get().load("file:///android_asset/onboarding/bg2.png").into(backgroundIV1);
-        Picasso.get().load("file:///android_asset/onboarding/bg3.png").into(backgroundIV2);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/bg1.png")).into(backgroundIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/bg2.png")).into(backgroundIV1);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/bg3.png")).into(backgroundIV2);
 
         startAnimation();
         setupViewPager(viewPager);
@@ -209,5 +211,6 @@ public class OnboardingActivity extends AppCompatActivity {
         startMain.addCategory(Intent.CATEGORY_HOME);
         startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(startMain);
+        finish();
     }
 }

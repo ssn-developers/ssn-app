@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.crashlytics.android.Crashlytics;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -30,7 +32,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
-import com.squareup.picasso.Picasso;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,6 +47,7 @@ import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -72,6 +75,11 @@ public class FacultyFeedFragment extends Fragment {
 
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
+        final TextDrawable.IBuilder builder = TextDrawable.builder()
+                .beginConfig()
+                .toUpperCase()
+                .endConfig()
+                .round();
 
         Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
@@ -99,7 +107,10 @@ public class FacultyFeedFragment extends Fragment {
                         ArrayList<String> fileUrl = new ArrayList<>();
 
                         for (int i = 0; i < files.size(); i++) {
-                            fileName.add((String) files.get(i).get("name"));
+                            String name = files.get(i).get("name");
+                            if(name.length() > 13)
+                                name = name.substring(0,name.length()-13);
+                            fileName.add(name);
                             fileUrl.add((String) files.get(i).get("url"));
                         }
                         post.setFileName(fileName);
@@ -137,16 +148,16 @@ public class FacultyFeedFragment extends Fragment {
 
                             //Change it yearly once using force_update
                             switch (entry.getKey()){
-                                case "2016":
+                                case Constants.fourth:
                                     years.add("IV");
                                     break;
-                                case "2017":
+                                case Constants.third:
                                     years.add("III");
                                     break;
-                                case "2018":
+                                case Constants.second:
                                     years.add("II");
                                     break;
-                                case "2019":
+                                case Constants.first:
                                     years.add("I");
                                     break;
                             }
@@ -162,19 +173,19 @@ public class FacultyFeedFragment extends Fragment {
 
                 String id = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty_dp_url",id));
+                post.setAuthor_image_url(id);
 
                 String name = SharedPref.getString(getContext(),"faculty_name",id);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
                 else
-                    post.setAuthor("SSN Institutions");
+                    post.setAuthor(id.split("@")[0]);
 
                 String position = SharedPref.getString(getContext(),"faculty_position",id);
                 if(position!=null && !position.equals(""))
                     post.setPosition(position);
                 else
-                    post.setPosition("Admin");
+                    post.setPosition("Faculty");
 
                 return post;
             }
@@ -186,16 +197,10 @@ public class FacultyFeedFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
                 holder.tv_author.setText(model.getAuthor());
 
-                try {
-                    if (model.getAuthor_image_url() != null)
-                        Picasso.get().load(model.getAuthor_image_url()).placeholder(R.drawable.ic_user_white).into(holder.userImageIV);
-                    else
-                        holder.userImageIV.setImageResource(R.drawable.ic_user_white);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    holder.userImageIV.setImageResource(R.drawable.ic_user_white);
-                }
+                ColorGenerator generator = ColorGenerator.MATERIAL;
+                int color = generator.getColor(model.getAuthor_image_url());
+                TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
+                holder.userImageIV.setImageDrawable(ic1);
 
                 holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());

@@ -87,6 +87,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
                 Post post = new Post();
+                post.setId(postId);
                 post.setTitle(snapshot.getString("title"));
                 post.setDescription(snapshot.getString("description"));
                 post.setTime(snapshot.getTimestamp("time").toDate());
@@ -149,19 +150,19 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
 
                 String email = snapshot.getString("author");
 
-                post.setAuthor_image_url(SharedPref.getString(getApplicationContext(),"faculty_dp_url",email));
+                post.setAuthor_image_url(email);
 
                 String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
                 else
-                    post.setAuthor("SSN Institutions");
+                    post.setAuthor(email.split("@")[0]);
 
                 String position = SharedPref.getString(getApplicationContext(),"faculty_position",email);
                 if(position!=null && !position.equals(""))
                     post.setPosition(position);
                 else
-                    post.setPosition("Admin");
+                    post.setPosition("Faculty");
 
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
                 dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));

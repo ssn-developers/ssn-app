@@ -99,7 +99,10 @@ public class FacultySentPostFragment extends Fragment {
                         ArrayList<String> fileUrl = new ArrayList<>();
 
                         for (int i = 0; i < files.size(); i++) {
-                            fileName.add((String) files.get(i).get("name"));
+                            String name = files.get(i).get("name");
+                            if(name.length() > 13)
+                                name = name.substring(0,name.length()-13);
+                            fileName.add(name);
                             fileUrl.add((String) files.get(i).get("url"));
                         }
                         post.setFileName(fileName);
@@ -142,9 +145,19 @@ public class FacultySentPostFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                post.setAuthor(SharedPref.getString(getContext(),"faculty_name",email));
-                post.setAuthor_image_url(SharedPref.getString(getContext(),"faculty_dp_url",email));
-                post.setPosition(SharedPref.getString(getContext(),"faculty_position",email));
+                post.setAuthor_image_url(email);
+
+                String name = SharedPref.getString(getContext(),"faculty_name",email);
+                if(name!=null && !name.equals(""))
+                    post.setAuthor(name);
+                else
+                    post.setAuthor(email.split("@")[0]);
+
+                String position = SharedPref.getString(getContext(),"faculty_position",email);
+                if(position!=null && !position.equals(""))
+                    post.setPosition(position);
+                else
+                    post.setPosition("Faculty");
 
                 return post;
             }

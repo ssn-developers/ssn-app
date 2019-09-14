@@ -1,72 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:orientation="vertical"
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:id="@+id/layout_progress_club"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie_club"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_250sdp"
-            android:layout_marginTop="@dimen/_50sdp"
-            app:lottie_rawRes="@raw/posts"
-            app:lottie_loop="false"
-            app:lottie_autoPlay="true" />
-
-        <TextView
-            android:id="@+id/tv_text1_club"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/open_sans_semi_bold"
-            android:text="No Posts"
-            android:layout_centerHorizontal="true"
-            android:textColor="#404040"
-            android:layout_marginTop="@dimen/_250sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:gravity="center"
-            android:textSize="@dimen/_14ssp" />
-
-        <TextView
-            android:id="@+id/tv_text2_club"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/open_sans"
-            android:text="We'll let you know if the Clubs posts any new post till then stay tuned."
-            android:layout_centerHorizontal="true"
-            android:textColor="#404040"
-            android:layout_below="@+id/tv_text1_club"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
-            android:gravity="center"
-            android:textSize="@dimen/_12ssp" />
-
-    </RelativeLayout>
-
-	<com.facebook.shimmer.ShimmerFrameLayout
-		android:id="@+id/shimmer_view_club_"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:paddingTop="@dimen/_43sdp"
-		android:visibility="gone"
-		app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-		<LinearLayout
-			android:orientation="vertical"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
-
-			<include layout="@layout/student_post_item_shimmering"/>
-			<include layout="@layout/student_post_item_shimmering"/>
-			<include layout="@layout/student_post_item_shimmering"/>
-		</LinearLayout>
-	</com.facebook.shimmer.ShimmerFrameLayout>
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
@@ -75,5 +13,20 @@
 		android:clipToPadding="false"
 		android:id="@+id/feedsRV_club">
 	</androidx.recyclerview.widget.RecyclerView>
+	<TextView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="you may like"
+		android:layout_marginTop="10dp"
+		android:fontFamily="@font/open_sans"
+		android:layout_marginBottom="10dp"
+		android:layout_marginLeft="8dp"/>
+	<androidx.recyclerview.widget.RecyclerView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:paddingTop="8dp"
+		android:clipToPadding="false"
+		android:id="@+id/feedsRV_unsubs_club">
+	</androidx.recyclerview.widget.RecyclerView>
 
-</RelativeLayout>
+</LinearLayout>

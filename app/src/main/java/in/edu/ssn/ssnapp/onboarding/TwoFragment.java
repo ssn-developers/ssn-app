@@ -1,6 +1,7 @@
 package in.edu.ssn.ssnapp.onboarding;
 
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,7 +14,8 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+
 
 import in.edu.ssn.ssnapp.R;
 
@@ -46,9 +48,9 @@ public class TwoFragment extends Fragment {
         treesIV = view.findViewById(R.id.treesIV);
         tempIV = view.findViewById(R.id.tempIV);
 
-        Picasso.get().load("file:///android_asset/onboarding/bus.png").into(towerIV);
-        Picasso.get().load("file:///android_asset/onboarding/trees1.png").into(treesIV);
-        Picasso.get().load("file:///android_asset/onboarding/land1.png").into(landIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/bus.png")).into(towerIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/trees1.png")).into(treesIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/land1.png")).into(landIV);
     }
 
     public static void startAnimation(){

@@ -1,6 +1,6 @@
 package in.edu.ssn.ssnapp.onboarding;
 
-
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,27 +13,20 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
-import com.squareup.picasso.Picasso;
+import com.bumptech.glide.Glide;
+
 
 import in.edu.ssn.ssnapp.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class OneFragment extends Fragment {
-
-
-    public OneFragment() {
-        // Required empty public constructor
-    }
+    public OneFragment() { }
 
     static ImageView towerIV, landIV, treesIV;
     static ImageView tempIV;
     static boolean firstRun=false;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         initUI(view);
         startAnimation();
@@ -46,9 +39,9 @@ public class OneFragment extends Fragment {
         treesIV = view.findViewById(R.id.treesIV);
         tempIV = view.findViewById(R.id.tempIV);
 
-        Picasso.get().load("file:///android_asset/onboarding/clock_tower.png").into(towerIV);
-        Picasso.get().load("file:///android_asset/onboarding/trees.png").into(treesIV);
-        Picasso.get().load("file:///android_asset/onboarding/land.png").into(landIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/clock_tower.png")).into(towerIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/trees.png")).into(treesIV);
+        Glide.with(this).load(Uri.parse("file:///android_asset/onboarding/land.png")).into(landIV);
     }
 
     public static void startAnimation(){
@@ -87,11 +80,7 @@ public class OneFragment extends Fragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
-            /*if(firstRun){
-                startAnimation();
-            }*/
-        }else {
+        if(!isVisibleToUser) {
             if(firstRun)
                 clearAnimation();
         }

@@ -29,12 +29,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
                     android:layout_width="@dimen/_30sdp"
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    app:civ_circle_background_color="#D8D7D7"
                     app:srcCompat="@drawable/ic_user_white"
                     android:id="@+id/userImageIV_club" />
 

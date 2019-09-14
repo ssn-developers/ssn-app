@@ -28,14 +28,13 @@
             android:tint="@color/colorAccent"
             android:padding="@dimen/_2sdp"/>
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_8sdp"
-            app:civ_circle_background_color="#D8D7D7"
             android:src="@drawable/ic_user_white"
             android:id="@+id/userImageIV" />
 
