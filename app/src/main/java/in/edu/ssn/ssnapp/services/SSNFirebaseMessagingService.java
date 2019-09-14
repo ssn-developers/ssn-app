@@ -78,7 +78,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
         else if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             Intent intent=new Intent(this, StudentHomeActivity.class);
-            FCMHelper.showNotification("test 1 "+remoteMessage.getNotification().getBody(),this,intent);
+            FCMHelper.showNotification(remoteMessage.getNotification().getBody(),this,intent);
         }
     }
 
