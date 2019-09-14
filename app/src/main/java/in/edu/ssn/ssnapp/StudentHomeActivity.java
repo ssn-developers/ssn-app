@@ -244,10 +244,9 @@ public class StudentHomeActivity extends BaseActivity {
 
     public void UnSubscribeToAlerts(Context context){
         FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.CLUB_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
         FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
+        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year") + "exam");
+        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year") + "work");
     }
 
     /*********************************************************/

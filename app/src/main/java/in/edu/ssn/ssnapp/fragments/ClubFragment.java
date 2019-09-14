@@ -92,9 +92,7 @@ public class ClubFragment extends Fragment {
                 post.setClub_image_url(snapshot.getString("dp_url"));
                 post.setClub_cover_image_url(snapshot.getString("cover_url"));
                 post.setDescription(snapshot.getString("description"));
-                post.setFollowers(Integer.valueOf(snapshot.get("followers").toString()));
-
-
+                //post.setFollowers(Integer.valueOf(snapshot.get("followers").toString()));
 
                 return post;
             }

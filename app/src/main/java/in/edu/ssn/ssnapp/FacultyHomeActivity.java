@@ -28,9 +28,11 @@ import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
+import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FacultySentBusPostFragment;
 import in.edu.ssn.ssnapp.fragments.FacultySentPostFragment;
 import in.edu.ssn.ssnapp.fragments.FacultyFeedFragment;
+import in.edu.ssn.ssnapp.fragments.WorkshopFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -209,10 +211,10 @@ public class FacultyHomeActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FacultyFeedFragment(), "News Feed");
         if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
-            adapter.addFragment(new FacultySentBusPostFragment(), "Sent posts");
+            adapter.addFragment(new FacultySentBusPostFragment(), "Sent post");
         else
-            adapter.addFragment(new FacultySentPostFragment(), "Sent posts");
-        adapter.addFragment(new BusAlertsFragment(), "Bus alert");
+            adapter.addFragment(new FacultySentPostFragment(), "Sent post");
+        adapter.addFragment(new BusAlertsFragment(),"Bus alert");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
@@ -222,9 +224,6 @@ public class FacultyHomeActivity extends BaseActivity {
 
     public void UnSubscribeToAlerts(Context context){
         FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.CLUB_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
         FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept"));
     }
 
