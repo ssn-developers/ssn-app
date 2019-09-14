@@ -74,12 +74,13 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
                     intent.putExtra("time",getTime(drawer.getTime()));
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(intent);
-                    Bungee.slideUp(getContext());
+                    Bungee.slideLeft(getContext());
                 }
             }
         });
 
         tv_title.setText(drawer.getTitle());
+
         try {
             final TextDrawable.IBuilder builder = TextDrawable.builder()
                     .beginConfig()
@@ -93,9 +94,7 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
         }
         catch (Exception e){
             e.printStackTrace();
-            if(drawer.getId().equalsIgnoreCase("2")) {
-                iv_dp.setImageResource(R.drawable.ic_bus);
-            }
+            iv_dp.setImageResource(R.drawable.ic_bus);
         }
 
         Date time = drawer.getTime();

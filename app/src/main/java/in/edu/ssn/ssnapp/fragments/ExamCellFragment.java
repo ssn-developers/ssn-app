@@ -146,9 +146,9 @@ public class ExamCellFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                post.setAuthor_image_url(null);
-                post.setAuthor(null);
-                post.setPosition(null);
+                post.setAuthor_image_url("examcell@ssn.edu.in");
+                post.setAuthor("SSNCE CEO");
+                post.setPosition("Exam cell team");
 
                 return post;
             }
@@ -233,7 +233,7 @@ public class ExamCellFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
-                        Bungee.slideUp(getContext());
+                        Bungee.slideLeft(getContext());
                     }
                 });
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {

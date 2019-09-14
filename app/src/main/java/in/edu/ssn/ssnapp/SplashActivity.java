@@ -292,9 +292,6 @@ public class SplashActivity extends AppCompatActivity {
                                     }
 
                                     file.delete();
-
-                                    if(!isUpdate)
-                                        handleIntent();
                                 }
                                 catch (Exception e){
                                     e.printStackTrace();
@@ -304,6 +301,8 @@ public class SplashActivity extends AppCompatActivity {
                         catch (Exception e) {
                             e.printStackTrace();
                         }
+                        if(!isUpdate)
+                            handleIntent();
                     }
                 });
             }
@@ -522,9 +521,8 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (worst_case && !isUpdate) {
+                if(worst_case & !isUpdate)
                     passIntent();
-                }
             }
         }, 5000);
     }

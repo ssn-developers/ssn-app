@@ -76,14 +76,12 @@ public class StudentFeedFragment extends Fragment {
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
         String year = "year." + SharedPref.getInt(getContext(),"year");
+
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
                 .endConfig()
                 .round();
-
-        // manually create composite query for each year & dept
-        // [cse | it | ece | eee | mech | bme | chemical | civil | admin]
 
         Query query = FirebaseFirestore.getInstance().collection("post").whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
@@ -265,7 +263,7 @@ public class StudentFeedFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
-                        Bungee.slideUp(getContext());
+                        Bungee.slideLeft(getContext());
                     }
                 });
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {

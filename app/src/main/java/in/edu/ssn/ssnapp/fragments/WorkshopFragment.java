@@ -234,7 +234,7 @@ public class WorkshopFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
-                        Bungee.slideUp(getContext());
+                        Bungee.slideLeft(getContext());
                     }
                 });
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {

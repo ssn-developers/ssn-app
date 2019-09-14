@@ -72,7 +72,7 @@
                     android:layout_alignParentRight="true"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:fontFamily="@font/open_sans"
+                    android:fontFamily="@font/open_sans_semi_bold"
                     android:textSize="@dimen/_12ssp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp" />

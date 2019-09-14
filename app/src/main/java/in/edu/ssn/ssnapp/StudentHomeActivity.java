@@ -228,9 +228,8 @@ public class StudentHomeActivity extends BaseActivity {
 
     void setupViewPager(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new StudentFeedFragment(), "Feed");
+        adapter.addFragment(new StudentFeedFragment(), "News feed");
         adapter.addFragment(new ClubFragment(), "Club");
-        adapter.addFragment(new StudentFeedFragment(), "News Feed");
         if(SharedPref.getInt(getApplicationContext(),"year") == Integer.parseInt(Constants.fourth))
             adapter.addFragment(new PlacementFragment(), "Placement");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");

@@ -292,11 +292,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void SubscribeToAlerts(Context context){
         FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.CLUB_ALERTS);
-        FCMHelper.SubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
 
-        if(clearance==0)
-            FCMHelper.SubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
+        if(clearance==0) {
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
+        }
         else if(clearance==1)
             FCMHelper.SubscribeToTopic(context,SharedPref.getString(context,"dept"));
     }

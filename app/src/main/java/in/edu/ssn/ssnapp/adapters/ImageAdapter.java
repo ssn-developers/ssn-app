@@ -85,7 +85,7 @@ public class ImageAdapter extends PagerAdapter {
                     intent.putExtra("post", model);
                     intent.putExtra("time", timer);
                     context.startActivity(intent);
-                    Bungee.slideUp(context);
+                    Bungee.slideLeft(context);
                 }
                 else{
                     Intent intent = new Intent(context, OpenImageActivity.class);
