@@ -105,7 +105,7 @@ public class SplashActivity extends AppCompatActivity {
 
     private static Boolean flag = false;
     private static Boolean worst_case = true;
-    private static Boolean isUpdate = false;
+    private static Boolean isUpdateAvailable = false;
     private int currentApiVersion;
     private String latestVersion;
 
@@ -138,7 +138,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onAnimationCompleted(int loopNumber) {
                     gifFromResource.stop();
-                    if (flag && !isUpdate) {
+                    if (flag && !isUpdateAvailable) {
                          passIntent();
                     }
                 }
@@ -154,6 +154,9 @@ public class SplashActivity extends AppCompatActivity {
         if(current - prev > 604800000) {
             new updateFaculty().execute();
             SharedPref.putLong(getApplicationContext(), "dont_delete", "db_update", current);
+        }
+        else if(!isUpdateAvailable){
+            handleIntent();
         }
     }
 
@@ -232,7 +235,7 @@ public class SplashActivity extends AppCompatActivity {
         protected void onPostExecute(JSONObject jsonObject) {
             if (latestVersion != null) {
                 if (!currentVersion.equalsIgnoreCase(latestVersion)) {
-                    isUpdate = true;
+                    isUpdateAvailable = true;
                     showForceUpdateDialog();
                 }
             }
@@ -269,56 +272,51 @@ public class SplashActivity extends AppCompatActivity {
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            if(!CommonUtils.hasPermissions(SplashActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || !CommonUtils.hasPermissions(SplashActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(SplashActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-            }
-            else {
-                Glide.with(SplashActivity.this).asFile().load("https://ssn-app-web.web.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
-                    @Override
-                    public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
-                        File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"SSN-App");
-                        if(!dir.exists())
-                            dir.mkdir();
+            Glide.with(SplashActivity.this).asFile().load("https://ssn-app-web.web.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
+                @Override
+                public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
+                    File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"SSN-App");
+                    if(!dir.exists())
+                        dir.mkdir();
 
-                        File file = new File(dir,"data_faculty.csv");
-                        try {
-                            FileInputStream inStream = new FileInputStream(resource);
-                            FileOutputStream outStream = new FileOutputStream(file);
-                            FileChannel inChannel = inStream.getChannel();
-                            FileChannel outChannel = outStream.getChannel();
-                            inChannel.transferTo(0, inChannel.size(), outChannel);
-                            inStream.close();
-                            outStream.close();
+                    File file = new File(dir,"data_faculty.csv");
+                    try {
+                        FileInputStream inStream = new FileInputStream(resource);
+                        FileOutputStream outStream = new FileOutputStream(file);
+                        FileChannel inChannel = inStream.getChannel();
+                        FileChannel outChannel = outStream.getChannel();
+                        inChannel.transferTo(0, inChannel.size(), outChannel);
+                        inStream.close();
+                        outStream.close();
 
-                            if(file.exists()) {
-                                try {
-                                    CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
-                                    List<Faculty> models = holder.getCsvRecords();
+                        if(file.exists()) {
+                            try {
+                                CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
+                                List<Faculty> models = holder.getCsvRecords();
 
-                                    for (Faculty m : models) {
-                                        String email = m.getEmail();
-                                        SharedPref.putString(getApplicationContext(), "faculty_access", email, m.getAccess());
-                                        SharedPref.putString(getApplicationContext(), "faculty_dept", email, m.getDept());
-                                        SharedPref.putString(getApplicationContext(), "faculty_name", email, m.getName());
-                                        SharedPref.putString(getApplicationContext(), "faculty_position", email, m.getPosition());
-                                    }
-
-                                    file.delete();
-
-                                    if(!isUpdate)
-                                        handleIntent();
+                                for (Faculty m : models) {
+                                    String email = m.getEmail();
+                                    SharedPref.putString(getApplicationContext(), "faculty_access", email, m.getAccess());
+                                    SharedPref.putString(getApplicationContext(), "faculty_dept", email, m.getDept());
+                                    SharedPref.putString(getApplicationContext(), "faculty_name", email, m.getName());
+                                    SharedPref.putString(getApplicationContext(), "faculty_position", email, m.getPosition());
                                 }
-                                catch (Exception e){
-                                    e.printStackTrace();
-                                }
+
+                                file.delete();
+                            }
+                            catch (Exception e){
+                                e.printStackTrace();
                             }
                         }
-                        catch (Exception e) {
-                            e.printStackTrace();
-                        }
                     }
-                });
-            }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    if(!isUpdateAvailable)
+                        handleIntent();
+                }
+            });
             return null;
         }
     }
@@ -534,9 +532,8 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (worst_case && !isUpdate) {
+                if(worst_case & !isUpdateAvailable)
                     passIntent();
-                }
             }
         }, 5000);
     }

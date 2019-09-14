@@ -133,9 +133,9 @@ public class PlacementFragment extends Fragment {
                 }
 
                 post.setYear(null);
-                post.setAuthor_image_url(null);
-                post.setAuthor(null);
-                post.setPosition(null);
+                post.setAuthor_image_url("placement@ssn.edu.in");
+                post.setAuthor("SSN Career Development Centre");
+                post.setPosition("Placement team");
 
                 return post;
             }
@@ -220,7 +220,7 @@ public class PlacementFragment extends Fragment {
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
                         startActivity(intent);
-                        Bungee.slideUp(getContext());
+                        Bungee.slideLeft(getContext());
                     }
                 });
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {

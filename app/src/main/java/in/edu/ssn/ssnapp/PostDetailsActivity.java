@@ -333,6 +333,6 @@ public class PostDetailsActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Bungee.slideDown(PostDetailsActivity.this);
+        Bungee.slideRight(PostDetailsActivity.this);
     }
 }

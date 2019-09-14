@@ -82,17 +82,6 @@ public class AppInfoActivity extends AppCompatActivity implements View.OnClickLi
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
-        type.add(R.drawable.ic_git);
-        type.add(R.drawable.ic_insta_circle);
-
-        url= new ArrayList<>();
-        url.add("ajaykumar17006@cse.ssn.edu.in");
-        url.add("https://github.com/ajaykumar047");
-        url.add("https://instagram.com/ajaykumar_047");
-        teams1.add(new TeamDetails("Ajay Kumar U","App Development",R.drawable.ajay_profile, type, url));
-
-        type  = new ArrayList<>();
-        type.add(R.drawable.ic_google);
         type.add(R.drawable.ic_insta_circle);
         type.add(R.drawable.ic_linkedin_circle);
 

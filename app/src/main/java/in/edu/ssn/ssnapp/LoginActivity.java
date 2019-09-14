@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,6 +74,7 @@ import spencerstudios.com.bungeelib.Bungee;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     CardView cv_student, cv_faculty;
+    ImageView iv_student, iv_faculty, iv_gate, iv_road;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
@@ -87,23 +89,55 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        cv_student = findViewById(R.id.cv_student);
-        cv_faculty = findViewById(R.id.cv_faculty);
+        initUI();
+    }
+
+    void initUI(){
+        cv_student = findViewById(R.id.cv_student);     cv_student.setOnClickListener(this);
+        cv_faculty = findViewById(R.id.cv_faculty);     cv_faculty.setOnClickListener(this);
+        iv_student = findViewById(R.id.iv_student);
+        iv_faculty = findViewById(R.id.iv_faculty);
+        iv_gate = findViewById(R.id.iv_gate);
+        iv_road = findViewById(R.id.iv_road);
         layout_progress = findViewById(R.id.layout_progress);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                cv_student.setVisibility(View.VISIBLE);
-                cv_faculty.setVisibility(View.VISIBLE);
+                iv_gate.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.ZoomIn).duration(500).playOn(iv_gate);
 
-                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_student);
-                YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_faculty);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        iv_road.setVisibility(View.VISIBLE);
+                        YoYo.with(Techniques.FadeInDown).duration(800).playOn(iv_road);
+
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                iv_student.setVisibility(View.VISIBLE);
+                                iv_faculty.setVisibility(View.VISIBLE);
+
+                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(iv_student);
+                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(iv_faculty);
+
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        cv_student.setVisibility(View.VISIBLE);
+                                        cv_faculty.setVisibility(View.VISIBLE);
+
+                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_student);
+                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_faculty);
+                                    }
+                                },500);
+                            }
+                        },800);
+                    }
+                },500);
             }
-        },300);
-
-        cv_student.setOnClickListener(this);
-        cv_faculty.setOnClickListener(this);
+        }, 300);
     }
 
     /************************************************************************/
@@ -282,23 +316,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void setUpNotification() {
         SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
-        SharedPref.putBoolean(getApplicationContext(), "switch_dept", true);
-        SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
-        SharedPref.putBoolean(getApplicationContext(), "switch_club", true);
-        SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
-        SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
+
+        if(SharedPref.getInt(getApplicationContext(),"clearance") == 1) {
+            SharedPref.putBoolean(getApplicationContext(), "switch_dept1", true);
+            SharedPref.putBoolean(getApplicationContext(), "switch_bus1", true);
+        }
+        else{
+            SharedPref.putBoolean(getApplicationContext(), "switch_dept0", true);
+            SharedPref.putBoolean(getApplicationContext(), "switch_bus0", true);
+            SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
+            SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
+        }
     }
 
     public void SubscribeToAlerts(Context context){
         FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.SubscribeToTopic(context, Constants.CLUB_ALERTS);
-        FCMHelper.SubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
-        FCMHelper.SubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
 
-        if(clearance==0)
-            FCMHelper.SubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
+        if(clearance==0) {
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "work");
+        }
         else if(clearance==1)
-            FCMHelper.SubscribeToTopic(context,SharedPref.getString(context,"dept"));
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept"));
     }
 
     /************************************************************************/
@@ -363,59 +403,54 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            if(!CommonUtils.hasPermissions(LoginActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) || !CommonUtils.hasPermissions(LoginActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)){
-                ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
-            }
-            else {
-                Glide.with(LoginActivity.this).asFile().load("https://ssn-app-web.web.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
-                    @Override
-                    public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
-                        File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"SSN-App");
-                        if(!dir.exists())
-                            dir.mkdir();
+            Glide.with(LoginActivity.this).asFile().load("https://ssn-app-web.web.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
+                @Override
+                public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
+                    File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"SSN-App");
+                    if(!dir.exists())
+                        dir.mkdir();
 
-                        File file = new File(dir,"data_faculty.csv");
-                        try {
-                            FileInputStream inStream = new FileInputStream(resource);
-                            FileOutputStream outStream = new FileOutputStream(file);
-                            FileChannel inChannel = inStream.getChannel();
-                            FileChannel outChannel = outStream.getChannel();
-                            inChannel.transferTo(0, inChannel.size(), outChannel);
-                            inStream.close();
-                            outStream.close();
+                    File file = new File(dir,"data_faculty.csv");
+                    try {
+                        FileInputStream inStream = new FileInputStream(resource);
+                        FileOutputStream outStream = new FileOutputStream(file);
+                        FileChannel inChannel = inStream.getChannel();
+                        FileChannel outChannel = outStream.getChannel();
+                        inChannel.transferTo(0, inChannel.size(), outChannel);
+                        inStream.close();
+                        outStream.close();
 
-                            Log.d("test_set", "download done");
+                        Log.d("test_set", "download done");
 
-                            if(file.exists()) {
-                                try {
-                                    CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
-                                    List<Faculty> models = holder.getCsvRecords();
+                        if(file.exists()) {
+                            try {
+                                CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
+                                List<Faculty> models = holder.getCsvRecords();
 
-                                    for (Faculty m : models) {
-                                        String email = m.getEmail();
-                                        SharedPref.putString(getApplicationContext(), "faculty_access", email, m.getAccess());
-                                        SharedPref.putString(getApplicationContext(), "faculty_dept", email, m.getDept());
-                                        SharedPref.putString(getApplicationContext(), "faculty_name", email, m.getName());
-                                        SharedPref.putString(getApplicationContext(), "faculty_position", email, m.getPosition());
-                                    }
-
-                                    file.delete();
+                                for (Faculty m : models) {
+                                    String email = m.getEmail();
+                                    SharedPref.putString(getApplicationContext(), "faculty_access", email, m.getAccess());
+                                    SharedPref.putString(getApplicationContext(), "faculty_dept", email, m.getDept());
+                                    SharedPref.putString(getApplicationContext(), "faculty_name", email, m.getName());
+                                    SharedPref.putString(getApplicationContext(), "faculty_position", email, m.getPosition());
                                 }
-                                catch (Exception e){
-                                    e.printStackTrace();
-                                    Log.d("test_set", e.getMessage());
-                                }
+
+                                file.delete();
                             }
-                            else{
-                                Log.d("test_set","Not Found");
+                            catch (Exception e){
+                                e.printStackTrace();
+                                Log.d("test_set", e.getMessage());
                             }
                         }
-                        catch (Exception e) {
-                            Log.d("test_set", e.getMessage());
+                        else{
+                            Log.d("test_set","Not Found");
                         }
                     }
-                });
-            }
+                    catch (Exception e) {
+                        Log.d("test_set", e.getMessage());
+                    }
+                }
+            });
             return null;
         }
     }
@@ -441,7 +476,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                     break;
             }
-            initGoogleSignIn();
+            if(!CommonUtils.alerter(getApplicationContext()))
+                initGoogleSignIn();
+            else{
+                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                intent.putExtra("key","login");
+                startActivity(intent);
+                Bungee.fade(LoginActivity.this);
+            }
         }
         else{
             switch (v.getId()){

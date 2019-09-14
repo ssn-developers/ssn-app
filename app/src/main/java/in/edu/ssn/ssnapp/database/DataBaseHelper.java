@@ -138,7 +138,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String json=c.getString(2);
                 Post post= new Gson().fromJson(json, Post.class);
                 postList.add(new Pair<Post, String>(post,c.getString(1)));
-                Log.d(TAG,i  + " " + post.getId());
+                Log.d(TAG,i  + " " + post.getAuthor());
                 i++;
             }while (c.moveToNext());
         }

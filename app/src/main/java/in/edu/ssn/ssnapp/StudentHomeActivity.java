@@ -228,9 +228,8 @@ public class StudentHomeActivity extends BaseActivity {
 
     void setupViewPager(){
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new StudentFeedFragment(), "Feed");
+        adapter.addFragment(new StudentFeedFragment(), "News feed");
         adapter.addFragment(new ClubFragment(), "Club");
-        adapter.addFragment(new StudentFeedFragment(), "News Feed");
         if(SharedPref.getInt(getApplicationContext(),"year") == Integer.parseInt(Constants.fourth))
             adapter.addFragment(new PlacementFragment(), "Placement");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
@@ -245,10 +244,9 @@ public class StudentHomeActivity extends BaseActivity {
 
     public void UnSubscribeToAlerts(Context context){
         FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.CLUB_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.EXAM_CELL_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.WORKSHOP_ALERTS);
         FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
+        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year") + "exam");
+        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year") + "work");
     }
 
     /*********************************************************/
