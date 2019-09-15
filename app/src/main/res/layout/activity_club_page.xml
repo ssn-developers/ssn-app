@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ClubPageActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main_appbarlayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="wrap_content"
@@ -250,8 +252,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/layout_dp_iv"
@@ -261,11 +262,7 @@
                 android:background="@drawable/circle"
                 android:padding="1dp"
                 android:src="@color/shimmering_front"
-                app:finalHeight="32dp"
-                app:finalXPosition="12dp"
-                app:finalYPosition="12dp"
                 android:layout_margin="10dp"
-                app:finalToolbarHeight="?attr/actionBarSize"
                 app:layout_behavior="in.edu.ssn.ssnapp.utils.image_behaviour"
                 />
 
@@ -282,9 +279,4 @@
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
-
-
-
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
