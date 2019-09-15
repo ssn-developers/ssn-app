@@ -48,7 +48,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="match_parent"
 						android:layout_margin="@dimen/_1sdp"
-						android:src="@drawable/ic_menu"/>
+						app:srcCompat="@drawable/ic_menu"/>
 				</androidx.cardview.widget.CardView>
 			</RelativeLayout>
 
@@ -67,7 +67,7 @@
 				android:focusable="true"
 				android:visibility="gone"
 				android:foreground="?selectableItemBackground"
-				android:src="@drawable/ic_menu"
+				app:srcCompat="@drawable/ic_menu"
 				android:contentDescription="@string/menu_button" />
 
 			<RelativeLayout

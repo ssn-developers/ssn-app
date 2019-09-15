@@ -2,30 +2,90 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
+	android:layout_height="match_parent">
 
-	<androidx.recyclerview.widget.RecyclerView
+	<ScrollView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:clipToPadding="false"
-		android:layout_marginTop="@dimen/_45sdp"
-		android:id="@+id/subs_RV"/>
+		android:scrollbars="none">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="You may like"
-		android:fontFamily="@font/open_sans_bold"
-		android:textSize="@dimen/_14ssp"
-		android:textColor="@color/colorAccent"
-		android:layout_marginLeft="@dimen/_15sdp"
-		android:layout_marginBottom="@dimen/_10sdp"/>
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginTop="@dimen/_45sdp"
+			android:orientation="vertical">
 
-	<androidx.recyclerview.widget.RecyclerView
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		android:clipToPadding="false"
-		android:id="@+id/unsubs_RV"/>
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<androidx.recyclerview.widget.RecyclerView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:clipToPadding="false"
+					android:visibility="invisible"
+					android:id="@+id/subs_RV"/>
+
+				<RelativeLayout
+					android:id="@+id/layout_subscribed"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="@dimen/_20sdp"
+					android:layout_marginRight="@dimen/_20sdp">
+
+					<RelativeLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="@dimen/_40sdp"
+						android:layout_marginBottom="@dimen/_40sdp">
+
+						<TextView
+							android:id="@+id/tv_text1"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:fontFamily="@font/open_sans_semi_bold"
+							android:text="No Subscriptions"
+							android:layout_centerHorizontal="true"
+							android:textColor="#404040"
+							android:gravity="center"
+							android:textSize="@dimen/_14ssp" />
+
+						<TextView
+							android:id="@+id/tv_text2"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:fontFamily="@font/open_sans"
+							android:text="We'll let you know for new posts if you follow clubs."
+							android:layout_centerHorizontal="true"
+							android:textColor="#404040"
+							android:layout_below="@+id/tv_text1"
+							android:layout_marginTop="@dimen/_5sdp"
+							android:gravity="center"
+							android:textSize="@dimen/_12ssp" />
+					</RelativeLayout>
+				</RelativeLayout>
+
+			</RelativeLayout>
+
+			<TextView
+				android:id="@+id/tv_suggestion"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="You may like"
+				android:visibility="gone"
+				android:fontFamily="@font/open_sans_bold"
+				android:textSize="@dimen/_14ssp"
+				android:textColor="@color/colorAccent"
+				android:layout_marginLeft="@dimen/_15sdp"
+				android:layout_marginBottom="@dimen/_10sdp"/>
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clipToPadding="false"
+				android:id="@+id/unsubs_RV"/>
+
+		</LinearLayout>
+	</ScrollView>
 
 </LinearLayout>

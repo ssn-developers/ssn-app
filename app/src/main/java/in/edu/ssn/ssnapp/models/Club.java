@@ -23,7 +23,7 @@ public class Club implements Parcelable {
     private String dp_url;
     private String cover_url;
     private String name;
-    private Long followers;
+    private ArrayList<String> followers;
     private String contact;
     private ArrayList<String> head;
     private String description;
@@ -35,7 +35,7 @@ public class Club implements Parcelable {
         dp_url = in.readString();
         cover_url = in.readString();
         name = in.readString();
-        followers = in.readLong();
+        followers = in.createStringArrayList();
         contact = in.readString();
         head = in.createStringArrayList();
         description = in.readString();
@@ -85,11 +85,11 @@ public class Club implements Parcelable {
         this.name = name;
     }
 
-    public Long getFollowers() {
+    public ArrayList<String> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(Long followers) {
+    public void setFollowers(ArrayList<String> followers) {
         this.followers = followers;
     }
 
@@ -128,7 +128,7 @@ public class Club implements Parcelable {
         parcel.writeString(dp_url);
         parcel.writeString(cover_url);
         parcel.writeString(name);
-        parcel.writeLong(followers);
+        parcel.writeStringList(followers);
         parcel.writeString(contact);
         parcel.writeStringList(head);
         parcel.writeString(description);

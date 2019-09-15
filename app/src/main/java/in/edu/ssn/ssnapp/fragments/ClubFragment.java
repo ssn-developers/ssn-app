@@ -28,14 +28,19 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.firebase.ui.firestore.ChangeEventListener;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
@@ -44,11 +49,14 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.adapters.BusRouteAdapter;
+import in.edu.ssn.ssnapp.adapters.DummyAdapter;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Club;
@@ -61,10 +69,12 @@ public class ClubFragment extends Fragment {
     public ClubFragment() { }
 
     private RecyclerView subs_RV, unsubs_RV;
+    private TextView tv_suggestion;
+    private RelativeLayout layout_subscribed;
     private FirestoreRecyclerAdapter subs_adap;
-    private FirestoreRecyclerAdapter unsubs_adap;
-    Boolean isHead;
-    Long followers;
+
+    List<Club> clubs;
+    DummyAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,14 +82,52 @@ public class ClubFragment extends Fragment {
         CommonUtils.initFonts(getContext(), view);
 
         initUI(view);
+
         setupFireStore();
 
         return view;
     }
 
-    void setupFireStore() {
-        Query query = FirebaseFirestore.getInstance().collection("club");
-        FirestoreRecyclerOptions<Club> options = new FirestoreRecyclerOptions.Builder<Club>().setQuery(query, new SnapshotParser<Club>() {
+    private void setupFireStore() {
+        setUpSubcriptions();
+
+        FirebaseFirestore.getInstance().collection("club").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful() && task.getResult() != null){
+                    clubs = task.getResult().toObjects(Club.class);
+                    for(int i = 0; i< clubs.size(); i++) {
+                        Club c = clubs.get(i);
+                        if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
+                            clubs.remove(i);
+                            i--;
+                        }
+                    }
+
+                    adapter = new DummyAdapter(getContext(), clubs);
+                    unsubs_RV.setAdapter(adapter);
+                    if(clubs.size() > 0)
+                        tv_suggestion.setVisibility(View.VISIBLE);
+
+                    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                        @Override
+                        public void onChanged() {
+                            super.onChanged();
+
+                            if (clubs.size() == 0)
+                                tv_suggestion.setVisibility(View.GONE);
+                            else
+                                tv_suggestion.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void setUpSubcriptions() {
+        Query query = FirebaseFirestore.getInstance().collection("club").whereArrayContains("followers",SharedPref.getString(getContext(),"email"));
+        final FirestoreRecyclerOptions<Club> options = new FirestoreRecyclerOptions.Builder<Club>().setQuery(query, new SnapshotParser<Club>() {
             @NonNull
             @Override
             public Club parseSnapshot(@NonNull DocumentSnapshot snapshot) {
@@ -90,7 +138,13 @@ public class ClubFragment extends Fragment {
                 club.setCover_url(snapshot.getString("cover_url"));
                 club.setContact(snapshot.getString("contact"));
                 club.setDescription(snapshot.getString("description"));
-                club.setFollowers(snapshot.getLong("followers"));
+                try {
+                    club.setFollowers((ArrayList<String>) snapshot.get("followers"));
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    club.setFollowers(null);
+                }
                 try {
                     club.setHead((ArrayList<String>) snapshot.get("head"));
                 }
@@ -99,38 +153,6 @@ public class ClubFragment extends Fragment {
                     club.setHead(null);
                 }
 
-                /*ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if (images != null && images.size() > 0)
-                    club.setImageUrl(images);
-                else
-                    club.setImageUrl(null);
-
-                try {
-                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
-                    if (files != null && files.size() != 0) {
-                        ArrayList<String> fileName = new ArrayList<>();
-                        ArrayList<String> fileUrl = new ArrayList<>();
-
-                        for (int i = 0; i < files.size(); i++) {
-                            String tv_name = files.get(i).get("tv_name");
-                            if (tv_name.length() > 13)
-                                tv_name = tv_name.substring(0, tv_name.length() - 13);
-                            fileName.add(tv_name);
-                            fileUrl.add(files.get(i).get("url"));
-                        }
-                        club.setFileName(fileName);
-                        club.setFileUrl(fileUrl);
-                    } else {
-                        club.setFileName(null);
-                        club.setFileUrl(null);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    Crashlytics.log("stackTrace: " + Arrays.toString(e.getStackTrace()) + " \n Error: " + e.getMessage());
-                    club.setFileName(null);
-                    club.setFileUrl(null);
-                }*/
-
                 return club;
             }
         }).build();
@@ -138,141 +160,43 @@ public class ClubFragment extends Fragment {
         subs_adap = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
+                holder.tv_name.setText(model.getName());
+                holder.tv_description.setText(model.getDescription());
 
-                // checking for club subscription....
-                if (SharedPref.getBoolean(getContext(), "club", model.getId())) {
-                    holder.tv_name.setText(model.getName());
-                    holder.tv_description.setText(model.getDescription());
-                    followers = model.getFollowers();
-
-                    try {
-                        Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
-                    }
-                    catch (Exception e){
-                        holder.iv_dp.setImageResource(R.color.shimmering_back);
-                    }
-
-                    if (SharedPref.getBoolean(getContext(), "club", model.getId())) {
-                        holder.iv_follow.setImageResource(R.drawable.follow_blue);
-                    } else {
-                        holder.iv_follow.setImageResource(R.drawable.follow);
-                    }
-
-                    holder.iv_follow.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (SharedPref.getBoolean(getContext(), "club", model.getId())) {
-                                holder.iv_follow.setImageResource(R.drawable.follow);
-                                SharedPref.putBoolean(getContext(), "club", model.getId(), false);
-                                
-                                model.setFollowers(model.getFollowers() - 1);
-                                Map<String, Object> follower_det = new HashMap<>();
-                                follower_det.put("followers", model.getFollowers());
-                                
-                                FirebaseFirestore.getInstance().collection("club").document(model.getId()).set(follower_det, SetOptions.merge());
-                            } 
-                            else {
-                                holder.iv_follow.setImageResource(R.drawable.follow_blue);
-                                SharedPref.putBoolean(getContext(), "club", model.getId(), true);
-
-                                model.setFollowers(model.getFollowers() + 1);
-                                Map<String, Object> follower_det = new HashMap<>();
-                                follower_det.put("followers", model.getFollowers());
-                                FirebaseFirestore.getInstance().collection("club").document(model.getId()).set(follower_det, SetOptions.merge());
-                            }
-                        }
-                    });
-
-                    //isHead for club head...
-                    if (model.getHead().contains(SharedPref.getString(getContext(), "email")))
-                        isHead = true;
-                    else
-                        isHead = false;
-                    
-                    holder.club_RL.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(getContext(), ClubPageActivity.class);
-                            intent.putExtra("data", model);
-                            intent.putExtra("isHead", isHead);
-                            getContext().startActivity(intent);
-                        }
-                    });
+                try {
+                    Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
                 }
-            }
-
-            @NonNull
-            @Override
-            public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.club_item, group, false);
-                return new FeedViewHolder(view);
-            }
-        };
-
-        unsubs_adap = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
-            @Override
-            public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
-
-                // checking for club unsubscription....
-                if (!SharedPref.getBoolean(getContext(),"club", model.getId())) {
-                    holder.tv_name.setText(model.getName());
-                    holder.tv_description.setText(model.getDescription());
-                    followers = model.getFollowers();
-
-                    try {
-                        Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
-                    }
-                    catch (Exception e){
-                        holder.iv_dp.setImageResource(R.color.shimmering_back);
-                    }
-
-                    if (SharedPref.getBoolean(getContext(), "club", model.getId())) {
-                        holder.iv_follow.setImageResource(R.drawable.follow_blue);
-                    } else {
-                        holder.iv_follow.setImageResource(R.drawable.follow);
-                    }
-
-                    holder.iv_follow.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (SharedPref.getBoolean(getContext(), "club", model.getId())) {
-                                holder.iv_follow.setImageResource(R.drawable.follow);
-                                SharedPref.putBoolean(getContext(), "club", model.getId(), false);
-
-                                model.setFollowers(model.getFollowers()-1);
-                                Map<String, Object> follower_det = new HashMap<>();
-                                follower_det.put("followers", model.getFollowers());
-
-                                FirebaseFirestore.getInstance().collection("club").document(model.getId()).set(follower_det, SetOptions.merge());
-                            }
-                            else {
-                                holder.iv_follow.setImageResource(R.drawable.follow_blue);
-                                SharedPref.putBoolean(getContext(), "club", model.getId(), true);
-
-                                model.setFollowers(model.getFollowers()+1);
-                                Map<String, Object> follower_det = new HashMap<>();
-                                follower_det.put("followers", model.getFollowers());
-                                FirebaseFirestore.getInstance().collection("club").document(model.getId()).set(follower_det, SetOptions.merge());
-                            }
-                        }
-                    });
-
-                    //isHead for club head...
-                    if (model.getHead().contains(SharedPref.getString(getContext(), "email")))
-                        isHead = true;
-                    else
-                        isHead = false;
-
-                    holder.club_RL.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(getContext(), ClubPageActivity.class);
-                            intent.putExtra("data", model);
-                            intent.putExtra("isHead", isHead);
-                            getContext().startActivity(intent);
-                        }
-                    });
+                catch (Exception e){
+                    holder.iv_dp.setImageResource(R.color.shimmering_back);
                 }
+
+                holder.iv_follow.setImageResource(R.drawable.follow_blue);
+
+                holder.iv_follow.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        holder.iv_follow.setImageResource(R.drawable.follow);
+
+                        Map<String, Object> follower_det = new HashMap<>();
+                        model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
+                        follower_det.put("followers", model.getFollowers());
+                        FirebaseFirestore.getInstance().collection("club").document(model.getId()).set(follower_det, SetOptions.merge());
+                        clubs.add(model);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+                holder.club_RL.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), ClubPageActivity.class);
+                        intent.putExtra("data", model);
+                        getContext().startActivity(intent);
+                    }
+                });
+
+                subs_RV.setVisibility(View.VISIBLE);
+                layout_subscribed.setVisibility(View.GONE);
             }
 
             @NonNull
@@ -284,15 +208,36 @@ public class ClubFragment extends Fragment {
         };
 
         subs_RV.setAdapter(subs_adap);
-        unsubs_RV.setAdapter(unsubs_adap);
+
+        subs_RV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+                layout_subscribed.setVisibility(View.GONE);
+                subs_RV.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+                if(subs_adap.getItemCount() == 0){
+                    layout_subscribed.setVisibility(View.VISIBLE);
+                    subs_RV.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 
-    void initUI(View view) {
+    private void initUI(View view) {
         subs_RV = view.findViewById(R.id.subs_RV);
         unsubs_RV = view.findViewById(R.id.unsubs_RV);
+        tv_suggestion = view.findViewById(R.id.tv_suggestion);
+        layout_subscribed = view.findViewById(R.id.layout_subscribed);
 
         subs_RV.setLayoutManager(new LinearLayoutManager(getContext()));
+        subs_RV.setNestedScrollingEnabled(false);
         unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext()));
+        unsubs_RV.setNestedScrollingEnabled(false);
+
     }
 
     /*********************************************************/
@@ -320,22 +265,19 @@ public class ClubFragment extends Fragment {
     public void onStart() {
         super.onStart();
         subs_adap.startListening();
-        unsubs_adap.startListening();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         subs_adap.stopListening();
-        unsubs_adap.stopListening();
     }
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
         subs_adap.startListening();
-        unsubs_adap.startListening();
-    }
+    }*/
 
     @Override
     public void onStop() {
