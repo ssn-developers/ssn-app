@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:orientation="vertical"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	android:orientation="vertical">
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingTop="@dimen/_43sdp"
 		android:clipToPadding="false"
-		android:id="@+id/subs_RV">
-	</androidx.recyclerview.widget.RecyclerView>
+		android:layout_marginTop="@dimen/_45sdp"
+		android:id="@+id/subs_RV"/>
+
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="You may like"
-		android:textStyle="italic"
-		android:textSize="13dp"
-		android:layout_margin="10dp"/>
+		android:fontFamily="@font/open_sans_bold"
+		android:textSize="@dimen/_14ssp"
+		android:textColor="@color/colorAccent"
+		android:layout_marginLeft="@dimen/_15sdp"
+		android:layout_marginBottom="@dimen/_10sdp"/>
+
 	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingTop="10dp"
+		android:clipToPadding="false"
 		android:id="@+id/unsubs_RV"/>
 
 </LinearLayout>

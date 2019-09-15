@@ -20,20 +20,20 @@ import in.edu.ssn.ssnapp.OpenImageActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
-import in.edu.ssn.ssnapp.models.Club;
+import in.edu.ssn.ssnapp.models.ClubPost;
 import spencerstudios.com.bungeelib.Bungee;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class ClubImageAdapter extends PagerAdapter {
+public class ClubPostImageAdapter extends PagerAdapter {
     Context context;
     List<String> images;
     LayoutInflater layoutInflater;
-    Club model;
+    ClubPost model;
     String timer;
     Boolean flag;
 
-    public ClubImageAdapter(Context context, List<String> images, Boolean flag, Club model, String timer) {
+    public ClubPostImageAdapter(Context context, List<String> images, Boolean flag, ClubPost model, String timer) {
         this.context = context;
         this.images = images;
         this.model= model;
@@ -42,7 +42,7 @@ public class ClubImageAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public ClubImageAdapter(Context context, List<String> images, Boolean flag) {
+    public ClubPostImageAdapter(Context context, List<String> images, Boolean flag) {
         this.context = context;
         this.images = images;
         this.flag = flag;

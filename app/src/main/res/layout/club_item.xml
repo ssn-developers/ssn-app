@@ -18,7 +18,7 @@
         android:layout_height="wrap_content">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/dp_iv"
+            android:id="@+id/iv_dp"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
             android:layout_margin="@dimen/_8sdp"
@@ -28,12 +28,12 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/dp_iv"
+            android:layout_toEndOf="@id/iv_dp"
             android:layout_marginEnd="@dimen/_40sdp"
             android:layout_centerVertical="true">
 
             <TextView
-                android:id="@+id/club_tv"
+                android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
@@ -41,19 +41,18 @@
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
-                android:id="@+id/desc_tv"
+                android:id="@+id/tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/club_tv"
+                android:layout_below="@id/tv_name"
                 android:fontFamily="@font/open_sans"
-                android:text="Club Description"
                 android:textColor="#000000"
                 android:maxLines="2"
                 android:textSize="@dimen/_10ssp" />
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/follow_iv"
+            android:id="@+id/iv_follow"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
             android:layout_margin="@dimen/_5sdp"

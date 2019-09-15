@@ -7,73 +7,28 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Club implements Parcelable {
-    private Date time;
+
+
     private String id;
-    private String pid;
-    private String title;
+    private String dp_url;
+    private String cover_url;
+    private String name;
+    private ArrayList<String> followers;
+    private String contact;
+    private ArrayList<String> head;
     private String description;
-    private ArrayList<String> imageUrl;
-    private ArrayList<String> fileName;
-    private ArrayList<String> fileUrl;
-    private ArrayList<String> heads;
-    private ArrayList<String> comments;
-    private String author;
-    private String club_image_url;
-    private String club_cover_image_url;
-    private String club_name;
-    private long contact;
-    private int followers;
-    private String position;
-    private int like;
-    private int Comment;
-
-
 
     public Club() { }
 
-    public Club(String id, String description, ArrayList<String> heads, String club_image_url, String club_name,int followers,String club_cover_image_url,long contact) {
-        this.id = id;
-        this.description = description;
-        this.heads = heads;
-        this.club_image_url = club_image_url;
-        this.club_name = club_name;
-        this.followers = followers;
-        this.club_cover_image_url = club_cover_image_url;
-        this.contact=contact;
-    }
-
-    public Club(String title, String club_image_url, Date time, String id, String FileUrl, int like, int comment) {
-        this.title = title;
-        this.club_image_url = club_image_url;
-        this.time = time;
-        this.id=id;
-        this.fileUrl=new ArrayList<>();
-        this.fileUrl.add(FileUrl);
-        this.like = like;
-        this.Comment = comment;
-    }
-
     protected Club(Parcel in) {
         id = in.readString();
-        title = in.readString();
-        club_name = in.readString();
-        pid = in.readString();
-
+        dp_url = in.readString();
+        cover_url = in.readString();
+        name = in.readString();
+        followers = in.createStringArrayList();
+        contact = in.readString();
+        head = in.createStringArrayList();
         description = in.readString();
-        imageUrl = in.createStringArrayList();
-
-        fileName = in.createStringArrayList();
-        fileUrl = in.createStringArrayList();
-
-        like = in.readInt();
-        Comment =in.readInt();
-        contact = in.readLong();
-        club_cover_image_url = in.readString();
-
-        author = in.readString();
-        club_image_url = in.readString();
-        position = in.readString();
-        time=new Date(in.readLong());
     }
 
     public static final Creator<Club> CREATOR = new Creator<Club>() {
@@ -88,85 +43,60 @@ public class Club implements Parcelable {
         }
     };
 
-    public ArrayList<String> getComments() {
-        return comments;
+    public String getId() {
+        return id;
     }
 
-    public void setComments(ArrayList<String> comments) {
-        this.comments = comments;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getClub_cover_image_url() {
-        return club_cover_image_url;
+    public String getDp_url() {
+        return dp_url;
     }
 
-    public void setClub_cover_image_url(String club_cover_image_url) {
-        this.club_cover_image_url = club_cover_image_url;
+    public void setDp_url(String dp_url) {
+        this.dp_url = dp_url;
     }
 
-    public String getPid() {
-        return pid;
+    public String getCover_url() {
+        return cover_url;
     }
 
-    public ArrayList<String> getHeads() {
-        return heads;
+    public void setCover_url(String cover_url) {
+        this.cover_url = cover_url;
     }
 
-    public void setHeads(ArrayList<String> heads) {
-        this.heads = heads;
+    public String getName() {
+        return name;
     }
 
-
-    public void setPid(String pid) {
-        this.pid = pid;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public long getContact() {
-        return contact;
-    }
-
-    public String getClub_name() {
-        return club_name;
-    }
-
-    public void setClub_name(String club_name) {
-        this.club_name = club_name;
-    }
-
-    public void setContact(long contact) {
-        this.contact = contact;
-    }
-
-    public int getFollowers() {
+    public ArrayList<String> getFollowers() {
         return followers;
     }
 
-    public void setFollowers(int followers) {
+    public void setFollowers(ArrayList<String> followers) {
         this.followers = followers;
     }
 
-    public int getLike() {
-        return like;
+    public String getContact() {
+        return contact;
     }
 
-    public void setLike(int like) {
-        this.like = like;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
-    public int getComment() {
-        return Comment;
+    public ArrayList<String> getHead() {
+        return head;
     }
 
-    public void setComment(int comment) {
-        Comment = comment;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setHead(ArrayList<String> head) {
+        this.head = head;
     }
 
     public String getDescription() {
@@ -177,92 +107,20 @@ public class Club implements Parcelable {
         this.description = description;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Date getTime() {
-        return time;
-    }
-
-    public void setTime(Date time) {
-        this.time = time;
-    }
-
-    public ArrayList<String> getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(ArrayList<String> imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getClub_image_url() {
-        return club_image_url;
-    }
-
-    public void setClub_image_url(String club_image_url) {
-        this.club_image_url = club_image_url;
-    }
-
-    public ArrayList<String> getFileName() {
-        return fileName;
-    }
-
-    public void setFileName(ArrayList<String> fileName) {
-        this.fileName = fileName;
-    }
-
-    public ArrayList<String> getFileUrl() {
-        return fileUrl;
-    }
-
-    public void setFileUrl(ArrayList<String> fileUrl) {
-        this.fileUrl = fileUrl;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
     @Override
     public int describeContents() {
         return 0;
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeString(this.title);
-        dest.writeString(this.description);
-        dest.writeStringList(this.imageUrl);
-        dest.writeStringList(this.fileName);
-        dest.writeStringList(this.fileUrl);
-        dest.writeString(this.pid);
-        dest.writeLong(this.contact);
-        dest.writeString(this.club_cover_image_url);
-        dest.writeString(this.author);
-        dest.writeString(this.club_name);
-        dest.writeString(this.club_image_url);
-        dest.writeString(this.position);
-        dest.writeLong(this.time.getTime());
-        dest.writeInt(this.like);
-        dest.writeInt(this.Comment);
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(dp_url);
+        parcel.writeString(cover_url);
+        parcel.writeString(name);
+        parcel.writeStringList(followers);
+        parcel.writeString(contact);
+        parcel.writeStringList(head);
+        parcel.writeString(description);
     }
 }

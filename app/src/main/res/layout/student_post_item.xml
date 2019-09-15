@@ -34,7 +34,6 @@
                     android:layout_height="@dimen/_30sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:src="@drawable/ic_user_white"
                     android:id="@+id/userImageIV" />
 
                 <TextView
@@ -45,7 +44,6 @@
                     android:textColor="#000000"
                     android:textSize="@dimen/_12ssp"
                     android:singleLine="true"
-                    android:text="SSN Institutions"
                     android:fontFamily="@font/open_sans"
                     android:layout_toStartOf="@+id/tv_time"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -62,8 +60,7 @@
                     android:textSize="@dimen/_10ssp"
                     android:singleLine="true"
                     android:layout_marginLeft="@dimen/_10sdp"
-                    android:layout_below="@+id/tv_author"
-                    android:text="Admin"/>
+                    android:layout_below="@+id/tv_author"/>
 
                 <TextView
                     android:id="@+id/tv_time"
