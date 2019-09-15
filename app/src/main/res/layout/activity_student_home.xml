@@ -33,7 +33,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="match_parent"
 					app:civ_circle_background_color="#D8D7D7"
-					android:src="@drawable/ic_user_white"
+					app:srcCompat="@drawable/ic_user_white"
 					android:id="@+id/userImageIV" />
 
 				<androidx.cardview.widget.CardView
