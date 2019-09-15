@@ -226,6 +226,16 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 if (author.isEmpty()) {
                     author = email;
                 }
+                holder.feed_view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getApplicationContext(),ClubPostDetailsActivity.class);
+                        intent.putExtra("pid",model.getPid());
+                        intent.putExtra("name",name);
+                        intent.putExtra("dp_url",dp_url);
+                        startActivity(intent);
+                    }
+                });
 
 
                 Log.i("app_test", "onBindViewHolder: " + email);

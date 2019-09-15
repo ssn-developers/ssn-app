@@ -1,48 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@color/white"
-	android:orientation="vertical">
+	android:orientation="vertical"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
 
-	<TextView
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Your Subscriptions"
-		android:fontFamily="@font/open_sans_bold"
-		android:textSize="@dimen/_14ssp"
-		android:layout_marginTop="@dimen/_10sdp"
-		android:layout_marginLeft="@dimen/_15sdp"
-		android:textColor="@color/colorAccent" />
-
-	<ListView
+	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/_120sdp"
-		android:layout_marginTop="@dimen/_10sdp"
-		android:layout_marginBottom="@dimen/_10sdp"
-		android:scrollbars="none"
-		android:background="@null"
-		android:id="@+id/feedsRV_club"/>
-
+		android:layout_height="wrap_content"
+		android:paddingTop="@dimen/_43sdp"
+		android:clipToPadding="false"
+		android:id="@+id/subs_RV">
+	</androidx.recyclerview.widget.RecyclerView>
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:text="You may like"
-		android:fontFamily="@font/open_sans_bold"
-		android:textSize="@dimen/_14ssp"
-		android:layout_marginLeft="@dimen/_15sdp"
-		android:textColor="@color/colorAccent"
-		android:layout_marginTop="@dimen/_5sdp"/>
-
-	<ListView
+		android:textStyle="italic"
+		android:textSize="13dp"
+		android:layout_margin="10dp"/>
+	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/_120sdp"
-		android:layout_margin="@dimen/_8sdp"
-		android:layout_marginTop="@dimen/_10sdp"
-		android:layout_marginBottom="@dimen/_10sdp"
-		android:scrollbars="none"
-		android:background="@null"
-		android:id="@+id/feedsRV_uns_club"/>
+		android:layout_height="wrap_content"
+		android:paddingTop="10dp"
+		android:id="@+id/unsubs_RV"/>
 
 </LinearLayout>

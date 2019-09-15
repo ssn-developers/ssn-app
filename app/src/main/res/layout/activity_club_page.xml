@@ -263,7 +263,7 @@
                 android:padding="1dp"
                 android:src="@color/shimmering_front"
                 android:layout_margin="10dp"
-                app:layout_behavior="in.edu.ssn.ssnapp.utils.image_behaviour"
+                app:finalToolbarHeight="?attr/actionBarSize"
                 />
 
             <TextView
