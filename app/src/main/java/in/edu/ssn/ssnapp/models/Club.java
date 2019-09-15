@@ -16,6 +16,7 @@ public class Club implements Parcelable {
     private ArrayList<String> fileName;
     private ArrayList<String> fileUrl;
     private ArrayList<String> heads;
+    private ArrayList<String> comments;
     private String author;
     private String club_image_url;
     private String club_cover_image_url;
@@ -27,9 +28,10 @@ public class Club implements Parcelable {
     private int Comment;
 
 
+
     public Club() { }
 
-    public Club(String id, String description, ArrayList<String> heads, String club_image_url, String club_name,int followers,String club_cover_image_url) {
+    public Club(String id, String description, ArrayList<String> heads, String club_image_url, String club_name,int followers,String club_cover_image_url,long contact) {
         this.id = id;
         this.description = description;
         this.heads = heads;
@@ -37,6 +39,7 @@ public class Club implements Parcelable {
         this.club_name = club_name;
         this.followers = followers;
         this.club_cover_image_url = club_cover_image_url;
+        this.contact=contact;
     }
 
     public Club(String title, String club_image_url, Date time, String id, String FileUrl, int like, int comment) {
@@ -85,6 +88,14 @@ public class Club implements Parcelable {
         }
     };
 
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
+    }
+
     public String getClub_cover_image_url() {
         return club_cover_image_url;
     }
@@ -96,6 +107,15 @@ public class Club implements Parcelable {
     public String getPid() {
         return pid;
     }
+
+    public ArrayList<String> getHeads() {
+        return heads;
+    }
+
+    public void setHeads(ArrayList<String> heads) {
+        this.heads = heads;
+    }
+
 
     public void setPid(String pid) {
         this.pid = pid;

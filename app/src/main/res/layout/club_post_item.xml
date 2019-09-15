@@ -143,13 +143,43 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     app:srcCompat="@drawable/heart"
                     />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/like_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:layout_toRightOf="@id/like_IV_club"
+                    android:fontFamily="@font/open_sans"
+                    android:textSize="15dp"
+                    android:text=""/>
+
                 <ImageView
                     app:srcCompat="@drawable/comment"
                     android:id="@+id/comment_IV_club"
                     android:padding="@dimen/_6sdp"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp"
-                    android:layout_toRightOf="@id/like_IV_club"
+                    android:layout_toRightOf="@id/like_count_tv"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    />
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/comment_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:layout_toRightOf="@id/comment_IV_club"
+                    android:fontFamily="@font/open_sans"
+                    android:textSize="15dp"
+                    android:text=""/>
+                <ImageView
+                    app:srcCompat="@drawable/share"
+                    android:id="@+id/share_IV_club"
+                    android:padding="@dimen/_6sdp"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_toRightOf="@id/comment_count_tv"
                     android:layout_marginLeft="@dimen/_10sdp"
                     />
 

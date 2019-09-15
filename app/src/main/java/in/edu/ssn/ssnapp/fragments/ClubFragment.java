@@ -63,15 +63,16 @@ public class ClubFragment extends Fragment {
                             final String documentid = document.getId();
                             final String name = document.get("name").toString();
                             final String dp_url = document.get("dp_url").toString();
+                            final String contact = document.get("contact").toString();
                             final String cover_url = document.get("cover_url").toString();
                             final int followers = Integer.valueOf(document.get("followers").toString());
                             final String Desc = document.get("description").toString();
                             final ArrayList<String> heads = (ArrayList<String>)document.get("head");
                             if(SharedPref.getBoolean(getContext(),"club_subscribed",documentid)) {
-                                subs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url));
+                                subs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url,Long.parseLong(contact)));
                             }
                             else{
-                                unsubs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url));
+                                unsubs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url,Long.parseLong(contact)));
 
                             }
                         }
@@ -80,6 +81,7 @@ public class ClubFragment extends Fragment {
                         unsubs_ada = new ClubAdapter(getContext(),unsubs);
                         subs_club.setAdapter(subs_ada);
                         unsubs_club.setAdapter(unsubs_ada);
+
                     }
                 });
 

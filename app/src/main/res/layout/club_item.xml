@@ -47,7 +47,8 @@
         android:fontFamily="@font/open_sans"
         android:text="Club Name"
         android:textColor="#000000"
-        android:textSize="@dimen/_14ssp" />
+        android:maxLines="2"
+        android:textSize="12dp" />
     <ImageView
         android:id="@+id/follow_iv"
         android:layout_width="@dimen/_25sdp"

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ClubPageActivity">
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_appbarlayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -17,7 +18,7 @@
             app:expandedTitleMarginEnd="64dp"
             app:expandedTitleMarginStart="48dp"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:layout_scrollFlags="scroll|snap"
             android:minHeight="@dimen/_40sdp">
             <RelativeLayout
                 android:id="@+id/dp_cover_RL"
@@ -29,6 +30,17 @@
                     android:layout_height="@dimen/_120sdp"
                     android:background="@color/shimmering_back"
                     android:scaleType="centerCrop"/>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/cover_pic_iv_edit"
+                    android:background="@drawable/circle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:padding="5dp"
+                    android:src="@drawable/pencil"
+                    android:layout_alignBottom="@id/cover_pic_iv"
+                    android:layout_alignRight="@id/cover_pic_iv"/>
+
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/dp_pic_iv"
@@ -39,8 +51,16 @@
                     android:layout_marginTop="@dimen/_70sdp"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:src="@color/shimmering_front"/>
+                <ImageView
+                    android:id="@+id/dp_pic_iv_edit"
+                    android:layout_width="20dp"
+                    android:layout_height="25dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/pencil"
+                    android:layout_alignBottom="@id/dp_pic_iv"
+                    android:layout_alignRight="@id/dp_pic_iv"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/club_name_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,36 +71,77 @@
                     android:layout_below="@id/dp_pic_iv"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:textStyle="bold"/>
-                <TextView
+                <ImageView
+                    android:id="@+id/club_name_tv_edit"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/pencil"
+                    android:layout_alignBottom="@id/club_name_tv"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"/>
+                <EditText
                     android:id="@+id/club_description_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Club Name"
                     android:layout_below="@id/club_name_tv"
                     android:textColor="#000000"
                     android:fontFamily="@font/open_sans"
                     android:textSize="15dp"
+                    android:maxLines="5"
+                    android:layout_marginRight="@dimen/_20sdp"
                     android:layout_marginLeft="@dimen/_20sdp"
                     />
+                <ImageView
+                    android:id="@+id/club_description_tv_edit"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/pencil"
+                    android:layout_alignBottom="@id/club_description_tv"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"/>
+                <EditText
+                    android:id="@+id/club_contact_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Club Name"
+                    android:layout_below="@id/club_description_tv"
+                    android:textColor="#000000"
+                    android:fontFamily="@font/open_sans"
+                    android:textSize="15dp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    />
+                <ImageView
+                    android:id="@+id/club_contact_tv_edit"
+                    android:layout_width="15dp"
+                    android:layout_height="20dp"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/pencil"
+                    android:layout_alignBottom="@id/club_contact_tv"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="30dp"/>
+
                 <TextView
                     android:id="@+id/followers_tv"
-                    android:layout_width="wrap_content"
+                    android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="followers"
-                    android:layout_below="@id/club_description_tv"
-                    android:textColor="@color/colorAccent"
-                    android:fontFamily="@font/open_sans"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:textSize="14dp"
+                    android:layout_below="@+id/club_contact_tv"
                     android:layout_marginLeft="@dimen/_20sdp"
-                    />
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/open_sans"
+                    android:text="followers"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14dp" />
                 <ImageView
                     android:id="@+id/follow_iv"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:background="@drawable/blue_box"
                     android:layout_toRightOf="@id/followers_tv"
-                    android:layout_below="@id/club_description_tv"
+                    android:layout_below="@id/club_contact_tv"
                     android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_12sdp"
                     android:layout_marginLeft="@dimen/_20sdp"
@@ -93,6 +154,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="wrap_content"
+        android:layout_marginTop="40dp"
         android:layout_height="wrap_content"
         app:layout_anchorGravity="bottom|center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -111,7 +173,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_100sdp"
+                    android:layout_marginTop="@dimen/_150sdp"
                     android:layout_marginRight="@dimen/_20sdp"
                     android:fontFamily="@font/open_sans_semi_bold"
                     android:gravity="center"
@@ -166,7 +228,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/_15sdp"
                 android:clipToPadding="false"
                 android:id="@+id/feedsRV_cl"
                 >
@@ -176,6 +237,53 @@
 
 
     </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/main.toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        app:layout_anchor="@id/collapsing_toolbar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title=""
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/layout_dp_iv"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="top|center_horizontal"
+                android:background="@drawable/circle"
+                android:padding="1dp"
+                android:src="@color/shimmering_front"
+                app:finalHeight="32dp"
+                app:finalXPosition="12dp"
+                app:finalYPosition="12dp"
+                android:layout_margin="10dp"
+                app:finalToolbarHeight="?attr/actionBarSize"
+                app:layout_behavior="in.edu.ssn.ssnapp.utils.image_behaviour"
+                />
+
+            <TextView
+                android:id="@+id/layout_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="Club name"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
 
 
 

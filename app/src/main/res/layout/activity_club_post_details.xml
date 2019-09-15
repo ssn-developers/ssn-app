@@ -1,9 +1,289 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ClubPostDetailsActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/main_appbarlayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|snap"
+            android:minHeight="@dimen/_40sdp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/feed_view_club"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <RelativeLayout
+                    android:id="@+id/layout1_club"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        app:srcCompat="@drawable/ic_user_white"
+                        android:id="@+id/userImageIV_club" />
+
+                    <TextView
+                        android:id="@+id/tv_author_club"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/userImageIV_club"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/_12ssp"
+                        android:singleLine="true"
+                        android:text="SSN Institutions"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_toStartOf="@+id/tv_time_club"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_10sdp" />
+
+
+
+                    <TextView
+                        android:id="@+id/tv_time_club"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="@color/colorAccent"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginRight="@dimen/_10sdp" />
+                </RelativeLayout>
+
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager_club"
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/layout1_club"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:background="@color/shimmering_back"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/currentImageTV_club"
+                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:background="@drawable/image_pos_bg"
+                    android:text="1 / 2"
+                    android:visibility="gone"
+                    android:textColor="@android:color/white"
+                    android:fontFamily="@font/open_sans"
+                    android:paddingLeft="@dimen/_10sdp"
+                    android:paddingRight="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_3sdp"
+                    android:paddingBottom="@dimen/_3sdp"
+                    android:layout_below="@id/layout1_club"/>
+
+                <RelativeLayout
+                    android:id="@+id/title_desc_RL_club"
+                    android:layout_below="@+id/viewPager_club"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_title_club"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        android:text="Title"/>
+
+                    <com.hendraanggrian.appcompat.widget.SocialTextView
+                        android:id="@+id/tv_description_club"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:textSize="@dimen/_12ssp"
+                        android:fontFamily="@font/open_sans"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_below="@+id/tv_title_club"
+                        android:textColorLink="#00000000"
+                        app:fontFamily="@font/open_sans"
+                        app:socialFlags="hashtag|mention|hyperlink"
+                        app:hashtagColor="@color/colorAccent"
+                        app:mentionColor="@color/colorAccent"
+                        app:hyperlinkColor="@color/colorAccent"
+                        android:text="Description"/>
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/title_desc_RL_club">
+
+                    <ImageView
+                        android:id="@+id/like_IV_club"
+                        android:padding="@dimen/_6sdp"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        app:srcCompat="@drawable/heart"
+                        />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/like_count_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:layout_toRightOf="@id/like_IV_club"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="15dp"
+                        android:text=""/>
+
+                    <ImageView
+                        app:srcCompat="@drawable/comment"
+                        android:id="@+id/comment_IV_club"
+                        android:padding="@dimen/_6sdp"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_toRightOf="@id/like_count_tv"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        />
+                    <TextView
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/comment_count_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorAccent"
+                        android:layout_toRightOf="@id/comment_IV_club"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="15dp"
+                        android:text=""/>
+                    <ImageView
+                        app:srcCompat="@drawable/share"
+                        android:id="@+id/share_IV_club"
+                        android:padding="@dimen/_6sdp"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_toRightOf="@id/comment_count_tv"
+                        android:layout_marginLeft="@dimen/_10sdp"
+                        />
+
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_cl"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/_43sdp"
+                android:visibility="gone"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <include layout="@layout/student_post_item_shimmering"/>
+                    <include layout="@layout/student_post_item_shimmering"/>
+                    <include layout="@layout/student_post_item_shimmering"/>
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/comment_etv"
+                android:hint="Enter Comment"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:id="@+id/feedsRV_cl"
+                >
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </RelativeLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/main.toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        app:layout_anchor="@id/collapsing_toolbar"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark"
+        app:title=""
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            >
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/layout_dp_iv"
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="top|center_horizontal"
+                android:background="@drawable/circle"
+                android:padding="1dp"
+                android:src="@color/shimmering_front"
+                app:finalHeight="32dp"
+                app:finalXPosition="12dp"
+                app:finalYPosition="12dp"
+                android:layout_margin="10dp"
+                app:finalToolbarHeight="?attr/actionBarSize"
+                app:layout_behavior="in.edu.ssn.ssnapp.utils.image_behaviour"
+                />
+
+            <TextView
+                android:id="@+id/layout_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center_vertical"
+                android:text="Club name"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                />
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

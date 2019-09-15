@@ -115,17 +115,17 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
-        CollectionReference clubcolref = db.collection("club");
-        clubcolref.get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            final String documentid = document.getId();
-                            SharedPref.putBoolean(SplashActivity.this,"club_subscribed",documentid,false);
-                        }
-                    }
-                });
+//        CollectionReference clubcolref = db.collection("club");
+//        clubcolref.get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+//                            final String documentid = document.getId();
+//                            SharedPref.putBoolean(SplashActivity.this,"club_subscribed",documentid,false);
+//                        }
+//                    }
+//                });
 
         //forceUpdate();
 
