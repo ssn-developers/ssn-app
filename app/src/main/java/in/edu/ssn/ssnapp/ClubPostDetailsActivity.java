@@ -118,7 +118,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
                 shimmer_view.setVisibility(View.VISIBLE);
 
                 final Club post = new Club();
-                post.setId(snapshot.getString("cid"));
+                /*post.setId(snapshot.getString("cid"));
                 post.setPid(snapshot.getString("id"));
                 post.setAuthor(snapshot.getString("author"));
                 post.setTitle(snapshot.getString("title"));
@@ -155,19 +155,16 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
                     Crashlytics.log("stackTrace: " + Arrays.toString(e.getStackTrace()) + " \n Error: " + e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
-                }
-
-
+                }*/
                 return post;
             }
-        })
-                .build();
+        }).build();
 
-        adapter = new FirestoreRecyclerAdapter<Club, ClubPageActivity.FeedViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
             @Override
-            public void onBindViewHolder(final ClubPageActivity.FeedViewHolder holder, final int position, final Club model) {
+            public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
 
-                String author = "";
+                /*String author = "";
                 String email = model.getAuthor();
                 email = email.substring(0, email.indexOf("@"));
                 for (int j = 0; j < email.length(); j++) {
@@ -262,15 +259,15 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
                 }
 
                 shimmer_view.setVisibility(View.GONE);
-
+                */
             }
 
 
             @NonNull
             @Override
-            public ClubPageActivity.FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
+            public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view = LayoutInflater.from(ClubPostDetailsActivity.this).inflate(R.layout.club_post_item, group, false);
-                return new ClubPageActivity.FeedViewHolder(view);
+                return new FeedViewHolder(view);
             }
         };
 
@@ -278,7 +275,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
     }
 
     void initUI() {
-
         pid = getIntent().getExtras().getString("pid");
         name = getIntent().getExtras().getString("name");
         dp_url = getIntent().getExtras().getString("dp_url");
@@ -305,8 +301,27 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
     /*********************************************************/
 
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
+        public TextView tv_author, tv_club, tv_title, tv_time, tv_current_image, like_count, comment_count;
+        public SocialTextView tv_description;
+        public ImageView userImageIV, like, comment;
+        public RelativeLayout feed_view;
+        public ViewPager viewPager;
+
         public FeedViewHolder(View itemView) {
             super(itemView);
+
+            tv_author = itemView.findViewById(R.id.tv_author_club);
+            tv_title = itemView.findViewById(R.id.tv_title_club);
+            tv_description = itemView.findViewById(R.id.tv_description_club);
+            tv_time = itemView.findViewById(R.id.tv_time_club);
+            tv_current_image = itemView.findViewById(R.id.currentImageTV_club);
+            userImageIV = itemView.findViewById(R.id.userImageIV_club);
+            feed_view = itemView.findViewById(R.id.feed_view_club);
+            viewPager = itemView.findViewById(R.id.viewPager_club);
+            like = itemView.findViewById(R.id.like_IV_club);
+            comment = itemView.findViewById(R.id.comment_IV_club);
+            like_count = itemView.findViewById(R.id.like_count_tv);
+            comment_count = itemView.findViewById(R.id.comment_count_tv);
         }
     }
 

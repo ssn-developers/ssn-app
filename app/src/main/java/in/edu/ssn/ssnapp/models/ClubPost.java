@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Club implements Parcelable {
+public class ClubPost implements Parcelable {
 //    private Date time;
 //    private String author;
 //    private String pid;
@@ -28,9 +28,9 @@ public class Club implements Parcelable {
     private ArrayList<String> head;
     private String description;
 
-    public Club() { }
+    public ClubPost() { }
 
-    protected Club(Parcel in) {
+    protected ClubPost(Parcel in) {
         id = in.readString();
         dp_url = in.readString();
         cover_url = in.readString();
@@ -41,15 +41,15 @@ public class Club implements Parcelable {
         description = in.readString();
     }
 
-    public static final Creator<Club> CREATOR = new Creator<Club>() {
+    public static final Creator<ClubPost> CREATOR = new Creator<ClubPost>() {
         @Override
-        public Club createFromParcel(Parcel in) {
-            return new Club(in);
+        public ClubPost createFromParcel(Parcel in) {
+            return new ClubPost(in);
         }
 
         @Override
-        public Club[] newArray(int size) {
-            return new Club[size];
+        public ClubPost[] newArray(int size) {
+            return new ClubPost[size];
         }
     };
 

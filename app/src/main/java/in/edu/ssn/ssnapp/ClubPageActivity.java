@@ -95,7 +95,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     CollectionReference club_post_colref = db.collection("post_club");
     CollectionReference club_colref = db.collection("club");
 
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +108,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         startAlphaAnimation(mTitle, 0, View.INVISIBLE);
 
         setupFireStore();
-
     }
 
     void setupFireStore() {
@@ -119,10 +117,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 .endConfig()
                 .round();
 
-
-        // manually create composite query for each year & dept
-        // [cse | it | ece | eee | mech | bme | chemical | civil | admin]
-
         Query query = FirebaseFirestore.getInstance().collection("post_club").orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Club> options = new FirestoreRecyclerOptions.Builder<Club>().setQuery(query, new SnapshotParser<Club>() {
             @NonNull
@@ -131,8 +125,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 shimmer_view.setVisibility(View.VISIBLE);
 
                 final Club post = new Club();
-                post.setId(snapshot.getString("cid"));
-                post.setPid(snapshot.getString("id"));
+                /*post.setId(snapshot.getString("cid"));
+                post.setId(snapshot.getString("id"));
                 post.setAuthor(snapshot.getString("author"));
                 post.setTitle(snapshot.getString("title"));
                 post.setLike(Integer.parseInt(snapshot.get("like").toString()));
@@ -168,18 +162,14 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     Crashlytics.log("stackTrace: " + Arrays.toString(e.getStackTrace()) + " \n Error: " + e.getMessage());
                     post.setFileName(null);
                     post.setFileUrl(null);
-                }
-
-
+                }*/
                 return post;
             }
-        })
-                .build();
+        }).build();
 
         adapter = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
-
                 if(clearance == 0){
                     name_edit.setVisibility(View.GONE);
                     desc_edit.setVisibility(View.GONE);
@@ -214,7 +204,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         });
                     }
                 }
-                String author = "";
+                /*String author = "";
                 String email = model.getAuthor();
                 email = email.substring(0, email.indexOf("@"));
                 for (int j = 0; j < email.length(); j++) {
@@ -315,7 +305,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     holder.viewPager.setVisibility(View.GONE);
                     holder.tv_current_image.setVisibility(View.GONE);
                 }
-                if (SharedPref.getBoolean(ClubPageActivity.this, "club_subscribed", model.getId())) {
+                if (SharedPref.getBoolean(ClubPageActivity.this, "club", model.getId())) {
                     follow_iv.setImageResource(R.drawable.follow_blue);
                 } else {
                     follow_iv.setImageResource(R.drawable.follow);
@@ -347,16 +337,16 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 follow_iv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (SharedPref.getBoolean(ClubPageActivity.this, "club_subscribed", model.getId())) {
+                        if (SharedPref.getBoolean(ClubPageActivity.this, "club", model.getId())) {
                             follow_iv.setImageResource(R.drawable.follow);
-                            SharedPref.putBoolean(ClubPageActivity.this, "club_subscribed", model.getId(), false);
+                            SharedPref.putBoolean(ClubPageActivity.this, "club", model.getId(), false);
                             followers--;
                             Map<String, Object> follower_det = new HashMap<>();
                             follower_det.put("followers", followers);
                             club_colref.document(model.getId()).set(follower_det, SetOptions.merge());
                         } else {
                             follow_iv.setImageResource(R.drawable.follow_blue);
-                            SharedPref.putBoolean(ClubPageActivity.this, "club_subscribed", model.getId(), true);
+                            SharedPref.putBoolean(ClubPageActivity.this, "club", model.getId(), true);
                             followers++;
                             Map<String, Object> follower_det = new HashMap<>();
                             follower_det.put("followers", followers);
@@ -387,9 +377,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
                 layout_progress.setVisibility(View.GONE);
                 shimmer_view.setVisibility(View.GONE);
-
+                */
             }
-
 
             @NonNull
             @Override
@@ -409,7 +398,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         description = getIntent().getExtras().getString("description");
         followers = getIntent().getExtras().getInt("followers");
         contact = getIntent().getExtras().getLong("contact");
-        clearance = getIntent().getExtras().getInt("Head_clearance");
+        clearance = getIntent().getExtras().getInt("isHead");
 
         collapsingToolbar = findViewById(R.id.collapsing_toolbar);
         feedsRV = findViewById(R.id.feedsRV_cl);
@@ -432,8 +421,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         name_edit= findViewById(R.id.club_name_tv_edit);
         desc_edit= findViewById(R.id.club_description_tv_edit);
         contact_edit= findViewById(R.id.club_contact_tv_edit);
-
-
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ClubPageActivity.this);
         feedsRV.setLayoutManager(layoutManager);
@@ -507,14 +494,13 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR) {
-
             if (!mIsTheTitleVisible) {
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
 
-        } else {
-
+        }
+        else {
             if (mIsTheTitleVisible) {
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.INVISIBLE);
                 mIsTheTitleVisible = false;
@@ -529,8 +515,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 mIsTheTitleContainerVisible = false;
             }
 
-        } else {
-
+        }
+        else {
             if (!mIsTheTitleContainerVisible) {
                 startAlphaAnimation(mTitleContainer, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleContainerVisible = true;
