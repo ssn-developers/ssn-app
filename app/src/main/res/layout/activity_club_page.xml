@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ClubPageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -21,9 +22,8 @@
             app:expandedTitleMarginStart="48dp"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:minHeight="@dimen/_40sdp">
+            android:minHeight="@dimen/_40sdp"/>
 
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -31,9 +31,11 @@
         android:layout_height="wrap_content"
         app:layout_anchorGravity="bottom|center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/dp_cover_RL"
                 android:layout_width="match_parent"
@@ -44,6 +46,7 @@
                     android:layout_height="@dimen/_120sdp"
                     android:background="@color/shimmering_back"
                     android:scaleType="centerCrop"/>
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/cover_pic_iv_edit"
                     android:background="@drawable/circle"
@@ -51,7 +54,7 @@
                     android:layout_height="30dp"
                     android:scaleType="centerCrop"
                     android:padding="5dp"
-                    android:src="@drawable/pencil"
+                    app:srcCompat="@drawable/pencil"
                     android:layout_alignBottom="@id/cover_pic_iv"
                     android:layout_alignRight="@id/cover_pic_iv"/>
 
@@ -79,12 +82,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Club Name"
+                    android:background="@null"
                     android:textColor="#000000"
                     android:fontFamily="@font/open_sans_bold"
                     android:textSize="@dimen/_14ssp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_below="@id/dp_pic_iv"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:textStyle="bold"/>
+                    android:layout_marginStart="@dimen/_20sdp" />
                 <ImageView
                     android:id="@+id/club_name_tv_edit"
                     android:layout_width="15dp"
@@ -99,14 +103,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Club Name"
+                    android:background="@null"
                     android:layout_below="@id/club_name_tv"
                     android:textColor="#000000"
                     android:fontFamily="@font/open_sans"
-                    android:textSize="15dp"
-                    android:maxLines="5"
+                    android:textSize="@dimen/_12ssp"
+                    android:maxLines="3"
                     android:layout_marginRight="@dimen/_20sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    />
+                    android:layout_marginLeft="@dimen/_20sdp" />
+
                 <ImageView
                     android:id="@+id/club_description_tv_edit"
                     android:layout_width="15dp"
@@ -116,18 +121,23 @@
                     android:layout_alignBottom="@id/club_description_tv"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="30dp"/>
+
                 <EditText
                     android:id="@+id/club_contact_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Club Name"
+                    android:text="Contact"
+                    android:drawableLeft="@drawable/ic_call"
+                    android:drawablePadding="@dimen/_5sdp"
+                    android:background="@null"
                     android:layout_below="@id/club_description_tv"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/open_sans"
-                    android:textSize="15dp"
+                    android:textColor="@color/colorAccent"
+                    android:fontFamily="@font/open_sans_semi_bold"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginRight="@dimen/_20sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    />
+                    android:layout_marginLeft="@dimen/_20sdp" />
+
                 <ImageView
                     android:id="@+id/club_contact_tv_edit"
                     android:layout_width="15dp"
@@ -165,7 +175,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/layout_progress_cl"
+                android:id="@+id/layout_progress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dp_cover_RL">
@@ -195,7 +205,7 @@
                     android:layout_marginRight="@dimen/_20sdp"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"
-                    android:text="We'll let you know if the Clubs posts any new post till then stay tuned."
+                    android:text="We'll let you know for new posts till then stay tuned."
                     android:textColor="#404040"
                     android:textSize="@dimen/_12ssp" />
 
@@ -228,34 +238,42 @@
                     <include layout="@layout/student_post_item_shimmering"/>
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@id/dp_cover_RL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
                 android:clipToPadding="false"
-                android:id="@+id/feedsRV_cl"
-                >
-            </androidx.recyclerview.widget.RecyclerView>
+                android:id="@+id/feedsRV"/>
 
         </RelativeLayout>
 
-
     </androidx.core.widget.NestedScrollView>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main.toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorAccent"
         app:layout_anchor="@id/collapsing_toolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title=""
-        >
+        app:theme="@style/ThemeOverlay.AppCompat.Dark">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                app:srcCompat="@drawable/ic_back"
+                android:id="@+id/backIV"
+                android:layout_gravity="center"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?selectableItemBackground"
+                android:tint="@android:color/white"
+                android:padding="@dimen/_2sdp"/>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/layout_dp_iv"
@@ -265,9 +283,7 @@
                 android:background="@drawable/circle"
                 android:padding="1dp"
                 android:src="@color/shimmering_front"
-                android:layout_margin="10dp"
-                app:finalToolbarHeight="?attr/actionBarSize"
-                />
+                android:layout_margin="10dp" />
 
             <TextView
                 android:id="@+id/layout_title_tv"

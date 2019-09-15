@@ -40,6 +40,7 @@ import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class ClubFragment extends Fragment {
 
@@ -131,6 +132,7 @@ public class ClubFragment extends Fragment {
                         Intent intent = new Intent(getContext(), ClubPageActivity.class);
                         intent.putExtra("data", model);
                         getContext().startActivity(intent);
+                        Bungee.slideLeft(getContext());
                     }
                 });
 

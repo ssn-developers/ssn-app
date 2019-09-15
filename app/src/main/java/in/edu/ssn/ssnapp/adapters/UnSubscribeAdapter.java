@@ -26,6 +26,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.FeedViewHolder>{
 
@@ -73,6 +74,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
                 Intent intent = new Intent(context, ClubPageActivity.class);
                 intent.putExtra("data", model);
                 context.startActivity(intent);
+                Bungee.slideLeft(context);
             }
         });
     }
@@ -113,7 +115,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
                                 public void run() {
                                     lottie.playAnimation();
                                 }
-                            },2000);
+                            },5000);
                         }
                     }
                 }

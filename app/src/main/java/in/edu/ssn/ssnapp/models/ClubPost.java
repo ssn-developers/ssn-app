@@ -18,7 +18,7 @@ public class ClubPost implements Parcelable{
     private ArrayList<String> fileUrl;
     ArrayList<String> img_urls;
     ArrayList<String> like;
-    String time;
+    Date time;
     String title;
     String id;
 
@@ -33,7 +33,7 @@ public class ClubPost implements Parcelable{
         fileUrl = in.createStringArrayList();
         img_urls = in.createStringArrayList();
         like = in.createStringArrayList();
-        time = in.readString();
+        time=new Date(in.readLong());
         title = in.readString();
         id = in.readString();
     }
@@ -90,11 +90,11 @@ public class ClubPost implements Parcelable{
         this.img_urls = img_urls;
     }
 
-    public String getTime() {
+    public Date getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(Date time) {
         this.time = time;
     }
 
@@ -114,6 +114,34 @@ public class ClubPost implements Parcelable{
         this.id = id;
     }
 
+    public ArrayList<String> getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(ArrayList<String> fileName) {
+        this.fileName = fileName;
+    }
+
+    public ArrayList<String> getFileUrl() {
+        return fileUrl;
+    }
+
+    public void setFileUrl(ArrayList<String> fileUrl) {
+        this.fileUrl = fileUrl;
+    }
+
+    public ArrayList<String> getLike() {
+        return like;
+    }
+
+    public void setLike(ArrayList<String> like) {
+        this.like = like;
+    }
+
+    public static Creator<ClubPost> getCREATOR() {
+        return CREATOR;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -130,7 +158,7 @@ public class ClubPost implements Parcelable{
         parcel.writeStringList(fileUrl);
         parcel.writeStringList(img_urls);
         parcel.writeStringList(like);
-        parcel.writeString(time);
+        parcel.writeLong(this.time.getTime());
         parcel.writeString(title);
         parcel.writeString(id);
     }
