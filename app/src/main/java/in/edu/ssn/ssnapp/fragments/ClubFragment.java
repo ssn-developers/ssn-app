@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp.fragments;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,60 +35,66 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class ClubFragment extends Fragment {
 
-    public ClubFragment() {
+    public ClubFragment() { }
 
-    }
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    CollectionReference clubcolref = db.collection("club");
     ListView subs_club;
     ListView unsubs_club;
-    ArrayList<Club> subs = new ArrayList<>();
-    ArrayList<Club> unsubs = new ArrayList<>();
+
+    ArrayList<Club> subs;
+    ArrayList<Club> unsubs;
+
     ClubAdapter subs_ada;
     ClubAdapter unsubs_ada;
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_club, container, false);
         CommonUtils.initFonts(getContext(),view);
+
         subs_club = view.findViewById(R.id.feedsRV_club);
         unsubs_club = view.findViewById(R.id.feedsRV_uns_club);
 
-        clubcolref.get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                            final String documentid = document.getId();
-                            final String name = document.get("name").toString();
-                            final String dp_url = document.get("dp_url").toString();
-                            final String contact = document.get("contact").toString();
-                            final String cover_url = document.get("cover_url").toString();
-                            final int followers = Integer.valueOf(document.get("followers").toString());
-                            final String Desc = document.get("description").toString();
-                            final ArrayList<String> heads = (ArrayList<String>)document.get("head");
-                            if(SharedPref.getBoolean(getContext(),"club_subscribed",documentid)) {
-                                subs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url,Long.parseLong(contact)));
-                            }
-                            else{
-                                unsubs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url,Long.parseLong(contact)));
+        subs = new ArrayList<>();
+        unsubs = new ArrayList<>();
 
-                            }
-                        }
+        subs_ada = new ClubAdapter(getContext(),subs);
+        unsubs_ada = new ClubAdapter(getContext(),unsubs);
 
-                        subs_ada = new ClubAdapter(getContext(),subs);
-                        unsubs_ada = new ClubAdapter(getContext(),unsubs);
-                        subs_club.setAdapter(subs_ada);
-                        unsubs_club.setAdapter(unsubs_ada);
+        FirebaseFirestore.getInstance().collection("club").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                    final String documentid = document.getId();
+                    final String name = document.get("name").toString();
+                    final String dp_url = document.get("dp_url").toString();
+                    final String contact = document.get("contact").toString();
+                    final String cover_url = document.get("cover_url").toString();
+                    final int followers = Integer.valueOf(document.get("followers").toString());
+                    final String Desc = document.get("description").toString();
+                    final ArrayList<String> heads = (ArrayList<String>)document.get("head");
+
+                    if(SharedPref.getBoolean(getContext(),"club_subscribed",documentid)) {
+                        subs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url,Long.parseLong(contact)));
+                    }
+                    else{
+                        unsubs.add(new Club(documentid, Desc, heads, dp_url, name,followers,cover_url,Long.parseLong(contact)));
 
                     }
-                });
+                }
 
+                subs_club.setAdapter(subs_ada);
+                unsubs_club.setAdapter(unsubs_ada);
+            }
+        });
 
         return view;
-
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        subs_ada.notifyDataSetChanged();
+        unsubs_ada.notifyDataSetChanged();
+    }
 }
