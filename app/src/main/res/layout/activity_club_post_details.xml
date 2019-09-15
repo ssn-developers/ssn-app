@@ -247,9 +247,6 @@
                 android:background="@drawable/circle"
                 android:padding="1dp"
                 android:src="@color/shimmering_front"
-                app:finalHeight="32dp"
-                app:finalXPosition="12dp"
-                app:finalYPosition="12dp"
                 android:layout_margin="10dp"
                 app:finalToolbarHeight="?attr/actionBarSize" />
 
