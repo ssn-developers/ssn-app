@@ -81,11 +81,11 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
         initUI();
 
-        setupFireStore();
+        //setupFireStore();
 
     }
 
-    void setupFireStore() {
+    /*void setupFireStore() {
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
@@ -299,7 +299,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         };
 
         comment_RV.setAdapter(adapter);
-    }
+    }*/
 
     void initUI() {
         clubpost = getIntent().getParcelableExtra("ClubPost");
@@ -355,13 +355,13 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        adapter.startListening();
+        //adapter.startListening();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        adapter.stopListening();
+        //adapter.stopListening();
     }
 
     @Override
