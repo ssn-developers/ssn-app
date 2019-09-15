@@ -4,44 +4,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class Comments implements Parcelable {
+public class Comments {
 
-    private String id;
-    private String author;
-    private String message;
-    private ArrayList<String> reply;
+    String author;
+    String message;
+    ArrayList<HashMap<String,String>> reply;
 
-
-
-    public Comments() { }
-
-    protected Comments(Parcel in) {
-        id = in.readString();
-        author = in.readString();
-        message = in.readString();
-        reply = in.createStringArrayList();
-    }
-
-    public static final Creator<Comments> CREATOR = new Creator<Comments>() {
-        @Override
-        public Comments createFromParcel(Parcel in) {
-            return new Comments(in);
-        }
-
-        @Override
-        public Comments[] newArray(int size) {
-            return new Comments[size];
-        }
-
-    };
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Comments(String author, String message, ArrayList<HashMap<String, String>> reply) {
+        this.author = author;
+        this.message = message;
+        this.reply = reply;
     }
 
     public String getAuthor() {
@@ -60,25 +34,11 @@ public class Comments implements Parcelable {
         this.message = message;
     }
 
-    public ArrayList<String> getReply() {
+    public ArrayList<HashMap<String, String>> getReply() {
         return reply;
     }
 
-    public void setReply(ArrayList<String> reply) {
+    public void setReply(ArrayList<HashMap<String, String>> reply) {
         this.reply = reply;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(author);
-        parcel.writeString(message);
-        parcel.writeStringList(reply);
-
     }
 }
