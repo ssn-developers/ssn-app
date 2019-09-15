@@ -52,7 +52,7 @@ import in.edu.ssn.ssnapp.adapters.ClubImageAdapter;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class ClubPostDetailsActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
+public class ClubPostDetailsActivity extends AppCompatActivity {
 
     public TextView tv_author, tv_club, tv_title, tv_time, tv_current_image, like_count, comment_count,layout_title;
     public SocialTextView tv_description;
@@ -67,17 +67,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.6f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION = 200;
-
-    private boolean mIsTheTitleVisible = false;
-    private boolean mIsTheTitleContainerVisible = true;
-
-    private RelativeLayout mTitleContainer;
-    private TextView mTitle;
-    private AppBarLayout mAppBarLayout;
-    private Toolbar mToolbar;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference club_post_colref = db.collection("post_club");
@@ -90,11 +79,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
         setContentView(R.layout.activity_club_post_details);
 
         initUI();
-        bindActivity();
-
-        mAppBarLayout.addOnOffsetChangedListener((AppBarLayout.OnOffsetChangedListener) this);
-
-        startAlphaAnimation(mTitle, 0, View.VISIBLE);
 
         setupFireStore();
 
@@ -163,9 +147,9 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
         })
                 .build();
 
-        adapter = new FirestoreRecyclerAdapter<Club, ClubPageActivity.FeedViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
             @Override
-            public void onBindViewHolder(final ClubPageActivity.FeedViewHolder holder, final int position, final Club model) {
+            public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
 
                 String author = "";
                 String email = model.getAuthor();
@@ -230,7 +214,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
 
                 if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     viewPager.setVisibility(View.VISIBLE);
-
                     final ClubImageAdapter imageAdapter = new ClubImageAdapter(ClubPostDetailsActivity.this, model.getImageUrl(), true, model, timer);
                     viewPager.setAdapter(imageAdapter);
 
@@ -268,9 +251,9 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
 
             @NonNull
             @Override
-            public ClubPageActivity.FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
-                View view = LayoutInflater.from(ClubPostDetailsActivity.this).inflate(R.layout.club_post_item, group, false);
-                return new ClubPageActivity.FeedViewHolder(view);
+            public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
+                View view = LayoutInflater.from(ClubPostDetailsActivity.this).inflate(R.layout.comment_item, group, false);
+                return new FeedViewHolder(view);
             }
         };
 
@@ -305,6 +288,8 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
     /*********************************************************/
 
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
+        RelativeLayout comment_view_RL;
+        
         public FeedViewHolder(View itemView) {
             super(itemView);
         }
@@ -327,29 +312,5 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
     @Override
     public void onStop() {
         super.onStop();
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void bindActivity() {
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar_com);
-        mTitle = (TextView) findViewById(R.id.layout_title_tv_com);
-        mTitleContainer = (RelativeLayout) findViewById(R.id.feed_view_com);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.main_appbarlayout_3);
-    }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-        int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(offset) / (float) maxScroll;
-    }
-
-    public static void startAlphaAnimation(View v, long duration, int visibility) {
-        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
-                ? new AlphaAnimation(0f, 1f)
-                : new AlphaAnimation(1f, 0f);
-
-        alphaAnimation.setDuration(duration);
-        alphaAnimation.setFillAfter(true);
-        v.startAnimation(alphaAnimation);
     }
 }

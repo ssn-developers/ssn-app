@@ -62,9 +62,9 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener {
 
     private RecyclerView feedsRV;
-    public ImageView dp_pic, cover_pic, follow_iv, layout_dp_iv,dp_edit,cover_edit,name_edit,desc_edit,contact_edit;
-    public TextView  followers_tv, layout_title;
-    public EditText Club_name_tv,Club_desc_tv,contact_tv;
+    public ImageView dp_pic, cover_pic, follow_iv, layout_dp_iv, dp_edit, cover_edit, name_edit, desc_edit, contact_edit;
+    public TextView followers_tv, layout_title;
+    public EditText Club_name_tv, Club_desc_tv, contact_tv;
     private RelativeLayout layout_progress;
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
@@ -136,6 +136,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 post.setAuthor(snapshot.getString("author"));
                 post.setTitle(snapshot.getString("title"));
                 post.setLike(Integer.parseInt(snapshot.get("like").toString()));
+                Log.i("app_test", "likes :" + snapshot.get("like").toString() );
                 post.setDescription(snapshot.getString("description"));
                 post.setComments((ArrayList<String>) snapshot.get("comment"));
                 post.setTime(snapshot.getTimestamp("time").toDate());
@@ -180,13 +181,13 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
 
-                if(clearance == 0){
+                if (clearance == 0) {
                     name_edit.setVisibility(View.GONE);
                     desc_edit.setVisibility(View.GONE);
                     dp_edit.setVisibility(View.GONE);
                     cover_edit.setVisibility(View.GONE);
                     contact_edit.setVisibility(View.GONE);
-                }else{
+                } else {
                     {
                         name_edit.setVisibility(View.VISIBLE);
                         desc_edit.setVisibility(View.VISIBLE);
@@ -229,10 +230,10 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(),ClubPostDetailsActivity.class);
-                        intent.putExtra("pid",model.getPid());
-                        intent.putExtra("name",name);
-                        intent.putExtra("dp_url",dp_url);
+                        Intent intent = new Intent(getApplicationContext(), ClubPostDetailsActivity.class);
+                        intent.putExtra("pid", model.getPid());
+                        intent.putExtra("name", name);
+                        intent.putExtra("dp_url", dp_url);
                         startActivity(intent);
                     }
                 });
@@ -240,17 +241,22 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
                 Log.i("app_test", "onBindViewHolder: " + email);
                 holder.tv_author.setText(author);
-                likes = model.getLike();
                 ColorGenerator generator = ColorGenerator.MATERIAL;
                 int color = generator.getColor(model.getAuthor());
                 TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
                 holder.userImageIV.setImageDrawable(ic1);
                 holder.tv_title.setText(model.getTitle());
+
                 if (SharedPref.getBoolean(getApplicationContext(), "post_liked", model.getPid())) {
                     holder.like.setImageResource(R.drawable.blue_heart);
 
                 } else {
                     holder.like.setImageResource(R.drawable.heart);
+                }
+                if (SharedPref.getBoolean(ClubPageActivity.this, "club_subscribed", model.getId())) {
+                    follow_iv.setImageResource(R.drawable.follow_blue);
+                } else {
+                    follow_iv.setImageResource(R.drawable.follow);
                 }
 
                 Date time = model.getTime();
@@ -315,31 +321,30 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     holder.viewPager.setVisibility(View.GONE);
                     holder.tv_current_image.setVisibility(View.GONE);
                 }
-                if (SharedPref.getBoolean(ClubPageActivity.this, "club_subscribed", model.getId())) {
-                    follow_iv.setImageResource(R.drawable.follow_blue);
-                } else {
-                    follow_iv.setImageResource(R.drawable.follow);
-                }
-                //TODO : fix the bug in like counting....
+
+
                 holder.like.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (!SharedPref.getBoolean(getApplicationContext(), "post_liked", model.getPid())) {
-                            holder.like.setImageResource(R.drawable.blue_heart);
-                            likes++;
-                            SharedPref.putBoolean(getApplicationContext(), "post_liked", model.getPid(), true);
-
-                        } else {
-                            SharedPref.putBoolean(getApplicationContext(), "post_liked", model.getPid(), false);
+                        if (SharedPref.getBoolean(getApplicationContext(), "post_liked", model.getPid())) {
                             holder.like.setImageResource(R.drawable.heart);
-                            if (likes > 0) {
-                                likes--;
+                            if (model.getLike() > 0) {
+                                model.setLike(model.getLike()-1);
                             }
+                            SharedPref.putBoolean(getApplicationContext(), "post_liked", model.getPid(), false);
+                            Map<String, Object> likes_details = new HashMap<>();
+                            likes_details.put("like", model.getLike());
+                            club_post_colref.document(model.getPid()).set(likes_details, SetOptions.merge());
+                        } else {
+                            SharedPref.putBoolean(getApplicationContext(), "post_liked", model.getPid(), true);
+                            holder.like.setImageResource(R.drawable.blue_heart);
+                            model.setLike(model.getLike()+1);
+                            Map<String, Object> likes_details = new HashMap<>();
+                            likes_details.put("like", model.getLike());
+                            club_post_colref.document(model.getPid()).set(likes_details, SetOptions.merge());
 
                         }
-                        Map<String, Object> likes_details = new HashMap<>();
-                        likes_details.put("like", likes);
-                        club_post_colref.document(model.getPid()).set(likes_details, SetOptions.merge());
+
 
                     }
                 });
@@ -428,11 +433,10 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         layout_dp_iv = findViewById(R.id.layout_dp_iv);
         layout_title = findViewById(R.id.layout_title_tv);
         dp_edit = findViewById(R.id.dp_pic_iv_edit);
-        cover_edit= findViewById(R.id.cover_pic_iv_edit);
-        name_edit= findViewById(R.id.club_name_tv_edit);
-        desc_edit= findViewById(R.id.club_description_tv_edit);
-        contact_edit= findViewById(R.id.club_contact_tv_edit);
-
+        cover_edit = findViewById(R.id.cover_pic_iv_edit);
+        name_edit = findViewById(R.id.club_name_tv_edit);
+        desc_edit = findViewById(R.id.club_description_tv_edit);
+        contact_edit = findViewById(R.id.club_contact_tv_edit);
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ClubPageActivity.this);

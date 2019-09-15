@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,6 +110,8 @@ public class ClubFragment extends Fragment {
                 post.setDescription(snapshot.getString("description"));
                 post.setFollowers(Integer.parseInt(snapshot.get("followers").toString()));
                 post.setHeads((ArrayList<String>) snapshot.get("head"));
+
+                Log.i("app_test", " adapter on... ");
 
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
                 if (images != null && images.size() > 0)
