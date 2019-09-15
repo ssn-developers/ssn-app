@@ -266,7 +266,6 @@
                 app:finalYPosition="12dp"
                 android:layout_margin="10dp"
                 app:finalToolbarHeight="?attr/actionBarSize"
-                app:layout_behavior="in.edu.ssn.ssnapp.utils.image_behaviour"
                 />
 
             <TextView

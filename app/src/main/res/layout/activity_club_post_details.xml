@@ -6,12 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".ClubPostDetailsActivity">
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main_appbarlayout"
+        android:id="@+id/main_appbarlayout_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+            android:id="@+id/collapsing_toolbar_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
@@ -21,15 +21,27 @@
             app:layout_scrollFlags="scroll|snap"
             android:minHeight="@dimen/_40sdp">
 
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/feed_view_club"
+                android:id="@+id/feed_view_com"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground">
 
                 <RelativeLayout
-                    android:id="@+id/layout1_club"
+                    android:id="@+id/layout1_com"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -39,19 +51,19 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginLeft="@dimen/_10sdp"
                         app:srcCompat="@drawable/ic_user_white"
-                        android:id="@+id/userImageIV_club" />
+                        android:id="@+id/userImageIV_com" />
 
                     <TextView
-                        android:id="@+id/tv_author_club"
+                        android:id="@+id/tv_author_com"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toEndOf="@+id/userImageIV_club"
+                        android:layout_toEndOf="@+id/userImageIV_com"
                         android:textColor="#000000"
                         android:textSize="@dimen/_12ssp"
                         android:singleLine="true"
                         android:text="SSN Institutions"
                         android:fontFamily="@font/open_sans"
-                        android:layout_toStartOf="@+id/tv_time_club"
+                        android:layout_toStartOf="@+id/tv_time_com"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_15sdp"
                         android:layout_marginStart="@dimen/_10sdp" />
@@ -59,7 +71,7 @@
 
 
                     <TextView
-                        android:id="@+id/tv_time_club"
+                        android:id="@+id/tv_time_com"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -68,13 +80,13 @@
                         android:fontFamily="@font/open_sans"
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:layout_marginRight="@dimen/_10sdp" />
+                        android:layout_marginRight="@dimen/_25sdp" />
                 </RelativeLayout>
 
                 <androidx.viewpager.widget.ViewPager
-                    android:id="@+id/viewPager_club"
+                    android:id="@+id/viewPager_com"
                     android:layout_width="match_parent"
-                    android:layout_below="@id/layout1_club"
+                    android:layout_below="@id/layout1_com"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="@dimen/_150sdp"
                     android:background="@color/shimmering_back"/>
@@ -83,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:id="@+id/currentImageTV_club"
+                    android:id="@+id/currentImageTV_com"
                     android:layout_marginRight="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_15sdp"
                     android:background="@drawable/image_pos_bg"
@@ -95,11 +107,11 @@
                     android:paddingRight="@dimen/_10sdp"
                     android:paddingTop="@dimen/_3sdp"
                     android:paddingBottom="@dimen/_3sdp"
-                    android:layout_below="@id/layout1_club"/>
+                    android:layout_below="@id/layout1_com"/>
 
                 <RelativeLayout
-                    android:id="@+id/title_desc_RL_club"
-                    android:layout_below="@+id/viewPager_club"
+                    android:id="@+id/title_desc_RL_com"
+                    android:layout_below="@+id/viewPager_com"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_10sdp"
@@ -108,7 +120,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_title_club"
+                        android:id="@+id/tv_title_com"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
@@ -118,14 +130,14 @@
                         android:text="Title"/>
 
                     <com.hendraanggrian.appcompat.widget.SocialTextView
-                        android:id="@+id/tv_description_club"
+                        android:id="@+id/tv_description_com"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#000000"
                         android:textSize="@dimen/_12ssp"
                         android:fontFamily="@font/open_sans"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_below="@+id/tv_title_club"
+                        android:layout_below="@+id/tv_title_com"
                         android:textColorLink="#00000000"
                         app:fontFamily="@font/open_sans"
                         app:socialFlags="hashtag|mention|hyperlink"
@@ -137,10 +149,10 @@
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/title_desc_RL_club">
+                    android:layout_below="@id/title_desc_RL_com">
 
                     <ImageView
-                        android:id="@+id/like_IV_club"
+                        android:id="@+id/like_IV_com"
                         android:padding="@dimen/_6sdp"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
@@ -149,64 +161,34 @@
                         />
                     <TextView
                         android:layout_marginTop="10dp"
-                        android:id="@+id/like_count_tv"
+                        android:id="@+id/like_count_tv_com"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorAccent"
-                        android:layout_toRightOf="@id/like_IV_club"
+                        android:layout_toRightOf="@id/like_IV_com"
                         android:fontFamily="@font/open_sans"
                         android:textSize="15dp"
                         android:text=""/>
 
                     <ImageView
-                        app:srcCompat="@drawable/comment"
-                        android:id="@+id/comment_IV_club"
-                        android:padding="@dimen/_6sdp"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_toRightOf="@id/like_count_tv"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        />
-                    <TextView
-                        android:layout_marginTop="10dp"
-                        android:id="@+id/comment_count_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorAccent"
-                        android:layout_toRightOf="@id/comment_IV_club"
-                        android:fontFamily="@font/open_sans"
-                        android:textSize="15dp"
-                        android:text=""/>
-                    <ImageView
                         app:srcCompat="@drawable/share"
-                        android:id="@+id/share_IV_club"
+                        android:id="@+id/share_IV_com"
                         android:padding="@dimen/_6sdp"
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
-                        android:layout_toRightOf="@id/comment_count_tv"
+                        android:layout_toRightOf="@id/like_count_tv_com"
                         android:layout_marginLeft="@dimen/_10sdp"
                         />
 
 
                 </RelativeLayout>
             </RelativeLayout>
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_height="wrap_content"
-        app:layout_anchorGravity="bottom|center"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_view_cl"
+                android:id="@+id/shimmer_view_com"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_below="@id/feed_view_com"
                 android:paddingTop="@dimen/_43sdp"
                 android:visibility="gone"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -222,6 +204,7 @@
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
             <EditText
+                android:layout_below="@id/feed_view_com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/comment_etv"
@@ -231,7 +214,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:id="@+id/feedsRV_cl"
+                android:layout_below="@id/comment_etv"
+                android:id="@+id/comment_RV"
                 >
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -240,11 +224,11 @@
 
     </androidx.core.widget.NestedScrollView>
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main.toolbar"
+        android:id="@+id/main_toolbar_com"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorAccent"
-        app:layout_anchor="@id/collapsing_toolbar"
+        app:layout_anchor="@id/collapsing_toolbar_3"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
         app:title=""
         >
@@ -256,7 +240,7 @@
             >
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/layout_dp_iv"
+                android:id="@+id/layout_dp_iv_3"
                 android:layout_width="@dimen/_30sdp"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="top|center_horizontal"
@@ -267,12 +251,10 @@
                 app:finalXPosition="12dp"
                 app:finalYPosition="12dp"
                 android:layout_margin="10dp"
-                app:finalToolbarHeight="?attr/actionBarSize"
-                app:layout_behavior="in.edu.ssn.ssnapp.utils.image_behaviour"
-                />
+                app:finalToolbarHeight="?attr/actionBarSize" />
 
             <TextView
-                android:id="@+id/layout_title_tv"
+                android:id="@+id/layout_title_tv_com"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="15dp"

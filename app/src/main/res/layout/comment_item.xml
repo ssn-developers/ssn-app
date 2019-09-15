@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="#B7F1F1F1"
+    app:cardCornerRadius="5dp"
+    android:orientation="vertical">
+
+<RelativeLayout
+    android:id="@+id/club_RL"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_iv_com"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:background="@drawable/circle"
+        android:padding="2dp"
+        android:layout_margin="@dimen/_10sdp"
+        android:src="@color/shimmering_front"/>
+
+    <TextView
+        android:id="@+id/user_name_tv_com"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/user_iv_com"
+        android:fontFamily="@font/open_sans"
+        android:text="Club Name"
+        android:textColor="#000000"
+        android:textSize="14dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/comment_tv"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/user_iv_com"
+        android:layout_below="@id/user_name_tv_com"
+        android:fontFamily="@font/open_sans"
+        android:text="Club Name"
+        android:textColor="#000000"
+        android:maxLines="2"
+        android:textSize="12dp" />
+    <TextView
+        android:id="@+id/reply_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/user_iv_com"
+        android:layout_below="@id/comment_tv"
+        android:fontFamily="@font/open_sans"
+        android:text="reply"
+        android:layout_marginBottom="6dp"
+        android:maxLines="2"
+        android:textSize="12dp" />
+    <TextView
+        android:id="@+id/view_reply_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="6dp"
+        android:layout_toRightOf="@id/reply_tv"
+        android:layout_below="@id/comment_tv"
+        android:fontFamily="@font/open_sans"
+        android:text="View reply"
+        android:maxLines="2"
+        android:textSize="12dp" />
+    <EditText
+        android:id="@+id/reply_etv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/reply_tv"
+        android:layout_marginLeft="50dp"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:layout_below="@id/reply_etv"
+        android:layout_marginLeft="50dp"
+        android:id="@+id/view_reply_RV">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+
+</RelativeLayout>
+
+</androidx.cardview.widget.CardView>
