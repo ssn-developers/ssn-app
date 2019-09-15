@@ -42,17 +42,6 @@ public class NotificationActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        /*final LottieAnimationView lottie = findViewById(R.id.lottie);
-        lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                if(valueAnimator.isRunning()){
-                    if(lottie.getProgress() > 0.6)
-                        lottie.pauseAnimation();
-                }
-            }
-        });*/
-
         lv_items = findViewById(R.id.lv_items);
         iv_back = findViewById(R.id.iv_back);
         layout_progress = findViewById(R.id.layout_progress);

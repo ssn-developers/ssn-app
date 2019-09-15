@@ -51,15 +51,15 @@
                 android:textSize="@dimen/_10ssp" />
         </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/iv_follow"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_margin="@dimen/_5sdp"
-            android:src="@drawable/blue_box"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/_5sdp" />
+            app:lottie_rawRes="@raw/subcribe"
+            app:lottie_loop="false" />
+
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

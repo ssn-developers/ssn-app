@@ -1,14 +1,9 @@
 package in.edu.ssn.ssnapp.fragments;
 
-
+import android.animation.ValueAnimator;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,48 +16,30 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
-import com.facebook.shimmer.ShimmerFrameLayout;
-import com.firebase.ui.firestore.ChangeEventListener;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.firebase.ui.firestore.ObservableSnapshotArray;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.firestore.SetOptions;
-import com.hendraanggrian.appcompat.widget.SocialTextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
-import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
-import in.edu.ssn.ssnapp.adapters.BusRouteAdapter;
-import in.edu.ssn.ssnapp.adapters.DummyAdapter;
-import in.edu.ssn.ssnapp.adapters.ImageAdapter;
-import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.adapters.UnSubscribeAdapter;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
-import spencerstudios.com.bungeelib.Bungee;
 
 public class ClubFragment extends Fragment {
 
@@ -74,7 +51,7 @@ public class ClubFragment extends Fragment {
     private FirestoreRecyclerAdapter subs_adap;
 
     List<Club> clubs;
-    DummyAdapter adapter;
+    UnSubscribeAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,39 +67,7 @@ public class ClubFragment extends Fragment {
 
     private void setupFireStore() {
         setUpSubcriptions();
-
-        FirebaseFirestore.getInstance().collection("club").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful() && task.getResult() != null){
-                    clubs = task.getResult().toObjects(Club.class);
-                    for(int i = 0; i< clubs.size(); i++) {
-                        Club c = clubs.get(i);
-                        if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
-                            clubs.remove(i);
-                            i--;
-                        }
-                    }
-
-                    adapter = new DummyAdapter(getContext(), clubs);
-                    unsubs_RV.setAdapter(adapter);
-                    if(clubs.size() > 0)
-                        tv_suggestion.setVisibility(View.VISIBLE);
-
-                    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                        @Override
-                        public void onChanged() {
-                            super.onChanged();
-
-                            if (clubs.size() == 0)
-                                tv_suggestion.setVisibility(View.GONE);
-                            else
-                                tv_suggestion.setVisibility(View.VISIBLE);
-                        }
-                    });
-                }
-            }
-        });
+        setUpUnSubcriptions();
     }
 
     private void setUpSubcriptions() {
@@ -170,17 +115,11 @@ public class ClubFragment extends Fragment {
                     holder.iv_dp.setImageResource(R.color.shimmering_back);
                 }
 
-                holder.iv_follow.setImageResource(R.drawable.follow_blue);
-
-                holder.iv_follow.setOnClickListener(new View.OnClickListener() {
+                holder.lottie.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        holder.iv_follow.setImageResource(R.drawable.follow);
-
-                        Map<String, Object> follower_det = new HashMap<>();
-                        model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
-                        follower_det.put("followers", model.getFollowers());
-                        FirebaseFirestore.getInstance().collection("club").document(model.getId()).set(follower_det, SetOptions.merge());
+                        FirebaseFirestore.getInstance().collection("club").document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
+                        FCMHelper.UnSubscribeToTopic(getContext(),"club_" + model.getId());
                         clubs.add(model);
                         adapter.notifyDataSetChanged();
                     }
@@ -227,6 +166,41 @@ public class ClubFragment extends Fragment {
         });
     }
 
+    private void setUpUnSubcriptions(){
+        FirebaseFirestore.getInstance().collection("club").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful() && task.getResult() != null){
+                    clubs = task.getResult().toObjects(Club.class);
+                    for(int i = 0; i< clubs.size(); i++) {
+                        Club c = clubs.get(i);
+                        if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
+                            clubs.remove(i);
+                            i--;
+                        }
+                    }
+
+                    adapter = new UnSubscribeAdapter(getContext(), clubs);
+                    unsubs_RV.setAdapter(adapter);
+                    if(clubs.size() > 0)
+                        tv_suggestion.setVisibility(View.VISIBLE);
+
+                    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                        @Override
+                        public void onChanged() {
+                            super.onChanged();
+
+                            if (clubs.size() == 0)
+                                tv_suggestion.setVisibility(View.GONE);
+                            else
+                                tv_suggestion.setVisibility(View.VISIBLE);
+                        }
+                    });
+                }
+            }
+        });
+    }
+
     private void initUI(View view) {
         subs_RV = view.findViewById(R.id.subs_RV);
         unsubs_RV = view.findViewById(R.id.unsubs_RV);
@@ -245,7 +219,8 @@ public class ClubFragment extends Fragment {
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout club_RL;
         TextView tv_name, tv_description;
-        ImageView iv_dp, iv_follow;
+        ImageView iv_dp;
+        LottieAnimationView lottie;
 
 
         public FeedViewHolder(View itemView) {
@@ -254,8 +229,19 @@ public class ClubFragment extends Fragment {
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_description = itemView.findViewById(R.id.tv_description);
             iv_dp = itemView.findViewById(R.id.iv_dp);
-            iv_follow = itemView.findViewById(R.id.iv_follow);
+            lottie = itemView.findViewById(R.id.lottie);
             club_RL = itemView.findViewById(R.id.club_RL);
+
+            lottie.playAnimation();
+            lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    if(valueAnimator.isRunning()){
+                        if(lottie.getProgress() > 0.6)
+                            lottie.pauseAnimation();
+                    }
+                }
+            });
         }
     }
 
