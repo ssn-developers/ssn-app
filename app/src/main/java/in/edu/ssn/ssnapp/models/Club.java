@@ -7,17 +7,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Club implements Parcelable {
-//    private Date time;
-//    private String author;
-//    private String pid;
-//    private String title;
-//    private ArrayList<String> imageUrl;
-//    private ArrayList<String> fileName;
-//    private ArrayList<String> fileUrl;
-//    private ArrayList<String> comments;
-//    private String position;
-//    private int like;
-//    private int Comment;
+
 
     private String id;
     private String dp_url;

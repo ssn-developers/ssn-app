@@ -105,7 +105,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
                 @Override
                 public void onAnimationUpdate(ValueAnimator valueAnimator) {
                     if(valueAnimator.isRunning()){
-                        if(lottie.getProgress() > 0.45) {
+                        if(lottie.getProgress() > 0.50) {
                             lottie.setProgress(0.0f);
                             lottie.pauseAnimation();
                             new Handler().postDelayed(new Runnable() {

@@ -5,108 +5,59 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class ClubPost implements Parcelable {
-//    private Date time;
-//    private String author;
-//    private String pid;
-//    private String title;
-//    private ArrayList<String> imageUrl;
-//    private ArrayList<String> fileName;
-//    private ArrayList<String> fileUrl;
-//    private ArrayList<String> comments;
-//    private String position;
-//    private int like;
-//    private int Comment;
-
-    private String id;
-    private String dp_url;
-    private String cover_url;
-    private String name;
-    private Long followers;
-    private String contact;
-    private ArrayList<String> head;
-    private String description;
+public class ClubPost{
+    String author;
+    String cid;
+    ArrayList<Comments> comment;
+    String description;
+    ArrayList<HashMap<String,String>> file_urls;
+    ArrayList<String> img_urls;
+    HashMap<String,Long> like;
+    String time;
+    String title;
+    String id;
 
     public ClubPost() { }
 
-    protected ClubPost(Parcel in) {
-        id = in.readString();
-        dp_url = in.readString();
-        cover_url = in.readString();
-        name = in.readString();
-        followers = in.readLong();
-        contact = in.readString();
-        head = in.createStringArrayList();
-        description = in.readString();
-    }
-
-    public static final Creator<ClubPost> CREATOR = new Creator<ClubPost>() {
-        @Override
-        public ClubPost createFromParcel(Parcel in) {
-            return new ClubPost(in);
-        }
-
-        @Override
-        public ClubPost[] newArray(int size) {
-            return new ClubPost[size];
-        }
-    };
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
+    public ClubPost(String author, String cid, ArrayList<Comments> comment, String descrption, ArrayList<HashMap<String, String>> file_urls, ArrayList<String> img_urls, HashMap<String, Long> like, String time, String title, String id) {
+        this.author = author;
+        this.cid = cid;
+        this.comment = comment;
+        this.description = descrption;
+        this.file_urls = file_urls;
+        this.img_urls = img_urls;
+        this.like = like;
+        this.time = time;
+        this.title = title;
         this.id = id;
     }
 
-    public String getDp_url() {
-        return dp_url;
+    public String getAuthor() {
+        return author;
     }
 
-    public void setDp_url(String dp_url) {
-        this.dp_url = dp_url;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
-    public String getCover_url() {
-        return cover_url;
+    public String getCid() {
+        return cid;
     }
 
-    public void setCover_url(String cover_url) {
-        this.cover_url = cover_url;
+    public void setCid(String cid) {
+        this.cid = cid;
     }
 
-    public String getName() {
-        return name;
+    public ArrayList<Comments> getComment() {
+        return comment;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Long getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(Long followers) {
-        this.followers = followers;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
-    }
-
-    public ArrayList<String> getHead() {
-        return head;
-    }
-
-    public void setHead(ArrayList<String> head) {
-        this.head = head;
+    public void setComment(ArrayList<Comments> comment) {
+        this.comment = comment;
     }
 
     public String getDescription() {
@@ -117,20 +68,51 @@ public class ClubPost implements Parcelable {
         this.description = description;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public ArrayList<HashMap<String, String>> getFile_urls() {
+        return file_urls;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(dp_url);
-        parcel.writeString(cover_url);
-        parcel.writeString(name);
-        parcel.writeLong(followers);
-        parcel.writeString(contact);
-        parcel.writeStringList(head);
-        parcel.writeString(description);
+    public void setFile_urls(ArrayList<HashMap<String, String>> file_urls) {
+        this.file_urls = file_urls;
+    }
+
+    public ArrayList<String> getImg_urls() {
+        return img_urls;
+    }
+
+    public void setImg_urls(ArrayList<String> img_urls) {
+        this.img_urls = img_urls;
+    }
+
+    public HashMap<String, Long> getLike() {
+        return like;
+    }
+
+    public void setLike(HashMap<String, Long> like) {
+        this.like = like;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 }

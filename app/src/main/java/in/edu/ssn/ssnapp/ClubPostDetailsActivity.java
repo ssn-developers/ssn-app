@@ -48,57 +48,43 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.edu.ssn.ssnapp.adapters.ClubImageAdapter;
+import in.edu.ssn.ssnapp.adapters.ClubPostImageAdapter;
 import in.edu.ssn.ssnapp.models.Club;
+import in.edu.ssn.ssnapp.models.ClubPost;
+import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class ClubPostDetailsActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener{
+public class ClubPostDetailsActivity extends AppCompatActivity {
 
-    public TextView tv_author, tv_club, tv_title, tv_time, tv_current_image, like_count, comment_count,layout_title;
+    public TextView tv_author, tv_club, tv_title, tv_time, tv_current_image, like_count, comment_count, layout_title;
     public SocialTextView tv_description;
     public EditText comment_etv;
-    public ImageView userImageIV, like,layout_dp_iv;
+    public ImageView userImageIV, like, layout_dp_iv;
     public RelativeLayout feed_view;
     public ViewPager viewPager;
     RecyclerView comment_RV;
 
-    String pid,name,dp_url;
+    ClubPost clubpost;
+    Club club;
 
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
 
-    private static final float PERCENTAGE_TO_SHOW_TITLE_AT_TOOLBAR = 0.6f;
-    private static final float PERCENTAGE_TO_HIDE_TITLE_DETAILS = 0.3f;
-    private static final int ALPHA_ANIMATIONS_DURATION = 200;
-
-    private boolean mIsTheTitleVisible = false;
-    private boolean mIsTheTitleContainerVisible = true;
-
-    private RelativeLayout mTitleContainer;
-    private TextView mTitle;
-    private AppBarLayout mAppBarLayout;
-    private Toolbar mToolbar;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference club_post_colref = db.collection("post_club");
-    CollectionReference club_colref = db.collection("club");
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_post_details);
 
         initUI();
-        bindActivity();
-
-        mAppBarLayout.addOnOffsetChangedListener((AppBarLayout.OnOffsetChangedListener) this);
-
-        startAlphaAnimation(mTitle, 0, View.VISIBLE);
 
         setupFireStore();
 
     }
+
     void setupFireStore() {
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
@@ -110,29 +96,45 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
         // manually create composite query for each year & dept
         // [cse | it | ece | eee | mech | bme | chemical | civil | admin]
 
-        Query query = FirebaseFirestore.getInstance().collection("post_club").whereEqualTo("id",pid);
-        FirestoreRecyclerOptions<Club> options = new FirestoreRecyclerOptions.Builder<Club>().setQuery(query, new SnapshotParser<Club>() {
+        Query query = FirebaseFirestore.getInstance().collection("post_club").whereEqualTo("id", clubpost.getId());
+        FirestoreRecyclerOptions<ClubPost> options = new FirestoreRecyclerOptions.Builder<ClubPost>().setQuery(query, new SnapshotParser<ClubPost>() {
             @NonNull
             @Override
-            public Club parseSnapshot(@NonNull DocumentSnapshot snapshot) {
+            public ClubPost parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
-
-                final Club post = new Club();
-                /*post.setId(snapshot.getString("cid"));
-                post.setPid(snapshot.getString("id"));
+                final ClubPost post = new ClubPost();
+                post.setId(snapshot.getString("id"));
+                post.setCid(snapshot.getString("cid"));
                 post.setAuthor(snapshot.getString("author"));
                 post.setTitle(snapshot.getString("title"));
-                post.setLike(Integer.parseInt(snapshot.get("like").toString()));
                 post.setDescription(snapshot.getString("description"));
-                post.setComments((ArrayList<String>) snapshot.get("comment"));
                 post.setTime(snapshot.getTimestamp("time").toDate());
+                try {
+                    post.setLike((ArrayList<String>) snapshot.get("like"));
+                    Log.i("app_test", "  like collected ");
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Log.i("app_test", "  like not collected "+ e.toString());
+                    post.setLike(null);
+                }
+                try {
+                    post.setComment((ArrayList<String>) snapshot.get("comment"));
+                    Log.i("app_test", "  comment collected ");
+
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                    post.setComment(null);
+                }
 
 
                 ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
                 if (images != null && images.size() > 0)
-                    post.setImageUrl(images);
+                    post.setImage_Urls(images);
                 else
-                    post.setImageUrl(null);
+                    post.setImage_Urls(null);
 
                 try {
                     ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
@@ -144,28 +146,28 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
                             fileName.add(files.get(i).get("name"));
                             fileUrl.add(files.get(i).get("url"));
                         }
-                        post.setFileName(fileName);
-                        post.setFileUrl(fileUrl);
+                        post.setFile_name(fileName);
+                        post.setFile_urls(fileUrl);
                     } else {
-                        post.setFileName(null);
-                        post.setFileUrl(null);
+                        post.setFile_name(null);
+                        post.setFile_urls(null);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                     Crashlytics.log("stackTrace: " + Arrays.toString(e.getStackTrace()) + " \n Error: " + e.getMessage());
-                    post.setFileName(null);
-                    post.setFileUrl(null);
-                }*/
+                    post.setFile_name(null);
+                    post.setFile_urls(null);
+                }
                 return post;
             }
         }).build();
 
-        adapter = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
+        adapter = new FirestoreRecyclerAdapter<ClubPost, FeedViewHolder>(options) {
             @Override
-            public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
+            public void onBindViewHolder(final FeedViewHolder holder, final int position, final ClubPost post) {
 
-                /*String author = "";
-                String email = model.getAuthor();
+                String author = "";
+                String email = clubpost.getAuthor();
                 email = email.substring(0, email.indexOf("@"));
                 for (int j = 0; j < email.length(); j++) {
                     if (Character.isDigit(email.charAt(j))) {
@@ -179,23 +181,23 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
 
 
                 tv_author.setText(author);
-                layout_title.setText(name);
+                layout_title.setText(club.getName());
 
                 ColorGenerator generator = ColorGenerator.MATERIAL;
-                int color = generator.getColor(model.getAuthor());
-                TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
+                int color = generator.getColor(clubpost.getAuthor());
+                TextDrawable ic1 = builder.build(String.valueOf(clubpost.getAuthor().charAt(0)), color);
                 userImageIV.setImageDrawable(ic1);
-                Glide.with(getApplicationContext()).load(dp_url).placeholder(R.drawable.ic_user_white).into(layout_dp_iv);
-                tv_title.setText(model.getTitle());
+                Glide.with(getApplicationContext()).load(club.getDp_url()).placeholder(R.drawable.ic_user_white).into(layout_dp_iv);
+                tv_title.setText(clubpost.getTitle());
 
-                if (SharedPref.getBoolean(getApplicationContext(), "post_liked", model.getPid())) {
+                if (SharedPref.getBoolean(getApplicationContext(), "post_liked", clubpost.getId())) {
                     like.setImageResource(R.drawable.blue_heart);
 
                 } else {
                     like.setImageResource(R.drawable.heart);
                 }
 
-                Date time = model.getTime();
+                Date time = clubpost.getTime();
                 Date now = new Date();
                 Long t = now.getTime() - time.getTime();
                 String timer;
@@ -217,25 +219,25 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
 
                 tv_time.setText(timer);
 
-                if (model.getDescription().length() > 100) {
-                    SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
+                if (clubpost.getDescription().length() > 100) {
+                    SpannableString ss = new SpannableString(clubpost.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     tv_description.setText(ss);
                 } else
-                    tv_description.setText(model.getDescription().trim());
+                    tv_description.setText(clubpost.getDescription().trim());
 
-                if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
+                if (clubpost.getImage_Urls() != null && clubpost.getImage_Urls().size() != 0) {
                     viewPager.setVisibility(View.VISIBLE);
 
-                    final ClubImageAdapter imageAdapter = new ClubImageAdapter(ClubPostDetailsActivity.this, model.getImageUrl(), true, model, timer);
+                    final ClubPostImageAdapter imageAdapter = new ClubPostImageAdapter(ClubPostDetailsActivity.this, clubpost.getImage_Urls(), true, clubpost, timer);
                     viewPager.setAdapter(imageAdapter);
 
-                    if (model.getImageUrl().size() == 1) {
+                    if (clubpost.getImage_Urls().size() == 1) {
                         tv_current_image.setVisibility(View.GONE);
                     } else {
                         tv_current_image.setVisibility(View.VISIBLE);
-                        tv_current_image.setText(String.valueOf(1) + " / " + String.valueOf(model.getImageUrl().size()));
+                        tv_current_image.setText(String.valueOf(1) + " / " + String.valueOf(clubpost.getImage_Urls().size()));
                         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -244,7 +246,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
 
                             @Override
                             public void onPageSelected(int pos) {
-                                tv_current_image.setText(String.valueOf(pos + 1) + " / " + String.valueOf(model.getImageUrl().size()));
+                                tv_current_image.setText(String.valueOf(pos + 1) + " / " + String.valueOf(clubpost.getImage_Urls().size()));
                             }
 
                             @Override
@@ -259,14 +261,39 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
                 }
 
                 shimmer_view.setVisibility(View.GONE);
-                */
+                if (clubpost.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                    like.setImageResource(R.drawable.blue_heart);
+
+                } else {
+                    like.setImageResource(R.drawable.heart);
+                }
+
+                like.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (!clubpost.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                            like.setImageResource(R.drawable.blue_heart);
+                            clubpost.getLike().add(SharedPref.getString(getApplicationContext(), "email"));
+
+                        } else {
+                            like.setImageResource(R.drawable.heart);
+                            {
+                                clubpost.getLike().remove(SharedPref.getString(getApplicationContext(), "email"));
+                            }
+                        }
+                        Map<String, Object> likes_details = new HashMap<>();
+                        likes_details.put("like", clubpost.getLike());
+                        club_post_colref.document(clubpost.getId()).set(likes_details, SetOptions.merge());
+
+                    }
+                });
             }
 
 
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
-                View view = LayoutInflater.from(ClubPostDetailsActivity.this).inflate(R.layout.club_post_item, group, false);
+                View view = LayoutInflater.from(ClubPostDetailsActivity.this).inflate(R.layout.comment_item, group, false);
                 return new FeedViewHolder(view);
             }
         };
@@ -275,11 +302,11 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
     }
 
     void initUI() {
-        pid = getIntent().getExtras().getString("pid");
-        name = getIntent().getExtras().getString("name");
-        dp_url = getIntent().getExtras().getString("dp_url");
+        clubpost = getIntent().getParcelableExtra("ClubPost");
+        club = getIntent().getParcelableExtra("Club");
 
-        userImageIV =findViewById(R.id.userImageIV_com);
+
+        userImageIV = findViewById(R.id.userImageIV_com);
         tv_author = findViewById(R.id.tv_author_com);
         tv_time = findViewById(R.id.tv_time_com);
         viewPager = findViewById(R.id.viewPager_com);
@@ -301,27 +328,25 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
     /*********************************************************/
 
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_author, tv_club, tv_title, tv_time, tv_current_image, like_count, comment_count;
-        public SocialTextView tv_description;
-        public ImageView userImageIV, like, comment;
-        public RelativeLayout feed_view;
-        public ViewPager viewPager;
+        RelativeLayout comment_RL;
+        ImageView user_dp_iv;
+        TextView user_name_tv, comment_tv, reply_tv, view_reply_tv;
+        EditText reply_etv;
+        RecyclerView reply_RV;
+
 
         public FeedViewHolder(View itemView) {
             super(itemView);
-
-            tv_author = itemView.findViewById(R.id.tv_author_club);
-            tv_title = itemView.findViewById(R.id.tv_title_club);
-            tv_description = itemView.findViewById(R.id.tv_description_club);
-            tv_time = itemView.findViewById(R.id.tv_time_club);
-            tv_current_image = itemView.findViewById(R.id.currentImageTV_club);
-            userImageIV = itemView.findViewById(R.id.userImageIV_club);
-            feed_view = itemView.findViewById(R.id.feed_view_club);
-            viewPager = itemView.findViewById(R.id.viewPager_club);
-            like = itemView.findViewById(R.id.like_IV_club);
-            comment = itemView.findViewById(R.id.comment_IV_club);
-            like_count = itemView.findViewById(R.id.like_count_tv);
-            comment_count = itemView.findViewById(R.id.comment_count_tv);
+            comment_RL = itemView.findViewById(R.id.com_view_RL);
+            user_dp_iv = itemView.findViewById(R.id.user_iv_com);
+            user_name_tv = itemView.findViewById(R.id.user_name_tv_com);
+            comment_tv = itemView.findViewById(R.id.comment_tv);
+            reply_tv = itemView.findViewById(R.id.reply_tv);
+            view_reply_tv = itemView.findViewById(R.id.view_reply_tv);
+            reply_etv = itemView.findViewById(R.id.reply_etv);
+            reply_etv.setVisibility(View.GONE);
+            reply_RV = itemView.findViewById(R.id.view_reply_RV);
+            reply_RV.setVisibility(View.GONE);
         }
     }
 
@@ -344,27 +369,4 @@ public class ClubPostDetailsActivity extends AppCompatActivity implements AppBar
         super.onStop();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void bindActivity() {
-        mToolbar = (Toolbar) findViewById(R.id.main_toolbar_com);
-        mTitle = (TextView) findViewById(R.id.layout_title_tv_com);
-        mTitleContainer = (RelativeLayout) findViewById(R.id.feed_view_com);
-        mAppBarLayout = (AppBarLayout) findViewById(R.id.main_appbarlayout_3);
-    }
-
-    @Override
-    public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
-        int maxScroll = appBarLayout.getTotalScrollRange();
-        float percentage = (float) Math.abs(offset) / (float) maxScroll;
-    }
-
-    public static void startAlphaAnimation(View v, long duration, int visibility) {
-        AlphaAnimation alphaAnimation = (visibility == View.VISIBLE)
-                ? new AlphaAnimation(0f, 1f)
-                : new AlphaAnimation(1f, 0f);
-
-        alphaAnimation.setDuration(duration);
-        alphaAnimation.setFillAfter(true);
-        v.startAnimation(alphaAnimation);
-    }
 }
