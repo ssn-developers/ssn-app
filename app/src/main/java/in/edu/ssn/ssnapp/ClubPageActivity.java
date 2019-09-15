@@ -383,7 +383,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 }
                 else
                     holder.comment_count.setText("");
-                holder.like_count.setText(String.valueOf(model.getLike().size()));
+                //holder.like_count.setText(String.valueOf(model.getLike().size()));
 
 
                 layout_progress.setVisibility(View.GONE);
