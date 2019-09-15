@@ -60,8 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_150sdp"
             android:layout_marginTop="@dimen/_50sdp"
-            app:lottie_rawRes="@raw/subscribe"
-            app:lottie_loop="false"
+            app:lottie_rawRes="@raw/notification"
+            app:lottie_loop="true"
             app:lottie_autoPlay="true" />
 
         <TextView

@@ -3,7 +3,9 @@ package in.edu.ssn.ssnapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.ImageView;
@@ -40,31 +42,16 @@ public class NotificationActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        final LottieAnimationView lottie = findViewById(R.id.lottie);
-        lottie.addAnimatorListener(new Animator.AnimatorListener() {
+        /*final LottieAnimationView lottie = findViewById(R.id.lottie);
+        lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
-            public void onAnimationStart(Animator animator) {
-                if(animator.isRunning()){
-                    if(lottie.getProgress() == 60)
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                if(valueAnimator.isRunning()){
+                    if(lottie.getProgress() > 0.6)
                         lottie.pauseAnimation();
                 }
             }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
+        });*/
 
         lv_items = findViewById(R.id.lv_items);
         iv_back = findViewById(R.id.iv_back);
