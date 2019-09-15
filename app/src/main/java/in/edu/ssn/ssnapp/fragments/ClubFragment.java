@@ -83,7 +83,6 @@ public class ClubFragment extends Fragment {
             @NonNull
             @Override
             public Club parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                
                 final Club club = new Club();
                 club.setId(snapshot.getString("id"));
                 club.setName(snapshot.getString("name"));
@@ -92,7 +91,13 @@ public class ClubFragment extends Fragment {
                 club.setContact(snapshot.getString("contact"));
                 club.setDescription(snapshot.getString("description"));
                 club.setFollowers(snapshot.getLong("followers"));
-                club.setHead((ArrayList<String>) snapshot.get("head"));
+                try {
+                    club.setHead((ArrayList<String>) snapshot.get("head"));
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    club.setHead(null);
+                }
 
                 /*ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
                 if (images != null && images.size() > 0)
@@ -160,7 +165,7 @@ public class ClubFragment extends Fragment {
                                 holder.iv_follow.setImageResource(R.drawable.follow);
                                 SharedPref.putBoolean(getContext(), "club", model.getId(), false);
                                 
-                                model.setFollowers(model.getFollowers()-1);
+                                model.setFollowers(model.getFollowers() - 1);
                                 Map<String, Object> follower_det = new HashMap<>();
                                 follower_det.put("followers", model.getFollowers());
                                 
@@ -170,7 +175,7 @@ public class ClubFragment extends Fragment {
                                 holder.iv_follow.setImageResource(R.drawable.follow_blue);
                                 SharedPref.putBoolean(getContext(), "club", model.getId(), true);
 
-                                model.setFollowers(model.getFollowers()+1);
+                                model.setFollowers(model.getFollowers() + 1);
                                 Map<String, Object> follower_det = new HashMap<>();
                                 follower_det.put("followers", model.getFollowers());
                                 FirebaseFirestore.getInstance().collection("club").document(model.getId()).set(follower_det, SetOptions.merge());
@@ -188,6 +193,7 @@ public class ClubFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(getContext(), ClubPageActivity.class);
+                            intent.putExtra("data", model);
                             intent.putExtra("isHead", isHead);
                             getContext().startActivity(intent);
                         }
@@ -261,6 +267,7 @@ public class ClubFragment extends Fragment {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(getContext(), ClubPageActivity.class);
+                            intent.putExtra("data", model);
                             intent.putExtra("isHead", isHead);
                             getContext().startActivity(intent);
                         }
