@@ -2,6 +2,7 @@ package in.edu.ssn.ssnapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.animation.Animator;
 import android.os.Bundle;
 import android.util.Pair;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,16 +33,43 @@ public class NotificationActivity extends AppCompatActivity{
     DataBaseHelper dbHelper;
     RelativeLayout layout_progress;
     ImageView iv_back;
-    ArrayList<String> postType=new ArrayList<>();
+    ArrayList<String> postType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
+        final LottieAnimationView lottie = findViewById(R.id.lottie);
+        lottie.addAnimatorListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                if(animator.isRunning()){
+                    if(lottie.getProgress() == 60)
+                        lottie.pauseAnimation();
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+
         lv_items = findViewById(R.id.lv_items);
         iv_back = findViewById(R.id.iv_back);
         layout_progress = findViewById(R.id.layout_progress);
+        postType=new ArrayList<>();
         adapter = new NotifyAdapter(this, new ArrayList<Post>());
         dbHelper=DataBaseHelper.getInstance(this);
 

@@ -22,7 +22,7 @@
             android:id="@+id/iv_back"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:src="@drawable/ic_back"
+            app:srcCompat="@drawable/ic_back"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_22sdp"/>
 
@@ -60,8 +60,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/_150sdp"
             android:layout_marginTop="@dimen/_50sdp"
-            app:lottie_rawRes="@raw/notification"
-            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/subscribe"
+            app:lottie_loop="false"
             app:lottie_autoPlay="true" />
 
         <TextView
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
-            android:text="You will be notified if the faculty posts any new feeds till then stay tuned."
+            android:text="You will be notified for new posts till then stay tuned."
             android:layout_centerHorizontal="true"
             android:textColor="#404040"
             android:layout_below="@+id/tv_text1"
