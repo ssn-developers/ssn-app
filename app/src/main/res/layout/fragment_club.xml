@@ -10,7 +10,7 @@
 		android:layout_height="wrap_content"
 		android:paddingTop="@dimen/_43sdp"
 		android:clipToPadding="false"
-		android:id="@+id/feedsRV_club">
+		android:id="@+id/subs_RV">
 	</androidx.recyclerview.widget.RecyclerView>
 	<TextView
 		android:layout_width="wrap_content"
@@ -23,6 +23,6 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:paddingTop="10dp"
-		android:id="@+id/feedsRV_uns_club"/>
+		android:id="@+id/unsubs_RV"/>
 
 </LinearLayout>
