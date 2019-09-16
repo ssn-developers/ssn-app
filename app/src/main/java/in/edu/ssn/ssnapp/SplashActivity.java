@@ -41,6 +41,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -108,6 +113,9 @@ public class SplashActivity extends AppCompatActivity {
     private static Boolean isUpdateAvailable = false;
     private int currentApiVersion;
     private String latestVersion;
+    private Map<String,Object> nodes = new HashMap<>();
+
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +123,7 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
+        checkIsBlocked();
         //forceUpdate();
 
         try {
@@ -171,6 +180,7 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         db = FirebaseFirestore.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("block_screen");
         intent = getIntent();
         notif_intent = null;
     }
@@ -189,6 +199,24 @@ public class SplashActivity extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+    public void checkIsBlocked(){
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nodes = (Map<String, Object>) dataSnapshot.getValue();
+                CommonUtils.setIs_blocked((Boolean) nodes.get("is_block"));
+                if(CommonUtils.getIs_blocked()){
+                        Intent intent = new Intent(SplashActivity.this,BlockScreenActivity.class);
+                        startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public class ForceUpdateAsync extends AsyncTask<String, String, JSONObject> {
@@ -357,44 +385,41 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     public void passIntent() {
-        worst_case = false;
 
-        if (notif_intent != null) {
-            startActivity(notif_intent);
-            finish();
-        }
-        else if(!CommonUtils.alerter(getApplicationContext())){
-            if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 2) {
-                if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
-                    startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+        if(!CommonUtils.getIs_blocked()) {
+            worst_case = false;
+            if (notif_intent != null) {
+                startActivity(notif_intent);
+                finish();
+            } else if (!CommonUtils.alerter(getApplicationContext())) {
+                if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
+                    if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
+                        startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+                        finish();
+                        Bungee.fade(this);
+                    } else {
+                        startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                        finish();
+                        Bungee.fade(this);
+                    }
+                } else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.putExtra("is_log_in", true);
+                    startActivity(intent);
                     finish();
-                    Bungee.fade(this);
-                }
-                else {
-                    startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                    Bungee.slideLeft(this);
+                } else {
+                    startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
                     finish();
-                    Bungee.fade(this);
+                    Bungee.slideLeft(this);
                 }
-            }
-            else if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 1) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.putExtra("is_log_in", true);
+            } else {
+                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                intent.putExtra("key", "splash");
                 startActivity(intent);
                 finish();
-                Bungee.slideLeft(this);
+                Bungee.fade(SplashActivity.this);
             }
-            else{
-                startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
-                finish();
-                Bungee.slideLeft(this);
-            }
-        }
-        else{
-            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-            intent.putExtra("key","splash");
-            startActivity(intent);
-            finish();
-            Bungee.fade(SplashActivity.this);
         }
     }
 
