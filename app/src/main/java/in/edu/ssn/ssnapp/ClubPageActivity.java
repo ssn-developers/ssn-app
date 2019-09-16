@@ -461,6 +461,9 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + club.getContact())));
                 break;
             case R.id.lottie:
+                isSubscriptionChange = !isSubscriptionChange;
+                lottie.playAnimation();
+
                 if (!club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                     FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.SubscribeToTopic(getApplicationContext(),"club_" + club.getId());
@@ -475,8 +478,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     tv_following_text.setText("Unfollowing");
                     tv_following_text.setTextColor(getResources().getColor(R.color.light_grey));
                 }
-                lottie.playAnimation();
-                isSubscriptionChange = !isSubscriptionChange;
                 break;
         }
     }
