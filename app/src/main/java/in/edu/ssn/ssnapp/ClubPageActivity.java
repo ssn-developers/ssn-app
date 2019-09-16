@@ -111,7 +111,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(ClubPageActivity.this);
         feedsRV.setLayoutManager(layoutManager);
-        feedsRV.setNestedScrollingEnabled(false);
+        //feedsRV.setNestedScrollingEnabled(false);
 
         /****************************************************/
         //Update Data
