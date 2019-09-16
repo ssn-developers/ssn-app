@@ -200,6 +200,7 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     public void checkIsBlocked(){
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -207,8 +208,8 @@ public class SplashActivity extends AppCompatActivity {
                 nodes = (Map<String, Object>) dataSnapshot.getValue();
                 CommonUtils.setIs_blocked((Boolean) nodes.get("is_block"));
                 if(CommonUtils.getIs_blocked()){
-                        Intent intent = new Intent(SplashActivity.this,BlockScreenActivity.class);
-                        startActivity(intent);
+                    startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
+                    Bungee.fade(SplashActivity.this);
                 }
             }
 
@@ -391,7 +392,8 @@ public class SplashActivity extends AppCompatActivity {
             if (notif_intent != null) {
                 startActivity(notif_intent);
                 finish();
-            } else if (!CommonUtils.alerter(getApplicationContext())) {
+            }
+            else if (!CommonUtils.alerter(getApplicationContext())) {
                 if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
                     if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
                         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
