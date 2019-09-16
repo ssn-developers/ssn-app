@@ -33,20 +33,28 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    app:srcCompat="@drawable/ic_back"
-                    android:id="@+id/backIV"
-                    android:tint="@color/colorAccent"
-                    android:layout_gravity="center"
-                    android:padding="@dimen/_2sdp" />
-
-                <ImageView
                     android:id="@+id/iv_cover_pic"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_120sdp"
                     android:background="@color/shimmering_back"
                     android:scaleType="centerCrop"/>
+
+                <ImageView
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    app:srcCompat="@drawable/ic_back"
+                    android:id="@+id/backIV"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/_2sdp" />
+
+                <ImageView
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    app:srcCompat="@drawable/ic_share"
+                    android:id="@+id/shareIV"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/_7sdp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -187,17 +195,45 @@
                         android:src="@color/shimmering_front"
                         android:padding="@dimen/_2sdp" />
 
-                    <TextView
-                        android:id="@+id/tool_tv_title"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:layout_marginStart="@dimen/_6sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_gravity="center"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/_14ssp" />
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_10sdp">
+
+                        <TextView
+                            android:id="@+id/tool_tv_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:singleLine="true"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:textColor="@color/colorAccent"
+                            android:layout_marginEnd="@dimen/_35sdp"
+                            android:textSize="@dimen/_14ssp" />
+
+                        <TextView
+                            android:id="@+id/tool_tv_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/tool_tv_title"
+                            android:textColor="@color/colorAccentText"
+                            android:fontFamily="@font/open_sans"
+                            android:layout_marginEnd="@dimen/_35sdp"
+                            android:textSize="@dimen/_9ssp" />
+
+                        <ImageView
+                            android:layout_width="@dimen/_35sdp"
+                            android:layout_height="@dimen/_35sdp"
+                            app:srcCompat="@drawable/ic_share"
+                            android:id="@+id/tool_iv_share"
+                            android:layout_alignParentEnd="true"
+                            android:tint="@color/colorAccent"
+                            android:layout_gravity="center"
+                            android:padding="@dimen/_7sdp" />
+
+                    </RelativeLayout>
                 </LinearLayout>
 
             </androidx.appcompat.widget.Toolbar>
@@ -213,7 +249,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.facebook.shimmer.ShimmerFrameLayout
@@ -233,6 +269,7 @@
                     <include layout="@layout/student_post_item_shimmering"/>
                     <include layout="@layout/student_post_item_shimmering"/>
                 </LinearLayout>
+
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView

@@ -11,11 +11,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Comments implements Parcelable,Comparable{
+public class Comments implements Parcelable, Comparable{
 
     String author;
     String message;
     Date time;
+
     ArrayList<HashMap<String,Object>> reply;
 
     public Comments() {
@@ -27,13 +28,6 @@ public class Comments implements Parcelable,Comparable{
         this.time = time;
         this.reply = reply;
     }
-
-    public Comments(String author, String message, ArrayList<HashMap<String, Object>> reply) {
-        this.author = author;
-        this.message = message;
-        this.reply = reply;
-    }
-
 
     protected Comments(Parcel in) {
         author = in.readString();
@@ -79,14 +73,6 @@ public class Comments implements Parcelable,Comparable{
         this.message = message;
     }
 
-    public ArrayList<HashMap<String, Object>> getReply() {
-        return reply;
-    }
-
-    public void setReply(ArrayList<HashMap<String, Object>> reply) {
-        this.reply = reply;
-    }
-
     public Date getTime() {
         return time;
     }
@@ -95,13 +81,19 @@ public class Comments implements Parcelable,Comparable{
         this.time = time;
     }
 
+    public ArrayList<HashMap<String, Object>> getReply() {
+        return reply;
+    }
+
+    public void setReply(ArrayList<HashMap<String, Object>> reply) {
+        this.reply = reply;
+    }
+
     @Override
     public int compareTo(Object o) {
-
         if(this.getTime().compareTo(((Comments)o).getTime())>0)
             return 1;
         else
             return -1;
-
     }
 }
