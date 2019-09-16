@@ -360,6 +360,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), ClubPostDetailsActivity.class);
                         intent.putExtra("data", model);
+                        intent.putExtra("club", club);
                         startActivity(intent);
                         Bungee.slideLeft(ClubPageActivity.this);
                     }
