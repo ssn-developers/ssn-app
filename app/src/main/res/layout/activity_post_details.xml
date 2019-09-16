@@ -67,7 +67,7 @@
                     android:layout_below="@+id/tv_author"
                     android:fontFamily="@font/open_sans"
                     android:singleLine="true"
-                    android:textColor="#404040"
+                    android:textColor="@color/colorAccentText"
                     android:textSize="@dimen/_9ssp" />
 
             </RelativeLayout>
@@ -149,7 +149,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_title"
-                android:textColor="#404040"
+                android:textColor="@color/colorAccentText"
                 android:fontFamily="@font/open_sans"
                 android:textSize="@dimen/_8ssp" />
 

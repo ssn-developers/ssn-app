@@ -24,7 +24,7 @@
         android:fontFamily="@font/open_sans"
         android:text="Please check your mobile data or Wi-Fi connection!"
         android:gravity="center"
-        android:textColor="#404040"
+        android:textColor="@color/colorAccentText"
         android:layout_below="@+id/lottie"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"

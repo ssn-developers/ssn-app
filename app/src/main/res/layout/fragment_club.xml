@@ -46,7 +46,7 @@
 							android:fontFamily="@font/open_sans_semi_bold"
 							android:text="No Subscriptions"
 							android:layout_centerHorizontal="true"
-							android:textColor="#404040"
+							android:textColor="@color/colorAccentText"
 							android:gravity="center"
 							android:textSize="@dimen/_14ssp" />
 
@@ -57,7 +57,7 @@
 							android:fontFamily="@font/open_sans"
 							android:text="We'll let you know for new posts if you follow clubs."
 							android:layout_centerHorizontal="true"
-							android:textColor="#404040"
+							android:textColor="@color/colorAccentText"
 							android:layout_below="@+id/tv_text1"
 							android:layout_marginTop="@dimen/_5sdp"
 							android:gravity="center"

@@ -34,7 +34,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
                     app:civ_circle_background_color="#D8D7D7"
-                    android:src="@drawable/ic_user_white"
+                    android:src="@android:color/transparent"
                     android:id="@+id/userImageIV" />
 
                 <View

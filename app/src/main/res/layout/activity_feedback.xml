@@ -71,7 +71,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
         android:text="Thanks for your valuable feedback. We will look into it and get back to you soon!"
-        android:textColor="#404040"
+        android:textColor="@color/colorAccentText"
         android:visibility="gone"
         android:layout_below="@+id/lottie"
         android:layout_marginTop="@dimen/_5sdp"

@@ -1,45 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/white"
     tools:context=".ClubPageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main_appbarlayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:minHeight="@dimen/_40sdp"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchorGravity="bottom|center"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
                 android:id="@+id/dp_cover_RL"
+                app:layout_collapseMode="parallax"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/cover_pic_iv"
                     android:layout_width="match_parent"
@@ -174,11 +164,70 @@
                     />
             </RelativeLayout>
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorAccent"
+                app:layout_collapseMode="pin"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+
+                <!--<LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        app:srcCompat="@drawable/ic_back"
+                        android:id="@+id/backIV"
+                        android:layout_gravity="center"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:foreground="?selectableItemBackground"
+                        android:tint="@android:color/white"
+                        android:padding="@dimen/_2sdp"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/layout_dp_iv"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_gravity="top|center_horizontal"
+                        android:background="@drawable/circle"
+                        android:padding="1dp"
+                        android:src="@color/shimmering_front"
+                        android:layout_margin="10dp" />
+
+                    <TextView
+                        android:id="@+id/layout_title_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:gravity="center_vertical"
+                        android:text="Club name"
+                        android:textColor="@android:color/white"
+                        android:textSize="15sp" />
+                </LinearLayout>-->
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchorGravity="bottom|center"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/layout_progress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/dp_cover_RL">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_text1_cl"
@@ -191,7 +240,7 @@
                     android:fontFamily="@font/open_sans_semi_bold"
                     android:gravity="center"
                     android:text="No Posts"
-                    android:textColor="#404040"
+                    android:textColor="@color/colorAccentText"
                     android:textSize="@dimen/_14ssp" />
 
                 <TextView
@@ -206,7 +255,7 @@
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"
                     android:text="We'll let you know for new posts till then stay tuned."
-                    android:textColor="#404040"
+                    android:textColor="@color/colorAccentText"
                     android:textSize="@dimen/_12ssp" />
 
                 <com.airbnb.lottie.LottieAnimationView
@@ -223,7 +272,6 @@
                 android:id="@+id/shimmer_view_cl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/dp_cover_RL"
                 android:paddingTop="@dimen/_43sdp"
                 android:visibility="gone"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -240,7 +288,6 @@
             </com.facebook.shimmer.ShimmerFrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@id/dp_cover_RL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
@@ -250,52 +297,4 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/main.toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorAccent"
-        app:layout_anchor="@id/collapsing_toolbar"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
-                app:srcCompat="@drawable/ic_back"
-                android:id="@+id/backIV"
-                android:layout_gravity="center"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?selectableItemBackground"
-                android:tint="@android:color/white"
-                android:padding="@dimen/_2sdp"/>
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/layout_dp_iv"
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_gravity="top|center_horizontal"
-                android:background="@drawable/circle"
-                android:padding="1dp"
-                android:src="@color/shimmering_front"
-                android:layout_margin="10dp" />
-
-            <TextView
-                android:id="@+id/layout_title_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
-                android:gravity="center_vertical"
-                android:text="Club name"
-                android:textColor="@android:color/white"
-                android:textSize="15sp"
-                />
-
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

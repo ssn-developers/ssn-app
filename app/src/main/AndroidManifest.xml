@@ -11,12 +11,14 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".SplashActivity">
+        <activity android:name=".AnimationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -29,8 +31,7 @@
                     android:scheme="http" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".BusRoutesActivity"/>
+        <activity android:name=".BusRoutesActivity" />
         <activity android:name=".ClubPostDetailsActivity" />
         <activity android:name=".ClubPageActivity" />
         <activity android:name=".NoNetworkActivity" />
@@ -74,11 +75,11 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

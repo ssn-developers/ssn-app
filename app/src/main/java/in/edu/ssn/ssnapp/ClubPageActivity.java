@@ -112,8 +112,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         Club_desc_tv.setEnabled(false);
         followers_tv = findViewById(R.id.followers_tv);
 
-        layout_dp_iv = findViewById(R.id.layout_dp_iv);
-        layout_title = findViewById(R.id.layout_title_tv);
+        //layout_dp_iv = findViewById(R.id.layout_dp_iv);
+        //layout_title = findViewById(R.id.layout_title_tv);
         dp_edit = findViewById(R.id.dp_pic_iv_edit);
         cover_edit= findViewById(R.id.cover_pic_iv_edit);
         name_edit= findViewById(R.id.club_name_tv_edit);
@@ -127,12 +127,15 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         shimmer_view = findViewById(R.id.shimmer_view_cl);
         layout_progress = findViewById(R.id.layout_progress);
 
-        mTitle = (TextView) findViewById(R.id.layout_title_tv);
+        //mTitle = (TextView) findViewById(R.id.layout_title_tv);
         mTitleContainer = (RelativeLayout) findViewById(R.id.dp_cover_RL);
+        Toolbar main_toolbar = findViewById(R.id.main_toolbar);
+        setSupportActionBar(main_toolbar);
+
         mAppBarLayout = (AppBarLayout) findViewById(R.id.main_appbarlayout);
 
         mAppBarLayout.addOnOffsetChangedListener((AppBarLayout.OnOffsetChangedListener) this);
-        startAlphaAnimation(mTitle, 0, View.INVISIBLE);
+        //startAlphaAnimation(mTitle, 0, View.INVISIBLE);
     }
 
     void updateData(){
@@ -189,10 +192,10 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
         Glide.with(ClubPageActivity.this).load(club.getDp_url()).placeholder(R.drawable.ic_user_white).into(dp_pic);
         Glide.with(ClubPageActivity.this).load(club.getCover_url()).placeholder(R.drawable.ic_user_white).into(cover_pic);
-        Glide.with(ClubPageActivity.this).load(club.getDp_url()).placeholder(R.drawable.ic_user_white).into(layout_dp_iv);
+        //Glide.with(ClubPageActivity.this).load(club.getDp_url()).placeholder(R.drawable.ic_user_white).into(layout_dp_iv);
 
         Club_name_tv.setText(club.getName());
-        layout_title.setText(club.getName());
+        //layout_title.setText(club.getName());
 
         Club_desc_tv.setText(club.getDescription());
         contact_tv.setText(club.getContact());
@@ -452,7 +455,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 startAlphaAnimation(mTitle, ALPHA_ANIMATIONS_DURATION, View.VISIBLE);
                 mIsTheTitleVisible = true;
             }
-
         }
         else {
             if (mIsTheTitleVisible) {
