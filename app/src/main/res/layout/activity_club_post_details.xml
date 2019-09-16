@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ClubPostDetailsActivity">
+
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/main_appbarlayout_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
+
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_3"
             android:layout_width="wrap_content"
@@ -20,19 +23,21 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|snap"
             android:minHeight="@dimen/_40sdp">
-
-
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_anchorGravity="bottom|center"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -85,7 +90,6 @@
                 <androidx.viewpager.widget.ViewPager
                     android:id="@+id/viewPager_com"
                     android:layout_width="match_parent"
-                    android:layout_below="@id/layout1_com"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="@dimen/_150sdp"
                     android:background="@color/shimmering_back"/>
@@ -145,6 +149,7 @@
                         app:hyperlinkColor="@color/colorAccent"
                         android:text="Description"/>
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -176,8 +181,7 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
                         android:layout_toRightOf="@id/like_count_tv_com"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        />
+                        android:layout_marginLeft="@dimen/_10sdp" />
 
 
                 </RelativeLayout>
@@ -202,26 +206,38 @@
                     <include layout="@layout/student_post_item_shimmering"/>
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
+
             <EditText
                 android:layout_below="@id/feed_view_com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/comment_etv"
-                android:hint="Enter Comment"
-                />
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:layout_below="@id/comment_etv"
-                android:id="@+id/comment_RV"
-                >
-            </androidx.recyclerview.widget.RecyclerView>
+                android:hint="Enter Comment" />
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:clipToPadding="false"-->
+<!--                android:layout_below="@id/comment_etv"-->
+<!--                android:id="@+id/comment_RV"/>-->
+
 
         </RelativeLayout>
-
-
     </androidx.core.widget.NestedScrollView>
+
+
+
+    <ExpandableListView
+        android:id="@+id/EV_comment"
+        android:clipToPadding="false"
+        android:layout_below="@id/scroll_view"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/main_toolbar_com"
         android:layout_width="match_parent"
@@ -229,14 +245,12 @@
         android:background="@color/colorAccent"
         app:layout_anchor="@id/collapsing_toolbar_3"
         app:theme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title=""
-        >
+        app:title="">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/layout_dp_iv_3"
@@ -257,11 +271,10 @@
                 android:gravity="center_vertical"
                 android:text="Club name"
                 android:textColor="@android:color/white"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
 
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

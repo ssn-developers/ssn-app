@@ -3,17 +3,37 @@ package in.edu.ssn.ssnapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import org.w3c.dom.Comment;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 
-public class Comments implements Parcelable{
+public class Comments implements Parcelable,Comparable{
 
     String author;
     String message;
-    ArrayList<HashMap<String,String>> reply;
+    Date time;
+    ArrayList<HashMap<String,Object>> reply;
 
     public Comments() {
     }
+
+    public Comments(String author, String message, Date time, ArrayList<HashMap<String, Object>> reply) {
+        this.author = author;
+        this.message = message;
+        this.time = time;
+        this.reply = reply;
+    }
+
+    public Comments(String author, String message, ArrayList<HashMap<String, Object>> reply) {
+        this.author = author;
+        this.message = message;
+        this.reply = reply;
+    }
+
 
     protected Comments(Parcel in) {
         author = in.readString();
@@ -59,11 +79,29 @@ public class Comments implements Parcelable{
         this.message = message;
     }
 
-    public ArrayList<HashMap<String, String>> getReply() {
+    public ArrayList<HashMap<String, Object>> getReply() {
         return reply;
     }
 
-    public void setReply(ArrayList<HashMap<String, String>> reply) {
+    public void setReply(ArrayList<HashMap<String, Object>> reply) {
         this.reply = reply;
+    }
+
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+
+        if(this.getTime().compareTo(((Comments)o).getTime())>0)
+            return 1;
+        else
+            return -1;
+
     }
 }
