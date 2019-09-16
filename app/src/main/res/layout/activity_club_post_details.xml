@@ -207,12 +207,26 @@
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
 
-            <EditText
+            <RelativeLayout
                 android:layout_below="@id/feed_view_com"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/comment_etv"
-                android:hint="Enter Comment" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/comment_etv"
+                    android:hint="Enter Comment " />
+
+                <Button
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/btn_post"
+                    android:text="Post"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
 
 <!--            <androidx.recyclerview.widget.RecyclerView-->
 <!--                android:layout_width="match_parent"-->

@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
@@ -35,6 +36,8 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.firebase.Timestamp;
@@ -42,6 +45,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -52,6 +56,7 @@ import com.hendraanggrian.appcompat.widget.SocialTextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,6 +77,8 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     public ImageView userImageIV, like, layout_dp_iv;
     public RelativeLayout feed_view;
     public ViewPager viewPager;
+
+    Button postComment;
 
     ExpandableListView expandableListView;
     CustomExpandableListAdapter expandableListAdapter;
@@ -114,6 +121,25 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         layout_dp_iv = findViewById(R.id.layout_dp_iv_3);
         layout_title = findViewById(R.id.layout_title_tv_com);
         tv_current_image = findViewById(R.id.currentImageTV_com);
+        postComment=findViewById(R.id.btn_post);
+
+        postComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //FirebaseFirestore.getInstance().collection("contact").document(i).update("number", FieldValue.arrayRemove(Integer.parseInt(edt_phone.getText().toString())))
+                Comments temp=new Comments("logesh",comment_etv.getText().toString(), Calendar.getInstance().getTime(),new ArrayList<HashMap<String, Object>>());
+                FirebaseFirestore.getInstance().collection("post_club").document("L3xGyQRaz8yRsjqP5Jto").update("comment", FieldValue.arrayUnion(temp)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        comment_etv.setText("");
+                    }
+                });
+
+
+                //FirebaseFirestore.getInstance().collection("post_club").document("").update()
+            }
+        });
 
         expandableListView =  findViewById(R.id.EV_comment);
         expandableListAdapter = new CustomExpandableListAdapter(this, new ArrayList<Comments>());
@@ -165,7 +191,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
 
                 expandableListAdapter=null;
-                //Collections.sort(commentsArrayList);
+                Collections.sort(commentsArrayList);
                 expandableListAdapter=new CustomExpandableListAdapter(ClubPostDetailsActivity.this,commentsArrayList);
                 expandableListView.setAdapter(expandableListAdapter);
             }
