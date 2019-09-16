@@ -49,10 +49,13 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.ClubPostImageAdapter;
+import in.edu.ssn.ssnapp.adapters.UnSubscribeAdapter;
+import in.edu.ssn.ssnapp.fragments.ClubFragment;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -60,6 +63,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
+    private boolean isSubscriptionChange = false;
 
     private Toolbar toolbar;
     private RelativeLayout layout_page_detail;
@@ -68,7 +72,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     private FirestoreRecyclerAdapter adapter;
     private ShimmerFrameLayout shimmer_view;
     private RecyclerView feedsRV;
-    private TextView tool_tv_count;
+    private TextView tool_tv_count, tv_following_text;
     private Club club;
 
     @Override
@@ -111,9 +115,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         ImageView iv_cover_pic = findViewById(R.id.iv_cover_pic);
         CircleImageView iv_dp_pic = findViewById(R.id.iv_dp_pic);
 
-        TextView tv_following_text = findViewById(R.id.tv_following_text);
-        lottie = findViewById(R.id.lottie);
-        lottie.setOnClickListener(this);
+        tv_following_text = findViewById(R.id.tv_following_text);
+        lottie = findViewById(R.id.lottie);    lottie.setOnClickListener(this);
 
         TextView tv_title = findViewById(R.id.tv_title);
         TextView tv_description = findViewById(R.id.tv_description);
@@ -457,6 +460,24 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 else
                     startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + club.getContact())));
                 break;
+            case R.id.lottie:
+                if (!club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                    FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
+                    FCMHelper.SubscribeToTopic(getApplicationContext(),"club_" + club.getId());
+                    club.getFollowers().add(SharedPref.getString(getApplicationContext(),"email"));
+                    tv_following_text.setText("Following");
+                    tv_following_text.setTextColor(Color.BLACK);
+                }
+                else {
+                    FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
+                    FCMHelper.UnSubscribeToTopic(getApplicationContext(),"club_" + club.getId());
+                    club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
+                    tv_following_text.setText("Unfollowing");
+                    tv_following_text.setTextColor(getResources().getColor(R.color.light_grey));
+                }
+                lottie.playAnimation();
+                isSubscriptionChange = !isSubscriptionChange;
+                break;
         }
     }
 
@@ -532,6 +553,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
     @Override
     public void onBackPressed() {
+        SharedPref.putBoolean(getApplicationContext(),"subs_changes_made",isSubscriptionChange);
+        SharedPref.putString(getApplicationContext(),"subs_changes_id", club.getId());
         super.onBackPressed();
         Bungee.slideRight(ClubPageActivity.this);
     }

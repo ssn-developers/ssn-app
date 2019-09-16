@@ -2,8 +2,10 @@ package in.edu.ssn.ssnapp.fragments;
 
 import android.animation.ValueAnimator;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +53,7 @@ public class ClubFragment extends Fragment {
     private RelativeLayout layout_subscribed;
     private FirestoreRecyclerAdapter subs_adap;
 
-    List<Club> clubs;
+    List<Club> clubs, full_clubs;
     UnSubscribeAdapter adapter;
 
     @Override
@@ -60,7 +62,6 @@ public class ClubFragment extends Fragment {
         CommonUtils.initFonts(getContext(), view);
 
         initUI(view);
-
         setupFireStore();
 
         return view;
@@ -173,31 +174,17 @@ public class ClubFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && task.getResult() != null){
-                    clubs = task.getResult().toObjects(Club.class);
-                    for(int i = 0; i< clubs.size(); i++) {
-                        Club c = clubs.get(i);
-                        if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
-                            clubs.remove(i);
-                            i--;
+                    full_clubs = task.getResult().toObjects(Club.class);
+
+                    for(int i = 0; i< full_clubs.size(); i++) {
+                        Club c = full_clubs.get(i);
+                        if(!c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
+                            clubs.add(c);
                         }
                     }
 
-                    adapter = new UnSubscribeAdapter(getContext(), clubs);
                     unsubs_RV.setAdapter(adapter);
-                    if(clubs.size() > 0)
-                        tv_suggestion.setVisibility(View.VISIBLE);
-
-                    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                        @Override
-                        public void onChanged() {
-                            super.onChanged();
-
-                            if (clubs.size() == 0)
-                                tv_suggestion.setVisibility(View.GONE);
-                            else
-                                tv_suggestion.setVisibility(View.VISIBLE);
-                        }
-                    });
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -214,6 +201,20 @@ public class ClubFragment extends Fragment {
         unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext()));
         unsubs_RV.setNestedScrollingEnabled(false);
 
+        clubs = new ArrayList<>();
+        adapter = new UnSubscribeAdapter(getContext(), clubs);
+
+        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+
+                if (clubs.size() == 0)
+                    tv_suggestion.setVisibility(View.GONE);
+                else
+                    tv_suggestion.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     /*********************************************************/
@@ -261,11 +262,29 @@ public class ClubFragment extends Fragment {
         subs_adap.stopListening();
     }
 
-    /*@Override
+    @Override
     public void onResume() {
         super.onResume();
-        subs_adap.startListening();
-    }*/
+
+        if(SharedPref.getBoolean(getContext(),"subs_changes_made")) {
+            String cid = SharedPref.getString(getContext(),"subs_changes_id");
+
+            for(int i=0; i < full_clubs.size(); i++){
+                Club c  = full_clubs.get(i);
+                if(c.getId().equals(cid)){
+                    if (c.getFollowers().contains(SharedPref.getString(getContext(), "email")))
+                        clubs.add(c);
+                    else
+                        clubs.remove(c);
+                    adapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+            
+            SharedPref.remove(getContext(),"subs_changes_made");
+            SharedPref.remove(getContext(),"subs_changes_id");
+        }
+    }
 
     @Override
     public void onStop() {
