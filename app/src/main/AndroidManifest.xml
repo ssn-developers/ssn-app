@@ -30,10 +30,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".AnimationActivity"/>
+        <activity android:name=".ClubPageActivity"/>
         <activity android:name=".BusRoutesActivity" />
         <activity android:name=".ClubPostDetailsActivity" />
-        <activity android:name=".ClubPageActivity" />
         <activity android:name=".NoNetworkActivity" />
         <activity android:name=".HelpLineActivity" />
         <activity android:name=".SavedPostActivity" />
