@@ -49,6 +49,7 @@ import in.edu.ssn.ssnapp.R;
 
 public class CommonUtils {
 
+    public static Boolean is_blocked = false;
     //Change Font
     public static Typeface regular, bold, semi_bold;
     public static void initFonts(Context context, View view){
@@ -146,4 +147,11 @@ public class CommonUtils {
         return true;
     }
 
+    public static Boolean getIs_blocked() {
+        return is_blocked;
+    }
+
+    public static void setIs_blocked(Boolean is_blocked) {
+        CommonUtils.is_blocked = is_blocked;
+    }
 }

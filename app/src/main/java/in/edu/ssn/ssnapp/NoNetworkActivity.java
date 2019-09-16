@@ -23,6 +23,7 @@ public class NoNetworkActivity extends AppCompatActivity {
 
         final String key = getIntent().getStringExtra("key");
 
+
         final LottieAnimationView lottie = findViewById(R.id.lottie);
         CardView retryCV = findViewById(R.id.retryCV);
 
@@ -31,27 +32,30 @@ public class NoNetworkActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if(!CommonUtils.alerter(getApplicationContext())) {
                     if (key.equals("splash")) {
-                        if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 2) {
-                            if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
-                                startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+                        if(!CommonUtils.getIs_blocked()) {
+                            if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
+                                if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
+                                    startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+                                    finish();
+                                    Bungee.fade(NoNetworkActivity.this);
+                                } else {
+                                    startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                                    finish();
+                                    Bungee.fade(NoNetworkActivity.this);
+                                }
+                            } else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
+                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                 finish();
-                                Bungee.fade(NoNetworkActivity.this);
-                            }
-                            else {
-                                startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                                Bungee.slideLeft(NoNetworkActivity.this);
+                            } else {
+                                startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
                                 finish();
-                                Bungee.fade(NoNetworkActivity.this);
+                                Bungee.slideLeft(NoNetworkActivity.this);
                             }
-                        }
-                        else if (SharedPref.getInt(getApplicationContext(), "dont_delete","is_logged_in") == 1) {
-                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                            finish();
-                            Bungee.slideLeft(NoNetworkActivity.this);
                         }
                         else{
-                            startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
-                            finish();
-                            Bungee.slideLeft(NoNetworkActivity.this);
+                            Intent intent = new Intent(NoNetworkActivity.this,BlockScreenActivity.class);
+                            startActivity(intent);
                         }
                     }
                     else

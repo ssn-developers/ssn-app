@@ -8,8 +8,14 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.google.firebase.Timestamp;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Comments;
@@ -23,6 +29,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     public CustomExpandableListAdapter(Context context, ArrayList<Comments> data) {
         this.context = context;
+
+        for(int i=0;i<data.size();i++)
+            Collections.sort(data.get(i).getReply(),new MapComparator("time"));
+
         this.commentArrayList=data;
     }
 
@@ -110,6 +120,26 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
+    }
+
+    class MapComparator implements Comparator<Map<String, Object>>
+    {
+        private final String key;
+
+        public MapComparator(String key)
+        {
+            this.key = key;
+        }
+
+        public int compare(Map<String, Object> first, Map<String, Object> second)
+        {
+            Date firstValue = ((Timestamp)first.get(key)).toDate();
+            Date secondValue = ((Timestamp)first.get(key)).toDate();
+            if(firstValue.compareTo(secondValue)>0)
+                return 1;
+            else
+                return -1;
+        }
     }
 
 }
