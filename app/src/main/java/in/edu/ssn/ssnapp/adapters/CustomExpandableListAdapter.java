@@ -2,15 +2,26 @@ package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -18,14 +29,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<Comments> commentArrayList;
+    ClubPost clubPost;
 
 
+    public void setClubPost(ClubPost clubPost) {
+        this.clubPost = clubPost;
+    }
 
     public CustomExpandableListAdapter(Context context, ArrayList<Comments> data) {
         this.context = context;
@@ -94,7 +110,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(int listPosition, boolean isExpanded, View convertView, ViewGroup parent) {
+    public View getGroupView(final int listPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         Comments comment = (Comments) getGroup(listPosition);
 
@@ -105,9 +121,45 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView listTitleTextView = convertView.findViewById(R.id.listTitle);
         TextView listDescription = convertView.findViewById(R.id.listauthor);
+        TextView tv_reply=convertView.findViewById(R.id.tv_reply);
+
+        final EditText edt_reply=convertView.findViewById(R.id.edt_reply);
+        final Button btn_reply=convertView.findViewById(R.id.btn_post_reply);
+        final RelativeLayout rl_reply=convertView.findViewById(R.id.rl_reply);
+
+        rl_reply.setVisibility(View.GONE);
+
         listTitleTextView.setTypeface(null, Typeface.BOLD);
         listTitleTextView.setText(comment.getAuthor());
         listDescription.setText(comment.getMessage());
+
+
+        btn_reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                final HashMap<String,Object> temp=new HashMap<>();
+                temp.put("author","logesh");
+                temp.put("message",edt_reply.getText().toString());
+                temp.put("time", Calendar.getInstance().getTime());
+                commentArrayList.get(listPosition).getReply().add(temp);
+
+                FirebaseFirestore.getInstance().collection("post_club").document("L3xGyQRaz8yRsjqP5Jto").update("comment",commentArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.d("Test","success");
+                    }
+                });
+
+            }
+        });
+
+        tv_reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rl_reply.setVisibility(View.VISIBLE);
+            }
+        });
 
         return convertView;
     }

@@ -23,4 +23,34 @@
         android:text="This is a new comment \n We will be having a dsc "
         android:inputType="textMultiLine"/>
 
+    <TextView
+        android:text="reply"
+        android:id="@+id/tv_reply"
+        android:textColor="#00f"
+        android:paddingLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_reply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edt_reply"
+            android:hint="enter your reply"
+            android:paddingLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/btn_post_reply"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+    </RelativeLayout>
+
+
 </LinearLayout>
