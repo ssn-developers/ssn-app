@@ -5,13 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BlockScreenActivity">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="@dimen/_250sdp"
+        android:layout_height="@dimen/_250sdp"
+        android:layout_centerInParent="true"
+        app:lottie_rawRes="@raw/network_error"
+        app:lottie_loop="false"
+        app:lottie_autoPlay="true" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="BlockScreen"
-        android:textAlignment="gravity"
-        android:gravity="center_vertical|center_horizontal"
-        android:textSize="50dp"
-        />
+        android:id="@+id/tv_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:text="Please check your mobile data or Wi-Fi connection!"
+        android:gravity="center"
+        android:textColor="@color/colorAccentText"
+        android:layout_below="@+id/lottie"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/_12ssp" />
 
 </RelativeLayout>
