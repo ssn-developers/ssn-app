@@ -4,15 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".BlockScreenActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans_bold"
+        android:textColor="@color/colorAccent"
+        android:gravity="center"
+        android:layout_above="@+id/lottie"
+        android:text="Thanks for your patience"
+        android:textSize="@dimen/_14sdp"/>
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lottie"
         android:layout_width="@dimen/_250sdp"
         android:layout_height="@dimen/_250sdp"
         android:layout_centerInParent="true"
-        app:lottie_rawRes="@raw/network_error"
-        app:lottie_loop="false"
+        app:lottie_rawRes="@raw/maintenance"
+        app:lottie_loop="true"
         app:lottie_autoPlay="true" />
 
     <TextView
@@ -20,10 +31,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
-        android:text="Please check your mobile data or Wi-Fi connection!"
+        android:text="The App has been stopped for maintenance work. It will be resumed and notified you shortly."
         android:gravity="center"
         android:textColor="@color/colorAccentText"
         android:layout_below="@+id/lottie"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginLeft="@dimen/_20sdp"
         android:layout_marginRight="@dimen/_20sdp"
         android:layout_centerHorizontal="true"
