@@ -220,6 +220,7 @@
                             android:layout_below="@id/tool_tv_title"
                             android:textColor="@color/colorAccentText"
                             android:fontFamily="@font/open_sans"
+                            android:text="No posts"
                             android:layout_marginEnd="@dimen/_35sdp"
                             android:textSize="@dimen/_9ssp" />
 
@@ -271,6 +272,49 @@
                 </LinearLayout>
 
             </com.facebook.shimmer.ShimmerFrameLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_progress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_250sdp"
+                    app:lottie_rawRes="@raw/posts"
+                    app:lottie_loop="false"
+                    app:lottie_autoPlay="true" />
+
+                <TextView
+                    android:id="@+id/tv_text1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans_semi_bold"
+                    android:text="No Posts"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/_180sdp"
+                    android:textColor="@color/colorAccentText"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:textSize="@dimen/_14ssp" />
+
+                <TextView
+                    android:id="@+id/tv_text2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:text="We'll let you know for new posts till then stay tuned."
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/colorAccentText"
+                    android:layout_below="@+id/tv_text1"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginRight="@dimen/_20sdp"
+                    android:gravity="center"
+                    android:textSize="@dimen/_12ssp" />
+
+            </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"

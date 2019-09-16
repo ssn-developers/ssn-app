@@ -66,7 +66,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     private boolean isSubscriptionChange = false;
 
     private Toolbar toolbar;
-    private RelativeLayout layout_page_detail;
+    private RelativeLayout layout_page_detail, layout_progress;
     private LottieAnimationView lottie;
 
     private FirestoreRecyclerAdapter adapter;
@@ -125,6 +125,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
         TextView tv_followers = findViewById(R.id.tv_followers);
         TextView tv_followers_text = findViewById(R.id.tv_followers_text);
+
+        layout_progress = findViewById(R.id.layout_progress);
 
         shimmer_view = findViewById(R.id.shimmer_view);
         feedsRV = findViewById(R.id.feedsRV);
@@ -387,13 +389,9 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     }
                 });
 
+                tool_tv_count.setText(getItemCount() + " posts");
                 shimmer_view.setVisibility(View.GONE);
-                feedsRV.setVisibility(View.VISIBLE);
-
-                if (getItemCount() > 0)
-                    tool_tv_count.setText(getItemCount() + " posts");
-                else
-                    tool_tv_count.setText("No post");
+                layout_progress.setVisibility(View.GONE);
             }
 
             @NonNull
@@ -560,5 +558,3 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         Bungee.slideRight(ClubPageActivity.this);
     }
 }
-
-//placeholder change shimmering
