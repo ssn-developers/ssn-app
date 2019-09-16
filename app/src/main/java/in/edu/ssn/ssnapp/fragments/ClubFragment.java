@@ -33,6 +33,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.edu.ssn.ssnapp.AnimationActivity;
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.UnSubscribeAdapter;
@@ -129,7 +130,7 @@ public class ClubFragment extends Fragment {
                 holder.club_RL.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), ClubPageActivity.class);
+                        Intent intent = new Intent(getContext(), AnimationActivity.class);
                         intent.putExtra("data", model);
                         getContext().startActivity(intent);
                         Bungee.slideLeft(getContext());

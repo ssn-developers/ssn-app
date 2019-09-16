@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
+import in.edu.ssn.ssnapp.AnimationActivity;
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Club;
@@ -71,7 +72,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
         holder.club_RL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ClubPageActivity.class);
+                Intent intent = new Intent(context, AnimationActivity.class);
                 intent.putExtra("data", model);
                 context.startActivity(intent);
                 Bungee.slideLeft(context);
