@@ -5,174 +5,167 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     android:background="@color/white"
+    android:fitsSystemWindows="true"
     tools:context=".ClubPageActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/main_appbarlayout"
+        android:id="@+id/layout_app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/collapsing_toolbar"
+            android:id="@+id/layout_collapse"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="#ffffff"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <RelativeLayout
-                android:id="@+id/dp_cover_RL"
+                android:id="@+id/layout_page_detail"
+                android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/cover_pic_iv"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    app:srcCompat="@drawable/ic_back"
+                    android:id="@+id/backIV"
+                    android:tint="@color/colorAccent"
+                    android:layout_gravity="center"
+                    android:padding="@dimen/_2sdp" />
+
+                <ImageView
+                    android:id="@+id/iv_cover_pic"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_120sdp"
                     android:background="@color/shimmering_back"
                     android:scaleType="centerCrop"/>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/cover_pic_iv_edit"
-                    android:background="@drawable/circle"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:scaleType="centerCrop"
-                    android:padding="5dp"
-                    app:srcCompat="@drawable/pencil"
-                    android:layout_alignBottom="@id/cover_pic_iv"
-                    android:layout_alignRight="@id/cover_pic_iv"/>
-
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/dp_pic_iv"
-                    android:layout_width="@dimen/_80sdp"
-                    android:layout_height="@dimen/_80sdp"
-                    android:background="@drawable/circle"
-                    android:padding="5dp"
-                    android:layout_marginTop="@dimen/_70sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:src="@color/shimmering_front"/>
-                <ImageView
-                    android:id="@+id/dp_pic_iv_edit"
-                    android:layout_width="20dp"
-                    android:layout_height="25dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/pencil"
-                    android:layout_alignBottom="@id/dp_pic_iv"
-                    android:layout_alignRight="@id/dp_pic_iv"/>
-
-                <EditText
-                    android:id="@+id/club_name_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Club Name"
-                    android:background="@null"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/open_sans_bold"
-                    android:textSize="@dimen/_14ssp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@id/dp_pic_iv"
-                    android:layout_marginStart="@dimen/_20sdp" />
-                <ImageView
-                    android:id="@+id/club_name_tv_edit"
-                    android:layout_width="15dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/pencil"
-                    android:layout_alignBottom="@id/club_name_tv"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="30dp"/>
-                <EditText
-                    android:id="@+id/club_description_tv"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Club Name"
-                    android:background="@null"
-                    android:layout_below="@id/club_name_tv"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/open_sans"
-                    android:textSize="@dimen/_12ssp"
-                    android:maxLines="3"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:layout_marginLeft="@dimen/_20sdp" />
+                    android:layout_marginEnd="@dimen/_20sdp"
+                    android:layout_marginTop="@dimen/_80sdp"
+                    android:layout_marginStart="@dimen/_20sdp">
 
-                <ImageView
-                    android:id="@+id/club_description_tv_edit"
-                    android:layout_width="15dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/pencil"
-                    android:layout_alignBottom="@id/club_description_tv"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="30dp"/>
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_dp_pic"
+                        android:layout_width="@dimen/_75sdp"
+                        android:layout_height="@dimen/_75sdp"
+                        app:civ_border_color="@color/white"
+                        app:civ_border_width="@dimen/_2sdp"
+                        android:src="@color/shimmering_front"/>
 
-                <EditText
-                    android:id="@+id/club_contact_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Contact"
-                    android:drawableLeft="@drawable/ic_call"
-                    android:drawablePadding="@dimen/_5sdp"
-                    android:background="@null"
-                    android:layout_below="@id/club_description_tv"
-                    android:textColor="@color/colorAccent"
-                    android:fontFamily="@font/open_sans_semi_bold"
-                    android:textSize="@dimen/_12ssp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:layout_marginLeft="@dimen/_20sdp" />
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:layout_alignBottom="@+id/tv_title"
+                        android:layout_alignParentEnd="true">
 
-                <ImageView
-                    android:id="@+id/club_contact_tv_edit"
-                    android:layout_width="15dp"
-                    android:layout_height="20dp"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/pencil"
-                    android:layout_alignBottom="@id/club_contact_tv"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="30dp"/>
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/lottie"
+                            android:layout_width="@dimen/_60sdp"
+                            android:layout_height="@dimen/_60sdp"
+                            app:lottie_rawRes="@raw/subcribe"
+                            app:lottie_autoPlay="true"/>
 
-                <TextView
-                    android:id="@+id/followers_tv"
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/club_contact_tv"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginTop="20dp"
-                    android:fontFamily="@font/open_sans"
-                    android:text="followers"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="14dp" />
-                <ImageView
-                    android:id="@+id/follow_iv"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
-                    android:background="@drawable/blue_box"
-                    android:layout_toRightOf="@id/followers_tv"
-                    android:layout_below="@id/club_contact_tv"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    app:srcCompat="@drawable/follow"
-                    android:padding="@dimen/_5sdp"
-                    />
+                        <TextView
+                            android:id="@+id/tv_following_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:layout_marginStart="@dimen/_45sdp"
+                            android:textColor="@color/light_grey"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:background="@null"
+                        android:textColor="#000000"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textSize="@dimen/_14ssp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_below="@id/iv_dp_pic" />
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:layout_below="@id/tv_title"
+                        android:textColor="@color/colorAccentText"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="@dimen/_10ssp"
+                        android:maxLines="3" />
+
+                    <TextView
+                        android:id="@+id/tv_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_call"
+                        android:drawablePadding="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@null"
+                        android:layout_below="@id/tv_description"
+                        android:textColor="@color/colorAccent"
+                        android:fontFamily="@font/open_sans_semi_bold"
+                        android:textSize="@dimen/_12ssp"/>
+
+                    <LinearLayout
+                        android:id="@+id/followers_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_contact"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_followers"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:textColor="#000000"
+                            android:textSize="@dimen/_12ssp" />
+
+                        <TextView
+                            android:id="@+id/tv_followers_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/open_sans_semi_bold"
+                            android:layout_marginStart="@dimen/_4sdp"
+                            android:text="Followers"
+                            android:textColor="@color/light_grey"
+                            android:textSize="@dimen/_12ssp" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </RelativeLayout>
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/main_toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/colorAccent"
                 app:layout_collapseMode="pin"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark"/>
+                android:background="@color/white"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
-                <!--<LinearLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -181,95 +174,50 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
                         app:srcCompat="@drawable/ic_back"
-                        android:id="@+id/backIV"
+                        android:id="@+id/tool_iv_back"
+                        android:tint="@color/colorAccent"
                         android:layout_gravity="center"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:foreground="?selectableItemBackground"
-                        android:tint="@android:color/white"
-                        android:padding="@dimen/_2sdp"/>
+                        android:padding="@dimen/_2sdp" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/layout_dp_iv"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:layout_gravity="top|center_horizontal"
-                        android:background="@drawable/circle"
-                        android:padding="1dp"
+                        android:id="@+id/tool_iv_dp"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_35sdp"
+                        android:layout_gravity="center"
                         android:src="@color/shimmering_front"
-                        android:layout_margin="10dp" />
+                        android:padding="@dimen/_2sdp" />
 
                     <TextView
-                        android:id="@+id/layout_title_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="center_vertical"
-                        android:text="Club name"
-                        android:textColor="@android:color/white"
-                        android:textSize="15sp" />
-                </LinearLayout>-->
+                        android:id="@+id/tool_tv_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_gravity="center"
+                        android:fontFamily="@font/open_sans_bold"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/_14ssp" />
+                </LinearLayout>
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_anchorGravity="bottom|center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/layout_progress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/tv_text1_cl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_140sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:fontFamily="@font/open_sans_semi_bold"
-                    android:gravity="center"
-                    android:text="No Posts"
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_14ssp" />
-
-                <TextView
-                    android:id="@+id/tv_text2_cl"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_text1_cl"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:gravity="center"
-                    android:text="We'll let you know for new posts till then stay tuned."
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_12ssp" />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:id="@+id/lottie_cl"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_180sdp"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="false"
-                    app:lottie_rawRes="@raw/posts" />
-
-            </RelativeLayout>
-
             <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_view_cl"
+                android:id="@+id/shimmer_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingTop="@dimen/_43sdp"
