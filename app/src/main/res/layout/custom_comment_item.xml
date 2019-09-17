@@ -98,27 +98,5 @@
         android:textColor="@color/colorAccentText"
         android:text="5 replies"/>
 
-    <RelativeLayout
-        android:id="@+id/rl_reply"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/edt_reply"
-            android:hint="enter your reply"
-            android:paddingLeft="40dp"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/btn_post_reply"
-            android:layout_alignParentRight="true"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </RelativeLayout>
 
 </RelativeLayout>

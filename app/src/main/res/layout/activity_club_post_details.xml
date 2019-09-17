@@ -249,13 +249,33 @@
 
     </ScrollView>
 
+
+
     <RelativeLayout
+        android:id="@+id/ll_comment_section"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
         android:layout_alignParentBottom="true"
         android:padding="@dimen/_4sdp"
         android:background="@drawable/club_post_et_bg">
+
+        <TextView
+            android:text="testing"
+            android:visibility="gone"
+            android:id="@+id/tv_reply_selected"
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/iv_cancel"
+            android:src="@drawable/ic_cancel_black_dp"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/edt_comment"
@@ -267,7 +287,6 @@
             android:background="@null"
             android:hint="Comment"
             android:textSize="@dimen/_14ssp"
-            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -282,13 +301,6 @@
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"/>
 
-        <Button
-            android:id="@+id/btn_post_reply"
-            android:layout_alignParentEnd="true"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="post" />
 
     </RelativeLayout>
 

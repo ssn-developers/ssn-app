@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.os.Environment;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
@@ -45,6 +49,7 @@ import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.hendraanggrian.appcompat.widget.SocialView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -61,9 +66,9 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class ClubPostDetailsActivity extends AppCompatActivity {
-    ImageView backIV, userImageIV, iv_like, iv_comment, iv_share;
+    ImageView backIV, userImageIV, iv_like, iv_comment, iv_share,iv_send,iv_cancel_reply;
     ViewPager viewPager;
-    TextView tv_author, tv_name, tv_time, tv_title, tv_current_image,tv_attachments, tv_like, tv_comment;
+    TextView tv_author, tv_name, tv_time, tv_title, tv_current_image,tv_attachments, tv_like, tv_comment,tv_selected_reply;
     SocialTextView tv_description;
     ChipGroup attachmentsChipGroup;
     RelativeLayout textGroupRL;
@@ -104,6 +109,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         tv_description = findViewById(R.id.tv_description);
         tv_current_image = findViewById(R.id.currentImageTV);
         tv_attachments = findViewById(R.id.tv_attachment);
+        tv_selected_reply=findViewById(R.id.tv_reply_selected);
         viewPager = findViewById(R.id.viewPager);
         attachmentsChipGroup = findViewById(R.id.attachmentsGroup);
         textGroupRL = findViewById(R.id.textGroupRL);
@@ -113,23 +119,61 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_comment = findViewById(R.id.iv_comment);
         tv_comment = findViewById(R.id.tv_comment);
         iv_share = findViewById(R.id.iv_share);
+        iv_send=findViewById(R.id.iv_send);
         et_Comment=findViewById(R.id.edt_comment);
+        iv_cancel_reply=findViewById(R.id.iv_cancel);
 
 
-        postComment=findViewById(R.id.btn_post_reply);
-        postComment.setOnClickListener(new View.OnClickListener() {
+
+        iv_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //FirebaseFirestore.getInstance().collection("contact").document(i).update("number", FieldValue.arrayRemove(Integer.parseInt(edt_phone.getText().toString())))
-                Comments temp=new Comments(SharedPref.getString(ClubPostDetailsActivity.this,"email"),et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
-                FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment", FieldValue.arrayUnion(temp));
+
+
+                Boolean replyingForComment=expandableListAdapter.getReplyingForComment();
+
+                if(replyingForComment==null)
+                    replyingForComment=false;
+
+                if(replyingForComment==false){
+                    Comments temp=new Comments(SharedPref.getString(ClubPostDetailsActivity.this,"email"),et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
+                    FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment", FieldValue.arrayUnion(temp));
+                }
+                else{
+
+                    HashMap<String,Object> temp=new HashMap<>();
+                    temp.put("author", SharedPref.getString(ClubPostDetailsActivity.this,"email"));
+                    temp.put("message",et_Comment.getEditableText().toString());
+                    temp.put("time", Calendar.getInstance().getTime());
+
+
+                    ArrayList<Comments> commentsArrayList=expandableListAdapter.getCommentArrayList();
+                    int listPosition=expandableListAdapter.getSelectedCommentPosition();
+                    commentsArrayList.get(listPosition).getReply().add(temp);
+                    expandableListAdapter.setCommentArrayList(commentsArrayList);
+
+                    FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment",commentsArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Log.d("Test","success");
+                        }
+                    });
+
+                    tv_selected_reply.setText("");
+                    tv_selected_reply.setVisibility(View.GONE);
+                    iv_cancel_reply.setVisibility(View.GONE);
+                    expandableListAdapter.setReplyingForComment(false);
+                }
+
+                et_Comment.setText("");
+                CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
                 //FirebaseFirestore.getInstance().collection("post_club").document("").update()
             }
         });
 
 
         expandableListView =  findViewById(R.id.EV_comment);
-        expandableListAdapter = new CustomExpandableListAdapter(this, new ArrayList<Comments>(),post);
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
@@ -235,7 +279,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
                 expandableListAdapter=null;
                 Collections.sort(commentsArrayList);
-                expandableListAdapter=new CustomExpandableListAdapter(ClubPostDetailsActivity.this,commentsArrayList,post);
+                expandableListAdapter=new CustomExpandableListAdapter(ClubPostDetailsActivity.this,commentsArrayList,post,(Activity)ClubPostDetailsActivity.this);
                 expandableListView.setAdapter(expandableListAdapter);
                 expandableListView.setNestedScrollingEnabled(true);
                 setListViewHeight(commentsArrayList.size());
