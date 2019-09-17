@@ -73,7 +73,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     ListenerRegistration listenerRegistration;
     ArrayList<Comments> commentsArrayList=new ArrayList<>();
 
-    String id;
+    String id, time;
     ClubPost post;
     Club club;
 
@@ -89,6 +89,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
     void initUI() {
         id = getIntent().getStringExtra("data");
+        time = getIntent().getStringExtra("time");
         club = getIntent().getParcelableExtra("club");
         post = new ClubPost();
 
@@ -263,28 +264,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         Glide.with(ClubPostDetailsActivity.this).load(club.getDp_url()).into(userImageIV);
 
         tv_title.setText(post.getTitle());
-
-        Date time = post.getTime();
-        Date now = new Date();
-        Long t = now.getTime() - time.getTime();
-        String timer;
-
-        if(t < 60000)
-            timer = Long.toString(t / 1000) + "s ago";
-        else if(t < 3600000)
-            timer = Long.toString(t / 60000) + "m ago";
-        else if(t < 86400000)
-            timer = Long.toString(t / 3600000) + "h ago";
-        else if(t < 604800000)
-            timer = Long.toString(t/86400000) + "d ago";
-        else if(t < 2592000000L)
-            timer = Long.toString(t/604800000) + "w ago";
-        else if(t < 31536000000L)
-            timer = Long.toString(t/2592000000L) + "M ago";
-        else
-            timer = Long.toString(t/31536000000L) + "y ago";
-
-        tv_time.setText(timer);
+        tv_time.setText(time);
 
         if(post.getDescription().length() > 100) {
             SpannableString ss = new SpannableString(post.getDescription().substring(0, 100) + "... see more");

@@ -41,22 +41,23 @@ public class ImageAdapter extends PagerAdapter {
     LayoutInflater layoutInflater;
     Post model;
     Club c_model;
-    String timer;
+    String id,timer;
     int flag;
 
-    public ImageAdapter(Context context, List<String> images, int flag, Post model, String timer) {
+    public ImageAdapter(Context context, List<String> images, int flag, Post model, String id) {
         this.context = context;
         this.images = images;
         this.model= model;
-        this.timer = timer;
+        this.id = id;
         this.flag = flag;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public ImageAdapter(Context context, List<String> images, int flag, Club c_model, String timer) {
+    public ImageAdapter(Context context, List<String> images, int flag, Club c_model, String id, String timer) {
         this.context = context;
         this.images = images;
         this.c_model= c_model;
+        this.id = id;
         this.timer = timer;
         this.flag = flag;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -96,15 +97,16 @@ public class ImageAdapter extends PagerAdapter {
             public void onClick(View v) {
                 if(flag == 1) {
                     Intent intent = new Intent(context, PostDetailsActivity.class);
+                    intent.putExtra("time", id);
                     intent.putExtra("post", model);
-                    intent.putExtra("time", timer);
                     context.startActivity(intent);
                     Bungee.slideLeft(context);
                 }
                 else if(flag == 2) {
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
-                    intent.putExtra("data", timer);
                     intent.putExtra("club", c_model);
+                    intent.putExtra("time", id);
+                    intent.putExtra("data", timer);
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                     Bungee.slideLeft(context);

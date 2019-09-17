@@ -316,7 +316,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(),2, club, model.getId());
+                    final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(),2, club, timer, model.getId());
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if (model.getImg_urls().size() == 1) {
@@ -365,6 +365,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), ClubPostDetailsActivity.class);
                         intent.putExtra("data", model.getId());
+                        intent.putExtra("time", holder.tv_time.getText().toString());
                         intent.putExtra("club", club);
                         startActivity(intent);
                         Bungee.slideLeft(ClubPageActivity.this);
@@ -374,10 +375,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 holder.iv_like.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                         try{
-
-                            if (model.getLike()!=null && !model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                            if (!model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                                 holder.iv_like.setImageResource(R.drawable.blue_heart);
                                 FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                             } else {

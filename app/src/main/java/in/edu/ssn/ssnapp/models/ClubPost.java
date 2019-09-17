@@ -109,6 +109,9 @@ public class ClubPost{
     }
 
     public void setLike(ArrayList<String> like) {
-        this.like = like;
+        if(like==null)
+            this.like = new ArrayList<>();
+        else
+            this.like = like;
     }
 }
