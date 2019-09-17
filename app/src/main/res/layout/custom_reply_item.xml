@@ -1,36 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:layout_marginLeft="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp">
 
-    <View
-        android:layout_width="30dp"
-        android:layout_height="match_parent"/>
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
+    <RelativeLayout
+        android:id="@+id/layout"
+        android:layout_marginLeft="@dimen/_40sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/commentListAuthor"
-            android:text="Harshavardhan98@yahoo.com"
+        <ImageView
+            android:id="@+id/iv_reply_dp"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:background="@drawable/logesh_profile"
+            android:layout_centerVertical="true"/>
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp" />
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_toEndOf="@+id/iv_reply_dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#B7F1F1F1"
+            app:cardCornerRadius="10dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:text="This is a name \n This a reply for a comment"
-            android:id="@+id/commentListDescription"
-            android:inputType="textMultiLine"
-            android:paddingLeft="?android:attr/expandableListPreferredChildPaddingLeft"
-            android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/_5sdp">
+
+                <TextView
+                    android:id="@+id/commentListAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Harshavardhan"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@android:color/black" />
+
+                <TextView
+                    android:id="@+id/commentListDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:textSize="@dimen/_10ssp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:textColor="@color/colorAccentText"
+                    android:text="This is a new reply"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:textSize="@dimen/_8ssp"
+        android:layout_below="@+id/layout"
+        android:layout_marginTop="@dimen/_2sdp"
+        android:layout_marginStart="@dimen/_90sdp"
+        android:textColor="@color/colorAccentText"
+        android:text="12m ago"/>
+
+    <RelativeLayout
+        android:id="@+id/rl_reply"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edt_reply"
+            android:hint="enter your reply"
+            android:paddingLeft="40dp"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btn_post_reply"
+            android:layout_alignParentRight="true"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
-</LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>
