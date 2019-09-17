@@ -21,11 +21,15 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
+import in.edu.ssn.ssnapp.ClubPageActivity;
+import in.edu.ssn.ssnapp.ClubPostDetailsActivity;
 import in.edu.ssn.ssnapp.OpenImageActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
+import in.edu.ssn.ssnapp.models.Club;
+import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Post;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -36,10 +40,11 @@ public class ImageAdapter extends PagerAdapter {
     List<String> images;
     LayoutInflater layoutInflater;
     Post model;
+    Club c_model;
     String timer;
-    Boolean flag;
+    int flag;
 
-    public ImageAdapter(Context context, List<String> images, Boolean flag, Post model, String timer) {
+    public ImageAdapter(Context context, List<String> images, int flag, Post model, String timer) {
         this.context = context;
         this.images = images;
         this.model= model;
@@ -48,7 +53,16 @@ public class ImageAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public ImageAdapter(Context context, List<String> images, Boolean flag) {
+    public ImageAdapter(Context context, List<String> images, int flag, Club c_model, String timer) {
+        this.context = context;
+        this.images = images;
+        this.c_model= c_model;
+        this.timer = timer;
+        this.flag = flag;
+        layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public ImageAdapter(Context context, List<String> images, int flag) {
         this.context = context;
         this.images = images;
         this.flag = flag;
@@ -80,10 +94,18 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag) {
+                if(flag == 1) {
                     Intent intent = new Intent(context, PostDetailsActivity.class);
                     intent.putExtra("post", model);
                     intent.putExtra("time", timer);
+                    context.startActivity(intent);
+                    Bungee.slideLeft(context);
+                }
+                else if(flag == 2) {
+                    Intent intent = new Intent(context, ClubPostDetailsActivity.class);
+                    intent.putExtra("data", timer);
+                    intent.putExtra("club", c_model);
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                     Bungee.slideLeft(context);
                 }
@@ -100,7 +122,7 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if(flag)
+                if(flag == 1)
                     handleBottomSheet(v,model);
                 return true;
             }

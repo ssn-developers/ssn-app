@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ClubPost implements Parcelable{
+public class ClubPost{
     String author;
     String cid;
     ArrayList<Comments> comment;
@@ -23,45 +23,6 @@ public class ClubPost implements Parcelable{
     String id;
 
     public ClubPost() { }
-
-    protected ClubPost(Parcel in) {
-        author = in.readString();
-        cid = in.readString();
-        comment = in.createTypedArrayList(Comments.CREATOR);
-        description = in.readString();
-        fileName = in.createStringArrayList();
-        fileUrl = in.createStringArrayList();
-        img_urls = in.createStringArrayList();
-        like = in.createStringArrayList();
-        title = in.readString();
-        id = in.readString();
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(author);
-        dest.writeString(cid);
-        dest.writeTypedList(comment);
-        dest.writeString(description);
-        dest.writeStringList(fileName);
-        dest.writeStringList(fileUrl);
-        dest.writeStringList(img_urls);
-        dest.writeStringList(like);
-        dest.writeString(title);
-        dest.writeString(id);
-    }
-
-    public static final Creator<ClubPost> CREATOR = new Creator<ClubPost>() {
-        @Override
-        public ClubPost createFromParcel(Parcel in) {
-            return new ClubPost(in);
-        }
-
-        @Override
-        public ClubPost[] newArray(int size) {
-            return new ClubPost[size];
-        }
-    };
 
     public String getAuthor() {
         return author;
@@ -149,10 +110,5 @@ public class ClubPost implements Parcelable{
 
     public void setLike(ArrayList<String> like) {
         this.like = like;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
     }
 }

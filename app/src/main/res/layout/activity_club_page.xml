@@ -40,12 +40,12 @@
                     android:scaleType="centerCrop"/>
 
                 <ImageView
+                    android:id="@+id/backIV"
                     android:layout_width="@dimen/_35sdp"
                     android:layout_height="@dimen/_35sdp"
-                    app:srcCompat="@drawable/ic_back"
-                    android:id="@+id/backIV"
                     android:layout_gravity="center"
-                    android:padding="@dimen/_2sdp" />
+                    android:padding="@dimen/_2sdp"
+                    app:srcCompat="@drawable/ic_back" />
 
                 <ImageView
                     android:layout_width="@dimen/_35sdp"

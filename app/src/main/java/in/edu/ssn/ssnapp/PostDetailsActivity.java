@@ -90,7 +90,7 @@ public class PostDetailsActivity extends BaseActivity {
         if(post.getImageUrl()!=null && post.getImageUrl().size()!=0){
             imageViewPager.setVisibility(View.VISIBLE);
             tv_current_image.setVisibility(View.VISIBLE);
-            final ImageAdapter imageAdapter = new ImageAdapter(getApplicationContext(), post.getImageUrl(),false);
+            final ImageAdapter imageAdapter = new ImageAdapter(getApplicationContext(), post.getImageUrl(),0);
             imageViewPager.setAdapter(imageAdapter);
 
             if(post.getImageUrl().size()==1)
@@ -237,7 +237,6 @@ public class PostDetailsActivity extends BaseActivity {
         catch (Exception e){
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
         }
-
     }
 
     /*****************************************************************/

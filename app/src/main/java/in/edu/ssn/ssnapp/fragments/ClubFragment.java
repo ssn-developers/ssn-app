@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -53,7 +54,7 @@ public class ClubFragment extends Fragment {
     private RelativeLayout layout_subscribed;
     private FirestoreRecyclerAdapter subs_adap;
 
-    List<Club> clubs, full_clubs;
+    List<Club> clubs;
     UnSubscribeAdapter adapter;
 
     @Override
@@ -122,6 +123,7 @@ public class ClubFragment extends Fragment {
                     public void onClick(View view) {
                         FirebaseFirestore.getInstance().collection("club").document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
                         FCMHelper.UnSubscribeToTopic(getContext(),"club_" + model.getId());
+                        model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
                         clubs.add(model);
                         adapter.notifyDataSetChanged();
                     }
@@ -174,16 +176,30 @@ public class ClubFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && task.getResult() != null){
-                    full_clubs = task.getResult().toObjects(Club.class);
+                    clubs = task.getResult().toObjects(Club.class);
 
-                    for(int i = 0; i< full_clubs.size(); i++) {
-                        Club c = full_clubs.get(i);
-                        if(!c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
-                            clubs.add(c);
+                    for(int i = 0; i< clubs.size(); i++) {
+                        Club c = clubs.get(i);
+                        if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
+                            clubs.remove(i);
+                            i--;
                         }
                     }
-
+                    adapter = new UnSubscribeAdapter(getContext(), clubs);
                     unsubs_RV.setAdapter(adapter);
+
+                    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                        @Override
+                        public void onChanged() {
+                            super.onChanged();
+
+                            if (clubs.size() > 0)
+                                tv_suggestion.setVisibility(View.VISIBLE);
+                            else
+                                tv_suggestion.setVisibility(View.GONE);
+                        }
+                    });
+
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -200,21 +216,6 @@ public class ClubFragment extends Fragment {
         subs_RV.setNestedScrollingEnabled(false);
         unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext()));
         unsubs_RV.setNestedScrollingEnabled(false);
-
-        clubs = new ArrayList<>();
-        adapter = new UnSubscribeAdapter(getContext(), clubs);
-
-        adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onChanged() {
-                super.onChanged();
-
-                if (clubs.size() == 0)
-                    tv_suggestion.setVisibility(View.GONE);
-                else
-                    tv_suggestion.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
     /*********************************************************/
@@ -267,22 +268,17 @@ public class ClubFragment extends Fragment {
         super.onResume();
 
         if(SharedPref.getBoolean(getContext(),"subs_changes_made")) {
-            String cid = SharedPref.getString(getContext(),"subs_changes_id");
-
-            for(int i=0; i < full_clubs.size(); i++){
-                Club c  = full_clubs.get(i);
-                if(c.getId().equals(cid)){
-                    if (c.getFollowers().contains(SharedPref.getString(getContext(), "email")))
-                        clubs.add(c);
-                    else
-                        clubs.remove(c);
-                    adapter.notifyDataSetChanged();
-                    break;
-                }
-            }
-            
             SharedPref.remove(getContext(),"subs_changes_made");
-            SharedPref.remove(getContext(),"subs_changes_id");
+
+            try {
+                final FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.detach(this);
+                fragmentTransaction.attach(this);
+                fragmentTransaction.commit();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 

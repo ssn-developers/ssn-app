@@ -12,14 +12,12 @@ import android.Manifest;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,9 +46,7 @@ import java.util.Date;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import in.edu.ssn.ssnapp.adapters.ClubPostImageAdapter;
-import in.edu.ssn.ssnapp.adapters.UnSubscribeAdapter;
-import in.edu.ssn.ssnapp.fragments.ClubFragment;
+import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
@@ -58,6 +54,8 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
 
@@ -112,7 +110,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         backIV.setOnClickListener(this);
         ImageView shareIV = findViewById(R.id.shareIV);
         shareIV.setOnClickListener(this);
-        ImageView iv_cover_pic = findViewById(R.id.iv_cover_pic);
+        ImageView iv_cover_pic = findViewById(R.id.iv_cover_pic);       iv_cover_pic.setOnClickListener(this);
         CircleImageView iv_dp_pic = findViewById(R.id.iv_dp_pic);
 
         tv_following_text = findViewById(R.id.tv_following_text);
@@ -261,9 +259,9 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         break;
                     }
                 }
-                if (author.isEmpty()) {
-                    model.setAuthor(email);
-                }
+                if (author.isEmpty())
+                    author = email;
+
                 holder.tv_author.setText(author);
                 holder.tv_title.setText(model.getTitle());
 
@@ -311,7 +309,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ClubPostImageAdapter imageAdapter = new ClubPostImageAdapter(ClubPageActivity.this, model.getImg_urls(), true, model, timer);
+                    final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(),2, club, model.getId());
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if (model.getImg_urls().size() == 1) {
@@ -359,7 +357,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), ClubPostDetailsActivity.class);
-                        intent.putExtra("data", model);
+                        intent.putExtra("data", model.getId());
                         intent.putExtra("club", club);
                         startActivity(intent);
                         Bungee.slideLeft(ClubPageActivity.this);
@@ -440,6 +438,12 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.iv_cover_pic:
+                Intent intent = new Intent(getApplicationContext(), OpenImageActivity.class);
+                intent.putExtra("url", club.getCover_url());
+                startActivity(intent);
+                Bungee.slideLeft(ClubPageActivity.this);
+                break;
             case R.id.backIV:
             case R.id.tool_iv_back:
                 onBackPressed();
@@ -554,7 +558,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     @Override
     public void onBackPressed() {
         SharedPref.putBoolean(getApplicationContext(),"subs_changes_made",isSubscriptionChange);
-        SharedPref.putString(getApplicationContext(),"subs_changes_id", club.getId());
         super.onBackPressed();
         Bungee.slideRight(ClubPageActivity.this);
     }

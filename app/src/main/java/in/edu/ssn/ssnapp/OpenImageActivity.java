@@ -79,9 +79,14 @@ public class OpenImageActivity extends AppCompatActivity {
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OpenImageActivity.super.onBackPressed();
-                Bungee.slideRight(OpenImageActivity.this);
+                onBackPressed();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(OpenImageActivity.this);
     }
 }

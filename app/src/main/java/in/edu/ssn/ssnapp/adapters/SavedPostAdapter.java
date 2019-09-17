@@ -122,7 +122,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
 
-            final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),true, model, timer);
+            final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),1, model, timer);
             viewPager.setAdapter(imageAdapter);
 
             if(model.getImageUrl().size()==1){

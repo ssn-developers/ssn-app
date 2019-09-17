@@ -194,7 +194,7 @@ public class ExamCellFragment extends Fragment {
                 if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),true, model, timer);
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),1, model, timer);
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if(model.getImageUrl().size()==1){
