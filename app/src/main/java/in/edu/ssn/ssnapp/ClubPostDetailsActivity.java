@@ -124,6 +124,16 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_cancel_reply=findViewById(R.id.iv_cancel);
 
 
+        iv_cancel_reply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                tv_selected_reply.setText("");
+                tv_selected_reply.setVisibility(View.GONE);
+                iv_cancel_reply.setVisibility(View.GONE);
+                expandableListAdapter.setReplyingForComment(false);
+            }
+        });
 
         iv_send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +169,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
                             Log.d("Test","success");
                         }
                     });
+
 
                     tv_selected_reply.setText("");
                     tv_selected_reply.setVisibility(View.GONE);
