@@ -39,8 +39,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private ArrayList<Comments> commentArrayList;
     ClubPost clubPost;
 
-
-
     public void setClubPost(ClubPost clubPost) {
         this.clubPost = clubPost;
     }

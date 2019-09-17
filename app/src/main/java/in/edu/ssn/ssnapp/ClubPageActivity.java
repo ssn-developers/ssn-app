@@ -387,7 +387,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-
                     }
                 });
 

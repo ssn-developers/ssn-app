@@ -19,8 +19,10 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -235,6 +237,8 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
                 Collections.sort(commentsArrayList);
                 expandableListAdapter=new CustomExpandableListAdapter(ClubPostDetailsActivity.this,commentsArrayList,post);
                 expandableListView.setAdapter(expandableListAdapter);
+                expandableListView.setNestedScrollingEnabled(true);
+                setListViewHeight(commentsArrayList.size());
             }
         });
     }
@@ -265,15 +269,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
         tv_title.setText(post.getTitle());
         tv_time.setText(time);
-
-        if(post.getDescription().length() > 100) {
-            SpannableString ss = new SpannableString(post.getDescription().substring(0, 100) + "... see more");
-            ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
-            ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
-            tv_description.setText(ss);
-        }
-        else
-            tv_description.setText(post.getDescription().trim());
+        tv_description.setText(post.getDescription().trim());
 
         if(post.getImg_urls() != null && post.getImg_urls().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
@@ -398,6 +394,38 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
+    }
+
+    private void setListViewHeight(int group) {
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(expandableListView.getWidth(), View.MeasureSpec.EXACTLY);
+
+        for (int i = 0; i < expandableListAdapter.getGroupCount(); i++) {
+            View groupItem = expandableListAdapter.getGroupView(i, false, null, expandableListView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((expandableListView.isGroupExpanded(i)) && (i != group)) || ((!expandableListView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < expandableListAdapter.getChildrenCount(i); j++) {
+                    View listItem = expandableListAdapter.getChildView(i, j, false, null, expandableListView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+                //Add Divider Height
+                totalHeight += expandableListView.getDividerHeight() * (expandableListAdapter.getChildrenCount(i) - 1);
+            }
+        }
+        //Add Divider Height
+        totalHeight += expandableListView.getDividerHeight() * (expandableListAdapter.getGroupCount() - 1);
+
+        ViewGroup.LayoutParams params = expandableListView.getLayoutParams();
+        int height = totalHeight + (expandableListView.getDividerHeight() * (expandableListAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+
+        params.height = height;
+        expandableListView.setLayoutParams(params);
+        expandableListView.requestLayout();
     }
 
     /*****************************************************************/

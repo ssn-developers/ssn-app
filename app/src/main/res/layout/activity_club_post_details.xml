@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/fakeAppbarLL"
         android:paddingTop="@dimen/_3sdp"
-        android:paddingBottom="@dimen/_3sdp"
         android:orientation="horizontal">
 
         <ImageView
@@ -71,37 +70,13 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        android:background="@color/shimmering_back"
-        android:layout_below="@id/fakeAppbarLL" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:id="@+id/currentImageTV"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:background="@drawable/image_pos_bg"
-        android:text="1 / 2"
-        android:visibility="gone"
-        android:textColor="@android:color/white"
-        android:fontFamily="@font/open_sans"
-        android:paddingLeft="@dimen/_10sdp"
-        android:paddingRight="@dimen/_10sdp"
-        android:paddingTop="@dimen/_3sdp"
-        android:paddingBottom="@dimen/_3sdp"
-        android:layout_below="@id/fakeAppbarLL"/>
-
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        android:layout_below="@+id/viewPager">
+        android:layout_marginBottom="@dimen/_60sdp"
+        android:layout_below="@+id/fakeAppbarLL">
 
         <RelativeLayout
             android:layout_marginLeft="@dimen/_12sdp"
@@ -109,14 +84,39 @@
             android:layout_marginBottom="@dimen/_10sdp"
             android:id="@+id/textGroupRL"
             android:animateLayoutChanges="true"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_150sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:background="@color/shimmering_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:id="@+id/currentImageTV"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/image_pos_bg"
+                android:text="1 / 2"
+                android:visibility="gone"
+                android:textColor="@android:color/white"
+                android:fontFamily="@font/open_sans"
+                android:paddingLeft="@dimen/_10sdp"
+                android:paddingRight="@dimen/_10sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:paddingBottom="@dimen/_3sdp" />
 
             <TextView
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
+                android:layout_below="@+id/viewPager"
                 android:textColor="#000000"
                 android:textSize="@dimen/_14ssp"
                 android:textStyle="bold" />
@@ -229,42 +229,66 @@
                 android:fontFamily="@font/open_sans_bold"
                 android:layout_below="@id/layout_icon"
                 android:textColor="#000000"
-                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:text="@string/comments"
                 android:textSize="@dimen/_12ssp" />
 
-            <EditText
-                android:id="@+id/edt_comment"
-                android:hint="Comment"
-                android:inputType="textMultiLine"
-                android:layout_below="@+id/tv_comment_text"
-                android:layout_marginEnd="100dp"
+            <ExpandableListView
+                android:id="@+id/EV_comment"
+                android:clipToPadding="false"
+                android:layout_below="@id/tv_comment_text"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <Button
-                android:text="post"
-                android:id="@+id/btn_post_reply"
-                android:layout_below="@+id/tv_comment_text"
-                android:layout_alignParentRight="true"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:divider="@null"
+                android:dividerHeight="1dp" />
 
         </RelativeLayout>
 
     </ScrollView>
 
-    <ExpandableListView
-        android:id="@+id/EV_comment"
-        android:clipToPadding="false"
-        android:layout_below="@id/scroll_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="0.5dp" />
+        android:layout_margin="@dimen/_10sdp"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/_4sdp"
+        android:background="@drawable/club_post_et_bg">
 
+        <EditText
+            android:id="@+id/edt_comment"
+            android:textColorHint="#9F9E9E"
+            android:inputType="textMultiLine"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
+            android:background="@null"
+            android:hint="Comment"
+            android:focusable="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
+        <ImageView
+            android:id="@+id/iv_send"
+            android:background="@drawable/ic_send"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_5sdp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"/>
 
+        <Button
+            android:id="@+id/btn_post_reply"
+            android:layout_alignParentEnd="true"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="post" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
