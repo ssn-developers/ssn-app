@@ -20,6 +20,7 @@ import android.text.style.RelativeSizeSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -31,6 +32,7 @@ import com.crashlytics.android.Crashlytics;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
@@ -42,6 +44,7 @@ import com.hendraanggrian.appcompat.widget.SocialView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +65,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     SocialTextView tv_description;
     ChipGroup attachmentsChipGroup;
     RelativeLayout textGroupRL;
+    EditText et_Comment;
 
     Button postComment;
     ExpandableListView expandableListView;
@@ -106,20 +110,23 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_comment = findViewById(R.id.iv_comment);
         tv_comment = findViewById(R.id.tv_comment);
         iv_share = findViewById(R.id.iv_share);
+        et_Comment=findViewById(R.id.edt_comment);
+
 
         postComment=findViewById(R.id.btn_post_reply);
         postComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //FirebaseFirestore.getInstance().collection("contact").document(i).update("number", FieldValue.arrayRemove(Integer.parseInt(edt_phone.getText().toString())))
-                //Comments temp=new Comments("logesh",comment_etv.getText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
-                //FirebaseFirestore.getInstance().collection("post_club").document("L3xGyQRaz8yRsjqP5Jto").update("comment", FieldValue.arrayUnion(temp));
+                Comments temp=new Comments(SharedPref.getString(ClubPostDetailsActivity.this,"email"),et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
+                FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment", FieldValue.arrayUnion(temp));
                 //FirebaseFirestore.getInstance().collection("post_club").document("").update()
             }
         });
 
+
         expandableListView =  findViewById(R.id.EV_comment);
-        expandableListAdapter = new CustomExpandableListAdapter(this, new ArrayList<Comments>());
+        expandableListAdapter = new CustomExpandableListAdapter(this, new ArrayList<Comments>(),post);
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
@@ -190,14 +197,16 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
                 try {
                     ArrayList<String> like = (ArrayList<String>) documentSnapshot.get("like");
+                    post.setLike(like);
+
                     if (like != null && like.size() != 0)
                         post.setLike(like);
                     else
-                        post.setLike(null);
+                        post.setLike(new ArrayList<String>());
                 }
                 catch (Exception ex){
-                    e.printStackTrace();
-                    post.setLike(null);
+                    ex.printStackTrace();
+                    post.setLike(new ArrayList<String>());
                 }
 
                 try {
@@ -214,7 +223,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
                 updateData();
 
-                /*ArrayList<HashMap<Object,Object>> comment_data=(ArrayList<HashMap<Object,Object>>) documentSnapshot.get("comment");
+                ArrayList<HashMap<Object,Object>> comment_data=(ArrayList<HashMap<Object,Object>>) documentSnapshot.get("comment");
                 commentsArrayList.clear();
                 for(HashMap<Object,Object> i:comment_data){
                     Comments tempComment=new Comments((String)i.get("author"),(String)i.get("message"),((Timestamp)i.get("time")).toDate(),(ArrayList<HashMap<String, Object>>) i.get("reply"));
@@ -223,8 +232,8 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
                 expandableListAdapter=null;
                 Collections.sort(commentsArrayList);
-                expandableListAdapter=new CustomExpandableListAdapter(ClubPostDetailsActivity.this,commentsArrayList);
-                expandableListView.setAdapter(expandableListAdapter);*/
+                expandableListAdapter=new CustomExpandableListAdapter(ClubPostDetailsActivity.this,commentsArrayList,post);
+                expandableListView.setAdapter(expandableListAdapter);
             }
         });
     }
@@ -358,11 +367,18 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             }
         });
 
-        if (post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-            iv_like.setImageResource(R.drawable.blue_heart);
-        } else {
+        try{
+
+            if (post.getLike()!=null && post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                iv_like.setImageResource(R.drawable.blue_heart);
+            } else {
+                iv_like.setImageResource(R.drawable.heart);
+            }
+        }catch (Exception e){
+
             iv_like.setImageResource(R.drawable.heart);
         }
+
 
         try {
             tv_like.setText(Integer.toString(post.getLike().size()));

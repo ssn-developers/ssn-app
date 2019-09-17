@@ -31,6 +31,7 @@ import java.util.Map;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
@@ -39,13 +40,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     ClubPost clubPost;
 
 
+
     public void setClubPost(ClubPost clubPost) {
         this.clubPost = clubPost;
     }
 
-    public CustomExpandableListAdapter(Context context, ArrayList<Comments> data) {
+    public CustomExpandableListAdapter(Context context, ArrayList<Comments> data,ClubPost clubPost) {
         this.context = context;
-
+        this.clubPost = clubPost;
         for(int i=0;i<data.size();i++)
             Collections.sort(data.get(i).getReply(),new MapComparator("time"));
 
@@ -139,12 +141,12 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
             public void onClick(View view) {
 
                 final HashMap<String,Object> temp=new HashMap<>();
-                temp.put("author","logesh");
+                temp.put("author", SharedPref.getString(context,"email"));
                 temp.put("message",edt_reply.getText().toString());
                 temp.put("time", Calendar.getInstance().getTime());
                 commentArrayList.get(listPosition).getReply().add(temp);
 
-                FirebaseFirestore.getInstance().collection("post_club").document("L3xGyQRaz8yRsjqP5Jto").update("comment",commentArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                FirebaseFirestore.getInstance().collection("post_club").document(clubPost.getId()).update("comment",commentArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         Log.d("Test","success");

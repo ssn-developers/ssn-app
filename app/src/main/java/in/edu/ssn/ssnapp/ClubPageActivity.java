@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -270,11 +271,17 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
                 holder.userImageIV.setImageDrawable(ic1);
 
-                if (model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                    holder.iv_like.setImageResource(R.drawable.blue_heart);
-                } else {
+                try{
+                    if (model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                        holder.iv_like.setImageResource(R.drawable.blue_heart);
+                    } else {
+                        holder.iv_like.setImageResource(R.drawable.heart);
+                    }
+                }catch (Exception e){
                     holder.iv_like.setImageResource(R.drawable.heart);
+                    Log.d("test",e.getMessage());
                 }
+
 
                 Date time = model.getTime();
                 Date now = new Date();
@@ -367,13 +374,21 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 holder.iv_like.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        if (!model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                            holder.iv_like.setImageResource(R.drawable.blue_heart);
-                            FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
-                        } else {
-                            holder.iv_like.setImageResource(R.drawable.heart);
-                            FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+
+                        try{
+
+                            if (model.getLike()!=null && !model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                                holder.iv_like.setImageResource(R.drawable.blue_heart);
+                                FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
+                            } else {
+                                holder.iv_like.setImageResource(R.drawable.heart);
+                                FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+                            }
+
+                        }catch (Exception e){
+                            e.printStackTrace();
                         }
+
                     }
                 });
 
