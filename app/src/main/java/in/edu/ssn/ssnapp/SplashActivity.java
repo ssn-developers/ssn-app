@@ -349,27 +349,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
                 if(collectionName.equals("club") || collectionName.equals("post_club")){
-                    final Club club = new Club();
-                    club.setId(snapshot.getString("id"));
-                    club.setName(snapshot.getString("name"));
-                    club.setDp_url(snapshot.getString("dp_url"));
-                    club.setCover_url(snapshot.getString("cover_url"));
-                    club.setContact(snapshot.getString("contact"));
-                    club.setDescription(snapshot.getString("description"));
-                    try {
-                        club.setFollowers((ArrayList<String>) snapshot.get("followers"));
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                        club.setFollowers(null);
-                    }
-                    try {
-                        club.setHead((ArrayList<String>) snapshot.get("head"));
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                        club.setHead(null);
-                    }
+                    Club club = CommonUtils.getClubFromSnapshot(getApplicationContext(),snapshot);
 
                     if(collectionName.equals("post_club")){
                         try{

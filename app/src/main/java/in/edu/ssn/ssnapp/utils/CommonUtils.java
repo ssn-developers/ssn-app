@@ -56,6 +56,7 @@ import java.util.Map;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.Post;
 
 import static com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBehavior.ESTIMATE;
@@ -292,6 +293,31 @@ public class CommonUtils {
             post.setPosition("Faculty");
         }
         return post;
+    }
+
+    public static Club getClubFromSnapshot(Context context, DocumentSnapshot snapshot){
+        Club club = new Club();
+        club.setId(snapshot.getString("id"));
+        club.setName(snapshot.getString("name"));
+        club.setDp_url(snapshot.getString("dp_url"));
+        club.setCover_url(snapshot.getString("cover_url"));
+        club.setContact(snapshot.getString("contact"));
+        club.setDescription(snapshot.getString("description"));
+        try {
+            club.setFollowers((ArrayList<String>) snapshot.get("followers"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            club.setFollowers(null);
+        }
+        try {
+            club.setHead((ArrayList<String>) snapshot.get("head"));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            club.setHead(null);
+        }
+        return club;
     }
 
     /************************************************************************/
