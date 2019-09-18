@@ -125,7 +125,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         try {
             // timestamp cannot be cast to date sometimes
             Timestamp timestamp = (Timestamp) expandedListText.get("time");
-            replyTime.setText(FCMHelper.getTime(timestamp.toDate()));
+            replyTime.setText(CommonUtils.getTime(timestamp.toDate()));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -182,7 +182,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView tv_time=convertView.findViewById(R.id.tv_time);
         ImageView iv_dp=convertView.findViewById(R.id.iv_dp);
 
-
         final EditText edt_comment=activity.findViewById(R.id.edt_comment);
         final TextView tv_reply_selected=activity.findViewById(R.id.tv_reply_selected);
         final TextView tv_replier_name=activity.findViewById(R.id.tv_replier_name);
@@ -208,9 +207,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 edt_comment.requestFocus();
                 InputMethodManager imm = (InputMethodManager) edt_comment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(edt_comment, InputMethodManager.SHOW_IMPLICIT);
-
-                //tv_reply_selected.setVisibility(View.VISIBLE);
-                //iv_cancel_reply.setVisibility(View.VISIBLE);
                 cv_reply.setVisibility(View.VISIBLE);
 
                 if(comment.getAuthor()==SharedPref.getString(context,"email"))
@@ -219,7 +215,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                     tv_replier_name.setText(CommonUtils.getNameFromEmail(comment.getAuthor()));
 
                 tv_reply_selected.setText(comment.getMessage()+" ");
-
 
                 replyingForComment=true;
                 selectedCommentPosition=listPosition;
@@ -240,9 +235,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         else
             tv_reply_count.setText("No reply");
 
-        tv_time.setText(FCMHelper.getTime(commentArrayList.get(listPosition).getTime()));
-
-
+        tv_time.setText(CommonUtils.getTime(commentArrayList.get(listPosition).getTime()));
 
         return convertView;
     }
@@ -257,10 +250,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         return true;
     }
 
-
-
-    class MapComparator implements Comparator<Map<String, Object>>
-    {
+    class MapComparator implements Comparator<Map<String, Object>> {
         private final String key;
 
         public MapComparator(String key)

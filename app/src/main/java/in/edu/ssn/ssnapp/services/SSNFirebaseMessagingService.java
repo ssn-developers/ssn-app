@@ -27,6 +27,7 @@ import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.database.Notification;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -169,7 +170,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
 
                 Intent intent = new Intent(context, PostDetailsActivity.class);
                 intent.putExtra("post",post);
-                intent.putExtra("time",FCMHelper.getTime(post.getTime()));
+                intent.putExtra("time", CommonUtils.getTime(post.getTime()));
                 FCMHelper.showNotification(post.getDescription(),context,intent);
             }
         }).addOnFailureListener(new OnFailureListener() {

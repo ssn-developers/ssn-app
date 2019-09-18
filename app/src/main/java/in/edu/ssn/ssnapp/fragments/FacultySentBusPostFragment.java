@@ -93,25 +93,7 @@ public class FacultySentBusPostFragment extends Fragment {
             public void onBindViewHolder(final FacultySentBusPostFragment.BusAlertHolder holder, int position, final BusPost model) {
                 holder.tv_date.setText("Bus routes from " + model.getTitle());
                 holder.tv_desc.setText(model.getDesc());
-
-                Date time = model.getTime();
-                Date now = new Date();
-                Long t = now.getTime() - time.getTime();
-
-                if(t < 60000)
-                    holder.tv_time.setText(Long.toString(t / 1000) + "s ago");
-                else if(t < 3600000)
-                    holder.tv_time.setText(Long.toString(t / 60000) + "m ago");
-                else if(t < 86400000)
-                    holder.tv_time.setText(Long.toString(t / 3600000) + "h ago");
-                else if(t < 604800000)
-                    holder.tv_time.setText(Long.toString(t/86400000) + "d ago");
-                else if(t < 2592000000L)
-                    holder.tv_time.setText(Long.toString(t/604800000) + "w ago");
-                else if(t < 31536000000L)
-                    holder.tv_time.setText(Long.toString(t/2592000000L) + "M ago");
-                else
-                    holder.tv_time.setText(Long.toString(t/31536000000L) + "y ago");
+                holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
 
 
                 holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {

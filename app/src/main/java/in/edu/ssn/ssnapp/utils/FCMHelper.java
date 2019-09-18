@@ -99,25 +99,4 @@ public class FCMHelper {
             notificationManager.notify(1,nbuilder.build());
         }
     }
-
-    public static String getTime(Date time){
-        Date now = new Date();
-        Long t = now.getTime() - time.getTime();
-
-        String diff_time;
-        if(t < 60000)
-            return Long.toString(t / 1000) + "s ago";
-        else if(t < 3600000)
-            return Long.toString(t / 60000) + "m ago";
-        else if(t < 86400000)
-            return Long.toString(t / 3600000) + "h ago";
-        else if(t < 604800000)
-            return Long.toString(t/86400000) + "d ago";
-        else if(t < 2592000000L)
-            return Long.toString(t/604800000) + "w ago";
-        else if(t < 31536000000L)
-            return Long.toString(t/2592000000L) + "M ago";
-        else
-            return Long.toString(t/31536000000L) + "y ago";
-    }
 }

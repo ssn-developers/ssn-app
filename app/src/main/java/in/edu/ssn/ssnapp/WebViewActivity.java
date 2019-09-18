@@ -9,6 +9,7 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
@@ -16,7 +17,7 @@ import spencerstudios.com.bungeelib.Bungee;
 public class WebViewActivity extends AppCompatActivity {
 
     WebView webView;
-    ProgressBar pb_browser;
+    RelativeLayout layout_progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +25,7 @@ public class WebViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_webview);
 
         webView=findViewById(R.id.wv_library);
-        pb_browser=findViewById(R.id.pb_browser);
-        pb_browser.setMax(100);
+        layout_progress=findViewById(R.id.layout_progress);
     }
 
     @Override
@@ -41,9 +41,8 @@ public class WebViewActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                pb_browser.setProgress(newProgress);
                 if(newProgress==100)
-                    pb_browser.setVisibility(View.GONE);
+                    layout_progress.setVisibility(View.GONE);
             }
 
             @Override
@@ -60,8 +59,8 @@ public class WebViewActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         SharedPref.remove(getApplicationContext(),"url");
+        super.onBackPressed();
         Bungee.slideRight(WebViewActivity.this);
     }
 }

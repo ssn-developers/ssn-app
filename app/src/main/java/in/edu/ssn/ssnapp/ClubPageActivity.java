@@ -71,7 +71,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     private FirestoreRecyclerAdapter adapter;
     private ShimmerFrameLayout shimmer_view;
     private RecyclerView feedsRV;
-    private TextView tool_tv_count, tv_following_text;
+    private TextView tool_tv_count, tv_following_text, tv_followers, tv_followers_text;
     private Club club;
 
     @Override
@@ -122,8 +122,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         TextView tv_contact = findViewById(R.id.tv_contact);
         tv_contact.setOnClickListener(this);
 
-        TextView tv_followers = findViewById(R.id.tv_followers);
-        TextView tv_followers_text = findViewById(R.id.tv_followers_text);
+        tv_followers = findViewById(R.id.tv_followers);
+        tv_followers_text = findViewById(R.id.tv_followers_text);
 
         layout_progress = findViewById(R.id.layout_progress);
 
@@ -250,20 +250,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
         adapter = new FirestoreRecyclerAdapter<ClubPost, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final ClubPost model) {
-
-                String author = "";
-                String email = model.getAuthor();
-                email = email.substring(0, email.indexOf("@"));
-                for (int j = 0; j < email.length(); j++) {
-                    if (Character.isDigit(email.charAt(j))) {
-                        author = email.substring(0, j);
-                        break;
-                    }
-                }
-                if (author.isEmpty())
-                    author = email;
-
-                holder.tv_author.setText(author);
+                holder.tv_author.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
                 holder.tv_title.setText(model.getTitle());
 
                 ColorGenerator generator = ColorGenerator.MATERIAL;
@@ -279,31 +266,9 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     }
                 }catch (Exception e){
                     holder.iv_like.setImageResource(R.drawable.heart);
-                    Log.d("test",e.getMessage());
                 }
 
-
-                Date time = model.getTime();
-                Date now = new Date();
-                Long t = now.getTime() - time.getTime();
-                String timer;
-
-                if (t < 60000)
-                    timer = Long.toString(t / 1000) + "s ago";
-                else if (t < 3600000)
-                    timer = Long.toString(t / 60000) + "m ago";
-                else if (t < 86400000)
-                    timer = Long.toString(t / 3600000) + "h ago";
-                else if (t < 604800000)
-                    timer = Long.toString(t / 86400000) + "d ago";
-                else if (t < 2592000000L)
-                    timer = Long.toString(t / 604800000) + "w ago";
-                else if (t < 31536000000L)
-                    timer = Long.toString(t / 2592000000L) + "M ago";
-                else
-                    timer = Long.toString(t / 31536000000L) + "y ago";
-
-                holder.tv_time.setText(timer);
+                holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
 
                 if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
@@ -316,7 +281,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(),2, club, timer, model.getId());
+                    final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(),4, club, CommonUtils.getTime(model.getTime()), model.getId());
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if (model.getImg_urls().size() == 1) {
@@ -365,7 +330,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), ClubPostDetailsActivity.class);
                         intent.putExtra("data", model.getId());
-                        intent.putExtra("time", holder.tv_time.getText().toString());
+                        String timer = holder.tv_time.getText().toString();
+                        intent.putExtra("time", timer.split(" ")[0]);
                         intent.putExtra("club", club);
                         startActivity(intent);
                         Bungee.slideLeft(ClubPageActivity.this);
@@ -395,13 +361,17 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     public void onClick(View view) {
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
-                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?id=" + model.getId();
+                        String timer = holder.tv_time.getText().toString();
+                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&acv=" + timer.split(" ")[0] + "&vca=" + club.getId() + "&vac=" + model.getId();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                     }
                 });
 
-                tool_tv_count.setText(getItemCount() + " posts");
+                if(getItemCount() > 0)
+                    tool_tv_count.setText(getItemCount() + " posts");
+                else
+                    tool_tv_count.setText("No posts");
                 shimmer_view.setVisibility(View.GONE);
                 layout_progress.setVisibility(View.GONE);
             }
@@ -447,7 +417,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
     /****************************************************/
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -465,7 +434,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             case R.id.tool_iv_share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! Check out the " + club.getName() + " page: http://ssnportal.cf/share.html?id=" + club.getId();
+                String shareBody = "Hello! Check out the " + club.getName() + " page: http://ssnportal.cf/share.html?type=3&vca=" + club.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
@@ -473,8 +442,14 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 if (!CommonUtils.hasPermissions(ClubPageActivity.this, Manifest.permission.CALL_PHONE)) {
                     ActivityCompat.requestPermissions(ClubPageActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
                 }
-                else
-                    startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + club.getContact())));
+                else {
+                    try {
+                        startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + club.getContact())));
+                    }
+                    catch (SecurityException e){
+                        e.printStackTrace();
+                    }
+                }
                 break;
             case R.id.lottie:
                 isSubscriptionChange = !isSubscriptionChange;
@@ -493,6 +468,14 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Unfollowing");
                     tv_following_text.setTextColor(getResources().getColor(R.color.light_grey));
+                }
+
+                if (club.getFollowers().size() > 0) {
+                    tv_followers.setText(club.getFollowers().size() + "");
+                    tv_followers_text.setText("Followers");
+                } else {
+                    tv_followers.setText("0");
+                    tv_followers_text.setText("Follower");
                 }
                 break;
         }

@@ -23,15 +23,19 @@ import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.common.io.BaseEncoding;
 
 import org.json.JSONArray;
@@ -43,14 +47,16 @@ import java.io.FileWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.models.Post;
 
 public class CommonUtils {
 
-    public static Boolean is_blocked = false;
-    //Change Font
+    private static Boolean is_blocked = false;
     public static Typeface regular, bold, semi_bold;
     public static void initFonts(Context context, View view){
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
@@ -59,6 +65,8 @@ public class CommonUtils {
 
         FontChanger fontChanger = new FontChanger(bold);
     }
+
+    /************************************************************************/
 
     //Hides Keyboard
     public static void hideKeyboard(Activity activity){
@@ -109,10 +117,8 @@ public class CommonUtils {
             return false; // Wi-Fi adapter is OFF
     }
 
-    public static String findSSIDForWifiInfo(WifiManager manager, WifiInfo wifiInfo) {
-
+    private static String findSSIDForWifiInfo(WifiManager manager, WifiInfo wifiInfo) {
         List<WifiConfiguration> listOfConfigurations = manager.getConfiguredNetworks();
-
         for (int index = 0; index < listOfConfigurations.size(); index++) {
             WifiConfiguration configuration = listOfConfigurations.get(index);
             if (configuration.networkId == wifiInfo.getNetworkId()) {
@@ -122,6 +128,8 @@ public class CommonUtils {
 
         return null;
     }
+
+    /************************************************************************/
 
     public static String getYear(String val){
         if(val.equals("4"))
@@ -134,30 +142,7 @@ public class CommonUtils {
             return Constants.first;
     }
 
-    /************************************************************************/
-
-    public static boolean hasPermissions(Context context, String... permissions) {
-        if (context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
-
-    public static Boolean getIs_blocked() {
-        return is_blocked;
-    }
-
-    public static void setIs_blocked(Boolean is_blocked) {
-        CommonUtils.is_blocked = is_blocked;
-    }
-
-
     public static String getNameFromEmail(String email){
-
         String name=" ";
 
         email = email.substring(0, email.indexOf("@"));
@@ -170,8 +155,99 @@ public class CommonUtils {
         if (name.isEmpty())
             name = email;
 
-        Character.toUpperCase(name.charAt(0));
+        name = name.substring(0,1).toUpperCase() + name.substring(1);
 
         return name;
+    }
+
+    public static String getTime(Date time){
+        Date now = new Date();
+        Long t = now.getTime() - time.getTime();
+
+        String diff_time;
+        if(t < 60000)
+            return Long.toString(t / 1000) + "s ago";
+        else if(t < 3600000)
+            return Long.toString(t / 60000) + "m ago";
+        else if(t < 86400000)
+            return Long.toString(t / 3600000) + "h ago";
+        else if(t < 604800000)
+            return Long.toString(t/86400000) + "d ago";
+        else if(t < 2592000000L)
+            return Long.toString(t/604800000) + "w ago";
+        else if(t < 31536000000L)
+            return Long.toString(t/2592000000L) + "M ago";
+        else
+            return Long.toString(t/31536000000L) + "y ago";
+    }
+
+    /************************************************************************/
+
+    public static void handleBottomSheet(View v,final Post post, int type, final Context context) {
+        RelativeLayout ll_save,ll_share;
+        final TextView tv_save;
+
+        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
+        View sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu, null);
+        bottomSheetDialog.setContentView(sheetView);
+
+        ll_save=sheetView.findViewById(R.id.saveLL);
+        ll_share=sheetView.findViewById(R.id.shareLL);
+        tv_save=sheetView.findViewById(R.id.tv_save);
+
+        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(context);
+        if(dataBaseHelper.checkPost(post.getId()))
+            tv_save.setText("Remove from Favourites");
+        else
+            tv_save.setText("Add to Favourites");
+
+        bottomSheetDialog.show();
+
+        ll_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dataBaseHelper.checkPost(post.getId())){
+                    dataBaseHelper.deletePost(post.getId());
+                    tv_save.setText("Add to Favourites");
+                }
+                else{
+                    tv_save.setText("Remove from Favourites");
+                    dataBaseHelper.addPost(post);
+                }
+                bottomSheetDialog.hide();
+            }
+        });
+
+        ll_share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/share.html?type=1&vca=" + post.getId();
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
+            }
+        });
+    }
+
+    public static boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /************************************************************************/
+
+    public static Boolean getIs_blocked() {
+        return is_blocked;
+    }
+
+    public static void setIs_blocked(Boolean is_blocked) {
+        CommonUtils.is_blocked = is_blocked;
     }
 }

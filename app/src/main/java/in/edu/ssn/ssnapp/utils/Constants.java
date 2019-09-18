@@ -25,4 +25,11 @@ public class Constants {
     public static final String second="2018";
     public static final String first="2019";
 
+    //Share URL type
+    public static final int post = 1;
+    public static final int placement = 2;
+    public static final int club = 3;
+    public static final int post_club = 4;
+    public static final int exam_cell = 5;
+    public static final int workshop = 6;
 }

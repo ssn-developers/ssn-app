@@ -159,28 +159,7 @@ public class ExamCellFragment extends Fragment {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
                 holder.tv_title.setText(model.getTitle());
-
-                Date time = model.getTime();
-                Date now = new Date();
-                Long t = now.getTime() - time.getTime();
-                String timer;
-
-                if(t < 60000)
-                    timer = Long.toString(t / 1000) + "s ago";
-                else if(t < 3600000)
-                    timer = Long.toString(t / 60000) + "m ago";
-                else if(t < 86400000)
-                    timer = Long.toString(t / 3600000) + "h ago";
-                else if(t < 604800000)
-                    timer = Long.toString(t/86400000) + "d ago";
-                else if(t < 2592000000L)
-                    timer = Long.toString(t/604800000) + "w ago";
-                else if(t < 31536000000L)
-                    timer = Long.toString(t/2592000000L) + "M ago";
-                else
-                    timer = Long.toString(t/31536000000L) + "y ago";
-
-                holder.tv_time.setText(timer);
+                holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
 
                 if(model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
@@ -194,7 +173,7 @@ public class ExamCellFragment extends Fragment {
                 if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),1, model, timer);
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),5, model, CommonUtils.getTime(model.getTime()));
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if(model.getImageUrl().size()==1){
@@ -239,7 +218,7 @@ public class ExamCellFragment extends Fragment {
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        handleBottomSheet(v,model);
+                        CommonUtils.handleBottomSheet(v,model,5,getContext());
                         return true;
                     }
                 });
@@ -308,54 +287,5 @@ public class ExamCellFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-    }
-
-    /**********************************************************/
-
-    void handleBottomSheet(View v,final Post post) {
-        RelativeLayout ll_save,ll_share;
-        final TextView tv_save;
-
-        final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(getContext());
-        View sheetView=getActivity().getLayoutInflater().inflate(R.layout.bottom_menu,null);
-        bottomSheetDialog.setContentView(sheetView);
-
-        ll_save=sheetView.findViewById(R.id.saveLL);
-        ll_share=sheetView.findViewById(R.id.shareLL);
-        tv_save=sheetView.findViewById(R.id.tv_save);
-
-        final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getContext());
-        if(dataBaseHelper.checkPost(post.getId()))
-            tv_save.setText("Remove from Favourites");
-        else
-            tv_save.setText("Add to Favourites");
-
-        bottomSheetDialog.show();
-
-        ll_save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(dataBaseHelper.checkPost(post.getId())){
-                    dataBaseHelper.deletePost(post.getId());
-                    tv_save.setText("Add to Favourites");
-                }
-                else{
-                    tv_save.setText("Remove from Favourites");
-                    dataBaseHelper.addPost(post);
-                }
-                bottomSheetDialog.hide();
-            }
-        });
-
-        ll_share.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent sharingIntent = new Intent(Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/share.html?id=" + post.getId();
-                sharingIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "Share via"));
-            }
-        });
     }
 }

@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.common.internal.service.Common;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
@@ -35,7 +36,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 
 public class SavedPostAdapter extends ArrayAdapter<Post> {
 
@@ -87,28 +90,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         tv_position.setText(model.getPosition());
         tv_title.setText(model.getTitle());
 
-        Date time = model.getTime();
-        //Date time = new Date();
-        Date now = new Date();
-        Long t = now.getTime() - time.getTime();
-        String timer;
-
-        if(t < 60000)
-            timer = Long.toString(t / 1000) + "s ago";
-        else if(t < 3600000)
-            timer = Long.toString(t / 60000) + "m ago";
-        else if(t < 86400000)
-            timer = Long.toString(t / 3600000) + "h ago";
-        else if(t < 604800000)
-            timer = Long.toString(t/86400000) + "d ago";
-        else if(t < 2592000000L)
-            timer = Long.toString(t/604800000) + "w ago";
-        else if(t < 31536000000L)
-            timer = Long.toString(t/2592000000L) + "M ago";
-        else
-            timer = Long.toString(t/31536000000L) + "y ago";
-
-        tv_time.setText(timer);
+        tv_time.setText(CommonUtils.getTime(model.getTime()));
 
         if(model.getDescription().length() > 100) {
             SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
@@ -122,7 +104,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
 
-            final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),1, model, timer);
+            final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),1, model, CommonUtils.getTime(model.getTime()));
             viewPager.setAdapter(imageAdapter);
 
             if(model.getImageUrl().size()==1){

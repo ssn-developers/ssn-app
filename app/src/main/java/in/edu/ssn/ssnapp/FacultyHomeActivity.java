@@ -87,10 +87,10 @@ public class FacultyHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
-                    case "Helpline":
+                    /*case "Helpline":
                         startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
-                        break;
+                        break;*/
                     case "Notification Settings":
                         startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
@@ -197,7 +197,7 @@ public class FacultyHomeActivity extends BaseActivity {
         adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
-        adapter.add(new Drawer("Helpline", R.drawable.ic_team));
+        //adapter.add(new Drawer("Helpline", R.drawable.ic_team));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));

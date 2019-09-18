@@ -87,10 +87,10 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
-                    case "Helpline":
+                    /*case "Helpline":
                         startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
-                        break;
+                        break;*/
                     case "Library Renewals":
                         if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn")) {
                             SharedPref.putString(getApplicationContext(),"url","http://opac.ssn.net:8081/");
@@ -216,7 +216,7 @@ public class StudentHomeActivity extends BaseActivity {
         adapter.add(new Drawer("AlmaConnect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
-        adapter.add(new Drawer("Helpline", R.drawable.ic_team));
+        //adapter.add(new Drawer("Helpline", R.drawable.ic_team));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));

@@ -29,10 +29,11 @@ import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.models.Post;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import spencerstudios.com.bungeelib.Bungee;
 
-import static in.edu.ssn.ssnapp.utils.FCMHelper.getTime;
+import static in.edu.ssn.ssnapp.utils.CommonUtils.getTime;
 
 public class NotifyAdapter extends ArrayAdapter<Post> {
 
@@ -97,25 +98,7 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
             iv_dp.setImageResource(R.drawable.ic_bus);
         }
 
-        Date time = drawer.getTime();
-        Date now = new Date();
-        Long t = now.getTime() - time.getTime();
-        //Long t = 86400001L;
-
-        if(t < 60000)
-            tv_time.setText(Long.toString(t / 1000) + "s ago");
-        else if(t < 3600000)
-            tv_time.setText(Long.toString(t / 60000) + "m ago");
-        else if(t < 86400000)
-            tv_time.setText(Long.toString(t / 3600000) + "h ago");
-        else if(t < 604800000)
-            tv_time.setText(Long.toString(t/86400000) + "d ago");
-        else if(t < 2592000000L)
-            tv_time.setText(Long.toString(t/604800000) + "w ago");
-        else if(t < 31536000000L)
-            tv_time.setText(Long.toString(t/2592000000L) + "M ago");
-        else
-            tv_time.setText(Long.toString(t/31536000000L) + "y ago");
+        tv_time.setText(CommonUtils.getTime(drawer.getTime()));
 
         return convertView;
     }

@@ -76,7 +76,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     EditText et_Comment;
     CardView cv_reply;
 
-    Button postComment;
     ExpandableListView expandableListView;
     CustomExpandableListAdapter expandableListAdapter;
     ListenerRegistration listenerRegistration;
@@ -92,9 +91,9 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_club_post_details);
 
         initUI();
-
-        //setUpFirestore();
     }
+
+    /*****************************************************************/
 
     void initUI() {
         id = getIntent().getStringExtra("data");
@@ -131,10 +130,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_cancel_reply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 tv_selected_reply.setText("");
-                //tv_selected_reply.setVisibility(View.GONE);
-                //iv_cancel_reply.setVisibility(View.GONE);
                 cv_reply.setVisibility(View.GONE);
                 expandableListAdapter.setReplyingForComment(false);
             }
@@ -143,8 +139,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 Boolean replyingForComment=expandableListAdapter.getReplyingForComment();
 
                 if(replyingForComment==null)
@@ -176,8 +170,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
 
                     tv_selected_reply.setText("");
-                    //tv_selected_reply.setVisibility(View.GONE);
-                    //iv_cancel_reply.setVisibility(View.GONE);
                     cv_reply.setVisibility(View.GONE);
 
                     expandableListAdapter.setReplyingForComment(false);
@@ -185,18 +177,14 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
                 et_Comment.setText("");
                 CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
-                //FirebaseFirestore.getInstance().collection("post_club").document("").update()
             }
         });
 
-
         expandableListView =  findViewById(R.id.EV_comment);
-
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
                 setListViewHeight(commentsArrayList.size());
-                //Toast.makeText(getApplicationContext(), expandableListTitle.get(groupPosition) + " List Expanded.", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -204,14 +192,12 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             @Override
             public void onGroupCollapse(int groupPosition) {
                 setListViewHeight(commentsArrayList.size());
-                //Toast.makeText(getApplicationContext(),expandableListTitle.get(groupPosition) + " List Collapsed.",Toast.LENGTH_SHORT).show();
             }
         });
 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                //Toast.makeText(getApplicationContext(),expandableListTitle.get(groupPosition) + " -> " + expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
                 return false;
             }
         });
@@ -312,7 +298,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         Glide.with(ClubPostDetailsActivity.this).load(club.getDp_url()).into(userImageIV);
 
         tv_title.setText(post.getTitle());
-        tv_time.setText(time);
+        tv_time.setText(time + " ago");
         tv_description.setText(post.getDescription().trim());
 
         if(post.getImg_urls() != null && post.getImg_urls().size() != 0) {
@@ -433,43 +419,11 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?id=" + post.getId();
+                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&acv=" + time + "&vca=" + club.getId() + "&vac=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
-    }
-
-    private void setListViewHeight(int group) {
-        int totalHeight = 0;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(expandableListView.getWidth(), View.MeasureSpec.EXACTLY);
-
-        for (int i = 0; i < expandableListAdapter.getGroupCount(); i++) {
-            View groupItem = expandableListAdapter.getGroupView(i, false, null, expandableListView);
-            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += groupItem.getMeasuredHeight();
-
-            if (((expandableListView.isGroupExpanded(i)) && (i != group)) || ((!expandableListView.isGroupExpanded(i)) && (i == group))) {
-                for (int j = 0; j < expandableListAdapter.getChildrenCount(i); j++) {
-                    View listItem = expandableListAdapter.getChildView(i, j, false, null, expandableListView);
-                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-                    totalHeight += listItem.getMeasuredHeight();
-                }
-                //Add Divider Height
-                totalHeight += expandableListView.getDividerHeight() * (expandableListAdapter.getChildrenCount(i) - 1);
-            }
-        }
-        //Add Divider Height
-        totalHeight += expandableListView.getDividerHeight() * (expandableListAdapter.getGroupCount() - 1);
-
-        ViewGroup.LayoutParams params = expandableListView.getLayoutParams();
-        int height = totalHeight + (expandableListView.getDividerHeight() * (expandableListAdapter.getGroupCount() - 1));
-        if (height < 10)
-            height = 200;
-
-        params.height = height;
-        expandableListView.setLayoutParams(params);
-        expandableListView.requestLayout();
     }
 
     /*****************************************************************/
@@ -513,6 +467,42 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
         return chip;
     }
+
+    /*****************************************************************/
+
+    private void setListViewHeight(int group) {
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(expandableListView.getWidth(), View.MeasureSpec.EXACTLY);
+
+        for (int i = 0; i < expandableListAdapter.getGroupCount(); i++) {
+            View groupItem = expandableListAdapter.getGroupView(i, false, null, expandableListView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((expandableListView.isGroupExpanded(i)) && (i != group)) || ((!expandableListView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < expandableListAdapter.getChildrenCount(i); j++) {
+                    View listItem = expandableListAdapter.getChildView(i, j, false, null, expandableListView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+                //Add Divider Height
+                totalHeight += expandableListView.getDividerHeight() * (expandableListAdapter.getChildrenCount(i) - 1);
+            }
+        }
+        //Add Divider Height
+        totalHeight += expandableListView.getDividerHeight() * (expandableListAdapter.getGroupCount() - 1);
+
+        ViewGroup.LayoutParams params = expandableListView.getLayoutParams();
+        int height = totalHeight + (expandableListView.getDividerHeight() * (expandableListAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+
+        params.height = height;
+        expandableListView.setLayoutParams(params);
+        expandableListView.requestLayout();
+    }
+
+    /*****************************************************************/
 
     @Override
     protected void onResume() {

@@ -22,8 +22,6 @@ public class NoNetworkActivity extends AppCompatActivity {
         setContentView(R.layout.activity_no_network);
 
         final String key = getIntent().getStringExtra("key");
-
-
         final LottieAnimationView lottie = findViewById(R.id.lottie);
         CardView retryCV = findViewById(R.id.retryCV);
 

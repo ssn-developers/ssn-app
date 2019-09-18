@@ -101,13 +101,13 @@ import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 import spencerstudios.com.bungeelib.Bungee;
 
+import static com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBehavior.ESTIMATE;
+
 public class SplashActivity extends AppCompatActivity {
 
-    FirebaseFirestore db;
     Intent intent, notif_intent;
     private final static String TAG = "test_set";
     private GifDrawable gifFromResource;
-    private GifImageView gifImageView;
 
     private static Boolean flag = false;
     private static Boolean worst_case = true;
@@ -129,7 +129,7 @@ public class SplashActivity extends AppCompatActivity {
 
         try {
             gifFromResource = (GifDrawable) new GifDrawable(getResources(), R.drawable.splash_screen);
-            gifImageView = (GifImageView) findViewById(R.id.splashIV);
+            GifImageView gifImageView = (GifImageView) findViewById(R.id.splashIV);
             gifImageView.setImageDrawable(gifFromResource);
 
             gifFromResource.addAnimationListener(new AnimationListener() {
@@ -180,7 +180,6 @@ public class SplashActivity extends AppCompatActivity {
             });
         }
 
-        db = FirebaseFirestore.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference("block_screen");
         intent = getIntent();
         notif_intent = null;
@@ -287,6 +286,8 @@ public class SplashActivity extends AppCompatActivity {
         });
     }
 
+    /**********************************************************************/
+
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -339,137 +340,26 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    /**********************************************************************/
-
-    void handleIntent() {
-
-        //  1   -> post
-        //  2   -> placement
-        //  3   -> club
-        //  4   -> post_club
-        //  5   -> exam_cell
-        //  6   -> workshop
-
-
-        String postType = "";
-        String collectionName="";
-        String postId = "";
-        String pdfUrl = "";
-        Bundle bundle = intent.getExtras();
-
-        if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
-            Uri uri=intent.getData();
-
-            postId=uri.getQueryParameter("id");
-            collectionName=getCollectionName(uri.getQueryParameter("type"));
-
-            if(collectionName.equals("post_club")){
-
-
-                // http://ssnportal.cf/share.html?id = K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d & vca=43
-                // http://ssnportal.cf/share.html?id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
-                HashMap<String,Object> hmp=new HashMap<>();
-                hmp.put("time",uri.getQueryParameter("acv"));
-                hmp.put("post_id",uri.getQueryParameter("vca"));
-
-                flag = false;
-                worst_case = false;
-                FetchPostById(postId,collectionName,hmp);
-                return;
-
-            }
-
-            flag = false;
-            worst_case = false;
-            FetchPostById(postId,collectionName,new HashMap<String, Object>());
-            return;
-        }
-        if (bundle != null && SharedPref.getInt(this,"dont_delete","is_logged_in")==2) {
-            if (bundle.containsKey("PostType")) {
-                postType = intent.getStringExtra("PostType");
-            }
-            if (bundle.containsKey("PostId")) {
-                postId = intent.getStringExtra("PostId");
-            }
-            if (bundle.containsKey("PostUrl")) {
-                pdfUrl = intent.getStringExtra("PostUrl");
-            }
-
-            if (postType.equals("1")) {
-                flag = false;
-                worst_case = false;
-                FetchPostById(postId,"post",new HashMap<String, Object>());
-            }
-            else if (postType.equals("2")) {
-                flag = false;
-                worst_case = false;
-                notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
-                notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
-                DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-                dataBaseHelper.addNotification(new Notification("2",postId,pdfUrl,new Post("Bus Post","",new Date(),"2",pdfUrl)));
-            }
-        }
-        if (gifFromResource.isAnimationCompleted())
-            passIntent();
-        else
-            flag = true;
-    }
-
-    public void passIntent() {
-
-        if(!CommonUtils.getIs_blocked()) {
-            worst_case = false;
-            if (notif_intent != null) {
-                startActivity(notif_intent);
-                finish();
-            }
-            else if (!CommonUtils.alerter(getApplicationContext())) {
-                if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
-                    if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
-                        startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
-                        finish();
-                        Bungee.fade(this);
-                    } else {
-                        startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
-                        finish();
-                        Bungee.fade(this);
-                    }
-                } else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
-                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                    intent.putExtra("is_log_in", true);
-                    startActivity(intent);
-                    finish();
-                    Bungee.slideLeft(this);
-                } else {
-                    startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
-                    finish();
-                    Bungee.slideLeft(this);
-                }
-            } else {
-                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                intent.putExtra("key", "splash");
-                startActivity(intent);
-                finish();
-                Bungee.fade(SplashActivity.this);
-            }
+    public String getCollectionName(int type){
+        switch (type){
+            case 2 : return "placement";
+            case 3 : return "club";
+            case 4 : return "post_club";
+            case 5 : return "exam_cell";
+            case 6 : return "workshop";
+            default : return "post";
         }
     }
 
-    void FetchPostById(final String postId, final String collectionName, final HashMap<String,Object> data){
+    void FetchPostById(final String postId, final String collectionName, final HashMap<String,Object> data, final int type){
+        String collection = collectionName;
+        if(collectionName.equals("post_club"))
+            collection = "club";
 
-        //  1   -> post
-        //  2   -> placement
-        //  3   -> club
-        //  4   -> post_club
-        //  5   -> exam_cell
-        //  6   -> workshop
-
-        FirebaseFirestore.getInstance().collection(collectionName).document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        FirebaseFirestore.getInstance().collection(collection).document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-
-                if(collectionName.equals("post_club")){
-
+                if(collectionName.equals("club") || collectionName.equals("post_club")){
                     final Club club = new Club();
                     club.setId(snapshot.getString("id"));
                     club.setName(snapshot.getString("name"));
@@ -492,40 +382,36 @@ public class SplashActivity extends AppCompatActivity {
                         club.setHead(null);
                     }
 
-
-
                     if(collectionName.equals("post_club")){
-
-
                         try{
                             String time=data.get("time").toString();
                             String post_id=data.get("post_id").toString();
 
-                            Intent intent=new Intent(SplashActivity.this,ClubPostDetailsActivity.class);
-                            intent.putExtra("data", post_id);
-                            intent.putExtra("time", time);
-                            intent.putExtra("club", club);
-
-                            startActivity(new Intent(SplashActivity.this,ClubPostDetailsActivity.class));
-
-
-                        }catch (Exception e){
+                            notif_intent=new Intent(SplashActivity.this, ClubPostDetailsActivity.class);
+                            notif_intent.putExtra("data", post_id);
+                            notif_intent.putExtra("time", time);
+                            notif_intent.putExtra("club", club);
+                            flag = true;
+                            worst_case = false;
+                        }
+                        catch (Exception e){
                             e.printStackTrace();
                         }
-
-                    }else{
-                        Intent intent=new Intent(SplashActivity.this,ClubPageActivity.class);
-                        intent.putExtra("data",club);
-                        startActivity(intent);
                     }
-
-                }else{
-
+                    else {
+                        notif_intent = new Intent(SplashActivity.this, ClubPageActivity.class);
+                        notif_intent.putExtra("data",club);
+                        flag = true;
+                        worst_case = false;
+                    }
+                }
+                else{
                     Post post = new Post();
                     post.setId(postId);
                     post.setTitle(snapshot.getString("title"));
                     post.setDescription(snapshot.getString("description"));
-                    post.setTime(snapshot.getTimestamp("time").toDate());
+                    DocumentSnapshot.ServerTimestampBehavior behavior = ESTIMATE;
+                    post.setTime(snapshot.getDate("time", behavior));
 
                     ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
                     if(images != null && images.size() > 0)
@@ -584,7 +470,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     String email = snapshot.getString("author");
-
+                    Log.d("test_set",email);
                     post.setAuthor_image_url(email);
 
                     String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
@@ -600,13 +486,14 @@ public class SplashActivity extends AppCompatActivity {
                         post.setPosition("Faculty");
 
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                    dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));
+                    dataBaseHelper.addNotification(new Notification("1",postId,"",post));
 
-                    Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
-                    intent.putExtra("post",post);
-                    intent.putExtra("time", FCMHelper.getTime(post.getTime()));
-                    startActivity(intent);
-                    finish();
+                    notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
+                    notif_intent.putExtra("post",post);
+                    notif_intent.putExtra("time", CommonUtils.getTime(post.getTime()));
+                    notif_intent.putExtra("type",type);
+                    flag = true;
+                    worst_case = false;
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -615,8 +502,119 @@ public class SplashActivity extends AppCompatActivity {
                 Log.d(TAG,"failed to fetch the post");
             }
         });
-
     }
+
+    /**********************************************************************/
+
+    void handleIntent() {
+        String postType = "";
+        String collectionName="";
+        int type;
+        String postId = "";
+        String pdfUrl = "";
+        Bundle bundle = intent.getExtras();
+
+        if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
+            Uri uri = intent.getData();
+            try {
+                type = Integer.parseInt(uri.getQueryParameter("type"));
+                collectionName = getCollectionName(type);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                collectionName = "post";
+                type = 1;
+            }
+            if (collectionName.equals("post_club")) {
+
+                // http://ssnportal.cf/share.html?vca = K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d & vac=43
+                // http://ssnportal.cf/share.html?id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
+
+                //vca ==> id [club_id]
+                postId = uri.getQueryParameter("vca");
+                HashMap<String, Object> hmp = new HashMap<>();
+                hmp.put("time", uri.getQueryParameter("acv"));
+                hmp.put("post_id", uri.getQueryParameter("vac"));
+
+                FetchPostById(postId, collectionName, hmp, type);
+                return;
+            }
+
+            //vca ==> id [post_id]
+            postId = uri.getQueryParameter("vca");
+            FetchPostById(postId, collectionName, new HashMap<String, Object>(),type);
+            return;
+        }
+        if (bundle != null && SharedPref.getInt(this,"dont_delete","is_logged_in")==2) {
+            if (bundle.containsKey("PostType")) {
+                postType = intent.getStringExtra("PostType");
+            }
+            if (bundle.containsKey("PostId")) {
+                postId = intent.getStringExtra("PostId");
+            }
+            if (bundle.containsKey("PostUrl")) {
+                pdfUrl = intent.getStringExtra("PostUrl");
+            }
+
+            if (postType.equals("2")) {
+                notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
+                notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
+                DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
+                dataBaseHelper.addNotification(new Notification("2", postId, pdfUrl, new Post("Bus Post","", new Date(), "2", pdfUrl)));
+                flag = true;
+                worst_case = false;
+            }
+            else{
+                collectionName = getCollectionName(Integer.parseInt(postType));
+                FetchPostById(postId, collectionName, new HashMap<String, Object>(), Integer.parseInt(postType));
+            }
+        }
+        if (gifFromResource.isAnimationCompleted())
+            passIntent();
+    }
+
+    public void passIntent() {
+        if(!CommonUtils.getIs_blocked()) {
+            worst_case = false;
+            if (notif_intent != null) {
+                startActivity(notif_intent);
+                finish();
+                Bungee.slideLeft(SplashActivity.this);
+            }
+            else if (!CommonUtils.alerter(getApplicationContext())) {
+                if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
+                    if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
+                        startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
+                        finish();
+                        Bungee.fade(this);
+                    } else {
+                        startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+                        finish();
+                        Bungee.fade(this);
+                    }
+                } else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    intent.putExtra("is_log_in", true);
+                    startActivity(intent);
+                    finish();
+                    Bungee.slideLeft(this);
+                } else {
+                    startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
+                    finish();
+                    Bungee.slideLeft(this);
+                }
+            }
+            else {
+                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                intent.putExtra("key", "splash");
+                startActivity(intent);
+                finish();
+                Bungee.fade(SplashActivity.this);
+            }
+        }
+    }
+
+    /**********************************************************************/
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -644,27 +642,5 @@ public class SplashActivity extends AppCompatActivity {
                     passIntent();
             }
         }, 5000);
-    }
-
-
-    public String getCollectionName(String type){
-
-        //  1   -> post
-        //  2   -> placement
-        //  3   -> club
-        //  4   -> post_club
-        //  5   -> exam_cell
-        //  6   -> workshop
-
-        switch (type){
-            case "1":return "post";
-            case "2":return "placement";
-            case "3":return "club";
-            case "4":return "post_club";
-            case "5":return "exam_cell";
-            case "6":return "workshop";
-        }
-
-        return "post";
     }
 }

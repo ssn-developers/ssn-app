@@ -27,6 +27,7 @@
 
             <RelativeLayout
                 android:id="@+id/layout_page_detail"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
                 android:layout_width="match_parent"
@@ -102,7 +103,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
-                        android:background="@null"
                         android:textColor="#000000"
                         android:fontFamily="@font/open_sans_bold"
                         android:textSize="@dimen/_16ssp"
@@ -113,12 +113,10 @@
                         android:id="@+id/tv_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@null"
                         android:layout_below="@id/tv_title"
                         android:textColor="@color/colorAccentText"
                         android:fontFamily="@font/open_sans"
-                        android:textSize="@dimen/_10ssp"
-                        android:maxLines="3" />
+                        android:textSize="@dimen/_10ssp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -161,7 +159,6 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/open_sans_semi_bold"
                                 android:layout_marginStart="@dimen/_4sdp"
-                                android:text="Followers"
                                 android:textColor="@color/light_grey"
                                 android:textSize="@dimen/_12ssp" />
 
@@ -228,7 +225,6 @@
                             android:layout_below="@id/tool_tv_title"
                             android:textColor="@color/colorAccentText"
                             android:fontFamily="@font/open_sans"
-                            android:text="No posts"
                             android:layout_marginEnd="@dimen/_35sdp"
                             android:textSize="@dimen/_9ssp" />
 

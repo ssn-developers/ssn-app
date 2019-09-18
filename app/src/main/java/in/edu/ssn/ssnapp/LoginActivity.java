@@ -133,9 +133,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     }
                                 },500);
                             }
-                        },800);
+                        },500);
                     }
-                },500);
+                },300);
             }
         }, 300);
     }

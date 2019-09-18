@@ -17,6 +17,8 @@ import in.edu.ssn.ssnapp.adapters.AboutAlumniAdapter;
 import in.edu.ssn.ssnapp.adapters.AboutContributorAdapter;
 import in.edu.ssn.ssnapp.models.AlumniDetails;
 import in.edu.ssn.ssnapp.models.TeamDetails;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class AppInfoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -165,7 +167,7 @@ public class AppInfoActivity extends AppCompatActivity implements View.OnClickLi
 
         url= new ArrayList<>();
         url.add("https://dribbble.com/Shibikannan");
-        url.add("https://www.instagram.com/shibi_ssn");
+        url.add("https://www.instagram.com/thechromaexplorer");
         url.add("https://www.linkedin.com/in/shibikannan-t-m-a79493155");
         teams2.add(new TeamDetails("Shibikannan T M","Motion Graphic Designs",R.drawable.shibi_profile, type, url));
 
@@ -193,22 +195,40 @@ public class AppInfoActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_web:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.ssn.edu.in")));
-                break;
-            case R.id.iv_fb:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/SSNInstitution")));
-                break;
-            case R.id.iv_twit:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://twitter.com/ssninstitutions")));
-                break;
-            case R.id.iv_linkedin:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.linkedin.com/school/ssn-college-of-engineering")));
-                break;
-            case R.id.iv_insta:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/ssninstitutions")));
-                break;
+        if(!CommonUtils.alerter(getApplicationContext())) {
+            switch (v.getId()) {
+                case R.id.iv_web:
+                    SharedPref.putString(getApplicationContext(), "url", "http://www.ssn.edu.in");
+                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    Bungee.slideLeft(AppInfoActivity.this);
+                    break;
+                case R.id.iv_fb:
+                    SharedPref.putString(getApplicationContext(), "url", "https://www.facebook.com/SSNInstitution");
+                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    Bungee.slideLeft(AppInfoActivity.this);
+                    break;
+                case R.id.iv_twit:
+                    SharedPref.putString(getApplicationContext(), "url", "https://twitter.com/ssninstitutions");
+                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    Bungee.slideLeft(AppInfoActivity.this);
+                    break;
+                case R.id.iv_linkedin:
+                    SharedPref.putString(getApplicationContext(), "url", "https://www.linkedin.com/school/ssn-college-of-engineering");
+                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    Bungee.slideLeft(AppInfoActivity.this);
+                    break;
+                case R.id.iv_insta:
+                    SharedPref.putString(getApplicationContext(), "url", "https://www.instagram.com/ssninstitutions");
+                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    Bungee.slideLeft(AppInfoActivity.this);
+                    break;
+            }
+        }
+        else{
+            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+            intent.putExtra("key","appinfo");
+            startActivity(intent);
+            Bungee.fade(AppInfoActivity.this);
         }
     }
 

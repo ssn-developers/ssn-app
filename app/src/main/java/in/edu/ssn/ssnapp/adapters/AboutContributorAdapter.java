@@ -14,8 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.StudentHomeActivity;
+import in.edu.ssn.ssnapp.WebViewActivity;
 import in.edu.ssn.ssnapp.models.TeamDetails;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContributorAdapter.ContributionViewHolder> implements View.OnClickListener{
 
@@ -80,24 +86,35 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.iv_img1:
-                if (v.getTag() != null) {
-                    CharSequence seq = "dribbble";
-                    if (!(v.getTag().toString().contains(seq)))
-                        context.startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", v.getTag().toString(), null)));
-                    else
-                        context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(v.getTag().toString())));
-                }
-                break;
-            case R.id.iv_img2:
-                if (v.getTag() != null)
-                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(v.getTag().toString())));
-                break;
-            case R.id.iv_img3:
-                if (v.getTag() != null)
-                    context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(v.getTag().toString())));
-                break;
+        if(!CommonUtils.alerter(context)) {
+            switch (v.getId()) {
+                case R.id.iv_img1:
+                    if (v.getTag() != null) {
+                        CharSequence seq = "dribbble";
+                        if (!(v.getTag().toString().contains(seq)))
+                            context.startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", v.getTag().toString(), null)));
+                        else {
+                            SharedPref.putString(context, "url", v.getTag().toString());
+                            context.startActivity(new Intent(context, WebViewActivity.class));
+                            Bungee.slideLeft(context);
+                        }
+                    }
+                    break;
+                case R.id.iv_img2:
+                case R.id.iv_img3:
+                    if (v.getTag() != null) {
+                        SharedPref.putString(context, "url", v.getTag().toString());
+                        context.startActivity(new Intent(context, WebViewActivity.class));
+                        Bungee.slideLeft(context);
+                    }
+                    break;
+            }
+        }
+        else{
+            Intent intent = new Intent(context, NoNetworkActivity.class);
+            intent.putExtra("key","appinfo");
+            context.startActivity(intent);
+            Bungee.fade(context);
         }
     }
 }
