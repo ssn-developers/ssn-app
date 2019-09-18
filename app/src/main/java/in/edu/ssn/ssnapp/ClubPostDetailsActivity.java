@@ -91,7 +91,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
         initUI();
 
-        setUpFirestore();
+        //setUpFirestore();
     }
 
     void initUI() {
@@ -523,6 +523,12 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         });
 
         return chip;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setUpFirestore();
     }
 
     @Override

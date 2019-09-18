@@ -119,10 +119,14 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         commentListAuthor.setText(expandedListText.get("author").toString());
         commentListDescription.setText(expandedListText.get("message").toString());
 
-        Timestamp timestamp=(Timestamp) expandedListText.get("time");
-        replyTime.setText(FCMHelper.getTime(timestamp.toDate()));
 
-
+        try {
+            // timestamp cannot be cast to date sometimes
+            Timestamp timestamp = (Timestamp) expandedListText.get("time");
+            replyTime.setText(FCMHelper.getTime(timestamp.toDate()));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
 
         final TextDrawable.IBuilder builder = TextDrawable.builder()
@@ -221,42 +225,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         tv_time.setText(FCMHelper.getTime(commentArrayList.get(listPosition).getTime()));
 
 
-        /*
-        final EditText edt_reply=convertView.findViewById(R.id.edt_reply);
-        final Button btn_reply=convertView.findViewById(R.id.btn_post_reply);
-        final RelativeLayout rl_reply=convertView.findViewById(R.id.rl_reply);
-
-        rl_reply.setVisibility(View.GONE);
-
-
-        btn_reply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                final HashMap<String,Object> temp=new HashMap<>();
-                temp.put("author", SharedPref.getString(context,"email"));
-                temp.put("message",edt_reply.getText().toString());
-                temp.put("time", Calendar.getInstance().getTime());
-                commentArrayList.get(listPosition).getReply().add(temp);
-
-                FirebaseFirestore.getInstance().collection("post_club").document(clubPost.getId()).update("comment",commentArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Log.d("Test","success");
-                    }
-                });
-
-            }
-        });
-
-        tv_reply.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                rl_reply.setVisibility(View.VISIBLE);
-            }
-        });
-
-        */
 
         return convertView;
     }
