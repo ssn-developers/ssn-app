@@ -395,98 +395,13 @@ public class SplashActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    Post post = new Post();
-                    post.setId(postId);
-                    post.setTitle(snapshot.getString("title"));
-                    post.setDescription(snapshot.getString("description"));
-                    DocumentSnapshot.ServerTimestampBehavior behavior = ESTIMATE;
-                    post.setTime(snapshot.getDate("time", behavior));
-
-                    ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                    if(images != null && images.size() > 0)
-                        post.setImageUrl(images);
-                    else
-                        post.setImageUrl(null);
-
-                    try {
-                        ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
-                        if (files != null && files.size() != 0) {
-                            ArrayList<String> fileName = new ArrayList<>();
-                            ArrayList<String> fileUrl = new ArrayList<>();
-
-                            for (int i = 0; i < files.size(); i++) {
-                                fileName.add(files.get(i).get("name"));
-                                fileUrl.add(files.get(i).get("url"));
-                            }
-                            post.setFileName(fileName);
-                            post.setFileUrl(fileUrl);
-                        }
-                        else {
-                            post.setFileName(null);
-                            post.setFileUrl(null);
-                        }
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                        post.setFileName(null);
-                        post.setFileUrl(null);
-                    }
-
-                    try {
-                        ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
-                        if (dept != null && dept.size() != 0)
-                            post.setDept(dept);
-                        else
-                            post.setDept(null);
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                        post.setDept(null);
-                    }
-
-                    try {
-                        ArrayList<String> years = new ArrayList<>();
-                        Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
-                        for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
-                            if (entry.getValue().booleanValue())
-                                years.add((String) entry.getKey());
-                        }
-                        Collections.sort(years);
-                        post.setYear(years);
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-
-                    try {
-                        String email = snapshot.getString("author");
-                        post.setAuthor_image_url(email);
-
-                        String name = SharedPref.getString(getApplicationContext(), "faculty_name", email);
-                        if (name != null && !name.equals(""))
-                            post.setAuthor(name);
-                        else
-                            post.setAuthor(email.split("@")[0]);
-
-                        String position = SharedPref.getString(getApplicationContext(), "faculty_position", email);
-                        if (position != null && !position.equals(""))
-                            post.setPosition(position);
-                        else
-                            post.setPosition("Faculty");
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                        post.setAuthor_image_url("");
-                        post.setAuthor("");
-                        post.setPosition("Faculty");
-                    }
+                    Post post = CommonUtils.getPostFromSnapshot(getApplicationContext(), snapshot);
 
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
                     dataBaseHelper.addNotification(new Notification("1",postId,"",post));
 
                     notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     notif_intent.putExtra("post",post);
-                    notif_intent.putExtra("time", CommonUtils.getTime(post.getTime()));
                     notif_intent.putExtra("type",type);
                     flag = true;
                     worst_case = false;

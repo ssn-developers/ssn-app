@@ -63,7 +63,6 @@ public class PostDetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_post_details);
 
         post = getIntent().getParcelableExtra("post");
-        String time = getIntent().getStringExtra("time");
         final int type = getIntent().getIntExtra("type",0);
 
         initUI();
@@ -72,6 +71,7 @@ public class PostDetailsActivity extends BaseActivity {
         tv_description.setText(post.getDescription().trim());
         tv_author.setText(post.getAuthor().trim());
         tv_position.setText(post.getPosition().trim());
+        tv_time.setText(CommonUtils.getTime(post.getTime()));
 
         try {
             final TextDrawable.IBuilder builder = TextDrawable.builder()
@@ -165,8 +165,6 @@ public class PostDetailsActivity extends BaseActivity {
         }
         else
             layout_receive.setVisibility(View.GONE);
-
-        tv_time.setText(time);
 
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override

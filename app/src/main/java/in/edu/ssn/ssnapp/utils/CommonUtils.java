@@ -37,6 +37,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.common.io.BaseEncoding;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,12 +48,17 @@ import java.io.FileWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
+
+import static com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBehavior.ESTIMATE;
 
 public class CommonUtils {
 
@@ -191,6 +197,101 @@ public class CommonUtils {
             case 7 : return "post_bus";
             default : return "post";
         }
+    }
+
+    /************************************************************************/
+    //Return Object
+
+    public static Post getPostFromSnapshot(Context context, DocumentSnapshot snapshot){
+        Post post = new Post();
+        post.setId(snapshot.getString("id"));
+        post.setTitle(snapshot.getString("title"));
+        post.setDescription(snapshot.getString("description"));
+        DocumentSnapshot.ServerTimestampBehavior behavior = ESTIMATE;
+        post.setTime(snapshot.getDate("time", behavior));
+
+        ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
+        if(images != null && images.size() > 0)
+            post.setImageUrl(images);
+        else
+            post.setImageUrl(new ArrayList<String>());
+
+        try {
+            ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
+            if (files != null && files.size() != 0) {
+                ArrayList<String> fileName = new ArrayList<>();
+                ArrayList<String> fileUrl = new ArrayList<>();
+
+                for (int i = 0; i < files.size(); i++) {
+                    fileName.add(files.get(i).get("name"));
+                    fileUrl.add(files.get(i).get("url"));
+                }
+                post.setFileName(fileName);
+                post.setFileUrl(fileUrl);
+            }
+            else {
+                post.setFileName(new ArrayList<String>());
+                post.setFileUrl(new ArrayList<String>());
+            }
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            post.setFileName(new ArrayList<String>());
+            post.setFileUrl(new ArrayList<String>());
+        }
+
+        try {
+            ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
+            if (dept != null && dept.size() != 0)
+                post.setDept(dept);
+            else
+                post.setDept(new ArrayList<String>());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            post.setDept(new ArrayList<String>());
+        }
+
+        try {
+            ArrayList<String> years = new ArrayList<>();
+            Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
+            for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
+                if (entry.getValue().booleanValue())
+                    years.add((String) entry.getKey());
+            }
+            Collections.sort(years);
+            post.setYear(years);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            post.setYear(new ArrayList<String>());
+        }
+
+        try {
+            String email = snapshot.getString("author");
+            post.setAuthor_image_url(email);
+
+            String name = SharedPref.getString(context, "faculty_name", email);
+            if (name != null && !name.equals(""))
+                post.setAuthor(name);
+            else if(email!=null)
+                post.setAuthor(email.split("@")[0]);
+            else
+                post.setAuthor("");
+
+            String position = SharedPref.getString(context, "faculty_position", email);
+            if (position != null && !position.equals(""))
+                post.setPosition(position);
+            else
+                post.setPosition("Faculty");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            post.setAuthor_image_url("");
+            post.setAuthor("");
+            post.setPosition("Faculty");
+        }
+        return post;
     }
 
     /************************************************************************/
