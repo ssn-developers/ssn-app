@@ -154,4 +154,24 @@ public class CommonUtils {
     public static void setIs_blocked(Boolean is_blocked) {
         CommonUtils.is_blocked = is_blocked;
     }
+
+
+    public static String getNameFromEmail(String email){
+
+        String name=" ";
+
+        email = email.substring(0, email.indexOf("@"));
+        for (int j = 0; j < email.length(); j++) {
+            if (Character.isDigit(email.charAt(j))) {
+                name = email.substring(0, j);
+                break;
+            }
+        }
+        if (name.isEmpty())
+            name = email;
+
+        Character.toUpperCase(name.charAt(0));
+
+        return name;
+    }
 }

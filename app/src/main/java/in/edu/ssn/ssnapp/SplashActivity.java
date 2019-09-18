@@ -87,6 +87,7 @@ import java.util.concurrent.TimeUnit;
 
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.database.Notification;
+import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.Faculty;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
@@ -341,17 +342,46 @@ public class SplashActivity extends AppCompatActivity {
     /**********************************************************************/
 
     void handleIntent() {
+
+        //  1   -> post
+        //  2   -> placement
+        //  3   -> club
+        //  4   -> post_club
+        //  5   -> exam_cell
+        //  6   -> workshop
+
+
         String postType = "";
+        String collectionName="";
         String postId = "";
         String pdfUrl = "";
         Bundle bundle = intent.getExtras();
 
         if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
             Uri uri=intent.getData();
+
             postId=uri.getQueryParameter("id");
+            collectionName=getCollectionName(uri.getQueryParameter("type"));
+
+            if(collectionName.equals("post_club")){
+
+
+                // http://ssnportal.cf/share.html?id = K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d & vca=43
+                // http://ssnportal.cf/share.html?id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
+                HashMap<String,Object> hmp=new HashMap<>();
+                hmp.put("time",uri.getQueryParameter("acv"));
+                hmp.put("post_id",uri.getQueryParameter("vca"));
+
+                flag = false;
+                worst_case = false;
+                FetchPostById(postId,collectionName,hmp);
+                return;
+
+            }
+
             flag = false;
             worst_case = false;
-            FetchPostById(postId);
+            FetchPostById(postId,collectionName,new HashMap<String, Object>());
             return;
         }
         if (bundle != null && SharedPref.getInt(this,"dont_delete","is_logged_in")==2) {
@@ -368,7 +398,7 @@ public class SplashActivity extends AppCompatActivity {
             if (postType.equals("1")) {
                 flag = false;
                 worst_case = false;
-                FetchPostById(postId);
+                FetchPostById(postId,"post",new HashMap<String, Object>());
             }
             else if (postType.equals("2")) {
                 flag = false;
@@ -425,97 +455,159 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    void FetchPostById(final String postId){
-        FirebaseFirestore.getInstance().collection("post").document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+    void FetchPostById(final String postId, final String collectionName, final HashMap<String,Object> data){
+
+        //  1   -> post
+        //  2   -> placement
+        //  3   -> club
+        //  4   -> post_club
+        //  5   -> exam_cell
+        //  6   -> workshop
+
+        FirebaseFirestore.getInstance().collection(collectionName).document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                Post post = new Post();
-                post.setId(postId);
-                post.setTitle(snapshot.getString("title"));
-                post.setDescription(snapshot.getString("description"));
-                post.setTime(snapshot.getTimestamp("time").toDate());
 
-                ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if(images != null && images.size() > 0)
-                    post.setImageUrl(images);
-                else
-                    post.setImageUrl(null);
+                if(collectionName.equals("post_club")){
 
-                try {
-                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
-                    if (files != null && files.size() != 0) {
-                        ArrayList<String> fileName = new ArrayList<>();
-                        ArrayList<String> fileUrl = new ArrayList<>();
-
-                        for (int i = 0; i < files.size(); i++) {
-                            fileName.add(files.get(i).get("name"));
-                            fileUrl.add(files.get(i).get("url"));
-                        }
-                        post.setFileName(fileName);
-                        post.setFileUrl(fileUrl);
+                    final Club club = new Club();
+                    club.setId(snapshot.getString("id"));
+                    club.setName(snapshot.getString("name"));
+                    club.setDp_url(snapshot.getString("dp_url"));
+                    club.setCover_url(snapshot.getString("cover_url"));
+                    club.setContact(snapshot.getString("contact"));
+                    club.setDescription(snapshot.getString("description"));
+                    try {
+                        club.setFollowers((ArrayList<String>) snapshot.get("followers"));
                     }
-                    else {
+                    catch (Exception e){
+                        e.printStackTrace();
+                        club.setFollowers(null);
+                    }
+                    try {
+                        club.setHead((ArrayList<String>) snapshot.get("head"));
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        club.setHead(null);
+                    }
+
+
+
+                    if(collectionName.equals("post_club")){
+
+
+                        try{
+                            String time=data.get("time").toString();
+                            String post_id=data.get("post_id").toString();
+
+                            Intent intent=new Intent(SplashActivity.this,ClubPostDetailsActivity.class);
+                            intent.putExtra("data", post_id);
+                            intent.putExtra("time", time);
+                            intent.putExtra("club", club);
+
+                            startActivity(new Intent(SplashActivity.this,ClubPostDetailsActivity.class));
+
+
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
+                    }else{
+                        Intent intent=new Intent(SplashActivity.this,ClubPageActivity.class);
+                        intent.putExtra("data",club);
+                        startActivity(intent);
+                    }
+
+                }else{
+
+                    Post post = new Post();
+                    post.setId(postId);
+                    post.setTitle(snapshot.getString("title"));
+                    post.setDescription(snapshot.getString("description"));
+                    post.setTime(snapshot.getTimestamp("time").toDate());
+
+                    ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
+                    if(images != null && images.size() > 0)
+                        post.setImageUrl(images);
+                    else
+                        post.setImageUrl(null);
+
+                    try {
+                        ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
+                        if (files != null && files.size() != 0) {
+                            ArrayList<String> fileName = new ArrayList<>();
+                            ArrayList<String> fileUrl = new ArrayList<>();
+
+                            for (int i = 0; i < files.size(); i++) {
+                                fileName.add(files.get(i).get("name"));
+                                fileUrl.add(files.get(i).get("url"));
+                            }
+                            post.setFileName(fileName);
+                            post.setFileUrl(fileUrl);
+                        }
+                        else {
+                            post.setFileName(null);
+                            post.setFileUrl(null);
+                        }
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
                         post.setFileName(null);
                         post.setFileUrl(null);
                     }
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    post.setFileName(null);
-                    post.setFileUrl(null);
-                }
 
-                try {
-                    ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
-                    if (dept != null && dept.size() != 0)
-                        post.setDept(dept);
-                    else
-                        post.setDept(null);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    post.setDept(null);
-                }
-
-                try {
-                    ArrayList<String> years = new ArrayList<>();
-                    Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
-                    for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
-                        if (entry.getValue().booleanValue())
-                            years.add((String) entry.getKey());
+                    try {
+                        ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
+                        if (dept != null && dept.size() != 0)
+                            post.setDept(dept);
+                        else
+                            post.setDept(null);
                     }
-                    Collections.sort(years);
-                    post.setYear(years);
+                    catch (Exception e){
+                        e.printStackTrace();
+                        post.setDept(null);
+                    }
+
+                    try {
+                        ArrayList<String> years = new ArrayList<>();
+                        Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
+                        for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
+                            if (entry.getValue().booleanValue())
+                                years.add((String) entry.getKey());
+                        }
+                        Collections.sort(years);
+                        post.setYear(years);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
+
+                    String email = snapshot.getString("author");
+
+                    post.setAuthor_image_url(email);
+
+                    String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
+                    if(name!=null && !name.equals(""))
+                        post.setAuthor(name);
+                    else
+                        post.setAuthor(email.split("@")[0]);
+
+                    String position = SharedPref.getString(getApplicationContext(),"faculty_position",email);
+                    if(position!=null && !position.equals(""))
+                        post.setPosition(position);
+                    else
+                        post.setPosition("Faculty");
+
+                    DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
+                    dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));
+
+                    Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
+                    intent.putExtra("post",post);
+                    intent.putExtra("time", FCMHelper.getTime(post.getTime()));
+                    startActivity(intent);
+                    finish();
                 }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-
-                String email = snapshot.getString("author");
-
-                post.setAuthor_image_url(email);
-
-                String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
-                if(name!=null && !name.equals(""))
-                    post.setAuthor(name);
-                else
-                    post.setAuthor(email.split("@")[0]);
-
-                String position = SharedPref.getString(getApplicationContext(),"faculty_position",email);
-                if(position!=null && !position.equals(""))
-                    post.setPosition(position);
-                else
-                    post.setPosition("Faculty");
-
-                DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                dataBaseHelper.addNotification(new in.edu.ssn.ssnapp.database.Notification("1",postId,"",post));
-
-                Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
-                intent.putExtra("post",post);
-                intent.putExtra("time", FCMHelper.getTime(post.getTime()));
-                startActivity(intent);
-                finish();
-
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -523,6 +615,7 @@ public class SplashActivity extends AppCompatActivity {
                 Log.d(TAG,"failed to fetch the post");
             }
         });
+
     }
 
     @Override
@@ -551,5 +644,27 @@ public class SplashActivity extends AppCompatActivity {
                     passIntent();
             }
         }, 5000);
+    }
+
+
+    public String getCollectionName(String type){
+
+        //  1   -> post
+        //  2   -> placement
+        //  3   -> club
+        //  4   -> post_club
+        //  5   -> exam_cell
+        //  6   -> workshop
+
+        switch (type){
+            case "1":return "post";
+            case "2":return "placement";
+            case "3":return "club";
+            case "4":return "post_club";
+            case "5":return "exam_cell";
+            case "6":return "workshop";
+        }
+
+        return "post";
     }
 }
