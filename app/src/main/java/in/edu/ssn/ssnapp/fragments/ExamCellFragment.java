@@ -147,7 +147,7 @@ public class ExamCellFragment extends Fragment {
                 }
 
                 post.setAuthor_image_url("examcell@ssn.edu.in");
-                post.setAuthor("SSNCE CEO");
+                post.setAuthor("SSNCE COE");
                 post.setPosition("Exam cell team");
 
                 return post;

@@ -77,7 +77,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     // delete a post
     public void deletePost(String postID){
-        SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
+        SQLiteDatabase db = this.getWritableDatabase(Constants.DATABASE_PWD);
         int rowsDeleted=db.delete(SavedPost.SavedPostEntry.TABLE_NAME,SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID+"= ?",new String[]{postID});
         Log.d(TAG,"deleted rows cnt "+rowsDeleted);
     }

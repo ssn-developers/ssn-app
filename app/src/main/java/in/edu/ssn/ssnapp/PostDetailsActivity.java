@@ -64,7 +64,7 @@ public class PostDetailsActivity extends BaseActivity {
 
         post = getIntent().getParcelableExtra("post");
         String time = getIntent().getStringExtra("time");
-        final String type = getIntent().getStringExtra("type");
+        final int type = getIntent().getIntExtra("type",0);
 
         initUI();
 
@@ -91,7 +91,7 @@ public class PostDetailsActivity extends BaseActivity {
         if(post.getImageUrl()!=null && post.getImageUrl().size()!=0){
             imageViewPager.setVisibility(View.VISIBLE);
             tv_current_image.setVisibility(View.VISIBLE);
-            final ImageAdapter imageAdapter = new ImageAdapter(getApplicationContext(), post.getImageUrl(),0);
+            final ImageAdapter imageAdapter = new ImageAdapter(PostDetailsActivity.this, post.getImageUrl(),0);
             imageViewPager.setAdapter(imageAdapter);
 
             if(post.getImageUrl().size()==1)

@@ -340,18 +340,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    public String getCollectionName(int type){
-        switch (type){
-            case 2 : return "placement";
-            case 3 : return "club";
-            case 4 : return "post_club";
-            case 5 : return "exam_cell";
-            case 6 : return "workshop";
-            default : return "post";
-        }
-    }
-
-    void FetchPostById(final String postId, final String collectionName, final HashMap<String,Object> data, final int type){
+    public void FetchPostById(final String postId, final String collectionName, final HashMap<String,Object> data, final int type){
         String collection = collectionName;
         if(collectionName.equals("post_club"))
             collection = "club";
@@ -469,21 +458,28 @@ public class SplashActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    String email = snapshot.getString("author");
-                    Log.d("test_set",email);
-                    post.setAuthor_image_url(email);
+                    try {
+                        String email = snapshot.getString("author");
+                        post.setAuthor_image_url(email);
 
-                    String name = SharedPref.getString(getApplicationContext(),"faculty_name",email);
-                    if(name!=null && !name.equals(""))
-                        post.setAuthor(name);
-                    else
-                        post.setAuthor(email.split("@")[0]);
+                        String name = SharedPref.getString(getApplicationContext(), "faculty_name", email);
+                        if (name != null && !name.equals(""))
+                            post.setAuthor(name);
+                        else
+                            post.setAuthor(email.split("@")[0]);
 
-                    String position = SharedPref.getString(getApplicationContext(),"faculty_position",email);
-                    if(position!=null && !position.equals(""))
-                        post.setPosition(position);
-                    else
+                        String position = SharedPref.getString(getApplicationContext(), "faculty_position", email);
+                        if (position != null && !position.equals(""))
+                            post.setPosition(position);
+                        else
+                            post.setPosition("Faculty");
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        post.setAuthor_image_url("");
+                        post.setAuthor("");
                         post.setPosition("Faculty");
+                    }
 
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
                     dataBaseHelper.addNotification(new Notification("1",postId,"",post));
@@ -507,66 +503,84 @@ public class SplashActivity extends AppCompatActivity {
     /**********************************************************************/
 
     void handleIntent() {
-        String postType = "";
-        String collectionName="";
-        int type;
-        String postId = "";
+        int type=1;
         String pdfUrl = "";
+        String vca="",vac="",acv="";
+
+        String collectionName="";
+
         Bundle bundle = intent.getExtras();
+        Uri uri = null;
 
-        if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
-            Uri uri = intent.getData();
-            try {
-                type = Integer.parseInt(uri.getQueryParameter("type"));
-                collectionName = getCollectionName(type);
+        if((Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction()) || bundle != null) && SharedPref.getInt(this,"dont_delete","is_logged_in")==2){
+            if(Intent.ACTION_VIEW.equalsIgnoreCase(intent.getAction())) {
+                uri = intent.getData();
+                try {
+                    type = Integer.parseInt(uri.getQueryParameter("type"));
+                    collectionName = CommonUtils.getCollectionName(type);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    type = 1;
+                    collectionName = "post";
+                }
+
+                try {
+                    vca = uri.getQueryParameter("vca");
+                    acv = uri.getQueryParameter("acv");
+                    vac = uri.getQueryParameter("vac");
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
             }
-            catch (Exception e){
-                e.printStackTrace();
-                collectionName = "post";
-                type = 1;
+            else if(bundle != null){
+                try {
+                    if (bundle.containsKey("PostType")) {
+                        type = Integer.parseInt(intent.getStringExtra("PostType"));
+                        collectionName = CommonUtils.getCollectionName(type);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                    type = 1;
+                    collectionName = "post";
+                }
+
+                if (bundle.containsKey("vca"))
+                    vca = intent.getStringExtra("vca");
+                if (bundle.containsKey("PostUrl"))
+                    pdfUrl = intent.getStringExtra("PostUrl");
+
+                if (bundle.containsKey("vac"))
+                    vac = intent.getStringExtra("vac");
+                if (bundle.containsKey("acv"))
+                    acv = intent.getStringExtra("acv");
             }
-            if (collectionName.equals("post_club")) {
-
-                // http://ssnportal.cf/share.html?vca = K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d & vac=43
-                // http://ssnportal.cf/share.html?id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
-
-                //vca ==> id [club_id]
-                postId = uri.getQueryParameter("vca");
-                HashMap<String, Object> hmp = new HashMap<>();
-                hmp.put("time", uri.getQueryParameter("acv"));
-                hmp.put("post_id", uri.getQueryParameter("vac"));
-
-                FetchPostById(postId, collectionName, hmp, type);
+            else
                 return;
-            }
 
-            //vca ==> id [post_id]
-            postId = uri.getQueryParameter("vca");
-            FetchPostById(postId, collectionName, new HashMap<String, Object>(),type);
-            return;
-        }
-        if (bundle != null && SharedPref.getInt(this,"dont_delete","is_logged_in")==2) {
-            if (bundle.containsKey("PostType")) {
-                postType = intent.getStringExtra("PostType");
-            }
-            if (bundle.containsKey("PostId")) {
-                postId = intent.getStringExtra("PostId");
-            }
-            if (bundle.containsKey("PostUrl")) {
-                pdfUrl = intent.getStringExtra("PostUrl");
-            }
-
-            if (postType.equals("2")) {
+            if(pdfUrl!=null && !pdfUrl.equals("")){
                 notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-                dataBaseHelper.addNotification(new Notification("2", postId, pdfUrl, new Post("Bus Post","", new Date(), "2", pdfUrl)));
+                dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
                 flag = true;
                 worst_case = false;
             }
-            else{
-                collectionName = getCollectionName(Integer.parseInt(postType));
-                FetchPostById(postId, collectionName, new HashMap<String, Object>(), Integer.parseInt(postType));
+            else if (collectionName.equals("post_club")) {
+                // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
+                // http://ssnportal.cf/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
+
+                //vca ==> id [club_id]
+                //acv ==> id [time]
+                //vac ==> id [post_id]
+                HashMap<String, Object> hmp = new HashMap<>();
+                hmp.put("time", acv);
+                hmp.put("post_id", vac);
+                FetchPostById(vca, collectionName, hmp, type);
+            }
+            else if(!collectionName.equals("")){
+                FetchPostById(vca, collectionName, new HashMap<String, Object>(),type);
             }
         }
         if (gifFromResource.isAnimationCompleted())

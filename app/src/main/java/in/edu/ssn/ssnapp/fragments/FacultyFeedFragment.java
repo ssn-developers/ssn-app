@@ -178,8 +178,11 @@ public class FacultyFeedFragment extends Fragment {
                 String name = SharedPref.getString(getContext(),"faculty_name",id);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
-                else
-                    post.setAuthor(id.split("@")[0]);
+                else {
+                    String value = id.split("@")[0];
+                    value = value.substring(0,1).toUpperCase() + value.substring(1);
+                    post.setAuthor(value);
+                }
 
                 String position = SharedPref.getString(getContext(),"faculty_position",id);
                 if(position!=null && !position.equals(""))
@@ -256,6 +259,7 @@ public class FacultyFeedFragment extends Fragment {
                         Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                         intent.putExtra("post", model);
                         intent.putExtra("time", holder.tv_time.getText().toString());
+                        intent.putExtra("type",1);
                         startActivity(intent);
                         Bungee.slideLeft(getContext());
                     }

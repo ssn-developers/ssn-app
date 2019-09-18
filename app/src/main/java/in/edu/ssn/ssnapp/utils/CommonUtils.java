@@ -181,9 +181,21 @@ public class CommonUtils {
             return Long.toString(t/31536000000L) + "y ago";
     }
 
+    public static String getCollectionName(int type){
+        switch (type){
+            case 2 : return "placement";
+            case 3 : return "club";
+            case 4 : return "post_club";
+            case 5 : return "exam_cell";
+            case 6 : return "workshop";
+            case 7 : return "post_bus";
+            default : return "post";
+        }
+    }
+
     /************************************************************************/
 
-    public static void handleBottomSheet(View v,final Post post, int type, final Context context) {
+    public static void handleBottomSheet(View v, final Post post, final int type, final Context context) {
         RelativeLayout ll_save,ll_share;
         final TextView tv_save;
 
@@ -223,7 +235,7 @@ public class CommonUtils {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/share.html?type=1&vca=" + post.getId();
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: http://ssnportal.cf/share.html?type=" + type + "&vca=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }

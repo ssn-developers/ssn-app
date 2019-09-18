@@ -150,8 +150,11 @@ public class FacultySentPostFragment extends Fragment {
                 String name = SharedPref.getString(getContext(),"faculty_name",email);
                 if(name!=null && !name.equals(""))
                     post.setAuthor(name);
-                else
-                    post.setAuthor(email.split("@")[0]);
+                else {
+                    String value = email.split("@")[0];
+                    value = value.substring(0,1).toUpperCase() + value.substring(1);
+                    post.setAuthor(value);
+                }
 
                 String position = SharedPref.getString(getContext(),"faculty_position",email);
                 if(position!=null && !position.equals(""))

@@ -96,29 +96,45 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag == 1) {
-                    Intent intent = new Intent(context, PostDetailsActivity.class);
-                    intent.putExtra("time", id);
-                    intent.putExtra("post", model);
-                    intent.putExtra("type", model);
+                if(flag == 0){
+                    Intent intent = new Intent(context, OpenImageActivity.class);
+                    intent.putExtra("url", images.get(position));
+                    intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-                    Bungee.slideLeft(context);
+                    try {
+                        Bungee.slideLeft(context);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
-                else if(flag == 2) {
+                else if(flag == 4){
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
                     intent.putExtra("club", c_model);
                     intent.putExtra("time", id);
                     intent.putExtra("data", timer);
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-                    Bungee.slideLeft(context);
+                    try {
+                        Bungee.slideLeft(context);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
-                else{
-                    Intent intent = new Intent(context, OpenImageActivity.class);
-                    intent.putExtra("url", images.get(position));
+                else {
+                    Intent intent = new Intent(context, PostDetailsActivity.class);
+                    intent.putExtra("time", id);
+                    intent.putExtra("post", model);
+                    intent.putExtra("type", flag);
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
-                    Bungee.slideLeft(context);
+                    try {
+                        Bungee.slideLeft(context);
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });

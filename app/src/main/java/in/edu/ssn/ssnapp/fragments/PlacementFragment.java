@@ -161,7 +161,7 @@ public class PlacementFragment extends Fragment {
                 if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),3, model, CommonUtils.getTime(model.getTime()));
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),2, model, CommonUtils.getTime(model.getTime()));
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if(model.getImageUrl().size()==1){

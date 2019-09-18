@@ -63,7 +63,7 @@ public class NotifyAdapter extends ArrayAdapter<Post> {
             @Override
             public void onClick(View v) {
                 Post drawer=getItem(position);
-                if(postType.get(position).equals("2")) {
+                if(postType.get(position).equals("7")) {
                     Intent intent = new Intent(getContext(), PdfViewerActivity.class);
                     intent.putExtra(Constants.PDF_URL,drawer.getFileUrl().get(0));
                     getContext().startActivity(intent);
