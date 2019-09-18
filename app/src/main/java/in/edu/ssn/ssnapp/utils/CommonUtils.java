@@ -53,6 +53,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
@@ -224,7 +225,10 @@ public class CommonUtils {
                 ArrayList<String> fileUrl = new ArrayList<>();
 
                 for (int i = 0; i < files.size(); i++) {
-                    fileName.add(files.get(i).get("name"));
+                    String name = files.get(i).get("name");
+                    if(name.length() > 13)
+                        name = name.substring(0,name.length()-13);
+                    fileName.add(name);
                     fileUrl.add(files.get(i).get("url"));
                 }
                 post.setFileName(fileName);
@@ -255,12 +259,30 @@ public class CommonUtils {
 
         try {
             ArrayList<String> years = new ArrayList<>();
-            Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
-            for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
-                if (entry.getValue().booleanValue())
-                    years.add((String) entry.getKey());
+            Map<String, Boolean> year = (HashMap<String, Boolean>) snapshot.get("year");
+            TreeMap<String, Boolean> sorted_year = new TreeMap<>(year);
+            for (Map.Entry<String, Boolean> entry : sorted_year.entrySet()) {
+                if (entry.getValue().booleanValue()) {
+
+                    //Change it yearly once using force_update
+                    switch (entry.getKey()){
+                        case Constants.fourth:
+                            years.add("IV");
+                            break;
+                        case Constants.third:
+                            years.add("III");
+                            break;
+                        case Constants.second:
+                            years.add("II");
+                            break;
+                        case Constants.first:
+                            years.add("I");
+                            break;
+                    }
+                }
             }
-            Collections.sort(years);
+            if(years.size() > 1)
+                Collections.reverse(years);
             post.setYear(years);
         }
         catch (Exception e){
