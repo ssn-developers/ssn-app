@@ -84,70 +84,7 @@ public class WorkshopFragment extends Fragment {
             @Override
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
-
-                final Post post = new Post();
-                post.setId(snapshot.getString("id"));
-                post.setTitle(snapshot.getString("title"));
-                post.setDescription(snapshot.getString("description"));
-                post.setTime(snapshot.getTimestamp("time").toDate());
-
-                ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if(images != null && images.size() != 0)
-                    post.setImageUrl(images);
-                else
-                    post.setImageUrl(null);
-
-                try {
-                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
-                    if (files != null && files.size() != 0) {
-                        ArrayList<String> fileName = new ArrayList<>();
-                        ArrayList<String> fileUrl = new ArrayList<>();
-
-                        for (int i = 0; i < files.size(); i++) {
-                            String name = files.get(i).get("name");
-                            if(name.length() > 13)
-                                name = name.substring(0,name.length()-13);
-                            fileName.add(name);
-                            fileUrl.add((String) files.get(i).get("url"));
-                        }
-                        post.setFileName(fileName);
-                        post.setFileUrl(fileUrl);
-                    }
-                    else {
-                        post.setFileName(null);
-                        post.setFileUrl(null);
-                    }
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    post.setFileName(null);
-                    post.setFileUrl(null);
-                }
-
-                post.setDept(null);
-                post.setYear(null);
-
-                String id = snapshot.getString("author");
-
-                post.setAuthor_image_url(id);
-
-                String name = SharedPref.getString(getContext(),"faculty_name",id);
-                if(name!=null && !name.equals("")) {
-                    post.setAuthor(name);
-                }
-                else {
-                    String value = id.split("@")[0];
-                    value = value.substring(0,1).toUpperCase() + value.substring(1);
-                    post.setAuthor(value);
-                }
-
-                String position = SharedPref.getString(getContext(),"faculty_position",id);
-                if(position!=null && !position.equals(""))
-                    post.setPosition(position);
-                else
-                    post.setPosition("Faculty");
-
-                return post;
+                return CommonUtils.getPostFromSnapshot(getContext(), snapshot);
             }
         })
         .build();
@@ -215,7 +152,6 @@ public class WorkshopFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                         intent.putExtra("post", model);
-                        intent.putExtra("time", holder.tv_time.getText().toString());
                         intent.putExtra("type",6);
                         startActivity(intent);
                         Bungee.slideLeft(getContext());

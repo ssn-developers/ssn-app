@@ -81,71 +81,7 @@ public class ExamCellFragment extends Fragment {
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
 
-                final Post post = new Post();
-                post.setId(snapshot.getString("id"));
-                post.setTitle(snapshot.getString("title"));
-                post.setDescription(snapshot.getString("description"));
-                post.setTime(snapshot.getTimestamp("time").toDate());
-
-                ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if(images != null && images.size() != 0)
-                    post.setImageUrl(images);
-                else
-                    post.setImageUrl(null);
-
-                try {
-                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
-                    if (files != null && files.size() != 0) {
-                        ArrayList<String> fileName = new ArrayList<>();
-                        ArrayList<String> fileUrl = new ArrayList<>();
-
-                        for (int i = 0; i < files.size(); i++) {
-                            String name = files.get(i).get("name");
-                            if(name.length() > 13)
-                                name = name.substring(0,name.length()-13);
-                            fileName.add(name);
-                            fileUrl.add((String) files.get(i).get("url"));
-                        }
-                        post.setFileName(fileName);
-                        post.setFileUrl(fileUrl);
-                    }
-                    else {
-                        post.setFileName(null);
-                        post.setFileUrl(null);
-                    }
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    post.setFileName(null);
-                    post.setFileUrl(null);
-                }
-
-                try {
-                    ArrayList<String> dept = (ArrayList<String>) snapshot.get("dept");
-                    if (dept != null && dept.size() != 0)
-                        post.setDept(dept);
-                    else
-                        post.setDept(null);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    post.setDept(null);
-                }
-
-                try {
-                    ArrayList<String> years = new ArrayList<>();
-                    Map<Object, Boolean> year = (HashMap<Object, Boolean>) snapshot.get("year");
-                    for (Map.Entry<Object, Boolean> entry : year.entrySet()) {
-                        if (entry.getValue().booleanValue())
-                            years.add((String) entry.getKey());
-                    }
-                    Collections.sort(years);
-                    post.setYear(years);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-
+                final Post post = CommonUtils.getPostFromSnapshot(getContext(),snapshot);
                 post.setAuthor_image_url("examcell@ssn.edu.in");
                 post.setAuthor("SSNCE COE");
                 post.setPosition("Exam cell team");
@@ -210,7 +146,7 @@ public class ExamCellFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                         intent.putExtra("post", model);
-                        intent.putExtra("time", holder.tv_time.getText().toString());
+                        intent.putExtra("type", 5);
                         startActivity(intent);
                         Bungee.slideLeft(getContext());
                     }
