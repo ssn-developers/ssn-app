@@ -340,7 +340,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    public void FetchPostById(final String postId, final String collectionName, final HashMap<String,Object> data, final int type){
+    public void FetchPostById(final String postId, final String collectionName, final String post_id, final int type){
         String collection = collectionName;
         if(collectionName.equals("post_club"))
             collection = "club";
@@ -353,13 +353,10 @@ public class SplashActivity extends AppCompatActivity {
 
                     if(collectionName.equals("post_club")){
                         try{
-                            String time=data.get("time").toString();
-                            String post_id=data.get("post_id").toString();
-
                             notif_intent=new Intent(SplashActivity.this, ClubPostDetailsActivity.class);
                             notif_intent.putExtra("data", post_id);
-                            notif_intent.putExtra("time", time);
                             notif_intent.putExtra("club", club);
+                            notif_intent.putExtra("type", type);
                             flag = true;
                             worst_case = false;
                         }
@@ -400,7 +397,7 @@ public class SplashActivity extends AppCompatActivity {
     void handleIntent() {
         int type=1;
         String pdfUrl = "";
-        String vca="",vac="",acv="";
+        String vca="",vac="";
 
         String collectionName="";
 
@@ -421,7 +418,6 @@ public class SplashActivity extends AppCompatActivity {
 
                 try {
                     vca = uri.getQueryParameter("vca");
-                    acv = uri.getQueryParameter("acv");
                     vac = uri.getQueryParameter("vac");
                 }
                 catch (Exception e){
@@ -443,13 +439,10 @@ public class SplashActivity extends AppCompatActivity {
 
                 if (bundle.containsKey("vca"))
                     vca = intent.getStringExtra("vca");
-                if (bundle.containsKey("PostUrl"))
-                    pdfUrl = intent.getStringExtra("PostUrl");
-
                 if (bundle.containsKey("vac"))
                     vac = intent.getStringExtra("vac");
-                if (bundle.containsKey("acv"))
-                    acv = intent.getStringExtra("acv");
+                if (bundle.containsKey("PostUrl"))
+                    pdfUrl = intent.getStringExtra("PostUrl");
             }
             else
                 return;
@@ -467,15 +460,11 @@ public class SplashActivity extends AppCompatActivity {
                 // http://ssnportal.cf/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
 
                 //vca ==> id [club_id]
-                //acv ==> id [time]
                 //vac ==> id [post_id]
-                HashMap<String, Object> hmp = new HashMap<>();
-                hmp.put("time", acv);
-                hmp.put("post_id", vac);
-                FetchPostById(vca, collectionName, hmp, type);
+                FetchPostById(vca, collectionName, vac, type);
             }
             else if(!collectionName.equals("")){
-                FetchPostById(vca, collectionName, new HashMap<String, Object>(),type);
+                FetchPostById(vca, collectionName, vac, type);
             }
         }
         if (gifFromResource.isAnimationCompleted())

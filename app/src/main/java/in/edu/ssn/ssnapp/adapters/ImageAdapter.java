@@ -111,7 +111,6 @@ public class ImageAdapter extends PagerAdapter {
                 else if(flag == 4){
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
                     intent.putExtra("club", c_model);
-                    intent.putExtra("time", id);
                     intent.putExtra("data", timer);
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
@@ -124,7 +123,6 @@ public class ImageAdapter extends PagerAdapter {
                 }
                 else {
                     Intent intent = new Intent(context, PostDetailsActivity.class);
-                    intent.putExtra("time", id);
                     intent.putExtra("post", model);
                     intent.putExtra("type", flag);
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
@@ -142,7 +140,7 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if(flag == 1)
+                if(flag != 0 && flag != 4)
                     CommonUtils.handleBottomSheet(v,model,flag,context);
                 return true;
             }
