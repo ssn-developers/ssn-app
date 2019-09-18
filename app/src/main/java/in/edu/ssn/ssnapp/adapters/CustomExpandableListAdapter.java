@@ -17,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
@@ -116,7 +117,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView commentListDescription =  convertView.findViewById(R.id.commentListDescription);
         ImageView iv_dp=convertView.findViewById(R.id.iv_reply_dp);
 
-        commentListAuthor.setText(expandedListText.get("author").toString());
+
+        commentListAuthor.setText(CommonUtils.getNameFromEmail(expandedListText.get("author").toString()));
         commentListDescription.setText(expandedListText.get("message").toString());
 
 
@@ -180,9 +182,13 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         TextView tv_time=convertView.findViewById(R.id.tv_time);
         ImageView iv_dp=convertView.findViewById(R.id.iv_dp);
 
+
         final EditText edt_comment=activity.findViewById(R.id.edt_comment);
         final TextView tv_reply_selected=activity.findViewById(R.id.tv_reply_selected);
+        final TextView tv_replier_name=activity.findViewById(R.id.tv_replier_name);
         final ImageView iv_cancel_reply=activity.findViewById(R.id.iv_cancel);
+        final CardView cv_reply=activity.findViewById(R.id.cv_reply);
+
 
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
@@ -203,25 +209,37 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 InputMethodManager imm = (InputMethodManager) edt_comment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(edt_comment, InputMethodManager.SHOW_IMPLICIT);
 
-                tv_reply_selected.setVisibility(View.VISIBLE);
-                iv_cancel_reply.setVisibility(View.VISIBLE);
+                //tv_reply_selected.setVisibility(View.VISIBLE);
+                //iv_cancel_reply.setVisibility(View.VISIBLE);
+                cv_reply.setVisibility(View.VISIBLE);
+
+                if(comment.getAuthor()==SharedPref.getString(context,"email"))
+                    tv_replier_name.setText("You");
+                else
+                    tv_replier_name.setText(CommonUtils.getNameFromEmail(comment.getAuthor()));
+
                 tv_reply_selected.setText(comment.getMessage()+" ");
 
 
                 replyingForComment=true;
                 selectedCommentPosition=listPosition;
-
-
             }
         });
 
 
 
         listTitleTextView.setTypeface(null, Typeface.BOLD);
-        listTitleTextView.setText(comment.getAuthor());
+        listTitleTextView.setText(CommonUtils.getNameFromEmail(comment.getAuthor()));
         listDescription.setText(comment.getMessage());
 
-        tv_reply_count.setText(commentArrayList.get(listPosition).getReply().size()+" ");
+
+        if(commentArrayList.get(listPosition).getReply().size() > 1)
+            tv_reply_count.setText(commentArrayList.get(listPosition).getReply().size()+" replies");
+        else if(commentArrayList.get(listPosition).getReply().size() == 1)
+            tv_reply_count.setText(commentArrayList.get(listPosition).getReply().size()+" reply");
+        else
+            tv_reply_count.setText("No reply");
+
         tv_time.setText(FCMHelper.getTime(commentArrayList.get(listPosition).getTime()));
 
 

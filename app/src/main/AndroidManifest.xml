@@ -40,7 +40,7 @@
         <activity android:name=".BlockScreenActivity"/>
         <activity android:name=".ClubPageActivity" />
         <activity android:name=".BusRoutesActivity" />
-        <activity android:name=".ClubPostDetailsActivity" />
+        <activity android:name=".ClubPostDetailsActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".NoNetworkActivity" />
         <activity android:name=".HelpLineActivity" />
         <activity android:name=".SavedPostActivity" />

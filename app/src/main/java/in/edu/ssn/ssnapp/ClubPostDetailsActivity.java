@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
@@ -73,6 +74,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     ChipGroup attachmentsChipGroup;
     RelativeLayout textGroupRL;
     EditText et_Comment;
+    CardView cv_reply;
 
     Button postComment;
     ExpandableListView expandableListView;
@@ -122,15 +124,18 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_send=findViewById(R.id.iv_send);
         et_Comment=findViewById(R.id.edt_comment);
         iv_cancel_reply=findViewById(R.id.iv_cancel);
+        cv_reply=findViewById(R.id.cv_reply);
 
+        CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
 
         iv_cancel_reply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 tv_selected_reply.setText("");
-                tv_selected_reply.setVisibility(View.GONE);
-                iv_cancel_reply.setVisibility(View.GONE);
+                //tv_selected_reply.setVisibility(View.GONE);
+                //iv_cancel_reply.setVisibility(View.GONE);
+                cv_reply.setVisibility(View.GONE);
                 expandableListAdapter.setReplyingForComment(false);
             }
         });
@@ -138,7 +143,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //FirebaseFirestore.getInstance().collection("contact").document(i).update("number", FieldValue.arrayRemove(Integer.parseInt(edt_phone.getText().toString())))
 
 
                 Boolean replyingForComment=expandableListAdapter.getReplyingForComment();
@@ -146,7 +150,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
                 if(replyingForComment==null)
                     replyingForComment=false;
 
-                if(replyingForComment==false){
+                if(!replyingForComment){
                     Comments temp=new Comments(SharedPref.getString(ClubPostDetailsActivity.this,"email"),et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
                     FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment", FieldValue.arrayUnion(temp));
                 }
@@ -172,8 +176,10 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
 
                     tv_selected_reply.setText("");
-                    tv_selected_reply.setVisibility(View.GONE);
-                    iv_cancel_reply.setVisibility(View.GONE);
+                    //tv_selected_reply.setVisibility(View.GONE);
+                    //iv_cancel_reply.setVisibility(View.GONE);
+                    cv_reply.setVisibility(View.GONE);
+
                     expandableListAdapter.setReplyingForComment(false);
                 }
 
@@ -299,26 +305,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     }
 
     void updateData(){
-        String author = "";
-        String email = post.getAuthor();
-        email = email.substring(0, email.indexOf("@"));
-        for (int j = 0; j < email.length(); j++) {
-            if (Character.isDigit(email.charAt(j))) {
-                author = email.substring(0, j);
-                break;
-            }
-        }
-        if (author.isEmpty())
-            author = email;
-
-        try {
-            tv_author.setText(author.substring(0, 1).toUpperCase() + author.substring(1));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-            tv_author.setText(author);
-        }
-
+        tv_author.setText(CommonUtils.getNameFromEmail(post.getAuthor()));
         tv_name.setText(club.getName());
         Glide.with(ClubPostDetailsActivity.this).load(club.getDp_url()).into(userImageIV);
 
