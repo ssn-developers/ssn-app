@@ -42,7 +42,7 @@ import static com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBeha
 public class SSNFirebaseMessagingService extends FirebaseMessagingService {
 
     final String TAG="SSNFireBaseMessaging";
-    String postId,pdfUrl;
+    String pdfUrl;
     String vac,vca,acv;
     int type;
     String collectionName;
@@ -74,8 +74,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     collectionName = "post";
                 }
             }
-            if(remoteMessage.getData().containsKey("PostId"))
-                postId=remoteMessage.getData().get("PostId");
+
             if(remoteMessage.getData().containsKey("PostUrl"))
                 pdfUrl=remoteMessage.getData().get("PostUrl");
 
@@ -83,14 +82,13 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 vac=remoteMessage.getData().get("vac");
             if(remoteMessage.getData().containsKey("vca"))
                 vca=remoteMessage.getData().get("vca");
-            if(remoteMessage.getData().containsKey("acv"))
-                acv=remoteMessage.getData().get("acv");
+
 
             if(pdfUrl!=null && !pdfUrl.equals("")){
                 Intent intent = new Intent(this, PdfViewerActivity.class);
                 intent.putExtra(Constants.PDF_URL, pdfUrl);
                 FCMHelper.showNotification(remoteMessage.getNotification().getBody(),this,intent);
-                dataBaseHelper.addNotification(new Notification("7",postId,pdfUrl,new Post(remoteMessage.getNotification().getTitle(),"",new Date(),"7",pdfUrl)));
+                dataBaseHelper.addNotification(new Notification("7",vca,pdfUrl,new Post(remoteMessage.getNotification().getTitle(),"",new Date(),"7",pdfUrl)));
             }
             else if (collectionName.equals("post_club")) {
                 // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
@@ -100,12 +98,11 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 //acv ==> id [time]
                 //vac ==> id [post_id]
                 HashMap<String, Object> hmp = new HashMap<>();
-                hmp.put("time", acv);
                 hmp.put("post_id", vac);
                 FetchPostById(vca, collectionName, hmp, type, this);
             }
             else{
-                FetchPostById(postId, collectionName, new HashMap<String, Object>(),type, this);
+                FetchPostById(vca, collectionName, new HashMap<String, Object>(),type, this);
             }
         }
         // handling notification message
@@ -161,11 +158,12 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     }
 
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                    dataBaseHelper.addNotification(new Notification("1",postId,"",post));
+                    dataBaseHelper.addNotification(new Notification(Integer.toString(type),postId,"",post));
 
                     Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     intent.putExtra("post",post);
                     intent.putExtra("type",type);
+
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
