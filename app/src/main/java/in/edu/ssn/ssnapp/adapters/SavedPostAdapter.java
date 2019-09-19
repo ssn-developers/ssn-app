@@ -141,7 +141,8 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                 intent.putExtra("post", model);
-                intent.putExtra("time", tv_time.getText());
+                int type=Integer.parseInt(DataBaseHelper.getInstance(getContext()).getPostType(model.getId()));
+                intent.putExtra("type",type);
                 getContext().startActivity(intent);
             }
         });
