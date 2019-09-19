@@ -356,7 +356,6 @@ public class SplashActivity extends AppCompatActivity {
                             notif_intent=new Intent(SplashActivity.this, ClubPostDetailsActivity.class);
                             notif_intent.putExtra("data", post_id);
                             notif_intent.putExtra("club", club);
-                            notif_intent.putExtra("type", type);
                             flag = true;
                             worst_case = false;
                         }

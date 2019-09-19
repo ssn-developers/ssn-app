@@ -281,8 +281,6 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), ClubPostDetailsActivity.class);
                         intent.putExtra("data", model.getId());
-                        String timer = holder.tv_time.getText().toString();
-                        intent.putExtra("time", timer.split(" ")[0]);
                         intent.putExtra("club", club);
                         startActivity(intent);
                         Bungee.slideLeft(ClubPageActivity.this);

@@ -167,7 +167,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
                         }
                     });
 
-
                     tv_selected_reply.setText("");
                     cv_reply.setVisibility(View.GONE);
 

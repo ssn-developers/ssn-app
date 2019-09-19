@@ -110,8 +110,8 @@ public class ImageAdapter extends PagerAdapter {
                 }
                 else if(flag == 4){
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
-                    intent.putExtra("club", c_model);
                     intent.putExtra("data", timer);
+                    intent.putExtra("club", c_model);
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                     try {
