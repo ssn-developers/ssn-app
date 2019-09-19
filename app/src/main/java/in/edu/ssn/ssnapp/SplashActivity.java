@@ -124,8 +124,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
-        //checkIsBlocked();
-        //forceUpdate();
+        checkIsBlocked();
+        forceUpdate();
+        setUpCrashReport();
 
         try {
             gifFromResource = (GifDrawable) new GifDrawable(getResources(), R.drawable.splash_screen);
@@ -218,6 +219,15 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    void setUpCrashReport()
+    {
+        // only enable bug tracking in release version
+        if (!BuildConfig.DEBUG) {
+            //https://stackoverflow.com/a/49836972/10664312
+            Fabric.with(this, new Crashlytics());
+        }
     }
 
     public class ForceUpdateAsync extends AsyncTask<String, String, JSONObject> {
@@ -384,7 +394,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                    dataBaseHelper.addNotification(new Notification("1",postId,"",post));
+                    //dataBaseHelper.addNotification(new Notification("1",postId,"",post));
 
                     notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     notif_intent.putExtra("post",post);
@@ -460,7 +470,7 @@ public class SplashActivity extends AppCompatActivity {
                 notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-                dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
+                //dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
                 flag = true;
                 worst_case = false;
             }

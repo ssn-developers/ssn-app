@@ -67,13 +67,13 @@ public class FacultyHomeActivity extends BaseActivity {
             }
         });
 
-        notifUI.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-                Bungee.slideLeft(FacultyHomeActivity.this);
-            }
-        });
+//        notifUI.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
+//                Bungee.slideLeft(FacultyHomeActivity.this);
+//            }
+//        });
 
         lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

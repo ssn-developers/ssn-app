@@ -90,7 +90,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 Intent intent = new Intent(this, PdfViewerActivity.class);
                 intent.putExtra(Constants.PDF_URL, pdfUrl);
                 FCMHelper.showNotification(remoteMessage.getNotification().getBody(),this,intent);
-                dataBaseHelper.addNotification(new Notification("7",vca,pdfUrl,new Post(remoteMessage.getNotification().getTitle(),"",new Date(),"7",pdfUrl)));
+                //dataBaseHelper.addNotification(new Notification("7",vca,pdfUrl,new Post(remoteMessage.getNotification().getTitle(),"",new Date(),"7",pdfUrl)));
             }
             else if (collectionName.equals("post_club")) {
                 // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
@@ -157,7 +157,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     }
 
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                    dataBaseHelper.addNotification(new Notification(Integer.toString(type),postId,"",post));
+                    //dataBaseHelper.addNotification(new Notification(Integer.toString(type),postId,"",post));
 
                     Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     intent.putExtra("post",post);
