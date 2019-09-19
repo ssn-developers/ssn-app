@@ -149,6 +149,17 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 else{
                     Post post = CommonUtils.getPostFromSnapshot(getApplicationContext(), snapshot);
+                    if(type == 2){
+                        post.setAuthor_image_url("placement@ssn.edu.in");
+                        post.setAuthor("SSN Career Development Centre");
+                        post.setPosition("Placement team");
+                    }
+                    else if(type == 5){
+                        post.setAuthor_image_url("examcell@ssn.edu.in");
+                        post.setAuthor("SSNCE COE");
+                        post.setPosition("Exam cell team");
+                    }
+
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
                     dataBaseHelper.addNotification(new Notification("1",postId,"",post));
 

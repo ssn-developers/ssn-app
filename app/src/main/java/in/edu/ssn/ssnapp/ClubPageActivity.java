@@ -313,7 +313,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
                         String timer = holder.tv_time.getText().toString();
-                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&acv=" + timer.split(" ")[0] + "&vca=" + club.getId() + "&vac=" + model.getId();
+                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                     }
