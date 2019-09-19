@@ -109,7 +109,6 @@ public class SplashActivity extends AppCompatActivity {
     private final static String TAG = "test_set";
     private GifDrawable gifFromResource;
 
-    private static Boolean flag = false;
     private static Boolean worst_case = true;
     private static Boolean isUpdateAvailable = false;
     private int currentApiVersion;
@@ -137,7 +136,7 @@ public class SplashActivity extends AppCompatActivity {
                 @Override
                 public void onAnimationCompleted(int loopNumber) {
                     gifFromResource.stop();
-                    if (flag && !isUpdateAvailable) {
+                    if (!isUpdateAvailable) {
                          passIntent();
                     }
                 }
@@ -254,6 +253,7 @@ public class SplashActivity extends AppCompatActivity {
             }
             catch (Exception e) {
                 e.printStackTrace();
+                isUpdateAvailable = false;
             }
             return new JSONObject();
         }
@@ -366,7 +366,6 @@ public class SplashActivity extends AppCompatActivity {
                             notif_intent=new Intent(SplashActivity.this, ClubPostDetailsActivity.class);
                             notif_intent.putExtra("data", post_id);
                             notif_intent.putExtra("club", club);
-                            flag = true;
                             worst_case = false;
                         }
                         catch (Exception e){
@@ -376,7 +375,6 @@ public class SplashActivity extends AppCompatActivity {
                     else {
                         notif_intent = new Intent(SplashActivity.this, ClubPageActivity.class);
                         notif_intent.putExtra("data",club);
-                        flag = true;
                         worst_case = false;
                     }
                 }
@@ -399,7 +397,6 @@ public class SplashActivity extends AppCompatActivity {
                     notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     notif_intent.putExtra("post",post);
                     notif_intent.putExtra("type",type);
-                    flag = true;
                     worst_case = false;
                 }
             }
@@ -471,7 +468,6 @@ public class SplashActivity extends AppCompatActivity {
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
                 //dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
-                flag = true;
                 worst_case = false;
             }
             else if (collectionName.equals("post_club")) {
@@ -486,8 +482,6 @@ public class SplashActivity extends AppCompatActivity {
                 FetchPostById(vca, collectionName, vac, type);
             }
         }
-        if (gifFromResource.isAnimationCompleted())
-            passIntent();
     }
 
     public void passIntent() {

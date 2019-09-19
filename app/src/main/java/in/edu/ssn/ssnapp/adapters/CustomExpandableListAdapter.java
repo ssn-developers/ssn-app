@@ -138,8 +138,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 .round();
 
         ColorGenerator generator = ColorGenerator.MATERIAL;
-        int color = generator.getColor(SharedPref.getString(context,"email"));
-        TextDrawable ic=builder.build(String.valueOf(SharedPref.getString(context,"email").charAt(0)), color);
+        int color = generator.getColor(expandedListText.get("author").toString());
+        TextDrawable ic=builder.build(String.valueOf(expandedListText.get("author").toString().charAt(0)), color);
         iv_dp.setImageDrawable(ic);
 
         return convertView;
@@ -195,9 +195,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 .endConfig()
                 .round();
         ColorGenerator generator = ColorGenerator.MATERIAL;
-        int color = generator.getColor(SharedPref.getString(context,"email"));
+        int color = generator.getColor(comment.getAuthor());
 
-        TextDrawable ic=builder.build(String.valueOf(SharedPref.getString(context,"email").charAt(0)), color);
+        TextDrawable ic=builder.build(String.valueOf(comment.getAuthor().charAt(0)), color);
         iv_dp.setImageDrawable(ic);
 
         tv_reply.setOnClickListener(new View.OnClickListener() {
@@ -209,7 +209,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 imm.showSoftInput(edt_comment, InputMethodManager.SHOW_IMPLICIT);
                 cv_reply.setVisibility(View.VISIBLE);
 
-                if(comment.getAuthor()==SharedPref.getString(context,"email"))
+                if(comment.getAuthor().equals(SharedPref.getString(context,"email")))
                     tv_replier_name.setText("You");
                 else
                     tv_replier_name.setText(CommonUtils.getNameFromEmail(comment.getAuthor()));

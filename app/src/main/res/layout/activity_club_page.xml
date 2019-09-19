@@ -225,6 +225,7 @@
                             android:layout_below="@id/tool_tv_title"
                             android:textColor="@color/colorAccentText"
                             android:fontFamily="@font/open_sans"
+                            android:text="No posts"
                             android:layout_marginEnd="@dimen/_35sdp"
                             android:textSize="@dimen/_9ssp" />
 
