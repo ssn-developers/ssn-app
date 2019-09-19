@@ -51,7 +51,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     // add a post
-    public void addPost(Post post){
+    public void addPost(Post post,String type){
         SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
         ContentValues cv=new ContentValues();
         cv.put(SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID, post.getId());
@@ -62,10 +62,30 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String date = sdf.format(new Date());
         cv.put(SavedPost.SavedPostEntry.COLUMN_NAME_TIME,date);
 
+        cv.put(SavedPost.SavedPostEntry.COLUMN_NAME_POST_TYPE,type);
         long id=db.insert(SavedPost.SavedPostEntry.TABLE_NAME,null,cv);
 
         Log.d(TAG,"insertion id "+id);
     }
+
+
+    // get a post type
+    public String getPostType(String postId){
+
+        String postType=" ";
+
+        SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
+        Cursor cursor=db.query(SavedPost.SavedPostEntry.TABLE_NAME, new String[]{SavedPost.SavedPostEntry.COLUMN_NAME_POST_TYPE},SavedPost.SavedPostEntry.COLUMN_NAME_POST_ID+"= ?",new String[]{postId},null,null,null,null);
+
+        if(cursor.moveToFirst()){
+            postType=cursor.getString(0);
+        }
+
+        return postType;
+    }
+
+
+    //
 
 
     // check if a post is saved in DB
@@ -149,5 +169,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db=this.getWritableDatabase(Constants.DATABASE_PWD);
         db.delete(Notification.NotificationEntry.TABLE_NAME,null,null);
         db.delete(SavedPost.SavedPostEntry.TABLE_NAME,null,null);
+    }
+
+    public void listAllTables(){
+
+        SQLiteDatabase db=this.getReadableDatabase(Constants.DATABASE_PWD);
+        Cursor c = db.rawQuery("SELECT name FROM sqlite_master WHERE type='table'", null);
+
+        if (c.moveToFirst()) {
+            while ( !c.isAfterLast() ) {
+                Log.d(TAG,"table name : "+c.getString(0));
+                c.moveToNext();
+            }
+        }
     }
 }

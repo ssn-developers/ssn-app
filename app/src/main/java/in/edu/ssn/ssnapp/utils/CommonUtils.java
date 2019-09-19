@@ -446,7 +446,7 @@ public class CommonUtils {
                 }
                 else{
                     tv_save.setText("Remove from Favourites");
-                    dataBaseHelper.addPost(post);
+                    dataBaseHelper.addPost(post,Integer.toString(type));
                 }
                 bottomSheetDialog.hide();
             }

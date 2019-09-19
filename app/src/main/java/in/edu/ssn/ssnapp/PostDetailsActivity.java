@@ -202,7 +202,7 @@ public class PostDetailsActivity extends BaseActivity {
                 if(checkSavedPost(post))
                     unSavePost(post);
                 else
-                    savePost(post);
+                    savePost(post,Integer.toString(type));
             }
         });
     }
@@ -295,10 +295,10 @@ public class PostDetailsActivity extends BaseActivity {
         return chip;
     }
 
-    public Boolean savePost(Post post){
+    public Boolean savePost(Post post,String type){
         try{
             DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-            dataBaseHelper.addPost(post);
+            dataBaseHelper.addPost(post,type);
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
 
         }catch (Exception e){
@@ -314,7 +314,9 @@ public class PostDetailsActivity extends BaseActivity {
 
     void unSavePost(Post post){
         // updating the post status to not saved in shared preference
+
         DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
+        Log.d(TAG,"post type : "+dataBaseHelper.getPostType(post.getId()));
         dataBaseHelper.deletePost(post.getId());
         bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
 

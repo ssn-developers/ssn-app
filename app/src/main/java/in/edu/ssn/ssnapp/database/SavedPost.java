@@ -16,6 +16,7 @@ public class SavedPost {
         public static final String COLUMN_NAME_POST_ID = "postid";
         public static final String COLUMN_NAME_POST = "post";
         public static final String COLUMN_NAME_TIME = "time";
+        public static final String COLUMN_NAME_POST_TYPE="posttype";
     }
 
 
@@ -24,5 +25,6 @@ public class SavedPost {
             "CREATE TABLE IF NOT EXISTS " + SavedPostEntry.TABLE_NAME + " (" +
                     SavedPostEntry.COLUMN_NAME_POST_ID + " TEXT PRIMARY KEY," +
                     SavedPostEntry.COLUMN_NAME_POST + " TEXT,"
-                    + SavedPostEntry.COLUMN_NAME_TIME+" TEXT"+")";
+                    + SavedPostEntry.COLUMN_NAME_TIME+" TEXT,"
+                    + SavedPostEntry.COLUMN_NAME_POST_TYPE+" TEXT"+")";
 }
