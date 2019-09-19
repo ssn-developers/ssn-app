@@ -158,8 +158,7 @@ public class StudentFeedFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                         intent.putExtra("post", model);
-                        intent.putExtra("time", holder.tv_time.getText().toString());
-                        intent.putExtra("type", Constants.post);
+                        intent.putExtra("type", 1);
                         startActivity(intent);
                         Bungee.slideLeft(getContext());
                     }
