@@ -90,6 +90,7 @@
 				android:layout_marginTop="@dimen/_8sdp"
 				android:layout_marginBottom="@dimen/_8sdp"
 				android:padding="@dimen/_5sdp"
+				android:visibility="gone"
 				android:tint="@color/colorAccent"
 				android:src="@drawable/ic_notify"
 				android:id="@+id/notifUI" />

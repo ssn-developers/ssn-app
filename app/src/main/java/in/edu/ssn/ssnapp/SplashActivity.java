@@ -394,7 +394,7 @@ public class SplashActivity extends AppCompatActivity {
                     }
 
                     DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                    dataBaseHelper.addNotification(new Notification("1",postId,"",post));
+                    //dataBaseHelper.addNotification(new Notification("1",postId,"",post));
 
                     notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     notif_intent.putExtra("post",post);
@@ -470,7 +470,7 @@ public class SplashActivity extends AppCompatActivity {
                 notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
                 notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
                 DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-                dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
+                //dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
                 flag = true;
                 worst_case = false;
             }
