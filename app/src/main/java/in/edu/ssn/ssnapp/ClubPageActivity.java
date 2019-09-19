@@ -232,7 +232,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(),4, club, CommonUtils.getTime(model.getTime()), model.getId());
+                    final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(),4, club, model.getId());
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if (model.getImg_urls().size() == 1) {

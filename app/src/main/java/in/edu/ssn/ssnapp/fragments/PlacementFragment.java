@@ -109,7 +109,7 @@ public class PlacementFragment extends Fragment {
                 if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),2, model, CommonUtils.getTime(model.getTime()));
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),2, model);
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if(model.getImageUrl().size()==1){
@@ -154,7 +154,7 @@ public class PlacementFragment extends Fragment {
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        CommonUtils.handleBottomSheet(v, model, Constants.placement, getContext());
+                        CommonUtils.handleBottomSheet(v, model, 2, getContext());
                         return true;
                     }
                 });

@@ -115,7 +115,7 @@ public class WorkshopFragment extends Fragment {
                 if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),6, model, CommonUtils.getTime(model.getTime()));
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),6, model);
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if(model.getImageUrl().size()==1){

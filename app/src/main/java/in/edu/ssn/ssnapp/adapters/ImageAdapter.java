@@ -42,24 +42,22 @@ public class ImageAdapter extends PagerAdapter {
     LayoutInflater layoutInflater;
     Post model;
     Club c_model;
-    String id,timer;
+    String id;
     int flag;
 
-    public ImageAdapter(Context context, List<String> images, int flag, Post model, String id) {
+    public ImageAdapter(Context context, List<String> images, int flag, Post model) {
         this.context = context;
         this.images = images;
         this.model= model;
-        this.id = id;
         this.flag = flag;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public ImageAdapter(Context context, List<String> images, int flag, Club c_model, String id, String timer) {
+    public ImageAdapter(Context context, List<String> images, int flag, Club c_model, String id) {
         this.context = context;
         this.images = images;
         this.c_model= c_model;
         this.id = id;
-        this.timer = timer;
         this.flag = flag;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -110,7 +108,7 @@ public class ImageAdapter extends PagerAdapter {
                 }
                 else if(flag == 4){
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
-                    intent.putExtra("data", timer);
+                    intent.putExtra("data", id);
                     intent.putExtra("club", c_model);
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
