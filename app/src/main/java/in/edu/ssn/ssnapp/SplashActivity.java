@@ -124,8 +124,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         initUI();
-        //checkIsBlocked();
-        //forceUpdate();
+        checkIsBlocked();
+        forceUpdate();
+        setUpCrashReport();
 
         try {
             gifFromResource = (GifDrawable) new GifDrawable(getResources(), R.drawable.splash_screen);
@@ -218,6 +219,15 @@ public class SplashActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    void setUpCrashReport()
+    {
+        // only enable bug tracking in release version
+        if (!BuildConfig.DEBUG) {
+            //https://stackoverflow.com/a/49836972/10664312
+            Fabric.with(this, new Crashlytics());
+        }
     }
 
     public class ForceUpdateAsync extends AsyncTask<String, String, JSONObject> {
