@@ -14,13 +14,16 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
-
         release {
             ext.enableCrashlytics = true
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
     }
 }
 

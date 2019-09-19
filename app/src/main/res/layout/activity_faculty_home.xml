@@ -10,7 +10,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_15sdp">
 
         <LinearLayout
             android:id="@+id/fakeAppbarLL"
@@ -47,7 +48,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="@dimen/_1sdp"
-                        android:src="@drawable/ic_menu"/>
+                        app:srcCompat="@drawable/ic_menu"/>
                 </androidx.cardview.widget.CardView>
             </RelativeLayout>
 
@@ -124,7 +125,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_5sdp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_profile"
