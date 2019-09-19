@@ -352,7 +352,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + post.getId();
+                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: https://ssn-app-web.web.app/share.html?type=4&vca=" + club.getId() + "&vac=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }

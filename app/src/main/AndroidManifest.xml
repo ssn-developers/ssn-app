@@ -31,9 +31,9 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="ssnportal.cf"
+                    android:host="ssn-app-web.web.app"
                     android:pathPrefix="/share.html"
-                    android:scheme="http" />
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

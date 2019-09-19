@@ -311,7 +311,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
                         String timer = holder.tv_time.getText().toString();
-                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
+                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: https://ssn-app-web.web.app/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                     }
@@ -383,7 +383,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             case R.id.tool_iv_share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! Check out the " + club.getName() + " page: http://ssnportal.cf/share.html?type=3&vca=" + club.getId();
+                String shareBody = "Hello! Check out the " + club.getName() + " page: https://ssn-app-web.web.app/share.html?type=3&vca=" + club.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
