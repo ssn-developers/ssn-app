@@ -207,72 +207,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         listenerRegistration= FirebaseFirestore.getInstance().collection("post_club").document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                post.setId(documentSnapshot.getString("id"));
-                post.setCid(documentSnapshot.getString("cid"));
-                post.setAuthor(documentSnapshot.getString("author"));
-                post.setTitle(documentSnapshot.getString("title"));
-                post.setDescription(documentSnapshot.getString("description"));
-                post.setTime(documentSnapshot.getTimestamp("time").toDate());
-
-                ArrayList<String> images = (ArrayList<String>) documentSnapshot.get("img_urls");
-                if(images != null && images.size() > 0)
-                    post.setImg_urls(images);
-                else
-                    post.setImg_urls(null);
-
-                try {
-                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) documentSnapshot.get("file_urls");
-                    if (files != null && files.size() != 0) {
-                        ArrayList<String> fileName = new ArrayList<>();
-                        ArrayList<String> fileUrl = new ArrayList<>();
-
-                        for (int i = 0; i < files.size(); i++) {
-                            String name = files.get(i).get("name");
-                            if(name.length() > 13)
-                                name = name.substring(0,name.length()-13);
-                            fileName.add(name);
-                            fileUrl.add(files.get(i).get("url"));
-                        }
-                        post.setFileName(fileName);
-                        post.setFileUrl(fileUrl);
-                    }
-                    else {
-                        post.setFileName(null);
-                        post.setFileUrl(null);
-                    }
-                }
-                catch (Exception ex){
-                    ex.printStackTrace();
-                    post.setFileName(null);
-                    post.setFileUrl(null);
-                }
-
-                try {
-                    ArrayList<String> like = (ArrayList<String>) documentSnapshot.get("like");
-                    post.setLike(like);
-
-                    if (like != null && like.size() != 0)
-                        post.setLike(like);
-                    else
-                        post.setLike(new ArrayList<String>());
-                }
-                catch (Exception ex){
-                    ex.printStackTrace();
-                    post.setLike(new ArrayList<String>());
-                }
-
-                try {
-                    ArrayList<Comments> comments = (ArrayList<Comments>) documentSnapshot.get("comment");
-                    if (comments != null && comments.size() > 0)
-                        post.setComment(comments);
-                    else
-                        post.setComment(null);
-                }
-                catch (Exception ex){
-                    ex.printStackTrace();
-                    post.setComment(null);
-                }
-
+                post = CommonUtils.getClubPostFromSnapshot(getApplicationContext(),documentSnapshot);
                 updateData();
 
                 ArrayList<HashMap<Object,Object>> comment_data=(ArrayList<HashMap<Object,Object>>) documentSnapshot.get("comment");
@@ -298,7 +233,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         Glide.with(ClubPostDetailsActivity.this).load(club.getDp_url()).into(userImageIV);
 
         tv_title.setText(post.getTitle());
-        tv_time.setText(time + " ago");
+        tv_time.setText(CommonUtils.getTime(post.getTime()));
         tv_description.setText(post.getDescription().trim());
 
         if(post.getImg_urls() != null && post.getImg_urls().size() != 0) {
@@ -419,7 +354,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&acv=" + time + "&vca=" + club.getId() + "&vac=" + post.getId();
+                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: http://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }

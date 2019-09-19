@@ -144,7 +144,6 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     else {
                         Intent intent = new Intent(context, ClubPageActivity.class);
                         intent.putExtra("data",club);
-                        intent.putExtra("type",type);
                         FCMHelper.showNotification(post.getDescription(),context,intent);
                     }
                 }

@@ -194,56 +194,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             @Override
             public ClubPost parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
-                final ClubPost post = new ClubPost();
-
-                post.setId(snapshot.getString("id"));
-                post.setCid(snapshot.getString("cid"));
-                post.setAuthor(snapshot.getString("author"));
-                post.setTitle(snapshot.getString("title"));
-                post.setDescription(snapshot.getString("description"));
-                post.setTime(snapshot.getTimestamp("time").toDate());
-
-                ArrayList<String> like = (ArrayList<String>) snapshot.get("like");
-                if (like != null && like.size() > 0)
-                    post.setLike(like);
-                else
-                    post.setLike(null);
-
-                ArrayList<Comments> comments = (ArrayList<Comments>) snapshot.get("comment");
-                if (comments != null && comments.size() > 0)
-                    post.setComment(comments);
-                else
-                    post.setComment(null);
-
-                ArrayList<String> images = (ArrayList<String>) snapshot.get("img_urls");
-                if (images != null && images.size() > 0)
-                    post.setImg_urls(images);
-                else
-                    post.setImg_urls(null);
-
-                try {
-                    ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) snapshot.get("file_urls");
-                    if (files != null && files.size() != 0) {
-                        ArrayList<String> fileName = new ArrayList<>();
-                        ArrayList<String> fileUrl = new ArrayList<>();
-
-                        for (int i = 0; i < files.size(); i++) {
-                            fileName.add(files.get(i).get("name"));
-                            fileUrl.add(files.get(i).get("url"));
-                        }
-                        post.setFileName(fileName);
-                        post.setFileUrl(fileUrl);
-                    } else {
-                        post.setFileName(null);
-                        post.setFileUrl(null);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    post.setFileName(null);
-                    post.setFileUrl(null);
-                }
-
-                return post;
+                return CommonUtils.getClubPostFromSnapshot(getApplicationContext(),snapshot);
             }
         }).build();
 

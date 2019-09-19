@@ -58,6 +58,8 @@ import java.util.TreeMap;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Club;
+import in.edu.ssn.ssnapp.models.ClubPost;
+import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.models.Post;
 
 import static com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBehavior.ESTIMATE;
@@ -340,6 +342,77 @@ public class CommonUtils {
             club.setHead(null);
         }
         return club;
+    }
+
+    public static ClubPost getClubPostFromSnapshot(Context context, DocumentSnapshot documentSnapshot){
+        ClubPost post = new ClubPost();
+        post.setId(documentSnapshot.getString("id"));
+        post.setCid(documentSnapshot.getString("cid"));
+        post.setAuthor(documentSnapshot.getString("author"));
+        post.setTitle(documentSnapshot.getString("title"));
+        post.setDescription(documentSnapshot.getString("description"));
+        post.setTime(documentSnapshot.getTimestamp("time").toDate());
+
+        ArrayList<String> images = (ArrayList<String>) documentSnapshot.get("img_urls");
+        if(images != null && images.size() > 0)
+            post.setImg_urls(images);
+        else
+            post.setImg_urls(new ArrayList<String>());
+
+        try {
+            ArrayList<Map<String, String>> files = (ArrayList<Map<String, String>>) documentSnapshot.get("file_urls");
+            if (files != null && files.size() != 0) {
+                ArrayList<String> fileName = new ArrayList<>();
+                ArrayList<String> fileUrl = new ArrayList<>();
+
+                for (int i = 0; i < files.size(); i++) {
+                    String name = files.get(i).get("name");
+                    if(name.length() > 13)
+                        name = name.substring(0,name.length()-13);
+                    fileName.add(name);
+                    fileUrl.add(files.get(i).get("url"));
+                }
+                post.setFileName(fileName);
+                post.setFileUrl(fileUrl);
+            }
+            else {
+                post.setFileName(new ArrayList<String>());
+                post.setFileUrl(new ArrayList<String>());
+            }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            post.setFileName(new ArrayList<String>());
+            post.setFileUrl(new ArrayList<String>());
+        }
+
+        try {
+            ArrayList<String> like = (ArrayList<String>) documentSnapshot.get("like");
+            post.setLike(like);
+
+            if (like != null && like.size() != 0)
+                post.setLike(like);
+            else
+                post.setLike(new ArrayList<String>());
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            post.setLike(new ArrayList<String>());
+        }
+
+        try {
+            ArrayList<Comments> comments = (ArrayList<Comments>) documentSnapshot.get("comment");
+            if (comments != null && comments.size() > 0)
+                post.setComment(comments);
+            else
+                post.setComment(new ArrayList<Comments>());
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
+            post.setComment(new ArrayList<Comments>());
+        }
+
+        return post;
     }
 
     /************************************************************************/
