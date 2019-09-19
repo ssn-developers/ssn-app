@@ -81,7 +81,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     ListenerRegistration listenerRegistration;
     ArrayList<Comments> commentsArrayList=new ArrayList<>();
 
-    String id, time;
+    String id;
     ClubPost post;
     Club club;
 
@@ -97,7 +97,6 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
     void initUI() {
         id = getIntent().getStringExtra("data");
-        time = getIntent().getStringExtra("time");
         club = getIntent().getParcelableExtra("club");
         post = new ClubPost();
 
