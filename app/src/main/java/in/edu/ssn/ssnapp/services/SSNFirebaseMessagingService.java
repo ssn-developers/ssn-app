@@ -43,10 +43,11 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
 
     final String TAG="SSNFireBaseMessaging";
     String pdfUrl;
-    String vac,vca,acv;
+    String vac,vca;
     int type;
     String collectionName;
     Post post;
+    RemoteMessage rmMessage;
 
     @Override
     public void onNewToken(String s) {
@@ -60,6 +61,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
+        this.rmMessage=remoteMessage;
 
         // handling data+notification messages
         if (remoteMessage.getData().size() > 0) {
@@ -125,14 +127,12 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     final Club club = CommonUtils.getClubFromSnapshot(getApplicationContext(),snapshot);
                     if(collectionName.equals("post_club")){
                         try{
-                            String time=data.get("time").toString();
                             String post_id=data.get("post_id").toString();
-
                             Intent intent=new Intent(context, ClubPostDetailsActivity.class);
                             intent.putExtra("data", post_id);
                             intent.putExtra("club", club);
                             intent.putExtra("type", type);
-                            FCMHelper.showNotification(post.getDescription(),context,intent);
+                            FCMHelper.showNotification(rmMessage.getNotification().getBody(),context,intent);
                         }
                         catch (Exception e){
                             e.printStackTrace();
@@ -141,7 +141,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     else {
                         Intent intent = new Intent(context, ClubPageActivity.class);
                         intent.putExtra("data",club);
-                        FCMHelper.showNotification(post.getDescription(),context,intent);
+                        FCMHelper.showNotification(rmMessage.getNotification().getBody(),context,intent);
                     }
                 }
                 else{
@@ -163,6 +163,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     intent.putExtra("post",post);
                     intent.putExtra("type",type);
+                    FCMHelper.showNotification(rmMessage.getNotification().getBody(),context,intent);
 
                 }
             }
