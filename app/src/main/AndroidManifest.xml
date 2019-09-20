@@ -39,7 +39,8 @@
 
         <activity android:name=".BlockScreenActivity"/>
         <activity android:name=".ClubPageActivity" />
-        <activity android:name=".BusRoutesActivity" />
+        <activity android:name=".BusRoutesActivity"
+            android:theme="@style/AppTheme1"/>
         <activity android:name=".ClubPostDetailsActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".NoNetworkActivity" />
         <activity android:name=".HelpLineActivity" />
