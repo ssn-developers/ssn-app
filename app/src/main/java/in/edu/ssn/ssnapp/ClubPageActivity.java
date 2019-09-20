@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -22,6 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -83,6 +86,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
         setupFireStore();
 
+
         /****************************************************/
     }
 
@@ -143,8 +147,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             tv_following_text.setText("Following");
             tv_following_text.setTextColor(Color.BLACK);
         } else {
-            tv_following_text.setText("Unfollowing");
-            tv_following_text.setTextColor(getResources().getColor(R.color.light_grey));
+            tv_following_text.setText("Follow");
+            tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
         }
 
         lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -415,8 +419,8 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.UnSubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
-                    tv_following_text.setText("Unfollowing");
-                    tv_following_text.setTextColor(getResources().getColor(R.color.light_grey));
+                    tv_following_text.setText("Follow");
+                    tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
                 }
 
                 if (club.getFollowers().size() > 0) {
