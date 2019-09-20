@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -190,16 +191,14 @@ public class ClubFragment extends Fragment {
         tv_suggestion = view.findViewById(R.id.tv_suggestion);
         layout_subscribed = view.findViewById(R.id.layout_subscribed);
 
-        subs_RV.setLayoutManager(new LinearLayoutManager(getContext()));
-        subs_RV.setNestedScrollingEnabled(false);
-        unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext()));
-        unsubs_RV.setNestedScrollingEnabled(false);
+        subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
     }
 
     /*********************************************************/
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        RelativeLayout club_RL;
+        LinearLayout club_RL;
         TextView tv_name, tv_description;
         ImageView iv_dp;
         LottieAnimationView lottie;

@@ -23,6 +23,7 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:clipToPadding="false"
+					android:paddingStart="@dimen/_5sdp"
 					android:visibility="invisible"
 					android:id="@+id/subs_RV"/>
 
@@ -30,14 +31,19 @@
 					android:id="@+id/layout_subscribed"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:gravity="center"
+					android:layout_centerVertical="true"
+					android:layout_centerHorizontal="true"
 					android:layout_marginLeft="@dimen/_20sdp"
 					android:layout_marginRight="@dimen/_20sdp">
 
 					<RelativeLayout
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_marginTop="@dimen/_40sdp"
-						android:layout_marginBottom="@dimen/_40sdp">
+						android:layout_marginTop="@dimen/_20sdp"
+						android:gravity="center"
+						android:layout_centerHorizontal="true"
+						android:layout_marginBottom="@dimen/_20sdp">
 
 						<TextView
 							android:id="@+id/tv_text1"
@@ -83,6 +89,7 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:clipToPadding="false"
+				android:paddingStart="@dimen/_5sdp"
 				android:id="@+id/unsubs_RV"/>
 
 		</LinearLayout>

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -85,7 +86,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
     }
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        RelativeLayout club_RL;
+        LinearLayout club_RL;
         TextView tv_name, tv_description;
         ImageView iv_dp;
         LottieAnimationView lottie;
