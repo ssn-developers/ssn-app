@@ -38,20 +38,20 @@
         </activity>
 
         <activity android:name=".BlockScreenActivity"/>
-        <activity android:name=".ClubPageActivity" />
+        <activity android:name=".ClubPageActivity" android:theme="@style/AppTheme2"/>
         <activity android:name=".BusRoutesActivity"
             android:theme="@style/AppTheme1"/>
         <activity android:name=".ClubPostDetailsActivity" android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".NoNetworkActivity" />
         <activity android:name=".HelpLineActivity" />
-        <activity android:name=".SavedPostActivity" />
+        <activity android:name=".SavedPostActivity" android:theme="@style/AppTheme1" />
         <activity android:name=".FacultyHomeActivity" />
         <activity android:name=".OpenImageActivity" />
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".FeedbackActivity" />
+        <activity android:name=".NotificationActivity"/>
+        <activity android:name=".FeedbackActivity" android:theme="@style/AppTheme1"/>
         <activity android:name=".LoginActivity" />
         <activity android:name=".AppInfoActivity" />
-        <activity android:name=".NotificationSettings" />
+        <activity android:name=".NotificationSettings" android:theme="@style/AppTheme1"/>
         <activity android:name=".onboarding.OnboardingActivity" />
         <activity android:name=".WebViewActivity" />
         <activity android:name=".PdfViewerActivity" />
