@@ -193,13 +193,13 @@ public class CommonUtils {
 
     public static String getCollectionName(int type){
         switch (type){
-            case 2 : return "placement";
-            case 3 : return "club";
-            case 4 : return "post_club";
-            case 5 : return "exam_cell";
-            case 6 : return "workshop";
-            case 7 : return "post_bus";
-            default : return "post";
+            case 2 : return Constants.collection_placement;
+            case 3 : return Constants.collection_club;
+            case 4 : return Constants.collection_post_club;
+            case 5 : return Constants.collection_exam_cell;
+            case 6 : return Constants.collection_workshop;
+            case 7 : return Constants.collection_post_bus;
+            default : return Constants.collection_post;
         }
     }
 

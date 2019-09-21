@@ -74,7 +74,7 @@ public class PlacementFragment extends Fragment {
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
 
-        Query query = FirebaseFirestore.getInstance().collection("placement").whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_placement).whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override

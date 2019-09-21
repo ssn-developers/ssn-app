@@ -22,6 +22,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Collections;
 import java.util.Date;
 
 import in.edu.ssn.ssnapp.BusRoutesActivity;
@@ -63,7 +64,7 @@ public class BusAlertsFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post_bus").orderBy("time", Query.Direction.DESCENDING).limit(5);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post_bus).orderBy("time", Query.Direction.DESCENDING).limit(5);
 
         FirestoreRecyclerOptions<BusPost> options = new FirestoreRecyclerOptions.Builder<BusPost>().setQuery(query, new SnapshotParser<BusPost>() {
             @NonNull

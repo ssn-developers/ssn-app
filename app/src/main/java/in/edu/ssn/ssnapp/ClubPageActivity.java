@@ -55,6 +55,7 @@ import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
@@ -192,7 +193,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 .endConfig()
                 .round();
 
-        Query query = FirebaseFirestore.getInstance().collection("post_club").whereEqualTo("cid", club.getId()).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).whereEqualTo("cid", club.getId()).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ClubPost> options = new FirestoreRecyclerOptions.Builder<ClubPost>().setQuery(query, new SnapshotParser<ClubPost>() {
             @NonNull
             @Override
@@ -297,10 +298,10 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         try{
                             if (!model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                                 holder.iv_like.setImageResource(R.drawable.blue_heart);
-                                FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
+                                FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                             } else {
                                 holder.iv_like.setImageResource(R.drawable.heart);
-                                FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+                                FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                             }
 
                         }catch (Exception e){
@@ -409,14 +410,14 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 lottie.playAnimation();
 
                 if (!club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                    FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.SubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().add(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Following");
                     tv_following_text.setTextColor(Color.BLACK);
                 }
                 else {
-                    FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.UnSubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Follow");

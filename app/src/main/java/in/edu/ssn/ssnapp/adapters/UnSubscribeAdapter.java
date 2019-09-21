@@ -25,6 +25,7 @@ import java.util.List;
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Club;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
@@ -62,7 +63,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
         holder.lottie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseFirestore.getInstance().collection("club").document(model.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(context,"email")));
+                FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(context,"email")));
                 FCMHelper.SubscribeToTopic(context,"club_" + model.getId());
                 clubs.remove(position);
                 notifyDataSetChanged();
