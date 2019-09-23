@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:paddingTop="@dimen/_43sdp"
+	tools:context=".fragments.BusAlertsFragment">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:weightSum="1"
+		android:layout_marginTop="@dimen/_4sdp"
+		android:orientation="horizontal">
+
+		<androidx.cardview.widget.CardView
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/_14sdp"
+			android:layout_weight="1"
+			app:cardCornerRadius="@dimen/_8sdp"
+			app:cardBackgroundColor="@color/darkColorLight"
+			app:cardElevation="0dp"
+			android:id="@+id/busRoutesCV"
+			android:clickable="true"
+			android:foreground="?attr/selectableItemBackground"
+			android:layout_marginStart="@dimen/_14sdp"
+			android:layout_marginEnd="@dimen/_14sdp">
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/_112sdp"
+				android:tint="#000000"
+				android:scaleType="centerCrop"
+				android:src="@drawable/bus_route_bg"/>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="@dimen/_112sdp"
+				android:padding="@dimen/_14sdp"
+				android:orientation="vertical">
+
+				<ImageView
+					android:layout_width="@dimen/_24sdp"
+					android:layout_height="@dimen/_24sdp"
+					android:tint="@color/colorAccent"
+					android:layout_marginBottom="@dimen/_35sdp"
+					android:src="@drawable/ic_route" />
+				<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="@dimen/_16ssp"
+					android:textStyle="bold"
+					android:singleLine="true"
+					android:fontFamily="@font/open_sans_bold"
+					android:textColor="@color/colorAccent"
+					android:text="Bus routes"/>
+			</LinearLayout>
+		</androidx.cardview.widget.CardView>
+
+	</LinearLayout>
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<com.facebook.shimmer.ShimmerFrameLayout
+			android:id="@+id/shimmer_view"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginLeft="@dimen/_9sdp"
+			android:layout_marginRight="@dimen/_9sdp"
+			app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content">
+
+				<include layout="@layout/bus_alert_shimmering"/>
+				<include layout="@layout/bus_alert_shimmering"/>
+				<include layout="@layout/bus_alert_shimmering"/>
+			</LinearLayout>
+		</com.facebook.shimmer.ShimmerFrameLayout>
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginLeft="@dimen/_9sdp"
+			android:layout_marginRight="@dimen/_9sdp"
+			android:id="@+id/alertRV"/>
+
+	</RelativeLayout>
+
+</LinearLayout>

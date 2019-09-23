@@ -57,10 +57,17 @@ public class PlacementFragment extends Fragment {
     private RelativeLayout layout_progress;
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
-
+    boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sent_feed, container, false);
+        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        View view;
+        if(darkMode){
+            view = inflater.inflate(R.layout.fragment_sent_feed_dark, container, false);
+        }else {
+            view = inflater.inflate(R.layout.fragment_sent_feed, container, false);
+        }
+
         CommonUtils.initFonts(getContext(),view);
         initUI(view);
 

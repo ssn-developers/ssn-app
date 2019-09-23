@@ -25,6 +25,17 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
+	<style name="AppThemeDark" parent="Theme.MaterialComponents.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/darkColor</item>
+		<item name="colorPrimaryDark">@color/darkColor</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowLightStatusBar">false</item>
+		<item name="android:statusBarColor">@color/darkColor</item>
+	</style>
+
+
+
 	<style name="chipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">
 		<item name="android:textColor">@android:color/white</item>
 		<item name="android:fontFamily">@font/open_sans</item>

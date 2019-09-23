@@ -55,7 +55,7 @@ public class ClubFragment extends Fragment {
     private TextView tv_suggestion;
     private RelativeLayout layout_subscribed;
     private FirestoreRecyclerAdapter subs_adap;
-
+    boolean darkMode;
     List<Club> clubs;
     UnSubscribeAdapter adapter;
 
@@ -63,7 +63,7 @@ public class ClubFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_club, container, false);
         CommonUtils.initFonts(getContext(), view);
-
+        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
         initUI(view);
         setupFireStore();
 
@@ -126,7 +126,13 @@ public class ClubFragment extends Fragment {
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.club_item, group, false);
+                View view;
+                if(darkMode){
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.club_item_dark, group, false);
+                }else {
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.club_item, group, false);
+                }
+
                 return new FeedViewHolder(view);
             }
         };

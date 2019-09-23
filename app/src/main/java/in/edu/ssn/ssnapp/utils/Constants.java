@@ -38,11 +38,11 @@ public class Constants {
 
     // collection name
     public static final String collection_club="club";
-    public static final String collection_exam_cell="debug_exam_cell";
-    public static final String collection_placement="debug_placement";
-    public static final String collection_post="debug_post";
-    public static final String collection_post_bus="debug_post_bus";
-    public static final String collection_post_club="debug_post_club";
-    public static final String collection_workshop="debug_workshop";
-    public static final String collection_feedback="debug_feedback";
+    public static final String collection_exam_cell="exam_cell";
+    public static final String collection_placement="placement";
+    public static final String collection_post="post";
+    public static final String collection_post_bus="post_bus";
+    public static final String collection_post_club="post_club";
+    public static final String collection_workshop="workshop";
+    public static final String collection_feedback="feedback";
 }

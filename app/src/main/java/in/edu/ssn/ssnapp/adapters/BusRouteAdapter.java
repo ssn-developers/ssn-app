@@ -15,21 +15,29 @@ import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRouteViewHolder>{
 
     private ArrayList<BusRoute> busRoutes;
     private Context context;
+    boolean darkMode=false;
 
     public BusRouteAdapter(Context context, ArrayList<BusRoute> busRoutes) {
         this.context = context;
         this.busRoutes = busRoutes;
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     @NonNull
     @Override
     public BusRouteAdapter.BusRouteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.bus_route_item, parent, false);
+        View view;
+        if(darkMode){
+            view = LayoutInflater.from(context).inflate(R.layout.bus_route_item_dark, parent, false);
+        }else {
+            view = LayoutInflater.from(context).inflate(R.layout.bus_route_item, parent, false);
+        }
         return new BusRouteViewHolder(view);
     }
 

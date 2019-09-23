@@ -20,32 +20,52 @@ import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Drawer;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class DrawerAdapter extends ArrayAdapter<Drawer> {
 
+    Context context;
+    boolean darkMode=false;
     public DrawerAdapter(Context context, ArrayList<Drawer> objects) {
         super(context, 0, objects);
+        this.context = context;
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Drawer drawer=(Drawer)getItem(position);
 
-        if(convertView==null)
-            convertView= LayoutInflater.from(getContext()).inflate(R.layout.drawer_item,parent,false);
+        if(convertView==null){
+            if(darkMode){
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.drawer_item_dark, parent, false);
+            }else {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.drawer_item, parent, false);
+            }
+
+        }
 
         final TextView tv_title=convertView.findViewById(R.id.tv_title);
         ImageView iv_icon=convertView.findViewById(R.id.iv_icon);
         View view_line = convertView.findViewById(R.id.view_line);
 
         tv_title.setText(drawer.getTitle());
-        iv_icon.setBackgroundResource(drawer.getImage());
+        iv_icon.setImageDrawable(context.getDrawable(drawer.getImage()));
 
         if(position == 0){
-            tv_title.setTextColor(Color.parseColor("#317BC0"));
+            if(darkMode){
+                tv_title.setTextColor(Color.parseColor("#7ABFFF"));
+            }else {
+                tv_title.setTextColor(Color.parseColor("#317BC0"));
+            }
         }
         else{
-            tv_title.setTextColor(Color.parseColor("#9A000000"));
+            if(darkMode){
+                tv_title.setTextColor(Color.parseColor("#ffffff"));
+            }else {
+                tv_title.setTextColor(Color.parseColor("#9A000000"));
+            }
+
         }
 
         if(position == getCount()-1)

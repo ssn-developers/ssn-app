@@ -50,6 +50,8 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class ExamCellFragment extends Fragment {
 
+    boolean darkMode=false;
+
     public ExamCellFragment() { }
 
     RecyclerView feedsRV;
@@ -59,7 +61,13 @@ public class ExamCellFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sent_feed, container, false);
+        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        View view;
+        if(darkMode){
+            view = inflater.inflate(R.layout.fragment_sent_feed_dark, container, false);
+        }else {
+            view = inflater.inflate(R.layout.fragment_sent_feed, container, false);
+        }
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 

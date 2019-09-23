@@ -31,6 +31,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusPost;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class BusAlertsFragment extends Fragment {
@@ -41,10 +42,16 @@ public class BusAlertsFragment extends Fragment {
     RecyclerView alertRV;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
-
+    boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bus_alerts, container, false);
+        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        View view;
+        if(darkMode){
+            view = inflater.inflate(R.layout.fragment_bus_alerts_dark, container, false);
+        }else{
+            view = inflater.inflate(R.layout.fragment_bus_alerts, container, false);
+        }
         CommonUtils.initFonts(getContext(),view);
         initUI(view);
 
@@ -101,7 +108,13 @@ public class BusAlertsFragment extends Fragment {
 
             @Override
             public BusAlertHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_alert, group, false);
+                View view;
+                if(darkMode){
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_alert_dark, group, false);
+                }else{
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_alert, group, false);
+                }
+
                 return new BusAlertHolder(view);
             }
         };

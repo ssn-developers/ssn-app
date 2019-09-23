@@ -4,9 +4,12 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.suke.widget.SwitchButton;
 
 
 import java.util.ArrayList;
@@ -47,18 +51,57 @@ public class StudentHomeActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     ViewPager viewPager;
     TextView tv_name, tv_email;
+    SwitchButton darkModeSwitch;
 
     ListView lv_items;
     DrawerAdapter adapter;
 
     static int count=0;
 
+    private void clearLightStatusBar(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int flags = activity.getWindow().getDecorView().getSystemUiVisibility(); // get current flag
+            flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR; // use XOR here for remove LIGHT_STATUS_BAR from flags
+            activity.getWindow().getDecorView().setSystemUiVisibility(flags);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_home);
+
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_student_home_dark);
+            clearLightStatusBar(this);
+        }else {
+            setContentView(R.layout.activity_student_home);
+        }
 
         initUI();
+
+        if(darkModeEnabled){
+            darkModeSwitch.setChecked(true);
+        }else {
+            darkModeSwitch.setChecked(false);
+        }
+
+        darkModeSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                if(isChecked){
+                    darkModeEnabled=true;
+                    SharedPref.putBoolean(getApplicationContext(),"darkMode",darkModeEnabled);
+                    finish();
+                    startActivity(getIntent());
+                }else {
+                    darkModeEnabled=false;
+                    SharedPref.putBoolean(getApplicationContext(),"darkMode",darkModeEnabled);
+                    finish();
+                    startActivity(getIntent());
+                }
+            }
+        });
 
         userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +232,8 @@ public class StudentHomeActivity extends BaseActivity {
 
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
+
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
         lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());
