@@ -28,6 +28,7 @@ import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
+import in.edu.ssn.ssnapp.fragments.ClubFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FacultySentBusPostFragment;
 import in.edu.ssn.ssnapp.fragments.FacultySentPostFragment;
@@ -66,14 +67,6 @@ public class FacultyHomeActivity extends BaseActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
-//        notifUI.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(), NotificationActivity.class));
-//                Bungee.slideLeft(FacultyHomeActivity.this);
-//            }
-//        });
 
         lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -209,7 +202,7 @@ public class FacultyHomeActivity extends BaseActivity {
 
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FacultyFeedFragment(), "News Feed");
+        adapter.addFragment(new ClubFragment(), "Club");
         if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
             adapter.addFragment(new FacultySentBusPostFragment(), "Sent post");
         else

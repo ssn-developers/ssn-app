@@ -53,7 +53,7 @@ public class FCMHelper {
                         if (!task.isSuccessful()) {
                             msg = "subscribe failed";
                         }
-                        Log.d(TAG, msg);
+                        //Log.d(TAG, msg);
                     }
                 });
     }
@@ -71,7 +71,7 @@ public class FCMHelper {
                         if (!task.isSuccessful()) {
                             msg = "unsubscribe failed";
                         }
-                        Log.d(TAG, msg);
+                        //Log.d(TAG, msg);
                     }
                 });
     }

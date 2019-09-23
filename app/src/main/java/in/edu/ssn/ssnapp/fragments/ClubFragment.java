@@ -39,8 +39,10 @@ import java.util.List;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.adapters.SubscribeFeedsAdapter;
 import in.edu.ssn.ssnapp.adapters.UnSubscribeAdapter;
 import in.edu.ssn.ssnapp.models.Club;
+import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
@@ -51,13 +53,15 @@ public class ClubFragment extends Fragment {
 
     public ClubFragment() { }
 
-    private RecyclerView subs_RV, unsubs_RV;
+    private RecyclerView subs_RV, unsubs_RV, feed_RV;
     private TextView tv_suggestion;
     private RelativeLayout layout_subscribed;
     private FirestoreRecyclerAdapter subs_adap;
 
-    List<Club> clubs;
+    List<Club> clubs, subscribed_clubs, subscribe_clubs;
+    List<ClubPost> post, subscribe_post;
     UnSubscribeAdapter adapter;
+    SubscribeFeedsAdapter subscribe_adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -90,6 +94,7 @@ public class ClubFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
                 holder.tv_name.setText(model.getName());
                 holder.tv_description.setText(model.getDescription());
+                FCMHelper.SubscribeToTopic(getContext(),"club_" + model.getId());
 
                 try {
                     Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
@@ -158,9 +163,11 @@ public class ClubFragment extends Fragment {
                 if(task.isSuccessful() && task.getResult() != null){
                     clubs = task.getResult().toObjects(Club.class);
 
+                    subscribed_clubs.clear();
                     for(int i = 0; i< clubs.size(); i++) {
                         Club c = clubs.get(i);
                         if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
+                            subscribed_clubs.add(c);
                             clubs.remove(i);
                             i--;
                         }
@@ -181,6 +188,38 @@ public class ClubFragment extends Fragment {
                     });
 
                     adapter.notifyDataSetChanged();
+
+                    setUpFeeds();
+                }
+            }
+        });
+    }
+
+    private void setUpFeeds(){
+        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful() && task.getResult() != null){
+                    post = task.getResult().toObjects(ClubPost.class);
+
+                    subscribe_post.clear();
+                    subscribe_clubs.clear();
+
+                    for(int i = 0; i< post.size(); i++) {
+                        ClubPost c = post.get(i);
+                        for(int j=0; j<subscribed_clubs.size(); j++){
+                            if(c.getCid().equals(subscribed_clubs.get(j).getId())){
+                                subscribe_post.add(c);
+                                subscribe_clubs.add(subscribed_clubs.get(j));
+                                break;
+                            }
+                        }
+                    }
+
+                    subscribe_adapter = new SubscribeFeedsAdapter(getContext(), subscribe_clubs, subscribe_post);
+                    feed_RV.setAdapter(subscribe_adapter);
+
+                    subscribe_adapter.notifyDataSetChanged();
                 }
             }
         });
@@ -189,11 +228,18 @@ public class ClubFragment extends Fragment {
     private void initUI(View view) {
         subs_RV = view.findViewById(R.id.subs_RV);
         unsubs_RV = view.findViewById(R.id.unsubs_RV);
+        feed_RV = view.findViewById(R.id.feed_RV);
         tv_suggestion = view.findViewById(R.id.tv_suggestion);
         layout_subscribed = view.findViewById(R.id.layout_subscribed);
 
         subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
         unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        feed_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+
+        subscribed_clubs = new ArrayList<Club>();
+        subscribe_clubs = new ArrayList<Club>();
+        subscribe_post = new ArrayList<ClubPost>();
+        post = new ArrayList<ClubPost>();
     }
 
     /*********************************************************/
@@ -203,7 +249,6 @@ public class ClubFragment extends Fragment {
         TextView tv_name, tv_description;
         ImageView iv_dp;
         LottieAnimationView lottie;
-
 
         public FeedViewHolder(View itemView) {
             super(itemView);

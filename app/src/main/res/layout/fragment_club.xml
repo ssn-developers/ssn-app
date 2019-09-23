@@ -69,6 +69,7 @@
 							android:gravity="center"
 							android:textSize="@dimen/_12ssp" />
 					</RelativeLayout>
+
 				</RelativeLayout>
 
 			</RelativeLayout>
@@ -92,7 +93,16 @@
 				android:paddingStart="@dimen/_5sdp"
 				android:id="@+id/unsubs_RV"/>
 
+			<androidx.recyclerview.widget.RecyclerView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/_10sdp"
+				android:clipToPadding="false"
+				android:paddingStart="@dimen/_5sdp"
+				android:id="@+id/feed_RV"/>
+
 		</LinearLayout>
+
 	</androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

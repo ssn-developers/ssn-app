@@ -67,14 +67,6 @@ public class StudentHomeActivity extends BaseActivity {
             }
         });
 
-//        notifUI.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
-//                Bungee.slideLeft(StudentHomeActivity.this);
-//            }
-//        });
-
         lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
