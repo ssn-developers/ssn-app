@@ -68,6 +68,7 @@
                 android:layout_below="@id/tv_name"
                 android:fontFamily="@font/open_sans"
                 android:textColor="#000000"
+                android:minLines="2"
                 android:maxLines="2"
                 android:textSize="@dimen/_10ssp" />
         </RelativeLayout>
