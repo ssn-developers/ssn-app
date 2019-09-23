@@ -78,7 +78,7 @@ public class WorkshopFragment extends Fragment {
                 .round();
         String dept = SharedPref.getString(getContext(),"dept");
 
-        Query query = FirebaseFirestore.getInstance().collection("workshop").whereArrayContains("dept",dept).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_workshop).whereArrayContains("dept",dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override

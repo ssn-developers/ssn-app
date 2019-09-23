@@ -42,6 +42,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.UnSubscribeAdapter;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
@@ -75,7 +76,7 @@ public class ClubFragment extends Fragment {
     }
 
     private void setUpSubcriptions() {
-        Query query = FirebaseFirestore.getInstance().collection("club").whereArrayContains("followers",SharedPref.getString(getContext(),"email"));
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_club).whereArrayContains("followers",SharedPref.getString(getContext(),"email"));
         final FirestoreRecyclerOptions<Club> options = new FirestoreRecyclerOptions.Builder<Club>().setQuery(query, new SnapshotParser<Club>() {
             @NonNull
             @Override
@@ -100,7 +101,7 @@ public class ClubFragment extends Fragment {
                 holder.lottie.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        FirebaseFirestore.getInstance().collection("club").document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
+                        FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
                         FCMHelper.UnSubscribeToTopic(getContext(),"club_" + model.getId());
                         model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
                         clubs.add(model);
@@ -151,7 +152,7 @@ public class ClubFragment extends Fragment {
     }
 
     private void setUpUnSubcriptions(){
-        FirebaseFirestore.getInstance().collection("club").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        FirebaseFirestore.getInstance().collection(Constants.collection_club).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful() && task.getResult() != null){

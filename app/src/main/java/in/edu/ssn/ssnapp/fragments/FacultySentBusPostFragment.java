@@ -69,7 +69,7 @@ public class FacultySentBusPostFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post_bus").orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post_bus).orderBy("time", Query.Direction.DESCENDING);
 
         FirestoreRecyclerOptions<BusPost> options = new FirestoreRecyclerOptions.Builder<BusPost>().setQuery(query, new SnapshotParser<BusPost>() {
                     @NonNull

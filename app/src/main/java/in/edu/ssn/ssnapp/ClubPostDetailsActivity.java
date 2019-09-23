@@ -63,6 +63,7 @@ import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -145,7 +146,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
 
                 if(!replyingForComment){
                     Comments temp=new Comments(SharedPref.getString(ClubPostDetailsActivity.this,"email"),et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
-                    FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment", FieldValue.arrayUnion(temp));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment", FieldValue.arrayUnion(temp));
                 }
                 else{
 
@@ -160,7 +161,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
                     commentsArrayList.get(listPosition).getReply().add(temp);
                     expandableListAdapter.setCommentArrayList(commentsArrayList);
 
-                    FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment",commentsArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment",commentsArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             Log.d("Test","success");
@@ -202,7 +203,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     }
 
     void setUpFirestore(){
-        listenerRegistration= FirebaseFirestore.getInstance().collection("post_club").document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        listenerRegistration= FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 post = CommonUtils.getClubPostFromSnapshot(getApplicationContext(),documentSnapshot);
@@ -339,10 +340,10 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                     iv_like.setImageResource(R.drawable.blue_heart);
-                    FirebaseFirestore.getInstance().collection("post_club").document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                 } else {
                     iv_like.setImageResource(R.drawable.heart);
-                    FirebaseFirestore.getInstance().collection("post_club").document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                 }
             }
         });

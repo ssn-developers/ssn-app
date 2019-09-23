@@ -41,6 +41,10 @@ public class FCMHelper {
     final static String TAG="test_set";
 
     public static void SubscribeToTopic(final Context context,String topic){
+
+        if(Constants.debug_mode)
+            topic="debug_"+topic;
+
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -55,6 +59,9 @@ public class FCMHelper {
     }
 
     public static void UnSubscribeToTopic(final Context context, String topic){
+
+        if(Constants.debug_mode)
+            topic="debug_"+topic;
 
         FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

@@ -123,7 +123,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Privacy Policy":
                         if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/59fe74661969551554a7a886f0767308");
+                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/77e3f0a8a5b350afc54dc2b8c2af568b");
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(FacultyHomeActivity.this);
                         }

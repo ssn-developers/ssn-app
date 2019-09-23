@@ -352,16 +352,16 @@ public class SplashActivity extends AppCompatActivity {
 
     public void FetchPostById(final String postId, final String collectionName, final String post_id, final int type){
         String collection = collectionName;
-        if(collectionName.equals("post_club"))
-            collection = "club";
+        if(collectionName.equals(Constants.collection_post_club))
+            collection = Constants.collection_club;
 
         FirebaseFirestore.getInstance().collection(collection).document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                if(collectionName.equals("club") || collectionName.equals("post_club")){
+                if(collectionName.equals(Constants.collection_club) || collectionName.equals(Constants.collection_post_club)){
                     Club club = CommonUtils.getClubFromSnapshot(getApplicationContext(),snapshot);
 
-                    if(collectionName.equals("post_club")){
+                    if(collectionName.equals(Constants.collection_post_club)){
                         try{
                             notif_intent=new Intent(SplashActivity.this, ClubPostDetailsActivity.class);
                             notif_intent.putExtra("data", post_id);
@@ -429,7 +429,7 @@ public class SplashActivity extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                     type = 1;
-                    collectionName = "post";
+                    collectionName = Constants.collection_post;
                 }
 
                 try {
@@ -450,7 +450,7 @@ public class SplashActivity extends AppCompatActivity {
                 catch (Exception e) {
                     e.printStackTrace();
                     type = 1;
-                    collectionName = "post";
+                    collectionName = Constants.collection_post;
                 }
 
                 if (bundle.containsKey("vca"))
@@ -470,7 +470,7 @@ public class SplashActivity extends AppCompatActivity {
                 //dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
                 worst_case = false;
             }
-            else if (collectionName.equals("post_club")) {
+            else if (collectionName.equals(Constants.collection_post_club)) {
                 // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
                 // http://ssnportal.cf/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
 
