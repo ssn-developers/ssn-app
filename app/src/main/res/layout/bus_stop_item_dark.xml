@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:orientation="vertical"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content">
+
+	<androidx.cardview.widget.CardView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/_8sdp"
+		app:contentPadding="@dimen/_8sdp"
+		app:cardElevation="0dp"
+		android:clickable="true"
+		android:focusable="true"
+		android:id="@+id/busStopsCV"
+		app:cardCornerRadius="@dimen/_3sdp"
+		app:cardBackgroundColor="@color/darkColorLight2">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:gravity="center"
+			android:orientation="vertical">
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:id="@+id/text_timeline_date"
+				android:textSize="@dimen/_10ssp"
+				android:clickable="false"
+				android:fontFamily="@font/open_sans"
+				android:textColor="@color/colorAccentDark"
+				tools:text=""/>
+
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/_3sdp"
+				android:fontFamily="@font/open_sans_bold"
+				android:id="@+id/text_timeline_title"
+				android:textStyle="bold"
+				android:ellipsize="end"
+				android:clickable="false"
+				android:textColor="@color/colorAccentDark" />
+
+		</LinearLayout>
+
+	</androidx.cardview.widget.CardView>
+
+	<com.github.vipulasri.timelineview.TimelineView
+		android:id="@+id/timeline"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:markerSize="@dimen/_16sdp"
+		android:clickable="true"
+		app:marker="@drawable/ic_bus"
+		app:lineWidth="@dimen/_2sdp"
+		app:startLineColor="@android:color/tab_indicator_text"
+		app:endLineColor="@android:color/tab_indicator_text"
+		app:lineOrientation="horizontal"
+		app:lineStyle="dash"/>
+
+</LinearLayout>

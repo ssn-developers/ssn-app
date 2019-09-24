@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_55sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:id="@+id/bus_alert_item"
+    android:background="@drawable/bus_alert_detail_bg_dark">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_13ssp"/>
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_date"
+            android:fontFamily="@font/open_sans"
+            android:textColor="#f2f2f2"
+            android:textSize="@dimen/_10ssp"/>
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:fontFamily="@font/open_sans"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorAccentDark"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:textSize="@dimen/_13ssp"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

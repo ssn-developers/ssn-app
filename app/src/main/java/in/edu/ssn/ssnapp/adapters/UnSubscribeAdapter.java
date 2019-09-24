@@ -34,16 +34,22 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
 
     private List<Club> clubs;
     private Context context;
-
+    boolean darkMode;
     public UnSubscribeAdapter(Context context, List<Club> clubs) {
         this.context = context;
         this.clubs = clubs;
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     @NonNull
     @Override
     public UnSubscribeAdapter.FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.club_item, parent, false);
+        View view;
+        if(darkMode)
+            view = LayoutInflater.from(context).inflate(R.layout.club_item_dark, parent, false);
+        else
+            view = LayoutInflater.from(context).inflate(R.layout.club_item, parent, false);
+
         return new FeedViewHolder(view);
     }
 

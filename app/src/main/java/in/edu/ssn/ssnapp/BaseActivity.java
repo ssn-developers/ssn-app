@@ -12,18 +12,22 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import in.edu.ssn.ssnapp.utils.FontChanger;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class BaseActivity extends AppCompatActivity {
 
     //Fonts
     public Typeface regular, bold, semi_bold;
-
+    public boolean darkModeEnabled = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        darkModeEnabled = SharedPref.getBoolean(getApplicationContext(),"darkMode");
+
         initFonts();
+
     }
 
     private void initFonts(){

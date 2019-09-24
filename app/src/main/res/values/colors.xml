@@ -15,4 +15,13 @@
     <color name="pageColor1">#DB5E6E</color>
     <color name="pageColor2">#447097</color>
     <color name="pageColor3">#FA7919</color>
+
+    <color name="darkColor">#1B1B1B</color>
+    <color name="darkColor1">#2B2B2B</color>
+    <color name="darkColorLight">#3D3D3D</color>
+    <color name="darkColorLight1">#292929</color>
+    <color name="darkColorLight2">#4E4E4E</color>
+    <color name="colorAccentDark">#7ABFFF</color>
+
+
 </resources>

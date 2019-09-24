@@ -213,7 +213,7 @@
             android:fontFamily="@font/open_sans"
             android:textColor="#636363"
             android:textSize="@dimen/_10ssp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
             android:text="CSE department &amp; Marketing team"/>
 
     </RelativeLayout>

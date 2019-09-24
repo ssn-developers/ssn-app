@@ -8,7 +8,6 @@ import java.util.Date;
 
 public class Club implements Parcelable {
 
-
     private String id;
     private String dp_url;
     private String cover_url;

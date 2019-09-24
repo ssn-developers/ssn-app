@@ -29,6 +29,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
@@ -44,15 +45,17 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAdapter.FeedViewHolder>{
 
-    private List<ClubPost> posts;
-    private List<Club> clubs;
+    private ArrayList<ClubPost> posts;
+    private ArrayList<Club> clubs;
     private Context context;
+    boolean darkMode;
     private TextDrawable.IBuilder builder;
 
-    public SubscribeFeedsAdapter(Context context, List<Club> clubs, List<ClubPost> posts) {
+    public SubscribeFeedsAdapter(Context context, ArrayList<Club> clubs, ArrayList<ClubPost> posts) {
         this.context = context;
         this.clubs = clubs;
         this.posts = posts;
+        darkMode = SharedPref.getBoolean(context,"darkMode");
         builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
@@ -63,7 +66,11 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
     @NonNull
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.club_post_item, parent, false);
+        View view;
+        if(darkMode)
+            view = LayoutInflater.from(context).inflate(R.layout.club_post_item_dark, parent, false);
+        else
+            view = LayoutInflater.from(context).inflate(R.layout.club_post_item, parent, false);
         return new FeedViewHolder(view);
     }
 

@@ -17,6 +17,7 @@ import java.util.List;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder> {
     private List<String> stops;
@@ -24,6 +25,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
     private BusRoute model;
     private Context context;
     Typeface regular, bold;
+    boolean darkMode=false;
 
     public BusStopAdapter(Context context, BusRoute model) {
         this.context = context;
@@ -32,12 +34,18 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
         this.model = model;
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
         bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
     @Override
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.bus_stop_item, parent, false);
-        return new TimeLineViewHolder(listItem,viewType);
+        View listitem;
+        if(darkMode){
+            listitem = layoutInflater.inflate(R.layout.bus_stop_item_dark, parent, false);
+        }else {
+            listitem = layoutInflater.inflate(R.layout.bus_stop_item, parent, false);
+        }
+        return new TimeLineViewHolder(listitem,viewType);
     }
 
     @Override

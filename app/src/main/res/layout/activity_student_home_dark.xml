@@ -5,8 +5,9 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:theme="@style/AppThemeDark"
 	android:id="@+id/drawerLayout"
-	android:background="@android:color/white"
+	android:background="@color/darkColor"
 	tools:context=".StudentHomeActivity">
 
 	<RelativeLayout
@@ -107,7 +108,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_below="@id/fakeAppbarLL"
-			android:background="#FAFFFFFF">
+			android:background="@color/darkColor">
 			<com.ogaclejapan.smarttablayout.SmartTabLayout
 				android:id="@+id/viewPagerTab"
 				android:paddingStart="@dimen/_14sdp"
@@ -138,7 +139,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:layout_gravity="start"
-		android:background="#ffffff">
+		android:background="@color/darkColor1">
 
 		<RelativeLayout
 			android:layout_width="match_parent"
@@ -156,7 +157,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
-				android:textColor="@color/colorAccent"
+				android:textColor="@color/colorAccentDark"
 				android:textSize="@dimen/_14ssp"
 				android:fontFamily="@font/open_sans_bold"
 				android:layout_centerHorizontal="true"
@@ -167,7 +168,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
-				android:textColor="#69000000"
+				android:textColor="#ffffff"
 				android:textSize="@dimen/_10ssp"
 				android:fontFamily="@font/open_sans"
 				android:layout_centerHorizontal="true"
@@ -194,6 +195,7 @@
 					<ImageView
 						android:id="@+id/iv_icon"
 						app:srcCompat="@drawable/ic_sleep"
+						android:tint="#99727C8E"
 						android:layout_width="@dimen/_14sdp"
 						android:layout_height="@dimen/_14sdp"
 						android:layout_margin="@dimen/_13sdp"/>
@@ -203,7 +205,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:text="Dark mode"
-						android:textColor="#9A000000"
+						android:textColor="#ffffff"
 						android:textSize="@dimen/_12ssp"
 						android:singleLine="true"
 						android:layout_toLeftOf="@+id/iv_arrow"
@@ -216,7 +218,7 @@
 					<com.suke.widget.SwitchButton
 						android:id="@+id/darkModeSwitch"
 						android:layout_alignParentRight="true"
-						app:sb_checked_color="@color/colorAccent"
+						app:sb_checked_color="@color/colorAccentDark"
 						app:sb_show_indicator="false"
 						android:layout_centerVertical="true"
 						android:layout_marginRight="@dimen/_12sdp"
