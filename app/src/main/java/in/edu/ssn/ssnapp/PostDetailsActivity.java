@@ -60,7 +60,12 @@ public class PostDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_details);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_post_details_dark);
+            clearLightStatusBar(this);
+        }else {
+            setContentView(R.layout.activity_post_details);
+        }
 
         post = getIntent().getParcelableExtra("post");
         final int type = getIntent().getIntExtra("type",0);

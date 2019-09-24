@@ -139,43 +139,44 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean replyingForComment=expandableListAdapter.getReplyingForComment();
+                if(et_Comment.getText().toString().trim().length()>1) {
+                    Boolean replyingForComment = expandableListAdapter.getReplyingForComment();
 
-                if(replyingForComment==null)
-                    replyingForComment=false;
+                    if (replyingForComment == null)
+                        replyingForComment = false;
 
-                if(!replyingForComment){
-                    Comments temp=new Comments(SharedPref.getString(ClubPostDetailsActivity.this,"email"),et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
-                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment", FieldValue.arrayUnion(temp));
+                    if (!replyingForComment) {
+                        Comments temp = new Comments(SharedPref.getString(ClubPostDetailsActivity.this, "email"), et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
+                        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment", FieldValue.arrayUnion(temp));
+                    } else {
+
+                        HashMap<String, Object> temp = new HashMap<>();
+                        temp.put("author", SharedPref.getString(ClubPostDetailsActivity.this, "email"));
+                        temp.put("message", et_Comment.getEditableText().toString());
+                        temp.put("time", Calendar.getInstance().getTime());
+
+
+                        ArrayList<Comments> commentsArrayList = expandableListAdapter.getCommentArrayList();
+                        int listPosition = expandableListAdapter.getSelectedCommentPosition();
+                        commentsArrayList.get(listPosition).getReply().add(temp);
+                        expandableListAdapter.setCommentArrayList(commentsArrayList);
+
+                        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment", commentsArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d("Test", "success");
+                            }
+                        });
+
+                        tv_selected_reply.setText("");
+                        cv_reply.setVisibility(View.GONE);
+
+                        expandableListAdapter.setReplyingForComment(false);
+                    }
+
+                    et_Comment.setText("");
+                    CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
                 }
-                else{
-
-                    HashMap<String,Object> temp=new HashMap<>();
-                    temp.put("author", SharedPref.getString(ClubPostDetailsActivity.this,"email"));
-                    temp.put("message",et_Comment.getEditableText().toString());
-                    temp.put("time", Calendar.getInstance().getTime());
-
-
-                    ArrayList<Comments> commentsArrayList=expandableListAdapter.getCommentArrayList();
-                    int listPosition=expandableListAdapter.getSelectedCommentPosition();
-                    commentsArrayList.get(listPosition).getReply().add(temp);
-                    expandableListAdapter.setCommentArrayList(commentsArrayList);
-
-                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment",commentsArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("Test","success");
-                        }
-                    });
-
-                    tv_selected_reply.setText("");
-                    cv_reply.setVisibility(View.GONE);
-
-                    expandableListAdapter.setReplyingForComment(false);
-                }
-
-                et_Comment.setText("");
-                CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
             }
         });
 

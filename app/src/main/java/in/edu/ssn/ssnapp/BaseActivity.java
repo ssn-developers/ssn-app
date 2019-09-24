@@ -1,10 +1,12 @@
 package in.edu.ssn.ssnapp;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,5 +43,13 @@ public class BaseActivity extends AppCompatActivity {
     public void changeFont(Typeface typeface, ViewGroup viewGroup){
         FontChanger fontChanger = new FontChanger(typeface);
         fontChanger.replaceFonts(viewGroup);
+    }
+    public void clearLightStatusBar(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int flags = activity.getWindow().getDecorView().getSystemUiVisibility(); // get current flag
+            flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR; // use XOR here for remove LIGHT_STATUS_BAR from flags
+            activity.getWindow().getDecorView().setSystemUiVisibility(flags);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
+        }
     }
 }
