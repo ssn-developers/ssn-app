@@ -261,18 +261,7 @@ public class ClubFragment extends Fragment {
                     subscribe_adapter = new SubscribeFeedsAdapter(getContext(), s_club, s_post);
                     feed_RV.setAdapter(subscribe_adapter);
 
-                    feed_RV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-
-                        @Override
-                        public void onChildViewAttachedToWindow(@NonNull View view) {
-                            subscribe_adapter.notifyDataSetChanged();
-                        }
-
-                        @Override
-                        public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-                        }
-                    });
+                    //Realtime change need to be done
 
                     shimmer_view.setVisibility(View.GONE);
                     if(subscribe_post.size() == 0)
