@@ -367,7 +367,8 @@ public class ClubFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        subs_adap.stopListening();
+        if(adapter!=null)
+            subs_adap.stopListening();
     }
 
     @Override

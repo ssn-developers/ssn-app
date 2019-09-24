@@ -207,7 +207,8 @@ public class FacultySentPostFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        adapter.stopListening();
+        if(adapter!=null)
+            adapter.stopListening();
     }
 
     @Override
