@@ -261,7 +261,7 @@ public class ClubFragment extends Fragment {
                     subscribe_adapter = new SubscribeFeedsAdapter(getContext(), s_club, s_post);
                     feed_RV.setAdapter(subscribe_adapter);
 
-                    //Realtime change need to be done
+                    //TODO:Realtime change need to be done
 
                     shimmer_view.setVisibility(View.GONE);
                     if(subscribe_post.size() == 0)

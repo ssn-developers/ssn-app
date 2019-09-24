@@ -153,19 +153,22 @@ public class CommonUtils {
     }
 
     public static String getNameFromEmail(String email){
-        String name=" ";
+        String name="";
 
         email = email.substring(0, email.indexOf("@"));
-        for (int j = 0; j < email.length(); j++) {
+
+        //TODO: check for both faculty & student
+        /*int j=0;
+        for (j = 0; j < email.length(); j++) {
             if (Character.isDigit(email.charAt(j))) {
                 name = email.substring(0, j);
                 break;
             }
         }
         if (name.isEmpty())
-            name = email;
+            name = email;*/
 
-        name = name.substring(0,1).toUpperCase() + name.substring(1);
+        name = email.substring(0,1).toUpperCase() + email.substring(1);
 
         return name;
     }
@@ -227,10 +230,7 @@ public class CommonUtils {
                 ArrayList<String> fileUrl = new ArrayList<>();
 
                 for (int i = 0; i < files.size(); i++) {
-                    String name = files.get(i).get("name");
-                    if(name.length() > 13)
-                        name = name.substring(0,name.length()-13);
-                    fileName.add(name);
+                    fileName.add(files.get(i).get("name"));
                     fileUrl.add(files.get(i).get("url"));
                 }
                 post.setFileName(fileName);
