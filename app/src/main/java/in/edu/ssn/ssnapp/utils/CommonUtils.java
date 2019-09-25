@@ -353,10 +353,7 @@ public class CommonUtils {
                 ArrayList<String> fileUrl = new ArrayList<>();
 
                 for (int i = 0; i < files.size(); i++) {
-                    String name = files.get(i).get("name");
-                    if(name.length() > 13)
-                        name = name.substring(0,name.length()-13);
-                    fileName.add(name);
+                    fileName.add(files.get(i).get("name"));
                     fileUrl.add(files.get(i).get("url"));
                 }
                 post.setFileName(fileName);
