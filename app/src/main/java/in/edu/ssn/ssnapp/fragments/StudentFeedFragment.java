@@ -84,9 +84,7 @@ public class StudentFeedFragment extends Fragment {
 
     void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
-        //String year = "year." + SharedPref.getInt(getContext(),"year");
-
-        String year = "year.2016";
+        String year = "year." + SharedPref.getInt(getContext(),"year");
 
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()

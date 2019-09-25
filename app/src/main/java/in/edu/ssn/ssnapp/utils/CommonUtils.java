@@ -153,24 +153,9 @@ public class CommonUtils {
     }
 
     public static String getNameFromEmail(String email){
-        String name="";
-
         email = email.substring(0, email.indexOf("@"));
-
-        //TODO: check for both faculty & student
-        /*int j=0;
-        for (j = 0; j < email.length(); j++) {
-            if (Character.isDigit(email.charAt(j))) {
-                name = email.substring(0, j);
-                break;
-            }
-        }
-        if (name.isEmpty())
-            name = email;*/
-
-        name = email.substring(0,1).toUpperCase() + email.substring(1);
-
-        return name;
+        email = email.substring(0,1).toUpperCase() + email.substring(1);
+        return email;
     }
 
     public static String getTime(Date time){
