@@ -58,39 +58,50 @@
         android:layout_below="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_height="@dimen/_70sdp"
-            android:background="@drawable/card_single_bg">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_20sdp"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:cardElevation="@dimen/_10sdp"
+            app:cardBackgroundColor="#ffffff">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_27sdp"
-                android:layout_marginRight="@dimen/_25sdp"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_22sdp"
-                android:text="All posts"
-                android:textSize="@dimen/_12ssp"
-                android:fontFamily="@font/open_sans"
-                android:textColor="#000000"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.suke.widget.SwitchButton
-                android:id="@+id/switch_all"
-                android:layout_alignParentRight="true"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginBottom="@dimen/_22sdp"
-                android:layout_marginRight="@dimen/_30sdp"
-                app:sb_checked_color="@color/colorAccent"
-                app:sb_show_indicator="false"
-                app:sb_background="@color/colorAccentLight"
-                android:layout_width="@dimen/_40sdp"
-                android:layout_height="@dimen/_20sdp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_12sdp"
+                    android:layout_marginRight="@dimen/_25sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:text="All posts"
+                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="#000000"/>
 
-        </RelativeLayout>
+                <com.suke.widget.SwitchButton
+                    android:id="@+id/switch_all"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_centerVertical="true"
+                    app:sb_checked_color="@color/colorAccent"
+                    app:sb_show_indicator="false"
+                    app:sb_background="@color/colorAccentLight"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_20sdp"/>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
