@@ -7,8 +7,8 @@ android {
         applicationId "in.edu.ssn.ssnapp"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 8
-        versionName "1.17"
+        versionCode 9
+        versionName "1.18"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
