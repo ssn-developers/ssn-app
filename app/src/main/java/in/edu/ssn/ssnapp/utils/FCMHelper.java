@@ -84,7 +84,7 @@ public class FCMHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(new NotificationChannel("1","general",NotificationManager.IMPORTANCE_HIGH));
             Notification.Builder nbuilder=new Notification.Builder(context,"1")
-                    .setContentTitle("New post")
+                    .setContentTitle("Check out the new post")
                     .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setChannelId("1")
@@ -96,7 +96,7 @@ public class FCMHelper {
         }
         else {
             Notification.Builder nbuilder=new Notification.Builder(context)
-                    .setContentTitle("New post")
+                    .setContentTitle("Check out the new post")
                     .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setAutoCancel(true)
