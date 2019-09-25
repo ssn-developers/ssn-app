@@ -332,7 +332,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "work");
         }
         else if(clearance == 1)
-            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept"));
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + "work");
     }
 
     /************************************************************************/
