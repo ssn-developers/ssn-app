@@ -205,9 +205,8 @@ public class FacultyHomeActivity extends BaseActivity {
         adapter.addFragment(new ClubFragment(), "Club");
         if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
             adapter.addFragment(new FacultySentBusPostFragment(), "Sent post");
-        else
-            adapter.addFragment(new FacultySentPostFragment(), "Sent post");
         adapter.addFragment(new BusAlertsFragment(),"Bus alert");
+        adapter.addFragment(new WorkshopFragment(), "Workshop");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);

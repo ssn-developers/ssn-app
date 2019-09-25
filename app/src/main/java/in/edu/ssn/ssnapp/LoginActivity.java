@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 else if(clearance == 1){
-                    if(m_f.find()){
+                    //if(m_f.find()){
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -215,14 +215,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 }
                             }
                         });
-                    }
+                    /*}
                     else {
                         Toast toast = Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         layout_progress.setVisibility(View.GONE);
                         flag = true;
-                    }
+                    }*/
                 }
             }
             catch (ApiException e) {
@@ -316,6 +316,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void setUpNotification() {
         SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
 
         if(SharedPref.getInt(getApplicationContext(),"clearance") == 1) {
             SharedPref.putBoolean(getApplicationContext(), "switch_dept1", true);
@@ -325,7 +326,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             SharedPref.putBoolean(getApplicationContext(), "switch_dept0", true);
             SharedPref.putBoolean(getApplicationContext(), "switch_bus0", true);
             SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
-            SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
         }
     }
 
