@@ -109,6 +109,7 @@ public class ClubFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
                 holder.tv_name.setText(model.getName());
                 holder.tv_description.setText(model.getDescription());
+                FCMHelper.SubscribeToTopic(getContext(),"club_" + model.getId());
 
                 try {
                     Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
