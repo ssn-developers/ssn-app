@@ -225,12 +225,10 @@ public class ClubFragment extends Fragment {
     }
 
     private void setUpFeeds(){
-
         listenerRegistration=FirebaseFirestore.getInstance().collection(Constants.collection_post_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 try{
-
                     if(queryDocumentSnapshots!=null){
                         post = queryDocumentSnapshots.toObjects(ClubPost.class);
 
@@ -270,8 +268,6 @@ public class ClubFragment extends Fragment {
                         subscribe_adapter = new SubscribeFeedsAdapter(getContext(), s_club, s_post);
                         feed_RV.setAdapter(subscribe_adapter);
 
-                        //TODO:Realtime change need to be done
-
                         shimmer_view.setVisibility(View.GONE);
                         if(subscribe_post.size() == 0)
                             layout_empty_feed.setVisibility(View.VISIBLE);
@@ -280,17 +276,14 @@ public class ClubFragment extends Fragment {
 
                         subscribe_adapter.notifyDataSetChanged();
                     }
-                    else{
+                    else
                         shimmer_view.setVisibility(View.GONE);
-                    }
-
-                }catch (Exception ex){
+                }
+                catch (Exception ex){
                     ex.printStackTrace();
                 }
-
             }
         });
-
     }
 
     private void initUI(View view) {
@@ -373,15 +366,11 @@ public class ClubFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
 
-
         if(adapter!=null)
             subs_adap.stopListening();
 
         if(listenerRegistration!=null)
             listenerRegistration.remove();
-
-
-
     }
 
     @Override
