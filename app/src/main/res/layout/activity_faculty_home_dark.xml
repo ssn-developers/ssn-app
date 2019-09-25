@@ -5,7 +5,8 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/darkColor"
+    android:theme="@style/AppThemeDark"
     tools:context=".FacultyHomeActivity">
 
     <RelativeLayout
@@ -90,20 +91,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fakeAppbarLL"
-            android:background="#FAFFFFFF">
+            android:background="@color/darkColor">
 
             <com.ogaclejapan.smarttablayout.SmartTabLayout
                 android:id="@+id/viewPagerTab"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:clipToPadding="false"
                 android:paddingStart="@dimen/_14sdp"
                 android:paddingEnd="@dimen/_14sdp"
+                android:clipToPadding="false"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="bottom|center_horizontal"
                 app:stl_clickable="true"
-                app:stl_customTabTextLayoutId="@layout/custom_tab"
-                app:stl_customTabTextViewId="@+id/customTabTV"
                 app:stl_dividerColor="@android:color/transparent"
                 app:stl_dividerThickness="0dp"
                 app:stl_indicatorColor="@color/colorAccent"
@@ -112,7 +111,9 @@
                 app:stl_indicatorInterpolation="linear"
                 app:stl_indicatorThickness="@dimen/_28sdp"
                 app:stl_underlineColor="@android:color/transparent"
-                app:stl_underlineThickness="0dp" />
+                app:stl_underlineThickness="0dp"
+                app:stl_customTabTextLayoutId="@layout/custom_tab"
+                app:stl_customTabTextViewId="@+id/customTabTV" />
         </RelativeLayout>
 
     </RelativeLayout>
@@ -122,7 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#ffffff">
+        android:background="@color/darkColor1">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -142,9 +143,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_profile"
                 android:layout_centerHorizontal="true"
+                android:textColor="@color/colorAccentDark"
                 android:fontFamily="@font/open_sans_bold"
                 android:singleLine="true"
-                android:textColor="@color/colorAccent"
                 android:textSize="@dimen/_14ssp" />
 
             <TextView
@@ -155,7 +156,7 @@
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/open_sans"
                 android:singleLine="true"
-                android:textColor="#69000000"
+                android:textColor="#ffffff"
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
@@ -166,7 +167,7 @@
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/open_sans_semi_bold"
                 android:singleLine="true"
-                android:textColor="#000000"
+                android:textColor="#ffffff"
                 android:textSize="@dimen/_10ssp" />
 
             <LinearLayout
@@ -190,6 +191,7 @@
                     <ImageView
                         android:id="@+id/iv_icon"
                         app:srcCompat="@drawable/ic_sleep"
+                        android:tint="#99727C8E"
                         android:layout_width="@dimen/_14sdp"
                         android:layout_height="@dimen/_14sdp"
                         android:layout_margin="@dimen/_13sdp"/>
@@ -199,7 +201,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Dark mode"
-                        android:textColor="#9A000000"
+                        android:textColor="#ffffff"
                         android:textSize="@dimen/_12ssp"
                         android:singleLine="true"
                         android:layout_toLeftOf="@+id/iv_arrow"
@@ -212,7 +214,7 @@
                     <com.suke.widget.SwitchButton
                         android:id="@+id/darkModeSwitch"
                         android:layout_alignParentRight="true"
-                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_checked_color="@color/colorAccentDark"
                         app:sb_show_indicator="false"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/_12sdp"

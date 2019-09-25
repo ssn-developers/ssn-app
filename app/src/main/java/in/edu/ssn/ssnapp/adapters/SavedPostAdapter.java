@@ -39,11 +39,13 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class SavedPostAdapter extends ArrayAdapter<Post> {
-
+    boolean darkMode=false;
     public SavedPostAdapter(@NonNull Context context, ArrayList<Post> resource) {
         super(context,0,resource);
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     @Override
@@ -62,8 +64,15 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         RelativeLayout feed_view;
         ViewPager viewPager;
 
-        if(convertView==null)
-            convertView= LayoutInflater.from(getContext()).inflate(R.layout.student_post_item, parent,false);
+        if(convertView==null){
+            if(darkMode){
+                convertView= LayoutInflater.from(getContext()).inflate(R.layout.student_post_item_dark, parent,false);
+            }else {
+                convertView= LayoutInflater.from(getContext()).inflate(R.layout.student_post_item, parent,false);
+            }
+
+        }
+
 
         tv_author = convertView.findViewById(R.id.tv_author);
         tv_position = convertView.findViewById(R.id.tv_position);

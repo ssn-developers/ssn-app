@@ -173,7 +173,12 @@ public class PlacementFragment extends Fragment {
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
+                View view;
+                if(darkMode){
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item_dark, group, false);
+                }else{
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
+                }
                 return new FeedViewHolder(view);
             }
         };

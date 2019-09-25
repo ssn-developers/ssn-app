@@ -24,12 +24,18 @@ import java.io.File;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class OpenImageActivity extends AppCompatActivity {
+public class OpenImageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_open_image);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_open_image_dark);
+            clearLightStatusBar(this);
+        }else{
+            setContentView(R.layout.activity_open_image);
+        }
+
 
         ImageView iv_image=findViewById(R.id.iv_image);
         ImageView backIV=findViewById(R.id.backIV);

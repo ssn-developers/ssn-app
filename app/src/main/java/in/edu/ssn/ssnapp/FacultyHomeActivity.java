@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.suke.widget.SwitchButton;
 
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class FacultyHomeActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     ViewPager viewPager;
     TextView tv_name, tv_email, tv_access;
+    SwitchButton darkModeSwitch;
 
     ListView lv_items;
     DrawerAdapter adapter;
@@ -57,9 +59,40 @@ public class FacultyHomeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_faculty_home);
+
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_faculty_home_dark);
+            clearLightStatusBar(this);
+        }
+        else
+            setContentView(R.layout.activity_faculty_home);
 
         initUI();
+
+        if(darkModeEnabled){
+            darkModeSwitch.setChecked(true);
+        }else {
+            darkModeSwitch.setChecked(false);
+        }
+
+        darkModeSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                if(isChecked){
+                    darkModeEnabled=true;
+                    SharedPref.putBoolean(getApplicationContext(),"darkMode",darkModeEnabled);
+                    finish();
+                    startActivity(getIntent());
+                    Bungee.fade(FacultyHomeActivity.this);
+                }else {
+                    darkModeEnabled=false;
+                    SharedPref.putBoolean(getApplicationContext(),"darkMode",darkModeEnabled);
+                    finish();
+                    startActivity(getIntent());
+                    Bungee.fade(FacultyHomeActivity.this);
+                }
+            }
+        });
 
         userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -159,6 +192,8 @@ public class FacultyHomeActivity extends BaseActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
         tv_access = findViewById(R.id.tv_access);
+
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
         lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());

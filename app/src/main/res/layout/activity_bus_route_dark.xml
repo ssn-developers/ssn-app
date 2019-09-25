@@ -166,7 +166,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:text="Sorry! no buses were found!"
-            android:textColor="@color/colorAccentText"
+            android:textColor="#f2f2f2"
             android:layout_below="@+id/iv_empty"
             android:layout_centerHorizontal="true"
             android:textSize="@dimen/_12ssp" />

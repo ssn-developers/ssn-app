@@ -34,7 +34,7 @@ public class SavedPostActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         if(darkModeEnabled){
             setContentView(R.layout.activity_saved_post_dark);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor1));
         }else {
             setContentView(R.layout.activity_saved_post);
         }
