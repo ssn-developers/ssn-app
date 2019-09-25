@@ -338,7 +338,8 @@ public class CommonUtils {
         post.setAuthor(documentSnapshot.getString("author"));
         post.setTitle(documentSnapshot.getString("title"));
         post.setDescription(documentSnapshot.getString("description"));
-        post.setTime(documentSnapshot.getTimestamp("time").toDate());
+        DocumentSnapshot.ServerTimestampBehavior behavior = ESTIMATE;
+        post.setTime(documentSnapshot.getDate("time", behavior));
 
         ArrayList<String> images = (ArrayList<String>) documentSnapshot.get("img_urls");
         if(images != null && images.size() > 0)
