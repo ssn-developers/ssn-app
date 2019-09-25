@@ -330,9 +330,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "work");
+
+            // add user property in firebase analytics
+            try{
+                CommonUtils.addUserProperty(LoginActivity.this,"student_department",SharedPref.getString(this, "dept"));
+                CommonUtils.addUserProperty(LoginActivity.this,"student_year",Integer.toString(SharedPref.getInt(this,"year")));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
         else if(clearance == 1)
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + "work");
+
+            // add user property in firebase analytics
+            try{
+                CommonUtils.addUserProperty(LoginActivity.this,"faculty_department",SharedPref.getString(this, "dept"));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
     }
 
     /************************************************************************/

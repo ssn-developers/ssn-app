@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -37,6 +38,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.common.io.BaseEncoding;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import org.json.JSONArray;
@@ -494,4 +496,30 @@ public class CommonUtils {
             Constants.collection_workshop = "workshop";
         }
     }
+
+    /************************************************************************/
+
+    // utils functions for firebase analytics
+
+    public static void addUserProperty(Context context,String propertyName,String propertyValue){
+
+        try{
+            FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(context);
+            analytics.setUserProperty( propertyName,propertyValue);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void addEvent(Context context, String propertyName, Bundle propertyValue){
+
+        try{
+            FirebaseAnalytics.getInstance(context).logEvent(propertyName,propertyValue);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }
