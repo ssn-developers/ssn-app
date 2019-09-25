@@ -85,7 +85,7 @@ public class FCMHelper {
             notificationManager.createNotificationChannel(new NotificationChannel("1","general",NotificationManager.IMPORTANCE_HIGH));
             Notification.Builder nbuilder=new Notification.Builder(context,"1")
                     .setContentTitle("New post")
-                    .setSmallIcon(R.mipmap.app_icon)
+                    .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setChannelId("1")
                     .setAutoCancel(true)
@@ -97,7 +97,7 @@ public class FCMHelper {
         else {
             Notification.Builder nbuilder=new Notification.Builder(context)
                     .setContentTitle("New post")
-                    .setSmallIcon(R.mipmap.app_icon)
+                    .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setAutoCancel(true)
                     .setSound(alarmSound)
