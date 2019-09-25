@@ -7,7 +7,7 @@ import in.edu.ssn.ssnapp.R;
 public class Constants {
 
     //TODO: change to 'false' when releasing the app
-    public static final Boolean debug_mode = false;
+    public static final Boolean debug_mode = true;
 
     public static final String PDF_URL = "pdf_url";
     public static final String CipherKey="SSN_APP";
