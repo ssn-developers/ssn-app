@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
@@ -99,10 +100,18 @@ public class FacultySentBusPostFragment extends Fragment {
                 holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i=new Intent(getContext(), PdfViewerActivity.class);
-                        i.putExtra(Constants.PDF_URL,model.getUrl());
-                        startActivity(i);
-                        Bungee.fade(getContext());
+                        if(!CommonUtils.alerter(getContext())) {
+                            Intent i = new Intent(getContext(), PdfViewerActivity.class);
+                            i.putExtra(Constants.PDF_URL, model.getUrl());
+                            startActivity(i);
+                            Bungee.fade(getContext());
+                        }
+                        else{
+                            Intent intent = new Intent(getContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(getContext());
+                        }
                     }
                 });
                 shimmer_view.setVisibility(View.GONE);

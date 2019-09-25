@@ -29,12 +29,8 @@ import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
-import in.edu.ssn.ssnapp.fragments.ClubFragment;
-import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.FacultySentBusPostFragment;
-import in.edu.ssn.ssnapp.fragments.FacultySentPostFragment;
-import in.edu.ssn.ssnapp.fragments.FacultyFeedFragment;
-import in.edu.ssn.ssnapp.fragments.WorkshopFragment;
+import in.edu.ssn.ssnapp.fragments.FacultyWorkshopFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -113,18 +109,24 @@ public class FacultyHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
-                    /*case "Helpline":
-                        startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
-                        Bungee.slideLeft(FacultyHomeActivity.this);
-                        break;*/
-                    case "Notification Settings":
-                        startActivity(new Intent(getApplicationContext(), NotificationSettings.class));
-                        Bungee.slideLeft(FacultyHomeActivity.this);
+                    case "Calendar":
+                        if(!CommonUtils.alerter(getApplicationContext())) {
+                            Intent i = new Intent(getApplicationContext(), PdfViewerActivity.class);
+                            i.putExtra(Constants.PDF_URL, Constants.calendar);
+                            startActivity(i);
+                            Bungee.fade(FacultyHomeActivity.this);
+                        }
+                        else{
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(FacultyHomeActivity.this);
+                        }
                         break;
                     case "Invite Friends":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
-                        String shareBody = "Hello! Manage your feeds with ease and Find your bus routes on the go! Click here to stay updated on department feeds: https://play.google.com/store/apps/details?id="+FacultyHomeActivity.this.getPackageName();
+                        String shareBody = "Hello! Manage your feeds with ease and Find your bus routes on the go! Click here to stay updated on department and club feeds: https://play.google.com/store/apps/details?id="+FacultyHomeActivity.this.getPackageName();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                         break;
@@ -149,7 +151,7 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Privacy Policy":
                         if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/77e3f0a8a5b350afc54dc2b8c2af568b");
+                            SharedPref.putString(getApplicationContext(), "url", Constants.termsfeed);
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(FacultyHomeActivity.this);
                         }
@@ -203,7 +205,7 @@ public class FacultyHomeActivity extends BaseActivity {
 
         String access = SharedPref.getString(getApplicationContext(), "access");
         if (access.equals("SA"))
-            tv_access.setText("SUPER ADMIN");
+            tv_access.setText(" ADMIN");
         else
             tv_access.setVisibility(View.GONE);
 
@@ -224,8 +226,7 @@ public class FacultyHomeActivity extends BaseActivity {
     void setUpDrawer() {
         adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-        adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
-        //adapter.add(new Drawer("Helpline", R.drawable.ic_team));
+        adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
@@ -237,11 +238,10 @@ public class FacultyHomeActivity extends BaseActivity {
 
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ClubFragment(), "Club");
         if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
             adapter.addFragment(new FacultySentBusPostFragment(), "Sent post");
         adapter.addFragment(new BusAlertsFragment(),"Bus alert");
-        adapter.addFragment(new WorkshopFragment(), "Workshop");
+        adapter.addFragment(new FacultyWorkshopFragment(),"Workshop");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);

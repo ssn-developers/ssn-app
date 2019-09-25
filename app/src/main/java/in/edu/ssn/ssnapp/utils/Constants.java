@@ -1,14 +1,13 @@
 package in.edu.ssn.ssnapp.utils;
 
-
 // All the immutable constants must be included in this file
 
 import in.edu.ssn.ssnapp.R;
 
 public class Constants {
 
-    // todo change to false when releasing the app
-    public static final Boolean debug_mode = true;
+    //TODO: change to 'false' when releasing the app
+    public static final Boolean debug_mode = false;
 
     public static final String PDF_URL = "pdf_url";
     public static final String CipherKey="SSN_APP";
@@ -17,6 +16,10 @@ public class Constants {
     public static final String DATABASE_NAME="SSNDB";
     public static final int DATABASE_VERSION=1;
     public static final String DATABASE_PWD="TEST_PWD";
+
+    //URLs
+    public static final String calendar = "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/utils%2FCollege%20Calendar%202019%20-20.pdf?alt=media&token=c99c10cd-c124-405c-9a8d-ef6f39ee5e56";
+    public static final String termsfeed = "https://www.termsfeed.com/privacy-policy/77e3f0a8a5b350afc54dc2b8c2af568b";
 
     // FCM topics
     public static final String BUS_ALERTS="busalerts";
@@ -37,12 +40,13 @@ public class Constants {
     public static final int workshop = 6;
 
     // collection name
-    public static final String collection_club="club";
-    public static final String collection_exam_cell="debug_examcell";
-    public static final String collection_placement="debug_placement";
-    public static final String collection_post="debug_post";
-    public static final String collection_post_bus="post_bus";
-    public static final String collection_post_club="debug_post_club";
-    public static final String collection_workshop="debug_workshop";
-    public static final String collection_feedback="debug_feedback";
+    public static String collection_club="club";
+    public static String collection_feedback="feedback";
+
+    public static String collection_exam_cell;
+    public static String collection_placement;
+    public static String collection_post;
+    public static String collection_post_bus;
+    public static String collection_post_club;
+    public static String collection_workshop;
 }

@@ -71,7 +71,6 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
             @Override
             public void onClick(View view) {
                 FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(context,"email")));
-                FCMHelper.SubscribeToTopic(context,"club_" + model.getId());
                 clubs.remove(position);
                 notifyDataSetChanged();
             }

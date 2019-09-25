@@ -122,6 +122,8 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        CommonUtils.isDebug();
+
         initUI();
         checkIsBlocked();
         forceUpdate();
@@ -301,51 +303,58 @@ public class SplashActivity extends AppCompatActivity {
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            Glide.with(SplashActivity.this).asFile().load("https://ssn-app-web.web.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
-                @Override
-                public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
-                    File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"SSN-App");
-                    if(!dir.exists())
-                        dir.mkdir();
+            if(CommonUtils.alerter(getApplicationContext())) {
+                Glide.with(SplashActivity.this).asFile().load("https://ssnportal.cf/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
+                    @Override
+                    public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
+                        File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "SSN-App");
+                        if (!dir.exists())
+                            dir.mkdir();
 
-                    File file = new File(dir,"data_faculty.csv");
-                    try {
-                        FileInputStream inStream = new FileInputStream(resource);
-                        FileOutputStream outStream = new FileOutputStream(file);
-                        FileChannel inChannel = inStream.getChannel();
-                        FileChannel outChannel = outStream.getChannel();
-                        inChannel.transferTo(0, inChannel.size(), outChannel);
-                        inStream.close();
-                        outStream.close();
+                        File file = new File(dir, "data_faculty.csv");
+                        try {
+                            FileInputStream inStream = new FileInputStream(resource);
+                            FileOutputStream outStream = new FileOutputStream(file);
+                            FileChannel inChannel = inStream.getChannel();
+                            FileChannel outChannel = outStream.getChannel();
+                            inChannel.transferTo(0, inChannel.size(), outChannel);
+                            inStream.close();
+                            outStream.close();
 
-                        if(file.exists()) {
-                            try {
-                                CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
-                                List<Faculty> models = holder.getCsvRecords();
+                            if (file.exists()) {
+                                try {
+                                    CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
+                                    List<Faculty> models = holder.getCsvRecords();
 
-                                for (Faculty m : models) {
-                                    String email = m.getEmail();
-                                    SharedPref.putString(getApplicationContext(), "faculty_access", email, m.getAccess());
-                                    SharedPref.putString(getApplicationContext(), "faculty_dept", email, m.getDept());
-                                    SharedPref.putString(getApplicationContext(), "faculty_name", email, m.getName());
-                                    SharedPref.putString(getApplicationContext(), "faculty_position", email, m.getPosition());
+                                    for (Faculty m : models) {
+                                        String email = m.getEmail();
+                                        SharedPref.putString(getApplicationContext(), "faculty_access", email, m.getAccess());
+                                        SharedPref.putString(getApplicationContext(), "faculty_dept", email, m.getDept());
+                                        SharedPref.putString(getApplicationContext(), "faculty_name", email, m.getName());
+                                        SharedPref.putString(getApplicationContext(), "faculty_position", email, m.getPosition());
+                                    }
+
+                                    file.delete();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
-
-                                file.delete();
                             }
-                            catch (Exception e){
-                                e.printStackTrace();
-                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
-                    }
 
-                    if(!isUpdateAvailable)
-                        handleIntent();
-                }
-            });
+                        if (!isUpdateAvailable)
+                            handleIntent();
+                    }
+                });
+            }
+            else {
+                Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                intent.putExtra("key","splash");
+                startActivity(intent);
+                finish();
+                Bungee.fade(SplashActivity.this);
+            }
             return null;
         }
     }
@@ -355,57 +364,62 @@ public class SplashActivity extends AppCompatActivity {
         if(collectionName.equals(Constants.collection_post_club))
             collection = Constants.collection_club;
 
-        FirebaseFirestore.getInstance().collection(collection).document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot snapshot) {
-                if(collectionName.equals(Constants.collection_club) || collectionName.equals(Constants.collection_post_club)){
-                    Club club = CommonUtils.getClubFromSnapshot(getApplicationContext(),snapshot);
+        if(!CommonUtils.alerter(getApplicationContext())) {
+            FirebaseFirestore.getInstance().collection(collection).document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot snapshot) {
+                    if (collectionName.equals(Constants.collection_club) || collectionName.equals(Constants.collection_post_club)) {
+                        Club club = CommonUtils.getClubFromSnapshot(getApplicationContext(), snapshot);
 
-                    if(collectionName.equals(Constants.collection_post_club)){
-                        try{
-                            notif_intent=new Intent(SplashActivity.this, ClubPostDetailsActivity.class);
-                            notif_intent.putExtra("data", post_id);
-                            notif_intent.putExtra("club", club);
+                        if (collectionName.equals(Constants.collection_post_club)) {
+                            try {
+                                notif_intent = new Intent(SplashActivity.this, ClubPostDetailsActivity.class);
+                                notif_intent.putExtra("data", post_id);
+                                notif_intent.putExtra("club", club);
+                                worst_case = false;
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            notif_intent = new Intent(SplashActivity.this, ClubPageActivity.class);
+                            notif_intent.putExtra("data", club);
                             worst_case = false;
                         }
-                        catch (Exception e){
-                            e.printStackTrace();
+                    } else {
+                        Post post = CommonUtils.getPostFromSnapshot(getApplicationContext(), snapshot);
+                        if (type == 2) {
+                            post.setAuthor_image_url("placement@ssn.edu.in");
+                            post.setAuthor("SSN Career Development Centre");
+                            post.setPosition("Placement team");
+                        } else if (type == 5) {
+                            post.setAuthor_image_url("examcell@ssn.edu.in");
+                            post.setAuthor("SSNCE COE");
+                            post.setPosition("Exam cell team");
                         }
-                    }
-                    else {
-                        notif_intent = new Intent(SplashActivity.this, ClubPageActivity.class);
-                        notif_intent.putExtra("data",club);
+
+                        DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(getApplicationContext());
+                        //dataBaseHelper.addNotification(new Notification("1",postId,"",post));
+
+                        notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
+                        notif_intent.putExtra("post", post);
+                        notif_intent.putExtra("type", type);
                         worst_case = false;
                     }
                 }
-                else{
-                    Post post = CommonUtils.getPostFromSnapshot(getApplicationContext(), snapshot);
-                    if(type == 2){
-                        post.setAuthor_image_url("placement@ssn.edu.in");
-                        post.setAuthor("SSN Career Development Centre");
-                        post.setPosition("Placement team");
-                    }
-                    else if(type == 5){
-                        post.setAuthor_image_url("examcell@ssn.edu.in");
-                        post.setAuthor("SSNCE COE");
-                        post.setPosition("Exam cell team");
-                    }
-
-                    DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                    //dataBaseHelper.addNotification(new Notification("1",postId,"",post));
-
-                    notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
-                    notif_intent.putExtra("post",post);
-                    notif_intent.putExtra("type",type);
-                    worst_case = false;
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(TAG, "failed to fetch the post");
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"failed to fetch the post");
-            }
-        });
+            });
+        }
+        else{
+            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+            intent.putExtra("key","splash");
+            startActivity(intent);
+            finish();
+            Bungee.fade(SplashActivity.this);
+        }
     }
 
     /**********************************************************************/
@@ -464,11 +478,18 @@ public class SplashActivity extends AppCompatActivity {
                 return;
 
             if(pdfUrl!=null && !pdfUrl.equals("")){
-                notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
-                notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
-                DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-                //dataBaseHelper.addNotification(new Notification("7", vca, pdfUrl, new Post("Bus Post","", new Date(), "7", pdfUrl)));
-                worst_case = false;
+                if(!CommonUtils.alerter(getApplicationContext())) {
+                    notif_intent = new Intent(getApplicationContext(), PdfViewerActivity.class);
+                    notif_intent.putExtra(Constants.PDF_URL, pdfUrl);
+                    worst_case = false;
+                }
+                else{
+                    Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                    intent.putExtra("key","splash");
+                    startActivity(intent);
+                    finish();
+                    Bungee.fade(SplashActivity.this);
+                }
             }
             else if (collectionName.equals(Constants.collection_post_club)) {
                 // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43

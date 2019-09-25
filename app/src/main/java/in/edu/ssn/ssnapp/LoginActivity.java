@@ -318,15 +318,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
 
-        if(SharedPref.getInt(getApplicationContext(),"clearance") == 1) {
-            SharedPref.putBoolean(getApplicationContext(), "switch_dept1", true);
-            SharedPref.putBoolean(getApplicationContext(), "switch_bus1", true);
-        }
-        else{
-            SharedPref.putBoolean(getApplicationContext(), "switch_dept0", true);
-            SharedPref.putBoolean(getApplicationContext(), "switch_bus0", true);
-            SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
-        }
+        SharedPref.putBoolean(getApplicationContext(), "switch_dept0", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_bus0", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
     }
 
     public void SubscribeToAlerts(Context context){
@@ -337,7 +331,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "work");
         }
-        else if(clearance==1)
+        else if(clearance == 1)
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept"));
     }
 
@@ -403,7 +397,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            Glide.with(LoginActivity.this).asFile().load("https://ssn-app-web.web.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
+            Glide.with(LoginActivity.this).asFile().load("https://ssnportal.cf/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
                 @Override
                 public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
                     File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS),"SSN-App");

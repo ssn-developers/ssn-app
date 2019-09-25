@@ -76,12 +76,12 @@ public class FeedbackActivity extends BaseActivity {
                 if(!CommonUtils.alerter(getApplicationContext())) {
                     if (tv_button.getText().equals("Submit")) {
                         String et_text = et_feedback.getEditableText().toString().trim();
-                        final Map<String, Object> feedback_details = new HashMap<>();
-                        feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
-                        feedback_details.put("text", et_text);
-                        feedback_details.put("time", FieldValue.serverTimestamp());
+                        if(et_text.length() > 1) {
+                            final Map<String, Object> feedback_details = new HashMap<>();
+                            feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
+                            feedback_details.put("text", et_text);
+                            feedback_details.put("time", FieldValue.serverTimestamp());
 
-                        if (et_text.length() > 0) {
                             lottie.setVisibility(View.VISIBLE);
                             tv_text1.setVisibility(View.VISIBLE);
                             et_feedback.setVisibility(View.INVISIBLE);
@@ -92,7 +92,7 @@ public class FeedbackActivity extends BaseActivity {
                         }
                         else {
                             Toast toast = Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
                     }

@@ -18,7 +18,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".SplashActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,33 +34,74 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="ssn-app-web.web.app"
+                    android:host="ssnportal.cf"
                     android:pathPrefix="/share.html"
                     android:scheme="https" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".BlockScreenActivity"/>
-        <activity android:name=".ClubPageActivity" android:theme="@style/AppTheme2"/>
-        <activity android:name=".BusRoutesActivity"
+        <activity
+            android:name=".BlockScreenActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ClubPageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme2"/>
+        <activity
+            android:name=".BusRoutesActivity"
             android:theme="@style/AppTheme1"/>
-        <activity android:name=".ClubPostDetailsActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".NoNetworkActivity" />
-        <activity android:name=".HelpLineActivity" />
-        <activity android:name=".SavedPostActivity" android:theme="@style/AppTheme1" />
-        <activity android:name=".FacultyHomeActivity" />
-        <activity android:name=".OpenImageActivity" />
-        <activity android:name=".NotificationActivity"/>
-        <activity android:name=".FeedbackActivity" android:theme="@style/AppTheme1"/>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".AppInfoActivity" />
-        <activity android:name=".NotificationSettings" android:theme="@style/AppTheme1"/>
-        <activity android:name=".onboarding.OnboardingActivity" />
-        <activity android:name=".WebViewActivity" />
-        <activity android:name=".PdfViewerActivity" />
-        <activity android:name=".StudentHomeActivity" />
-        <activity android:name=".PostDetailsActivity" />
-        <activity android:name=".BaseActivity" />
+        <activity
+            android:name=".ClubPostDetailsActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".NoNetworkActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SavedPostActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme1" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".FacultyHomeActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".OpenImageActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".NotificationActivity"/>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".FeedbackActivity"
+            android:theme="@style/AppTheme1"/>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".LoginActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".AppInfoActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".NotificationSettings"
+            android:theme="@style/AppTheme1"/>
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".onboarding.OnboardingActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".WebViewActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".PdfViewerActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".StudentHomeActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".PostDetailsActivity" />
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".BaseActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -115,10 +115,20 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
-                    /*case "Helpline":
-                        startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
-                        Bungee.slideLeft(StudentHomeActivity.this);
-                        break;*/
+                    case "Calendar":
+                        if(!CommonUtils.alerter(getApplicationContext())) {
+                            Intent i = new Intent(getApplicationContext(), PdfViewerActivity.class);
+                            i.putExtra(Constants.PDF_URL, Constants.calendar);
+                            startActivity(i);
+                            Bungee.fade(StudentHomeActivity.this);
+                        }
+                        else{
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(StudentHomeActivity.this);
+                        }
+                        break;
                     case "Library Renewals":
                         if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn")) {
                             SharedPref.putString(getApplicationContext(),"url","http://opac.ssn.net:8081/");
@@ -151,7 +161,7 @@ public class StudentHomeActivity extends BaseActivity {
                     case "Invite Friends":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
-                        String shareBody = "Hello! Manage your internals, results & exam schedule with ease and Find your bus routes on the go! Click here to stay updated on department feeds: https://play.google.com/store/apps/details?id="+StudentHomeActivity.this.getPackageName();
+                        String shareBody = "Hello! Manage your internals, results & exam schedule with ease and Find your bus routes on the go! Click here to stay updated on department and club feeds: https://play.google.com/store/apps/details?id="+StudentHomeActivity.this.getPackageName();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                         break;
@@ -176,7 +186,7 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Privacy Policy":
                         if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/77e3f0a8a5b350afc54dc2b8c2af568b");
+                            SharedPref.putString(getApplicationContext(), "url", Constants.termsfeed);
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(StudentHomeActivity.this);
                         }
@@ -246,7 +256,7 @@ public class StudentHomeActivity extends BaseActivity {
         adapter.add(new Drawer("AlmaConnect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
-        //adapter.add(new Drawer("Helpline", R.drawable.ic_team));
+        adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));

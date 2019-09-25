@@ -121,7 +121,6 @@ public class ClubFragment extends Fragment {
                     @Override
                     public void onClick(View view) {
                         FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
-                        FCMHelper.UnSubscribeToTopic(getContext(),"club_" + model.getId());
                         model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
                         clubs.add(model);
                         adapter.notifyDataSetChanged();

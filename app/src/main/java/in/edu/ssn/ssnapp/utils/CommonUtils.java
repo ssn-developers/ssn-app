@@ -463,7 +463,7 @@ public class CommonUtils {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssn-app-web.web.app/share.html?type=" + type + "&vca=" + post.getId();
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssnportal.cf/share.html?type=" + type + "&vca=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
@@ -489,5 +489,24 @@ public class CommonUtils {
 
     public static void setIs_blocked(Boolean is_blocked) {
         CommonUtils.is_blocked = is_blocked;
+    }
+
+    public static void isDebug(){
+        if(Constants.debug_mode){
+            Constants.collection_exam_cell = "debug_examcell";
+            Constants.collection_placement = "debug_placement";
+            Constants.collection_post = "debug_post";
+            Constants.collection_post_bus = "debug_post_bus";
+            Constants.collection_post_club = "debug_post_club";
+            Constants.collection_workshop = "debug_workshop";
+        }
+        else{
+            Constants.collection_exam_cell = "examcell";
+            Constants.collection_placement = "placement";
+            Constants.collection_post = "post";
+            Constants.collection_post_bus = "post_bus";
+            Constants.collection_post_club = "post_club";
+            Constants.collection_workshop = "workshop";
+        }
     }
 }

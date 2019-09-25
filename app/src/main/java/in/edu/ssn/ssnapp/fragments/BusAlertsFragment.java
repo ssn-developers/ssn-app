@@ -26,6 +26,8 @@ import java.util.Collections;
 import java.util.Date;
 
 import in.edu.ssn.ssnapp.BusRoutesActivity;
+import in.edu.ssn.ssnapp.FacultyHomeActivity;
+import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusPost;
@@ -97,10 +99,18 @@ public class BusAlertsFragment extends Fragment {
                 holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(getContext(), PdfViewerActivity.class);
-                        i.putExtra(Constants.PDF_URL, model.getUrl());
-                        startActivity(i);
-                        Bungee.fade(getContext());
+                        if(!CommonUtils.alerter(getContext())) {
+                            Intent i = new Intent(getContext(), PdfViewerActivity.class);
+                            i.putExtra(Constants.PDF_URL, model.getUrl());
+                            startActivity(i);
+                            Bungee.fade(getContext());
+                        }
+                        else{
+                            Intent intent = new Intent(getContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(getContext());
+                        }
                     }
                 });
                 shimmer_view.setVisibility(View.GONE);
