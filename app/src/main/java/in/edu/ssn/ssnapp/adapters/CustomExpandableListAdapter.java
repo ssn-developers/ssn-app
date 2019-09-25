@@ -54,6 +54,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     Boolean replyingForComment;
     int selectedCommentPosition;
+    boolean darkMode=false;
 
 
     public void setClubPost(ClubPost clubPost) {
@@ -68,6 +69,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         this.commentArrayList=data;
         this.activity=activity;
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     public void setCommentArrayList(ArrayList<Comments> commentArrayList) {
@@ -108,7 +110,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.custom_reply_item, null);
+            if(darkMode){
+                convertView = layoutInflater.inflate(R.layout.custom_reply_item_dark, null);
+            }else {
+                convertView = layoutInflater.inflate(R.layout.custom_reply_item, null);
+            }
         }
 
 
@@ -172,7 +178,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.custom_comment_item, null);
+            if(darkMode){
+                convertView = layoutInflater.inflate(R.layout.custom_comment_item_dark, null);
+            }else {
+                convertView = layoutInflater.inflate(R.layout.custom_comment_item, null);
+            }
         }
 
         TextView listTitleTextView = convertView.findViewById(R.id.listTitle);

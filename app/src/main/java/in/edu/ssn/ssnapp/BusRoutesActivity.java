@@ -57,7 +57,7 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         super.onCreate(savedInstanceState);
         if(darkModeEnabled){
             setContentView(R.layout.activity_bus_route_dark);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor1));
         }else{
             setContentView(R.layout.activity_bus_route);
         }

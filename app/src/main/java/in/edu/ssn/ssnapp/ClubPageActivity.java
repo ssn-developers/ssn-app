@@ -66,7 +66,7 @@ import spencerstudios.com.bungeelib.Bungee;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
+public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
 
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
@@ -85,7 +85,12 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_club_page);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_club_page_dark);
+        }else{
+            setContentView(R.layout.activity_club_page);
+        }
+
 
         initUI();
 
@@ -150,10 +155,20 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
         if (club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
             tv_following_text.setText("Following");
-            tv_following_text.setTextColor(Color.BLACK);
+            if(darkModeEnabled){
+                tv_following_text.setTextColor(Color.WHITE);
+            }else{
+                tv_following_text.setTextColor(Color.BLACK);
+            }
+
         } else {
             tv_following_text.setText("Follow");
-            tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+            if(darkModeEnabled){
+                tv_following_text.setTextColor(getResources().getColor(R.color.colorAccentDark));
+            }
+            else {
+                tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+            }
         }
 
         lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -338,7 +353,13 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
-                View view = LayoutInflater.from(ClubPageActivity.this).inflate(R.layout.club_post_item, group, false);
+                View view;
+                if(darkModeEnabled){
+                    view = LayoutInflater.from(ClubPageActivity.this).inflate(R.layout.club_post_item_dark, group, false);
+                }else{
+                    view = LayoutInflater.from(ClubPageActivity.this).inflate(R.layout.club_post_item, group, false);
+                }
+
                 return new FeedViewHolder(view);
             }
         };
@@ -419,14 +440,23 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                     FCMHelper.SubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().add(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Following");
-                    tv_following_text.setTextColor(Color.BLACK);
+                    if(darkModeEnabled){
+                        tv_following_text.setTextColor(Color.WHITE);
+                    }else{
+                        tv_following_text.setTextColor(Color.BLACK);
+                    }
                 }
                 else {
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.UnSubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Follow");
-                    tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                    if(darkModeEnabled){
+                        tv_following_text.setTextColor(getResources().getColor(R.color.colorAccentDark));
+                    }
+                    else {
+                        tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                    }
                 }
 
                 if (club.getFollowers().size() > 0) {

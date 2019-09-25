@@ -34,7 +34,7 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class FeedbackActivity extends AppCompatActivity {
+public class FeedbackActivity extends BaseActivity {
 
     FirebaseFirestore db;
 
@@ -47,7 +47,12 @@ public class FeedbackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_feedback_dark);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+        }else {
+            setContentView(R.layout.activity_feedback);
+        }
 
         db = FirebaseFirestore.getInstance();
 

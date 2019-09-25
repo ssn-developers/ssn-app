@@ -15,7 +15,7 @@
 		android:focusable="true"
 		app:cardElevation="0dp"
 		android:id="@+id/busRouteCV"
-		app:cardBackgroundColor="@color/darkColorLight"
+		app:cardBackgroundColor="@color/darkColor1"
 		android:layout_marginRight="@dimen/_14sdp"
 		android:layout_marginTop="@dimen/_6sdp"
 		android:layout_marginBottom="@dimen/_6sdp">

@@ -34,6 +34,16 @@
 		<item name="android:statusBarColor">@color/darkColor</item>
 	</style>
 
+	<style name="AppTheme2Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@color/darkColor</item>
+		<item name="colorPrimaryDark">@color/darkColor</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowBackground">@color/darkColor1</item>
+		<item name="android:windowTranslucentStatus">true</item>
+	</style>
+
+
 
 
 	<style name="chipTextAppearance" parent="TextAppearance.MaterialComponents.Chip">

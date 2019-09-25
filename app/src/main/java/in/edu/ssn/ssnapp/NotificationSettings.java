@@ -15,7 +15,7 @@ import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class NotificationSettings extends AppCompatActivity {
+public class NotificationSettings extends BaseActivity {
 
     com.suke.widget.SwitchButton switch_all, switch_dept0, switch_bus0, switch_dept1, switch_bus1, switch_exam, switch_workshop;
     LinearLayout layout_student, layout_faculty;
@@ -24,7 +24,12 @@ public class NotificationSettings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notification_settings);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_notification_settings_dark);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+        }else {
+            setContentView(R.layout.activity_notification_settings);
+        }
 
         initUI();
 

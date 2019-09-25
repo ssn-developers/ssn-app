@@ -67,7 +67,7 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class ClubPostDetailsActivity extends AppCompatActivity {
+public class ClubPostDetailsActivity extends BaseActivity {
     ImageView backIV, userImageIV, iv_like, iv_comment, iv_share,iv_send,iv_cancel_reply;
     ViewPager viewPager;
     TextView tv_author, tv_name, tv_time, tv_title, tv_current_image,tv_attachments, tv_like, tv_comment,tv_selected_reply;
@@ -89,7 +89,13 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_club_post_details);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_club_post_details_dark);
+            clearLightStatusBar(this);
+        }else{
+            setContentView(R.layout.activity_club_post_details);
+        }
+
 
         initUI();
     }
