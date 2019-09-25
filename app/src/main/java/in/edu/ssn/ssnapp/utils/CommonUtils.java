@@ -422,7 +422,13 @@ public class CommonUtils {
         final TextView tv_save;
 
         final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
-        View sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu, null);
+        View sheetView;
+        if(SharedPref.getBoolean(context,"darkMode")){
+            sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu_dark, null);
+        }else{
+            sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu, null);
+        }
+
         bottomSheetDialog.setContentView(sheetView);
 
         ll_save=sheetView.findViewById(R.id.saveLL);
