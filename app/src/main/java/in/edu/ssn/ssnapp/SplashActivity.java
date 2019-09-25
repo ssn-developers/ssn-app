@@ -303,7 +303,7 @@ public class SplashActivity extends AppCompatActivity {
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            if(CommonUtils.alerter(getApplicationContext())) {
+            if(!CommonUtils.alerter(getApplicationContext())) {
                 Glide.with(SplashActivity.this).asFile().load("https://ssnportal.cf/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
                     @Override
                     public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {

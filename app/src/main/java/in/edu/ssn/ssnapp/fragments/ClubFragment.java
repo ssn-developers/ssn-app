@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,8 +31,11 @@ import com.firebase.ui.firestore.SnapshotParser;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -43,6 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.ExecutionException;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.R;
@@ -74,6 +79,7 @@ public class ClubFragment extends Fragment {
     private UnSubscribeAdapter adapter;
     private SubscribeFeedsAdapter subscribe_adapter;
     private ShimmerFrameLayout shimmer_view;
+    ListenerRegistration listenerRegistration;
 
     private TextView tv_text1,tv_text2,tv_text11,tv_text22;
 
@@ -219,62 +225,72 @@ public class ClubFragment extends Fragment {
     }
 
     private void setUpFeeds(){
-        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+        listenerRegistration=FirebaseFirestore.getInstance().collection(Constants.collection_post_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful() && task.getResult() != null){
-                    post = task.getResult().toObjects(ClubPost.class);
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                try{
 
-                    subscribe_post.clear();
+                    if(queryDocumentSnapshots!=null){
+                        post = queryDocumentSnapshots.toObjects(ClubPost.class);
 
-                    for(int i = 0; i< post.size(); i++) {
-                        ClubPost c = post.get(i);
-                        for(int j=0; j<subscribed_clubs.size(); j++){
-                            if(c.getCid().equals(subscribed_clubs.get(j).getId())){
-                                mClub = new HashMap<>();
-                                mClub.put("club",subscribed_clubs.get(j));
-                                mClub.put("post",c);
-                                subscribe_post.add(mClub);
-                                break;
+                        subscribe_post.clear();
+
+                        for(int i = 0; i< post.size(); i++) {
+                            ClubPost c = post.get(i);
+                            for(int j=0; j<subscribed_clubs.size(); j++){
+                                if(c.getCid().equals(subscribed_clubs.get(j).getId())){
+                                    mClub = new HashMap<>();
+                                    mClub.put("club",subscribed_clubs.get(j));
+                                    mClub.put("post",c);
+                                    subscribe_post.add(mClub);
+                                    break;
+                                }
                             }
                         }
+
+                        Collections.sort(subscribe_post, new Comparator<Map<String, Object>> () {
+                            public int compare(Map<String, Object> m1, Map<String, Object> m2) {
+                                return (((ClubPost) m2.get("post")).getTime()).compareTo(((ClubPost) m1.get("post")).getTime());
+                            }
+                        });
+
+                        ArrayList s_club = new ArrayList();
+                        ArrayList s_post = new ArrayList();
+
+                        for(Map<String, Object> map:subscribe_post){
+                            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                                if(entry.getKey().equals("club"))
+                                    s_club.add((Club) entry.getValue());
+                                else
+                                    s_post.add((ClubPost) entry.getValue());
+                            }
+                        }
+
+                        subscribe_adapter = new SubscribeFeedsAdapter(getContext(), s_club, s_post);
+                        feed_RV.setAdapter(subscribe_adapter);
+
+                        //TODO:Realtime change need to be done
+
+                        shimmer_view.setVisibility(View.GONE);
+                        if(subscribe_post.size() == 0)
+                            layout_empty_feed.setVisibility(View.VISIBLE);
+                        else
+                            layout_empty_feed.setVisibility(View.GONE);
+
+                        subscribe_adapter.notifyDataSetChanged();
+                    }
+                    else{
+                        shimmer_view.setVisibility(View.GONE);
                     }
 
-                    Collections.sort(subscribe_post, new Comparator<Map<String, Object>> () {
-                        public int compare(Map<String, Object> m1, Map<String, Object> m2) {
-                            return (((ClubPost) m2.get("post")).getTime()).compareTo(((ClubPost) m1.get("post")).getTime());
-                        }
-                    });
-
-                    ArrayList s_club = new ArrayList();
-                    ArrayList s_post = new ArrayList();
-
-                    for(Map<String, Object> map:subscribe_post){
-                        for (Map.Entry<String, Object> entry : map.entrySet()) {
-                            if(entry.getKey().equals("club"))
-                                s_club.add((Club) entry.getValue());
-                            else
-                                s_post.add((ClubPost) entry.getValue());
-                        }
-                    }
-
-                    subscribe_adapter = new SubscribeFeedsAdapter(getContext(), s_club, s_post);
-                    feed_RV.setAdapter(subscribe_adapter);
-
-                    //TODO:Realtime change need to be done
-
-                    shimmer_view.setVisibility(View.GONE);
-                    if(subscribe_post.size() == 0)
-                        layout_empty_feed.setVisibility(View.VISIBLE);
-                    else
-                        layout_empty_feed.setVisibility(View.GONE);
-
-                    subscribe_adapter.notifyDataSetChanged();
+                }catch (Exception ex){
+                    ex.printStackTrace();
                 }
-                else
-                    shimmer_view.setVisibility(View.GONE);
+
             }
         });
+
     }
 
     private void initUI(View view) {
@@ -356,8 +372,16 @@ public class ClubFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+
         if(adapter!=null)
             subs_adap.stopListening();
+
+        if(listenerRegistration!=null)
+            listenerRegistration.remove();
+
+
+
     }
 
     @Override
