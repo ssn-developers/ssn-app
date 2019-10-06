@@ -125,6 +125,7 @@ public class SplashActivity extends AppCompatActivity {
         CommonUtils.isDebug();
 
         initUI();
+
         checkIsBlocked();
         forceUpdate();
         setUpCrashReport();
