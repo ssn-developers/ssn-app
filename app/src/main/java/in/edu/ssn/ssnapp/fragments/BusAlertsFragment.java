@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -146,7 +147,7 @@ public class BusAlertsFragment extends Fragment {
 
     public class BusAlertHolder extends RecyclerView.ViewHolder {
         public TextView tv_date, tv_time, tv_desc;
-        RelativeLayout rl_bus_alert_item;
+        LinearLayout rl_bus_alert_item;
 
         public BusAlertHolder(View itemView) {
             super(itemView);

@@ -2,19 +2,19 @@
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="wrap_content"
-	android:layout_height="wrap_content">
+	android:layout_height="wrap_content"
+	android:layout_gravity="center"
+	android:gravity="center">
 
 	<TextView
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textSize="18sp"
+		android:textSize="@dimen/_14sdp"
 		android:fontFamily="@font/open_sans_bold"
 		android:id="@+id/customTabTV"
 		android:layout_centerInParent="true"
 		android:textStyle="bold"
 		android:textColor="@color/custom_tab"
-		android:paddingTop="8dp"
-		android:paddingBottom="5dp"
 		android:paddingEnd="30dp"
 		android:paddingRight="30dp"
 		android:paddingStart="30dp"
