@@ -1,8 +1,9 @@
 package in.edu.ssn.ssnapp.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TeamDetails {
+public class TeamDetails implements Serializable {
     String name, position;
     int dp;
     ArrayList<Integer> type;

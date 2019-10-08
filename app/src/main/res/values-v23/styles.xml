@@ -7,6 +7,7 @@
 		<item name="colorPrimaryDark">@android:color/white</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:windowLightStatusBar">true</item>
+		<item name="android:windowContentTransitions">true</item>
 	</style>
 
 	<style name="AppTheme2" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -15,6 +16,7 @@
 		<item name="colorPrimaryDark">@android:color/white</item>
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:windowTranslucentStatus">true</item>
+		<item name="android:windowContentTransitions">true</item>
 	</style>
 
 
@@ -23,6 +25,7 @@
 		<item name="colorPrimary">@color/colorAccent</item>
 		<item name="colorPrimaryDark">@color/colorAccent</item>
 		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowContentTransitions">true</item>
 	</style>
 
 	<style name="AppThemeDark" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -32,6 +35,7 @@
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:windowLightStatusBar">false</item>
 		<item name="android:statusBarColor">@color/darkColor</item>
+		<item name="android:windowContentTransitions">true</item>
 	</style>
 
 	<style name="AppTheme2Dark" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -41,6 +45,7 @@
 		<item name="colorAccent">@color/colorAccent</item>
 		<item name="android:windowBackground">@color/darkColor1</item>
 		<item name="android:windowTranslucentStatus">true</item>
+		<item name="android:windowContentTransitions">true</item>
 	</style>
 
 

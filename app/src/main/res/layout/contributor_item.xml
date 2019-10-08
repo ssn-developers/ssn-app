@@ -2,24 +2,21 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/_90sdp"
-    android:background="@drawable/view_team_card">
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?selectableItemBackground"
+    android:id="@+id/containerRL">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_11sdp"
-        android:layout_marginBottom="@dimen/_14sdp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_dp"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:background="@drawable/ic_profile_background"
-            android:padding="@dimen/_8sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_width="@dimen/_42sdp"
+            android:layout_height="@dimen/_42sdp"
+            android:layout_margin="@dimen/_8sdp"
+            android:transitionName="userImageTrans"
             android:layout_centerVertical="true" />
 
         <RelativeLayout
@@ -35,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:textSize="@dimen/_14ssp"
-                android:textColor="#ffffff"
+                android:textColor="#000000"
                 android:fontFamily="@font/open_sans_bold"/>
 
             <TextView
@@ -45,7 +42,7 @@
                 android:singleLine="true"
                 android:layout_below="@+id/tv_name"
                 android:textSize="@dimen/_10ssp"
-                android:textColor="#CCFFFFFF"
+                android:textColor="#1D1D1D"
                 android:fontFamily="@font/open_sans"/>
 
         </RelativeLayout>
@@ -57,6 +54,7 @@
         android:layout_height="@dimen/_35sdp"
         android:layout_marginTop="@dimen/_5sdp"
         android:layout_marginRight="@dimen/_20sdp"
+        android:visibility="gone"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/ic_icon_grouper">

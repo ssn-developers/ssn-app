@@ -1,8 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/_7sdp">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,25 +15,25 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv_dp"
+                android:layout_marginStart="@dimen/_3sdp"
                 android:layout_centerVertical="true">
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_60sdp"
-                    android:fontFamily="@font/open_sans_semi_bold"
+                    android:fontFamily="@font/open_sans_bold"
                     android:singleLine="true"
                     android:text="hello"
-                    android:textColor="#505050"
-                    android:textSize="@dimen/_12ssp" />
+                    android:textColor="#000000"
+                    android:textSize="@dimen/_14ssp" />
 
                 <TextView
                     android:id="@+id/tv_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_name"
-                    android:layout_marginLeft="@dimen/_60sdp"
                     android:fontFamily="@font/open_sans"
                     android:singleLine="true"
                     android:text="hello"
@@ -42,32 +41,17 @@
                     android:textSize="@dimen/_10ssp" />
             </RelativeLayout>
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/_25sdp"
-                android:layout_height="@dimen/_25sdp"
+            <ImageView
+                android:layout_width="@dimen/_42sdp"
+                android:layout_height="@dimen/_42sdp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/_25sdp"
-                app:cardBackgroundColor="#D8D7D7"
-                app:cardCornerRadius="@dimen/_12sdp"
-                app:cardElevation="0dp">
+                android:layout_margin="@dimen/_8sdp"
+                android:id="@+id/iv_dp">
 
-                <ImageView
-                    android:id="@+id/iv_dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
-            </androidx.cardview.widget.CardView>
+            </ImageView>
 
         </RelativeLayout>
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_below="@+id/layout1"
-            android:layout_marginLeft="@dimen/_60sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:background="#c0c0c0" />
 
     </RelativeLayout>
 

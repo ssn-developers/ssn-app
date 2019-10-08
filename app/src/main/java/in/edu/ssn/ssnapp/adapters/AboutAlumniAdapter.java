@@ -56,10 +56,6 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
         TextDrawable ic1 = builder.build(String.valueOf(drawer.getName().charAt(0)), color);
         holder.iv_dp.setImageDrawable(ic1);
 
-        if(getItemCount() == position+1)
-            holder.view.setVisibility(View.GONE);
-        else
-            holder.view.setVisibility(View.VISIBLE);
 
         holder.tv_email.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +73,6 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
     public class ContributionViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_name, tv_email;
         public ImageView iv_dp;
-        public View view;
 
         public ContributionViewHolder(View convertView) {
             super(convertView);
@@ -85,7 +80,6 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
             tv_name = convertView.findViewById(R.id.tv_name);
             tv_email = convertView.findViewById(R.id.tv_email);
             iv_dp = convertView.findViewById(R.id.iv_dp);
-            view = convertView.findViewById(R.id.view);
         }
     }
 }

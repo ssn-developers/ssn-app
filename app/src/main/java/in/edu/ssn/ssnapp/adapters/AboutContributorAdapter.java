@@ -1,5 +1,6 @@
 package in.edu.ssn.ssnapp.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,13 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import in.edu.ssn.ssnapp.ContributorProfileActivity;
 import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.StudentHomeActivity;
@@ -42,8 +48,8 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AboutContributorAdapter.ContributionViewHolder holder, int position) {
-        TeamDetails drawer = (TeamDetails) teamDetails.get(position);
+    public void onBindViewHolder(@NonNull final AboutContributorAdapter.ContributionViewHolder holder, int position) {
+        final TeamDetails drawer = (TeamDetails) teamDetails.get(position);
 
         holder.tv_name.setText(drawer.getName());
         holder.tv_position.setText(drawer.getPosition());
@@ -60,6 +66,27 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
         holder.iv_img1.setOnClickListener(this);
         holder.iv_img2.setOnClickListener(this);
         holder.iv_img3.setOnClickListener(this);
+
+        holder.containerRL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ContributorProfileActivity.class);
+                intent.putExtra("Contributor",drawer);
+                ActivityOptionsCompat options = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                            (Activity) context,
+                            holder.iv_dp,
+                            holder.iv_dp.getTransitionName()
+                            );
+                    ActivityCompat.startActivity(context, intent, options.toBundle());
+                }else{
+                    context.startActivity(intent);
+                }
+
+
+            }
+        });
     }
 
     @Override
@@ -70,6 +97,7 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     public class ContributionViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_name, tv_position;
         public ImageView iv_dp, iv_img1, iv_img2, iv_img3;
+        public RelativeLayout containerRL;
 
         public ContributionViewHolder(View convertView) {
             super(convertView);
@@ -81,12 +109,14 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
             iv_img1 = convertView.findViewById(R.id.iv_img1);
             iv_img2 = convertView.findViewById(R.id.iv_img2);
             iv_img3 = convertView.findViewById(R.id.iv_img3);
+
+            containerRL = convertView.findViewById(R.id.containerRL);
         }
     }
 
     @Override
     public void onClick(View v) {
-        if(!CommonUtils.alerter(context)) {
+        /*if(!CommonUtils.alerter(context)) {
             switch (v.getId()) {
                 case R.id.iv_img1:
                     if (v.getTag() != null) {
@@ -115,6 +145,6 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
             intent.putExtra("key","appinfo");
             context.startActivity(intent);
             Bungee.fade(context);
-        }
+        }*/
     }
 }

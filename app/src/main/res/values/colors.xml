@@ -24,4 +24,12 @@
     <color name="colorAccentDark">#7ABFFF</color>
 
 
+    <color name="googleRedColor">#F7494D</color>
+    <color name="githubColor">#333333</color>
+    <color name="facebookColor">#3b5998</color>
+    <color name="instagramColor">#fe4164</color>
+    <color name="linkedinColor">#0e76a8</color>
+    <color name="behanceColor">#053eff</color>
+    <color name="dribbbleColor">#ea4c89</color>
+
 </resources>

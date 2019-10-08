@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
+    android:padding="@dimen/_5sdp"
     android:id="@+id/scroll_view"
     android:scrollbars="none"
     tools:context=".AppInfoActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_app_icon"
@@ -126,25 +126,25 @@
             android:id="@+id/tv_text0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_below="@+id/layout1"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/contributors"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_12ssp" />
+            android:textSize="@dimen/_16ssp" />
 
         <TextView
             android:id="@+id/tv_text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_2sdp"
             android:layout_below="@+id/tv_text0"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/pre_final_years"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_10ssp" />
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items1"
@@ -157,12 +157,13 @@
             android:id="@+id/tv_text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_below="@+id/rv_items1"
+            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/final_years"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_10ssp" />
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items2"
@@ -176,20 +177,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rv_items2"
-            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
-            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/alumni"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/_10ssp" />
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginLeft="@dimen/_20sdp"
-            android:layout_marginRight="@dimen/_20sdp"
             android:layout_below="@+id/tv_text3" />
 
         <TextView
