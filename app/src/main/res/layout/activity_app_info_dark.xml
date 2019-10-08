@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/darkColor"
     android:padding="@dimen/_5sdp"
     android:id="@+id/scroll_view"
     android:scrollbars="none"
@@ -42,7 +42,7 @@
                     android:layout_centerVertical="true"
                     android:fontFamily="@font/open_sans_bold"
                     android:text="@string/app_name"
-                    android:textColor="#000000"
+                    android:textColor="#ffffff"
                     android:textSize="@dimen/_16ssp" />
 
                 <TextView
@@ -119,7 +119,7 @@
                 android:layout_below="@+id/layout11"
                 android:fontFamily="@font/open_sans"
                 android:text="SSN Institutions"
-                android:textColor="#636363"
+                android:textColor="#CECECE"
                 android:textSize="@dimen/_10ssp" />
 
         </RelativeLayout>
@@ -145,7 +145,7 @@
             android:layout_below="@+id/tv_text0"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/pre_final_years"
-            android:textColor="@android:color/tab_indicator_text"
+            android:textColor="#A7A7A7"
             android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -164,7 +164,7 @@
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/final_years"
-            android:textColor="@android:color/tab_indicator_text"
+            android:textColor="#A7A7A7"
             android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -183,7 +183,7 @@
             android:fontFamily="@font/open_sans_bold"
             android:layout_marginTop="@dimen/_10sdp"
             android:text="@string/alumni"
-            android:textColor="@android:color/tab_indicator_text"
+            android:textColor="#A7A7A7"
             android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -211,8 +211,8 @@
             android:layout_below="@+id/tv_text4"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/open_sans"
-            android:textColor="#636363"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:textColor="#A7A7A7"
             android:textSize="@dimen/_10ssp"
             android:layout_marginBottom="@dimen/_30sdp"
             android:text="CSE department &amp; Marketing team"/>

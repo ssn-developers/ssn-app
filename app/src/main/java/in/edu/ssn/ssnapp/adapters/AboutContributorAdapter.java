@@ -33,17 +33,24 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
 
     private ArrayList<TeamDetails> teamDetails;
     private Context context;
+    boolean darkMode=false;
 
     public AboutContributorAdapter(Context context, ArrayList<TeamDetails> teamDetails) {
         this.context = context;
         this.teamDetails = teamDetails;
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     @NonNull
     @Override
     public AboutContributorAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.contributor_item, parent, false);
+        View listItem;
+        if(darkMode){
+            listItem = layoutInflater.inflate(R.layout.contributor_item_dark, parent, false);
+        }else {
+            listItem = layoutInflater.inflate(R.layout.contributor_item, parent, false);
+        }
         return new AboutContributorAdapter.ContributionViewHolder(listItem);
     }
 

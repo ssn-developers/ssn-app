@@ -5,7 +5,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
 	android:orientation="vertical"
-	android:background="#ffffff"
+	android:background="@color/darkColor"
 	tools:context=".ContributorProfileActivity">
 	<ScrollView
 		android:layout_width="match_parent"
@@ -19,7 +19,7 @@
 				android:layout_width="@dimen/_40sdp"
 				android:layout_height="@dimen/_40sdp"
 				android:padding="@dimen/_5sdp"
-				android:tint="#000000"
+				android:tint="#ffffff"
 				android:id="@+id/backIV"
 				android:clickable="true"
 				android:foreground="?android:selectableItemBackground"
@@ -31,7 +31,7 @@
 					android:layout_height="@dimen/_120sdp"
 					app:cardElevation="0dp"
 					android:layout_marginBottom="@dimen/_10sdp"
-					app:cardBackgroundColor="#ffffff"
+					app:cardBackgroundColor="@color/darkColor"
 					android:layout_gravity="center"
 					app:cardCornerRadius="@dimen/_60sdp">
 					<ImageView
@@ -51,7 +51,7 @@
 				android:singleLine="true"
 				android:ellipsize="end"
 				android:fontFamily="@font/open_sans_bold"
-				android:textColor="#000000"
+				android:textColor="#ffffff"
 				android:textSize="@dimen/_23sdp"
 				android:layout_marginStart="@dimen/_16sdp"
 				android:layout_marginEnd="@dimen/_16sdp"/>
@@ -64,7 +64,7 @@
 				android:ellipsize="end"
 				android:id="@+id/workTV"
 				android:fontFamily="@font/open_sans"
-				android:textColor="#000000"
+				android:textColor="#f2f2f2"
 				android:textSize="@dimen/_14sdp"
 				android:layout_marginStart="@dimen/_16sdp"
 				android:layout_marginEnd="@dimen/_16sdp"/>

@@ -8,7 +8,6 @@
 
     <WebView
         android:id="@+id/wv_library"
-        android:layout_marginTop="@dimen/_15sdp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

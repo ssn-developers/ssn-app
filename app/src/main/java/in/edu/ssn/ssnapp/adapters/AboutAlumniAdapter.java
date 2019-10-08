@@ -19,12 +19,14 @@ import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.AlumniDetails;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.ContributionViewHolder>{
 
     private ArrayList<AlumniDetails> alumniDetails;
     private Context context;
     private TextDrawable.IBuilder builder;
+    boolean darkMode=false;
 
     public AboutAlumniAdapter(Context context, ArrayList<AlumniDetails> alumniDetails) {
         this.context = context;
@@ -34,13 +36,19 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
                 .toUpperCase()
                 .endConfig()
                 .round();
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     @NonNull
     @Override
     public AboutAlumniAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.alumni_item, parent, false);
+        View listItem;
+        if(darkMode){
+            listItem = layoutInflater.inflate(R.layout.alumni_item_dark, parent, false);
+        }else {
+            listItem = layoutInflater.inflate(R.layout.alumni_item, parent, false);
+        }
         return new AboutAlumniAdapter.ContributionViewHolder(listItem);
     }
 
