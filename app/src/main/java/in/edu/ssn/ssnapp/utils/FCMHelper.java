@@ -76,7 +76,7 @@ public class FCMHelper {
                 });
     }
 
-    public static void showNotification(String message, Context context, Intent intent){
+    public static void showNotification(String title,String message, Context context, Intent intent){
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
         NotificationManager notificationManager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
@@ -84,7 +84,7 @@ public class FCMHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(new NotificationChannel("1","general",NotificationManager.IMPORTANCE_HIGH));
             Notification.Builder nbuilder=new Notification.Builder(context,"1")
-                    .setContentTitle("Check out the new post")
+                    .setContentTitle(title)
                     .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setChannelId("1")
