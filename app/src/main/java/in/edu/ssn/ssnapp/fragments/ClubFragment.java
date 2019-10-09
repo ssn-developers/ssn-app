@@ -316,8 +316,11 @@ public class ClubFragment extends Fragment {
         }
 
         subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        subs_RV.setNestedScrollingEnabled(false);
         unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        unsubs_RV.setNestedScrollingEnabled(false);
         feed_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        feed_RV.setNestedScrollingEnabled(false);
 
         subscribed_clubs = new ArrayList<Club>();
         subscribe_post = new ArrayList<>();
