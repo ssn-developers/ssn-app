@@ -104,9 +104,10 @@ public class FacultyHomeActivity extends BaseActivity {
                     case "News Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
-                    case "Favourites":
-                        startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
-                        Bungee.slideLeft(FacultyHomeActivity.this);
+                    case "Sent Post":
+                        Intent j = new Intent(getApplicationContext(), PdfViewerActivity.class);
+                        j.putExtra(Constants.PDF_URL, Constants.calendar);
+                        startActivity(j);
                         break;
                     case "Calendar":
                         if(!CommonUtils.alerter(getApplicationContext())) {
@@ -204,7 +205,11 @@ public class FacultyHomeActivity extends BaseActivity {
 
         String access = SharedPref.getString(getApplicationContext(), "access");
         if (access.equals("SA"))
-            tv_access.setText(" ADMIN");
+            tv_access.setText("ADMIN");
+        else if (access.equals("PC"))
+            tv_access.setText("PLACEMENT");
+        else if (access.equals("EC"))
+            tv_access.setText("EXAM CELL");
         else
             tv_access.setVisibility(View.GONE);
 
@@ -224,7 +229,8 @@ public class FacultyHomeActivity extends BaseActivity {
 
     void setUpDrawer() {
         adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
-        adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
+        if(SharedPref.getString(getApplicationContext(), "access").equals("EC"))
+            adapter.add(new Drawer("Sent Post", R.drawable.ic_feeds));
         adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
@@ -237,14 +243,8 @@ public class FacultyHomeActivity extends BaseActivity {
 
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
-            adapter.addFragment(new FacultySentBusPostFragment(), "Sent post");
         adapter.addFragment(new BusAlertsFragment(),"Bus alert");
         viewPager.setAdapter(adapter);
-
-        SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
-        viewPagerTab.setViewPager(viewPager);
-        viewPager.setOffscreenPageLimit(3);
     }
 
     public void UnSubscribeToAlerts(Context context){

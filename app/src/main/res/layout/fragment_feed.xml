@@ -13,7 +13,6 @@
             android:id="@+id/lottie"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_250sdp"
-            android:layout_marginTop="@dimen/_50sdp"
             app:lottie_rawRes="@raw/posts"
             app:lottie_loop="false"
             app:lottie_autoPlay="true" />
@@ -26,7 +25,7 @@
             android:text="No Posts"
             android:layout_centerHorizontal="true"
             android:textColor="@color/colorAccentText"
-            android:layout_marginTop="@dimen/_250sdp"
+            android:layout_marginTop="@dimen/_200sdp"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
             android:gravity="center"
@@ -53,7 +52,6 @@
 		android:id="@+id/shimmer_view"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:paddingTop="@dimen/_43sdp"
 		android:visibility="gone"
 		app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
@@ -71,7 +69,6 @@
 	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:paddingTop="@dimen/_43sdp"
 		android:clipToPadding="false"
 		android:id="@+id/feedsRV">
 	</androidx.recyclerview.widget.RecyclerView>

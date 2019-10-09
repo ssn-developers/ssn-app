@@ -87,34 +87,6 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/fakeAppbarLL" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fakeAppbarLL"
-            android:background="@color/darkColor">
-
-            <com.ogaclejapan.smarttablayout.SmartTabLayout
-                android:id="@+id/viewPagerTab"
-                android:paddingStart="@dimen/_14sdp"
-                android:paddingEnd="@dimen/_14sdp"
-                android:clipToPadding="false"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="bottom|center_horizontal"
-                app:stl_clickable="true"
-                app:stl_dividerColor="@android:color/transparent"
-                app:stl_dividerThickness="0dp"
-                app:stl_indicatorColor="@color/colorAccent"
-                app:stl_indicatorCornerRadius="@dimen/_18sdp"
-                app:stl_indicatorGravity="center"
-                app:stl_indicatorInterpolation="linear"
-                app:stl_indicatorThickness="@dimen/_28sdp"
-                app:stl_underlineColor="@android:color/transparent"
-                app:stl_underlineThickness="0dp"
-                app:stl_customTabTextLayoutId="@layout/custom_tab"
-                app:stl_customTabTextViewId="@+id/customTabTV" />
-        </RelativeLayout>
 
     </RelativeLayout>
 

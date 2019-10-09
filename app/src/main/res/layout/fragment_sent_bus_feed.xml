@@ -53,7 +53,6 @@
 		android:id="@+id/shimmer_view"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:paddingTop="@dimen/_43sdp"
 		android:layout_marginLeft="@dimen/_9sdp"
 		android:layout_marginRight="@dimen/_9sdp"
 		app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
@@ -79,7 +78,6 @@
 	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
-		android:paddingTop="@dimen/_43sdp"
 		android:clipToPadding="false"
 		android:layout_marginLeft="@dimen/_9sdp"
 		android:layout_marginRight="@dimen/_9sdp"

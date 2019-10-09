@@ -7,7 +7,6 @@
 	<androidx.core.widget.NestedScrollView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_marginTop="@dimen/_45sdp"
 		android:scrollbars="none">
 
 		<LinearLayout
@@ -97,7 +96,6 @@
 				android:id="@+id/shimmer_view"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:paddingTop="@dimen/_43sdp"
 				android:visibility="gone"
 				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
