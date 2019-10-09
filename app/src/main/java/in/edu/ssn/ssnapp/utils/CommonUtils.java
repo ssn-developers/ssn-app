@@ -228,6 +228,7 @@ public class CommonUtils {
 
                 for (int i = 0; i < files.size(); i++) {
                     String name = files.get(i).get("name");
+                    Log.i("app_test : ", name);
                     if(name.length() > 13)
                         name = name.substring(0,name.length()-13);
                     fileName.add(name);
