@@ -35,6 +35,7 @@
                 android:layout_width="@dimen/_45sdp"
                 android:layout_height="@dimen/_45sdp"
                 android:layout_alignParentEnd="true"
+                app:lottie_autoPlay="false"
                 app:lottie_rawRes="@raw/subcribe"
                 app:lottie_loop="false" />
 

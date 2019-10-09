@@ -214,9 +214,8 @@ public class ClubFragment extends Fragment {
 
                     adapter.notifyDataSetChanged();
 
-                    if(subscribed_clubs.size()>0) {
+                    if(subscribed_clubs.size() > 0)
                         setUpFeeds();
-                    }
                     else
                         layout_empty_feed.setVisibility(View.VISIBLE);
                 }
@@ -341,16 +340,7 @@ public class ClubFragment extends Fragment {
             lottie = itemView.findViewById(R.id.lottie);
             club_RL = itemView.findViewById(R.id.club_RL);
 
-            lottie.playAnimation();
-            lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    if(valueAnimator.isRunning()){
-                        if(lottie.getProgress() > 0.6)
-                            lottie.pauseAnimation();
-                    }
-                }
-            });
+            lottie.setProgress(0.61f);
         }
     }
 

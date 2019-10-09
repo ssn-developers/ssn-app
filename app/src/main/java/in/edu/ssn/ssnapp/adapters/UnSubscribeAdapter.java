@@ -107,27 +107,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
             lottie = convertView.findViewById(R.id.lottie);
             club_RL = convertView.findViewById(R.id.club_RL);
 
-            lottie.playAnimation();
-            lottie.loop(true);
-            lottie.setSpeed(0.7f);
-
-            lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    if(valueAnimator.isRunning()){
-                        if(lottie.getProgress() > 0.50) {
-                            lottie.setProgress(0.0f);
-                            lottie.pauseAnimation();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    lottie.playAnimation();
-                                }
-                            },5000);
-                        }
-                    }
-                }
-            });
+            lottie.setProgress(0.0f);
         }
     }
 }
