@@ -197,5 +197,6 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     public void onBackPressed() {
         super.onBackPressed();
         Bungee.slideRight(PdfViewerActivity.this);
+        finish();
     }
 }

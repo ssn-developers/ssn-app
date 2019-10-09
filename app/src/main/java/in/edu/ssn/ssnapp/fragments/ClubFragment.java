@@ -130,6 +130,7 @@ public class ClubFragment extends Fragment {
                         FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
                         model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
                         clubs.add(model);
+
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -325,6 +326,7 @@ public class ClubFragment extends Fragment {
         subscribed_clubs = new ArrayList<Club>();
         subscribe_post = new ArrayList<>();
         post = new ArrayList<ClubPost>();
+        clubs = new ArrayList<>();
     }
 
     /*********************************************************/
