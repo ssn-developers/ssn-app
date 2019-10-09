@@ -131,6 +131,18 @@ public class BusAlertsFragment extends Fragment {
         };
 
         alertRV.setAdapter(adapter);
+
+        alertRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+                alertRV.scrollToPosition(0);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+
+            }
+        });
     }
 
     void initUI(View view){

@@ -168,6 +168,7 @@ public class ClubFragment extends Fragment {
             public void onChildViewAttachedToWindow(@NonNull View view) {
                 layout_subscribed.setVisibility(View.GONE);
                 subs_RV.setVisibility(View.VISIBLE);
+                subs_RV.scrollToPosition(0);
             }
 
             @Override

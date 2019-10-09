@@ -30,7 +30,6 @@ import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.FacultySentBusPostFragment;
-import in.edu.ssn.ssnapp.fragments.FacultyWorkshopFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -241,7 +240,6 @@ public class FacultyHomeActivity extends BaseActivity {
         if(SharedPref.getString(getApplicationContext(),"access").equals("TI"))
             adapter.addFragment(new FacultySentBusPostFragment(), "Sent post");
         adapter.addFragment(new BusAlertsFragment(),"Bus alert");
-        adapter.addFragment(new FacultyWorkshopFragment(),"Workshop");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
