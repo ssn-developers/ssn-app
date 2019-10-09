@@ -670,7 +670,9 @@
       "SIET College",
       "Kotturpuram",
       "IIT Madras",
-      "RTO Office",
+      "Aavin",
+      "Kumaran Nagar",
+      "AGS",
       "College"
     ],
     "time": [
@@ -683,7 +685,9 @@
       "06:40",
       "06:41",
       "06:42",
-      "06:50",
+      "07:10",
+      "07:15",
+      "07:20",
       "07:40"
     ]
   },
@@ -822,15 +826,13 @@
     "name": "36",
     "stop": [
       "Chromepet",
-      "Henkala Hotel",
       "Hindumission Hospital",
       "Erimbuliyur",
-      "Vandalur Rly Gate",
+      "Perungalathur",
       "College"
     ],
     "time": [
       "06:40",
-      "06:45",
       "06:46",
       "06:47",
       "06:50",
@@ -863,7 +865,7 @@
       "06:57",
       "07:00",
       "07:12",
-      "07:14",
+      "07:13",
       "07:40"
     ]
   },
@@ -910,7 +912,7 @@
       "07:29",
       "07:30",
       "07:32",
-      "07:11"
+      "07:40"
     ]
   },
   {
@@ -925,9 +927,6 @@
       "Baby Nagar",
       "Taramani Church",
       "Kalyana Mandapam",
-      "Mettukuppam",
-      "Navalur (Cognizant)",
-      "Ekkatur",
       "College"
     ],
     "time": [
@@ -939,9 +938,6 @@
       "06:54",
       "06:58",
       "07:00",
-      "07:05",
-      "07:25",
-      "07:26",
       "07:40"
     ]
   },
@@ -975,17 +971,25 @@
     "stop": [
       "Nesapakkam",
       "Velachery 100' Road",
+      "Erikarai",
+      "Kurugan KM",
+      "Metro Water",
       "Vijayanagar BS",
-      "Mc Donalds",
-      "Kaiveli Jain College",
+      "Kaiveli",
+      "Oil Mill",
+      "Asan College",
       "College"
     ],
     "time": [
       "06:20",
+      "06:40",
       "06:42",
+      "06:43",
+      "06:44",
       "06:46",
-      "06:48",
       "06:50",
+      "06:57",
+      "06:58",
       "07:40"
     ]
   },
@@ -1023,7 +1027,7 @@
     "id": 44,
     "name": "42",
     "stop": [
-      "Bharath Engg",
+      "Devaraj Nagar(Bharath Engg)",
       "Indira Nagar",
       "Camp Road",
       "Rajakilpakkam",
@@ -1053,7 +1057,7 @@
     "id": 45,
     "name": "43",
     "stop": [
-      "Ford BS",
+      "Singaperumal koil",
       "Maraimalai Nagar BS",
       "Katangalathur",
       "Potheri",
@@ -1071,7 +1075,7 @@
       "College"
     ],
     "time": [
-      "06:40",
+      "06:35",
       "06:42",
       "06:44",
       "06:47",
@@ -1099,7 +1103,7 @@
       "Kutchery Road",
       "LUZ Corner",
       "Mylapore Tank",
-      "Kovalam",
+      "ECR-Marutheeswarar Temple",
       "College"
     ],
     "time": [
@@ -1109,7 +1113,7 @@
       "06:38",
       "06:40",
       "06:45",
-      "07:25",
+      "06:50",
       "07:40"
     ]
   },
@@ -1122,7 +1126,9 @@
       "Santhome Church",
       "F.Shore Estate",
       "MRC Nagar",
-      "Kovalam",
+      "Kottivakkam(Samsung)",
+      "Palavakkam",
+      "OMR-foodcourt",
       "College"
     ],
     "time": [
@@ -1131,7 +1137,9 @@
       "06:35",
       "06:40",
       "06:41",
-      "07:25",
+      "06:50",
+      "06:55",
+      "06:59",
       "07:40"
     ]
   },
@@ -1167,6 +1175,8 @@
       "Gopalapuram Ground",
       "Royapettah TTK Road",
       "Alwarpet",
+      "RTO Office",
+      "Neelankarai(ICE factory)",
       "College"
     ],
     "time": [
@@ -1180,6 +1190,8 @@
       "06:42",
       "06:43",
       "06:44",
+      "06:59",
+      "07.05",
       "07:40"
     ]
   },
