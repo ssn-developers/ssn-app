@@ -217,12 +217,13 @@ public class CommonUtils {
                 ArrayList<String> fileUrl = new ArrayList<>();
 
                 for (int i = 0; i < files.size(); i++) {
-                    String name = files.get(i).get("name");
-                    StringBuffer text = new StringBuffer(name.replaceAll("%20", " "));
-                    name = name.replaceAll("%20", " ").trim();
+                    String name = files.get(i).get("name").trim();
+                    name = name.replaceAll("%20", " ");
+
+                    StringBuffer text = new StringBuffer(name);
                     int indexofper = name.lastIndexOf(".");
-//                    Log.i("app_test : ", String.valueOf(text.replace( indexofper-13,indexofper ,"")));
-                    name =  String.valueOf(text.replace( indexofper-13,indexofper ,""));
+
+                    name =  String.valueOf(text.replace( indexofper - 13, indexofper,""));
 
                     fileName.add(name);
                     fileUrl.add(files.get(i).get("url"));

@@ -57,6 +57,7 @@ public class StudentFeedFragment extends Fragment {
     public StudentFeedFragment() { }
 
     private RecyclerView feedsRV;
+    private LinearLayoutManager layoutManager;
     private RelativeLayout layout_progress;
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
@@ -92,8 +93,7 @@ public class StudentFeedFragment extends Fragment {
                 .endConfig()
                 .round();
 
-        //Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post).whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
-        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post).orderBy("file_urls", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post).whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -199,11 +199,23 @@ public class StudentFeedFragment extends Fragment {
         };
 
         feedsRV.setAdapter(adapter);
+
+        feedsRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+                feedsRV.scrollToPosition(0);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+
+            }
+        });
     }
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
