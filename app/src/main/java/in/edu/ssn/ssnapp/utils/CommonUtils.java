@@ -532,5 +532,11 @@ public class CommonUtils {
         }
     }
 
-
+    public static void addScreen(Context context, Activity activity,String fragmentName){
+        try{
+            FirebaseAnalytics.getInstance(context).setCurrentScreen(activity,fragmentName,fragmentName);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
 }

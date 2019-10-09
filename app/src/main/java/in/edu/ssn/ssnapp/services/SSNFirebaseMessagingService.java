@@ -28,7 +28,6 @@ import in.edu.ssn.ssnapp.SplashActivity;
 import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
-import in.edu.ssn.ssnapp.database.Notification;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;

@@ -65,6 +65,7 @@ public class StudentFeedFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        CommonUtils.addScreen(getContext(),getActivity(),"StudentFeedFragment");
         darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
         View view;
         if(darkMode){

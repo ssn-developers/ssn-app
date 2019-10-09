@@ -60,6 +60,7 @@ public class PlacementFragment extends Fragment {
     boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        CommonUtils.addScreen(getContext(),getActivity(),"PlacementFragment");
         darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
         View view;
         if(darkMode){

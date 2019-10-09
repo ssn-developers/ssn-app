@@ -59,6 +59,7 @@ public class WorkshopFragment extends Fragment {
     boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        CommonUtils.addScreen(getContext(),getActivity(),"WorkshopFragment");
         darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
         View view;
         if(darkMode){

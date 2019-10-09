@@ -85,6 +85,8 @@ public class ClubFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        CommonUtils.addScreen(getContext(),getActivity(),"ClubFragment");
         View view = inflater.inflate(R.layout.fragment_club, container, false);
         CommonUtils.initFonts(getContext(), view);
         darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
