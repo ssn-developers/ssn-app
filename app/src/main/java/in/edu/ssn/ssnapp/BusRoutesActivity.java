@@ -51,10 +51,17 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
     BusRouteAdapter adapter;
     ArrayList<BusRoute> busRoutesList, recyclerList;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bus_route);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_bus_route_dark);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor1));
+        }else{
+            setContentView(R.layout.activity_bus_route);
+        }
+
 
         initUI();
         new getBusRoute().execute();
@@ -100,7 +107,11 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
 
     private Chip getChip(final ChipGroup entryChipGroup, String text) {
         final Chip chip = new Chip(this);
-        chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.suggestion_item));
+        if(darkModeEnabled){
+            chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.suggestion_item_dark));
+        }else {
+            chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.suggestion_item));
+        }
         int paddingDp = (int) TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, 10,
                 getResources().getDisplayMetrics()

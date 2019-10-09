@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -22,14 +23,18 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.Collections;
 import java.util.Date;
 
 import in.edu.ssn.ssnapp.BusRoutesActivity;
+import in.edu.ssn.ssnapp.FacultyHomeActivity;
+import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusPost;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class BusAlertsFragment extends Fragment {
@@ -40,10 +45,16 @@ public class BusAlertsFragment extends Fragment {
     RecyclerView alertRV;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
-
+    boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bus_alerts, container, false);
+        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        View view;
+        if(darkMode){
+            view = inflater.inflate(R.layout.fragment_bus_alerts_dark, container, false);
+        }else{
+            view = inflater.inflate(R.layout.fragment_bus_alerts, container, false);
+        }
         CommonUtils.initFonts(getContext(),view);
         initUI(view);
 
@@ -63,7 +74,7 @@ public class BusAlertsFragment extends Fragment {
     /*********************************************************/
 
     void setupFireStore(){
-        Query query = FirebaseFirestore.getInstance().collection("post_bus").orderBy("time", Query.Direction.DESCENDING).limit(5);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post_bus).orderBy("time", Query.Direction.DESCENDING).limit(5);
 
         FirestoreRecyclerOptions<BusPost> options = new FirestoreRecyclerOptions.Builder<BusPost>().setQuery(query, new SnapshotParser<BusPost>() {
             @NonNull
@@ -89,10 +100,18 @@ public class BusAlertsFragment extends Fragment {
                 holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(getContext(), PdfViewerActivity.class);
-                        i.putExtra(Constants.PDF_URL, model.getUrl());
-                        startActivity(i);
-                        Bungee.fade(getContext());
+                        if(!CommonUtils.alerter(getContext())) {
+                            Intent i = new Intent(getContext(), PdfViewerActivity.class);
+                            i.putExtra(Constants.PDF_URL, model.getUrl());
+                            startActivity(i);
+                            Bungee.fade(getContext());
+                        }
+                        else{
+                            Intent intent = new Intent(getContext(), NoNetworkActivity.class);
+                            intent.putExtra("key","home");
+                            startActivity(intent);
+                            Bungee.fade(getContext());
+                        }
                     }
                 });
                 shimmer_view.setVisibility(View.GONE);
@@ -100,7 +119,13 @@ public class BusAlertsFragment extends Fragment {
 
             @Override
             public BusAlertHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_alert, group, false);
+                View view;
+                if(darkMode){
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_alert_dark, group, false);
+                }else{
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_alert, group, false);
+                }
+
                 return new BusAlertHolder(view);
             }
         };
@@ -122,7 +147,7 @@ public class BusAlertsFragment extends Fragment {
 
     public class BusAlertHolder extends RecyclerView.ViewHolder {
         public TextView tv_date, tv_time, tv_desc;
-        RelativeLayout rl_bus_alert_item;
+        LinearLayout rl_bus_alert_item;
 
         public BusAlertHolder(View itemView) {
             super(itemView);
@@ -144,7 +169,8 @@ public class BusAlertsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        adapter.stopListening();
+        if(adapter!=null)
+            adapter.stopListening();
     }
 
     @Override

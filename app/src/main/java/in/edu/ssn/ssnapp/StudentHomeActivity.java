@@ -4,10 +4,14 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -19,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
+import com.suke.widget.SwitchButton;
 
 
 import java.util.ArrayList;
@@ -41,24 +46,55 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class StudentHomeActivity extends BaseActivity {
-    private static final String TAG ="StudentHomeActivity" ;
+    private static final String TAG = "StudentHomeActivity";
     ImageView notifUI;
     CircleImageView userImageIV, iv_profile;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
     TextView tv_name, tv_email;
+    SwitchButton darkModeSwitch;
 
     ListView lv_items;
     DrawerAdapter adapter;
 
-    static int count=0;
+    static int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_home);
+
+        if (darkModeEnabled) {
+            setContentView(R.layout.activity_student_home_dark);
+            clearLightStatusBar(this);
+        } else
+            setContentView(R.layout.activity_student_home);
 
         initUI();
+
+        if (darkModeEnabled) {
+            darkModeSwitch.setChecked(true);
+        } else {
+            darkModeSwitch.setChecked(false);
+        }
+
+        darkModeSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                if (isChecked) {
+                    darkModeEnabled = true;
+                    SharedPref.putBoolean(getApplicationContext(), "darkMode", darkModeEnabled);
+                    finish();
+                    startActivity(getIntent());
+                    Bungee.fade(StudentHomeActivity.this);
+                } else {
+                    darkModeEnabled = false;
+                    SharedPref.putBoolean(getApplicationContext(), "darkMode", darkModeEnabled);
+                    finish();
+                    startActivity(getIntent());
+                    Bungee.fade(StudentHomeActivity.this);
+                }
+            }
+        });
 
         userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,19 +103,11 @@ public class StudentHomeActivity extends BaseActivity {
             }
         });
 
-//        notifUI.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(),NotificationActivity.class));
-//                Bungee.slideLeft(StudentHomeActivity.this);
-//            }
-//        });
-
         lv_items.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Drawer rs=(Drawer)parent.getItemAtPosition(position);
-                switch (rs.getTitle()){
+                Drawer rs = (Drawer) parent.getItemAtPosition(position);
+                switch (rs.getTitle()) {
                     case "News Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
@@ -87,31 +115,38 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
-                    /*case "Helpline":
-                        startActivity(new Intent(getApplicationContext(), HelpLineActivity.class));
-                        Bungee.slideLeft(StudentHomeActivity.this);
-                        break;*/
+                    case "Calendar":
+                        if (!CommonUtils.alerter(getApplicationContext())) {
+                            Intent i = new Intent(getApplicationContext(), PdfViewerActivity.class);
+                            i.putExtra(Constants.PDF_URL, Constants.calendar);
+                            startActivity(i);
+                            Bungee.fade(StudentHomeActivity.this);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key", "home");
+                            startActivity(intent);
+                            Bungee.fade(StudentHomeActivity.this);
+                        }
+                        break;
                     case "Library Renewals":
-                        if(CommonUtils.checkWifiOnAndConnected(getApplicationContext(),"ssn")) {
-                            SharedPref.putString(getApplicationContext(),"url","http://opac.ssn.net:8081/");
+                        if (CommonUtils.checkWifiOnAndConnected(getApplicationContext(), "ssn")) {
+                            SharedPref.putString(getApplicationContext(), "url", "http://opac.ssn.net:8081/");
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(StudentHomeActivity.this);
-                        }
-                        else {
+                        } else {
                             Toast toast = Toast.makeText(StudentHomeActivity.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
                         break;
                     case "AlmaConnect":
-                        if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(),"url","https://ssn.almaconnect.com");
+                        if (!CommonUtils.alerter(getApplicationContext())) {
+                            SharedPref.putString(getApplicationContext(), "url", "https://ssn.almaconnect.com");
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(StudentHomeActivity.this);
-                        }
-                        else{
+                        } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                            intent.putExtra("key","home");
+                            intent.putExtra("key", "home");
                             startActivity(intent);
                             Bungee.fade(StudentHomeActivity.this);
                         }
@@ -123,23 +158,22 @@ public class StudentHomeActivity extends BaseActivity {
                     case "Invite Friends":
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
-                        String shareBody = "Hello! Manage your internals, results & exam schedule with ease and Find your bus routes on the go! Click here to stay updated on department feeds: https://play.google.com/store/apps/details?id="+StudentHomeActivity.this.getPackageName();
+                        String shareBody = "Hello! Manage your internals, results & exam schedule with ease and Find your bus routes on the go! Click here to stay updated on department and club feeds: https://play.google.com/store/apps/details?id=" + StudentHomeActivity.this.getPackageName();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                         break;
                     case "Rate Our App":
-                        if(!CommonUtils.alerter(getApplicationContext())) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id="+getPackageName())));
-                        }
-                        else{
+                        if (!CommonUtils.alerter(getApplicationContext())) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                        } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                            intent.putExtra("key","home");
+                            intent.putExtra("key", "home");
                             startActivity(intent);
                             Bungee.fade(StudentHomeActivity.this);
                         }
                         break;
                     case "Make a Suggestion":
-                        startActivity(new Intent(getApplicationContext(),FeedbackActivity.class));
+                        startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
                     case "App Info":
@@ -147,14 +181,13 @@ public class StudentHomeActivity extends BaseActivity {
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
                     case "Privacy Policy":
-                        if(!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://www.termsfeed.com/privacy-policy/59fe74661969551554a7a886f0767308");
+                        if (!CommonUtils.alerter(getApplicationContext())) {
+                            SharedPref.putString(getApplicationContext(), "url", Constants.termsfeed);
                             startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                             Bungee.slideLeft(StudentHomeActivity.this);
-                        }
-                        else{
+                        } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                            intent.putExtra("key","home");
+                            intent.putExtra("key", "home");
                             startActivity(intent);
                             Bungee.fade(StudentHomeActivity.this);
                         }
@@ -162,10 +195,10 @@ public class StudentHomeActivity extends BaseActivity {
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
                         UnSubscribeToAlerts(getApplicationContext());
-                        DataBaseHelper dbHelper=DataBaseHelper.getInstance(StudentHomeActivity.this);
+                        DataBaseHelper dbHelper = DataBaseHelper.getInstance(StudentHomeActivity.this);
                         dbHelper.dropAllTables();
                         SharedPref.removeAll(getApplicationContext());
-                        SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in", 1);
+                        SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 1);
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();
@@ -179,7 +212,7 @@ public class StudentHomeActivity extends BaseActivity {
 
     /*********************************************************/
 
-    void initUI(){
+    void initUI() {
         notifUI = findViewById(R.id.notifUI);
         userImageIV = findViewById(R.id.userImageIV);
         iv_profile = findViewById(R.id.iv_profile);
@@ -190,33 +223,34 @@ public class StudentHomeActivity extends BaseActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
 
+        darkModeSwitch = findViewById(R.id.darkModeSwitch);
+
         lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());
 
-        tv_name.setText(SharedPref.getString(getApplicationContext(),"name"));
-        tv_email.setText(SharedPref.getString(getApplicationContext(),"email"));
+        tv_name.setText(SharedPref.getString(getApplicationContext(), "name"));
+        tv_email.setText(SharedPref.getString(getApplicationContext(), "email"));
 
-        try{
+        try {
             Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
             Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(), "dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(), "dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
         }
 
         setUpDrawer();
         setupViewPager();
     }
 
-    void setUpDrawer(){
+    void setUpDrawer() {
         adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
         adapter.add(new Drawer("AlmaConnect", R.drawable.ic_alumni));
         adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
         adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
-        //adapter.add(new Drawer("Helpline", R.drawable.ic_team));
+        adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
@@ -226,11 +260,11 @@ public class StudentHomeActivity extends BaseActivity {
         lv_items.setAdapter(adapter);
     }
 
-    void setupViewPager(){
+    void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new StudentFeedFragment(), "News feed");
         adapter.addFragment(new ClubFragment(), "Club");
-        if(SharedPref.getInt(getApplicationContext(),"year") == Integer.parseInt(Constants.fourth))
+        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
             adapter.addFragment(new PlacementFragment(), "Placement");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         adapter.addFragment(new ExamCellFragment(), "Exam cell");
@@ -242,11 +276,11 @@ public class StudentHomeActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(3);
     }
 
-    public void UnSubscribeToAlerts(Context context){
+    public void UnSubscribeToAlerts(Context context) {
         FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year"));
-        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year") + "exam");
-        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept") + SharedPref.getInt(context,"year") + "work");
+        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
+        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
+        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "work");
     }
 
     /*********************************************************/
@@ -255,31 +289,32 @@ public class StudentHomeActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        if(CommonUtils.alerter(getApplicationContext())){
+        if (CommonUtils.alerter(getApplicationContext())) {
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-            intent.putExtra("key","home");
+            intent.putExtra("key", "home");
             startActivity(intent);
             Bungee.fade(StudentHomeActivity.this);
         }
     }
+
 
     /*********************************************************/
 
     @Override
     public void onBackPressed() {
         if (count > 0) {
-            count=0;
+            count = 0;
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);
             startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(startMain);
             finish();
-        }
-        else {
+        } else {
             count++;
             Toast toast = Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.CENTER,0,0);
+            toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
     }
+
 }

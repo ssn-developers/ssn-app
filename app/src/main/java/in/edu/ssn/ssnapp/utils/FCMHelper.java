@@ -41,6 +41,10 @@ public class FCMHelper {
     final static String TAG="test_set";
 
     public static void SubscribeToTopic(final Context context,String topic){
+
+        if(Constants.debug_mode)
+            topic = "debug_" + topic;
+
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
@@ -49,12 +53,15 @@ public class FCMHelper {
                         if (!task.isSuccessful()) {
                             msg = "subscribe failed";
                         }
-                        Log.d(TAG, msg);
+                        //Log.d(TAG, msg);
                     }
                 });
     }
 
     public static void UnSubscribeToTopic(final Context context, String topic){
+
+        if(Constants.debug_mode)
+            topic="debug_"+topic;
 
         FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -64,7 +71,7 @@ public class FCMHelper {
                         if (!task.isSuccessful()) {
                             msg = "unsubscribe failed";
                         }
-                        Log.d(TAG, msg);
+                        //Log.d(TAG, msg);
                     }
                 });
     }
@@ -77,8 +84,8 @@ public class FCMHelper {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(new NotificationChannel("1","general",NotificationManager.IMPORTANCE_HIGH));
             Notification.Builder nbuilder=new Notification.Builder(context,"1")
-                    .setContentTitle("New post")
-                    .setSmallIcon(R.mipmap.app_icon)
+                    .setContentTitle("Check out the new post")
+                    .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setChannelId("1")
                     .setAutoCancel(true)
@@ -89,8 +96,8 @@ public class FCMHelper {
         }
         else {
             Notification.Builder nbuilder=new Notification.Builder(context)
-                    .setContentTitle("New post")
-                    .setSmallIcon(R.mipmap.app_icon)
+                    .setContentTitle("Check out the new post")
+                    .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setAutoCancel(true)
                     .setSound(alarmSound)

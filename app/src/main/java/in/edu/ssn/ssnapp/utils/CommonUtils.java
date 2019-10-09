@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Parcelable;
 import android.provider.MediaStore;
@@ -37,6 +38,7 @@ import androidx.core.content.res.ResourcesCompat;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.common.io.BaseEncoding;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import org.json.JSONArray;
@@ -153,21 +155,9 @@ public class CommonUtils {
     }
 
     public static String getNameFromEmail(String email){
-        String name=" ";
-
         email = email.substring(0, email.indexOf("@"));
-        for (int j = 0; j < email.length(); j++) {
-            if (Character.isDigit(email.charAt(j))) {
-                name = email.substring(0, j);
-                break;
-            }
-        }
-        if (name.isEmpty())
-            name = email;
-
-        name = name.substring(0,1).toUpperCase() + name.substring(1);
-
-        return name;
+        email = email.substring(0,1).toUpperCase() + email.substring(1);
+        return email;
     }
 
     public static String getTime(Date time){
@@ -193,13 +183,13 @@ public class CommonUtils {
 
     public static String getCollectionName(int type){
         switch (type){
-            case 2 : return "placement";
-            case 3 : return "club";
-            case 4 : return "post_club";
-            case 5 : return "exam_cell";
-            case 6 : return "workshop";
-            case 7 : return "post_bus";
-            default : return "post";
+            case 2 : return Constants.collection_placement;
+            case 3 : return Constants.collection_club;
+            case 4 : return Constants.collection_post_club;
+            case 5 : return Constants.collection_exam_cell;
+            case 6 : return Constants.collection_workshop;
+            case 7 : return Constants.collection_post_bus;
+            default : return Constants.collection_post;
         }
     }
 
@@ -228,9 +218,12 @@ public class CommonUtils {
 
                 for (int i = 0; i < files.size(); i++) {
                     String name = files.get(i).get("name");
-                    Log.i("app_test : ", name);
-                    if(name.length() > 13)
-                        name = name.substring(0,name.length()-13);
+                    StringBuffer text = new StringBuffer(name.replaceAll("%20", " "));
+                    name = name.replaceAll("%20", " ").trim();
+                    int indexofper = name.lastIndexOf(".");
+//                    Log.i("app_test : ", String.valueOf(text.replace( indexofper-13,indexofper ,"")));
+                    name =  String.valueOf(text.replace( indexofper-13,indexofper ,""));
+
                     fileName.add(name);
                     fileUrl.add(files.get(i).get("url"));
                 }
@@ -352,7 +345,8 @@ public class CommonUtils {
         post.setAuthor(documentSnapshot.getString("author"));
         post.setTitle(documentSnapshot.getString("title"));
         post.setDescription(documentSnapshot.getString("description"));
-        post.setTime(documentSnapshot.getTimestamp("time").toDate());
+        DocumentSnapshot.ServerTimestampBehavior behavior = ESTIMATE;
+        post.setTime(documentSnapshot.getDate("time", behavior));
 
         ArrayList<String> images = (ArrayList<String>) documentSnapshot.get("img_urls");
         if(images != null && images.size() > 0)
@@ -367,10 +361,7 @@ public class CommonUtils {
                 ArrayList<String> fileUrl = new ArrayList<>();
 
                 for (int i = 0; i < files.size(); i++) {
-                    String name = files.get(i).get("name");
-                    if(name.length() > 13)
-                        name = name.substring(0,name.length()-13);
-                    fileName.add(name);
+                    fileName.add(files.get(i).get("name"));
                     fileUrl.add(files.get(i).get("url"));
                 }
                 post.setFileName(fileName);
@@ -423,7 +414,13 @@ public class CommonUtils {
         final TextView tv_save;
 
         final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
-        View sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu, null);
+        View sheetView;
+        if(SharedPref.getBoolean(context,"darkMode")){
+            sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu_dark, null);
+        }else{
+            sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu, null);
+        }
+
         bottomSheetDialog.setContentView(sheetView);
 
         ll_save=sheetView.findViewById(R.id.saveLL);
@@ -458,7 +455,7 @@ public class CommonUtils {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssn-app-web.web.app/share.html?type=" + type + "&vca=" + post.getId();
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssnportal.cf/share.html?type=" + type + "&vca=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
@@ -485,4 +482,49 @@ public class CommonUtils {
     public static void setIs_blocked(Boolean is_blocked) {
         CommonUtils.is_blocked = is_blocked;
     }
+
+    public static void isDebug(){
+        if(Constants.debug_mode){
+            Constants.collection_exam_cell = "debug_examcell";
+            Constants.collection_placement = "debug_placement";
+            Constants.collection_post = "debug_post";
+            Constants.collection_post_bus = "debug_post_bus";
+            Constants.collection_post_club = "debug_post_club";
+            Constants.collection_workshop = "debug_workshop";
+        }
+        else{
+            Constants.collection_exam_cell = "examcell";
+            Constants.collection_placement = "placement";
+            Constants.collection_post = "post";
+            Constants.collection_post_bus = "post_bus";
+            Constants.collection_post_club = "post_club";
+            Constants.collection_workshop = "workshop";
+        }
+    }
+
+    /************************************************************************/
+
+    // utils functions for firebase analytics
+
+    public static void addUserProperty(Context context,String propertyName,String propertyValue){
+
+        try{
+            FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(context);
+            analytics.setUserProperty( propertyName,propertyValue);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void addEvent(Context context, String propertyName, Bundle propertyValue){
+
+        try{
+            FirebaseAnalytics.getInstance(context).logEvent(propertyName,propertyValue);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

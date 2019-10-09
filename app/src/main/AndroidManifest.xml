@@ -1,85 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="in.edu.ssn.ssnapp">
+	xmlns:tools="http://schemas.android.com/tools"
+	package="in.edu.ssn.ssnapp">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+	<application
+		android:icon="@mipmap/app_icon"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme"
+		android:usesCleartextTraffic="true"
+		tools:ignore="GoogleAppIndexingWarning">
+		<activity android:name=".ContributorProfileActivity"></activity>
+		<activity
+			android:name=".SplashActivity"
+			android:screenOrientation="portrait">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
 
-    <application
-        android:icon="@mipmap/app_icon"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"
-        tools:ignore="GoogleAppIndexingWarning">
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+			<intent-filter>
+				<action android:name="android.intent.action.VIEW" />
 
-        <activity android:name=".SplashActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.DEFAULT" />
+				<category android:name="android.intent.category.BROWSABLE" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+				<data
+					android:host="ssnportal.cf"
+					android:pathPrefix="/share.html"
+					android:scheme="https" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:name=".BlockScreenActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".ClubPageActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme2" />
+		<activity
+			android:name=".BusRoutesActivity"
+			android:theme="@style/AppTheme1" />
+		<activity
+			android:name=".ClubPostDetailsActivity"
+			android:screenOrientation="portrait"
+			android:windowSoftInputMode="adjustPan" />
+		<activity
+			android:name=".NoNetworkActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".SavedPostActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme1" />
+		<activity
+			android:name=".FacultyHomeActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".OpenImageActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".NotificationActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".FeedbackActivity"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme1" />
+		<activity
+			android:name=".LoginActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".AppInfoActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".NotificationSettings"
+			android:screenOrientation="portrait"
+			android:theme="@style/AppTheme1" />
+		<activity
+			android:name=".onboarding.OnboardingActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".WebViewActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".PdfViewerActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".StudentHomeActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".PostDetailsActivity"
+			android:screenOrientation="portrait" />
+		<activity
+			android:name=".BaseActivity"
+			android:screenOrientation="portrait" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+		<meta-data
+			android:name="preloaded_fonts"
+			android:resource="@array/preloaded_fonts" />
+		<meta-data
+			android:name="com.google.firebase.messaging.default_notification_icon"
+			android:resource="@mipmap/app_icon" />
+		<meta-data
+			android:name="com.google.firebase.messaging.default_notification_channel_id"
+			android:value="@string/default_notification_channel_id" />
 
-                <data
-                    android:host="ssn-app-web.web.app"
-                    android:pathPrefix="/share.html"
-                    android:scheme="https" />
-            </intent-filter>
-        </activity>
+		<service
+			android:name=".services.SSNFirebaseMessagingService"
+			android:exported="false">
+			<intent-filter>
+				<action android:name="com.google.firebase.MESSAGING_EVENT" />
+			</intent-filter>
+		</service>
+	</application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.CALL_PHONE" />
 
-        <activity android:name=".BlockScreenActivity"/>
-        <activity android:name=".ClubPageActivity" />
-        <activity android:name=".BusRoutesActivity" />
-        <activity android:name=".ClubPostDetailsActivity" android:windowSoftInputMode="adjustPan"/>
-        <activity android:name=".NoNetworkActivity" />
-        <activity android:name=".HelpLineActivity" />
-        <activity android:name=".SavedPostActivity" />
-        <activity android:name=".FacultyHomeActivity" />
-        <activity android:name=".OpenImageActivity" />
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".FeedbackActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".AppInfoActivity" />
-        <activity android:name=".NotificationSettings" />
-        <activity android:name=".onboarding.OnboardingActivity" />
-        <activity android:name=".WebViewActivity" />
-        <activity android:name=".PdfViewerActivity" />
-        <activity android:name=".StudentHomeActivity" />
-        <activity android:name=".PostDetailsActivity" />
-        <activity android:name=".BaseActivity" />
+	<uses-permission android:name="android.permission.INTERNET" />
 
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher_background" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="@string/default_notification_channel_id" />
-<!--        <meta-data-->
-<!--            android:name="firebase_crashlytics_collection_enabled"-->
-<!--            android:value="false" />-->
-
-        <service
-            android:name=".services.SSNFirebaseMessagingService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-    </application>
 </manifest>

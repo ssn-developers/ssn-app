@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/darkColor"
+    tools:context=".BusRoutesActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:id="@+id/searchRL"
+            android:background="@color/darkColor1"
+            app:expanded="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                app:layout_scrollFlags="scroll|enterAlwaysCollapsed|snap|exitUntilCollapsed"
+                app:contentScrim="@color/darkColor1"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:contentInsetStart="0dp"
+                    android:contentInsetLeft="0dp"
+                    android:contentInsetRight="0dp"
+                    android:contentInsetEnd="0dp"
+                    app:contentInsetLeft="0dp"
+                    android:id="@+id/toolbar"
+                    app:contentInsetStart="0dp"
+                    app:contentInsetRight="0dp"
+                    app:contentInsetEnd="0dp"
+                    android:background="@color/darkColor1"
+                    app:layout_collapseMode="pin">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fakeAppbarLL"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="@dimen/_35sdp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_margin="@dimen/_6sdp"
+                            android:src="@drawable/ic_back"
+                            android:id="@+id/backIV"
+                            android:layout_gravity="center"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:foreground="?selectableItemBackground"
+                            android:tint="@android:color/white"
+                            android:padding="@dimen/_2sdp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:textSize="@dimen/_16ssp"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:text="@string/bus_routes"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"/>
+                    </LinearLayout>
+
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchRL1"
+                android:animateLayoutChanges="true"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_14sdp"
+                    android:layout_marginRight="@dimen/_16sdp"
+                    android:layout_marginLeft="@dimen/_16sdp">
+                    <EditText
+                        android:id="@+id/et_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bus_search_et_bg_dark"
+                        android:gravity="start|center"
+                        android:drawablePadding="@dimen/_8sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:textColor="@android:color/white"
+                        android:textColorHint="#CCF2F2F2"
+                        android:textSize="@dimen/_12ssp"
+                        android:singleLine="true"
+                        android:focusableInTouchMode="true"
+                        android:drawableStart="@drawable/ic_search"
+                        android:hint="Enter area or bus number"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingRight="40dp"
+                        android:paddingTop="@dimen/_6sdp"
+                        android:paddingBottom="@dimen/_6sdp"
+                        android:drawableLeft="@drawable/ic_search" />
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/ic_close"
+                        android:padding="5dp"
+                        android:id="@+id/clearIV"
+                        android:visibility="gone"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:tint="@android:color/white"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"/>
+
+                </RelativeLayout>
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingVertical="@dimen/_8sdp"
+                    app:chipSpacingHorizontal="@dimen/_10sdp"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginRight="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:id="@+id/chipCloud">
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            android:paddingBottom="@dimen/_8sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:clipToPadding="false"
+            android:id="@+id/busRoutesRV"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_empty"
+            android:layout_width="@dimen/_220sdp"
+            android:layout_height="@dimen/_220sdp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/bus_empty"/>
+
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:text="Sorry! no buses were found!"
+            android:textColor="#f2f2f2"
+            android:layout_below="@+id/iv_empty"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_12ssp" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -63,10 +63,11 @@ import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class ClubPostDetailsActivity extends AppCompatActivity {
+public class ClubPostDetailsActivity extends BaseActivity {
     ImageView backIV, userImageIV, iv_like, iv_comment, iv_share,iv_send,iv_cancel_reply;
     ViewPager viewPager;
     TextView tv_author, tv_name, tv_time, tv_title, tv_current_image,tv_attachments, tv_like, tv_comment,tv_selected_reply;
@@ -88,7 +89,13 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_club_post_details);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_club_post_details_dark);
+            clearLightStatusBar(this);
+        }else{
+            setContentView(R.layout.activity_club_post_details);
+        }
+
 
         initUI();
     }
@@ -138,43 +145,44 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
         iv_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Boolean replyingForComment=expandableListAdapter.getReplyingForComment();
+                if(et_Comment.getText().toString().trim().length()>1) {
+                    Boolean replyingForComment = expandableListAdapter.getReplyingForComment();
 
-                if(replyingForComment==null)
-                    replyingForComment=false;
+                    if (replyingForComment == null)
+                        replyingForComment = false;
 
-                if(!replyingForComment){
-                    Comments temp=new Comments(SharedPref.getString(ClubPostDetailsActivity.this,"email"),et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
-                    FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment", FieldValue.arrayUnion(temp));
+                    if (!replyingForComment) {
+                        Comments temp = new Comments(SharedPref.getString(ClubPostDetailsActivity.this, "email"), et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
+                        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment", FieldValue.arrayUnion(temp));
+                    } else {
+
+                        HashMap<String, Object> temp = new HashMap<>();
+                        temp.put("author", SharedPref.getString(ClubPostDetailsActivity.this, "email"));
+                        temp.put("message", et_Comment.getEditableText().toString());
+                        temp.put("time", Calendar.getInstance().getTime());
+
+
+                        ArrayList<Comments> commentsArrayList = expandableListAdapter.getCommentArrayList();
+                        int listPosition = expandableListAdapter.getSelectedCommentPosition();
+                        commentsArrayList.get(listPosition).getReply().add(temp);
+                        expandableListAdapter.setCommentArrayList(commentsArrayList);
+
+                        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment", commentsArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d("Test", "success");
+                            }
+                        });
+
+                        tv_selected_reply.setText("");
+                        cv_reply.setVisibility(View.GONE);
+
+                        expandableListAdapter.setReplyingForComment(false);
+                    }
+
+                    et_Comment.setText("");
+                    CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
                 }
-                else{
-
-                    HashMap<String,Object> temp=new HashMap<>();
-                    temp.put("author", SharedPref.getString(ClubPostDetailsActivity.this,"email"));
-                    temp.put("message",et_Comment.getEditableText().toString());
-                    temp.put("time", Calendar.getInstance().getTime());
-
-
-                    ArrayList<Comments> commentsArrayList=expandableListAdapter.getCommentArrayList();
-                    int listPosition=expandableListAdapter.getSelectedCommentPosition();
-                    commentsArrayList.get(listPosition).getReply().add(temp);
-                    expandableListAdapter.setCommentArrayList(commentsArrayList);
-
-                    FirebaseFirestore.getInstance().collection("post_club").document(id).update("comment",commentsArrayList).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Log.d("Test","success");
-                        }
-                    });
-
-                    tv_selected_reply.setText("");
-                    cv_reply.setVisibility(View.GONE);
-
-                    expandableListAdapter.setReplyingForComment(false);
-                }
-
-                et_Comment.setText("");
-                CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
             }
         });
 
@@ -202,7 +210,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
     }
 
     void setUpFirestore(){
-        listenerRegistration= FirebaseFirestore.getInstance().collection("post_club").document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        listenerRegistration= FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 post = CommonUtils.getClubPostFromSnapshot(getApplicationContext(),documentSnapshot);
@@ -339,10 +347,10 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                     iv_like.setImageResource(R.drawable.blue_heart);
-                    FirebaseFirestore.getInstance().collection("post_club").document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                 } else {
                     iv_like.setImageResource(R.drawable.heart);
-                    FirebaseFirestore.getInstance().collection("post_club").document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                 }
             }
         });
@@ -352,7 +360,7 @@ public class ClubPostDetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: https://ssn-app-web.web.app/share.html?type=4&vca=" + club.getId() + "&vac=" + post.getId();
+                String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: https://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }

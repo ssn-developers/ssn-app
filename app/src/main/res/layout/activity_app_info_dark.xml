@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkColor"
+    android:padding="@dimen/_5sdp"
+    android:id="@+id/scroll_view"
+    android:scrollbars="none"
+    tools:context=".AppInfoActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_app_icon"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@mipmap/app_icon" />
+
+        <RelativeLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_toRightOf="@+id/iv_app_icon">
+
+            <RelativeLayout
+                android:id="@+id/layout11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:text="@string/app_name"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_16ssp" />
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="@dimen/_38sdp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:paddingTop="@dimen/_2sdp"
+                    android:paddingBottom="@dimen/_2sdp"
+                    android:layout_toRightOf="@+id/tv_title"
+                    android:background="@drawable/ic_version_bg"
+                    android:fontFamily="@font/open_sans"
+                    android:gravity="center"
+                    android:text="v1.17"
+                    android:textColor="#ffffff"
+                    android:textSize="@dimen/_10ssp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_alignParentBottom="true">
+
+                <ImageView
+                    android:id="@+id/iv_web"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/ic_web"
+                    android:padding="@dimen/_5sdp" />
+
+                <ImageView
+                    android:id="@+id/iv_fb"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@+id/iv_web"
+                    android:background="@drawable/ic_fb"
+                    android:padding="@dimen/_5sdp" />
+
+                <ImageView
+                    android:id="@+id/iv_twit"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@+id/iv_fb"
+                    android:background="@drawable/ic_twit"
+                    android:padding="@dimen/_5sdp" />
+
+                <ImageView
+                    android:id="@+id/iv_linkedin"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@+id/iv_twit"
+                    android:background="@drawable/ic_linkedin"
+                    android:padding="@dimen/_5sdp" />
+
+                <ImageView
+                    android:id="@+id/iv_insta"
+                    android:layout_width="@dimen/_25sdp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_toRightOf="@+id/iv_linkedin"
+                    android:background="@drawable/ic_insta"
+                    android:padding="@dimen/_5sdp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout11"
+                android:fontFamily="@font/open_sans"
+                android:text="SSN Institutions"
+                android:textColor="#CECECE"
+                android:textSize="@dimen/_10ssp" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_text0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_below="@+id/layout1"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/contributors"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_16ssp" />
+
+        <TextView
+            android:id="@+id/tv_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_below="@+id/tv_text0"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/pre_final_years"
+            android:textColor="#A7A7A7"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_items1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_below="@+id/tv_text1" />
+
+        <TextView
+            android:id="@+id/tv_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_below="@+id/rv_items1"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/final_years"
+            android:textColor="#A7A7A7"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_items2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@+id/tv_text2" />
+
+        <TextView
+            android:id="@+id/tv_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_items2"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:fontFamily="@font/open_sans_bold"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:text="@string/alumni"
+            android:textColor="#A7A7A7"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_items3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_below="@+id/tv_text3" />
+
+        <TextView
+            android:id="@+id/tv_text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_items3"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/special_thanks"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_text4"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:textColor="#A7A7A7"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:text="CSE department &amp; Marketing team"/>
+
+    </RelativeLayout>
+
+</ScrollView>

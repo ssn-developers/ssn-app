@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -22,6 +23,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -35,11 +38,15 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
 import java.util.ArrayList;
@@ -52,13 +59,14 @@ import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
+public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
 
     private boolean mIsTheTitleVisible = false;
     private boolean mIsTheTitleContainerVisible = true;
@@ -77,11 +85,17 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_club_page);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_club_page_dark);
+        }else{
+            setContentView(R.layout.activity_club_page);
+        }
+
 
         initUI();
 
         setupFireStore();
+
 
         /****************************************************/
     }
@@ -141,10 +155,20 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
 
         if (club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
             tv_following_text.setText("Following");
-            tv_following_text.setTextColor(Color.BLACK);
+            if(darkModeEnabled){
+                tv_following_text.setTextColor(Color.WHITE);
+            }else{
+                tv_following_text.setTextColor(Color.BLACK);
+            }
+
         } else {
-            tv_following_text.setText("Unfollowing");
-            tv_following_text.setTextColor(getResources().getColor(R.color.light_grey));
+            tv_following_text.setText("Follow");
+            if(darkModeEnabled){
+                tv_following_text.setTextColor(getResources().getColor(R.color.colorAccentDark));
+            }
+            else {
+                tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+            }
         }
 
         lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -182,13 +206,14 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
     }
 
     private void setupFireStore() {
+
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
                 .endConfig()
                 .round();
 
-        Query query = FirebaseFirestore.getInstance().collection("post_club").whereEqualTo("cid", club.getId()).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).whereEqualTo("cid", club.getId()).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ClubPost> options = new FirestoreRecyclerOptions.Builder<ClubPost>().setQuery(query, new SnapshotParser<ClubPost>() {
             @NonNull
             @Override
@@ -293,10 +318,10 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         try{
                             if (!model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                                 holder.iv_like.setImageResource(R.drawable.blue_heart);
-                                FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
+                                FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                             } else {
                                 holder.iv_like.setImageResource(R.drawable.heart);
-                                FirebaseFirestore.getInstance().collection("post_club").document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+                                FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                             }
 
                         }catch (Exception e){
@@ -311,7 +336,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
                         String timer = holder.tv_time.getText().toString();
-                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: https://ssn-app-web.web.app/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
+                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: https://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                     }
@@ -328,7 +353,13 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
-                View view = LayoutInflater.from(ClubPageActivity.this).inflate(R.layout.club_post_item, group, false);
+                View view;
+                if(darkModeEnabled){
+                    view = LayoutInflater.from(ClubPageActivity.this).inflate(R.layout.club_post_item_dark, group, false);
+                }else{
+                    view = LayoutInflater.from(ClubPageActivity.this).inflate(R.layout.club_post_item, group, false);
+                }
+
                 return new FeedViewHolder(view);
             }
         };
@@ -383,7 +414,7 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
             case R.id.tool_iv_share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! Check out the " + club.getName() + " page: https://ssn-app-web.web.app/share.html?type=3&vca=" + club.getId();
+                String shareBody = "Hello! Check out the " + club.getName() + " page: https://ssnportal.cf/share.html?type=3&vca=" + club.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
@@ -405,18 +436,27 @@ public class ClubPageActivity extends AppCompatActivity implements AppBarLayout.
                 lottie.playAnimation();
 
                 if (!club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                    FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.SubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().add(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Following");
-                    tv_following_text.setTextColor(Color.BLACK);
+                    if(darkModeEnabled){
+                        tv_following_text.setTextColor(Color.WHITE);
+                    }else{
+                        tv_following_text.setTextColor(Color.BLACK);
+                    }
                 }
                 else {
-                    FirebaseFirestore.getInstance().collection("club").document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
+                    FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.UnSubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
-                    tv_following_text.setText("Unfollowing");
-                    tv_following_text.setTextColor(getResources().getColor(R.color.light_grey));
+                    tv_following_text.setText("Follow");
+                    if(darkModeEnabled){
+                        tv_following_text.setTextColor(getResources().getColor(R.color.colorAccentDark));
+                    }
+                    else {
+                        tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                    }
                 }
 
                 if (club.getFollowers().size() > 0) {

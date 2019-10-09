@@ -173,28 +173,80 @@
 				android:layout_centerHorizontal="true"
 				android:layout_below="@+id/tv_name" />
 
-			<RelativeLayout
+			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
 				android:layout_below="@+id/tv_email"
+				android:orientation="vertical"
 				android:layout_marginTop="@dimen/_15sdp"
 				android:layout_marginLeft="@dimen/_15sdp"
 				android:layout_marginRight="@dimen/_15sdp"
 				android:layout_marginBottom="@dimen/_10sdp"
 				android:background="@drawable/ic_drawer_bg">
 
+				<RelativeLayout
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/_40sdp"
+					android:layout_marginTop="@dimen/_5sdp"
+					android:layout_marginLeft="@dimen/_5sdp"
+					android:layout_marginRight="@dimen/_5sdp">
+
+					<ImageView
+						android:id="@+id/iv_icon"
+						app:srcCompat="@drawable/ic_sleep"
+						android:layout_width="@dimen/_14sdp"
+						android:layout_height="@dimen/_14sdp"
+						android:layout_margin="@dimen/_13sdp"/>
+
+					<TextView
+						android:id="@+id/tv_title"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="Dark mode"
+						android:textColor="#9A000000"
+						android:textSize="@dimen/_12ssp"
+						android:singleLine="true"
+						android:layout_toLeftOf="@+id/iv_arrow"
+						android:paddingRight="@dimen/_5sdp"
+						android:layout_centerVertical="true"
+						android:layout_toRightOf="@+id/iv_icon"
+						android:layout_marginLeft="@dimen/_5sdp"
+						android:fontFamily="@font/open_sans_semi_bold"/>
+
+					<com.suke.widget.SwitchButton
+						android:id="@+id/darkModeSwitch"
+						android:layout_alignParentRight="true"
+						app:sb_checked_color="@color/colorAccent"
+						app:sb_show_indicator="false"
+						android:layout_centerVertical="true"
+						android:layout_marginRight="@dimen/_12sdp"
+						app:sb_background="@color/colorAccentLight"
+						android:layout_width="@dimen/_40sdp"
+						android:layout_height="@dimen/_20sdp"/>
+
+					<View
+						android:id="@+id/view_line"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_alignParentBottom="true"
+						android:layout_toRightOf="@+id/iv_icon"
+						android:layout_marginLeft="@dimen/_5sdp"
+						android:layout_marginRight="@dimen/_15sdp"
+						android:background="#66C0C0C0"/>
+
+				</RelativeLayout>
+
 				<ListView
 					android:id="@+id/lv_items"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/_5sdp"
 					android:layout_marginLeft="@dimen/_5sdp"
 					android:layout_marginRight="@dimen/_5sdp"
 					android:layout_marginBottom="@dimen/_5sdp"
 					android:scrollbars="none"
 					android:divider="@null"/>
 
-			</RelativeLayout>
+			</LinearLayout>
 
 		</RelativeLayout>
 

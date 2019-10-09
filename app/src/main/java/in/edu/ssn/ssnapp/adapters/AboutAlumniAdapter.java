@@ -19,12 +19,14 @@ import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.AlumniDetails;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.ContributionViewHolder>{
 
     private ArrayList<AlumniDetails> alumniDetails;
     private Context context;
     private TextDrawable.IBuilder builder;
+    boolean darkMode=false;
 
     public AboutAlumniAdapter(Context context, ArrayList<AlumniDetails> alumniDetails) {
         this.context = context;
@@ -34,13 +36,19 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
                 .toUpperCase()
                 .endConfig()
                 .round();
+        darkMode = SharedPref.getBoolean(context,"darkMode");
     }
 
     @NonNull
     @Override
     public AboutAlumniAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View listItem= layoutInflater.inflate(R.layout.alumni_item, parent, false);
+        View listItem;
+        if(darkMode){
+            listItem = layoutInflater.inflate(R.layout.alumni_item_dark, parent, false);
+        }else {
+            listItem = layoutInflater.inflate(R.layout.alumni_item, parent, false);
+        }
         return new AboutAlumniAdapter.ContributionViewHolder(listItem);
     }
 
@@ -56,10 +64,6 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
         TextDrawable ic1 = builder.build(String.valueOf(drawer.getName().charAt(0)), color);
         holder.iv_dp.setImageDrawable(ic1);
 
-        if(getItemCount() == position+1)
-            holder.view.setVisibility(View.GONE);
-        else
-            holder.view.setVisibility(View.VISIBLE);
 
         holder.tv_email.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +81,6 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
     public class ContributionViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_name, tv_email;
         public ImageView iv_dp;
-        public View view;
 
         public ContributionViewHolder(View convertView) {
             super(convertView);
@@ -85,7 +88,6 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
             tv_name = convertView.findViewById(R.id.tv_name);
             tv_email = convertView.findViewById(R.id.tv_email);
             iv_dp = convertView.findViewById(R.id.iv_dp);
-            view = convertView.findViewById(R.id.view);
         }
     }
 }

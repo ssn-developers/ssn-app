@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="@dimen/_150sdp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginRight="@dimen/_10sdp"
@@ -12,30 +12,51 @@
     app:cardCornerRadius="5dp"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/club_RL"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_dp"
-            android:layout_width="@dimen/_60sdp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_margin="@dimen/_8sdp"
-            android:padding="@dimen/_4sdp"
-            android:src="@color/shimmering_back"/>
+    <LinearLayout
+        android:id="@+id/club_RL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E6E6E6">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_dp"
+                android:layout_width="@dimen/_32sdp"
+                android:layout_height="@dimen/_32sdp"
+                android:layout_margin="@dimen/_6sdp"
+                android:layout_centerVertical="true"
+                android:padding="@dimen/_4sdp"
+                android:src="@color/shimmering_front"/>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie"
+                android:layout_width="@dimen/_45sdp"
+                android:layout_height="@dimen/_45sdp"
+                android:layout_alignParentEnd="true"
+                app:lottie_rawRes="@raw/subcribe"
+                app:lottie_loop="false" />
+
+        </RelativeLayout>
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/iv_dp"
-            android:layout_marginEnd="@dimen/_40sdp"
+            android:gravity="center"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:paddingEnd="@dimen/_10sdp"
             android:layout_centerVertical="true">
 
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:ellipsize="marquee"
                 android:fontFamily="@font/open_sans_bold"
                 android:textColor="#000000"
                 android:textSize="@dimen/_14ssp" />
@@ -47,19 +68,12 @@
                 android:layout_below="@id/tv_name"
                 android:fontFamily="@font/open_sans"
                 android:textColor="#000000"
+                android:minLines="2"
                 android:maxLines="2"
                 android:textSize="@dimen/_10ssp" />
         </RelativeLayout>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/lottie"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            app:lottie_rawRes="@raw/subcribe"
-            app:lottie_loop="false" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

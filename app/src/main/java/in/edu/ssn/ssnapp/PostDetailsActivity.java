@@ -60,7 +60,12 @@ public class PostDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_details);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_post_details_dark);
+            clearLightStatusBar(this);
+        }else {
+            setContentView(R.layout.activity_post_details);
+        }
 
         post = getIntent().getParcelableExtra("post");
         final int type = getIntent().getIntExtra("type",0);
@@ -190,7 +195,7 @@ public class PostDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssn-app-web.web.app/share.html?type=" + type + "&vca=" + post.getId();
+                String shareBody = "Hello! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssnportal.cf/share.html?type=" + type + "&vca=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }

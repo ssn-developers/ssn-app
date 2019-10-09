@@ -73,7 +73,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 catch (Exception e){
                     e.printStackTrace();
                     type=1;
-                    collectionName = "post";
+                    collectionName =Constants.collection_post;
                 }
             }
 
@@ -92,7 +92,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 FCMHelper.showNotification(remoteMessage.getNotification().getBody(),this,intent);
                 //dataBaseHelper.addNotification(new Notification("7",vca,pdfUrl,new Post(remoteMessage.getNotification().getTitle(),"",new Date(),"7",pdfUrl)));
             }
-            else if (collectionName.equals("post_club")) {
+            else if (collectionName.equals(Constants.collection_post_club)) {
                 // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
                 // http://ssnportal.cf/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
 
@@ -117,15 +117,15 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
 
     public void FetchPostById(final String postId, final String collectionName, final HashMap<String,Object> data, final int type, final Context context){
         String collection = collectionName;
-        if(collectionName.equals("post_club"))
-            collection = "club";
+        if(collectionName.equals(Constants.collection_post_club))
+            collection = Constants.collection_club;
 
         FirebaseFirestore.getInstance().collection(collection).document(postId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot snapshot) {
-                if(collectionName.equals("club") || collectionName.equals("post_club")){
+                if(collectionName.equals(Constants.collection_club) || collectionName.equals(Constants.collection_post_club)){
                     final Club club = CommonUtils.getClubFromSnapshot(getApplicationContext(),snapshot);
-                    if(collectionName.equals("post_club")){
+                    if(collectionName.equals(Constants.collection_post_club)){
                         try{
                             String post_id=data.get("post_id").toString();
                             Intent intent=new Intent(context, ClubPostDetailsActivity.class);

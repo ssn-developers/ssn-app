@@ -21,7 +21,7 @@ import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class SavedPostActivity extends AppCompatActivity {
+public class SavedPostActivity extends BaseActivity {
 
     ListView lv_savedPost;
     SavedPostAdapter savedPostAdapter;
@@ -32,7 +32,12 @@ public class SavedPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_post);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_saved_post_dark);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor1));
+        }else {
+            setContentView(R.layout.activity_saved_post);
+        }
 
         lv_savedPost = findViewById(R.id.lv_items);
         layout_progress = findViewById(R.id.layout_progress);

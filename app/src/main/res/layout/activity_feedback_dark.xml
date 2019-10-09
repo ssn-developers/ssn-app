@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/darkColor"
+    tools:context=".FeedbackActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_82sdp">
+
+        <ImageView
+            android:id="@+id/iv_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_82sdp"
+            android:background="@drawable/tool_bar_curve_dark" />
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_22sdp"/>
+
+        <TextView
+            android:id="@+id/tv_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_toRightOf="@+id/iv_back"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="Feedback"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_16ssp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_180sdp"
+        android:layout_margin="@dimen/_20sdp"
+        android:layout_below="@+id/layout1"
+        android:background="@drawable/post_detail_bg_dark"
+        android:padding="@dimen/_8sdp"
+        android:textColor="@android:color/white"
+        android:fontFamily="@font/open_sans"
+        android:hint="Please share your feedback..."
+        android:textColorHint="@android:color/tab_indicator_text"
+        android:gravity="top|left"
+        android:textSize="@dimen/_12ssp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_below="@+id/layout1"
+        app:lottie_rawRes="@raw/emoji"
+        android:visibility="gone"
+        app:lottie_loop="true"
+        app:lottie_autoPlay="true" />
+
+    <TextView
+        android:id="@+id/tv_text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
+        android:text="Thanks for your valuable feedback. We will look into it and get back to you soon!"
+        android:textColor="#f2f2f2"
+        android:visibility="gone"
+        android:layout_below="@+id/lottie"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:gravity="center"
+        android:textSize="@dimen/_12ssp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:cardCornerRadius="5dp"
+        android:clickable="true"
+        android:layout_below="@+id/et_feedback"
+        android:id="@+id/submitCV"
+        android:foreground="?attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/colorAccent"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/tv_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/open_sans_bold"
+            android:textSize="18dp"
+            android:textColor="@android:color/white"
+            android:text="Submit"/>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

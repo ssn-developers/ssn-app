@@ -56,7 +56,13 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pdf_viewer);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_pdf_viewer_dark);
+            clearLightStatusBar(this);
+        }else{
+            setContentView(R.layout.activity_pdf_viewer);
+        }
+
 
         initUI();
 

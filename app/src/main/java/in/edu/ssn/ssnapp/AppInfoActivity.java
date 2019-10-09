@@ -21,7 +21,7 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class AppInfoActivity extends AppCompatActivity implements View.OnClickListener {
+public class AppInfoActivity extends BaseActivity implements View.OnClickListener {
 
     RecyclerView rv_items1, rv_items2, rv_items3;
     ArrayList<TeamDetails> teams1, teams2;
@@ -31,7 +31,12 @@ public class AppInfoActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_app_info);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_app_info_dark);
+            clearLightStatusBar(this);
+        }else {
+            setContentView(R.layout.activity_app_info);
+        }
 
         ScrollView scroll_view = findViewById(R.id.scroll_view);
         scroll_view.smoothScrollTo(0,0);

@@ -27,7 +27,6 @@
 
             <RelativeLayout
                 android:id="@+id/layout_page_detail"
-                android:layout_marginTop="@dimen/_15sdp"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax"
                 android:layout_width="match_parent"
@@ -36,32 +35,38 @@
                 <ImageView
                     android:id="@+id/iv_cover_pic"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_120sdp"
+                    android:layout_height="@dimen/_145sdp"
                     android:background="@color/shimmering_back"
-                    android:scaleType="centerCrop"/>
+                    android:scaleType="centerCrop" />
 
                 <ImageView
                     android:id="@+id/backIV"
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
                     android:layout_gravity="center"
-                    android:padding="@dimen/_2sdp"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:background="@drawable/rounded_corner_bg"
+                    android:layout_marginTop="@dimen/_28sdp"
                     app:srcCompat="@drawable/ic_back" />
 
                 <ImageView
-                    android:layout_width="@dimen/_35sdp"
-                    android:layout_height="@dimen/_35sdp"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
                     app:srcCompat="@drawable/ic_share"
+                    android:layout_marginTop="@dimen/_28sdp"
                     android:id="@+id/shareIV"
+                    android:layout_marginEnd="@dimen/_10sdp"
                     android:layout_alignParentEnd="true"
                     android:layout_gravity="center"
-                    android:padding="@dimen/_7sdp" />
+                    android:padding="@dimen/_9sdp"
+                    android:background="@drawable/rounded_corner_bg" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:layout_marginTop="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_105sdp"
                     android:layout_marginStart="@dimen/_20sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -194,8 +199,8 @@
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/tool_iv_dp"
-                        android:layout_width="@dimen/_35sdp"
-                        android:layout_height="@dimen/_35sdp"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="center"
                         android:src="@color/shimmering_front"
                         android:padding="@dimen/_2sdp" />
@@ -207,32 +212,42 @@
                         android:layout_marginStart="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_10sdp">
 
-                        <TextView
-                            android:id="@+id/tool_tv_title"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:singleLine="true"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/open_sans_bold"
-                            android:textColor="@color/colorAccent"
+                            android:layout_centerVertical="true"
                             android:layout_marginEnd="@dimen/_35sdp"
-                            android:textSize="@dimen/_14ssp" />
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/tool_tv_title"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:singleLine="true"
+                                android:layout_gravity="center"
+                                android:gravity="start|center"
+                                android:fontFamily="@font/open_sans_bold"
+                                android:textColor="@color/colorAccent"
+                                android:textSize="@dimen/_14ssp" />
+                            <TextView
+                                android:id="@+id/tool_tv_count"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/colorAccentText"
+                                android:fontFamily="@font/open_sans"
+                                android:text="No posts"
+                                android:gravity="start|center"
+                                android:textSize="@dimen/_9ssp" />
 
-                        <TextView
-                            android:id="@+id/tool_tv_count"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@id/tool_tv_title"
-                            android:textColor="@color/colorAccentText"
-                            android:fontFamily="@font/open_sans"
-                            android:layout_marginEnd="@dimen/_35sdp"
-                            android:textSize="@dimen/_9ssp" />
+                        </LinearLayout>
+
+
 
                         <ImageView
                             android:layout_width="@dimen/_35sdp"
                             android:layout_height="@dimen/_35sdp"
                             app:srcCompat="@drawable/ic_share"
                             android:id="@+id/tool_iv_share"
+                            android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
                             android:tint="@color/colorAccent"
                             android:layout_gravity="center"

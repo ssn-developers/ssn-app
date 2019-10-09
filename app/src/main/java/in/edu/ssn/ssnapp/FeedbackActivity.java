@@ -30,10 +30,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class FeedbackActivity extends AppCompatActivity {
+public class FeedbackActivity extends BaseActivity {
 
     FirebaseFirestore db;
 
@@ -46,7 +47,12 @@ public class FeedbackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback);
+        if(darkModeEnabled){
+            setContentView(R.layout.activity_feedback_dark);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+        }else {
+            setContentView(R.layout.activity_feedback);
+        }
 
         db = FirebaseFirestore.getInstance();
 
@@ -70,23 +76,23 @@ public class FeedbackActivity extends AppCompatActivity {
                 if(!CommonUtils.alerter(getApplicationContext())) {
                     if (tv_button.getText().equals("Submit")) {
                         String et_text = et_feedback.getEditableText().toString().trim();
-                        final Map<String, Object> feedback_details = new HashMap<>();
-                        feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
-                        feedback_details.put("text", et_text);
-                        feedback_details.put("time", FieldValue.serverTimestamp());
+                        if(et_text.length() > 1) {
+                            final Map<String, Object> feedback_details = new HashMap<>();
+                            feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
+                            feedback_details.put("text", et_text);
+                            feedback_details.put("time", FieldValue.serverTimestamp());
 
-                        if (et_text.length() > 0) {
                             lottie.setVisibility(View.VISIBLE);
                             tv_text1.setVisibility(View.VISIBLE);
                             et_feedback.setVisibility(View.INVISIBLE);
                             tv_button.setText("Continue");
                             CommonUtils.hideKeyboard(FeedbackActivity.this);
 
-                            db.collection("feedback").add(feedback_details);
+                            db.collection(Constants.collection_feedback).add(feedback_details);
                         }
                         else {
                             Toast toast = Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER,0,0);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
                     }

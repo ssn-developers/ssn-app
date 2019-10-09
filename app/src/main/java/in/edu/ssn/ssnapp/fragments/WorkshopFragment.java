@@ -56,10 +56,16 @@ public class WorkshopFragment extends Fragment {
     RelativeLayout layout_progress;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
-
+    boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        View view;
+        if(darkMode){
+            view = inflater.inflate(R.layout.fragment_feed_dark, container, false);
+        }else{
+            view = inflater.inflate(R.layout.fragment_feed, container, false);
+        }
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
@@ -77,8 +83,9 @@ public class WorkshopFragment extends Fragment {
                 .endConfig()
                 .round();
         String dept = SharedPref.getString(getContext(),"dept");
+        String year = "year." + SharedPref.getInt(getContext(),"year");
 
-        Query query = FirebaseFirestore.getInstance().collection("workshop").whereArrayContains("dept",dept).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_workshop).whereArrayContains("dept",dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -171,7 +178,12 @@ public class WorkshopFragment extends Fragment {
 
             @Override
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
-                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
+                View view;
+                if(darkMode) {
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item_dark, group, false);
+                }else {
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
+                }
                 return new FeedViewHolder(view);
             }
         };
@@ -223,7 +235,8 @@ public class WorkshopFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        adapter.stopListening();
+        if(adapter!=null)
+            adapter.stopListening();
     }
 
     @Override

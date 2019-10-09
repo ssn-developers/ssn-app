@@ -129,15 +129,15 @@
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_3sdp"
                     android:layout_below="@id/tv_description">
 
                     <ImageView
                         android:id="@+id/iv_like"
                         android:padding="@dimen/_5sdp"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
                         app:srcCompat="@drawable/heart" />
 
                     <TextView
@@ -153,9 +153,9 @@
                     <ImageView
                         android:id="@+id/iv_comment"
                         android:padding="@dimen/_5sdp"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        app:srcCompat="@drawable/comment"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        app:srcCompat="@drawable/ic_message_square"
                         android:layout_toEndOf="@id/tv_like"
                         android:layout_marginStart="@dimen/_10sdp" />
 
@@ -172,9 +172,9 @@
                     <ImageView
                         android:id="@+id/iv_share"
                         android:padding="@dimen/_5sdp"
-                        android:layout_width="@dimen/_30sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        app:srcCompat="@drawable/ic_share"
+                        android:layout_width="@dimen/_25sdp"
+                        android:layout_height="@dimen/_25sdp"
+                        app:srcCompat="@drawable/ic_share_2"
                         android:tint="@color/colorAccent"
                         android:layout_toEndOf="@id/tv_comment"
                         android:layout_marginStart="@dimen/_10sdp" />
