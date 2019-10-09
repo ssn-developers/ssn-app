@@ -49,4 +49,9 @@ public class Constants {
     public static String collection_post_bus = "post_bus";
     public static String collection_post_club = "post_club";
     public static String collection_workshop = "workshop";
+
+    // What's new stuff
+    public static int versionCode = 9;
+    public static String versionName = "1.18";
+    public static String changelog = "Dark mode added\n\nBug fixes\n\nPerformance improvements";
 }

@@ -77,6 +77,11 @@ public class StudentHomeActivity extends BaseActivity {
             darkModeSwitch.setChecked(false);
         }
 
+        if(Constants.versionCode!=SharedPref.getInt(getApplicationContext(),"currentVersionCode")){
+            //TODO Show what's new dialog
+            SharedPref.putInt(getApplicationContext(),"currentVersionCode",Constants.versionCode);
+        }
+
         darkModeSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {

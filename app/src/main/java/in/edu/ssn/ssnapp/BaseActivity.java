@@ -45,6 +45,7 @@ public class BaseActivity extends AppCompatActivity {
         FontChanger fontChanger = new FontChanger(typeface);
         fontChanger.replaceFonts(viewGroup);
     }
+
     public void clearLightStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int flags = activity.getWindow().getDecorView().getSystemUiVisibility(); // get current flag
@@ -53,4 +54,5 @@ public class BaseActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
         }
     }
+
 }
