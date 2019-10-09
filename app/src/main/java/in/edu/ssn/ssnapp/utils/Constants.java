@@ -53,5 +53,5 @@ public class Constants {
     // What's new stuff
     public static int versionCode = 9;
     public static String versionName = "1.18";
-    public static String changelog = "Dark mode added\n\nBug fixes\n\nPerformance improvements";
+    public static String changelog = "\u2022 Dark mode added\n\u2022 Bug fixes\n\u2022 Performance improvements";
 }

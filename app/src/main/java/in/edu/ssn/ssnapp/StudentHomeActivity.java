@@ -5,6 +5,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -77,8 +78,8 @@ public class StudentHomeActivity extends BaseActivity {
             darkModeSwitch.setChecked(false);
         }
 
-        if(Constants.versionCode!=SharedPref.getInt(getApplicationContext(),"currentVersionCode")){
-            //TODO Show what's new dialog
+        if(Constants.versionCode>SharedPref.getInt(getApplicationContext(),"currentVersionCode")){
+            showWhatsNewDialog();
             SharedPref.putInt(getApplicationContext(),"currentVersionCode",Constants.versionCode);
         }
 
@@ -320,6 +321,29 @@ public class StudentHomeActivity extends BaseActivity {
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
         }
+    }
+
+    void showWhatsNewDialog(){
+        final Dialog dialog = new Dialog(StudentHomeActivity.this);
+        if(darkModeEnabled){
+            dialog.setContentView(R.layout.whats_new_dialog_dark);
+        }else{
+            dialog.setContentView(R.layout.whats_new_dialog);
+        }
+        TextView versionNameTV = dialog.findViewById(R.id.versionNameTV);
+        TextView changelogTV = dialog.findViewById(R.id.changelogTV);
+        ImageView closeIV = dialog.findViewById(R.id.closeIV);
+        if(darkModeEnabled)
+            versionNameTV.setTextColor(getResources().getColor(R.color.colorAccent));
+        versionNameTV.setText("v"+Constants.versionName);
+        changelogTV.setText(Constants.changelog);
+        dialog.show();
+        closeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
     }
 
 }
