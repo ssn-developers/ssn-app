@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:paddingTop="@dimen/_20sdp"
         android:paddingLeft="32dp"
         android:paddingRight="32dp">
 
@@ -51,110 +51,137 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/layout1"
+        android:layout_marginTop="@dimen/_10sdp"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_gate"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ssn_gate"
-            android:visibility="invisible"
-            android:layout_marginTop="@dimen/_10sdp" />
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/iv_road"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible"
-                android:src="@drawable/ic_road" />
-
-            <LinearLayout
-                android:id="@+id/layout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/iv_faculty"
-                    android:layout_width="match_parent"
+                    android:id="@+id/iv_gate"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_faculty"
-                    android:visibility="invisible"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/ssn_gate"
+                    android:layout_centerInParent="true"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/iv_student"
+                    android:id="@+id/iv_road"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_road" />
+
+                <LinearLayout
+                    android:id="@+id/layout2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_student"
-                    android:visibility="invisible"
-                    android:layout_weight="1"/>
+                    android:layout_alignParentBottom="true"
+                    android:paddingBottom="@dimen/_20sdp"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_below="@+id/layout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="5dp"
-                    android:clickable="true"
-                    android:id="@+id/cv_faculty"
-                    android:visibility="invisible"
-                    android:layout_weight="1"
-                    android:layout_margin="@dimen/_20sdp"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/colorAccent"
-                    android:focusable="true">
-
-                    <TextView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:textSize="18dp"
-                        android:textColor="@android:color/white"
-                        android:text="Faculty"/>
-                </androidx.cardview.widget.CardView>
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="5dp"
+                        android:clickable="true"
+                        android:id="@+id/cv_faculty"
+                        android:visibility="invisible"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/_20sdp"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        android:focusable="true">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    app:cardCornerRadius="5dp"
-                    android:clickable="true"
-                    android:layout_weight="1"
-                    android:layout_margin="@dimen/_20sdp"
-                    android:id="@+id/cv_student"
-                    android:visibility="invisible"
-                    android:foreground="?attr/selectableItemBackground"
-                    app:cardBackgroundColor="@color/colorAccent"
-                    android:focusable="true">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/white"
+                            android:text="Faculty"/>
+                    </androidx.cardview.widget.CardView>
 
-                    <TextView
+                    <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:fontFamily="@font/open_sans_bold"
-                        android:textSize="18dp"
-                        android:textColor="@android:color/white"
-                        android:text="Student"/>
-                </androidx.cardview.widget.CardView>
-            </LinearLayout>
+                        android:layout_height="50dp"
+                        app:cardCornerRadius="5dp"
+                        android:clickable="true"
+                        android:layout_weight="1"
+                        android:layout_margin="@dimen/_20sdp"
+                        android:id="@+id/cv_student"
+                        android:visibility="invisible"
+                        android:foreground="?attr/selectableItemBackground"
+                        app:cardBackgroundColor="@color/colorAccent"
+                        android:focusable="true">
 
-        </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:fontFamily="@font/open_sans_bold"
+                            android:textSize="18dp"
+                            android:textColor="@android:color/white"
+                            android:text="Student"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/layout2"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_faculty"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_faculty"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:id="@+id/iv_student"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_student"
+                        android:layout_gravity="center"
+                        android:visibility="invisible"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
