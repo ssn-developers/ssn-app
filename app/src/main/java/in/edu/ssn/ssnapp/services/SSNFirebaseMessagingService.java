@@ -88,7 +88,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
             if(pdfUrl!=null && !pdfUrl.equals("")){
                 Intent intent = new Intent(this, PdfViewerActivity.class);
                 intent.putExtra(Constants.PDF_URL, pdfUrl);
-                FCMHelper.showNotification(remoteMessage.getNotification().getBody(),this,intent);
+                FCMHelper.showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody(),this,intent);
                 //dataBaseHelper.addNotification(new Notification("7",vca,pdfUrl,new Post(remoteMessage.getNotification().getTitle(),"",new Date(),"7",pdfUrl)));
             }
             else if (collectionName.equals(Constants.collection_post_club)) {
@@ -110,7 +110,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
         else if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             Intent intent=new Intent(this, SplashActivity.class);
-            FCMHelper.showNotification(remoteMessage.getNotification().getBody(),this,intent);
+            FCMHelper.showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody(),this,intent);
         }
     }
 
@@ -130,7 +130,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                             Intent intent=new Intent(context, ClubPostDetailsActivity.class);
                             intent.putExtra("data", post_id);
                             intent.putExtra("club", club);
-                            FCMHelper.showNotification(rmMessage.getNotification().getBody(),context,intent);
+                            FCMHelper.showNotification(rmMessage.getNotification().getTitle(),rmMessage.getNotification().getBody(),context,intent);
                         }
                         catch (Exception e){
                             e.printStackTrace();
@@ -139,7 +139,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     else {
                         Intent intent = new Intent(context, ClubPageActivity.class);
                         intent.putExtra("data",club);
-                        FCMHelper.showNotification(rmMessage.getNotification().getBody(),context,intent);
+                        FCMHelper.showNotification(rmMessage.getNotification().getTitle(),rmMessage.getNotification().getBody(),context,intent);
                     }
                 }
                 else{
@@ -161,7 +161,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     intent.putExtra("post",post);
                     intent.putExtra("type",type);
-                    FCMHelper.showNotification(rmMessage.getNotification().getBody(),context,intent);
+                    FCMHelper.showNotification(rmMessage.getNotification().getTitle(),rmMessage.getNotification().getBody(),context,intent);
 
                 }
             }
