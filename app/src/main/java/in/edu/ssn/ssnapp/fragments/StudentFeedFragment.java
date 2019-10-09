@@ -92,7 +92,8 @@ public class StudentFeedFragment extends Fragment {
                 .endConfig()
                 .round();
 
-        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post).whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        //Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post).whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post).orderBy("file_urls", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override

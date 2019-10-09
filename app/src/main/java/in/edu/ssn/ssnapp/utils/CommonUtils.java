@@ -217,7 +217,14 @@ public class CommonUtils {
                 ArrayList<String> fileUrl = new ArrayList<>();
 
                 for (int i = 0; i < files.size(); i++) {
-                    fileName.add(files.get(i).get("name"));
+                    String name = files.get(i).get("name");
+                    StringBuffer text = new StringBuffer(name.replaceAll("%20", " "));
+                    name = name.replaceAll("%20", " ").trim();
+                    int indexofper = name.lastIndexOf(".");
+//                    Log.i("app_test : ", String.valueOf(text.replace( indexofper-13,indexofper ,"")));
+                    name =  String.valueOf(text.replace( indexofper-13,indexofper ,""));
+
+                    fileName.add(name);
                     fileUrl.add(files.get(i).get("url"));
                 }
                 post.setFileName(fileName);
@@ -284,10 +291,14 @@ public class CommonUtils {
             post.setAuthor_image_url(email);
 
             String name = SharedPref.getString(context, "faculty_name", email);
-            if (name != null && !name.equals(""))
+            if (name != null && !name.equals("")) {
+                name = name.substring(0, 1).toUpperCase() + name.substring(1);
                 post.setAuthor(name);
-            else if(email!=null)
+            }
+            else if(email!=null) {
+                email =email.substring(0, 1).toUpperCase() + email.substring(1);
                 post.setAuthor(email.split("@")[0]);
+            }
             else
                 post.setAuthor("");
 
