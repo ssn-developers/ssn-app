@@ -20,7 +20,7 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 public class BaseActivity extends AppCompatActivity {
 
     //Fonts
-    public Typeface regular, bold, semi_bold;
+    //public Typeface regular, bold, semi_bold;
     public boolean darkModeEnabled = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,9 +34,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void initFonts(){
-        regular = ResourcesCompat.getFont(this, R.font.open_sans);
-        bold = ResourcesCompat.getFont(this, R.font.open_sans_bold);
-        semi_bold = ResourcesCompat.getFont(this, R.font.open_sans_semi_bold);
+        //regular = ResourcesCompat.getFont(this, R.font.open_sans);
+        //bold = ResourcesCompat.getFont(this, R.font.open_sans_bold);
+        //semi_bold = ResourcesCompat.getFont(this, R.font.open_sans_semi_bold);
     }
 
     //This changes font for all the text views in a view group
@@ -45,6 +45,7 @@ public class BaseActivity extends AppCompatActivity {
         FontChanger fontChanger = new FontChanger(typeface);
         fontChanger.replaceFonts(viewGroup);
     }
+
     public void clearLightStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             int flags = activity.getWindow().getDecorView().getSystemUiVisibility(); // get current flag
@@ -53,4 +54,5 @@ public class BaseActivity extends AppCompatActivity {
             getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
         }
     }
+
 }
