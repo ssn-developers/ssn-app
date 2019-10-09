@@ -59,9 +59,6 @@
 			android:name=".OpenImageActivity"
 			android:screenOrientation="portrait" />
 		<activity
-			android:name=".NotificationActivity"
-			android:screenOrientation="portrait" />
-		<activity
 			android:name=".FeedbackActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme1" />

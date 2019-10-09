@@ -59,6 +59,7 @@ public class WorkshopFragment extends Fragment {
     boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        CommonUtils.addScreen(getContext(),getActivity(),"WorkshopFragment");
         darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
         View view;
         if(darkMode){
@@ -189,6 +190,18 @@ public class WorkshopFragment extends Fragment {
         };
 
         feedsRV.setAdapter(adapter);
+
+        feedsRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(@NonNull View view) {
+                feedsRV.scrollToPosition(0);
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(@NonNull View view) {
+
+            }
+        });
     }
 
     void initUI(View view){

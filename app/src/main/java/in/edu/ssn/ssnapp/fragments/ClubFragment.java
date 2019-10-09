@@ -85,6 +85,8 @@ public class ClubFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        CommonUtils.addScreen(getContext(),getActivity(),"ClubFragment");
         View view = inflater.inflate(R.layout.fragment_club, container, false);
         CommonUtils.initFonts(getContext(), view);
         darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
@@ -130,6 +132,7 @@ public class ClubFragment extends Fragment {
                         FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
                         model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
                         clubs.add(model);
+
                         adapter.notifyDataSetChanged();
                     }
                 });
@@ -168,6 +171,7 @@ public class ClubFragment extends Fragment {
             public void onChildViewAttachedToWindow(@NonNull View view) {
                 layout_subscribed.setVisibility(View.GONE);
                 subs_RV.setVisibility(View.VISIBLE);
+                subs_RV.scrollToPosition(0);
             }
 
             @Override
@@ -315,12 +319,16 @@ public class ClubFragment extends Fragment {
         }
 
         subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        subs_RV.setNestedScrollingEnabled(false);
         unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        unsubs_RV.setNestedScrollingEnabled(false);
         feed_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        feed_RV.setNestedScrollingEnabled(false);
 
         subscribed_clubs = new ArrayList<Club>();
         subscribe_post = new ArrayList<>();
         post = new ArrayList<ClubPost>();
+        clubs = new ArrayList<>();
     }
 
     /*********************************************************/

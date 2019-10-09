@@ -86,7 +86,6 @@ import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
-import in.edu.ssn.ssnapp.database.Notification;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.Faculty;
 import in.edu.ssn.ssnapp.models.Post;
