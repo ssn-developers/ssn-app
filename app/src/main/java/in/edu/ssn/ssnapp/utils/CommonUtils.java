@@ -291,10 +291,14 @@ public class CommonUtils {
             post.setAuthor_image_url(email);
 
             String name = SharedPref.getString(context, "faculty_name", email);
-            if (name != null && !name.equals(""))
+            if (name != null && !name.equals("")) {
+                name = name.substring(0, 1).toUpperCase() + name.substring(1);
                 post.setAuthor(name);
-            else if(email!=null)
+            }
+            else if(email!=null) {
+                email =email.substring(0, 1).toUpperCase() + email.substring(1);
                 post.setAuthor(email.split("@")[0]);
+            }
             else
                 post.setAuthor("");
 
