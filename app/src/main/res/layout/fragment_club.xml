@@ -157,7 +157,7 @@
 						android:text="We'll let you know for new posts till then stay tuned."
 						android:layout_centerHorizontal="true"
 						android:textColor="@color/colorAccentText"
-						android:layout_below="@+id/tv_text11"
+						android:layout_below="@id/tv_text11"
 						android:layout_marginTop="@dimen/_5sdp"
 						android:gravity="center"
 						android:textSize="@dimen/_12ssp" />

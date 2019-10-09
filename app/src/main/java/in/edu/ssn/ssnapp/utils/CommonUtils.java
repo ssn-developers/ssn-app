@@ -157,6 +157,7 @@ public class CommonUtils {
     public static String getNameFromEmail(String email){
         email = email.substring(0, email.indexOf("@"));
         email = email.substring(0,1).toUpperCase() + email.substring(1);
+        email = email.replaceAll("[^A-Za-z]","");
         return email;
     }
 
