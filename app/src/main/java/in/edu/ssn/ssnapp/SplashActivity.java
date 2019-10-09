@@ -156,9 +156,8 @@ public class SplashActivity extends AppCompatActivity {
             new updateFaculty().execute();
             SharedPref.putLong(getApplicationContext(), "dont_delete", "db_update", current);
         }
-        else if(!isUpdateAvailable){
+        if(!isUpdateAvailable)
             handleIntent();
-        }
     }
 
     void initUI() {
@@ -186,6 +185,14 @@ public class SplashActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("block_screen");
         intent = getIntent();
         notif_intent = null;
+
+        //Remove on next update
+        // This is to make the users logout of the app for first time
+        if(!SharedPref.getBoolean(getApplicationContext(),"is_update_logout") && SharedPref.getInt(getApplicationContext(),"dont_delete", "is_logged_in") == 2){
+            SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in",1);
+            SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
+        }
+
     }
 
     /**********************************************************************/
@@ -197,52 +204,7 @@ public class SplashActivity extends AppCompatActivity {
         try {
             packageInfo =  packageManager.getPackageInfo(getPackageName(),0);
             String currentVersion = packageInfo.versionName;
-            new ForceUpdateAsync(currentVersion,SplashActivity.this).execute();
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
-    public void checkIsBlocked(){
-        mDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                nodes = (Map<String, Object>) dataSnapshot.getValue();
-                CommonUtils.setIs_blocked((Boolean) nodes.get("is_block"));
-                if(CommonUtils.getIs_blocked()){
-                    startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
-                    Bungee.fade(SplashActivity.this);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    void setUpCrashReport()
-    {
-        // only enable bug tracking in release version
-        if (!BuildConfig.DEBUG) {
-            //https://stackoverflow.com/a/49836972/10664312
-            Fabric.with(this, new Crashlytics());
-        }
-    }
-
-    public class ForceUpdateAsync extends AsyncTask<String, String, JSONObject> {
-        private String currentVersion;
-        private Context context;
-
-        public ForceUpdateAsync(String currentVersion, Context context) {
-            this.currentVersion = currentVersion;
-            this.context = context;
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... params) {
             try {
                 latestVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName() + "&hl=en")
                         .timeout(30000)
@@ -252,24 +214,20 @@ public class SplashActivity extends AppCompatActivity {
                         .select("div.hAyfc:nth-child(4) > span:nth-child(2) > div:nth-child(1) > span:nth-child(1)")
                         .first()
                         .ownText();
-
             }
             catch (Exception e) {
                 e.printStackTrace();
                 isUpdateAvailable = false;
             }
-            return new JSONObject();
-        }
-
-        @Override
-        protected void onPostExecute(JSONObject jsonObject) {
             if (latestVersion != null) {
                 if (!currentVersion.equalsIgnoreCase(latestVersion)) {
                     isUpdateAvailable = true;
                     showForceUpdateDialog();
                 }
             }
-            super.onPostExecute(jsonObject);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -297,6 +255,33 @@ public class SplashActivity extends AppCompatActivity {
                 alertDialog.dismiss();
             }
         });
+    }
+
+    public void checkIsBlocked(){
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                nodes = (Map<String, Object>) dataSnapshot.getValue();
+                CommonUtils.setIs_blocked((Boolean) nodes.get("is_block"));
+                if(CommonUtils.getIs_blocked()){
+                    startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
+                    Bungee.fade(SplashActivity.this);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    void setUpCrashReport() {
+        // only enable bug tracking in release version
+        if (!BuildConfig.DEBUG) {
+            //https://stackoverflow.com/a/49836972/10664312
+            Fabric.with(this, new Crashlytics());
+        }
     }
 
     /**********************************************************************/
@@ -397,9 +382,6 @@ public class SplashActivity extends AppCompatActivity {
                             post.setAuthor("SSNCE COE");
                             post.setPosition("Exam cell team");
                         }
-
-                        DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(getApplicationContext());
-                        //dataBaseHelper.addNotification(new Notification("1",postId,"",post));
 
                         notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                         notif_intent.putExtra("post", post);
