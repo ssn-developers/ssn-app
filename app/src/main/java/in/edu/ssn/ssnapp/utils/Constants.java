@@ -43,10 +43,10 @@ public class Constants {
     public static String collection_club="club";
     public static String collection_feedback="feedback";
 
-    public static String collection_exam_cell;
-    public static String collection_placement;
-    public static String collection_post;
-    public static String collection_post_bus;
-    public static String collection_post_club;
-    public static String collection_workshop;
+    public static String collection_exam_cell = "examcell";
+    public static String collection_placement = "placement";
+    public static String collection_post = "post";
+    public static String collection_post_bus = "post_bus";
+    public static String collection_post_club = "post_club";
+    public static String collection_workshop = "workshop";
 }

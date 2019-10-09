@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.TypefaceCompat;
 
 import android.os.Build;
 import android.os.Bundle;
