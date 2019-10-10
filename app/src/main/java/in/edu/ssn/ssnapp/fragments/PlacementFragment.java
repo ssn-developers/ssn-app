@@ -61,7 +61,7 @@ public class PlacementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CommonUtils.addScreen(getContext(),getActivity(),"PlacementFragment");
-        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
             view = inflater.inflate(R.layout.fragment_sent_feed_dark, container, false);
@@ -185,18 +185,6 @@ public class PlacementFragment extends Fragment {
         };
 
         feedsRV.setAdapter(adapter);
-
-        feedsRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-                feedsRV.scrollToPosition(0);
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-            }
-        });
     }
 
     void initUI(View view){

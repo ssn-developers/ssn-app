@@ -69,7 +69,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         this.commentArrayList=data;
         this.activity=activity;
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
 
     public void setCommentArrayList(ArrayList<Comments> commentArrayList) {

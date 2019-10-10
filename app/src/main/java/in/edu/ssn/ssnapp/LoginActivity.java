@@ -199,7 +199,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 }
                 else if(clearance == 1){
-                    if(m_f.find()){
+                    if(!m_f.find()){
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -302,9 +302,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
 
-        SubscribeToAlerts(this);
-        setUpNotification();
-
         layout_progress.setVisibility(View.GONE);
         flag = true;
         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
@@ -316,38 +313,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void setUpNotification() {
         SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
-        SharedPref.putBoolean(getApplicationContext(), "switch_workshop", true);
-
-        SharedPref.putBoolean(getApplicationContext(), "switch_dept0", true);
-        SharedPref.putBoolean(getApplicationContext(), "switch_bus0", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_dept", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
+        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
+            SharedPref.putBoolean(getApplicationContext(), "switch_place", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
     }
 
     public void SubscribeToAlerts(Context context){
         FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
+        FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
+        FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
+        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
+            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "place");
+        FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "event");
 
-        if(clearance==0) {
-            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
-            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
-            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "work");
-
-            // add user property in firebase analytics
-            try{
-                CommonUtils.addUserProperty(LoginActivity.this,"student_department",SharedPref.getString(this, "dept"));
-                CommonUtils.addUserProperty(LoginActivity.this,"student_year",Integer.toString(SharedPref.getInt(this,"year")));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        // add user property in firebase analytics
+        try{
+            CommonUtils.addUserProperty(LoginActivity.this,"student_department",SharedPref.getString(this, "dept"));
+            CommonUtils.addUserProperty(LoginActivity.this,"student_year",Integer.toString(SharedPref.getInt(this,"year")));
         }
-        else if(clearance == 1)
-            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + "work");
-
-            // add user property in firebase analytics
-            try{
-                CommonUtils.addUserProperty(LoginActivity.this,"faculty_department",SharedPref.getString(this, "dept"));
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /************************************************************************/

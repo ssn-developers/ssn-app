@@ -36,7 +36,7 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
                 .toUpperCase()
                 .endConfig()
                 .round();
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
 
     @NonNull

@@ -45,7 +45,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
     boolean darkMode=false;
     public SavedPostAdapter(@NonNull Context context, ArrayList<Post> resource) {
         super(context,0,resource);
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
 
     @Override

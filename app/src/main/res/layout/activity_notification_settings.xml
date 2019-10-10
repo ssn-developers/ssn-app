@@ -23,7 +23,7 @@
             android:id="@+id/iv_back"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:src="@drawable/ic_back"
+            app:srcCompat="@drawable/ic_back"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_22sdp"/>
 
@@ -53,6 +53,13 @@
             android:layout_marginLeft="@dimen/_12sdp" />
 
     </RelativeLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_alignParentBottom="true"
+        app:srcCompat="@drawable/mountain"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_below="@+id/layout1"
@@ -125,7 +132,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_text1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Departments Feeds"
@@ -135,7 +141,7 @@
                         android:textColor="#000000"/>
 
                     <com.suke.widget.SwitchButton
-                        android:id="@+id/switch_dept0"
+                        android:id="@+id/switch_dept"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_centerVertical="true"
@@ -154,12 +160,49 @@
                     android:layout_marginBottom="@dimen/_10sdp"
                     android:background="#c0c0c0"/>
 
+                <LinearLayout
+                    android:id="@+id/layout_placement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Placement"
+                            android:textSize="@dimen/_12ssp"
+                            android:fontFamily="@font/open_sans"
+                            android:textColor="#000000"/>
+
+                        <com.suke.widget.SwitchButton
+                            android:id="@+id/switch_place"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/_5sdp"
+                            app:sb_checked_color="@color/colorAccent"
+                            app:sb_show_indicator="false"
+                            app:sb_background="@color/colorAccentLight"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_20sdp"/>
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        android:background="#c0c0c0"/>
+                </LinearLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_text2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bus alerts"
@@ -169,7 +212,7 @@
                         android:textColor="#000000"/>
 
                     <com.suke.widget.SwitchButton
-                        android:id="@+id/switch_bus0"
+                        android:id="@+id/switch_bus"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/_5sdp"
                         android:layout_centerVertical="true"
@@ -193,7 +236,6 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/tv_text4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Exam cell"
@@ -224,16 +266,15 @@
                    android:layout_height="wrap_content">
 
                    <TextView
-                       android:id="@+id/tv_text5"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
-                       android:text="Workshops"
+                       android:text="Events"
                        android:textSize="@dimen/_12ssp"
                        android:fontFamily="@font/open_sans"
                        android:textColor="#000000"/>
 
                    <com.suke.widget.SwitchButton
-                       android:id="@+id/switch_workshop"
+                       android:id="@+id/switch_event"
                        android:layout_alignParentRight="true"
                        android:layout_marginRight="@dimen/_5sdp"
                        app:sb_checked_color="@color/colorAccent"
@@ -248,12 +289,5 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        android:layout_alignParentBottom="true"
-        android:src="@drawable/mountain"
-        android:scaleType="centerCrop"/>
 
 </RelativeLayout>

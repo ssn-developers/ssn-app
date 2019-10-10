@@ -38,7 +38,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
     public UnSubscribeAdapter(Context context, List<Club> clubs) {
         this.context = context;
         this.clubs = clubs;
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
 
     @NonNull

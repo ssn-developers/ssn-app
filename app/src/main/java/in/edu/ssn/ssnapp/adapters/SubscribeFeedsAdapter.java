@@ -55,7 +55,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
         this.context = context;
         this.clubs = clubs;
         this.posts = posts;
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
         builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()

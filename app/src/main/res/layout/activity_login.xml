@@ -70,7 +70,7 @@
                     android:id="@+id/iv_gate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ssn_gate"
+                    app:srcCompat="@drawable/ssn_gate"
                     android:layout_centerInParent="true"
                     android:visibility="invisible" />
             </RelativeLayout>
@@ -92,7 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="invisible"
-                    android:src="@drawable/ic_road" />
+                    app:srcCompat="@drawable/ic_road" />
 
                 <LinearLayout
                     android:id="@+id/layout2"
@@ -163,7 +163,7 @@
                         android:id="@+id/iv_faculty"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_faculty"
+                        app:srcCompat="@drawable/ic_faculty"
                         android:layout_gravity="center"
                         android:visibility="invisible"
                         android:layout_weight="1"/>
@@ -172,7 +172,7 @@
                         android:id="@+id/iv_student"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/ic_student"
+                        app:srcCompat="@drawable/ic_student"
                         android:layout_gravity="center"
                         android:visibility="invisible"
                         android:layout_weight="1"/>

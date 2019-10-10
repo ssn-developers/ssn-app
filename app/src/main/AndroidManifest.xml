@@ -3,6 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="in.edu.ssn.ssnapp">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -10,16 +17,17 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ExamCellSentPostActivity"></activity>
-        <activity android:name=".ContributorProfileActivity" />
+
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -32,6 +40,10 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ContributorProfileActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".BlockScreenActivity"
             android:screenOrientation="portrait" />
@@ -110,12 +122,5 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

@@ -365,18 +365,6 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         };
 
         feedsRV.setAdapter(adapter);
-
-        feedsRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-                feedsRV.scrollToPosition(0);
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-            }
-        });
     }
 
     public static class FeedViewHolder extends RecyclerView.ViewHolder {

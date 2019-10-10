@@ -2,6 +2,7 @@ package in.edu.ssn.ssnapp.utils;
 
 // All the immutable constants must be included in this file
 
+import in.edu.ssn.ssnapp.BuildConfig;
 import in.edu.ssn.ssnapp.R;
 
 public class Constants {
@@ -10,7 +11,6 @@ public class Constants {
     public static final Boolean debug_mode = true;
 
     public static final String PDF_URL = "pdf_url";
-    public static final String CipherKey="SSN_APP";
 
     // sqlCipher database related function
     public static final String DATABASE_NAME="SSNDB";
@@ -48,10 +48,8 @@ public class Constants {
     public static String collection_post = "post";
     public static String collection_post_bus = "post_bus";
     public static String collection_post_club = "post_club";
-    public static String collection_workshop = "workshop";
+    public static String collection_event = "workshop";
 
     // What's new stuff
-    public static int versionCode = 9;
-    public static String versionName = "1.18";
-    public static String changelog = "\u2022 Dark mode added\n\u2022 Bug fixes\n\u2022 Performance improvements";
+    public static String changelog = "\u2022 Bug fixes\n\u2022 PG and Alumni login integrated\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
 }

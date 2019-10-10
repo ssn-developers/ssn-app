@@ -41,6 +41,7 @@
 			<androidx.recyclerview.widget.RecyclerView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:clipToPadding="false"
 				android:layout_marginLeft="@dimen/_6sdp"
 				android:layout_marginBottom="@dimen/_14sdp"
 				android:id="@+id/busStopsRV"/>

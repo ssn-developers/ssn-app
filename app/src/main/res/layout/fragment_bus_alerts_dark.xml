@@ -33,7 +33,7 @@
 				android:layout_height="@dimen/_112sdp"
 				android:tint="#000000"
 				android:scaleType="centerCrop"
-				android:src="@drawable/bus_route_bg"/>
+				app:srcCompat="@drawable/bus_route_bg"/>
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/_112sdp"
@@ -45,7 +45,7 @@
 					android:layout_height="@dimen/_24sdp"
 					android:tint="@color/colorAccentDark"
 					android:layout_marginBottom="@dimen/_35sdp"
-					android:src="@drawable/ic_route" />
+					app:srcCompat="@drawable/ic_route" />
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -86,6 +86,7 @@
 		<androidx.recyclerview.widget.RecyclerView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:clipToPadding="false"
 			android:layout_marginLeft="@dimen/_9sdp"
 			android:layout_marginRight="@dimen/_9sdp"
 			android:id="@+id/alertRV"/>

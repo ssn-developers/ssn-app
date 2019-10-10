@@ -32,7 +32,7 @@ public class DrawerAdapter extends ArrayAdapter<Drawer> {
     public DrawerAdapter(Context context, ArrayList<Drawer> objects) {
         super(context, 0, objects);
         this.context = context;
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

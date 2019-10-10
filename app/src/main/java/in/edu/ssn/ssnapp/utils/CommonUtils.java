@@ -43,6 +43,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,6 +58,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import in.edu.ssn.ssnapp.BuildConfig;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Club;
@@ -103,6 +105,37 @@ public class CommonUtils {
             return !(activeNetworkInfo != null && activeNetworkInfo.isConnected());
         }
         return false;
+    }
+
+    //Unsubscribe to Notification alerts
+    //Only for Students login
+    public static void UnSubscribeToAlerts(Context context) {
+        FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
+        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
+        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
+        if (SharedPref.getInt(context, "year") == Integer.parseInt(Constants.fourth))
+            FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "place");
+        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "event");
+    }
+
+    //Checks for current Version Code
+    public static String getLatestVersionName(Context context){
+        try {
+            String version = Jsoup.connect("https://play.google.com/store/apps/details?id=" + context.getPackageName() + "&hl=en")
+                    .timeout(30000)
+                    .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
+                    .referrer("http://www.google.com")
+                    .get()
+                    .select("div.hAyfc:nth-child(4) > span:nth-child(2) > div:nth-child(1) > span:nth-child(1)")
+                    .first()
+                    .ownText();
+
+            Log.d("test_set", version);
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /************************************************************************/
@@ -188,7 +221,7 @@ public class CommonUtils {
             case 3 : return Constants.collection_club;
             case 4 : return Constants.collection_post_club;
             case 5 : return Constants.collection_exam_cell;
-            case 6 : return Constants.collection_workshop;
+            case 6 : return Constants.collection_event;
             case 7 : return Constants.collection_post_bus;
             default : return Constants.collection_post;
         }
@@ -421,7 +454,7 @@ public class CommonUtils {
 
         final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
         View sheetView;
-        if(SharedPref.getBoolean(context,"darkMode")){
+        if(SharedPref.getBoolean(context,"dark_mode")){
             sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu_dark, null);
         }else{
             sheetView= LayoutInflater.from(context).inflate(R.layout.bottom_menu, null);
@@ -496,7 +529,7 @@ public class CommonUtils {
             Constants.collection_post = "debug_post";
             Constants.collection_post_bus = "debug_post_bus";
             Constants.collection_post_club = "debug_post_club";
-            Constants.collection_workshop = "debug_workshop";
+            Constants.collection_event = "debug_event";
         }
         else{
             Constants.collection_exam_cell = "examcell";
@@ -504,7 +537,7 @@ public class CommonUtils {
             Constants.collection_post = "post";
             Constants.collection_post_bus = "post_bus";
             Constants.collection_post_club = "post_club";
-            Constants.collection_workshop = "workshop";
+            Constants.collection_event = "workshop";
         }
     }
 
@@ -521,7 +554,6 @@ public class CommonUtils {
             e.printStackTrace();
         }
     }
-
 
     public static void addEvent(Context context, String propertyName, Bundle propertyValue){
 

@@ -26,7 +26,7 @@ public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRou
     public BusRouteAdapter(Context context, ArrayList<BusRoute> busRoutes) {
         this.context = context;
         this.busRoutes = busRoutes;
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
 
     @NonNull

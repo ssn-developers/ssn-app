@@ -66,7 +66,7 @@ public class StudentFeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CommonUtils.addScreen(getContext(),getActivity(),"StudentFeedFragment");
-        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
             view = inflater.inflate(R.layout.fragment_feed_dark, container, false);
@@ -189,7 +189,7 @@ public class StudentFeedFragment extends Fragment {
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view;
-                if(SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode")) {
+                if(SharedPref.getBoolean(getContext(),"dark_mode")) {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item_dark, group, false);
                 }else {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
@@ -200,18 +200,6 @@ public class StudentFeedFragment extends Fragment {
         };
 
         feedsRV.setAdapter(adapter);
-
-        feedsRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-                feedsRV.scrollToPosition(0);
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-            }
-        });
     }
 
     void initUI(View view){

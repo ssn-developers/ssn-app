@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ import in.edu.ssn.ssnapp.adapters.AboutContributorAdapter;
 import in.edu.ssn.ssnapp.models.AlumniDetails;
 import in.edu.ssn.ssnapp.models.TeamDetails;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -40,6 +42,9 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
 
         ScrollView scroll_view = findViewById(R.id.scroll_view);
         scroll_view.smoothScrollTo(0,0);
+
+        TextView tv_version = findViewById(R.id.tv_version);
+        tv_version.setText("v" + BuildConfig.VERSION_NAME);
 
         rv_items1 = findViewById(R.id.rv_items1);
         rv_items2 = findViewById(R.id.rv_items2);

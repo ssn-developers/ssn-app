@@ -74,7 +74,7 @@
                 android:padding="@dimen/_6sdp"
                 android:id="@+id/bookmarkIV"
                 android:layout_toLeftOf="@id/shareIV"
-                android:src="@drawable/ic_bookmark_unsaved" />
+                app:srcCompat="@drawable/ic_bookmark_unsaved" />
 
             <ImageView
                 android:layout_width="@dimen/_35sdp"
@@ -85,7 +85,7 @@
                 android:id="@+id/shareIV"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/_10sdp"
-                android:src="@drawable/ic_share"
+                app:srcCompat="@drawable/ic_share"
                 android:tint="@color/colorAccent"/>
 
         </RelativeLayout>

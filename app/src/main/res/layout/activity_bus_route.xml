@@ -54,7 +54,7 @@
                             android:layout_width="@dimen/_35sdp"
                             android:layout_height="@dimen/_35sdp"
                             android:layout_margin="@dimen/_6sdp"
-                            android:src="@drawable/ic_back"
+                            app:srcCompat="@drawable/ic_back"
                             android:id="@+id/backIV"
                             android:layout_gravity="center"
                             android:clickable="true"
@@ -113,7 +113,7 @@
                     <ImageView
                         android:layout_width="35dp"
                         android:layout_height="35dp"
-                        android:src="@drawable/ic_close"
+                        app:srcCompat="@drawable/ic_close"
                         android:padding="5dp"
                         android:id="@+id/clearIV"
                         android:visibility="gone"
@@ -158,7 +158,7 @@
             android:layout_width="@dimen/_220sdp"
             android:layout_height="@dimen/_220sdp"
             android:layout_centerInParent="true"
-            android:src="@drawable/bus_empty"/>
+            app:srcCompat="@drawable/bus_empty"/>
 
         <TextView
             android:id="@+id/tv_text1"

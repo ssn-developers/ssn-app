@@ -89,7 +89,7 @@ public class ClubFragment extends Fragment {
         CommonUtils.addScreen(getContext(),getActivity(),"ClubFragment");
         View view = inflater.inflate(R.layout.fragment_club, container, false);
         CommonUtils.initFonts(getContext(), view);
-        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
 
         initUI(view);
         setupFireStore();
@@ -171,7 +171,6 @@ public class ClubFragment extends Fragment {
             public void onChildViewAttachedToWindow(@NonNull View view) {
                 layout_subscribed.setVisibility(View.GONE);
                 subs_RV.setVisibility(View.VISIBLE);
-                subs_RV.scrollToPosition(0);
             }
 
             @Override

@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	>
+	android:background="@drawable/alert_white_solid_top">
+
 	<LinearLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:orientation="vertical">
+
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:background="@color/colorAccent"
 				android:padding="@dimen/_16sdp"
 				android:orientation="vertical">
+
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -23,6 +27,7 @@
 					android:textColor="@android:color/white"
 					android:textSize="@dimen/_20ssp"
 					android:fontFamily="@font/open_sans_bold"/>
+
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -54,8 +59,6 @@
 		android:layout_margin="@dimen/_16sdp"
 		android:id="@+id/closeIV"
 		android:tint="@color/white"
-		android:src="@drawable/ic_close"/>
-
-
+		app:srcCompat="@drawable/ic_close"/>
 
 </RelativeLayout>

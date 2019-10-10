@@ -48,9 +48,9 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class WorkshopFragment extends Fragment {
+public class EventFragment extends Fragment {
 
-    public WorkshopFragment() { }
+    public EventFragment() { }
 
     RecyclerView feedsRV;
     RelativeLayout layout_progress;
@@ -59,8 +59,8 @@ public class WorkshopFragment extends Fragment {
     boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        CommonUtils.addScreen(getContext(),getActivity(),"WorkshopFragment");
-        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        CommonUtils.addScreen(getContext(),getActivity(),"EventFragment");
+        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
             view = inflater.inflate(R.layout.fragment_feed_dark, container, false);
@@ -86,7 +86,7 @@ public class WorkshopFragment extends Fragment {
         String dept = SharedPref.getString(getContext(),"dept");
         String year = "year." + SharedPref.getInt(getContext(),"year");
 
-        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_workshop).whereArrayContains("dept",dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_event).whereArrayContains("dept",dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -190,18 +190,6 @@ public class WorkshopFragment extends Fragment {
         };
 
         feedsRV.setAdapter(adapter);
-
-        feedsRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-                feedsRV.scrollToPosition(0);
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-            }
-        });
     }
 
     void initUI(View view){

@@ -78,7 +78,7 @@
 				<ImageView
 					android:layout_width="@dimen/_65sdp"
 					android:layout_height="@dimen/_22sdp"
-					android:src="@drawable/ssn_logo"
+					app:srcCompat="@drawable/ssn_logo"
 					android:tint="@color/colorAccent" />
 			</RelativeLayout>
 
@@ -92,7 +92,7 @@
 				android:padding="@dimen/_5sdp"
 				android:visibility="gone"
 				android:tint="@color/colorAccent"
-				android:src="@drawable/ic_notify"
+				app:srcCompat="@drawable/ic_notify"
 				android:id="@+id/notifUI" />
 
 		</LinearLayout>

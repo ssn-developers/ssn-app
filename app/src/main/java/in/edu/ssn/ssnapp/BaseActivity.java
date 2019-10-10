@@ -27,7 +27,7 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        darkModeEnabled = SharedPref.getBoolean(getApplicationContext(),"darkMode");
+        darkModeEnabled = SharedPref.getBoolean(getApplicationContext(),"dark_mode");
 
         initFonts();
 

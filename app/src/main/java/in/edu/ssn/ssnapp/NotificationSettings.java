@@ -2,6 +2,7 @@ package in.edu.ssn.ssnapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,15 +18,18 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class NotificationSettings extends BaseActivity {
 
-    com.suke.widget.SwitchButton switch_all, switch_dept0, switch_bus0, switch_dept1, switch_bus1, switch_exam, switch_workshop;
+    com.suke.widget.SwitchButton switch_all, switch_dept, switch_bus, switch_exam, switch_place, switch_event;
     ImageView iv_back;
+    LinearLayout layout_placement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(darkModeEnabled){
             setContentView(R.layout.activity_notification_settings_dark);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+            }
         }
         else
             setContentView(R.layout.activity_notification_settings);
@@ -35,10 +39,12 @@ public class NotificationSettings extends BaseActivity {
         switch_all.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                switch_dept0.setChecked(isChecked);
-                switch_bus0.setChecked(isChecked);
+                switch_dept.setChecked(isChecked);
+                switch_bus.setChecked(isChecked);
                 switch_exam.setChecked(isChecked);
-                switch_workshop.setChecked(isChecked);
+                if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
+                    switch_place.setChecked(isChecked);
+                switch_event.setChecked(isChecked);
             }
         });
 
@@ -53,19 +59,27 @@ public class NotificationSettings extends BaseActivity {
     public void initUI(){
         switch_all = (com.suke.widget.SwitchButton) findViewById(R.id.switch_all);
 
-        switch_dept0 = (com.suke.widget.SwitchButton) findViewById(R.id.switch_dept0);
-        switch_bus0 = (com.suke.widget.SwitchButton) findViewById(R.id.switch_bus0);
+        switch_dept = (com.suke.widget.SwitchButton) findViewById(R.id.switch_dept);
+        switch_bus = (com.suke.widget.SwitchButton) findViewById(R.id.switch_bus);
         switch_exam = (com.suke.widget.SwitchButton) findViewById(R.id.switch_exam);
-        switch_workshop = (com.suke.widget.SwitchButton) findViewById(R.id.switch_workshop);
+        switch_place = (com.suke.widget.SwitchButton) findViewById(R.id.switch_place);
+        switch_event = (com.suke.widget.SwitchButton) findViewById(R.id.switch_event);
 
+        layout_placement = findViewById(R.id.layout_placement);
         iv_back = findViewById(R.id.iv_back);
 
         switch_all.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_all"));
 
-        switch_dept0.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_dept0"));
-        switch_bus0.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_bus0"));
+        switch_dept.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_dept"));
+        switch_bus.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_bus"));
         switch_exam.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_exam"));
-        switch_workshop.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_workshop"));
+        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth)) {
+            switch_place.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_place"));
+            layout_placement.setVisibility(View.VISIBLE);
+        }
+        else
+            layout_placement.setVisibility(View.GONE);
+        switch_event.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_event"));
     }
 
     @Override
@@ -74,17 +88,19 @@ public class NotificationSettings extends BaseActivity {
 
         SharedPref.putBoolean(getApplicationContext(),"switch_all",switch_all.isChecked());
 
-        SharedPref.putBoolean(getApplicationContext(), "switch_dept0", switch_dept0.isChecked());
-        SharedPref.putBoolean(getApplicationContext(), "switch_bus0", switch_bus0.isChecked());
+        SharedPref.putBoolean(getApplicationContext(), "switch_dept", switch_dept.isChecked());
+        SharedPref.putBoolean(getApplicationContext(), "switch_bus", switch_bus.isChecked());
         SharedPref.putBoolean(getApplicationContext(), "switch_exam", switch_exam.isChecked());
-        SharedPref.putBoolean(getApplicationContext(), "switch_workshop", switch_workshop.isChecked());
+        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
+            SharedPref.putBoolean(getApplicationContext(), "switch_place", switch_place.isChecked());
+        SharedPref.putBoolean(getApplicationContext(), "switch_event", switch_event.isChecked());
 
-        if(switch_dept0.isChecked())
+        if(switch_dept.isChecked())
             FCMHelper.SubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year"));
         else
             FCMHelper.UnSubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year"));
 
-        if(switch_bus0.isChecked())
+        if(switch_bus.isChecked())
             FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
         else
             FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
@@ -94,10 +110,17 @@ public class NotificationSettings extends BaseActivity {
         else
             FCMHelper.UnSubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year") + "exam");
 
-        if(switch_workshop.isChecked())
-            FCMHelper.SubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year") + "work");
+        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth)) {
+            if (switch_place.isChecked())
+                FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "place");
+            else
+                FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "place");
+        }
+
+        if(switch_event.isChecked())
+            FCMHelper.SubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year") + "event");
         else
-            FCMHelper.UnSubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year") + "work");
+            FCMHelper.UnSubscribeToTopic(this,SharedPref.getString(getApplicationContext(),"dept") + SharedPref.getInt(getApplicationContext(),"year") + "event");
     }
 
     @Override

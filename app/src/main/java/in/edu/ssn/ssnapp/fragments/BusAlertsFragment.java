@@ -50,7 +50,7 @@ public class BusAlertsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         CommonUtils.addScreen(getContext(),getActivity(),"BusAlertsFragment");
-        darkMode = SharedPref.getBoolean(getActivity().getApplicationContext(),"darkMode");
+        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
             view = inflater.inflate(R.layout.fragment_bus_alerts_dark, container, false);
@@ -65,7 +65,7 @@ public class BusAlertsFragment extends Fragment {
         busRoutesCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity().getApplicationContext(), BusRoutesActivity.class));
+                startActivity(new Intent(getContext(), BusRoutesActivity.class));
                 Bungee.slideLeft(getContext());
             }
         });
@@ -133,18 +133,6 @@ public class BusAlertsFragment extends Fragment {
         };
 
         alertRV.setAdapter(adapter);
-
-        alertRV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(@NonNull View view) {
-                alertRV.scrollToPosition(0);
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(@NonNull View view) {
-
-            }
-        });
     }
 
     void initUI(View view){

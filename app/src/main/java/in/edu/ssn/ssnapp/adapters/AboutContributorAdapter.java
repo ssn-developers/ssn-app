@@ -38,7 +38,7 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     public AboutContributorAdapter(Context context, ArrayList<TeamDetails> teamDetails) {
         this.context = context;
         this.teamDetails = teamDetails;
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
 
     @NonNull

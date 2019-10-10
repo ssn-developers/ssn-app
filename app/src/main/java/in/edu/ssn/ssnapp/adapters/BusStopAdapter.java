@@ -34,7 +34,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
         this.model = model;
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
         bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
-        darkMode = SharedPref.getBoolean(context,"darkMode");
+        darkMode = SharedPref.getBoolean(context,"dark_mode");
     }
     @Override
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

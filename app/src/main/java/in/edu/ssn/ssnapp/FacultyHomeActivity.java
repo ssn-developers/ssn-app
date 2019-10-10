@@ -4,8 +4,10 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -29,7 +31,6 @@ import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
-import in.edu.ssn.ssnapp.fragments.FacultySentBusPostFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -75,19 +76,27 @@ public class FacultyHomeActivity extends BaseActivity {
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if(isChecked){
                     darkModeEnabled=true;
-                    SharedPref.putBoolean(getApplicationContext(),"darkMode",darkModeEnabled);
+                    SharedPref.putBoolean(getApplicationContext(),"dark_mode",darkModeEnabled);
                     finish();
                     startActivity(getIntent());
                     Bungee.fade(FacultyHomeActivity.this);
                 }else {
                     darkModeEnabled=false;
-                    SharedPref.putBoolean(getApplicationContext(),"darkMode",darkModeEnabled);
+                    SharedPref.putBoolean(getApplicationContext(),"dark_mode",darkModeEnabled);
                     finish();
                     startActivity(getIntent());
                     Bungee.fade(FacultyHomeActivity.this);
                 }
             }
         });
+
+        if(BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(),"current_version_code")){
+            showWhatsNewDialog();
+            SharedPref.putInt(getApplicationContext(),"dont_delete","current_version_code", BuildConfig.VERSION_CODE);
+        }
+
+        //Remove on next update
+        SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
 
         userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,11 +112,6 @@ public class FacultyHomeActivity extends BaseActivity {
                 switch (rs.getTitle()) {
                     case "News Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        break;
-                    case "Sent Post":
-                        Intent j = new Intent(getApplicationContext(), PdfViewerActivity.class);
-                        j.putExtra(Constants.PDF_URL, Constants.calendar);
-                        startActivity(j);
                         break;
                     case "Calendar":
                         if(!CommonUtils.alerter(getApplicationContext())) {
@@ -164,7 +168,6 @@ public class FacultyHomeActivity extends BaseActivity {
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
-                        UnSubscribeToAlerts(getApplicationContext());
                         DataBaseHelper dbHelper=DataBaseHelper.getInstance(FacultyHomeActivity.this);
                         dbHelper.dropAllTables();
                         SharedPref.removeAll(getApplicationContext());
@@ -229,8 +232,6 @@ public class FacultyHomeActivity extends BaseActivity {
 
     void setUpDrawer() {
         adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
-        if(SharedPref.getString(getApplicationContext(), "access").equals("EC"))
-            adapter.add(new Drawer("Sent Post", R.drawable.ic_feeds));
         adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
@@ -247,9 +248,34 @@ public class FacultyHomeActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
     }
 
-    public void UnSubscribeToAlerts(Context context){
-        FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context,SharedPref.getString(context,"dept"));
+    public void showWhatsNewDialog(){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        View dialogView;
+        if(darkModeEnabled)
+            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog_dark, null);
+        else
+            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog, null);
+
+        dialogBuilder.setView(dialogView);
+
+        TextView versionNameTV = dialogView.findViewById(R.id.versionNameTV);
+        TextView changelogTV = dialogView.findViewById(R.id.changelogTV);
+        ImageView closeIV = dialogView.findViewById(R.id.closeIV);
+
+        versionNameTV.setText("v" + BuildConfig.VERSION_NAME);
+        changelogTV.setText(Constants.changelog);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+
+        closeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
     /*********************************************************/

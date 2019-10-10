@@ -25,7 +25,7 @@
 				android:foreground="?android:selectableItemBackground"
 				android:layout_marginStart="@dimen/_10sdp"
 				android:layout_marginTop="@dimen/_10sdp"
-				android:src="@drawable/ic_back"/>
+				app:srcCompat="@drawable/ic_back"/>
 				<androidx.cardview.widget.CardView
 					android:layout_width="@dimen/_120sdp"
 					android:layout_height="@dimen/_120sdp"

@@ -4,15 +4,12 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,7 +35,7 @@ import in.edu.ssn.ssnapp.fragments.ClubFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.PlacementFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
-import in.edu.ssn.ssnapp.fragments.WorkshopFragment;
+import in.edu.ssn.ssnapp.fragments.EventFragment;
 import in.edu.ssn.ssnapp.models.Drawer;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -78,29 +75,32 @@ public class StudentHomeActivity extends BaseActivity {
             darkModeSwitch.setChecked(false);
         }
 
-        if(Constants.versionCode>SharedPref.getInt(getApplicationContext(),"currentVersionCode")){
-            showWhatsNewDialog();
-            SharedPref.putInt(getApplicationContext(),"currentVersionCode",Constants.versionCode);
-        }
-
         darkModeSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
                 if (isChecked) {
                     darkModeEnabled = true;
-                    SharedPref.putBoolean(getApplicationContext(), "darkMode", darkModeEnabled);
+                    SharedPref.putBoolean(getApplicationContext(), "dark_mode", darkModeEnabled);
                     finish();
                     startActivity(getIntent());
                     Bungee.fade(StudentHomeActivity.this);
                 } else {
                     darkModeEnabled = false;
-                    SharedPref.putBoolean(getApplicationContext(), "darkMode", darkModeEnabled);
+                    SharedPref.putBoolean(getApplicationContext(), "dark_mode", darkModeEnabled);
                     finish();
                     startActivity(getIntent());
                     Bungee.fade(StudentHomeActivity.this);
                 }
             }
         });
+
+        if(BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(),"dont_delete","current_version_code")){
+            SharedPref.putInt(getApplicationContext(),"dont_delete","current_version_code", BuildConfig.VERSION_CODE);
+            showWhatsNewDialog();
+        }
+
+        //Remove on next update
+        SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
 
         userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -200,7 +200,7 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Logout":
                         FirebaseAuth.getInstance().signOut();
-                        UnSubscribeToAlerts(getApplicationContext());
+                        CommonUtils.UnSubscribeToAlerts(getApplicationContext());
                         DataBaseHelper dbHelper = DataBaseHelper.getInstance(StudentHomeActivity.this);
                         dbHelper.dropAllTables();
                         SharedPref.removeAll(getApplicationContext());
@@ -274,7 +274,7 @@ public class StudentHomeActivity extends BaseActivity {
             adapter.addFragment(new PlacementFragment(), "Placement");
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         adapter.addFragment(new ExamCellFragment(), "Exam cell");
-        adapter.addFragment(new WorkshopFragment(), "Workshop");
+        adapter.addFragment(new EventFragment(), "Event");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
@@ -282,11 +282,34 @@ public class StudentHomeActivity extends BaseActivity {
         viewPager.setOffscreenPageLimit(3);
     }
 
-    public void UnSubscribeToAlerts(Context context) {
-        FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
-        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
-        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "work");
+    public void showWhatsNewDialog(){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+
+        View dialogView;
+        if(darkModeEnabled)
+            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog_dark, null);
+        else
+            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog, null);
+
+        dialogBuilder.setView(dialogView);
+
+        TextView versionNameTV = dialogView.findViewById(R.id.versionNameTV);
+        TextView changelogTV = dialogView.findViewById(R.id.changelogTV);
+        ImageView closeIV = dialogView.findViewById(R.id.closeIV);
+
+        versionNameTV.setText("v" + BuildConfig.VERSION_NAME);
+        changelogTV.setText(Constants.changelog);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+
+        closeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
     /*********************************************************/
@@ -322,28 +345,4 @@ public class StudentHomeActivity extends BaseActivity {
             toast.show();
         }
     }
-
-    void showWhatsNewDialog(){
-        final Dialog dialog = new Dialog(StudentHomeActivity.this);
-        if(darkModeEnabled){
-            dialog.setContentView(R.layout.whats_new_dialog_dark);
-        }else{
-            dialog.setContentView(R.layout.whats_new_dialog);
-        }
-        TextView versionNameTV = dialog.findViewById(R.id.versionNameTV);
-        TextView changelogTV = dialog.findViewById(R.id.changelogTV);
-        ImageView closeIV = dialog.findViewById(R.id.closeIV);
-        if(darkModeEnabled)
-            versionNameTV.setTextColor(getResources().getColor(R.color.colorAccent));
-        versionNameTV.setText("v"+Constants.versionName);
-        changelogTV.setText(Constants.changelog);
-        dialog.show();
-        closeIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.cancel();
-            }
-        });
-    }
-
 }

@@ -30,6 +30,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -111,7 +113,6 @@ public class SplashActivity extends AppCompatActivity {
     private static Boolean worst_case = true;
     private static Boolean isUpdateAvailable = false;
     private int currentApiVersion;
-    private String latestVersion;
     private Map<String,Object> nodes = new HashMap<>();
 
     private DatabaseReference mDatabase;
@@ -126,7 +127,7 @@ public class SplashActivity extends AppCompatActivity {
         initUI();
 
         checkIsBlocked();
-        forceUpdate();
+        //forceUpdate();
         setUpCrashReport();
 
         try {
@@ -186,51 +187,34 @@ public class SplashActivity extends AppCompatActivity {
         notif_intent = null;
 
         //Remove on next update
-        // This is to make the users logout of the app for first time
+        //This is to make the users logout of the app for first time
         if(!SharedPref.getBoolean(getApplicationContext(),"is_update_logout") && SharedPref.getInt(getApplicationContext(),"dont_delete", "is_logged_in") == 2){
-            SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in",1);
+            FirebaseAuth.getInstance().signOut();
+            CommonUtils.UnSubscribeToAlerts(getApplicationContext());
+            DataBaseHelper dbHelper = DataBaseHelper.getInstance(SplashActivity.this);
+            dbHelper.dropAllTables();
+            SharedPref.removeAll(getApplicationContext());
+
+            SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 1);
             SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
         }
 
     }
 
     /**********************************************************************/
-    // check version on play store and force update
+    // check current version and force update
 
     public void forceUpdate(){
-        PackageManager packageManager = this.getPackageManager();
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo =  packageManager.getPackageInfo(getPackageName(),0);
-            String currentVersion = packageInfo.versionName;
-
-            try {
-                latestVersion = Jsoup.connect("https://play.google.com/store/apps/details?id=" + SplashActivity.this.getPackageName() + "&hl=en")
-                        .timeout(30000)
-                        .userAgent("Mozilla/5.0 (Windows; U; WindowsNT 5.1; en-US; rv1.8.1.6) Gecko/20070725 Firefox/2.0.0.6")
-                        .referrer("http://www.google.com")
-                        .get()
-                        .select("div.hAyfc:nth-child(4) > span:nth-child(2) > div:nth-child(1) > span:nth-child(1)")
-                        .first()
-                        .ownText();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-                isUpdateAvailable = false;
-            }
-            if (latestVersion != null) {
-                if (!currentVersion.equalsIgnoreCase(latestVersion)) {
-                    isUpdateAvailable = true;
-                    showForceUpdateDialog();
-                }
-            }
+        String latestVersion = CommonUtils.getLatestVersionName(getApplicationContext());
+        if(latestVersion != null && !BuildConfig.VERSION_NAME.equals(latestVersion)){
+            isUpdateAvailable = true;
+            showForceUpdateDialog(latestVersion);
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        else
+            isUpdateAvailable = false;
     }
 
-    public void showForceUpdateDialog(){
+    public void showForceUpdateDialog(String latestVersion){
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View dialogView = getLayoutInflater().inflate(R.layout.custom_alert_dialog2, null);
         dialogBuilder.setView(dialogView);
@@ -252,6 +236,7 @@ public class SplashActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
                 alertDialog.dismiss();
+                finish();
             }
         });
     }

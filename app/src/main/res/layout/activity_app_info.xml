@@ -152,6 +152,7 @@
             android:id="@+id/rv_items1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:layout_marginTop="@dimen/_3sdp"
             android:layout_below="@+id/tv_text1" />
 
@@ -171,6 +172,7 @@
             android:id="@+id/rv_items2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_below="@+id/tv_text2" />
 
@@ -190,6 +192,7 @@
             android:id="@+id/rv_items3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipToPadding="false"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_below="@+id/tv_text3" />
 

@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:civ_circle_background_color="#D8D7D7"
-                    android:src="@drawable/ic_user_white"
+                    app:srcCompat="@drawable/ic_user_white"
                     android:id="@+id/userImageIV" />
 
                 <androidx.cardview.widget.CardView
@@ -61,7 +61,7 @@
                 <ImageView
                     android:layout_width="@dimen/_65sdp"
                     android:layout_height="@dimen/_22sdp"
-                    android:src="@drawable/ssn_logo"
+                    app:srcCompat="@drawable/ssn_logo"
                     android:tint="@color/colorAccent" />
             </RelativeLayout>
 
@@ -76,7 +76,7 @@
                 android:padding="@dimen/_5sdp"
                 android:visibility="gone"
                 android:tint="@color/colorAccent"
-                android:src="@drawable/ic_notify" />
+                app:srcCompat="@drawable/ic_notify" />
 
         </LinearLayout>
 
