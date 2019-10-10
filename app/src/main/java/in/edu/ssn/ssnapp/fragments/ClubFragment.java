@@ -79,13 +79,12 @@ public class ClubFragment extends Fragment {
     private UnSubscribeAdapter adapter;
     private SubscribeFeedsAdapter subscribe_adapter;
     private ShimmerFrameLayout shimmer_view;
-    ListenerRegistration listenerRegistration;
+    ListenerRegistration feedsListener, clubListener;
 
     private TextView tv_text1,tv_text2,tv_text11,tv_text22;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         CommonUtils.addScreen(getContext(),getActivity(),"ClubFragment");
         View view = inflater.inflate(R.layout.fragment_club, container, false);
         CommonUtils.initFonts(getContext(), view);
@@ -96,6 +95,52 @@ public class ClubFragment extends Fragment {
 
         return view;
     }
+
+    /*********************************************************/
+
+    private void initUI(View view) {
+        subs_RV = view.findViewById(R.id.subs_RV);
+        unsubs_RV = view.findViewById(R.id.unsubs_RV);
+        feed_RV = view.findViewById(R.id.feed_RV);
+        tv_suggestion = view.findViewById(R.id.tv_suggestion);
+        layout_subscribed = view.findViewById(R.id.layout_subscribed);
+        layout_empty_feed = view.findViewById(R.id.layout_empty_feed);
+        shimmer_view = view.findViewById(R.id.shimmer_view);
+
+        tv_text1 = view.findViewById(R.id.tv_text1);
+        tv_text2 = view.findViewById(R.id.tv_text2);
+        tv_text11 = view.findViewById(R.id.tv_text11);
+        tv_text22 = view.findViewById(R.id.tv_text22);
+
+        if(darkMode){
+            tv_text1.setTextColor(Color.WHITE);
+            tv_text2.setTextColor(Color.WHITE);
+            tv_text11.setTextColor(Color.WHITE);
+            tv_text22.setTextColor(Color.WHITE);
+            tv_suggestion.setTextColor(getResources().getColor(R.color.colorAccentDark));
+        }
+        else{
+            tv_text1.setTextColor(getResources().getColor(R.color.colorAccentText));
+            tv_text2.setTextColor(getResources().getColor(R.color.colorAccentText));
+            tv_text11.setTextColor(getResources().getColor(R.color.colorAccentText));
+            tv_text22.setTextColor(getResources().getColor(R.color.colorAccentText));
+            tv_suggestion.setTextColor(getResources().getColor(R.color.colorAccent));
+        }
+
+        subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        subs_RV.setNestedScrollingEnabled(false);
+        unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        unsubs_RV.setNestedScrollingEnabled(false);
+        feed_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        feed_RV.setNestedScrollingEnabled(false);
+
+        subscribed_clubs = new ArrayList<Club>();
+        subscribe_post = new ArrayList<>();
+        post = new ArrayList<ClubPost>();
+        clubs = new ArrayList<>();
+    }
+
+    /*********************************************************/
 
     private void setupFireStore() {
         setUpSubcriptions();
@@ -117,7 +162,7 @@ public class ClubFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
                 holder.tv_name.setText(model.getName());
                 holder.tv_description.setText(model.getDescription());
-                FCMHelper.SubscribeToTopic(getContext(),"club_" + model.getId());
+                FCMHelper.SubscribeToTopic(getContext(),Constants.topic_club_ + model.getId());
 
                 try {
                     Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
@@ -131,9 +176,8 @@ public class ClubFragment extends Fragment {
                     public void onClick(View view) {
                         FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
                         model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
+                        subscribed_clubs.add(model);
                         clubs.add(model);
-
-                        adapter.notifyDataSetChanged();
                     }
                 });
 
@@ -184,54 +228,40 @@ public class ClubFragment extends Fragment {
     }
 
     private void setUpUnSubcriptions(){
-        FirebaseFirestore.getInstance().collection(Constants.collection_club).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        clubListener = FirebaseFirestore.getInstance().collection(Constants.collection_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful() && task.getResult() != null){
-                    clubs = task.getResult().toObjects(Club.class);
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                clubs = queryDocumentSnapshots.toObjects(Club.class);
 
-                    subscribed_clubs.clear();
-                    for(int i = 0; i< clubs.size(); i++) {
-                        Club c = clubs.get(i);
-                        if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
-                            shimmer_view.setVisibility(View.VISIBLE);
-                            subscribed_clubs.add(c);
-                            clubs.remove(i);
-                            i--;
-                        }
+                subscribed_clubs.clear();
+                for(int i = 0; i< clubs.size(); i++) {
+                    Club c = clubs.get(i);
+                    if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
+                        shimmer_view.setVisibility(View.VISIBLE);
+                        subscribed_clubs.add(c);
+                        clubs.remove(i);
+                        i--;
                     }
-                    adapter = new UnSubscribeAdapter(getContext(), clubs);
-                    unsubs_RV.setAdapter(adapter);
-
-                    adapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                        @Override
-                        public void onChanged() {
-                            super.onChanged();
-
-                            if (clubs.size() > 0)
-                                tv_suggestion.setVisibility(View.VISIBLE);
-                            else
-                                tv_suggestion.setVisibility(View.GONE);
-                        }
-                    });
-
-                    adapter.notifyDataSetChanged();
-
-                    if(subscribed_clubs.size() > 0)
-                        setUpFeeds();
-                    else
-                        layout_empty_feed.setVisibility(View.VISIBLE);
                 }
+                adapter = new UnSubscribeAdapter(getContext(), clubs);
+                unsubs_RV.setAdapter(adapter);
+
+                if (clubs.size() > 0)
+                    tv_suggestion.setVisibility(View.VISIBLE);
+                else
+                    tv_suggestion.setVisibility(View.GONE);
+
+                setUpFeeds();
             }
         });
     }
 
     private void setUpFeeds(){
-        listenerRegistration=FirebaseFirestore.getInstance().collection(Constants.collection_post_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
+        feedsListener = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 try{
-                    if(queryDocumentSnapshots!=null){
+                    if(queryDocumentSnapshots != null){
                         post = queryDocumentSnapshots.toObjects(ClubPost.class);
 
                         subscribe_post.clear();
@@ -255,8 +285,8 @@ public class ClubFragment extends Fragment {
                             }
                         });
 
-                        ArrayList s_club = new ArrayList();
-                        ArrayList s_post = new ArrayList();
+                        ArrayList<Club> s_club = new ArrayList<>();
+                        ArrayList<ClubPost> s_post = new ArrayList<>();
 
                         for(Map<String, Object> map:subscribe_post){
                             for (Map.Entry<String, Object> entry : map.entrySet()) {
@@ -275,8 +305,6 @@ public class ClubFragment extends Fragment {
                             layout_empty_feed.setVisibility(View.VISIBLE);
                         else
                             layout_empty_feed.setVisibility(View.GONE);
-
-                        subscribe_adapter.notifyDataSetChanged();
                     }
                     else
                         shimmer_view.setVisibility(View.GONE);
@@ -286,48 +314,6 @@ public class ClubFragment extends Fragment {
                 }
             }
         });
-    }
-
-    private void initUI(View view) {
-        subs_RV = view.findViewById(R.id.subs_RV);
-        unsubs_RV = view.findViewById(R.id.unsubs_RV);
-        feed_RV = view.findViewById(R.id.feed_RV);
-        tv_suggestion = view.findViewById(R.id.tv_suggestion);
-        layout_subscribed = view.findViewById(R.id.layout_subscribed);
-        layout_empty_feed = view.findViewById(R.id.layout_empty_feed);
-        shimmer_view = view.findViewById(R.id.shimmer_view);
-
-        tv_text1 = view.findViewById(R.id.tv_text1);
-        tv_text2 = view.findViewById(R.id.tv_text2);
-        tv_text11 = view.findViewById(R.id.tv_text11);
-        tv_text22 = view.findViewById(R.id.tv_text22);
-
-        if(darkMode){
-            tv_text1.setTextColor(Color.WHITE);
-            tv_text2.setTextColor(Color.WHITE);
-            tv_text11.setTextColor(Color.WHITE);
-            tv_text22.setTextColor(Color.WHITE);
-            tv_suggestion.setTextColor(getResources().getColor(R.color.colorAccentDark));
-        }
-        else{
-            tv_text1.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_text2.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_text11.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_text22.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_suggestion.setTextColor(getResources().getColor(R.color.colorAccent));
-        }
-
-        subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
-        subs_RV.setNestedScrollingEnabled(false);
-        unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
-        unsubs_RV.setNestedScrollingEnabled(false);
-        feed_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
-        feed_RV.setNestedScrollingEnabled(false);
-
-        subscribed_clubs = new ArrayList<Club>();
-        subscribe_post = new ArrayList<>();
-        post = new ArrayList<ClubPost>();
-        clubs = new ArrayList<>();
     }
 
     /*********************************************************/
@@ -366,8 +352,11 @@ public class ClubFragment extends Fragment {
         if(adapter!=null)
             subs_adap.stopListening();
 
-        if(listenerRegistration!=null)
-            listenerRegistration.remove();
+        if(feedsListener!=null)
+            feedsListener.remove();
+
+        if(clubListener!=null)
+            clubListener.remove();
     }
 
     @Override

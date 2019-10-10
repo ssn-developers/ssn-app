@@ -34,7 +34,8 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
 
     private List<Club> clubs;
     private Context context;
-    boolean darkMode;
+    private boolean darkMode;
+
     public UnSubscribeAdapter(Context context, List<Club> clubs) {
         this.context = context;
         this.clubs = clubs;
@@ -58,7 +59,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
         final Club model = (Club) clubs.get(position);
         holder.tv_name.setText(model.getName());
         holder.tv_description.setText(model.getDescription());
-        FCMHelper.UnSubscribeToTopic(context,"club_" + model.getId());
+        FCMHelper.UnSubscribeToTopic(context,Constants.topic_club_ + model.getId());
 
         try {
             Glide.with(context).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
