@@ -145,6 +145,10 @@ public class FacultyHomeActivity extends BaseActivity {
                             Bungee.fade(FacultyHomeActivity.this);
                         }
                         break;
+                    case "Helpline":
+                        //startActivity(new Intent(getApplicationContext(), HelplineActivity.class));
+                        //Bungee.slideLeft(FacultyHomeActivity.this);
+                        break;
                     case "Make a Suggestion":
                         startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));
                         Bungee.slideLeft(FacultyHomeActivity.this);
@@ -233,6 +237,7 @@ public class FacultyHomeActivity extends BaseActivity {
     void setUpDrawer() {
         adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
         adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
+        adapter.add(new Drawer("Helpline", R.drawable.ic_phone));
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
