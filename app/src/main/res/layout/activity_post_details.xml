@@ -189,6 +189,7 @@
 
             <RelativeLayout
                 android:id="@+id/layout_receive"
+                android:visibility="gone"
                 android:layout_below="@+id/attachmentsGroup"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_width="wrap_content"

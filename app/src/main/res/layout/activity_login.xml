@@ -43,7 +43,7 @@
             android:textColor="@color/colorAccent"
             android:gravity="center"
             android:layout_marginTop="@dimen/_18sdp"
-            android:text="Choose your category"
+            android:text="Choose your role"
             android:textStyle="bold"
             android:textSize="@dimen/_14sdp"/>
 

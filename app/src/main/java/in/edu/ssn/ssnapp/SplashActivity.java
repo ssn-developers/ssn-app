@@ -482,7 +482,7 @@ public class SplashActivity extends AppCompatActivity {
             }
             else if (!CommonUtils.alerter(getApplicationContext())) {
                 if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
-                    if (SharedPref.getInt(getApplicationContext(), "clearance") == 1) {
+                    if (SharedPref.getInt(getApplicationContext(), "clearance") == 3) {
                         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
                         finish();
                         Bungee.fade(this);

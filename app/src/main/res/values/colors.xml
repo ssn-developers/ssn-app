@@ -9,6 +9,7 @@
     <color name="colorAccentLight">#F5F6F8</color>
     <color name="shimmering_front">#BEBCBC</color>
     <color name="shimmering_back">#E4E2E2</color>
+    <color name="drawer_grey">#99727C8E</color>
 
     <color name="onboardingTextColor1">#504E49</color>
     <color name="onboardingTextColor2">#6B6456</color>

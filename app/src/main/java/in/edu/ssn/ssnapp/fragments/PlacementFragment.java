@@ -58,6 +58,7 @@ public class PlacementFragment extends Fragment {
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
     boolean darkMode=false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CommonUtils.addScreen(getContext(),getActivity(),"PlacementFragment");
@@ -162,7 +163,7 @@ public class PlacementFragment extends Fragment {
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        CommonUtils.handleBottomSheet(v, model, 2, getContext());
+                        CommonUtils.handleBottomSheet(v, model, Constants.placement, getContext());
                         return true;
                     }
                 });

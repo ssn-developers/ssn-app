@@ -19,7 +19,7 @@
             android:layout_marginLeft="@dimen/_15sdp"
             android:fontFamily="@font/open_sans_bold"
             android:textColor="@color/colorAccent"
-            android:text="Year"/>
+            android:text="Category"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,171 +30,235 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_1"
+                android:id="@+id/tv_ug"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
-                android:tag="1"
+                android:tag="ug"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_margin="@dimen/_5sdp"
-                android:text="I"
+                android:text="UG"
+                android:background="@drawable/bus_alert_detail_selected_bg"/>
+
+            <TextView
+                android:id="@+id/tv_pg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_5sdp"
+                android:tag="pg"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_margin="@dimen/_5sdp"
+                android:text="PG"
                 android:background="@drawable/bus_alert_detail_bg"/>
 
             <TextView
-                android:id="@+id/tv_2"
+                android:id="@+id/tv_al"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
-                android:tag="2"
+                android:tag="al"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:layout_margin="@dimen/_5sdp"
-                android:text="II"
-                android:background="@drawable/bus_alert_detail_bg"/>
-
-            <TextView
-                android:id="@+id/tv_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:tag="3"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="III"
-                android:background="@drawable/bus_alert_detail_bg"/>
-
-            <TextView
-                android:id="@+id/tv_4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:tag="4"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/_5sdp"
-                android:gravity="center"
-                android:text="IV"
-                android:background="@drawable/bus_alert_detail_bg"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_15sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/open_sans_bold"
-            android:textColor="@color/colorAccent"
-            android:text="Department"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_cse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="CSE"
-                android:background="@drawable/bus_alert_detail_bg"/>
-
-            <TextView
-                android:id="@+id/tv_it"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="IT"
-                android:background="@drawable/bus_alert_detail_bg"/>
-
-            <TextView
-                android:id="@+id/tv_ece"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="ECE"
-                android:background="@drawable/bus_alert_detail_bg"/>
-
-            <TextView
-                android:id="@+id/tv_eee"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/_5sdp"
-                android:gravity="center"
-                android:text="EEE"
+                android:text="Alumni"
                 android:background="@drawable/bus_alert_detail_bg"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_year_dept"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/_10sdp"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_6sdp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_bme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textColor="@color/colorAccent"
+                android:text="Year"/>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="BME"
-                android:background="@drawable/bus_alert_detail_bg"/>
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:tag="1"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="I"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:tag="2"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="II"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:tag="3"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="III"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:tag="4"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="IV"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_che"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="CHE"
-                android:background="@drawable/bus_alert_detail_bg"/>
+                android:layout_marginLeft="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/open_sans_bold"
+                android:textColor="@color/colorAccent"
+                android:text="Department"/>
 
-            <TextView
-                android:id="@+id/tv_civ"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:layout_margin="@dimen/_5sdp"
-                android:text="CIV"
-                android:background="@drawable/bus_alert_detail_bg"/>
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_mec"
+                <TextView
+                    android:id="@+id/tv_cse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="CSE"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_it"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="IT"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_ece"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="ECE"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_eee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="EEE"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/_5sdp"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/_5sdp"
-                android:gravity="center"
-                android:text="MEC"
-                android:background="@drawable/bus_alert_detail_bg"/>
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_bme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="BME"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_che"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="CHE"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_civ"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:text="CIV"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+                <TextView
+                    android:id="@+id/tv_mec"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_5sdp"
+                    android:layout_weight="1"
+                    android:layout_margin="@dimen/_5sdp"
+                    android:gravity="center"
+                    android:text="MEC"
+                    android:background="@drawable/bus_alert_detail_bg"/>
+
+            </LinearLayout>
 
         </LinearLayout>
+
     </LinearLayout>
 
     <RelativeLayout

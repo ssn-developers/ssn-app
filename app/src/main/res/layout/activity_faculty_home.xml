@@ -162,6 +162,7 @@
                     <ImageView
                         android:id="@+id/iv_icon"
                         app:srcCompat="@drawable/ic_sleep"
+                        android:tint="@color/drawer_grey"
                         android:layout_width="@dimen/_14sdp"
                         android:layout_height="@dimen/_14sdp"
                         android:layout_margin="@dimen/_13sdp"/>

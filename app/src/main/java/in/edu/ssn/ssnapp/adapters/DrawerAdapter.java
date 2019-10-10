@@ -54,22 +54,28 @@ public class DrawerAdapter extends ArrayAdapter<Drawer> {
         tv_title.setText(drawer.getTitle());
         iv_icon.setImageDrawable(context.getDrawable(drawer.getImage()));
 
-        if(drawer.getTitle().contains("News")){
+        if(position == 0) {
             if(darkMode){
                 tv_title.setTextColor(Color.parseColor("#7ABFFF"));
                 iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.colorAccentDark));
             }
-            else
+            else {
                 tv_title.setTextColor(Color.parseColor("#317BC0"));
+                iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.colorAccent));
+            }
         }
         else{
-            if(darkMode)
+            if(darkMode) {
                 tv_title.setTextColor(Color.parseColor("#ffffff"));
-            else
+                iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.white));
+            }
+            else {
                 tv_title.setTextColor(Color.parseColor("#9A000000"));
+                iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.drawer_grey));
+            }
         }
 
-        if(position == getCount()-1)
+        if(position == getCount() - 1)
             view_line.setVisibility(View.INVISIBLE);
         else
             view_line.setVisibility(View.VISIBLE);

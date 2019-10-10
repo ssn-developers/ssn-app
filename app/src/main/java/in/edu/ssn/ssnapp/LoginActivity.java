@@ -23,6 +23,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,9 +80,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
     RelativeLayout layout_progress;
+    LinearLayout layout_year_dept;
     int clearance;
     Boolean flag = true;
-    String flag1="", flag2="";
+    String flag1="", flag2="", flag0 = "ug";
     View dialogView;
 
     @Override
@@ -198,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         toast.show();
                     }
                 }
-                else if(clearance == 1){
+                else if(clearance == 3){
                     if(!m_f.find()){
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -238,9 +240,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     /*****************************************************************/
-    //Student signin and signup
+    //Student signin
 
-    public void signInStudent(FirebaseUser user) {
+    public void signInUgStudent(FirebaseUser user) {
         String email = user.getEmail();
         String id = user.getUid();
         String dp_url = user.getPhotoUrl().toString();
@@ -248,7 +250,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String dept = flag2;
         int year = Integer.parseInt(flag1);
 
-        SharedPref.putInt(getApplicationContext(), "clearance", 0);
+        SharedPref.putInt(getApplicationContext(), "clearance", clearance);
         SharedPref.putString(getApplicationContext(), "dept", dept);
         SharedPref.putString(getApplicationContext(), "dp_url", dp_url);
         SharedPref.putString(getApplicationContext(), "email", email);
@@ -267,11 +269,63 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Bungee.slideLeft(LoginActivity.this);
     }
 
+    public void signInPgStudent(FirebaseUser user) {
+        String email = user.getEmail();
+        String id = user.getUid();
+        String dp_url = user.getPhotoUrl().toString();
+        String name = user.getDisplayName();
+
+        SharedPref.putInt(getApplicationContext(), "clearance", clearance);
+        SharedPref.putString(getApplicationContext(), "dp_url", dp_url);
+        SharedPref.putString(getApplicationContext(), "email", email);
+        SharedPref.putString(getApplicationContext(), "id", id);
+        SharedPref.putString(getApplicationContext(), "name", name);
+        SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
+
+        FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
+        FCMHelper.SubscribeToTopic(this, Constants.Event);
+        SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
+
+        layout_progress.setVisibility(View.GONE);
+        flag = true;
+        startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+        finish();
+        Bungee.slideLeft(LoginActivity.this);
+    }
+
+    public void signInAlumni(FirebaseUser user) {
+        String email = user.getEmail();
+        String id = user.getUid();
+        String dp_url = user.getPhotoUrl().toString();
+        String name = user.getDisplayName();
+
+        SharedPref.putInt(getApplicationContext(), "clearance", clearance);
+        SharedPref.putString(getApplicationContext(), "dp_url", dp_url);
+        SharedPref.putString(getApplicationContext(), "email", email);
+        SharedPref.putString(getApplicationContext(), "id", id);
+        SharedPref.putString(getApplicationContext(), "name", name);
+        SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
+
+        FCMHelper.SubscribeToTopic(this, Constants.Event);
+        SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
+
+        layout_progress.setVisibility(View.GONE);
+        flag = true;
+        startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
+        finish();
+        Bungee.slideLeft(LoginActivity.this);
+    }
+
+    /*****************************************************************/
+    //Faculty signin
+
     public void checkForFaculty(final FirebaseUser user) {
         String email = user.getEmail();
 
         String name = SharedPref.getString(getApplicationContext(),"faculty_name", email);
-        if(name!=null)
+        if(name != null)
             signInFaculty(user);
         else{
             flag=true;
@@ -292,7 +346,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         String position = SharedPref.getString(getApplicationContext(),"faculty_position", email);
         String dp_url = user.getPhotoUrl().toString();
 
-        SharedPref.putInt(getApplicationContext(), "clearance", 1);
+        SharedPref.putInt(getApplicationContext(), "clearance", clearance);
         SharedPref.putString(getApplicationContext(), "email", email);
         SharedPref.putString(getApplicationContext(), "id", id);
         SharedPref.putString(getApplicationContext(), "position", position);
@@ -323,11 +377,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void SubscribeToAlerts(Context context){
         FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
+        FCMHelper.SubscribeToTopic(context, Constants.Event);
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
             FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "place");
-        FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "event");
 
         // add user property in firebase analytics
         try{
@@ -350,10 +404,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         TextView tv_ok = dialogView.findViewById(R.id.tv_ok);
         TextView tv_cancel= dialogView.findViewById(R.id.tv_cancel);
 
-        TextView tv_1= dialogView.findViewById(R.id.tv_1);  tv_1.setOnClickListener(this);
-        TextView tv_2= dialogView.findViewById(R.id.tv_2);  tv_2.setOnClickListener(this);
-        TextView tv_3= dialogView.findViewById(R.id.tv_3);  tv_3.setOnClickListener(this);
-        TextView tv_4= dialogView.findViewById(R.id.tv_4);  tv_4.setOnClickListener(this);
+        TextView tv_ug= dialogView.findViewById(R.id.tv_ug);    tv_ug.setOnClickListener(this);
+        TextView tv_pg= dialogView.findViewById(R.id.tv_pg);    tv_pg.setOnClickListener(this);
+        TextView tv_al= dialogView.findViewById(R.id.tv_al);    tv_al.setOnClickListener(this);
+
+        TextView tv_1= dialogView.findViewById(R.id.tv_1);      tv_1.setOnClickListener(this);
+        TextView tv_2= dialogView.findViewById(R.id.tv_2);      tv_2.setOnClickListener(this);
+        TextView tv_3= dialogView.findViewById(R.id.tv_3);      tv_3.setOnClickListener(this);
+        TextView tv_4= dialogView.findViewById(R.id.tv_4);      tv_4.setOnClickListener(this);
 
         TextView tv_cse= dialogView.findViewById(R.id.tv_cse);  tv_cse.setOnClickListener(this);
         TextView tv_it= dialogView.findViewById(R.id.tv_it);    tv_it.setOnClickListener(this);
@@ -364,6 +422,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         TextView tv_civ= dialogView.findViewById(R.id.tv_civ);  tv_civ.setOnClickListener(this);
         TextView tv_mec= dialogView.findViewById(R.id.tv_mec);  tv_mec.setOnClickListener(this);
 
+        layout_year_dept = dialogView.findViewById(R.id.layout_year_dept);
+
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         alertDialog.show();
@@ -371,19 +431,34 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag1.equals("")){
-                    Toast toast = Toast.makeText(LoginActivity.this, "Please choose your current year", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-                else if(flag2.equals("")){
-                    Toast toast = Toast.makeText(LoginActivity.this, "Please choose your department", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-                else {
-                    signInStudent(user);
-                    alertDialog.dismiss();
+                switch (flag0) {
+                    case "ug":
+                        if (flag1.equals("")) {
+                            Toast toast = Toast.makeText(LoginActivity.this, "Please choose your current year", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                        else if (flag2.equals("")) {
+                            Toast toast = Toast.makeText(LoginActivity.this, "Please choose your department", Toast.LENGTH_SHORT);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
+                        else {
+                            clearance = 0;
+                            signInUgStudent(user);
+                            alertDialog.dismiss();
+                        }
+                        break;
+                    case "pg":
+                        clearance = 1;
+                        signInPgStudent(user);
+                        alertDialog.dismiss();
+                        break;
+                    case "al":
+                        clearance = 2;
+                        signInAlumni(user);
+                        alertDialog.dismiss();
+                        break;
                 }
             }
         });
@@ -417,9 +492,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         inChannel.transferTo(0, inChannel.size(), outChannel);
                         inStream.close();
                         outStream.close();
-
-                        Log.d("test_set", "download done");
-
+                        
                         if(file.exists()) {
                             try {
                                 CsvHolder<Faculty> holder = ObjectCsv.getInstance().from(file.getPath()).with(CsvDelimiter.COMMA).getCsvHolderforClass(Faculty.class);
@@ -463,7 +536,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     clearance = 0;
                     break;
                 case R.id.cv_faculty:
-                    clearance = 1;
+                    clearance = 3;
 
                     Calendar calendar = Calendar.getInstance();
                     Long current = calendar.getTimeInMillis();
@@ -485,6 +558,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         else{
             switch (v.getId()){
+                case R.id.tv_ug:
+                case R.id.tv_pg:
+                case R.id.tv_al:
+                    String cids[]={"ug","pg","al"};
+                    for(String id:cids) {
+                        int identifier = getResources().getIdentifier("tv_"+id,"id",getPackageName());
+                        TextView tv = dialogView.findViewById(identifier);
+                        if(identifier != v.getId())
+                            tv.setBackgroundResource(R.drawable.bus_alert_detail_bg);
+                        else {
+                            tv.setBackgroundResource(R.drawable.bus_alert_detail_selected_bg);
+                            flag0 = id;
+
+                            if(flag0.equals("ug"))
+                                layout_year_dept.setVisibility(View.VISIBLE);
+                            else
+                                layout_year_dept.setVisibility(View.GONE);
+                        }
+                    }
+                    break;
                 case R.id.tv_1:
                 case R.id.tv_2:
                 case R.id.tv_3:
@@ -520,7 +613,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             flag2 = id;
                         }
                     }
-
                     break;
             }
         }

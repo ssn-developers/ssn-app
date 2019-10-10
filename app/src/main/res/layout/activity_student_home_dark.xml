@@ -194,25 +194,24 @@
 					android:layout_marginRight="@dimen/_5sdp">
 
 					<ImageView
-						android:id="@+id/iv_icon"
+						android:id="@+id/iv_sleep_icon"
 						app:srcCompat="@drawable/ic_sleep"
-						android:tint="#99727C8E"
+						android:tint="@color/drawer_grey"
 						android:layout_width="@dimen/_14sdp"
 						android:layout_height="@dimen/_14sdp"
 						android:layout_margin="@dimen/_13sdp"/>
 
 					<TextView
-						android:id="@+id/tv_title"
+						android:id="@+id/tv_sleep_title"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:text="Dark mode"
 						android:textColor="#ffffff"
 						android:textSize="@dimen/_12ssp"
 						android:singleLine="true"
-						android:layout_toLeftOf="@+id/iv_arrow"
 						android:paddingRight="@dimen/_5sdp"
 						android:layout_centerVertical="true"
-						android:layout_toRightOf="@+id/iv_icon"
+						android:layout_toRightOf="@+id/iv_sleep_icon"
 						android:layout_marginLeft="@dimen/_5sdp"
 						android:fontFamily="@font/open_sans_semi_bold"/>
 
@@ -228,11 +227,64 @@
 						android:layout_height="@dimen/_20sdp"/>
 
 					<View
+						android:id="@+id/view_sleep_line"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:layout_alignParentBottom="true"
+						android:layout_toRightOf="@+id/iv_sleep_icon"
+						android:layout_marginLeft="@dimen/_5sdp"
+						android:layout_marginRight="@dimen/_15sdp"
+						android:background="#66C0C0C0"/>
+
+				</RelativeLayout>
+
+				<RelativeLayout
+					android:id="@+id/layout_alum_notif"
+					android:layout_width="match_parent"
+					android:layout_height="@dimen/_40sdp"
+					android:layout_marginTop="@dimen/_5sdp"
+					android:layout_marginLeft="@dimen/_5sdp"
+					android:layout_marginRight="@dimen/_5sdp">
+
+					<ImageView
+						android:id="@+id/iv_notif_icon"
+						app:srcCompat="@drawable/ic_notify_grey"
+						android:tint="@color/drawer_grey"
+						android:layout_width="@dimen/_14sdp"
+						android:layout_height="@dimen/_14sdp"
+						android:layout_margin="@dimen/_13sdp"/>
+
+					<TextView
+						android:id="@+id/tv_title"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="Notification"
+						android:textColor="#ffffff"
+						android:textSize="@dimen/_12ssp"
+						android:singleLine="true"
+						android:paddingRight="@dimen/_5sdp"
+						android:layout_centerVertical="true"
+						android:layout_toRightOf="@+id/iv_notif_icon"
+						android:layout_marginLeft="@dimen/_5sdp"
+						android:fontFamily="@font/open_sans_semi_bold"/>
+
+					<com.suke.widget.SwitchButton
+						android:id="@+id/notifSwitch"
+						android:layout_alignParentRight="true"
+						app:sb_checked_color="@color/colorAccentDark"
+						app:sb_show_indicator="false"
+						android:layout_centerVertical="true"
+						android:layout_marginRight="@dimen/_12sdp"
+						app:sb_background="@color/colorAccentLight"
+						android:layout_width="@dimen/_40sdp"
+						android:layout_height="@dimen/_20sdp"/>
+
+					<View
 						android:id="@+id/view_line"
 						android:layout_width="match_parent"
 						android:layout_height="1dp"
 						android:layout_alignParentBottom="true"
-						android:layout_toRightOf="@+id/iv_icon"
+						android:layout_toRightOf="@+id/iv_notif_icon"
 						android:layout_marginLeft="@dimen/_5sdp"
 						android:layout_marginRight="@dimen/_15sdp"
 						android:background="#66C0C0C0"/>

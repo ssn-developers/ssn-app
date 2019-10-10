@@ -231,27 +231,29 @@ public class ClubFragment extends Fragment {
         clubListener = FirebaseFirestore.getInstance().collection(Constants.collection_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                clubs = queryDocumentSnapshots.toObjects(Club.class);
+                if(queryDocumentSnapshots!=null) {
+                    clubs = queryDocumentSnapshots.toObjects(Club.class);
 
-                subscribed_clubs.clear();
-                for(int i = 0; i< clubs.size(); i++) {
-                    Club c = clubs.get(i);
-                    if(c.getFollowers().contains(SharedPref.getString(getContext(),"email"))) {
-                        shimmer_view.setVisibility(View.VISIBLE);
-                        subscribed_clubs.add(c);
-                        clubs.remove(i);
-                        i--;
+                    subscribed_clubs.clear();
+                    for (int i = 0; i < clubs.size(); i++) {
+                        Club c = clubs.get(i);
+                        if (c.getFollowers().contains(SharedPref.getString(getContext(), "email"))) {
+                            shimmer_view.setVisibility(View.VISIBLE);
+                            subscribed_clubs.add(c);
+                            clubs.remove(i);
+                            i--;
+                        }
                     }
+                    adapter = new UnSubscribeAdapter(getContext(), clubs);
+                    unsubs_RV.setAdapter(adapter);
+
+                    if (clubs.size() > 0)
+                        tv_suggestion.setVisibility(View.VISIBLE);
+                    else
+                        tv_suggestion.setVisibility(View.GONE);
+
+                    setUpFeeds();
                 }
-                adapter = new UnSubscribeAdapter(getContext(), clubs);
-                unsubs_RV.setAdapter(adapter);
-
-                if (clubs.size() > 0)
-                    tv_suggestion.setVisibility(View.VISIBLE);
-                else
-                    tv_suggestion.setVisibility(View.GONE);
-
-                setUpFeeds();
             }
         });
     }

@@ -83,16 +83,20 @@ public class EventFragment extends Fragment {
                 .toUpperCase()
                 .endConfig()
                 .round();
-        String dept = SharedPref.getString(getContext(),"dept");
-        String year = "year." + SharedPref.getInt(getContext(),"year");
 
-        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_event).whereArrayContains("dept",dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_event).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
-                return CommonUtils.getPostFromSnapshot(getContext(), snapshot);
+
+                Post post = CommonUtils.getPostFromSnapshot(getContext(), snapshot);
+                post.setAuthor_image_url("eventmanagement@ssn.edu.in");
+                post.setAuthor("SSN Event Coordinator");
+                post.setPosition("Event In-charge");
+
+                return post;
             }
         })
         .build();
@@ -100,14 +104,6 @@ public class EventFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
-                holder.tv_author.setText(model.getAuthor());
-
-                ColorGenerator generator = ColorGenerator.MATERIAL;
-                int color = generator.getColor(model.getAuthor_image_url());
-                TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
-                holder.userImageIV.setImageDrawable(ic1);
-
-                holder.tv_position.setText(model.getPosition());
                 holder.tv_title.setText(model.getTitle());
                 holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
 
@@ -168,7 +164,7 @@ public class EventFragment extends Fragment {
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        CommonUtils.handleBottomSheet(v,model,Constants.workshop, getContext());
+                        CommonUtils.handleBottomSheet(v,model,Constants.event, getContext());
                         return true;
                     }
                 });
@@ -181,9 +177,9 @@ public class EventFragment extends Fragment {
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
                 View view;
                 if(darkMode) {
-                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item_dark, group, false);
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item_dark, group, false);
                 }else {
-                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item, group, false);
+                    view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
                 }
                 return new FeedViewHolder(view);
             }

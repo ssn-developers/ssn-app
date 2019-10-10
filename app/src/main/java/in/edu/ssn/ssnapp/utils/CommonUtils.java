@@ -1,6 +1,7 @@
 package in.edu.ssn.ssnapp.utils;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.Signature;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -28,6 +30,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,6 +75,7 @@ public class CommonUtils {
 
     private static Boolean is_blocked = false;
     public static Typeface regular, bold, semi_bold;
+
     public static void initFonts(Context context, View view){
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
         bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
@@ -110,12 +114,15 @@ public class CommonUtils {
     //Unsubscribe to Notification alerts
     //Only for Students login
     public static void UnSubscribeToAlerts(Context context) {
-        FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
-        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
+        if(SharedPref.getInt(context,"clearance") != 2)
+            FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
+        FCMHelper.UnSubscribeToTopic(context, Constants.Event);
+        if(SharedPref.getInt(context,"clearance") == 0) {
+            FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
+            FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
+        }
         if (SharedPref.getInt(context, "year") == Integer.parseInt(Constants.fourth))
             FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "place");
-        FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "event");
     }
 
     //Checks for current Version Code
@@ -136,6 +143,36 @@ public class CommonUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static void showWhatsNewDialog(Context context, Boolean darkModeEnabled){
+        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+
+        View dialogView;
+        if(darkModeEnabled)
+            dialogView = ((Activity)context).getLayoutInflater().inflate(R.layout.whats_new_dialog_dark, null);
+        else
+            dialogView = ((Activity)context).getLayoutInflater().inflate(R.layout.whats_new_dialog, null);
+
+        dialogBuilder.setView(dialogView);
+
+        TextView versionNameTV = dialogView.findViewById(R.id.versionNameTV);
+        TextView changelogTV = dialogView.findViewById(R.id.changelogTV);
+        ImageView closeIV = dialogView.findViewById(R.id.closeIV);
+
+        versionNameTV.setText("v" + BuildConfig.VERSION_NAME);
+        changelogTV.setText(Constants.changelog);
+
+        final AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.show();
+
+        closeIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
     }
 
     /************************************************************************/
@@ -539,7 +576,7 @@ public class CommonUtils {
             Constants.topic_club_ = "club_";
             Constants.collection_post_bus = "post_bus";
             Constants.collection_post_club = "post_club";
-            Constants.collection_event = "workshop";
+            Constants.collection_event = "event";
         }
     }
 

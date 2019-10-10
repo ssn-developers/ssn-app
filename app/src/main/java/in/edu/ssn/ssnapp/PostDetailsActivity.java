@@ -144,10 +144,10 @@ public class PostDetailsActivity extends BaseActivity {
             attachmentsChipGroup.setVisibility(View.GONE);
         }
 
-        List<String> depts = post.getDept();
+        /*List<String> depts = post.getDept();
         List<String> year = post.getYear();
 
-        if(SharedPref.getInt(getApplicationContext(),"clearance") == 1){
+        if(SharedPref.getInt(getApplicationContext(),"clearance") == 3){
             if(depts != null && depts.size() != 0){
                 layout_receive.setVisibility(View.VISIBLE);
 
@@ -169,7 +169,7 @@ public class PostDetailsActivity extends BaseActivity {
                 layout_receive.setVisibility(View.GONE);
         }
         else
-            layout_receive.setVisibility(View.GONE);
+            layout_receive.setVisibility(View.GONE);*/
 
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override

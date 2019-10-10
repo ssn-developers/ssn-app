@@ -90,9 +90,9 @@ public class FacultyHomeActivity extends BaseActivity {
             }
         });
 
-        if(BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(),"current_version_code")){
-            showWhatsNewDialog();
+        if(BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(),"dont_delete","current_version_code")){
             SharedPref.putInt(getApplicationContext(),"dont_delete","current_version_code", BuildConfig.VERSION_CODE);
+            CommonUtils.showWhatsNewDialog(this,darkModeEnabled);
         }
 
         //Remove on next update
@@ -246,36 +246,6 @@ public class FacultyHomeActivity extends BaseActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new BusAlertsFragment(),"Bus alert");
         viewPager.setAdapter(adapter);
-    }
-
-    public void showWhatsNewDialog(){
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
-        View dialogView;
-        if(darkModeEnabled)
-            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog_dark, null);
-        else
-            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog, null);
-
-        dialogBuilder.setView(dialogView);
-
-        TextView versionNameTV = dialogView.findViewById(R.id.versionNameTV);
-        TextView changelogTV = dialogView.findViewById(R.id.changelogTV);
-        ImageView closeIV = dialogView.findViewById(R.id.closeIV);
-
-        versionNameTV.setText("v" + BuildConfig.VERSION_NAME);
-        changelogTV.setText(Constants.changelog);
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        alertDialog.show();
-
-        closeIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
     }
 
     /*********************************************************/

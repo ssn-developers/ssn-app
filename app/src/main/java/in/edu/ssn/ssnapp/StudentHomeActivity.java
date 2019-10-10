@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,8 @@ public class StudentHomeActivity extends BaseActivity {
     DrawerLayout drawerLayout;
     ViewPager viewPager;
     TextView tv_name, tv_email;
-    SwitchButton darkModeSwitch;
+    RelativeLayout layout_alum_notif;
+    SwitchButton darkModeSwitch, notifSwitch;
 
     ListView lv_items;
     DrawerAdapter adapter;
@@ -64,16 +66,19 @@ public class StudentHomeActivity extends BaseActivity {
         if (darkModeEnabled) {
             setContentView(R.layout.activity_student_home_dark);
             clearLightStatusBar(this);
-        } else
+        }
+        else
             setContentView(R.layout.activity_student_home);
 
         initUI();
 
-        if (darkModeEnabled) {
+        /******************************************************************/
+        //Darkmode handle
+
+        if (darkModeEnabled)
             darkModeSwitch.setChecked(true);
-        } else {
+        else
             darkModeSwitch.setChecked(false);
-        }
 
         darkModeSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
@@ -84,7 +89,8 @@ public class StudentHomeActivity extends BaseActivity {
                     finish();
                     startActivity(getIntent());
                     Bungee.fade(StudentHomeActivity.this);
-                } else {
+                }
+                else {
                     darkModeEnabled = false;
                     SharedPref.putBoolean(getApplicationContext(), "dark_mode", darkModeEnabled);
                     finish();
@@ -94,13 +100,41 @@ public class StudentHomeActivity extends BaseActivity {
             }
         });
 
+        /******************************************************************/
+        //Notification handle for Alumni
+
+        if(SharedPref.getInt(getApplicationContext(),"clearance") == 2){
+            layout_alum_notif.setVisibility(View.VISIBLE);
+            notifSwitch.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_event"));
+        }
+        else
+            layout_alum_notif.setVisibility(View.GONE);
+
+        notifSwitch.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+                SharedPref.putBoolean(getApplicationContext(),"switch_event", isChecked);
+                notifSwitch.setChecked(isChecked);
+
+                if(isChecked)
+                    FCMHelper.SubscribeToTopic(StudentHomeActivity.this, Constants.Event);
+                else
+                    FCMHelper.UnSubscribeToTopic(StudentHomeActivity.this, Constants.Event);
+            }
+        });
+
+        /******************************************************************/
+        //What's new
+
         if(BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(),"dont_delete","current_version_code")){
             SharedPref.putInt(getApplicationContext(),"dont_delete","current_version_code", BuildConfig.VERSION_CODE);
-            showWhatsNewDialog();
+            CommonUtils.showWhatsNewDialog(this,darkModeEnabled);
         }
 
         //Remove on next update
         SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
+
+        /******************************************************************/
 
         userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +149,7 @@ public class StudentHomeActivity extends BaseActivity {
                 Drawer rs = (Drawer) parent.getItemAtPosition(position);
                 switch (rs.getTitle()) {
                     case "News Feed":
+                    case "Club Feed":
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
@@ -127,7 +162,8 @@ public class StudentHomeActivity extends BaseActivity {
                             i.putExtra(Constants.PDF_URL, Constants.calendar);
                             startActivity(i);
                             Bungee.fade(StudentHomeActivity.this);
-                        } else {
+                        }
+                        else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                             intent.putExtra("key", "home");
                             startActivity(intent);
@@ -229,7 +265,9 @@ public class StudentHomeActivity extends BaseActivity {
         tv_name = findViewById(R.id.tv_name);
         tv_email = findViewById(R.id.tv_email);
 
+        layout_alum_notif = findViewById(R.id.layout_alum_notif);
         darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        notifSwitch = findViewById(R.id.notifSwitch);
 
         lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());
@@ -251,12 +289,21 @@ public class StudentHomeActivity extends BaseActivity {
     }
 
     void setUpDrawer() {
-        adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
-        adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
+        if (SharedPref.getInt(getApplicationContext(), "clearance") == 0) {
+            adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
+            adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
+        }
+        else
+            adapter.add(new Drawer("Club Feed", R.drawable.ic_feeds));
+
         adapter.add(new Drawer("AlmaConnect", R.drawable.ic_alumni));
-        adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
-        adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
-        adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
+
+        if (SharedPref.getInt(getApplicationContext(), "clearance") != 2) {
+            adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
+            adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
+            adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
+        }
+
         adapter.add(new Drawer("Make a Suggestion", R.drawable.ic_feedback));
         adapter.add(new Drawer("Invite Friends", R.drawable.ic_invite));
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
@@ -268,48 +315,21 @@ public class StudentHomeActivity extends BaseActivity {
 
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new StudentFeedFragment(), "News feed");
+        if(SharedPref.getInt(getApplicationContext(),"clearance") == 0)
+            adapter.addFragment(new StudentFeedFragment(), "News feed");
         adapter.addFragment(new ClubFragment(), "Club");
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
             adapter.addFragment(new PlacementFragment(), "Placement");
-        adapter.addFragment(new BusAlertsFragment(), "Bus alert");
-        adapter.addFragment(new ExamCellFragment(), "Exam cell");
+        if(SharedPref.getInt(getApplicationContext(),"clearance") != 2)
+            adapter.addFragment(new BusAlertsFragment(), "Bus alert");
+        if(SharedPref.getInt(getApplicationContext(),"clearance") == 0)
+            adapter.addFragment(new ExamCellFragment(), "Exam cell");
         adapter.addFragment(new EventFragment(), "Event");
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
         viewPagerTab.setViewPager(viewPager);
         viewPager.setOffscreenPageLimit(3);
-    }
-
-    public void showWhatsNewDialog(){
-        final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
-        View dialogView;
-        if(darkModeEnabled)
-            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog_dark, null);
-        else
-            dialogView = getLayoutInflater().inflate(R.layout.whats_new_dialog, null);
-
-        dialogBuilder.setView(dialogView);
-
-        TextView versionNameTV = dialogView.findViewById(R.id.versionNameTV);
-        TextView changelogTV = dialogView.findViewById(R.id.changelogTV);
-        ImageView closeIV = dialogView.findViewById(R.id.closeIV);
-
-        versionNameTV.setText("v" + BuildConfig.VERSION_NAME);
-        changelogTV.setText(Constants.changelog);
-
-        final AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        alertDialog.show();
-
-        closeIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertDialog.dismiss();
-            }
-        });
     }
 
     /*********************************************************/

@@ -2,13 +2,10 @@ package in.edu.ssn.ssnapp.utils;
 
 // All the immutable constants must be included in this file
 
-import in.edu.ssn.ssnapp.BuildConfig;
-import in.edu.ssn.ssnapp.R;
-
 public class Constants {
 
     //TODO: change to 'false' when releasing the app
-    public static final Boolean debug_mode = true;
+    public static final Boolean debug_mode = false;
 
     public static final String PDF_URL = "pdf_url";
 
@@ -23,6 +20,7 @@ public class Constants {
 
     // FCM topics
     public static final String BUS_ALERTS="busalerts";
+    public static final String Event="event";
 
     //year
     //create composite query accordingly when modified
@@ -37,7 +35,7 @@ public class Constants {
     public static final int club = 3;
     public static final int post_club = 4;
     public static final int exam_cell = 5;
-    public static final int workshop = 6;
+    public static final int event = 6;
 
     // collection name
     public static String collection_club="club";
@@ -49,8 +47,8 @@ public class Constants {
     public static String collection_post = "post";
     public static String collection_post_bus = "post_bus";
     public static String collection_post_club = "post_club";
-    public static String collection_event = "workshop";
+    public static String collection_event = "event";
 
     // What's new stuff
-    public static String changelog = "\u2022 Bug fixes\n\u2022 PG and Alumni login integrated\n\u2022 Placement notification enabled\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
+    public static String changelog = "\u2022 Bug fixes\n\u2022 PG and Alumni login integrated\n\u2022 Open-Source information available\n\u2022 Placement notification enabled\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
 }
