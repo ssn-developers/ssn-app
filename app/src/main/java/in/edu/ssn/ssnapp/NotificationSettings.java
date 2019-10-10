@@ -27,9 +27,8 @@ public class NotificationSettings extends BaseActivity {
         super.onCreate(savedInstanceState);
         if(darkModeEnabled){
             setContentView(R.layout.activity_notification_settings_dark);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
-            }
         }
         else
             setContentView(R.layout.activity_notification_settings);
