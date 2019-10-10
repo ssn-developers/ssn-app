@@ -209,6 +209,7 @@
             android:textSize="@dimen/_12ssp" />
 
         <TextView
+            android:id="@+id/tv_text5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_text4"
@@ -217,8 +218,19 @@
             android:fontFamily="@font/open_sans_semi_bold"
             android:textColor="#A7A7A7"
             android:textSize="@dimen/_10ssp"
-            android:layout_marginBottom="@dimen/_30sdp"
             android:text="CSE department &amp; Marketing team"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_text5"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:textColor="#A7A7A7"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginBottom="@dimen/_30sdp"
+            android:text="\u2022 Hari Kishan BJ (Placement)\n\u2022 Amritha S (Event)"/>
 
     </RelativeLayout>
 

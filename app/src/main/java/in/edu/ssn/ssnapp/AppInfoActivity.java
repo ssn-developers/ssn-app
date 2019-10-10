@@ -94,6 +94,23 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
 
         type  = new ArrayList<>();
         type.add(R.drawable.ic_google);
+        type.add(R.drawable.ic_git);
+        type.add(R.drawable.ic_linkedin_circle);
+
+        url= new ArrayList<>();
+        url.add("pavikaramanchu@gmail.com");
+        url.add("https://github.com/pavithrakarumanchi");
+        url.add("https://www.linkedin.com/in/pavithra-karumanchi-0420b9166");
+        teams1.add(new TeamDetails("Pavithra N","Web Development",R.drawable.pavithra_profile, type, url));
+
+        url= new ArrayList<>();
+        url.add("nandhiniraja208@gmail.com");
+        url.add("https://github.com/nandy20");
+        url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
+        teams1.add(new TeamDetails("Nandhini R","Web Development",R.drawable.nandhini_profile, type, url));
+
+        type  = new ArrayList<>();
+        type.add(R.drawable.ic_google);
         type.add(R.drawable.ic_insta_circle);
         type.add(R.drawable.ic_linkedin_circle);
 
@@ -113,23 +130,6 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         url.add("https://www.facebook.com/yadhukrishnan.nair.5");
         url.add("https://www.instagram.com/yk_2310");
         teams1.add(new TeamDetails("Yadhukrishnan P","Web UI Designs",R.drawable.yadhuv_profile, type, url));
-
-        type  = new ArrayList<>();
-        type.add(R.drawable.ic_google);
-        type.add(R.drawable.ic_git);
-        type.add(R.drawable.ic_linkedin_circle);
-
-        url= new ArrayList<>();
-        url.add("pavikaramanchu@gmail.com");
-        url.add("https://github.com/pavithrakarumanchi");
-        url.add("https://www.linkedin.com/in/pavithra-karumanchi-0420b9166");
-        teams1.add(new TeamDetails("Pavithra N","Web Development",R.drawable.pavithra_profile, type, url));
-
-        url= new ArrayList<>();
-        url.add("nandhiniraja208@gmail.com");
-        url.add("https://github.com/nandy20");
-        url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
-        teams1.add(new TeamDetails("Nandhini R","Web Development",R.drawable.nandhini_profile, type, url));
 
         rv_items1.setAdapter(new AboutContributorAdapter(this, teams1));
     }
