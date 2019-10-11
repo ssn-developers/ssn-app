@@ -111,7 +111,7 @@ public class PlacementFragment extends Fragment {
                 Post post = CommonUtils.getPostFromSnapshot(getContext(),snapshot);
                 post.setAuthor_image_url("placement@ssn.edu.in");
                 post.setAuthor("SSN Career Development Centre");
-                post.setPosition("Placement team");
+                post.setPosition("Placement Coordinator");
 
                 return post;
             }
@@ -173,7 +173,7 @@ public class PlacementFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                         intent.putExtra("post", model);
-                        intent.putExtra("type", 2);
+                        intent.putExtra("type", Constants.placement);
                         startActivity(intent);
                         Bungee.slideLeft(getContext());
                     }

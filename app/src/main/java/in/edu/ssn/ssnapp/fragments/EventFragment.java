@@ -111,8 +111,8 @@ public class EventFragment extends Fragment {
 
                 Post post = CommonUtils.getPostFromSnapshot(getContext(), snapshot);
                 post.setAuthor_image_url("eventmanagement@ssn.edu.in");
-                post.setAuthor("SSN Event Coordinator");
-                post.setPosition("Event In-charge");
+                post.setAuthor("SSN Event Manager");
+                post.setPosition("Event Coordinator");
 
                 return post;
             }
@@ -174,7 +174,7 @@ public class EventFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                         intent.putExtra("post", model);
-                        intent.putExtra("type",6);
+                        intent.putExtra("type",Constants.event);
                         startActivity(intent);
                         Bungee.slideLeft(getContext());
                     }

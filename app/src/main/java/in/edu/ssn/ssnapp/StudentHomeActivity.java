@@ -131,7 +131,7 @@ public class StudentHomeActivity extends BaseActivity {
             CommonUtils.showWhatsNewDialog(this,darkModeEnabled);
         }
 
-        //Remove on next update
+        //TODO: Remove on next update
         SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
 
         /******************************************************************/

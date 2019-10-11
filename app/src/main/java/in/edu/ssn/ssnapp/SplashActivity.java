@@ -127,7 +127,7 @@ public class SplashActivity extends AppCompatActivity {
         initUI();
 
         checkIsBlocked();
-        //forceUpdate();
+        forceUpdate();
         setUpCrashReport();
 
         try {
@@ -186,7 +186,7 @@ public class SplashActivity extends AppCompatActivity {
         intent = getIntent();
         notif_intent = null;
 
-        //Remove on next update
+        //TODO: Remove on next update
         //This is to make the users logout of the app for first time
         if(!SharedPref.getBoolean(getApplicationContext(),"is_update_logout") && SharedPref.getInt(getApplicationContext(),"dont_delete", "is_logged_in") == 2){
             FirebaseAuth.getInstance().signOut();
@@ -355,16 +355,23 @@ public class SplashActivity extends AppCompatActivity {
                             notif_intent.putExtra("data", club);
                             worst_case = false;
                         }
-                    } else {
+                    }
+                    else {
                         Post post = CommonUtils.getPostFromSnapshot(getApplicationContext(), snapshot);
-                        if (type == 2) {
+                        if (type == Constants.placement) {
                             post.setAuthor_image_url("placement@ssn.edu.in");
                             post.setAuthor("SSN Career Development Centre");
-                            post.setPosition("Placement team");
-                        } else if (type == 5) {
+                            post.setPosition("Placement Coordinator");
+                        }
+                        else if (type == Constants.exam_cell) {
                             post.setAuthor_image_url("examcell@ssn.edu.in");
                             post.setAuthor("SSNCE COE");
-                            post.setPosition("Exam cell team");
+                            post.setPosition("Exam cell Coordinator");
+                        }
+                        else if (type == Constants.event) {
+                            post.setAuthor_image_url("eventmanagement@ssn.edu.in");
+                            post.setAuthor("SSN Event Manager");
+                            post.setPosition("Event Coordinator");
                         }
 
                         notif_intent = new Intent(getApplicationContext(), PostDetailsActivity.class);

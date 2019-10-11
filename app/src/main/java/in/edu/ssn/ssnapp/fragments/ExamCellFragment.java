@@ -111,7 +111,7 @@ public class ExamCellFragment extends Fragment {
                 final Post post = CommonUtils.getPostFromSnapshot(getContext(),snapshot);
                 post.setAuthor_image_url("examcell@ssn.edu.in");
                 post.setAuthor("SSNCE COE");
-                post.setPosition("Exam cell team");
+                post.setPosition("Exam cell Coordinator");
 
                 return post;
             }
