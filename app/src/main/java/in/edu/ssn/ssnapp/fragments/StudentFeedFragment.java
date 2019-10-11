@@ -114,7 +114,7 @@ public class StudentFeedFragment extends Fragment {
                 return CommonUtils.getPostFromSnapshot(getContext(), snapshot);
             }
         })
-        .build();
+                .build();
 
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
