@@ -143,6 +143,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 else{
                     Post post = CommonUtils.getPostFromSnapshot(getApplicationContext(), snapshot);
+                    post.setId(postId);
                     if (type == Constants.placement) {
                         post.setAuthor_image_url("placement@ssn.edu.in");
                         post.setAuthor("SSN Career Development Centre");
