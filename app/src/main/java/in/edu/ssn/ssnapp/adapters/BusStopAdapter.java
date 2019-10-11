@@ -54,25 +54,6 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
         final String time_data = time.get(position);
         holder.titleTV.setText(stop_data);
         holder.timeTV.setText(time_data);
-
-        /*holder.busStopsCV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, BusRouteDetailsActivity.class);
-                intent.putExtra("route",model);
-                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
-        holder.mTimelineView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, BusRouteDetailsActivity.class);
-                intent.putExtra("route",model);
-                intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });*/
     }
 
     @Override

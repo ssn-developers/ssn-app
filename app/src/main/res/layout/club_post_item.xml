@@ -44,7 +44,6 @@
                     android:textColor="#000000"
                     android:textSize="@dimen/_12ssp"
                     android:singleLine="true"
-                    android:text="SSN Institutions"
                     android:fontFamily="@font/open_sans"
                     android:layout_toStartOf="@+id/tv_time"
                     android:layout_marginEnd="@dimen/_10sdp"
@@ -107,8 +106,7 @@
                     android:textColor="#000000"
                     android:fontFamily="@font/open_sans_bold"
                     android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold"
-                    android:text="Title"/>
+                    android:textStyle="bold" />
 
                 <com.hendraanggrian.appcompat.widget.SocialTextView
                     android:id="@+id/tv_description"
@@ -124,8 +122,7 @@
                     app:socialFlags="hashtag|mention|hyperlink"
                     app:hashtagColor="@color/colorAccent"
                     app:mentionColor="@color/colorAccent"
-                    app:hyperlinkColor="@color/colorAccent"
-                    android:text="Description"/>
+                    app:hyperlinkColor="@color/colorAccent" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
