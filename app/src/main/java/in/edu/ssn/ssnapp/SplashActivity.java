@@ -185,20 +185,6 @@ public class SplashActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("block_screen");
         intent = getIntent();
         notif_intent = null;
-
-        //TODO: Remove on next update
-        //This is to make the users logout of the app for first time
-        if(!SharedPref.getBoolean(getApplicationContext(),"is_update_logout") && SharedPref.getInt(getApplicationContext(),"dont_delete", "is_logged_in") == 2){
-            FirebaseAuth.getInstance().signOut();
-            CommonUtils.UnSubscribeToAlerts(getApplicationContext());
-            DataBaseHelper dbHelper = DataBaseHelper.getInstance(SplashActivity.this);
-            dbHelper.dropAllTables();
-            SharedPref.removeAll(getApplicationContext());
-
-            SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 1);
-            SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
-        }
-
     }
 
     /**********************************************************************/
