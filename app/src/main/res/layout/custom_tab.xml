@@ -12,6 +12,7 @@
 		android:textSize="@dimen/_14sdp"
 		android:fontFamily="@font/open_sans_bold"
 		android:id="@+id/customTabTV"
+		android:singleLine="true"
 		android:layout_centerInParent="true"
 		android:textStyle="bold"
 		android:textColor="@color/custom_tab"
