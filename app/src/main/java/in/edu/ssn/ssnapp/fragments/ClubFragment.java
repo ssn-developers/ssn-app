@@ -239,10 +239,13 @@ public class ClubFragment extends Fragment {
                         Club c = clubs.get(i);
                         if (c.getFollowers().contains(SharedPref.getString(getContext(), "email"))) {
                             shimmer_view.setVisibility(View.VISIBLE);
+                            FCMHelper.SubscribeToTopic(getContext(),Constants.topic_club_ + c.getId());
                             subscribed_clubs.add(c);
                             clubs.remove(i);
                             i--;
                         }
+                        else
+                            FCMHelper.UnSubscribeToTopic(getContext(),Constants.topic_club_ + c.getId());
                     }
                     adapter = new UnSubscribeAdapter(getContext(), clubs);
                     unsubs_RV.setAdapter(adapter);
