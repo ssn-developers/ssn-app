@@ -13,50 +13,50 @@
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="32dp"
-			android:layout_marginRight="32dp"
-			android:layout_marginTop="32dp">
+			android:layout_marginLeft="@dimen/_32sdp"
+			android:layout_marginRight="@dimen/_32sdp"
+			android:layout_marginTop="@dimen/_32sdp">
 
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/tempIV"
 				android:layout_centerInParent="true"/>
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/towerIV"
 				android:scaleX="0"
 				android:scaleY="0"
-				android:translationY="100dp"
+				android:translationY="@dimen/_100sdp"
 				android:layout_centerInParent="true" />
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/treesIV"
 				android:scaleX="0"
 				android:scaleY="0"
 				android:alpha="0"
-				android:translationY="150dp"
+				android:translationY="@dimen/_150sdp"
 				android:layout_centerInParent="true" />
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/landIV"
 				android:scaleY="0"
 				android:scaleX="0"
-				android:translationY="175dp"
+				android:translationY="@dimen/_175sdp"
 				android:layout_centerInParent="true" />
 
 		</RelativeLayout>
 		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="150dp"
+			android:layout_height="@dimen/_125sdp"
 			android:orientation="vertical"
 			android:background="@android:color/white"
-			android:paddingTop="32dp"
-			android:paddingLeft="32dp"
-			android:paddingRight="32dp">
+			android:paddingTop="@dimen/_32sdp"
+			android:paddingLeft="@dimen/_32sdp"
+			android:paddingRight="@dimen/_32sdp">
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
 		</LinearLayout>
 		<View
 			android:layout_width="match_parent"
-			android:layout_height="50dp"/>
+			android:layout_height="@dimen/_50sdp"/>
 	</LinearLayout>
 
 </RelativeLayout>

@@ -1,3 +1,4 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="boarding_image_size">@dimen/_250sdp</dimen>
 </resources>

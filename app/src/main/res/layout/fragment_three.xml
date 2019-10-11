@@ -14,56 +14,56 @@
 		<RelativeLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="32dp"
-			android:layout_marginRight="32dp"
-			android:layout_marginTop="32dp">
+			android:layout_marginLeft="@dimen/_32sdp"
+			android:layout_marginRight="@dimen/_32sdp"
+			android:layout_marginTop="@dimen/_32sdp">
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/tempIV"
 				android:layout_centerInParent="true"/>
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/hand1IV"
-				android:translationY="350dp"
+				android:translationY="@dimen/boarding_image_size"
 				android:scaleX="0"
 				android:scaleY="0"
 				android:layout_centerInParent="true" />
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/hand2IV"
-				android:translationY="350dp"
+				android:translationY="@dimen/boarding_image_size"
 				android:scaleX="0"
 				android:scaleY="0"
 				android:layout_centerInParent="true" />
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/hand3IV"
-				android:translationY="350dp"
+				android:translationY="@dimen/boarding_image_size"
 				android:scaleX="0"
 				android:scaleY="0"
 				android:layout_centerInParent="true" />
 			<ImageView
-				android:layout_width="match_parent"
-				android:layout_height="350dp"
+				android:layout_width="@dimen/boarding_image_size"
+				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/landIV"
 				android:scaleY="0"
 				android:scaleX="0"
-				android:translationY="175dp"
+				android:translationY="@dimen/_175sdp"
 				android:layout_centerInParent="true" />
 
 		</RelativeLayout>
 		<LinearLayout
 			android:layout_width="match_parent"
-			android:layout_height="150dp"
+			android:layout_height="@dimen/_125sdp"
 			android:orientation="vertical"
 			android:background="@android:color/white"
-			android:paddingTop="32dp"
-			android:paddingLeft="32dp"
-			android:paddingRight="32dp">
+			android:paddingTop="@dimen/_32sdp"
+			android:paddingLeft="@dimen/_32sdp"
+			android:paddingRight="@dimen/_32sdp">
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
@@ -86,16 +86,16 @@
 		</LinearLayout>
 		<androidx.cardview.widget.CardView
 			android:layout_width="match_parent"
-			android:layout_height="50dp"
-			app:cardCornerRadius="5dp"
+			android:layout_height="@dimen/_50sdp"
+			app:cardCornerRadius="@dimen/_5sdp"
 			android:clickable="true"
 			android:scaleX="0"
 			android:scaleY="0"
 			android:id="@+id/signInCV"
 			android:foreground="?attr/selectableItemBackground"
 			app:cardBackgroundColor="@color/colorAccent"
-			android:layout_marginStart="32dp"
-			android:layout_marginEnd="32dp"
+			android:layout_marginStart="@dimen/_32sdp"
+			android:layout_marginEnd="@dimen/_32sdp"
 			android:focusable="true">
 
 			<TextView
@@ -104,7 +104,7 @@
 				android:layout_gravity="center"
 				android:gravity="center"
 				android:fontFamily="@font/open_sans_bold"
-				android:textSize="18dp"
+				android:textSize="@dimen/_18sdp"
 				android:textColor="@android:color/white"
 				android:text="Get started"/>
 		</androidx.cardview.widget.CardView>
