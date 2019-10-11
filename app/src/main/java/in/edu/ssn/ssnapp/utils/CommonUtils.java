@@ -564,7 +564,6 @@ public class CommonUtils {
             Constants.collection_exam_cell = "debug_examcell";
             Constants.collection_placement = "debug_placement";
             Constants.collection_post = "debug_post";
-            Constants.topic_club_ = "debug_club_";
             Constants.collection_post_bus = "debug_post_bus";
             Constants.collection_post_club = "debug_post_club";
             Constants.collection_event = "debug_event";
@@ -573,7 +572,6 @@ public class CommonUtils {
             Constants.collection_exam_cell = "examcell";
             Constants.collection_placement = "placement";
             Constants.collection_post = "post";
-            Constants.topic_club_ = "club_";
             Constants.collection_post_bus = "post_bus";
             Constants.collection_post_club = "post_club";
             Constants.collection_event = "event";

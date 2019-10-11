@@ -42,7 +42,6 @@ public class Constants {
     public static String collection_club="club";
     public static String collection_feedback="feedback";
 
-    public static String topic_club_ = "club_";
     public static String collection_exam_cell = "examcell";
     public static String collection_placement = "placement";
     public static String collection_post = "post";

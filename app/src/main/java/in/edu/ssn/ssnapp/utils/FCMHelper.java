@@ -53,7 +53,6 @@ public class FCMHelper {
                         if (!task.isSuccessful()) {
                             msg = "subscribe failed";
                         }
-                        //Log.d(TAG, msg);
                     }
                 });
     }

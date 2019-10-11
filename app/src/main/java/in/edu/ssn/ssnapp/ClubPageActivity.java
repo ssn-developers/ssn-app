@@ -474,7 +474,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
 
                 if (!club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
-                    FCMHelper.SubscribeToTopic(getApplicationContext(),Constants.topic_club_ + club.getId());
+                    FCMHelper.SubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().add(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Following");
                     if(darkModeEnabled){
@@ -485,7 +485,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                 }
                 else {
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
-                    FCMHelper.UnSubscribeToTopic(getApplicationContext(),Constants.topic_club_ + club.getId());
+                    FCMHelper.UnSubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
                     tv_following_text.setText("Follow");
                     if(darkModeEnabled){

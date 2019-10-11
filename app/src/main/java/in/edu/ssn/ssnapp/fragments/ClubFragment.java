@@ -162,7 +162,7 @@ public class ClubFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
                 holder.tv_name.setText(model.getName());
                 holder.tv_description.setText(model.getDescription());
-                FCMHelper.SubscribeToTopic(getContext(),Constants.topic_club_ + model.getId());
+                FCMHelper.SubscribeToTopic(getContext(),"club_" + model.getId());
 
                 try {
                     Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
@@ -239,13 +239,13 @@ public class ClubFragment extends Fragment {
                         Club c = clubs.get(i);
                         if (c.getFollowers().contains(SharedPref.getString(getContext(), "email"))) {
                             shimmer_view.setVisibility(View.VISIBLE);
-                            FCMHelper.SubscribeToTopic(getContext(),Constants.topic_club_ + c.getId());
+                            FCMHelper.SubscribeToTopic(getContext(),"club_" + c.getId());
                             subscribed_clubs.add(c);
                             clubs.remove(i);
                             i--;
                         }
                         else
-                            FCMHelper.UnSubscribeToTopic(getContext(),Constants.topic_club_ + c.getId());
+                            FCMHelper.UnSubscribeToTopic(getContext(),"club_" + c.getId());
                     }
                     adapter = new UnSubscribeAdapter(getContext(), clubs);
                     unsubs_RV.setAdapter(adapter);
