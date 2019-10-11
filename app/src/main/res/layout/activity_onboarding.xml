@@ -74,7 +74,7 @@
 				/>
 			<View
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/_50sdp"/>
+				android:layout_height="@dimen/_40sdp"/>
 
 		</RelativeLayout>
 
@@ -123,7 +123,7 @@
 
 			<androidx.cardview.widget.CardView
 				android:layout_width="match_parent"
-				android:layout_height="@dimen/_50sdp"
+				android:layout_height="@dimen/_40sdp"
 				app:cardCornerRadius="@dimen/_5sdp"
 				android:clickable="true"
 				android:scaleX="0"
@@ -141,7 +141,7 @@
 					android:layout_gravity="center"
 					android:gravity="center"
 					android:fontFamily="@font/open_sans_bold"
-					android:textSize="@dimen/_18sdp"
+					android:textSize="@dimen/_16sdp"
 					android:textColor="@android:color/white"
 					android:text="Get started"/>
 			</androidx.cardview.widget.CardView>

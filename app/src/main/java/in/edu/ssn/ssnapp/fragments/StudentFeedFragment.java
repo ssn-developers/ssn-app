@@ -218,7 +218,7 @@ public class StudentFeedFragment extends Fragment {
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
-                System.out.println(type.compareTo(ChangeEventType.ADDED));
+                System.out.println("Data Changed -> "+type.compareTo(ChangeEventType.ADDED));
             }
         };
 

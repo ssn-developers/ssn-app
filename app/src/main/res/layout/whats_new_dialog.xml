@@ -5,60 +5,67 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:background="@drawable/alert_white_solid_top">
+	android:background="@android:color/transparent">
 
-	<LinearLayout
+	<RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="vertical">
+		android:layout_margin="@dimen/_16sdp"
+		android:background="@android:color/white">
 
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:background="@color/colorAccent"
-				android:padding="@dimen/_16sdp"
-				android:orientation="vertical">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@color/colorAccent"
+					android:padding="@dimen/_16sdp"
+					android:orientation="vertical">
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="@string/what_s_new"
+						android:layout_marginEnd="@dimen/_30sdp"
+						android:textColor="@android:color/white"
+						android:textSize="@dimen/_20ssp"
+						android:fontFamily="@font/open_sans_bold"/>
+
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="v1.20"
+						android:id="@+id/versionNameTV"
+						android:textColor="#f2f2f2"
+						android:textSize="@dimen/_16ssp"
+						android:fontFamily="@font/open_sans_bold"/>
+				</LinearLayout>
 
 				<TextView
-					android:layout_width="wrap_content"
+					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
-					android:text="@string/what_s_new"
-					android:layout_marginEnd="@dimen/_30sdp"
-					android:textColor="@android:color/white"
-					android:textSize="@dimen/_20ssp"
-					android:fontFamily="@font/open_sans_bold"/>
+					android:text="\u2022 Dark mode added\n\u2022 Bug fixes"
+					android:textColor="#222222"
+					android:id="@+id/changelogTV"
+					android:padding="@dimen/_16sdp"
+					android:fontFamily="@font/open_sans_semi_bold"/>
 
-				<TextView
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:text="v1.20"
-					android:id="@+id/versionNameTV"
-					android:textColor="#f2f2f2"
-					android:textSize="@dimen/_16ssp"
-					android:fontFamily="@font/open_sans_bold"/>
 			</LinearLayout>
 
-			<TextView
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:text="\u2022 Dark mode added\n\u2022 Bug fixes"
-				android:textColor="#222222"
-				android:id="@+id/changelogTV"
-				android:padding="@dimen/_16sdp"
-				android:fontFamily="@font/open_sans_semi_bold"/>
-
-		</LinearLayout>
-
-	<ImageView
-		android:layout_width="@dimen/_30sdp"
-		android:layout_height="@dimen/_30sdp"
-		android:layout_alignParentEnd="true"
-		android:padding="@dimen/_5sdp"
-		android:clickable="true"
-		android:foreground="?selectableItemBackground"
-		android:layout_margin="@dimen/_16sdp"
-		android:id="@+id/closeIV"
-		android:tint="@color/white"
-		app:srcCompat="@drawable/ic_close"/>
+		<ImageView
+			android:layout_width="@dimen/_30sdp"
+			android:layout_height="@dimen/_30sdp"
+			android:layout_alignParentEnd="true"
+			android:padding="@dimen/_5sdp"
+			android:clickable="true"
+			android:foreground="?selectableItemBackground"
+			android:layout_margin="@dimen/_16sdp"
+			android:id="@+id/closeIV"
+			android:tint="@color/white"
+			app:srcCompat="@drawable/ic_close"/>
+		</RelativeLayout>
 
 </RelativeLayout>
