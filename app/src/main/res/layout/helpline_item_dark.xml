@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    android:foreground="?selectableItemBackground"
+    android:id="@+id/containerRL">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/mailIV">
+
+        <ImageView
+            android:id="@+id/iv_dp"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:transitionName="userImageTrans"
+            android:layout_centerVertical="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_3sdp">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="#ffffff"
+                android:fontFamily="@font/open_sans_bold"/>
+
+            <TextView
+                android:id="@+id/tv_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_below="@+id/tv_name"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="#D8D8D8"
+                android:fontFamily="@font/open_sans"/>
+
+            <TextView
+                android:id="@+id/tv_extn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:layout_below="@+id/tv_position"
+                android:textSize="@dimen/_10ssp"
+                android:textColor="#D8D8D8"
+                android:fontFamily="@font/open_sans"/>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:padding="@dimen/_5sdp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/mailIV"
+        android:clickable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_8sdp"
+        android:tint="@android:color/tab_indicator_text"
+        android:src="@drawable/ic_mail"/>
+
+
+</RelativeLayout>

@@ -215,8 +215,8 @@ public class StudentHomeActivity extends BaseActivity {
                         }
                         break;
                     case "Helpline":
-                        //startActivity(new Intent(getApplicationContext(), HelplineActivity.class));
-                        //Bungee.slideLeft(FacultyHomeActivity.this);
+                        startActivity(new Intent(getApplicationContext(), HelplineActivity.class));
+                        Bungee.slideLeft(StudentHomeActivity.this);
                         break;
                     case "Make a Suggestion":
                         startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));

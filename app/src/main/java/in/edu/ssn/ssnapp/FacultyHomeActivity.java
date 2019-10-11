@@ -146,8 +146,8 @@ public class FacultyHomeActivity extends BaseActivity {
                         }
                         break;
                     case "Helpline":
-                        //startActivity(new Intent(getApplicationContext(), HelplineActivity.class));
-                        //Bungee.slideLeft(FacultyHomeActivity.this);
+                        startActivity(new Intent(getApplicationContext(), HelplineActivity.class));
+                        Bungee.slideLeft(FacultyHomeActivity.this);
                         break;
                     case "Make a Suggestion":
                         startActivity(new Intent(getApplicationContext(), FeedbackActivity.class));
