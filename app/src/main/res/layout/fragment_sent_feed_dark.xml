@@ -74,4 +74,26 @@
 		android:id="@+id/feedsRV">
 	</androidx.recyclerview.widget.RecyclerView>
 
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+		android:background="@drawable/new_post_text_bg_dark"
+		android:layout_margin="@dimen/_16sdp"
+		android:gravity="center"
+		android:visibility="gone"
+		android:drawableStart="@drawable/ic_arrow_upward_black_24dp"
+		android:drawablePadding="@dimen/_5sdp"
+		android:layout_alignParentBottom="true"
+		android:clickable="true"
+		android:foreground="?android:selectableItemBackground"
+		android:id="@+id/newPostTV"
+		android:textColor="@android:color/black"
+		android:fontFamily="@font/open_sans_semi_bold"
+		android:paddingStart="@dimen/_10sdp"
+		android:paddingEnd="@dimen/_10sdp"
+		android:paddingTop="@dimen/_5sdp"
+		android:padding="@dimen/_5sdp"
+		android:text="New posts"/>
+
 </RelativeLayout>

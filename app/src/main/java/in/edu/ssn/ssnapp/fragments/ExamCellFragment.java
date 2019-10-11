@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -22,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -58,6 +60,7 @@ public class ExamCellFragment extends Fragment {
     RelativeLayout layout_progress;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
+    private TextView newPostTV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +76,21 @@ public class ExamCellFragment extends Fragment {
         initUI(view);
 
         setupFireStore();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                feedsRV.smoothScrollToPosition(0);
+            }
+        },3000);
+
+        newPostTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                feedsRV.smoothScrollToPosition(0);
+                newPostTV.setVisibility(View.GONE);
+            }
+        });
 
         return view;
     }
@@ -183,6 +201,15 @@ public class ExamCellFragment extends Fragment {
 
                 return new FeedViewHolder(view);
             }
+
+            @Override
+            public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
+                super.onChildChanged(type, snapshot, newIndex, oldIndex);
+                if(type==ChangeEventType.CHANGED){
+                    // New post added (Show new post available text)
+                    newPostTV.setVisibility(View.VISIBLE);
+                }
+            }
         };
 
         feedsRV.setAdapter(adapter);
@@ -190,8 +217,19 @@ public class ExamCellFragment extends Fragment {
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
+        newPostTV = view.findViewById(R.id.newPostTV);
+        feedsRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                    //Log.d("Feed","First item completely visible");
+                    newPostTV.setVisibility(View.GONE);
+                }
+            }
+        });
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);

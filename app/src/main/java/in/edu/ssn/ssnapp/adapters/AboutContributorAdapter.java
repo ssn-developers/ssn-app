@@ -87,11 +87,9 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
                             holder.iv_dp.getTransitionName()
                             );
                     ActivityCompat.startActivity(context, intent, options.toBundle());
-                }else{
-                    context.startActivity(intent);
                 }
-
-
+                else
+                    context.startActivity(intent);
             }
         });
     }
