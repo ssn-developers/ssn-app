@@ -65,6 +65,9 @@ public class FacultyHomeActivity extends BaseActivity {
 
         initUI();
 
+        /******************************************************************/
+        //Darkmode handle
+
         if(darkModeEnabled){
             darkModeSwitch.setChecked(true);
         }else {
@@ -90,10 +93,15 @@ public class FacultyHomeActivity extends BaseActivity {
             }
         });
 
+        /******************************************************************/
+        //What's new
+
         if(BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(),"dont_delete","current_version_code")){
             SharedPref.putInt(getApplicationContext(),"dont_delete","current_version_code", BuildConfig.VERSION_CODE);
             CommonUtils.showWhatsNewDialog(this,darkModeEnabled);
         }
+
+        /******************************************************************/
 
         userImageIV.setOnClickListener(new View.OnClickListener() {
             @Override
