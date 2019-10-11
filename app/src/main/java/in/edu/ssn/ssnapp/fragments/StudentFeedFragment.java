@@ -27,6 +27,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.crashlytics.android.Crashlytics;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -113,7 +114,7 @@ public class StudentFeedFragment extends Fragment {
                 return CommonUtils.getPostFromSnapshot(getContext(), snapshot);
             }
         })
-        .build();
+                .build();
 
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
@@ -211,7 +212,13 @@ public class StudentFeedFragment extends Fragment {
             @Override
             public void onDataChanged() {
                 super.onDataChanged();
-                System.out.println("Child added");
+                System.out.println("Data Changed");
+            }
+
+            @Override
+            public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
+                super.onChildChanged(type, snapshot, newIndex, oldIndex);
+                System.out.println("Data Changed -> "+type.compareTo(ChangeEventType.ADDED));
             }
         };
 

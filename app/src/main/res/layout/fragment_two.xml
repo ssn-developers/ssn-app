@@ -79,7 +79,7 @@
 		</LinearLayout>
 		<View
 			android:layout_width="match_parent"
-			android:layout_height="@dimen/_50sdp"/>
+			android:layout_height="@dimen/_40sdp"/>
 	</LinearLayout>
 
 </RelativeLayout>
