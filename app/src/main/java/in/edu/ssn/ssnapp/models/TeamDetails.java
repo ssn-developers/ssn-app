@@ -6,14 +6,12 @@ import java.util.ArrayList;
 public class TeamDetails implements Serializable {
     String name, position;
     int dp;
-    ArrayList<Integer> type;
     ArrayList<String> url;
 
-    public TeamDetails(String name, String position, int dp, ArrayList<Integer> type, ArrayList<String> url) {
+    public TeamDetails(String name, String position, int dp, ArrayList<String> url) {
         this.name = name;
         this.position = position;
         this.dp = dp;
-        this.type = type;
         this.url = url;
     }
 
@@ -39,14 +37,6 @@ public class TeamDetails implements Serializable {
 
     public void setDp(int dp) {
         this.dp = dp;
-    }
-
-    public ArrayList<Integer> getType() {
-        return type;
-    }
-
-    public void setType(ArrayList<Integer> type) {
-        this.type = type;
     }
 
     public ArrayList<String> getUrl() {

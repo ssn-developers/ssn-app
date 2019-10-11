@@ -29,7 +29,7 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContributorAdapter.ContributionViewHolder> implements View.OnClickListener{
+public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContributorAdapter.ContributionViewHolder>{
 
     private ArrayList<TeamDetails> teamDetails;
     private Context context;
@@ -61,18 +61,6 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
         holder.tv_name.setText(drawer.getName());
         holder.tv_position.setText(drawer.getPosition());
         holder.iv_dp.setImageResource(drawer.getDp());
-
-        holder.iv_img1.setBackgroundResource(drawer.getType().get(0));
-        holder.iv_img2.setBackgroundResource(drawer.getType().get(1));
-        holder.iv_img3.setBackgroundResource(drawer.getType().get(2));
-
-        holder.iv_img1.setTag(drawer.getUrl().get(0));
-        holder.iv_img2.setTag(drawer.getUrl().get(1));
-        holder.iv_img3.setTag(drawer.getUrl().get(2));
-
-        holder.iv_img1.setOnClickListener(this);
-        holder.iv_img2.setOnClickListener(this);
-        holder.iv_img3.setOnClickListener(this);
 
         holder.containerRL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,45 +99,7 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
             tv_position = convertView.findViewById(R.id.tv_position);
             iv_dp = convertView.findViewById(R.id.iv_dp);
 
-            iv_img1 = convertView.findViewById(R.id.iv_img1);
-            iv_img2 = convertView.findViewById(R.id.iv_img2);
-            iv_img3 = convertView.findViewById(R.id.iv_img3);
-
             containerRL = convertView.findViewById(R.id.containerRL);
         }
-    }
-
-    @Override
-    public void onClick(View v) {
-        /*if(!CommonUtils.alerter(context)) {
-            switch (v.getId()) {
-                case R.id.iv_img1:
-                    if (v.getTag() != null) {
-                        CharSequence seq = "dribbble";
-                        if (!(v.getTag().toString().contains(seq)))
-                            context.startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", v.getTag().toString(), null)));
-                        else {
-                            SharedPref.putString(context, "url", v.getTag().toString());
-                            context.startActivity(new Intent(context, WebViewActivity.class));
-                            Bungee.slideLeft(context);
-                        }
-                    }
-                    break;
-                case R.id.iv_img2:
-                case R.id.iv_img3:
-                    if (v.getTag() != null) {
-                        SharedPref.putString(context, "url", v.getTag().toString());
-                        context.startActivity(new Intent(context, WebViewActivity.class));
-                        Bungee.slideLeft(context);
-                    }
-                    break;
-            }
-        }
-        else{
-            Intent intent = new Intent(context, NoNetworkActivity.class);
-            intent.putExtra("key","appinfo");
-            context.startActivity(intent);
-            Bungee.fade(context);
-        }*/
     }
 }

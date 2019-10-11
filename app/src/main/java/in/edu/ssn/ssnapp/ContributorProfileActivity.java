@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import in.edu.ssn.ssnapp.models.TeamDetails;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -34,7 +36,6 @@ public class ContributorProfileActivity extends BaseActivity {
 
         initUI();
         updateUI();
-
     }
 
     void initUI(){
@@ -70,7 +71,6 @@ public class ContributorProfileActivity extends BaseActivity {
         updateLinks(teamDetails.getUrl().get(0),linkCV1,iconIV1,linkTitleTV1,linkTV1);
         updateLinks(teamDetails.getUrl().get(1),linkCV2,iconIV2,linkTitleTV2,linkTV2);
         updateLinks(teamDetails.getUrl().get(2),linkCV3,iconIV3,linkTitleTV3,linkTV3);
-
     }
 
     void updateLinks(final String link, CardView cardView, ImageView imageView, TextView textView1, TextView textView2){
@@ -123,8 +123,17 @@ public class ContributorProfileActivity extends BaseActivity {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPref.putString(getApplicationContext(), "url", link);
-                startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                if(!CommonUtils.alerter(getApplicationContext())) {
+                    SharedPref.putString(getApplicationContext(), "url", link);
+                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    Bungee.slideLeft(ContributorProfileActivity.this);
+                }
+                else{
+                    Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                    intent.putExtra("key","contributor_profile");
+                    startActivity(intent);
+                    Bungee.fade(ContributorProfileActivity.this);
+                }
             }
         });
     }

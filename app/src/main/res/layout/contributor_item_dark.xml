@@ -49,39 +49,4 @@
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginRight="@dimen/_20sdp"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/ic_icon_grouper">
-
-        <ImageView
-            android:id="@+id/iv_img1"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_12sdp" />
-
-        <ImageView
-            android:id="@+id/iv_img2"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_img1"
-            android:layout_marginLeft="@dimen/_5sdp" />
-
-        <ImageView
-            android:id="@+id/iv_img3"
-            android:layout_width="@dimen/_15sdp"
-            android:layout_height="@dimen/_15sdp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/iv_img2"
-            android:layout_marginLeft="@dimen/_5sdp"/>
-
-    </RelativeLayout>
-
 </RelativeLayout>
