@@ -370,7 +370,7 @@ public class SplashActivity extends AppCompatActivity {
                         }
                         else if (type == Constants.event) {
                             post.setAuthor_image_url("eventmanagement@ssn.edu.in");
-                            post.setAuthor("SSN Event Manager");
+                            post.setAuthor("SSN Event Management");
                             post.setPosition("Event Coordinator");
                         }
 

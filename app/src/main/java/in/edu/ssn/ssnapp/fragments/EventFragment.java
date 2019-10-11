@@ -111,7 +111,7 @@ public class EventFragment extends Fragment {
 
                 Post post = CommonUtils.getPostFromSnapshot(getContext(), snapshot);
                 post.setAuthor_image_url("eventmanagement@ssn.edu.in");
-                post.setAuthor("SSN Event Manager");
+                post.setAuthor("SSN Event Management");
                 post.setPosition("Event Coordinator");
 
                 return post;
