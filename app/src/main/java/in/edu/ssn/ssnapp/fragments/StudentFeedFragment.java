@@ -209,16 +209,14 @@ public class StudentFeedFragment extends Fragment {
                 return new FeedViewHolder(view);
             }
 
-            @Override
-            public void onDataChanged() {
-                super.onDataChanged();
-                System.out.println("Data Changed");
-            }
 
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
-                System.out.println("Data Changed -> "+type.compareTo(ChangeEventType.ADDED));
+                if(type==ChangeEventType.CHANGED){
+                    // New post added (Show new post available text)
+                    newPostTV.setVisibility(View.VISIBLE);
+                }
             }
         };
 
@@ -230,7 +228,16 @@ public class StudentFeedFragment extends Fragment {
         newPostTV = view.findViewById(R.id.newPostTV);
         layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
-
+        feedsRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                    //Log.d("Feed","First item completely visible");
+                    newPostTV.setVisibility(View.GONE);
+                }
+            }
+        });
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
     }
