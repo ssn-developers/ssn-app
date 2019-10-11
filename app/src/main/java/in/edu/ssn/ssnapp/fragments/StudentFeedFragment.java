@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
@@ -61,6 +63,7 @@ public class StudentFeedFragment extends Fragment {
     private RelativeLayout layout_progress;
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
+    private TextView newPostTV;
     boolean darkMode=false;
 
     @Override
@@ -76,8 +79,15 @@ public class StudentFeedFragment extends Fragment {
 
         CommonUtils.initFonts(getContext(),view);
         initUI(view);
-
         setupFireStore();
+
+        newPostTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                feedsRV.smoothScrollToPosition(0);
+                newPostTV.setVisibility(View.GONE);
+            }
+        });
 
         return view;
     }
@@ -197,6 +207,12 @@ public class StudentFeedFragment extends Fragment {
 
                 return new FeedViewHolder(view);
             }
+
+            @Override
+            public void onDataChanged() {
+                super.onDataChanged();
+                System.out.println("Child added");
+            }
         };
 
         feedsRV.setAdapter(adapter);
@@ -204,6 +220,7 @@ public class StudentFeedFragment extends Fragment {
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
+        newPostTV = view.findViewById(R.id.newPostTV);
         layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
 
