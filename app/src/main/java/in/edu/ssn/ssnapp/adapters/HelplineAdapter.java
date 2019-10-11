@@ -58,11 +58,13 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
 
         holder.tv_name.setText(drawer.getName());
         holder.tv_position.setText(drawer.getPosition());
-        holder.tv_extn.setText("Extn: "+drawer.getExtn());
+        holder.tv_position.setSelected(true);
+        holder.tv_extn.setText(drawer.getEmail());
 
         ColorGenerator generator = ColorGenerator.MATERIAL;
-        int color = generator.getColor(drawer.getName());
-        TextDrawable ic1 = builder.build(String.valueOf(drawer.getName().charAt(0)), color);
+        int color = generator.getColor(drawer.getEmail());
+        String textDrawable=String.valueOf(drawer.getEmail().charAt(0));
+        TextDrawable ic1 = builder.build(textDrawable, color);
         holder.iv_dp.setImageDrawable(ic1);
 
         holder.iv_mail.setOnClickListener(new View.OnClickListener() {

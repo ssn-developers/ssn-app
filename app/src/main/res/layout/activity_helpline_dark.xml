@@ -15,6 +15,7 @@
 		<androidx.recyclerview.widget.RecyclerView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
+			android:scrollbars="vertical"
 			android:paddingStart="@dimen/_10sdp"
 			android:paddingBottom="@dimen/_10sdp"
 			android:paddingEnd="@dimen/_10sdp"
@@ -59,7 +60,7 @@
 			android:id="@+id/tv_desc"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="Bla bla helpline stuff\nbla lba lba la"
+			android:text="@string/helpline_desc"
 			android:textColor="#80FFFFFF"
 			android:textSize="@dimen/_9ssp"
 			android:paddingRight="@dimen/_5sdp"

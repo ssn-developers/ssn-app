@@ -43,10 +43,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_below="@+id/tv_name"
                 android:textSize="@dimen/_10ssp"
                 android:textColor="#D8D8D8"
-                android:fontFamily="@font/open_sans"/>
+                android:fontFamily="@font/open_sans_semi_bold"/>
 
             <TextView
                 android:id="@+id/tv_extn"
