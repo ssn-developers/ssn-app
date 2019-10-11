@@ -171,6 +171,28 @@
 				android:paddingStart="@dimen/_5sdp"
 				android:id="@+id/feed_RV"/>
 
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:background="@drawable/new_post_text_bg"
+				android:layout_margin="@dimen/_16sdp"
+				android:gravity="center"
+				android:visibility="gone"
+				android:drawableStart="@drawable/ic_arrow_upward_white_24dp"
+				android:drawablePadding="@dimen/_5sdp"
+				android:layout_alignParentBottom="true"
+				android:clickable="true"
+				android:foreground="?android:selectableItemBackground"
+				android:id="@+id/newPostTV"
+				android:textColor="@android:color/white"
+				android:fontFamily="@font/open_sans_semi_bold"
+				android:paddingStart="@dimen/_10sdp"
+				android:paddingEnd="@dimen/_10sdp"
+				android:paddingTop="@dimen/_5sdp"
+				android:padding="@dimen/_5sdp"
+				android:text="New posts"/>
+
 		</LinearLayout>
 
 	</androidx.core.widget.NestedScrollView>

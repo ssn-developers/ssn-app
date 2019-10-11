@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -35,6 +36,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
@@ -81,6 +83,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
     private RecyclerView feedsRV;
     private TextView tool_tv_count, tv_following_text, tv_followers, tv_followers_text;
     private Club club;
+    private TextView newPostTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,10 +94,24 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             setContentView(R.layout.activity_club_page);
         }
 
-
         initUI();
 
         setupFireStore();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                feedsRV.smoothScrollToPosition(0);
+            }
+        },3000);
+
+        newPostTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                feedsRV.smoothScrollToPosition(0);
+                newPostTV.setVisibility(View.GONE);
+            }
+        });
 
 
         /****************************************************/
@@ -143,10 +160,21 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
 
         shimmer_view = findViewById(R.id.shimmer_view);
         feedsRV = findViewById(R.id.feedsRV);
+        newPostTV = findViewById(R.id.newPostTV);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ClubPageActivity.this);
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(ClubPageActivity.this);
         feedsRV.setLayoutManager(layoutManager);
         feedsRV.setNestedScrollingEnabled(false);
+        feedsRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
+                    //Log.d("Feed","First item completely visible");
+                    newPostTV.setVisibility(View.GONE);
+                }
+            }
+        });
 
         /****************************************************/
         //Update Data
@@ -361,6 +389,15 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                 }
 
                 return new FeedViewHolder(view);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
+                super.onChildChanged(type, snapshot, newIndex, oldIndex);
+                if(type==ChangeEventType.CHANGED){
+                    // New post added (Show new post available text)
+                    newPostTV.setVisibility(View.VISIBLE);
+                }
             }
         };
 

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
@@ -65,7 +66,7 @@ public class StudentFeedFragment extends Fragment {
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
     private TextView newPostTV;
-    boolean darkMode=false;
+    boolean darkMode = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,6 +83,13 @@ public class StudentFeedFragment extends Fragment {
         initUI(view);
         setupFireStore();
 
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                feedsRV.smoothScrollToPosition(0);
+            }
+        },3000);
+
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -95,7 +103,7 @@ public class StudentFeedFragment extends Fragment {
 
     /*********************************************************/
 
-    void setupFireStore(){
+    private void setupFireStore(){
         String dept = SharedPref.getString(getContext(),"dept");
         String year = "year." + SharedPref.getInt(getContext(),"year");
 
@@ -113,8 +121,7 @@ public class StudentFeedFragment extends Fragment {
                 shimmer_view.setVisibility(View.VISIBLE);
                 return CommonUtils.getPostFromSnapshot(getContext(), snapshot);
             }
-        })
-                .build();
+        }).build();
 
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
@@ -223,7 +230,7 @@ public class StudentFeedFragment extends Fragment {
         feedsRV.setAdapter(adapter);
     }
 
-    void initUI(View view){
+    private void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
         newPostTV = view.findViewById(R.id.newPostTV);
         layoutManager = new LinearLayoutManager(getContext());
