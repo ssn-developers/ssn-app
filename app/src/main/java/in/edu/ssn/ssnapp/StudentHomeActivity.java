@@ -226,6 +226,18 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), AppInfoActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
+                    case "Want to Contribute?":
+                        if (!CommonUtils.alerter(getApplicationContext())) {
+                            SharedPref.putString(getApplicationContext(), "url", Constants.contribute);
+                            startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                            Bungee.slideLeft(StudentHomeActivity.this);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key", "home");
+                            startActivity(intent);
+                            Bungee.fade(StudentHomeActivity.this);
+                        }
+                        break;
                     case "Privacy Policy":
                         if (!CommonUtils.alerter(getApplicationContext())) {
                             SharedPref.putString(getApplicationContext(), "url", Constants.termsfeed);
@@ -314,6 +326,8 @@ public class StudentHomeActivity extends BaseActivity {
         adapter.add(new Drawer("Rate Our App", R.drawable.ic_star));
         adapter.add(new Drawer("Privacy Policy", R.drawable.ic_feedback));
         adapter.add(new Drawer("App Info", R.drawable.ic_info));
+        if (SharedPref.getInt(getApplicationContext(), "clearance") == 0)
+            adapter.add(new Drawer("Want to Contribute?", R.drawable.ic_fav));
         adapter.add(new Drawer("Logout", R.drawable.ic_logout));
         lv_items.setAdapter(adapter);
     }

@@ -32,6 +32,7 @@ import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import spencerstudios.com.bungeelib.Bungee;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -106,7 +107,7 @@ public class ImageAdapter extends PagerAdapter {
                         e.printStackTrace();
                     }
                 }
-                else if(flag == 4){
+                else if(flag == Constants.post_club){
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
                     intent.putExtra("data", id);
                     intent.putExtra("club", c_model);
@@ -138,7 +139,7 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if(flag != 0 && flag != 4)
+                if(flag != 0 && flag != Constants.post_club)
                     CommonUtils.handleBottomSheet(v,model,flag,context);
                 return true;
             }

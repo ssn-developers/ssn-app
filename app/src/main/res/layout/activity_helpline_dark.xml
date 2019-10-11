@@ -12,10 +12,10 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:orientation="vertical">
+
 		<androidx.recyclerview.widget.RecyclerView
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:scrollbars="vertical"
 			android:paddingStart="@dimen/_10sdp"
 			android:paddingBottom="@dimen/_10sdp"
 			android:paddingEnd="@dimen/_10sdp"
@@ -70,7 +70,5 @@
 			android:layout_marginLeft="@dimen/_12sdp" />
 
 	</RelativeLayout>
-
-
 
 </RelativeLayout>
