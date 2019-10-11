@@ -17,7 +17,6 @@ public class Constants {
     //URLs
     public static final String calendar = "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/utils%2FCollege%20Calendar%202019%20-20.pdf?alt=media&token=c99c10cd-c124-405c-9a8d-ef6f39ee5e56";
     public static final String termsfeed = "https://www.termsfeed.com/privacy-policy/77e3f0a8a5b350afc54dc2b8c2af568b";
-    public static final String contribute = "https://docs.google.com/forms/d/e/1FAIpQLSeBs2gpQtNwqmjh9ECGHXld95Pn4K9ePEtMxcaXeT9bV3mCpA/viewform?usp=sf_link";
 
     // FCM topics
     public static final String BUS_ALERTS="busalerts";
@@ -50,5 +49,5 @@ public class Constants {
     public static String collection_event = "event";
 
     // What's new stuff
-    public static String changelog = "\u2022 Bug fixes\n\u2022 PG and Alumni login integrated\n\u2022 Open-Source info available\n\u2022 Placement notification enabled\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
+    public static String changelog = "\u2022 Bug fixes\n\u2022 PG and Alumni login integrated\n\u2022 Placement notification enabled\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
 }
