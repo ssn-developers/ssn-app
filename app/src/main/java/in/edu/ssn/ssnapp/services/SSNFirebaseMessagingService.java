@@ -59,7 +59,6 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
         this.rmMessage=remoteMessage;
 
         // handling data+notification messages
@@ -144,19 +143,21 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 }
                 else{
                     Post post = CommonUtils.getPostFromSnapshot(getApplicationContext(), snapshot);
-                    if(type == 2){
+                    if (type == Constants.placement) {
                         post.setAuthor_image_url("placement@ssn.edu.in");
                         post.setAuthor("SSN Career Development Centre");
                         post.setPosition("Placement Coordinator");
                     }
-                    else if(type == 5){
+                    else if (type == Constants.exam_cell) {
                         post.setAuthor_image_url("examcell@ssn.edu.in");
                         post.setAuthor("SSNCE COE");
                         post.setPosition("Exam cell Coordinator");
                     }
-
-                    DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(getApplicationContext());
-                    //dataBaseHelper.addNotification(new Notification(Integer.toString(type),postId,"",post));
+                    else if (type == Constants.event) {
+                        post.setAuthor_image_url("eventmanagement@ssn.edu.in");
+                        post.setAuthor("SSN Event Management");
+                        post.setPosition("Event Coordinator");
+                    }
 
                     Intent intent = new Intent(getApplicationContext(), PostDetailsActivity.class);
                     intent.putExtra("post",post);

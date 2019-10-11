@@ -364,7 +364,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
                         String timer = holder.tv_time.getText().toString();
-                        String shareBody = "Hello! New posts from " + club.getName() + ". Check it out: https://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
+                        String shareBody = "Hi all! New posts from " + club.getName() + ". Check it out: https://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
                     }
@@ -451,7 +451,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             case R.id.tool_iv_share:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hello! Check out the " + club.getName() + " page: https://ssnportal.cf/share.html?type=3&vca=" + club.getId();
+                String shareBody = "Hi all! Check out the " + club.getName() + " page: https://ssnportal.cf/share.html?type=3&vca=" + club.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;

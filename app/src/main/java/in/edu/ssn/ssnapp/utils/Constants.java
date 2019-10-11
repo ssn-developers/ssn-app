@@ -5,7 +5,7 @@ package in.edu.ssn.ssnapp.utils;
 public class Constants {
 
     //TODO: change to 'false' when releasing the app
-    public static final Boolean debug_mode = false;
+    public static final Boolean debug_mode = true;
 
     public static final String PDF_URL = "pdf_url";
 

@@ -474,6 +474,7 @@ public class SplashActivity extends AppCompatActivity {
                 FetchPostById(vca, collectionName, vac, type);
             }
             else if(!collectionName.equals("")){
+                Log.d("test_set",vca);
                 FetchPostById(vca, collectionName, vac, type);
             }
         }

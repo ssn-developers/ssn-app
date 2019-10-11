@@ -96,7 +96,7 @@ public class FCMHelper {
         }
         else {
             Notification.Builder nbuilder=new Notification.Builder(context)
-                    .setContentTitle("Check out the new post")
+                    .setContentTitle(title)
                     .setSmallIcon(R.drawable.ssn_logo)
                     .setContentText(message)
                     .setAutoCancel(true)
