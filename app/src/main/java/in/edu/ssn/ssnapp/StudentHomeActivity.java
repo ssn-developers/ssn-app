@@ -131,6 +131,9 @@ public class StudentHomeActivity extends BaseActivity {
             CommonUtils.showWhatsNewDialog(this,darkModeEnabled);
         }
 
+        //TODO: Remove on next update
+        SharedPref.putBoolean(getApplicationContext(),"is_update_logout", true);
+
         /******************************************************************/
 
         userImageIV.setOnClickListener(new View.OnClickListener() {

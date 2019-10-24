@@ -28,8 +28,6 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
@@ -174,8 +172,9 @@ public class ClubFragment extends Fragment {
                 holder.lottie.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getContext(),"email")));
-                        model.getFollowers().remove(SharedPref.getString(getContext(),"email"));
+                        String email = SharedPref.getString(getContext(),"email");
+                        FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(email));
+                        model.getFollowers().remove(email);
                         subscribed_clubs.add(model);
                         clubs.add(model);
                     }
@@ -232,12 +231,13 @@ public class ClubFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if(queryDocumentSnapshots!=null) {
+                    String email = SharedPref.getString(getContext(), "email");
                     clubs = queryDocumentSnapshots.toObjects(Club.class);
 
                     subscribed_clubs.clear();
                     for (int i = 0; i < clubs.size(); i++) {
                         Club c = clubs.get(i);
-                        if (c.getFollowers().contains(SharedPref.getString(getContext(), "email"))) {
+                        if (email != null && c.getFollowers().contains(email)) {
                             shimmer_view.setVisibility(View.VISIBLE);
                             FCMHelper.SubscribeToTopic(getContext(),"club_" + c.getId());
                             subscribed_clubs.add(c);

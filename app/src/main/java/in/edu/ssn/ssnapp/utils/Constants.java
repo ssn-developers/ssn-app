@@ -48,6 +48,7 @@ public class Constants {
     public static String collection_post_club = "post_club";
     public static String collection_event = "event";
 
-    // What's new stuff
-    public static String changelog = "\u2022 Bug fixes\n\u2022 PG and Alumni login integrated\n\u2022 Placement notification enabled\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
+    //TODO: modify when releasing the app
+    //What's new stuff
+    public static String changelog = "\u2022 Bug fixes\n\u2022 PG and Alumni login integrated\n\u2022 Helpline added\n\u2022 Placement notification enabled\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
 }

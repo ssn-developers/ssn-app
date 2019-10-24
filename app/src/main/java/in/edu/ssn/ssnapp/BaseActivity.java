@@ -28,22 +28,6 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
 
         darkModeEnabled = SharedPref.getBoolean(getApplicationContext(),"dark_mode");
-
-        initFonts();
-
-    }
-
-    private void initFonts(){
-        //regular = ResourcesCompat.getFont(this, R.font.open_sans);
-        //bold = ResourcesCompat.getFont(this, R.font.open_sans_bold);
-        //semi_bold = ResourcesCompat.getFont(this, R.font.open_sans_semi_bold);
-    }
-
-    //This changes font for all the text views in a view group
-    //fontChanger.replaceFonts((ViewGroup)this.findViewById(android.R.id.content));
-    public void changeFont(Typeface typeface, ViewGroup viewGroup){
-        FontChanger fontChanger = new FontChanger(typeface);
-        fontChanger.replaceFonts(viewGroup);
     }
 
     public void clearLightStatusBar(Activity activity) {
