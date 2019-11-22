@@ -38,7 +38,7 @@
                     android:id="@+id/userImageIV" />
 
                 <View
-                    android:id="@+id/tv_author"
+                    android:id="@+id/authorTV"
                     android:layout_width="@dimen/_120sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:background="@color/shimmering_front"
@@ -47,14 +47,14 @@
                     android:layout_marginStart="@dimen/_10sdp" />
 
                 <View
-                    android:id="@+id/tv_position"
+                    android:id="@+id/positionTV"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_toEndOf="@+id/userImageIV"
                     android:background="@color/shimmering_front"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_below="@+id/tv_author" />
+                    android:layout_below="@+id/authorTV" />
             </RelativeLayout>
 
             <androidx.viewpager.widget.ViewPager
@@ -75,33 +75,33 @@
                 android:layout_height="wrap_content">
 
                 <View
-                    android:id="@+id/tv_title"
+                    android:id="@+id/titleTV"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:background="@color/shimmering_front" />
 
                 <View
-                    android:id="@+id/tv_description1"
+                    android:id="@+id/description1TV"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@+id/tv_title"
+                    android:layout_below="@+id/titleTV"
                     android:background="@color/shimmering_front" />
 
                 <View
-                    android:id="@+id/tv_description2"
+                    android:id="@+id/description2TV"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@+id/tv_description1"
+                    android:layout_below="@+id/description1TV"
                     android:background="@color/shimmering_front" />
 
                 <View
-                    android:id="@+id/tv_description3"
+                    android:id="@+id/description3TV"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@+id/tv_description2"
+                    android:layout_below="@+id/description2TV"
                     android:background="@color/shimmering_front" />
             </RelativeLayout>
         </RelativeLayout>

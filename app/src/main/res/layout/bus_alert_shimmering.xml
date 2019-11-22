@@ -15,16 +15,16 @@
         android:layout_centerVertical="true">
 
         <View
-            android:id="@+id/tv_date"
+            android:id="@+id/dateTV"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_10sdp"
             android:layout_marginRight="@dimen/_10sdp"
             android:background="@color/shimmering_front"/>
 
         <View
-            android:id="@+id/tv_desc"
+            android:id="@+id/descTV"
             android:layout_width="@dimen/_100sdp"
-            android:layout_below="@+id/tv_date"
+            android:layout_below="@+id/dateTV"
             android:layout_height="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@color/shimmering_front"/>

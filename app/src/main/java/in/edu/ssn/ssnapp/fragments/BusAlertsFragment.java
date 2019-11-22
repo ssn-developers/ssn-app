@@ -95,9 +95,9 @@ public class BusAlertsFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<BusPost, BusAlertHolder>(options) {
             @Override
             public void onBindViewHolder(final BusAlertHolder holder, int position, final BusPost model) {
-                holder.tv_date.setText("Bus routes from " + model.getTitle());
-                holder.tv_desc.setText(model.getDesc());
-                holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
+                holder.dateTV.setText("Bus routes from " + model.getTitle());
+                holder.descTV.setText(model.getDesc());
+                holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
                 holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -148,14 +148,14 @@ public class BusAlertsFragment extends Fragment {
     /*********************************************************/
 
     public class BusAlertHolder extends RecyclerView.ViewHolder {
-        public TextView tv_date, tv_time, tv_desc;
+        public TextView dateTV, timeTV, descTV;
         LinearLayout rl_bus_alert_item;
 
         public BusAlertHolder(View itemView) {
             super(itemView);
-            tv_date = itemView.findViewById(R.id.tv_date);
-            tv_time = itemView.findViewById(R.id.tv_time);
-            tv_desc = itemView.findViewById(R.id.tv_desc);
+            dateTV = itemView.findViewById(R.id.dateTV);
+            timeTV = itemView.findViewById(R.id.timeTV);
+            descTV = itemView.findViewById(R.id.descTV);
             rl_bus_alert_item=itemView.findViewById(R.id.bus_alert_item);
         }
     }

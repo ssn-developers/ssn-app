@@ -28,7 +28,7 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
     RecyclerView rv_items1, rv_items2, rv_items3;
     ArrayList<TeamDetails> teams1, teams2;
     ArrayList<AlumniDetails> alumni;
-    ImageView iv_web, iv_fb, iv_twit, iv_linkedin, iv_insta;
+    ImageView webIV, fbIV, twitIV, linkedinIV, instaIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +43,8 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         ScrollView scroll_view = findViewById(R.id.scroll_view);
         scroll_view.smoothScrollTo(0,0);
 
-        TextView tv_version = findViewById(R.id.tv_version);
-        tv_version.setText("v" + BuildConfig.VERSION_NAME);
+        TextView versionTV = findViewById(R.id.versionTV);
+        versionTV.setText("v" + BuildConfig.VERSION_NAME);
 
         rv_items1 = findViewById(R.id.rv_items1);
         rv_items2 = findViewById(R.id.rv_items2);
@@ -65,11 +65,11 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         teams2 = new ArrayList<>();
         alumni = new ArrayList<>();
 
-        iv_web = findViewById(R.id.iv_web);             iv_web.setOnClickListener(this);
-        iv_fb = findViewById(R.id.iv_fb);               iv_fb.setOnClickListener(this);
-        iv_twit = findViewById(R.id.iv_twit);           iv_twit.setOnClickListener(this);
-        iv_linkedin = findViewById(R.id.iv_linkedin);   iv_linkedin.setOnClickListener(this);
-        iv_insta = findViewById(R.id.iv_insta);         iv_insta.setOnClickListener(this);
+        webIV = findViewById(R.id.webIV);             webIV.setOnClickListener(this);
+        fbIV = findViewById(R.id.fbIV);               fbIV.setOnClickListener(this);
+        twitIV = findViewById(R.id.twitIV);           twitIV.setOnClickListener(this);
+        linkedinIV = findViewById(R.id.linkedinIV);   linkedinIV.setOnClickListener(this);
+        instaIV = findViewById(R.id.instaIV);         instaIV.setOnClickListener(this);
 
         setUpPreFinalContributors();
 
@@ -167,27 +167,27 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         if(!CommonUtils.alerter(getApplicationContext())) {
             switch (v.getId()) {
-                case R.id.iv_web:
+                case R.id.webIV:
                     SharedPref.putString(getApplicationContext(), "url", "http://www.ssn.edu.in");
                     startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
-                case R.id.iv_fb:
+                case R.id.fbIV:
                     SharedPref.putString(getApplicationContext(), "url", "https://www.facebook.com/SSNInstitution");
                     startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
-                case R.id.iv_twit:
+                case R.id.twitIV:
                     SharedPref.putString(getApplicationContext(), "url", "https://twitter.com/ssninstitutions");
                     startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
-                case R.id.iv_linkedin:
+                case R.id.linkedinIV:
                     SharedPref.putString(getApplicationContext(), "url", "https://www.linkedin.com/school/ssn-college-of-engineering");
                     startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
-                case R.id.iv_insta:
+                case R.id.instaIV:
                     SharedPref.putString(getApplicationContext(), "url", "https://www.instagram.com/ssninstitutions");
                     startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
                     Bungee.slideLeft(AppInfoActivity.this);

@@ -47,31 +47,31 @@ public class DrawerAdapter extends ArrayAdapter<Drawer> {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.drawer_item, parent, false);
         }
 
-        final TextView tv_title=convertView.findViewById(R.id.tv_title);
-        ImageView iv_icon=convertView.findViewById(R.id.iv_icon);
+        final TextView titleTV=convertView.findViewById(R.id.titleTV);
+        ImageView iconIV=convertView.findViewById(R.id.iconIV);
         View view_line = convertView.findViewById(R.id.view_line);
 
-        tv_title.setText(drawer.getTitle());
-        iv_icon.setImageDrawable(context.getDrawable(drawer.getImage()));
+        titleTV.setText(drawer.getTitle());
+        iconIV.setImageDrawable(context.getDrawable(drawer.getImage()));
 
         if(position == 0) {
             if(darkMode){
-                tv_title.setTextColor(Color.parseColor("#7ABFFF"));
-                iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.colorAccentDark));
+                titleTV.setTextColor(Color.parseColor("#7ABFFF"));
+                iconIV.setImageTintList(context.getResources().getColorStateList(R.color.colorAccentDark));
             }
             else {
-                tv_title.setTextColor(Color.parseColor("#317BC0"));
-                iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.colorAccent));
+                titleTV.setTextColor(Color.parseColor("#317BC0"));
+                iconIV.setImageTintList(context.getResources().getColorStateList(R.color.colorAccent));
             }
         }
         else{
             if(darkMode) {
-                tv_title.setTextColor(Color.parseColor("#ffffff"));
-                iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.white));
+                titleTV.setTextColor(Color.parseColor("#ffffff"));
+                iconIV.setImageTintList(context.getResources().getColorStateList(R.color.white));
             }
             else {
-                tv_title.setTextColor(Color.parseColor("#9A000000"));
-                iv_icon.setImageTintList(context.getResources().getColorStateList(R.color.drawer_grey));
+                titleTV.setTextColor(Color.parseColor("#9A000000"));
+                iconIV.setImageTintList(context.getResources().getColorStateList(R.color.drawer_grey));
             }
         }
 

@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/titleTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
@@ -65,14 +65,14 @@
                     android:textStyle="bold" />
 
                 <com.hendraanggrian.appcompat.widget.SocialTextView
-                    android:id="@+id/tv_description"
+                    android:id="@+id/descriptionTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#ffffff"
                     android:textSize="@dimen/_12ssp"
                     android:fontFamily="@font/open_sans"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@+id/tv_title"
+                    android:layout_below="@+id/titleTV"
                     android:textColorLink="#00000000"
                     app:fontFamily="@font/open_sans"
                     app:socialFlags="hashtag|mention|hyperlink"
@@ -81,11 +81,11 @@
                     app:hyperlinkColor="@color/colorAccent" />
 
                 <TextView
-                    android:id="@+id/tv_time"
+                    android:id="@+id/timeTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tv_description"
+                    android:layout_below="@+id/descriptionTV"
                     android:textColor="@color/colorAccentDark"
                     android:textStyle="bold"
                     android:fontFamily="@font/open_sans"

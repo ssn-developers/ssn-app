@@ -13,7 +13,7 @@
         android:layout_toStartOf="@id/mailIV">
 
         <ImageView
-            android:id="@+id/iv_dp"
+            android:id="@+id/dpIV"
             android:layout_width="@dimen/_45sdp"
             android:layout_height="@dimen/_45sdp"
             android:layout_marginEnd="@dimen/_8sdp"
@@ -25,12 +25,12 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/iv_dp"
+            android:layout_toRightOf="@+id/dpIV"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_3sdp">
 
             <TextView
-                android:id="@+id/tv_name"
+                android:id="@+id/nameTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
@@ -39,24 +39,24 @@
                 android:fontFamily="@font/open_sans_bold"/>
 
             <TextView
-                android:id="@+id/tv_position"
+                android:id="@+id/positionTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
                 android:ellipsize="marquee"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:layout_below="@+id/tv_name"
+                android:layout_below="@+id/nameTV"
                 android:textSize="@dimen/_10ssp"
                 android:textColor="#D8D8D8"
                 android:fontFamily="@font/open_sans_semi_bold"/>
 
             <TextView
-                android:id="@+id/tv_extn"
+                android:id="@+id/extnTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:layout_below="@+id/tv_position"
+                android:layout_below="@+id/positionTV"
                 android:textSize="@dimen/_10ssp"
                 android:textColor="#D8D8D8"
                 android:fontFamily="@font/open_sans"/>

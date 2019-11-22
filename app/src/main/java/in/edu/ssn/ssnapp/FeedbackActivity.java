@@ -39,10 +39,10 @@ public class FeedbackActivity extends BaseActivity {
     FirebaseFirestore db;
 
     EditText et_feedback;
-    TextView tv_text1, tv_button;
+    TextView text1TV, buttonTV;
     LottieAnimationView lottie;
     CardView submitCV;
-    ImageView iv_back;
+    ImageView backIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +59,11 @@ public class FeedbackActivity extends BaseActivity {
         et_feedback = findViewById(R.id.et_feedback);
         submitCV = findViewById(R.id.submitCV);
         lottie = findViewById(R.id.lottie);
-        tv_text1 = findViewById(R.id.tv_text1);
-        tv_button = findViewById(R.id.tv_button);
-        iv_back = findViewById(R.id.iv_back);
+        text1TV = findViewById(R.id.text1TV);
+        buttonTV = findViewById(R.id.buttonTV);
+        backIV = findViewById(R.id.backIV);
 
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -74,7 +74,7 @@ public class FeedbackActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(!CommonUtils.alerter(getApplicationContext())) {
-                    if (tv_button.getText().equals("Submit")) {
+                    if (buttonTV.getText().equals("Submit")) {
                         String et_text = et_feedback.getEditableText().toString().trim();
                         if(et_text.length() > 1) {
                             final Map<String, Object> feedback_details = new HashMap<>();
@@ -83,9 +83,9 @@ public class FeedbackActivity extends BaseActivity {
                             feedback_details.put("time", FieldValue.serverTimestamp());
 
                             lottie.setVisibility(View.VISIBLE);
-                            tv_text1.setVisibility(View.VISIBLE);
+                            text1TV.setVisibility(View.VISIBLE);
                             et_feedback.setVisibility(View.INVISIBLE);
-                            tv_button.setText("Continue");
+                            buttonTV.setText("Continue");
                             CommonUtils.hideKeyboard(FeedbackActivity.this);
 
                             db.collection(Constants.collection_feedback).add(feedback_details);

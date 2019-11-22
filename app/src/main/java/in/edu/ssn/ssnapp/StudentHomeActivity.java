@@ -47,10 +47,10 @@ import spencerstudios.com.bungeelib.Bungee;
 public class StudentHomeActivity extends BaseActivity {
     private static final String TAG = "StudentHomeActivity";
     ImageView notifUI;
-    CircleImageView userImageIV, iv_profile;
+    CircleImageView userImageIV, profileIV;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
-    TextView tv_name, tv_email;
+    TextView nameTV, emailTV;
     RelativeLayout layout_alum_notif;
     SwitchButton darkModeSwitch, notifSwitch;
 
@@ -258,13 +258,13 @@ public class StudentHomeActivity extends BaseActivity {
     void initUI() {
         notifUI = findViewById(R.id.notifUI);
         userImageIV = findViewById(R.id.userImageIV);
-        iv_profile = findViewById(R.id.iv_profile);
+        profileIV = findViewById(R.id.profileIV);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         viewPager = findViewById(R.id.viewPager);
 
-        tv_name = findViewById(R.id.tv_name);
-        tv_email = findViewById(R.id.tv_email);
+        nameTV = findViewById(R.id.nameTV);
+        emailTV = findViewById(R.id.emailTV);
 
         layout_alum_notif = findViewById(R.id.layout_alum_notif);
         darkModeSwitch = findViewById(R.id.darkModeSwitch);
@@ -273,16 +273,16 @@ public class StudentHomeActivity extends BaseActivity {
         lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());
 
-        tv_name.setText(SharedPref.getString(getApplicationContext(), "name"));
-        tv_email.setText(SharedPref.getString(getApplicationContext(), "email"));
+        nameTV.setText(SharedPref.getString(getApplicationContext(), "name"));
+        emailTV.setText(SharedPref.getString(getApplicationContext(), "email"));
 
         try {
             Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(profileIV);
         } catch (Exception e) {
             e.printStackTrace();
             Glide.with(this).load(SharedPref.getString(getApplicationContext(), "dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Glide.with(this).load(SharedPref.getString(getApplicationContext(), "dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(), "dp_url")).placeholder(R.drawable.ic_user_white).into(profileIV);
         }
 
         setUpDrawer();

@@ -41,10 +41,10 @@ import spencerstudios.com.bungeelib.Bungee;
 public class FacultyHomeActivity extends BaseActivity {
 
     ImageView notifUI;
-    CircleImageView userImageIV, iv_profile;
+    CircleImageView userImageIV, profileIV;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
-    TextView tv_name, tv_email, tv_access;
+    TextView nameTV, emailTV, accessTV;
     SwitchButton darkModeSwitch;
 
     ListView lv_items;
@@ -198,41 +198,41 @@ public class FacultyHomeActivity extends BaseActivity {
     void initUI() {
         notifUI = findViewById(R.id.notifUI);
         userImageIV = findViewById(R.id.userImageIV);
-        iv_profile = findViewById(R.id.iv_profile);
+        profileIV = findViewById(R.id.profileIV);
 
         drawerLayout = findViewById(R.id.drawerLayout);
         viewPager = findViewById(R.id.viewPager);
 
-        tv_name = findViewById(R.id.tv_name);
-        tv_email = findViewById(R.id.tv_email);
-        tv_access = findViewById(R.id.tv_access);
+        nameTV = findViewById(R.id.nameTV);
+        emailTV = findViewById(R.id.emailTV);
+        accessTV = findViewById(R.id.accessTV);
 
         darkModeSwitch = findViewById(R.id.darkModeSwitch);
 
         lv_items = findViewById(R.id.lv_items);
         adapter = new DrawerAdapter(this, new ArrayList<Drawer>());
 
-        tv_name.setText(SharedPref.getString(getApplicationContext(), "name"));
-        tv_email.setText(SharedPref.getString(getApplicationContext(), "email"));
+        nameTV.setText(SharedPref.getString(getApplicationContext(), "name"));
+        emailTV.setText(SharedPref.getString(getApplicationContext(), "email"));
 
         String access = SharedPref.getString(getApplicationContext(), "access");
         if (access.equals("SA"))
-            tv_access.setText("ADMIN");
+            accessTV.setText("ADMIN");
         else if (access.equals("PC"))
-            tv_access.setText("PLACEMENT");
+            accessTV.setText("PLACEMENT");
         else if (access.equals("EC"))
-            tv_access.setText("EXAM CELL");
+            accessTV.setText("EXAM CELL");
         else
-            tv_access.setVisibility(View.GONE);
+            accessTV.setVisibility(View.GONE);
 
         try{
             Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(profileIV);
         }
         catch (Exception e){
             e.printStackTrace();
             Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
-            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(iv_profile);
+            Glide.with(this).load(SharedPref.getString(getApplicationContext(),"dp_url")).placeholder(R.drawable.ic_user_white).into(profileIV);
         }
 
         setUpDrawer();

@@ -18,7 +18,7 @@
         app:lottie_autoPlay="true" />
 
     <TextView
-        android:id="@+id/tv_text1"
+        android:id="@+id/text1TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
@@ -37,7 +37,7 @@
         app:cardCornerRadius="5dp"
         android:clickable="true"
         android:id="@+id/retryCV"
-        android:layout_below="@+id/tv_text1"
+        android:layout_below="@+id/text1TV"
         android:layout_marginTop="@dimen/_10sdp"
         android:foreground="?attr/selectableItemBackground"
         app:cardBackgroundColor="@color/colorAccent"

@@ -37,17 +37,17 @@ public class OpenImageActivity extends BaseActivity {
         }
 
 
-        ImageView iv_image=findViewById(R.id.iv_image);
+        ImageView imageIV=findViewById(R.id.imageIV);
         ImageView backIV=findViewById(R.id.backIV);
-        ImageView iv_download=findViewById(R.id.iv_download);
+        ImageView downloadIV=findViewById(R.id.downloadIV);
 
         String url = getIntent().getStringExtra("url");
         final Uri downloadUri = Uri.parse(url);
         final File f= new File(downloadUri.getPath());
 
-        Glide.with(this).load(url).into(iv_image);
+        Glide.with(this).load(url).into(imageIV);
 
-        iv_download.setOnClickListener(new View.OnClickListener() {
+        downloadIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

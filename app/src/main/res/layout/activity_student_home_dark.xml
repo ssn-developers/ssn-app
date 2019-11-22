@@ -147,14 +147,14 @@
 			android:layout_height="match_parent">
 
 			<de.hdodenhof.circleimageview.CircleImageView
-				android:id="@+id/iv_profile"
+				android:id="@+id/profileIV"
 				android:layout_width="@dimen/_80sdp"
 				android:layout_height="@dimen/_80sdp"
 				android:layout_centerHorizontal="true"
 				android:layout_marginTop="@dimen/_15sdp" />
 
 			<TextView
-				android:id="@+id/tv_name"
+				android:id="@+id/nameTV"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
@@ -162,10 +162,10 @@
 				android:textSize="@dimen/_14ssp"
 				android:fontFamily="@font/open_sans_bold"
 				android:layout_centerHorizontal="true"
-				android:layout_below="@+id/iv_profile" />
+				android:layout_below="@+id/profileIV" />
 
 			<TextView
-				android:id="@+id/tv_email"
+				android:id="@+id/emailTV"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:singleLine="true"
@@ -173,12 +173,12 @@
 				android:textSize="@dimen/_10ssp"
 				android:fontFamily="@font/open_sans"
 				android:layout_centerHorizontal="true"
-				android:layout_below="@+id/tv_name" />
+				android:layout_below="@+id/nameTV" />
 
 			<LinearLayout
 				android:layout_width="match_parent"
 				android:layout_height="match_parent"
-				android:layout_below="@+id/tv_email"
+				android:layout_below="@+id/emailTV"
 				android:orientation="vertical"
 				android:layout_marginTop="@dimen/_15sdp"
 				android:layout_marginLeft="@dimen/_15sdp"
@@ -194,7 +194,7 @@
 					android:layout_marginRight="@dimen/_5sdp">
 
 					<ImageView
-						android:id="@+id/iv_sleep_icon"
+						android:id="@+id/sleep_iconIV"
 						app:srcCompat="@drawable/ic_sleep"
 						android:tint="@color/drawer_grey"
 						android:layout_width="@dimen/_14sdp"
@@ -202,7 +202,7 @@
 						android:layout_margin="@dimen/_13sdp"/>
 
 					<TextView
-						android:id="@+id/tv_sleep_title"
+						android:id="@+id/sleep_titleTV"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:text="Dark mode"
@@ -211,7 +211,7 @@
 						android:singleLine="true"
 						android:paddingRight="@dimen/_5sdp"
 						android:layout_centerVertical="true"
-						android:layout_toRightOf="@+id/iv_sleep_icon"
+						android:layout_toRightOf="@+id/sleep_iconIV"
 						android:layout_marginLeft="@dimen/_5sdp"
 						android:fontFamily="@font/open_sans_semi_bold"/>
 
@@ -231,7 +231,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="1dp"
 						android:layout_alignParentBottom="true"
-						android:layout_toRightOf="@+id/iv_sleep_icon"
+						android:layout_toRightOf="@+id/sleep_iconIV"
 						android:layout_marginLeft="@dimen/_5sdp"
 						android:layout_marginRight="@dimen/_15sdp"
 						android:background="#66C0C0C0"/>
@@ -247,7 +247,7 @@
 					android:layout_marginRight="@dimen/_5sdp">
 
 					<ImageView
-						android:id="@+id/iv_notif_icon"
+						android:id="@+id/notif_iconIV"
 						app:srcCompat="@drawable/ic_notify_grey"
 						android:tint="@color/drawer_grey"
 						android:layout_width="@dimen/_14sdp"
@@ -255,7 +255,7 @@
 						android:layout_margin="@dimen/_13sdp"/>
 
 					<TextView
-						android:id="@+id/tv_title"
+						android:id="@+id/titleTV"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:text="Notification"
@@ -264,7 +264,7 @@
 						android:singleLine="true"
 						android:paddingRight="@dimen/_5sdp"
 						android:layout_centerVertical="true"
-						android:layout_toRightOf="@+id/iv_notif_icon"
+						android:layout_toRightOf="@+id/notif_iconIV"
 						android:layout_marginLeft="@dimen/_5sdp"
 						android:fontFamily="@font/open_sans_semi_bold"/>
 
@@ -284,7 +284,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="1dp"
 						android:layout_alignParentBottom="true"
-						android:layout_toRightOf="@+id/iv_notif_icon"
+						android:layout_toRightOf="@+id/notif_iconIV"
 						android:layout_marginLeft="@dimen/_5sdp"
 						android:layout_marginRight="@dimen/_15sdp"
 						android:background="#66C0C0C0"/>

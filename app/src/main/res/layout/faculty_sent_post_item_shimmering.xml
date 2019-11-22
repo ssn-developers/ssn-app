@@ -40,33 +40,33 @@
                 android:layout_height="wrap_content">
 
                 <View
-                    android:id="@+id/tv_title"
+                    android:id="@+id/titleTV"
                     android:layout_width="@dimen/_50sdp"
                     android:layout_height="@dimen/_8sdp"
                     android:background="@color/shimmering_front" />
 
                 <View
-                    android:id="@+id/tv_description1"
+                    android:id="@+id/description1TV"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@+id/tv_title"
+                    android:layout_below="@+id/titleTV"
                     android:background="@color/shimmering_front" />
 
                 <View
-                    android:id="@+id/tv_description2"
+                    android:id="@+id/description2TV"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@+id/tv_description1"
+                    android:layout_below="@+id/description1TV"
                     android:background="@color/shimmering_front" />
 
                 <View
-                    android:id="@+id/tv_description3"
+                    android:id="@+id/description3TV"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_below="@+id/tv_description2"
+                    android:layout_below="@+id/description2TV"
                     android:background="@color/shimmering_front" />
             </RelativeLayout>
         </RelativeLayout>

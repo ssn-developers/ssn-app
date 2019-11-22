@@ -52,8 +52,8 @@ public class PostDetailsActivity extends BaseActivity {
     Post post;
     ImageView backIV, userImageIV, shareIV,bookmarkIV;
     ViewPager imageViewPager;
-    TextView tv_author, tv_position, tv_time, tv_title, tv_current_image,tv_attachments;
-    SocialTextView tv_description;
+    TextView authorTV, positionTV, timeTV, titleTV, current_imageTV,attachmentsTV;
+    SocialTextView descriptionTV;
     ChipGroup attachmentsChipGroup, yearChipGroup, deptChipGroup;
     RelativeLayout textGroupRL, layout_receive;
 
@@ -72,11 +72,11 @@ public class PostDetailsActivity extends BaseActivity {
 
         initUI();
 
-        tv_title.setText(post.getTitle().trim());
-        tv_description.setText(post.getDescription().trim());
-        tv_author.setText(post.getAuthor().trim());
-        tv_position.setText(post.getPosition().trim());
-        tv_time.setText(CommonUtils.getTime(post.getTime()));
+        titleTV.setText(post.getTitle().trim());
+        descriptionTV.setText(post.getDescription().trim());
+        authorTV.setText(post.getAuthor().trim());
+        positionTV.setText(post.getPosition().trim());
+        timeTV.setText(CommonUtils.getTime(post.getTime()));
 
         try {
             final TextDrawable.IBuilder builder = TextDrawable.builder()
@@ -95,15 +95,15 @@ public class PostDetailsActivity extends BaseActivity {
 
         if(post.getImageUrl()!=null && post.getImageUrl().size()!=0){
             imageViewPager.setVisibility(View.VISIBLE);
-            tv_current_image.setVisibility(View.VISIBLE);
+            current_imageTV.setVisibility(View.VISIBLE);
             final ImageAdapter imageAdapter = new ImageAdapter(PostDetailsActivity.this, post.getImageUrl(),0);
             imageViewPager.setAdapter(imageAdapter);
 
             if(post.getImageUrl().size()==1)
-                tv_current_image.setVisibility(View.GONE);
+                current_imageTV.setVisibility(View.GONE);
             else {
-                tv_current_image.setVisibility(View.VISIBLE);
-                tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(post.getImageUrl().size()));
+                current_imageTV.setVisibility(View.VISIBLE);
+                current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(post.getImageUrl().size()));
                 imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -112,7 +112,7 @@ public class PostDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onPageSelected(int pos) {
-                        tv_current_image.setText(String.valueOf(pos+1)+" / "+String.valueOf(post.getImageUrl().size()));
+                        current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(post.getImageUrl().size()));
                     }
 
                     @Override
@@ -124,14 +124,14 @@ public class PostDetailsActivity extends BaseActivity {
         }
         else {
             imageViewPager.setVisibility(View.GONE);
-            tv_current_image.setVisibility(View.GONE);
+            current_imageTV.setVisibility(View.GONE);
         }
 
         ArrayList<String> fileName = post.getFileName();
         ArrayList<String> fileUrl = post.getFileUrl();
 
         if(fileName != null && fileName.size() > 0){
-            tv_attachments.setVisibility(View.VISIBLE);
+            attachmentsTV.setVisibility(View.VISIBLE);
             attachmentsChipGroup.setVisibility(View.VISIBLE);
 
             for(int i=0; i<fileName.size(); i++){
@@ -140,7 +140,7 @@ public class PostDetailsActivity extends BaseActivity {
             }
         }
         else {
-            tv_attachments.setVisibility(View.GONE);
+            attachmentsTV.setVisibility(View.GONE);
             attachmentsChipGroup.setVisibility(View.GONE);
         }
 
@@ -178,7 +178,7 @@ public class PostDetailsActivity extends BaseActivity {
             }
         });
 
-        tv_description.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
+        descriptionTV.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
             @Override
             public void onClick(@NonNull SocialView view, @NonNull CharSequence text) {
                 String url = text.toString();
@@ -215,14 +215,14 @@ public class PostDetailsActivity extends BaseActivity {
     void initUI(){
         backIV = findViewById(R.id.backIV);
         userImageIV = findViewById(R.id.userImageIV);
-        tv_author = findViewById(R.id.tv_author);
-        tv_position = findViewById(R.id.tv_position);
-        tv_time = findViewById(R.id.tv_time);
-        tv_title = findViewById(R.id.tv_title);
-        tv_description = findViewById(R.id.tv_description);
+        authorTV = findViewById(R.id.authorTV);
+        positionTV = findViewById(R.id.positionTV);
+        timeTV = findViewById(R.id.timeTV);
+        titleTV = findViewById(R.id.titleTV);
+        descriptionTV = findViewById(R.id.descriptionTV);
         shareIV = findViewById(R.id.shareIV);
-        tv_current_image = findViewById(R.id.currentImageTV);
-        tv_attachments = findViewById(R.id.tv_attachment);
+        current_imageTV = findViewById(R.id.currentImageTV);
+        attachmentsTV = findViewById(R.id.attachmentTV);
         imageViewPager = findViewById(R.id.viewPager);
         attachmentsChipGroup = findViewById(R.id.attachmentsGroup);
         yearChipGroup = findViewById(R.id.yearGroup);

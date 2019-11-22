@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/titleTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -53,14 +53,14 @@
                     android:textSize="@dimen/_16ssp" />
 
                 <TextView
-                    android:id="@+id/tv_version"
+                    android:id="@+id/versionTV"
                     android:layout_width="@dimen/_38sdp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:paddingTop="@dimen/_2sdp"
                     android:paddingBottom="@dimen/_2sdp"
-                    android:layout_toRightOf="@+id/tv_title"
+                    android:layout_toRightOf="@+id/titleTV"
                     android:background="@drawable/ic_version_bg"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"
@@ -75,52 +75,52 @@
                 android:layout_alignParentBottom="true">
 
                 <ImageView
-                    android:id="@+id/iv_web"
+                    android:id="@+id/webIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
                     android:background="@drawable/ic_web"
                     android:padding="@dimen/_5sdp" />
 
                 <ImageView
-                    android:id="@+id/iv_fb"
+                    android:id="@+id/fbIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_toRightOf="@+id/iv_web"
+                    android:layout_toRightOf="@+id/webIV"
                     android:background="@drawable/ic_fb"
                     android:padding="@dimen/_5sdp" />
 
                 <ImageView
-                    android:id="@+id/iv_twit"
+                    android:id="@+id/twitIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_toRightOf="@+id/iv_fb"
+                    android:layout_toRightOf="@+id/fbIV"
                     android:background="@drawable/ic_twit"
                     android:padding="@dimen/_5sdp" />
 
                 <ImageView
-                    android:id="@+id/iv_linkedin"
+                    android:id="@+id/linkedinIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_toRightOf="@+id/iv_twit"
+                    android:layout_toRightOf="@+id/twitIV"
                     android:background="@drawable/ic_linkedin"
                     android:padding="@dimen/_5sdp" />
 
                 <ImageView
-                    android:id="@+id/iv_insta"
+                    android:id="@+id/instaIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_toRightOf="@+id/iv_linkedin"
+                    android:layout_toRightOf="@+id/linkedinIV"
                     android:background="@drawable/ic_insta"
                     android:padding="@dimen/_5sdp" />
 
             </RelativeLayout>
 
             <TextView
-                android:id="@+id/tv_desc"
+                android:id="@+id/descTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layout11"
@@ -132,7 +132,7 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/tv_text0"
+            android:id="@+id/text0TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
@@ -144,12 +144,12 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/tv_text1"
+            android:id="@+id/text1TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_2sdp"
-            android:layout_below="@+id/tv_text0"
+            android:layout_below="@+id/text0TV"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/pre_final_years"
             android:textColor="@android:color/tab_indicator_text"
@@ -161,10 +161,10 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:layout_marginTop="@dimen/_3sdp"
-            android:layout_below="@+id/tv_text1" />
+            android:layout_below="@+id/text1TV" />
 
         <TextView
-            android:id="@+id/tv_text2"
+            android:id="@+id/text2TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
@@ -181,10 +181,10 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_below="@+id/tv_text2" />
+            android:layout_below="@+id/text2TV" />
 
         <TextView
-            android:id="@+id/tv_text3"
+            android:id="@+id/text3TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rv_items2"
@@ -201,10 +201,10 @@
             android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:layout_marginTop="@dimen/_5sdp"
-            android:layout_below="@+id/tv_text3" />
+            android:layout_below="@+id/text3TV" />
 
         <TextView
-            android:id="@+id/tv_text4"
+            android:id="@+id/text4TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/rv_items3"
@@ -216,10 +216,10 @@
             android:textSize="@dimen/_12ssp" />
 
         <TextView
-            android:id="@+id/tv_text5"
+            android:id="@+id/text5TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_text4"
+            android:layout_below="@+id/text4TV"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/open_sans"
@@ -230,7 +230,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_text5"
+            android:layout_below="@+id/text5TV"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_5sdp"
             android:fontFamily="@font/open_sans"

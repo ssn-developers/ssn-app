@@ -118,10 +118,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
 
-        TextView replyTime=convertView.findViewById(R.id.tv_time);
+        TextView replyTime=convertView.findViewById(R.id.timeTV);
         TextView commentListAuthor =  convertView.findViewById(R.id.commentListAuthor);
         TextView commentListDescription =  convertView.findViewById(R.id.commentListDescription);
-        ImageView iv_dp=convertView.findViewById(R.id.iv_reply_dp);
+        ImageView dpIV=convertView.findViewById(R.id.reply_dpIV);
 
 
         commentListAuthor.setText(CommonUtils.getNameFromEmail(expandedListText.get("author").toString()));
@@ -146,7 +146,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(expandedListText.get("author").toString());
         TextDrawable ic=builder.build(String.valueOf(expandedListText.get("author").toString().charAt(0)), color);
-        iv_dp.setImageDrawable(ic);
+        dpIV.setImageDrawable(ic);
 
         return convertView;
     }
@@ -187,15 +187,15 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView listTitleTextView = convertView.findViewById(R.id.listTitle);
         TextView listDescription = convertView.findViewById(R.id.listauthor);
-        TextView tv_reply=convertView.findViewById(R.id.tv_reply);
-        TextView tv_reply_count=convertView.findViewById(R.id.tv_reply_count);
-        TextView tv_time=convertView.findViewById(R.id.tv_time);
-        ImageView iv_dp=convertView.findViewById(R.id.iv_dp);
+        TextView replyTV=convertView.findViewById(R.id.replyTV);
+        TextView reply_countTV=convertView.findViewById(R.id.reply_countTV);
+        TextView timeTV=convertView.findViewById(R.id.timeTV);
+        ImageView dpIV=convertView.findViewById(R.id.dpIV);
 
         final EditText edt_comment=activity.findViewById(R.id.edt_comment);
-        final TextView tv_reply_selected=activity.findViewById(R.id.tv_reply_selected);
-        final TextView tv_replier_name=activity.findViewById(R.id.tv_replier_name);
-        final ImageView iv_cancel_reply=activity.findViewById(R.id.iv_cancel);
+        final TextView reply_selectedTV=activity.findViewById(R.id.reply_selectedTV);
+        final TextView replier_nameTV=activity.findViewById(R.id.replier_nameTV);
+        final ImageView cancel_replyIV=activity.findViewById(R.id.cancelIV);
         final CardView cv_reply=activity.findViewById(R.id.cv_reply);
 
 
@@ -208,9 +208,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         int color = generator.getColor(comment.getAuthor());
 
         TextDrawable ic=builder.build(String.valueOf(comment.getAuthor().charAt(0)), color);
-        iv_dp.setImageDrawable(ic);
+        dpIV.setImageDrawable(ic);
 
-        tv_reply.setOnClickListener(new View.OnClickListener() {
+        replyTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -220,11 +220,11 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 cv_reply.setVisibility(View.VISIBLE);
 
                 if(comment.getAuthor().equals(SharedPref.getString(context,"email")))
-                    tv_replier_name.setText("You");
+                    replier_nameTV.setText("You");
                 else
-                    tv_replier_name.setText(CommonUtils.getNameFromEmail(comment.getAuthor()));
+                    replier_nameTV.setText(CommonUtils.getNameFromEmail(comment.getAuthor()));
 
-                tv_reply_selected.setText(comment.getMessage()+" ");
+                reply_selectedTV.setText(comment.getMessage()+" ");
 
                 replyingForComment=true;
                 selectedCommentPosition=listPosition;
@@ -239,13 +239,13 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
 
         if(commentArrayList.get(listPosition).getReply().size() > 1)
-            tv_reply_count.setText(commentArrayList.get(listPosition).getReply().size()+" replies");
+            reply_countTV.setText(commentArrayList.get(listPosition).getReply().size()+" replies");
         else if(commentArrayList.get(listPosition).getReply().size() == 1)
-            tv_reply_count.setText(commentArrayList.get(listPosition).getReply().size()+" reply");
+            reply_countTV.setText(commentArrayList.get(listPosition).getReply().size()+" reply");
         else
-            tv_reply_count.setText("No reply");
+            reply_countTV.setText("No reply");
 
-        tv_time.setText(CommonUtils.getTime(commentArrayList.get(listPosition).getTime()));
+        timeTV.setText(CommonUtils.getTime(commentArrayList.get(listPosition).getTime()));
 
         return convertView;
     }

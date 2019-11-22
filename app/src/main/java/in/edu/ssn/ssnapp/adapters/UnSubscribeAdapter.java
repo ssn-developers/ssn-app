@@ -57,15 +57,15 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
     @Override
     public void onBindViewHolder(@NonNull final UnSubscribeAdapter.FeedViewHolder holder, final int position) {
         final Club model = (Club) clubs.get(position);
-        holder.tv_name.setText(model.getName());
-        holder.tv_description.setText(model.getDescription());
+        holder.nameTV.setText(model.getName());
+        holder.descriptionTV.setText(model.getDescription());
         FCMHelper.UnSubscribeToTopic(context,"club_" + model.getId());
 
         try {
-            Glide.with(context).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
+            Glide.with(context).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.dpIV);
         }
         catch (Exception e){
-            holder.iv_dp.setImageResource(R.color.shimmering_back);
+            holder.dpIV.setImageResource(R.color.shimmering_back);
         }
 
         holder.lottie.setOnClickListener(new View.OnClickListener() {
@@ -95,16 +95,16 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         LinearLayout club_RL;
-        TextView tv_name, tv_description;
-        ImageView iv_dp;
+        TextView nameTV, descriptionTV;
+        ImageView dpIV;
         LottieAnimationView lottie;
 
         public FeedViewHolder(View convertView) {
             super(convertView);
 
-            tv_name = convertView.findViewById(R.id.tv_name);
-            tv_description = convertView.findViewById(R.id.tv_description);
-            iv_dp = convertView.findViewById(R.id.iv_dp);
+            nameTV = convertView.findViewById(R.id.nameTV);
+            descriptionTV = convertView.findViewById(R.id.descriptionTV);
+            dpIV = convertView.findViewById(R.id.dpIV);
             lottie = convertView.findViewById(R.id.lottie);
             club_RL = convertView.findViewById(R.id.club_RL);
 

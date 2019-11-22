@@ -17,7 +17,7 @@ import in.edu.ssn.ssnapp.models.HelplineDetails;
 
 public class HelplineActivity extends BaseActivity {
 
-    ImageView iv_back;
+    ImageView backIV;
     RecyclerView rv_helpline;
 
     HelplineAdapter helplineAdapter;
@@ -37,7 +37,7 @@ public class HelplineActivity extends BaseActivity {
     }
 
     void initUI(){
-        iv_back = findViewById(R.id.iv_back);
+        backIV = findViewById(R.id.backIV);
         rv_helpline = findViewById(R.id.helplineRV);
 
         helplineDetailsList = new ArrayList<>();
@@ -49,7 +49,7 @@ public class HelplineActivity extends BaseActivity {
         rv_helpline.setAdapter(helplineAdapter);
 
 
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

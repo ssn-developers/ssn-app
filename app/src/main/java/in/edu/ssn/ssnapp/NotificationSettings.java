@@ -19,7 +19,7 @@ import spencerstudios.com.bungeelib.Bungee;
 public class NotificationSettings extends BaseActivity {
 
     com.suke.widget.SwitchButton switch_all, switch_dept, switch_bus, switch_exam, switch_place, switch_event;
-    ImageView iv_back;
+    ImageView backIV;
     LinearLayout layout_news_feed, layout_placement, layout_exam_cell;
 
     @Override
@@ -47,7 +47,7 @@ public class NotificationSettings extends BaseActivity {
             }
         });
 
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -67,7 +67,7 @@ public class NotificationSettings extends BaseActivity {
         layout_news_feed = findViewById(R.id.layout_news_feed);
         layout_placement = findViewById(R.id.layout_placement);
         layout_exam_cell = findViewById(R.id.layout_exam_cell);
-        iv_back = findViewById(R.id.iv_back);
+        backIV = findViewById(R.id.backIV);
 
         switch_all.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_all"));
 

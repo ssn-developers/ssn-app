@@ -30,7 +30,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_ug"
+                android:id="@+id/ugTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
@@ -42,7 +42,7 @@
                 android:background="@drawable/bus_alert_detail_selected_bg"/>
 
             <TextView
-                android:id="@+id/tv_pg"
+                android:id="@+id/pgTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
@@ -54,7 +54,7 @@
                 android:background="@drawable/bus_alert_detail_bg"/>
 
             <TextView
-                android:id="@+id/tv_al"
+                android:id="@+id/alTV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_5sdp"
@@ -158,7 +158,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_cse"
+                    android:id="@+id/cseTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -169,7 +169,7 @@
                     android:background="@drawable/bus_alert_detail_bg"/>
 
                 <TextView
-                    android:id="@+id/tv_it"
+                    android:id="@+id/itTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -180,7 +180,7 @@
                     android:background="@drawable/bus_alert_detail_bg"/>
 
                 <TextView
-                    android:id="@+id/tv_ece"
+                    android:id="@+id/eceTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -191,7 +191,7 @@
                     android:background="@drawable/bus_alert_detail_bg"/>
 
                 <TextView
-                    android:id="@+id/tv_eee"
+                    android:id="@+id/eeeTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -212,7 +212,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_bme"
+                    android:id="@+id/bmeTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -223,7 +223,7 @@
                     android:background="@drawable/bus_alert_detail_bg"/>
 
                 <TextView
-                    android:id="@+id/tv_che"
+                    android:id="@+id/cheTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -234,7 +234,7 @@
                     android:background="@drawable/bus_alert_detail_bg"/>
 
                 <TextView
-                    android:id="@+id/tv_civ"
+                    android:id="@+id/civTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -245,7 +245,7 @@
                     android:background="@drawable/bus_alert_detail_bg"/>
 
                 <TextView
-                    android:id="@+id/tv_mec"
+                    android:id="@+id/mecTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/_5sdp"
@@ -274,7 +274,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_cancel"
+                android:id="@+id/cancelTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Cancel"
@@ -285,7 +285,7 @@
                 android:textSize="@dimen/_10ssp" />
 
             <TextView
-                android:id="@+id/tv_ok"
+                android:id="@+id/okTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submit"
@@ -294,7 +294,7 @@
                 android:paddingTop="@dimen/_3sdp"
                 android:paddingBottom="@dimen/_3sdp"
                 android:textColor="@color/colorAccent"
-                android:layout_toRightOf="@+id/tv_cancel"
+                android:layout_toRightOf="@+id/cancelTV"
                 android:layout_marginLeft="@dimen/_10sdp"
                 android:background="@drawable/button_white_solid_less_corner"
                 android:layout_centerVertical="true"

@@ -38,7 +38,7 @@
                 android:id="@+id/userImageIV" />
 
             <TextView
-                android:id="@+id/tv_author"
+                android:id="@+id/authorTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@+id/userImageIV"
@@ -46,13 +46,13 @@
                 android:textSize="@dimen/_12ssp"
                 android:singleLine="true"
                 android:fontFamily="@font/open_sans"
-                android:layout_toStartOf="@+id/tv_time"
+                android:layout_toStartOf="@+id/timeTV"
                 android:layout_marginEnd="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_17sdp"
                 android:layout_marginStart="@dimen/_10sdp" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/timeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -100,7 +100,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/titleTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ffffff"
@@ -110,14 +110,14 @@
                 android:text=""/>
 
             <com.hendraanggrian.appcompat.widget.SocialTextView
-                android:id="@+id/tv_description"
+                android:id="@+id/descriptionTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ffffff"
                 android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/open_sans"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_below="@+id/tv_title"
+                android:layout_below="@+id/titleTV"
                 android:textColorLink="@color/colorAccentDark"
                 app:fontFamily="@font/open_sans"
                 app:socialFlags="hashtag|mention|hyperlink"
@@ -129,10 +129,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/_25sdp"
                 android:layout_marginTop="@dimen/_3sdp"
-                android:layout_below="@id/tv_description">
+                android:layout_below="@id/descriptionTV">
 
                 <ImageView
-                    android:id="@+id/iv_like"
+                    android:id="@+id/likeIV"
                     android:padding="@dimen/_5sdp"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
@@ -140,18 +140,18 @@
                     android:tint="@color/colorAccentDark"/>
 
                 <TextView
-                    android:id="@+id/tv_like"
+                    android:id="@+id/likeTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorAccentDark"
-                    android:layout_toEndOf="@id/iv_like"
+                    android:layout_toEndOf="@id/likeIV"
                     android:fontFamily="@font/open_sans"
                     android:textSize="@dimen/_14ssp" />
 
                 <ImageView
-                    android:id="@+id/iv_comment"
+                    android:id="@+id/commentIV"
                     android:paddingStart="@dimen/_5sdp"
                     android:paddingTop="@dimen/_5sdp"
                     android:paddingEnd="@dimen/_5sdp"
@@ -159,29 +159,29 @@
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     app:srcCompat="@drawable/ic_message_square"
-                    android:layout_toEndOf="@id/tv_like"
+                    android:layout_toEndOf="@id/likeTV"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:tint="@color/colorAccentDark"/>
 
                 <TextView
-                    android:id="@+id/tv_comment"
+                    android:id="@+id/commentTV"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorAccentDark"
-                    android:layout_toEndOf="@id/iv_comment"
+                    android:layout_toEndOf="@id/commentIV"
                     android:fontFamily="@font/open_sans"
                     android:textSize="@dimen/_14ssp" />
 
                 <ImageView
-                    android:id="@+id/iv_share"
+                    android:id="@+id/shareIV"
                     android:padding="@dimen/_5sdp"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     app:srcCompat="@drawable/ic_share_2"
                     android:tint="@color/colorAccentDark"
-                    android:layout_toEndOf="@id/tv_comment"
+                    android:layout_toEndOf="@id/commentTV"
                     android:layout_marginStart="@dimen/_10sdp"
                     />
             </RelativeLayout>

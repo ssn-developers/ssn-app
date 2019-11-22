@@ -75,7 +75,7 @@ import spencerstudios.com.bungeelib.Bungee;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     CardView cv_student, cv_faculty;
-    ImageView iv_student, iv_faculty, iv_gate, iv_road;
+    ImageView studentIV, facultyIV, gateIV, roadIV;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
     private static int RC_SIGN_IN = 111;
@@ -97,32 +97,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     void initUI(){
         cv_student = findViewById(R.id.cv_student);     cv_student.setOnClickListener(this);
         cv_faculty = findViewById(R.id.cv_faculty);     cv_faculty.setOnClickListener(this);
-        iv_student = findViewById(R.id.iv_student);
-        iv_faculty = findViewById(R.id.iv_faculty);
-        iv_gate = findViewById(R.id.iv_gate);
-        iv_road = findViewById(R.id.iv_road);
+        studentIV = findViewById(R.id.studentIV);
+        facultyIV = findViewById(R.id.facultyIV);
+        gateIV = findViewById(R.id.gateIV);
+        roadIV = findViewById(R.id.roadIV);
         layout_progress = findViewById(R.id.layout_progress);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                iv_gate.setVisibility(View.VISIBLE);
-                YoYo.with(Techniques.ZoomIn).duration(500).playOn(iv_gate);
+                gateIV.setVisibility(View.VISIBLE);
+                YoYo.with(Techniques.ZoomIn).duration(500).playOn(gateIV);
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        iv_road.setVisibility(View.VISIBLE);
-                        YoYo.with(Techniques.FadeInDown).duration(800).playOn(iv_road);
+                        roadIV.setVisibility(View.VISIBLE);
+                        YoYo.with(Techniques.FadeInDown).duration(800).playOn(roadIV);
 
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                iv_student.setVisibility(View.VISIBLE);
-                                iv_faculty.setVisibility(View.VISIBLE);
+                                studentIV.setVisibility(View.VISIBLE);
+                                facultyIV.setVisibility(View.VISIBLE);
 
-                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(iv_student);
-                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(iv_faculty);
+                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(studentIV);
+                                YoYo.with(Techniques.ZoomInDown).duration(500).playOn(facultyIV);
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -401,26 +401,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dialogBuilder.setView(dialogView);
         dialogBuilder.setCancelable(false);
 
-        TextView tv_ok = dialogView.findViewById(R.id.tv_ok);
-        TextView tv_cancel= dialogView.findViewById(R.id.tv_cancel);
+        TextView okTV = dialogView.findViewById(R.id.okTV);
+        TextView cancelTV= dialogView.findViewById(R.id.cancelTV);
 
-        TextView tv_ug= dialogView.findViewById(R.id.tv_ug);    tv_ug.setOnClickListener(this);
-        TextView tv_pg= dialogView.findViewById(R.id.tv_pg);    tv_pg.setOnClickListener(this);
-        TextView tv_al= dialogView.findViewById(R.id.tv_al);    tv_al.setOnClickListener(this);
+        TextView ugTV= dialogView.findViewById(R.id.ugTV);    ugTV.setOnClickListener(this);
+        TextView pgTV= dialogView.findViewById(R.id.pgTV);    pgTV.setOnClickListener(this);
+        TextView alTV= dialogView.findViewById(R.id.alTV);    alTV.setOnClickListener(this);
 
         TextView tv_1= dialogView.findViewById(R.id.tv_1);      tv_1.setOnClickListener(this);
         TextView tv_2= dialogView.findViewById(R.id.tv_2);      tv_2.setOnClickListener(this);
         TextView tv_3= dialogView.findViewById(R.id.tv_3);      tv_3.setOnClickListener(this);
         TextView tv_4= dialogView.findViewById(R.id.tv_4);      tv_4.setOnClickListener(this);
 
-        TextView tv_cse= dialogView.findViewById(R.id.tv_cse);  tv_cse.setOnClickListener(this);
-        TextView tv_it= dialogView.findViewById(R.id.tv_it);    tv_it.setOnClickListener(this);
-        TextView tv_ece= dialogView.findViewById(R.id.tv_ece);  tv_ece.setOnClickListener(this);
-        TextView tv_eee= dialogView.findViewById(R.id.tv_eee);  tv_eee.setOnClickListener(this);
-        TextView tv_bme= dialogView.findViewById(R.id.tv_bme);  tv_bme.setOnClickListener(this);
-        TextView tv_che= dialogView.findViewById(R.id.tv_che);  tv_che.setOnClickListener(this);
-        TextView tv_civ= dialogView.findViewById(R.id.tv_civ);  tv_civ.setOnClickListener(this);
-        TextView tv_mec= dialogView.findViewById(R.id.tv_mec);  tv_mec.setOnClickListener(this);
+        TextView cseTV= dialogView.findViewById(R.id.cseTV);  cseTV.setOnClickListener(this);
+        TextView itTV= dialogView.findViewById(R.id.itTV);    itTV.setOnClickListener(this);
+        TextView eceTV= dialogView.findViewById(R.id.eceTV);  eceTV.setOnClickListener(this);
+        TextView eeeTV= dialogView.findViewById(R.id.eeeTV);  eeeTV.setOnClickListener(this);
+        TextView bmeTV= dialogView.findViewById(R.id.bmeTV);  bmeTV.setOnClickListener(this);
+        TextView cheTV= dialogView.findViewById(R.id.cheTV);  cheTV.setOnClickListener(this);
+        TextView civTV= dialogView.findViewById(R.id.civTV);  civTV.setOnClickListener(this);
+        TextView mecTV= dialogView.findViewById(R.id.mecTV);  mecTV.setOnClickListener(this);
 
         layout_year_dept = dialogView.findViewById(R.id.layout_year_dept);
 
@@ -428,7 +428,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         alertDialog.show();
 
-        tv_ok.setOnClickListener(new View.OnClickListener() {
+        okTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switch (flag0) {
@@ -463,7 +463,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        tv_cancel.setOnClickListener(new View.OnClickListener() {
+        cancelTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 layout_progress.setVisibility(View.GONE);
@@ -558,9 +558,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         else{
             switch (v.getId()){
-                case R.id.tv_ug:
-                case R.id.tv_pg:
-                case R.id.tv_al:
+                case R.id.ugTV:
+                case R.id.pgTV:
+                case R.id.alTV:
                     String cids[]={"ug","pg","al"};
                     for(String id:cids) {
                         int identifier = getResources().getIdentifier("tv_"+id,"id",getPackageName());
@@ -594,14 +594,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                     break;
-                case R.id.tv_cse:
-                case R.id.tv_it:
-                case R.id.tv_eee:
-                case R.id.tv_ece:
-                case R.id.tv_bme:
-                case R.id.tv_che:
-                case R.id.tv_civ:
-                case R.id.tv_mec:
+                case R.id.cseTV:
+                case R.id.itTV:
+                case R.id.eeeTV:
+                case R.id.eceTV:
+                case R.id.bmeTV:
+                case R.id.cheTV:
+                case R.id.civTV:
+                case R.id.mecTV:
                     String dids[]={"cse","it","eee","ece","bme","che","civ","mec"};
                     for(String id:dids) {
                         int identifier = getResources().getIdentifier("tv_"+id,"id",getPackageName());

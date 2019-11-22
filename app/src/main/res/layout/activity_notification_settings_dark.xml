@@ -9,7 +9,7 @@
     android:background="@color/darkColor">
 
     <ImageView
-        android:id="@+id/iv_bg"
+        android:id="@+id/bgIV"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_82sdp"
         android:background="@drawable/tool_bar_curve_dark"/>
@@ -20,7 +20,7 @@
         android:layout_height="@dimen/_82sdp">
 
         <ImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/backIV"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
@@ -28,19 +28,19 @@
             android:layout_marginLeft="@dimen/_22sdp"/>
 
         <TextView
-            android:id="@+id/tv_title1"
+            android:id="@+id/title1TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Notifications"
             android:textColor="#ffffff"
             android:textSize="@dimen/_16ssp"
             android:fontFamily="@font/open_sans_bold"
-            android:layout_toRightOf="@+id/iv_back"
+            android:layout_toRightOf="@+id/backIV"
             android:layout_marginLeft="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_15sdp"/>
 
         <TextView
-            android:id="@+id/tv_desc"
+            android:id="@+id/descTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Would you like to get notified on new feeds? Manage your settings!"
@@ -48,8 +48,8 @@
             android:textSize="@dimen/_9ssp"
             android:paddingRight="@dimen/_5sdp"
             android:fontFamily="@font/open_sans"
-            android:layout_toRightOf="@+id/iv_back"
-            android:layout_below="@+id/tv_title1"
+            android:layout_toRightOf="@+id/backIV"
+            android:layout_below="@+id/title1TV"
             android:layout_marginLeft="@dimen/_12sdp" />
 
     </RelativeLayout>

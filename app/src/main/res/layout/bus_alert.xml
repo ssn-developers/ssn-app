@@ -17,7 +17,7 @@
 
 
         <TextView
-            android:id="@+id/tv_date"
+            android:id="@+id/dateTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_semi_bold"
@@ -25,17 +25,17 @@
             android:textSize="@dimen/_11ssp"/>
 
         <TextView
-            android:id="@+id/tv_desc"
+            android:id="@+id/descTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_date"
+            android:layout_below="@+id/dateTV"
             android:fontFamily="@font/open_sans"
             android:textColor="@color/colorAccentText"
             android:textSize="@dimen/_9ssp"/>
 
     </RelativeLayout>
     <TextView
-        android:id="@+id/tv_time"
+        android:id="@+id/timeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"

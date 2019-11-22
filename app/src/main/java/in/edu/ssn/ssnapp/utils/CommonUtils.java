@@ -487,7 +487,7 @@ public class CommonUtils {
 
     public static void handleBottomSheet(View v, final Post post, final int type, final Context context) {
         RelativeLayout ll_save,ll_share;
-        final TextView tv_save;
+        final TextView saveTV;
 
         final BottomSheetDialog bottomSheetDialog=new BottomSheetDialog(context);
         View sheetView;
@@ -501,13 +501,13 @@ public class CommonUtils {
 
         ll_save=sheetView.findViewById(R.id.saveLL);
         ll_share=sheetView.findViewById(R.id.shareLL);
-        tv_save=sheetView.findViewById(R.id.tv_save);
+        saveTV=sheetView.findViewById(R.id.saveTV);
 
         final DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(context);
         if(dataBaseHelper.checkPost(post.getId()))
-            tv_save.setText("Remove from Favourites");
+            saveTV.setText("Remove from Favourites");
         else
-            tv_save.setText("Add to Favourites");
+            saveTV.setText("Add to Favourites");
 
         bottomSheetDialog.show();
 
@@ -516,10 +516,10 @@ public class CommonUtils {
             public void onClick(View v) {
                 if(dataBaseHelper.checkPost(post.getId())){
                     dataBaseHelper.deletePost(post.getId());
-                    tv_save.setText("Add to Favourites");
+                    saveTV.setText("Add to Favourites");
                 }
                 else{
-                    tv_save.setText("Remove from Favourites");
+                    saveTV.setText("Remove from Favourites");
                     dataBaseHelper.addPost(post,Integer.toString(type));
                 }
                 bottomSheetDialog.hide();

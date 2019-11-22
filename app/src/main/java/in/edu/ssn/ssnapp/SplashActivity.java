@@ -206,18 +206,18 @@ public class SplashActivity extends AppCompatActivity {
         dialogBuilder.setView(dialogView);
         dialogBuilder.setCancelable(false);
 
-        TextView tv_ok = dialogView.findViewById(R.id.tv_ok);
-        TextView tv_title= dialogView.findViewById(R.id.tv_title);
-        TextView tv_message = dialogView.findViewById(R.id.tv_message);
+        TextView okTV = dialogView.findViewById(R.id.okTV);
+        TextView titleTV= dialogView.findViewById(R.id.titleTV);
+        TextView messageTV = dialogView.findViewById(R.id.messageTV);
 
-        tv_title.setText("New Update available!");
-        tv_message.setText("Please update your app to the latest version: " + latestVersion);
+        titleTV.setText("New Update available!");
+        messageTV.setText("Please update your app to the latest version: " + latestVersion);
 
         final AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         alertDialog.show();
 
-        tv_ok.setOnClickListener(new View.OnClickListener() {
+        okTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));

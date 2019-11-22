@@ -56,18 +56,18 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
     public void onBindViewHolder(@NonNull HelplineAdapter.ContributionViewHolder holder, int position) {
         final HelplineDetails drawer = (HelplineDetails) helplineDetails.get(position);
 
-        holder.tv_name.setText(drawer.getName());
-        holder.tv_position.setText(drawer.getPosition());
-        holder.tv_position.setSelected(true);
-        holder.tv_extn.setText(drawer.getEmail());
+        holder.nameTV.setText(drawer.getName());
+        holder.positionTV.setText(drawer.getPosition());
+        holder.positionTV.setSelected(true);
+        holder.extnTV.setText(drawer.getEmail());
 
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(drawer.getEmail());
         String textDrawable=String.valueOf(drawer.getEmail().charAt(0));
         TextDrawable ic1 = builder.build(textDrawable, color);
-        holder.iv_dp.setImageDrawable(ic1);
+        holder.dpIV.setImageDrawable(ic1);
 
-        holder.iv_mail.setOnClickListener(new View.OnClickListener() {
+        holder.mailIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", drawer.getEmail(), null)));
@@ -81,17 +81,17 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
     }
 
     public class ContributionViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_name, tv_position, tv_extn;
-        public ImageView iv_dp,iv_mail;
+        public TextView nameTV, positionTV, extnTV;
+        public ImageView dpIV,mailIV;
 
         public ContributionViewHolder(View convertView) {
             super(convertView);
 
-            tv_name = convertView.findViewById(R.id.tv_name);
-            tv_position = convertView.findViewById(R.id.tv_position);
-            tv_extn = convertView.findViewById(R.id.tv_extn);
-            iv_dp = convertView.findViewById(R.id.iv_dp);
-            iv_mail = convertView.findViewById(R.id.mailIV);
+            nameTV = convertView.findViewById(R.id.nameTV);
+            positionTV = convertView.findViewById(R.id.positionTV);
+            extnTV = convertView.findViewById(R.id.extnTV);
+            dpIV = convertView.findViewById(R.id.dpIV);
+            mailIV = convertView.findViewById(R.id.mailIV);
         }
     }
 }

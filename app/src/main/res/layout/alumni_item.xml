@@ -15,12 +15,12 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/iv_dp"
+                android:layout_toEndOf="@id/dpIV"
                 android:layout_marginStart="@dimen/_3sdp"
                 android:layout_centerVertical="true">
 
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/nameTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans_bold"
@@ -30,10 +30,10 @@
                     android:textSize="@dimen/_14ssp" />
 
                 <TextView
-                    android:id="@+id/tv_email"
+                    android:id="@+id/emailTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_name"
+                    android:layout_below="@+id/nameTV"
                     android:fontFamily="@font/open_sans"
                     android:singleLine="true"
                     android:text="hello"
@@ -46,7 +46,7 @@
                 android:layout_height="@dimen/_42sdp"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/_8sdp"
-                android:id="@+id/iv_dp">
+                android:id="@+id/dpIV">
 
 
             </ImageView>

@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_dp"
+            android:id="@+id/dpIV"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:background="@drawable/logesh_profile"
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_toEndOf="@+id/iv_dp"
+            android:layout_toEndOf="@+id/dpIV"
             android:layout_marginStart="@dimen/_10sdp"
             app:cardElevation="0dp"
             app:cardBackgroundColor="#B7F1F1F1"
@@ -57,7 +57,7 @@
                     android:text="This is a new comment, We will be having a dsc "/>
 
                 <TextView
-                    android:id="@+id/tv_reply"
+                    android:id="@+id/replyTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="REPLY"
@@ -74,7 +74,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_time"
+        android:id="@+id/timeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
@@ -86,13 +86,13 @@
         android:text="12m ago"/>
 
     <TextView
-        android:id="@+id/tv_reply_count"
+        android:id="@+id/reply_countTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
         android:textSize="@dimen/_8ssp"
         android:layout_below="@+id/layout"
-        android:layout_toEndOf="@+id/tv_time"
+        android:layout_toEndOf="@+id/timeTV"
         android:layout_marginTop="@dimen/_2sdp"
         android:layout_marginStart="@dimen/_10sdp"
         android:textColor="@color/colorAccentText"

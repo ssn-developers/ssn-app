@@ -19,7 +19,7 @@
         android:background="@drawable/text_white_bg">
 
         <TextView
-            android:id="@+id/tv_message"
+            android:id="@+id/messageTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Loading"
@@ -33,7 +33,7 @@
             android:id="@+id/progress"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
-            android:layout_below="@+id/tv_message"
+            android:layout_below="@+id/messageTV"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/progress_circle"/>

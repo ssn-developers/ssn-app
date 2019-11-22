@@ -26,7 +26,7 @@
             android:textStyle="bold"
             android:textSize="@dimen/_14sdp"/>
         <TextView
-            android:id="@+id/tv_msg"
+            android:id="@+id/msgTV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
@@ -67,7 +67,7 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/iv_gate"
+                    android:id="@+id/gateIV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:srcCompat="@drawable/ssn_gate"
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/iv_road"
+                    android:id="@+id/roadIV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="invisible"
@@ -160,7 +160,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:id="@+id/iv_faculty"
+                        android:id="@+id/facultyIV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/ic_faculty"
@@ -169,7 +169,7 @@
                         android:layout_weight="1"/>
 
                     <ImageView
-                        android:id="@+id/iv_student"
+                        android:id="@+id/studentIV"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/ic_student"
@@ -194,7 +194,7 @@
         android:background="@drawable/text_white_bg">
 
         <TextView
-            android:id="@+id/tv_message"
+            android:id="@+id/messageTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Processing"
@@ -208,7 +208,7 @@
             android:id="@+id/progress"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
-            android:layout_below="@+id/tv_message"
+            android:layout_below="@+id/messageTV"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/progress_circle"/>

@@ -68,10 +68,10 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class ClubPostDetailsActivity extends BaseActivity {
-    ImageView backIV, userImageIV, iv_like, iv_comment, iv_share,iv_send,iv_cancel_reply;
+    ImageView backIV, userImageIV, likeIV, commentIV, shareIV,sendIV,cancel_replyIV;
     ViewPager viewPager;
-    TextView tv_author, tv_name, tv_time, tv_title, tv_current_image,tv_attachments, tv_like, tv_comment,tv_selected_reply;
-    SocialTextView tv_description;
+    TextView authorTV, nameTV, timeTV, titleTV, current_imageTV,attachmentsTV, likeTV, commentTV,selected_replyTV;
+    SocialTextView descriptionTV;
     ChipGroup attachmentsChipGroup;
     RelativeLayout textGroupRL;
     EditText et_Comment;
@@ -109,40 +109,40 @@ public class ClubPostDetailsActivity extends BaseActivity {
 
         backIV = findViewById(R.id.backIV);
         userImageIV = findViewById(R.id.userImageIV);
-        tv_author = findViewById(R.id.tv_author);
-        tv_name= findViewById(R.id.tv_name);
-        tv_time = findViewById(R.id.tv_time);
-        tv_title = findViewById(R.id.tv_title);
-        tv_description = findViewById(R.id.tv_description);
-        tv_current_image = findViewById(R.id.currentImageTV);
-        tv_attachments = findViewById(R.id.tv_attachment);
-        tv_selected_reply=findViewById(R.id.tv_reply_selected);
+        authorTV = findViewById(R.id.authorTV);
+        nameTV= findViewById(R.id.nameTV);
+        timeTV = findViewById(R.id.timeTV);
+        titleTV = findViewById(R.id.titleTV);
+        descriptionTV = findViewById(R.id.descriptionTV);
+        current_imageTV = findViewById(R.id.currentImageTV);
+        attachmentsTV = findViewById(R.id.attachmentTV);
+        selected_replyTV=findViewById(R.id.reply_selectedTV);
         viewPager = findViewById(R.id.viewPager);
         attachmentsChipGroup = findViewById(R.id.attachmentsGroup);
         textGroupRL = findViewById(R.id.textGroupRL);
         textGroupRL.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        iv_like = findViewById(R.id.iv_like);
-        tv_like = findViewById(R.id.tv_like);
-        iv_comment = findViewById(R.id.iv_comment);
-        tv_comment = findViewById(R.id.tv_comment);
-        iv_share = findViewById(R.id.iv_share);
-        iv_send=findViewById(R.id.iv_send);
+        likeIV = findViewById(R.id.likeIV);
+        likeTV = findViewById(R.id.likeTV);
+        commentIV = findViewById(R.id.commentIV);
+        commentTV = findViewById(R.id.commentTV);
+        shareIV = findViewById(R.id.shareIV);
+        sendIV=findViewById(R.id.sendIV);
         et_Comment=findViewById(R.id.edt_comment);
-        iv_cancel_reply=findViewById(R.id.iv_cancel);
+        cancel_replyIV=findViewById(R.id.cancelIV);
         cv_reply=findViewById(R.id.cv_reply);
 
         CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
 
-        iv_cancel_reply.setOnClickListener(new View.OnClickListener() {
+        cancel_replyIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tv_selected_reply.setText("");
+                selected_replyTV.setText("");
                 cv_reply.setVisibility(View.GONE);
                 expandableListAdapter.setReplyingForComment(false);
             }
         });
 
-        iv_send.setOnClickListener(new View.OnClickListener() {
+        sendIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(et_Comment.getText().toString().trim().length()>1) {
@@ -174,7 +174,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
                             }
                         });
 
-                        tv_selected_reply.setText("");
+                        selected_replyTV.setText("");
                         cv_reply.setVisibility(View.GONE);
 
                         expandableListAdapter.setReplyingForComment(false);
@@ -234,13 +234,13 @@ public class ClubPostDetailsActivity extends BaseActivity {
     }
 
     void updateData(){
-        tv_author.setText(CommonUtils.getNameFromEmail(post.getAuthor()));
-        tv_name.setText(club.getName());
+        authorTV.setText(CommonUtils.getNameFromEmail(post.getAuthor()));
+        nameTV.setText(club.getName());
         Glide.with(ClubPostDetailsActivity.this).load(club.getDp_url()).into(userImageIV);
 
-        tv_title.setText(post.getTitle());
-        tv_time.setText(CommonUtils.getTime(post.getTime()));
-        tv_description.setText(post.getDescription().trim());
+        titleTV.setText(post.getTitle());
+        timeTV.setText(CommonUtils.getTime(post.getTime()));
+        descriptionTV.setText(post.getDescription().trim());
 
         if(post.getImg_urls() != null && post.getImg_urls().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
@@ -249,11 +249,11 @@ public class ClubPostDetailsActivity extends BaseActivity {
             viewPager.setAdapter(imageAdapter);
 
             if(post.getImg_urls().size()==1){
-                tv_current_image.setVisibility(View.GONE);
+                current_imageTV.setVisibility(View.GONE);
             }
             else {
-                tv_current_image.setVisibility(View.VISIBLE);
-                tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(post.getImg_urls().size()));
+                current_imageTV.setVisibility(View.VISIBLE);
+                current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(post.getImg_urls().size()));
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -262,7 +262,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onPageSelected(int pos) {
-                        tv_current_image.setText(String.valueOf(pos+1)+" / "+String.valueOf(post.getImg_urls().size()));
+                        current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(post.getImg_urls().size()));
                     }
 
                     @Override
@@ -274,14 +274,14 @@ public class ClubPostDetailsActivity extends BaseActivity {
         }
         else {
             viewPager.setVisibility(View.GONE);
-            tv_current_image.setVisibility(View.GONE);
+            current_imageTV.setVisibility(View.GONE);
         }
 
         ArrayList<String> fileName = post.getFileName();
         ArrayList<String> fileUrl = post.getFileUrl();
 
         if(fileName != null && fileName.size() > 0){
-            tv_attachments.setVisibility(View.VISIBLE);
+            attachmentsTV.setVisibility(View.VISIBLE);
             attachmentsChipGroup.setVisibility(View.VISIBLE);
             attachmentsChipGroup.removeAllViews();
 
@@ -291,7 +291,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         }
         else {
-            tv_attachments.setVisibility(View.GONE);
+            attachmentsTV.setVisibility(View.GONE);
             attachmentsChipGroup.setVisibility(View.GONE);
         }
 
@@ -302,7 +302,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
-        tv_description.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
+        descriptionTV.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
             @Override
             public void onClick(@NonNull SocialView view, @NonNull CharSequence text) {
                 String url = text.toString();
@@ -317,45 +317,45 @@ public class ClubPostDetailsActivity extends BaseActivity {
         try{
 
             if (post.getLike()!=null && post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                iv_like.setImageResource(R.drawable.blue_heart);
+                likeIV.setImageResource(R.drawable.blue_heart);
             } else {
-                iv_like.setImageResource(R.drawable.heart);
+                likeIV.setImageResource(R.drawable.heart);
             }
         }catch (Exception e){
 
-            iv_like.setImageResource(R.drawable.heart);
+            likeIV.setImageResource(R.drawable.heart);
         }
 
 
         try {
-            tv_like.setText(Integer.toString(post.getLike().size()));
+            likeTV.setText(Integer.toString(post.getLike().size()));
         }
         catch (Exception e) {
             e.printStackTrace();
-            tv_like.setText("0");
+            likeTV.setText("0");
         }
 
         try {
-            tv_comment.setText(Integer.toString(post.getComment().size()));
+            commentTV.setText(Integer.toString(post.getComment().size()));
         } catch (Exception e) {
             e.printStackTrace();
-            tv_comment.setText("0");
+            commentTV.setText("0");
         }
 
-        iv_like.setOnClickListener(new View.OnClickListener() {
+        likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                    iv_like.setImageResource(R.drawable.blue_heart);
+                    likeIV.setImageResource(R.drawable.blue_heart);
                     FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                 } else {
-                    iv_like.setImageResource(R.drawable.heart);
+                    likeIV.setImageResource(R.drawable.heart);
                     FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                 }
             }
         });
 
-        iv_share.setOnClickListener(new View.OnClickListener() {
+        shareIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);

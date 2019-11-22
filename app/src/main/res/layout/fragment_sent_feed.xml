@@ -18,7 +18,7 @@
 			app:lottie_autoPlay="true" />
 
 		<TextView
-			android:id="@+id/tv_text1"
+			android:id="@+id/text1TV"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:fontFamily="@font/open_sans_semi_bold"
@@ -32,14 +32,14 @@
 			android:textSize="@dimen/_14ssp" />
 
 		<TextView
-			android:id="@+id/tv_text2"
+			android:id="@+id/text2TV"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:fontFamily="@font/open_sans"
 			android:text="We'll let you know for new feeds till then stay tuned."
 			android:layout_centerHorizontal="true"
 			android:textColor="@color/colorAccentText"
-			android:layout_below="@+id/tv_text1"
+			android:layout_below="@+id/text1TV"
 			android:layout_marginTop="@dimen/_5sdp"
 			android:layout_marginLeft="@dimen/_20sdp"
 			android:layout_marginRight="@dimen/_20sdp"

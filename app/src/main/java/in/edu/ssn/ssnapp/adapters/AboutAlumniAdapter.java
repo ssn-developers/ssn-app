@@ -56,16 +56,16 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
     public void onBindViewHolder(@NonNull AboutAlumniAdapter.ContributionViewHolder holder, int position) {
         final AlumniDetails drawer = (AlumniDetails) alumniDetails.get(position);
 
-        holder.tv_name.setText(drawer.getName());
-        holder.tv_email.setText(drawer.getEmail());
+        holder.nameTV.setText(drawer.getName());
+        holder.emailTV.setText(drawer.getEmail());
 
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(drawer.getEmail());
         TextDrawable ic1 = builder.build(String.valueOf(drawer.getName().charAt(0)), color);
-        holder.iv_dp.setImageDrawable(ic1);
+        holder.dpIV.setImageDrawable(ic1);
 
 
-        holder.tv_email.setOnClickListener(new View.OnClickListener() {
+        holder.emailTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 context.startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", drawer.getEmail(), null)));
@@ -79,15 +79,15 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
     }
 
     public class ContributionViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_name, tv_email;
-        public ImageView iv_dp;
+        public TextView nameTV, emailTV;
+        public ImageView dpIV;
 
         public ContributionViewHolder(View convertView) {
             super(convertView);
 
-            tv_name = convertView.findViewById(R.id.tv_name);
-            tv_email = convertView.findViewById(R.id.tv_email);
-            iv_dp = convertView.findViewById(R.id.iv_dp);
+            nameTV = convertView.findViewById(R.id.nameTV);
+            emailTV = convertView.findViewById(R.id.emailTV);
+            dpIV = convertView.findViewById(R.id.dpIV);
         }
     }
 }

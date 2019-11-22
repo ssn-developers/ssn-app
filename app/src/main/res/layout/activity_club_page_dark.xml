@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
-                    android:id="@+id/iv_cover_pic"
+                    android:id="@+id/cover_picIV"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_145sdp"
                     android:background="@color/darkColorLight"
@@ -73,7 +73,7 @@
                     android:layout_marginStart="@dimen/_20sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_dp_pic"
+                        android:id="@+id/dpIV_pic"
                         android:layout_width="@dimen/_75sdp"
                         android:layout_height="@dimen/_75sdp"
                         app:civ_border_color="@color/darkColor"
@@ -84,7 +84,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_10sdp"
-                        android:layout_alignBottom="@+id/tv_title"
+                        android:layout_alignBottom="@+id/titleTV"
                         android:layout_alignParentEnd="true">
 
                         <com.airbnb.lottie.LottieAnimationView
@@ -95,7 +95,7 @@
                             app:lottie_autoPlay="true"/>
 
                         <TextView
-                            android:id="@+id/tv_following_text"
+                            android:id="@+id/following_textTV"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -107,7 +107,7 @@
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tv_title"
+                        android:id="@+id/titleTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:singleLine="true"
@@ -115,13 +115,13 @@
                         android:fontFamily="@font/open_sans_bold"
                         android:textSize="@dimen/_16ssp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_below="@id/iv_dp_pic" />
+                        android:layout_below="@id/dpIV_pic" />
 
                     <TextView
-                        android:id="@+id/tv_description"
+                        android:id="@+id/descriptionTV"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_title"
+                        android:layout_below="@id/titleTV"
                         android:textColor="#f2f2f2"
                         android:fontFamily="@font/open_sans"
                         android:textSize="@dimen/_10ssp" />
@@ -129,11 +129,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/tv_description"
+                        android:layout_below="@id/descriptionTV"
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/tv_contact"
+                            android:id="@+id/contactTV"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:drawableStart="@drawable/ic_call"
@@ -154,7 +154,7 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:id="@+id/tv_followers"
+                                android:id="@+id/followersTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/open_sans_bold"
@@ -162,7 +162,7 @@
                                 android:textSize="@dimen/_12ssp" />
 
                             <TextView
-                                android:id="@+id/tv_followers_text"
+                                android:id="@+id/followers_textTV"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/open_sans_semi_bold"
@@ -195,13 +195,13 @@
                         android:layout_width="@dimen/_35sdp"
                         android:layout_height="@dimen/_35sdp"
                         app:srcCompat="@drawable/ic_back"
-                        android:id="@+id/tool_iv_back"
+                        android:id="@+id/tool_backIV"
                         android:tint="@color/colorAccent"
                         android:layout_gravity="center"
                         android:padding="@dimen/_2sdp" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/tool_iv_dp"
+                        android:id="@+id/tool_dpIV"
                         android:layout_width="@dimen/_30sdp"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_gravity="center"
@@ -222,7 +222,7 @@
                             android:layout_marginEnd="@dimen/_35sdp"
                             android:orientation="vertical">
                             <TextView
-                                android:id="@+id/tool_tv_title"
+                                android:id="@+id/tool_titleTV"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:singleLine="true"
@@ -249,7 +249,7 @@
                             android:layout_width="@dimen/_35sdp"
                             android:layout_height="@dimen/_35sdp"
                             app:srcCompat="@drawable/ic_share"
-                            android:id="@+id/tool_iv_share"
+                            android:id="@+id/tool_shareIV"
                             android:layout_centerVertical="true"
                             android:layout_alignParentEnd="true"
                             android:tint="@color/colorAccent"
@@ -308,7 +308,7 @@
                     app:lottie_autoPlay="true" />
 
                 <TextView
-                    android:id="@+id/tv_text1"
+                    android:id="@+id/text1TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans_semi_bold"
@@ -322,14 +322,14 @@
                     android:textSize="@dimen/_14ssp" />
 
                 <TextView
-                    android:id="@+id/tv_text2"
+                    android:id="@+id/text2TV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans"
                     android:text="We'll let you know for new posts till then stay tuned."
                     android:layout_centerHorizontal="true"
                     android:textColor="#f2f2f2"
-                    android:layout_below="@+id/tv_text1"
+                    android:layout_below="@+id/text1TV"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:layout_marginLeft="@dimen/_20sdp"
                     android:layout_marginRight="@dimen/_20sdp"

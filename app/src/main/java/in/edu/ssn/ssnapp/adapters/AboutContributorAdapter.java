@@ -58,9 +58,9 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     public void onBindViewHolder(@NonNull final AboutContributorAdapter.ContributionViewHolder holder, int position) {
         final TeamDetails drawer = (TeamDetails) teamDetails.get(position);
 
-        holder.tv_name.setText(drawer.getName());
-        holder.tv_position.setText(drawer.getPosition());
-        holder.iv_dp.setImageResource(drawer.getDp());
+        holder.nameTV.setText(drawer.getName());
+        holder.positionTV.setText(drawer.getPosition());
+        holder.dpIV.setImageResource(drawer.getDp());
 
         holder.containerRL.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +71,8 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             (Activity) context,
-                            holder.iv_dp,
-                            holder.iv_dp.getTransitionName()
+                            holder.dpIV,
+                            holder.dpIV.getTransitionName()
                             );
                     ActivityCompat.startActivity(context, intent, options.toBundle());
                 }
@@ -88,16 +88,16 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     }
 
     public class ContributionViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_name, tv_position;
-        public ImageView iv_dp, iv_img1, iv_img2, iv_img3;
+        public TextView nameTV, positionTV;
+        public ImageView dpIV, img1IV, img2IV, img3IV;
         public RelativeLayout containerRL;
 
         public ContributionViewHolder(View convertView) {
             super(convertView);
 
-            tv_name = convertView.findViewById(R.id.tv_name);
-            tv_position = convertView.findViewById(R.id.tv_position);
-            iv_dp = convertView.findViewById(R.id.iv_dp);
+            nameTV = convertView.findViewById(R.id.nameTV);
+            positionTV = convertView.findViewById(R.id.positionTV);
+            dpIV = convertView.findViewById(R.id.dpIV);
 
             containerRL = convertView.findViewById(R.id.containerRL);
         }

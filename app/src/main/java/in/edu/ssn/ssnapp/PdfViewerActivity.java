@@ -50,7 +50,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     PDFViewPager pdfViewPager;
     PDFPagerAdapter adapter;
 
-    ImageView backIV, iv_download;
+    ImageView backIV, downloadIV;
     GifImageView progress;
 
     @Override
@@ -71,7 +71,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         });
 
         final Uri downloadUri = Uri.parse(url);
-        iv_download.setOnClickListener(new View.OnClickListener() {
+        downloadIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -114,7 +114,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         pageNumberTV = findViewById(R.id.pageNumberTV);
         pdfViewPager = findViewById(R.id.pdfViewPager);
         backIV = findViewById(R.id.backIV);
-        iv_download = findViewById(R.id.iv_download);
+        downloadIV = findViewById(R.id.downloadIV);
         progress = findViewById(R.id.progress);
     }
 
@@ -164,19 +164,19 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         dialog.setCancelable(false);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        TextView tv_title = dialog.findViewById(R.id.tv_title);
-        TextView tv_message = dialog.findViewById(R.id.tv_message);
-        TextView tv_ok = dialog.findViewById(R.id.tv_ok);
+        TextView titleTV = dialog.findViewById(R.id.titleTV);
+        TextView messageTV = dialog.findViewById(R.id.messageTV);
+        TextView okTV = dialog.findViewById(R.id.okTV);
 
         if(CommonUtils.alerter(getApplicationContext())) {
-            tv_title.setText("Network error!");
-            tv_message.setText("Please check your mobile data or Wi-Fi connection.");
+            titleTV.setText("Network error!");
+            messageTV.setText("Please check your mobile data or Wi-Fi connection.");
         }
         else{
-            tv_title.setText("Can't open the file!");
-            tv_message.setText("Sorry, we were unable to open the file at the moment. So, please try again later.");
+            titleTV.setText("Can't open the file!");
+            messageTV.setText("Sorry, we were unable to open the file at the moment. So, please try again later.");
         }
-        tv_ok.setOnClickListener(new View.OnClickListener() {
+        okTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();

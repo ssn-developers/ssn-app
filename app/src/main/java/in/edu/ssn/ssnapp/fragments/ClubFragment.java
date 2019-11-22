@@ -64,7 +64,7 @@ public class ClubFragment extends Fragment {
     public ClubFragment() { }
 
     private RecyclerView subs_RV, unsubs_RV, feed_RV;
-    private TextView tv_suggestion;
+    private TextView suggestionTV;
     private RelativeLayout layout_subscribed, layout_empty_feed;
     private FirestoreRecyclerAdapter subs_adap;
 
@@ -79,7 +79,7 @@ public class ClubFragment extends Fragment {
     private ShimmerFrameLayout shimmer_view;
     ListenerRegistration feedsListener, clubListener;
 
-    private TextView tv_text1,tv_text2,tv_text11,tv_text22;
+    private TextView text1TV,text2TV,text11TV,text22TV;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,29 +100,29 @@ public class ClubFragment extends Fragment {
         subs_RV = view.findViewById(R.id.subs_RV);
         unsubs_RV = view.findViewById(R.id.unsubs_RV);
         feed_RV = view.findViewById(R.id.feed_RV);
-        tv_suggestion = view.findViewById(R.id.tv_suggestion);
+        suggestionTV = view.findViewById(R.id.suggestionTV);
         layout_subscribed = view.findViewById(R.id.layout_subscribed);
         layout_empty_feed = view.findViewById(R.id.layout_empty_feed);
         shimmer_view = view.findViewById(R.id.shimmer_view);
 
-        tv_text1 = view.findViewById(R.id.tv_text1);
-        tv_text2 = view.findViewById(R.id.tv_text2);
-        tv_text11 = view.findViewById(R.id.tv_text11);
-        tv_text22 = view.findViewById(R.id.tv_text22);
+        text1TV = view.findViewById(R.id.text1TV);
+        text2TV = view.findViewById(R.id.text2TV);
+        text11TV = view.findViewById(R.id.text11TV);
+        text22TV = view.findViewById(R.id.text22TV);
 
         if(darkMode){
-            tv_text1.setTextColor(Color.WHITE);
-            tv_text2.setTextColor(Color.WHITE);
-            tv_text11.setTextColor(Color.WHITE);
-            tv_text22.setTextColor(Color.WHITE);
-            tv_suggestion.setTextColor(getResources().getColor(R.color.colorAccentDark));
+            text1TV.setTextColor(Color.WHITE);
+            text2TV.setTextColor(Color.WHITE);
+            text11TV.setTextColor(Color.WHITE);
+            text22TV.setTextColor(Color.WHITE);
+            suggestionTV.setTextColor(getResources().getColor(R.color.colorAccentDark));
         }
         else{
-            tv_text1.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_text2.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_text11.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_text22.setTextColor(getResources().getColor(R.color.colorAccentText));
-            tv_suggestion.setTextColor(getResources().getColor(R.color.colorAccent));
+            text1TV.setTextColor(getResources().getColor(R.color.colorAccentText));
+            text2TV.setTextColor(getResources().getColor(R.color.colorAccentText));
+            text11TV.setTextColor(getResources().getColor(R.color.colorAccentText));
+            text22TV.setTextColor(getResources().getColor(R.color.colorAccentText));
+            suggestionTV.setTextColor(getResources().getColor(R.color.colorAccent));
         }
 
         subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
@@ -158,15 +158,15 @@ public class ClubFragment extends Fragment {
         subs_adap = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
-                holder.tv_name.setText(model.getName());
-                holder.tv_description.setText(model.getDescription());
+                holder.nameTV.setText(model.getName());
+                holder.descriptionTV.setText(model.getDescription());
                 FCMHelper.SubscribeToTopic(getContext(),"club_" + model.getId());
 
                 try {
-                    Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.iv_dp);
+                    Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.dpIV);
                 }
                 catch (Exception e){
-                    holder.iv_dp.setImageResource(R.color.shimmering_back);
+                    holder.dpIV.setImageResource(R.color.shimmering_back);
                 }
 
                 holder.lottie.setOnClickListener(new View.OnClickListener() {
@@ -251,9 +251,9 @@ public class ClubFragment extends Fragment {
                     unsubs_RV.setAdapter(adapter);
 
                     if (clubs.size() > 0)
-                        tv_suggestion.setVisibility(View.VISIBLE);
+                        suggestionTV.setVisibility(View.VISIBLE);
                     else
-                        tv_suggestion.setVisibility(View.GONE);
+                        suggestionTV.setVisibility(View.GONE);
 
                     setUpFeeds();
                 }
@@ -325,16 +325,16 @@ public class ClubFragment extends Fragment {
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         LinearLayout club_RL;
-        TextView tv_name, tv_description;
-        ImageView iv_dp;
+        TextView nameTV, descriptionTV;
+        ImageView dpIV;
         LottieAnimationView lottie;
 
         public FeedViewHolder(View itemView) {
             super(itemView);
             
-            tv_name = itemView.findViewById(R.id.tv_name);
-            tv_description = itemView.findViewById(R.id.tv_description);
-            iv_dp = itemView.findViewById(R.id.iv_dp);
+            nameTV = itemView.findViewById(R.id.nameTV);
+            descriptionTV = itemView.findViewById(R.id.descriptionTV);
+            dpIV = itemView.findViewById(R.id.dpIV);
             lottie = itemView.findViewById(R.id.lottie);
             club_RL = itemView.findViewById(R.id.club_RL);
 

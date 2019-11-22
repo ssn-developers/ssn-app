@@ -22,7 +22,7 @@ public class SavedPostActivity extends BaseActivity {
     ListView lv_savedPost;
     SavedPostAdapter savedPostAdapter;
     DataBaseHelper dbHelper;
-    ImageView iv_back;
+    ImageView backIV;
     RelativeLayout layout_progress;
 
     @Override
@@ -37,12 +37,12 @@ public class SavedPostActivity extends BaseActivity {
 
         lv_savedPost = findViewById(R.id.lv_items);
         layout_progress = findViewById(R.id.layout_progress);
-        iv_back = findViewById(R.id.iv_back);
+        backIV = findViewById(R.id.backIV);
         savedPostAdapter = new SavedPostAdapter(this, new ArrayList<Post>());
         dbHelper=DataBaseHelper.getInstance(this);
         lv_savedPost.setAdapter(savedPostAdapter);
 
-        iv_back.setOnClickListener(new View.OnClickListener() {
+        backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();

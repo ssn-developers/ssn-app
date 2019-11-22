@@ -79,8 +79,8 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
         final ClubPost model = (ClubPost) posts.get(position);
         final Club club = (Club) clubs.get(position);
 
-        holder.tv_author.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
-        holder.tv_title.setText(model.getTitle());
+        holder.authorTV.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
+        holder.titleTV.setText(model.getTitle());
 
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(model.getAuthor());
@@ -89,23 +89,23 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
 
         try{
             if (model.getLike().contains(SharedPref.getString(context, "email"))) {
-                holder.iv_like.setImageResource(R.drawable.blue_heart);
+                holder.likeIV.setImageResource(R.drawable.blue_heart);
             } else {
-                holder.iv_like.setImageResource(R.drawable.heart);
+                holder.likeIV.setImageResource(R.drawable.heart);
             }
         }catch (Exception e){
-            holder.iv_like.setImageResource(R.drawable.heart);
+            holder.likeIV.setImageResource(R.drawable.heart);
         }
 
-        holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
+        holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
         if (model.getDescription().length() > 100) {
             SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
             ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
             ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
-            holder.tv_description.setText(ss);
+            holder.descriptionTV.setText(ss);
         } else
-            holder.tv_description.setText(model.getDescription().trim());
+            holder.descriptionTV.setText(model.getDescription().trim());
 
         if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
             holder.viewPager.setVisibility(View.VISIBLE);
@@ -114,10 +114,10 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             holder.viewPager.setAdapter(imageAdapter);
 
             if (model.getImg_urls().size() == 1) {
-                holder.tv_current_image.setVisibility(View.GONE);
+                holder.current_imageTV.setVisibility(View.GONE);
             } else {
-                holder.tv_current_image.setVisibility(View.VISIBLE);
-                holder.tv_current_image.setText(String.valueOf(1) + " / " + String.valueOf(model.getImg_urls().size()));
+                holder.current_imageTV.setVisibility(View.VISIBLE);
+                holder.current_imageTV.setText(String.valueOf(1) + " / " + String.valueOf(model.getImg_urls().size()));
                 holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -126,7 +126,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
 
                     @Override
                     public void onPageSelected(int pos) {
-                        holder.tv_current_image.setText(String.valueOf(pos + 1) + " / " + String.valueOf(model.getImg_urls().size()));
+                        holder.current_imageTV.setText(String.valueOf(pos + 1) + " / " + String.valueOf(model.getImg_urls().size()));
                     }
 
                     @Override
@@ -137,21 +137,21 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             }
         } else {
             holder.viewPager.setVisibility(View.GONE);
-            holder.tv_current_image.setVisibility(View.GONE);
+            holder.current_imageTV.setVisibility(View.GONE);
         }
 
         try {
-            holder.tv_like.setText(Integer.toString(model.getLike().size()));
+            holder.likeTV.setText(Integer.toString(model.getLike().size()));
         } catch (Exception e) {
             e.printStackTrace();
-            holder.tv_like.setText("0");
+            holder.likeTV.setText("0");
         }
 
         try {
-            holder.tv_comment.setText(Integer.toString(model.getComment().size()));
+            holder.commentTV.setText(Integer.toString(model.getComment().size()));
         } catch (Exception e) {
             e.printStackTrace();
-            holder.tv_comment.setText("0");
+            holder.commentTV.setText("0");
         }
 
         holder.feed_view.setOnClickListener(new View.OnClickListener() {
@@ -165,15 +165,15 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             }
         });
 
-        holder.iv_like.setOnClickListener(new View.OnClickListener() {
+        holder.likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try{
                     if (!model.getLike().contains(SharedPref.getString(context, "email"))) {
-                        holder.iv_like.setImageResource(R.drawable.blue_heart);
+                        holder.likeIV.setImageResource(R.drawable.blue_heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(context, "email")));
                     } else {
-                        holder.iv_like.setImageResource(R.drawable.heart);
+                        holder.likeIV.setImageResource(R.drawable.heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(context, "email")));
                     }
 
@@ -183,7 +183,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             }
         });
 
-        holder.iv_share.setOnClickListener(new View.OnClickListener() {
+        holder.shareIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -201,9 +201,9 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
     }
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_author, tv_title, tv_time, tv_current_image, tv_like, tv_comment;
-        public SocialTextView tv_description;
-        public ImageView userImageIV, iv_like, iv_comment, iv_share;
+        public TextView authorTV, titleTV, timeTV, current_imageTV, likeTV, commentTV;
+        public SocialTextView descriptionTV;
+        public ImageView userImageIV, likeIV, commentIV, shareIV;
         public RelativeLayout feed_view;
         public ViewPager viewPager;
 
@@ -211,20 +211,20 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             super(convertView);
 
             userImageIV = itemView.findViewById(R.id.userImageIV);
-            tv_author = itemView.findViewById(R.id.tv_author);
+            authorTV = itemView.findViewById(R.id.authorTV);
 
-            tv_time = itemView.findViewById(R.id.tv_time);
+            timeTV = itemView.findViewById(R.id.timeTV);
             viewPager = itemView.findViewById(R.id.viewPager);
-            tv_current_image = itemView.findViewById(R.id.currentImageTV);
+            current_imageTV = itemView.findViewById(R.id.currentImageTV);
 
             feed_view = itemView.findViewById(R.id.feed_view);
-            tv_title = itemView.findViewById(R.id.tv_title);
-            tv_description = itemView.findViewById(R.id.tv_description);
-            iv_like = itemView.findViewById(R.id.iv_like);
-            tv_like = itemView.findViewById(R.id.tv_like);
-            iv_comment = itemView.findViewById(R.id.iv_comment);
-            tv_comment = itemView.findViewById(R.id.tv_comment);
-            iv_share = itemView.findViewById(R.id.iv_share);
+            titleTV = itemView.findViewById(R.id.titleTV);
+            descriptionTV = itemView.findViewById(R.id.descriptionTV);
+            likeIV = itemView.findViewById(R.id.likeIV);
+            likeTV = itemView.findViewById(R.id.likeTV);
+            commentIV = itemView.findViewById(R.id.commentIV);
+            commentTV = itemView.findViewById(R.id.commentTV);
+            shareIV = itemView.findViewById(R.id.shareIV);
         }
     }
 }

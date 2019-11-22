@@ -47,7 +47,7 @@
                 android:layout_toStartOf="@+id/bookmarkIV">
 
                 <TextView
-                    android:id="@+id/tv_author"
+                    android:id="@+id/authorTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans"
@@ -57,10 +57,10 @@
                     android:textSize="@dimen/_13ssp" />
 
                 <TextView
-                    android:id="@+id/tv_position"
+                    android:id="@+id/positionTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_author"
+                    android:layout_below="@+id/authorTV"
                     android:fontFamily="@font/open_sans"
                     android:singleLine="true"
                     android:textColor="#f2f2f2"
@@ -132,7 +132,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/tv_title"
+                android:id="@+id/titleTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
@@ -141,16 +141,16 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/timeTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_title"
+                android:layout_below="@id/titleTV"
                 android:textColor="#f2f2f2"
                 android:fontFamily="@font/open_sans"
                 android:textSize="@dimen/_8ssp" />
 
             <com.hendraanggrian.appcompat.widget.SocialTextView
-                android:id="@+id/tv_description"
+                android:id="@+id/descriptionTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans"
@@ -162,14 +162,14 @@
                 app:mentionColor="@color/colorAccentDark"
                 app:hyperlinkColor="@color/colorAccentDark"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_below="@+id/tv_time" />
+                android:layout_below="@+id/timeTV" />
 
             <TextView
-                android:id="@+id/tv_attachment"
+                android:id="@+id/attachmentTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/open_sans_bold"
-                android:layout_below="@id/tv_description"
+                android:layout_below="@id/descriptionTV"
                 android:visibility="gone"
                 android:textColor="#ffffff"
                 android:layout_marginTop="@dimen/_10sdp"
@@ -180,7 +180,7 @@
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tv_attachment"
+                android:layout_below="@id/attachmentTV"
                 app:chipSpacingVertical="@dimen/_8sdp"
                 app:chipSpacingHorizontal="@dimen/_10sdp"
                 android:visibility="gone"
@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/tv_year"
+                    android:id="@+id/yearTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/open_sans_bold"
@@ -208,14 +208,14 @@
                 <com.google.android.material.chip.ChipGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_year"
+                    android:layout_below="@id/yearTV"
                     app:chipSpacingVertical="@dimen/_8sdp"
                     app:chipSpacingHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:id="@+id/yearGroup"/>
 
                 <TextView
-                    android:id="@+id/tv_dept"
+                    android:id="@+id/deptTV"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/yearGroup"
@@ -229,7 +229,7 @@
                 <com.google.android.material.chip.ChipGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_dept"
+                    android:layout_below="@id/deptTV"
                     app:chipSpacingVertical="@dimen/_8sdp"
                     app:chipSpacingHorizontal="@dimen/_10sdp"
                     android:layout_marginTop="@dimen/_10sdp"

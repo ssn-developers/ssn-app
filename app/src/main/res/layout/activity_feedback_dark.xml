@@ -15,13 +15,13 @@
         android:layout_height="@dimen/_82sdp">
 
         <ImageView
-            android:id="@+id/iv_bg"
+            android:id="@+id/bgIV"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_82sdp"
             android:background="@drawable/tool_bar_curve_dark" />
 
         <ImageView
-            android:id="@+id/iv_back"
+            android:id="@+id/backIV"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
@@ -29,12 +29,12 @@
             android:layout_marginLeft="@dimen/_22sdp"/>
 
         <TextView
-            android:id="@+id/tv_title1"
+            android:id="@+id/title1TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_toRightOf="@+id/iv_back"
+            android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
             android:text="Feedback"
             android:textColor="#ffffff"
@@ -68,7 +68,7 @@
         app:lottie_autoPlay="true" />
 
     <TextView
-        android:id="@+id/tv_text1"
+        android:id="@+id/text1TV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"
@@ -96,7 +96,7 @@
         android:focusable="true">
 
         <TextView
-            android:id="@+id/tv_button"
+            android:id="@+id/buttonTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -58,8 +58,8 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         final Post model=getItem(position);
 
-        final TextView tv_author, tv_position, tv_title, tv_time, tv_current_image;
-        SocialTextView tv_description;
+        final TextView authorTV, positionTV, titleTV, timeTV, current_imageTV;
+        SocialTextView descriptionTV;
         ImageView userImageIV;
         RelativeLayout feed_view;
         ViewPager viewPager;
@@ -74,17 +74,17 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         }
 
 
-        tv_author = convertView.findViewById(R.id.tv_author);
-        tv_position = convertView.findViewById(R.id.tv_position);
-        tv_title = convertView.findViewById(R.id.tv_title);
-        tv_description = convertView.findViewById(R.id.tv_description);
-        tv_time = convertView.findViewById(R.id.tv_time);
-        tv_current_image = convertView.findViewById(R.id.currentImageTV);
+        authorTV = convertView.findViewById(R.id.authorTV);
+        positionTV = convertView.findViewById(R.id.positionTV);
+        titleTV = convertView.findViewById(R.id.titleTV);
+        descriptionTV = convertView.findViewById(R.id.descriptionTV);
+        timeTV = convertView.findViewById(R.id.timeTV);
+        current_imageTV = convertView.findViewById(R.id.currentImageTV);
         userImageIV = convertView.findViewById(R.id.userImageIV);
         feed_view = convertView.findViewById(R.id.feed_view);
         viewPager = convertView.findViewById(R.id.viewPager);
 
-        tv_author.setText(model.getAuthor());
+        authorTV.setText(model.getAuthor());
 
         TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
@@ -96,19 +96,19 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
         userImageIV.setImageDrawable(ic1);
 
-        tv_position.setText(model.getPosition());
-        tv_title.setText(model.getTitle());
+        positionTV.setText(model.getPosition());
+        titleTV.setText(model.getTitle());
 
-        tv_time.setText(CommonUtils.getTime(model.getTime()));
+        timeTV.setText(CommonUtils.getTime(model.getTime()));
 
         if(model.getDescription().length() > 100) {
             SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
             ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
             ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
-            tv_description.setText(ss);
+            descriptionTV.setText(ss);
         }
         else
-            tv_description.setText(model.getDescription().trim());
+            descriptionTV.setText(model.getDescription().trim());
 
         if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
@@ -119,11 +119,11 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
             viewPager.setAdapter(imageAdapter);
 
             if(model.getImageUrl().size()==1){
-                tv_current_image.setVisibility(View.GONE);
+                current_imageTV.setVisibility(View.GONE);
             }
             else {
-                tv_current_image.setVisibility(View.VISIBLE);
-                tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                current_imageTV.setVisibility(View.VISIBLE);
+                current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -132,7 +132,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
 
                     @Override
                     public void onPageSelected(int pos) {
-                        tv_current_image.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
                     }
 
                     @Override
@@ -144,7 +144,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         }
         else {
             viewPager.setVisibility(View.GONE);
-            tv_current_image.setVisibility(View.GONE);
+            current_imageTV.setVisibility(View.GONE);
         }
 
         feed_view.setOnClickListener(new View.OnClickListener() {

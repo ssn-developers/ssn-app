@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv_reply_dp"
+            android:id="@+id/reply_dpIV"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_centerVertical="true"/>
@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_toEndOf="@+id/iv_reply_dp"
+            android:layout_toEndOf="@+id/reply_dpIV"
             android:layout_marginStart="@dimen/_10sdp"
             app:cardElevation="0dp"
             app:cardBackgroundColor="@color/darkColorLight"
@@ -63,7 +63,7 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tv_time"
+        android:id="@+id/timeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/open_sans"

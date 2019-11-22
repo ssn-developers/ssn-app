@@ -81,7 +81,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
     private FirestoreRecyclerAdapter adapter;
     private ShimmerFrameLayout shimmer_view;
     private RecyclerView feedsRV;
-    private TextView tool_tv_count, tv_following_text, tv_followers, tv_followers_text;
+    private TextView tool_tv_count, following_textTV, followersTV, followers_textTV;
     private Club club;
     private TextView newPostTV;
 
@@ -121,12 +121,12 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         //Toolbar
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ImageView tool_iv_back = findViewById(R.id.tool_iv_back);
-        tool_iv_back.setOnClickListener(this);
-        ImageView tool_iv_share = findViewById(R.id.tool_iv_share);
-        tool_iv_share.setOnClickListener(this);
-        CircleImageView tool_iv_dp = findViewById(R.id.tool_iv_dp);
-        TextView tool_tv_title = findViewById(R.id.tool_tv_title);
+        ImageView tool_backIV = findViewById(R.id.tool_backIV);
+        tool_backIV.setOnClickListener(this);
+        ImageView tool_shareIV = findViewById(R.id.tool_shareIV);
+        tool_shareIV.setOnClickListener(this);
+        CircleImageView tool_dpIV = findViewById(R.id.tool_dpIV);
+        TextView tool_titleTV = findViewById(R.id.tool_titleTV);
         tool_tv_count = findViewById(R.id.tool_tv_count);
 
         setSupportActionBar(toolbar);
@@ -142,19 +142,19 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         backIV.setOnClickListener(this);
         ImageView shareIV = findViewById(R.id.shareIV);
         shareIV.setOnClickListener(this);
-        ImageView iv_cover_pic = findViewById(R.id.iv_cover_pic);       iv_cover_pic.setOnClickListener(this);
-        CircleImageView iv_dp_pic = findViewById(R.id.iv_dp_pic);
+        ImageView cover_picIV = findViewById(R.id.cover_picIV);       cover_picIV.setOnClickListener(this);
+        CircleImageView dpIV_pic = findViewById(R.id.dpIV_pic);
 
-        tv_following_text = findViewById(R.id.tv_following_text);
+        following_textTV = findViewById(R.id.following_textTV);
         lottie = findViewById(R.id.lottie);    lottie.setOnClickListener(this);
 
-        TextView tv_title = findViewById(R.id.tv_title);
-        TextView tv_description = findViewById(R.id.tv_description);
-        TextView tv_contact = findViewById(R.id.tv_contact);
-        tv_contact.setOnClickListener(this);
+        TextView titleTV = findViewById(R.id.titleTV);
+        TextView descriptionTV = findViewById(R.id.descriptionTV);
+        TextView contactTV = findViewById(R.id.contactTV);
+        contactTV.setOnClickListener(this);
 
-        tv_followers = findViewById(R.id.tv_followers);
-        tv_followers_text = findViewById(R.id.tv_followers_text);
+        followersTV = findViewById(R.id.followersTV);
+        followers_textTV = findViewById(R.id.followers_textTV);
 
         layout_progress = findViewById(R.id.layout_progress);
 
@@ -182,20 +182,20 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         club = getIntent().getParcelableExtra("data");
 
         if (club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-            tv_following_text.setText("Following");
+            following_textTV.setText("Following");
             if(darkModeEnabled){
-                tv_following_text.setTextColor(Color.WHITE);
+                following_textTV.setTextColor(Color.WHITE);
             }else{
-                tv_following_text.setTextColor(Color.BLACK);
+                following_textTV.setTextColor(Color.BLACK);
             }
 
         } else {
-            tv_following_text.setText("Follow");
+            following_textTV.setText("Follow");
             if(darkModeEnabled){
-                tv_following_text.setTextColor(getResources().getColor(R.color.colorAccentDark));
+                following_textTV.setTextColor(getResources().getColor(R.color.colorAccentDark));
             }
             else {
-                tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                following_textTV.setTextColor(getResources().getColor(R.color.colorAccent));
             }
         }
 
@@ -214,23 +214,23 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             }
         });
 
-        tv_title.setText(club.getName());
-        tool_tv_title.setText(club.getName());
+        titleTV.setText(club.getName());
+        tool_titleTV.setText(club.getName());
 
-        tv_description.setText(club.getDescription());
-        tv_contact.setText(club.getContact());
+        descriptionTV.setText(club.getDescription());
+        contactTV.setText(club.getContact());
 
         if (club.getFollowers().size() > 0) {
-            tv_followers.setText(club.getFollowers().size() + "");
-            tv_followers_text.setText("Followers");
+            followersTV.setText(club.getFollowers().size() + "");
+            followers_textTV.setText("Followers");
         } else {
-            tv_followers.setText("0");
-            tv_followers_text.setText("Follower");
+            followersTV.setText("0");
+            followers_textTV.setText("Follower");
         }
 
-        Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(iv_dp_pic);
-        Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(tool_iv_dp);
-        Glide.with(this).load(club.getCover_url()).placeholder(R.color.shimmering_back).into(iv_cover_pic);
+        Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(dpIV_pic);
+        Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(tool_dpIV);
+        Glide.with(this).load(club.getCover_url()).placeholder(R.color.shimmering_back).into(cover_picIV);
     }
 
     private void setupFireStore() {
@@ -254,8 +254,8 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         adapter = new FirestoreRecyclerAdapter<ClubPost, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final ClubPost model) {
-                holder.tv_author.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
-                holder.tv_title.setText(model.getTitle());
+                holder.authorTV.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
+                holder.titleTV.setText(model.getTitle());
 
                 ColorGenerator generator = ColorGenerator.MATERIAL;
                 int color = generator.getColor(model.getAuthor());
@@ -264,23 +264,23 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
 
                 try{
                     if (model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                        holder.iv_like.setImageResource(R.drawable.blue_heart);
+                        holder.likeIV.setImageResource(R.drawable.blue_heart);
                     } else {
-                        holder.iv_like.setImageResource(R.drawable.heart);
+                        holder.likeIV.setImageResource(R.drawable.heart);
                     }
                 }catch (Exception e){
-                    holder.iv_like.setImageResource(R.drawable.heart);
+                    holder.likeIV.setImageResource(R.drawable.heart);
                 }
 
-                holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
+                holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
                 if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
-                    holder.tv_description.setText(ss);
+                    holder.descriptionTV.setText(ss);
                 } else
-                    holder.tv_description.setText(model.getDescription().trim());
+                    holder.descriptionTV.setText(model.getDescription().trim());
 
                 if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
@@ -289,10 +289,10 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if (model.getImg_urls().size() == 1) {
-                        holder.tv_current_image.setVisibility(View.GONE);
+                        holder.current_imageTV.setVisibility(View.GONE);
                     } else {
-                        holder.tv_current_image.setVisibility(View.VISIBLE);
-                        holder.tv_current_image.setText(String.valueOf(1) + " / " + String.valueOf(model.getImg_urls().size()));
+                        holder.current_imageTV.setVisibility(View.VISIBLE);
+                        holder.current_imageTV.setText(String.valueOf(1) + " / " + String.valueOf(model.getImg_urls().size()));
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -301,7 +301,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
 
                             @Override
                             public void onPageSelected(int pos) {
-                                holder.tv_current_image.setText(String.valueOf(pos + 1) + " / " + String.valueOf(model.getImg_urls().size()));
+                                holder.current_imageTV.setText(String.valueOf(pos + 1) + " / " + String.valueOf(model.getImg_urls().size()));
                             }
 
                             @Override
@@ -312,21 +312,21 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     }
                 } else {
                     holder.viewPager.setVisibility(View.GONE);
-                    holder.tv_current_image.setVisibility(View.GONE);
+                    holder.current_imageTV.setVisibility(View.GONE);
                 }
 
                 try {
-                    holder.tv_like.setText(Integer.toString(model.getLike().size()));
+                    holder.likeTV.setText(Integer.toString(model.getLike().size()));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    holder.tv_like.setText("0");
+                    holder.likeTV.setText("0");
                 }
 
                 try {
-                    holder.tv_comment.setText(Integer.toString(model.getComment().size()));
+                    holder.commentTV.setText(Integer.toString(model.getComment().size()));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    holder.tv_comment.setText("0");
+                    holder.commentTV.setText("0");
                 }
 
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
@@ -340,15 +340,15 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     }
                 });
 
-                holder.iv_like.setOnClickListener(new View.OnClickListener() {
+                holder.likeIV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try{
                             if (!model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                                holder.iv_like.setImageResource(R.drawable.blue_heart);
+                                holder.likeIV.setImageResource(R.drawable.blue_heart);
                                 FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                             } else {
-                                holder.iv_like.setImageResource(R.drawable.heart);
+                                holder.likeIV.setImageResource(R.drawable.heart);
                                 FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                             }
 
@@ -358,12 +358,12 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     }
                 });
 
-                holder.iv_share.setOnClickListener(new View.OnClickListener() {
+                holder.shareIV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                         sharingIntent.setType("text/plain");
-                        String timer = holder.tv_time.getText().toString();
+                        String timer = holder.timeTV.getText().toString();
                         String shareBody = "Hi all! New posts from " + club.getName() + ". Check it out: https://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
                         sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                         startActivity(Intent.createChooser(sharingIntent, "Share via"));
@@ -405,9 +405,9 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
     }
 
     public static class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_author, tv_title, tv_time, tv_current_image, tv_like, tv_comment;
-        public SocialTextView tv_description;
-        public ImageView userImageIV, iv_like, iv_comment, iv_share;
+        public TextView authorTV, titleTV, timeTV, current_imageTV, likeTV, commentTV;
+        public SocialTextView descriptionTV;
+        public ImageView userImageIV, likeIV, commentIV, shareIV;
         public RelativeLayout feed_view;
         public ViewPager viewPager;
 
@@ -415,20 +415,20 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             super(itemView);
 
             userImageIV = itemView.findViewById(R.id.userImageIV);
-            tv_author = itemView.findViewById(R.id.tv_author);
+            authorTV = itemView.findViewById(R.id.authorTV);
 
-            tv_time = itemView.findViewById(R.id.tv_time);
+            timeTV = itemView.findViewById(R.id.timeTV);
             viewPager = itemView.findViewById(R.id.viewPager);
-            tv_current_image = itemView.findViewById(R.id.currentImageTV);
+            current_imageTV = itemView.findViewById(R.id.currentImageTV);
 
             feed_view = itemView.findViewById(R.id.feed_view);
-            tv_title = itemView.findViewById(R.id.tv_title);
-            tv_description = itemView.findViewById(R.id.tv_description);
-            iv_like = itemView.findViewById(R.id.iv_like);
-            tv_like = itemView.findViewById(R.id.tv_like);
-            iv_comment = itemView.findViewById(R.id.iv_comment);
-            tv_comment = itemView.findViewById(R.id.tv_comment);
-            iv_share = itemView.findViewById(R.id.iv_share);
+            titleTV = itemView.findViewById(R.id.titleTV);
+            descriptionTV = itemView.findViewById(R.id.descriptionTV);
+            likeIV = itemView.findViewById(R.id.likeIV);
+            likeTV = itemView.findViewById(R.id.likeTV);
+            commentIV = itemView.findViewById(R.id.commentIV);
+            commentTV = itemView.findViewById(R.id.commentTV);
+            shareIV = itemView.findViewById(R.id.shareIV);
         }
     }
 
@@ -437,25 +437,25 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_cover_pic:
+            case R.id.cover_picIV:
                 Intent intent = new Intent(getApplicationContext(), OpenImageActivity.class);
                 intent.putExtra("url", club.getCover_url());
                 startActivity(intent);
                 Bungee.slideLeft(ClubPageActivity.this);
                 break;
             case R.id.backIV:
-            case R.id.tool_iv_back:
+            case R.id.tool_backIV:
                 onBackPressed();
                 break;
             case R.id.shareIV:
-            case R.id.tool_iv_share:
+            case R.id.tool_shareIV:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 String shareBody = "Hi all! Check out the " + club.getName() + " page: https://ssnportal.cf/share.html?type=3&vca=" + club.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
-            case R.id.tv_contact:
+            case R.id.contactTV:
                 if (!CommonUtils.hasPermissions(ClubPageActivity.this, Manifest.permission.CALL_PHONE)) {
                     ActivityCompat.requestPermissions(ClubPageActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
                 }
@@ -476,32 +476,32 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.SubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().add(SharedPref.getString(getApplicationContext(),"email"));
-                    tv_following_text.setText("Following");
+                    following_textTV.setText("Following");
                     if(darkModeEnabled){
-                        tv_following_text.setTextColor(Color.WHITE);
+                        following_textTV.setTextColor(Color.WHITE);
                     }else{
-                        tv_following_text.setTextColor(Color.BLACK);
+                        following_textTV.setTextColor(Color.BLACK);
                     }
                 }
                 else {
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(),"email")));
                     FCMHelper.UnSubscribeToTopic(getApplicationContext(),"club_" + club.getId());
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(),"email"));
-                    tv_following_text.setText("Follow");
+                    following_textTV.setText("Follow");
                     if(darkModeEnabled){
-                        tv_following_text.setTextColor(getResources().getColor(R.color.colorAccentDark));
+                        following_textTV.setTextColor(getResources().getColor(R.color.colorAccentDark));
                     }
                     else {
-                        tv_following_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                        following_textTV.setTextColor(getResources().getColor(R.color.colorAccent));
                     }
                 }
 
                 if (club.getFollowers().size() > 0) {
-                    tv_followers.setText(club.getFollowers().size() + "");
-                    tv_followers_text.setText("Followers");
+                    followersTV.setText(club.getFollowers().size() + "");
+                    followers_textTV.setText("Followers");
                 } else {
-                    tv_followers.setText("0");
-                    tv_followers_text.setText("Follower");
+                    followersTV.setText("0");
+                    followers_textTV.setText("Follower");
                 }
                 break;
         }

@@ -122,17 +122,17 @@ public class EventFragment extends Fragment {
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
-                holder.tv_title.setText(model.getTitle());
-                holder.tv_time.setText(CommonUtils.getTime(model.getTime()));
+                holder.titleTV.setText(model.getTitle());
+                holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
                 if(model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
-                    holder.tv_description.setText(ss);
+                    holder.descriptionTV.setText(ss);
                 }
                 else
-                    holder.tv_description.setText(model.getDescription().trim());
+                    holder.descriptionTV.setText(model.getDescription().trim());
 
                 if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
@@ -141,11 +141,11 @@ public class EventFragment extends Fragment {
                     holder.viewPager.setAdapter(imageAdapter);
 
                     if(model.getImageUrl().size()==1){
-                        holder.tv_current_image.setVisibility(View.GONE);
+                        holder.current_imageTV.setVisibility(View.GONE);
                     }
                     else {
-                        holder.tv_current_image.setVisibility(View.VISIBLE);
-                        holder.tv_current_image.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        holder.current_imageTV.setVisibility(View.VISIBLE);
+                        holder.current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -154,7 +154,7 @@ public class EventFragment extends Fragment {
 
                             @Override
                             public void onPageSelected(int pos) {
-                                holder.tv_current_image.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
+                                holder.current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
                             }
 
                             @Override
@@ -166,7 +166,7 @@ public class EventFragment extends Fragment {
                 }
                 else {
                     holder.viewPager.setVisibility(View.GONE);
-                    holder.tv_current_image.setVisibility(View.GONE);
+                    holder.current_imageTV.setVisibility(View.GONE);
                 }
 
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
@@ -238,8 +238,8 @@ public class EventFragment extends Fragment {
     /*********************************************************/
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView tv_author, tv_position, tv_title, tv_time, tv_current_image;
-        public SocialTextView tv_description;
+        public TextView authorTV, positionTV, titleTV, timeTV, current_imageTV;
+        public SocialTextView descriptionTV;
         public ImageView userImageIV;
         public RelativeLayout feed_view;
         public ViewPager viewPager;
@@ -247,12 +247,12 @@ public class EventFragment extends Fragment {
         public FeedViewHolder(View itemView) {
             super(itemView);
 
-            tv_author = itemView.findViewById(R.id.tv_author);
-            tv_position = itemView.findViewById(R.id.tv_position);
-            tv_title = itemView.findViewById(R.id.tv_title);
-            tv_description = itemView.findViewById(R.id.tv_description);
-            tv_time = itemView.findViewById(R.id.tv_time);
-            tv_current_image = itemView.findViewById(R.id.currentImageTV);
+            authorTV = itemView.findViewById(R.id.authorTV);
+            positionTV = itemView.findViewById(R.id.positionTV);
+            titleTV = itemView.findViewById(R.id.titleTV);
+            descriptionTV = itemView.findViewById(R.id.descriptionTV);
+            timeTV = itemView.findViewById(R.id.timeTV);
+            current_imageTV = itemView.findViewById(R.id.currentImageTV);
             userImageIV = itemView.findViewById(R.id.userImageIV);
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
