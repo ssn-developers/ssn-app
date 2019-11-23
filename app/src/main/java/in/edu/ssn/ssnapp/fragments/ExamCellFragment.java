@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -58,6 +60,7 @@ public class ExamCellFragment extends Fragment {
 
     RecyclerView feedsRV;
     RelativeLayout layout_progress;
+    LinearLayout cardLL;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
     private TextView newPostTV;
@@ -74,8 +77,13 @@ public class ExamCellFragment extends Fragment {
         }
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
-
         setupFireStore();
+        String year = String.valueOf(SharedPref.getInt(getContext(),"year"));
+        if(year.equals(Constants.third)||year.equals(Constants.fourth))
+        {
+
+            cardLL.setVisibility(View.GONE);
+        }
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -233,6 +241,7 @@ public class ExamCellFragment extends Fragment {
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
+        cardLL = view.findViewById(R.id.linearlayout1);
     }
 
     /*********************************************************/

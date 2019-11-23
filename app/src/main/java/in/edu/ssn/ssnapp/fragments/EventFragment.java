@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class EventFragment extends Fragment {
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
     private TextView newPostTV;
+    LinearLayout cardLL1,cardLL2;
     boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -74,6 +76,8 @@ public class EventFragment extends Fragment {
         initUI(view);
 
         setupFireStore();
+        cardLL1.setVisibility(View.GONE);
+        cardLL2.setVisibility(View.GONE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -233,6 +237,9 @@ public class EventFragment extends Fragment {
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
+        cardLL1 = view.findViewById(R.id.linearlayout1);
+        cardLL2 = view.findViewById(R.id.linearlayout2);
+
     }
 
     /*********************************************************/

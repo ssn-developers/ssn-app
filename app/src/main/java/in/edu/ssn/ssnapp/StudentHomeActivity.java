@@ -153,20 +153,6 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
-                    case "Calendar":
-                        if (!CommonUtils.alerter(getApplicationContext())) {
-                            Intent i = new Intent(getApplicationContext(), PdfViewerActivity.class);
-                            i.putExtra(Constants.PDF_URL, Constants.calendar);
-                            startActivity(i);
-                            Bungee.fade(StudentHomeActivity.this);
-                        }
-                        else {
-                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                            intent.putExtra("key", "home");
-                            startActivity(intent);
-                            Bungee.fade(StudentHomeActivity.this);
-                        }
-                        break;
                     case "AlmaConnect":
                         if (!CommonUtils.alerter(getApplicationContext())) {
                             CommonUtils.openCustomBrowser(getApplicationContext(),"https://ssn.almaconnect.com");
@@ -288,7 +274,6 @@ public class StudentHomeActivity extends BaseActivity {
 
         if (SharedPref.getInt(getApplicationContext(), "clearance") != 2) {
             adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
-            adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
         }
 
         adapter.add(new Drawer("Helpline", R.drawable.ic_phone));

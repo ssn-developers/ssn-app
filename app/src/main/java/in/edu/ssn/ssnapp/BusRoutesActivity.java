@@ -195,8 +195,11 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         if (val.equals("")) {
             clearIV.setVisibility(View.GONE);
             chipCloud.removeAllViews();
-            
+            try{
             recyclerList.clear();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             for(BusRoute b:busRoutesList)
                 Collections.addAll(recyclerList, b);
 

@@ -17,6 +17,7 @@ public class Constants {
     //URLs
     public static final String calendar = "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/utils%2FCollege%20Calendar%202019%20-20.pdf?alt=media&token=c99c10cd-c124-405c-9a8d-ef6f39ee5e56";
     public static final String termsfeed = "https://www.termsfeed.com/privacy-policy/77e3f0a8a5b350afc54dc2b8c2af568b";
+    public static final String lms = "https://lms.ssn.edu.in/login/index.php";
 
     // FCM topics
     public static final String BUS_ALERTS="busalerts";
@@ -40,14 +41,14 @@ public class Constants {
     public static final String mecAU="https://drive.google.com/uc?export=download&id=1fx3qzOiTNmHJS2G8YHDYh6tQqB0yMwGn";
 
     //Syllabus for autonomous
-    public static final String cseAN="";
-    public static final String itAN="";
-    public static final String eceAN="";
-    public static final String eeeAN="";
-    public static final String bmeAN="";
-    public static final String cheAN="";
-    public static final String civAN="";
-    public static final String mecAN="";
+    public static final String cseAN="https://drive.google.com/uc?export=download&id=1itxZlv7JWFY28hvObM65-OYsV9eo1pfa";
+    public static final String itAN="https://drive.google.com/uc?export=download&id=1j8dspxA9JNt-ASiVr8chpHIehjUT7D7p";
+    public static final String eceAN="https://drive.google.com/uc?export=download&id=1iqu5kHo6tsjXH9eoJFZlk4sLWLQqH4Wd";
+    public static final String eeeAN="https://drive.google.com/uc?export=download&id=1izuY0rMG0MsdJvv9Xl9UbtsPYvyW89EH";
+    public static final String bmeAN="https://drive.google.com/uc?export=download&id=1ioXMhu8Xp8k3GlnuOiIVHy_fWfe4fALe";
+    public static final String cheAN="https://drive.google.com/uc?export=download&id=1j2P16VrSoDhoW1AhyzLTWV9d-JDVWhPu";
+    public static final String civAN="https://drive.google.com/uc?export=download&id=1iwAfB2M2VEowGE3wmbdsqYKEDKT9BeF5";
+    public static final String mecAN="https://drive.google.com/uc?export=download&id=1j83xeqTF4iEPf1DqL-3-dgFNnT7UdvcC";
 
     //Share URL type
     public static final int post = 1;

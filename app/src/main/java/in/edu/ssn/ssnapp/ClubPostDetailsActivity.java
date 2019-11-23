@@ -309,8 +309,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
                 if (!url.startsWith("http") && !url.startsWith("https")) {
                     url = "http://" + url;
                 }
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
+                CommonUtils.openCustomBrowser(getApplicationContext(),url);
             }
         });
 

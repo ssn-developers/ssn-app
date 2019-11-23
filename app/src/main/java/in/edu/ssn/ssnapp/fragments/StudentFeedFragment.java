@@ -72,7 +72,7 @@ public class StudentFeedFragment extends Fragment {
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
     private TextView newPostTV;
-    private CardView syllabusCV,libraryCV;
+    private CardView syllabusCV,libraryCV,calenderCV,lmsCV;
     private String dept,year;
     boolean darkMode = false;
 
@@ -118,6 +118,37 @@ public class StudentFeedFragment extends Fragment {
                     Toast toast = Toast.makeText(getContext(), "Please connect to SSN wifi ", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
+                }
+            }
+        });
+        calenderCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!CommonUtils.alerter(getContext())) {
+                    Intent i = new Intent(getContext(), PdfViewerActivity.class);
+                    i.putExtra(Constants.PDF_URL, Constants.calendar);
+                    startActivity(i);
+                    Bungee.fade(getContext());
+                }
+                else {
+                    Intent intent = new Intent(getContext(), NoNetworkActivity.class);
+                    intent.putExtra("key", "home");
+                    startActivity(intent);
+                    Bungee.fade(getContext());
+                }
+            }
+        });
+        lmsCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!CommonUtils.alerter(getContext())) {
+                    CommonUtils.openCustomBrowser(getContext(),Constants.lms);
+                    Bungee.slideLeft(getContext());
+                } else {
+                    Intent intent = new Intent(getContext(), NoNetworkActivity.class);
+                    intent.putExtra("key", "home");
+                    startActivity(intent);
+                    Bungee.fade(getContext());
                 }
             }
         });
@@ -336,6 +367,8 @@ public class StudentFeedFragment extends Fragment {
         layout_progress = view.findViewById(R.id.layout_progress);
         syllabusCV = view.findViewById(R.id.syllabusCV);
         libraryCV = view.findViewById(R.id.libraryCV);
+        lmsCV = view.findViewById(R.id.lmsCV);
+        calenderCV = view.findViewById(R.id.calenderCV);
     }
 
     /*********************************************************/
