@@ -563,7 +563,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 case R.id.alTV:
                     String cids[]={"ug","pg","al"};
                     for(String id:cids) {
-                        int identifier = getResources().getIdentifier("tv_"+id,"id",getPackageName());
+                        int identifier = getResources().getIdentifier(id+"TV","id",getPackageName());
                         TextView tv = dialogView.findViewById(identifier);
                         if(identifier != v.getId())
                             tv.setBackgroundResource(R.drawable.bus_alert_detail_bg);
@@ -604,11 +604,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 case R.id.mecTV:
                     String dids[]={"cse","it","eee","ece","bme","che","civ","mec"};
                     for(String id:dids) {
-                        int identifier = getResources().getIdentifier("tv_"+id,"id",getPackageName());
+                        int identifier = getResources().getIdentifier(id+"TV","id",getPackageName());
                         TextView tv = dialogView.findViewById(identifier);
                         if(identifier != v.getId())
                             tv.setBackgroundResource(R.drawable.bus_alert_detail_bg);
-                        else {
+                        else
+                            {
                             tv.setBackgroundResource(R.drawable.bus_alert_detail_selected_bg);
                             flag2 = id;
                         }

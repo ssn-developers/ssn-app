@@ -153,6 +153,10 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
+                    case "Syllabus":
+                        startActivity(new Intent(getApplicationContext(), SyllabusActivity.class));
+                        Bungee.slideLeft(StudentHomeActivity.this);
+                        break;
                     case "Calendar":
                         if (!CommonUtils.alerter(getApplicationContext())) {
                             Intent i = new Intent(getApplicationContext(), PdfViewerActivity.class);
@@ -293,6 +297,7 @@ public class StudentHomeActivity extends BaseActivity {
         if (SharedPref.getInt(getApplicationContext(), "clearance") == 0) {
             adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
             adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
+            adapter.add(new Drawer("Syllabus", R.drawable.ic_book));
         }
         else
             adapter.add(new Drawer("Club Feed", R.drawable.ic_feeds));

@@ -64,6 +64,9 @@
 			android:name=".NoNetworkActivity"
 			android:screenOrientation="portrait" />
 		<activity
+			android:name=".SyllabusActivity"
+			android:screenOrientation="portrait" />
+		<activity
 			android:name=".SavedPostActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme1" />
