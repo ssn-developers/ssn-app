@@ -153,10 +153,6 @@ public class StudentHomeActivity extends BaseActivity {
                         startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
-                    case "Syllabus":
-                        startActivity(new Intent(getApplicationContext(), SyllabusActivity.class));
-                        Bungee.slideLeft(StudentHomeActivity.this);
-                        break;
                     case "Calendar":
                         if (!CommonUtils.alerter(getApplicationContext())) {
                             Intent i = new Intent(getApplicationContext(), PdfViewerActivity.class);
@@ -171,21 +167,9 @@ public class StudentHomeActivity extends BaseActivity {
                             Bungee.fade(StudentHomeActivity.this);
                         }
                         break;
-                    case "Library Renewals":
-                        if (CommonUtils.checkWifiOnAndConnected(getApplicationContext(), "ssn")) {
-                            SharedPref.putString(getApplicationContext(), "url", "http://opac.ssn.net:8081/");
-                            startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
-                            Bungee.slideLeft(StudentHomeActivity.this);
-                        } else {
-                            Toast toast = Toast.makeText(StudentHomeActivity.this, "Please connect to SSN wifi ", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER, 0, 0);
-                            toast.show();
-                        }
-                        break;
                     case "AlmaConnect":
                         if (!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", "https://ssn.almaconnect.com");
-                            startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                            CommonUtils.openCustomBrowser(getApplicationContext(),"https://ssn.almaconnect.com");
                             Bungee.slideLeft(StudentHomeActivity.this);
                         } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
@@ -229,8 +213,7 @@ public class StudentHomeActivity extends BaseActivity {
                         break;
                     case "Privacy Policy":
                         if (!CommonUtils.alerter(getApplicationContext())) {
-                            SharedPref.putString(getApplicationContext(), "url", Constants.termsfeed);
-                            startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                            CommonUtils.openCustomBrowser(getApplicationContext(),Constants.termsfeed);
                             Bungee.slideLeft(StudentHomeActivity.this);
                         } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
@@ -297,7 +280,6 @@ public class StudentHomeActivity extends BaseActivity {
         if (SharedPref.getInt(getApplicationContext(), "clearance") == 0) {
             adapter.add(new Drawer("News Feed", R.drawable.ic_feeds));
             adapter.add(new Drawer("Favourites", R.drawable.ic_fav));
-            adapter.add(new Drawer("Syllabus", R.drawable.ic_book));
         }
         else
             adapter.add(new Drawer("Club Feed", R.drawable.ic_feeds));
@@ -305,7 +287,6 @@ public class StudentHomeActivity extends BaseActivity {
         adapter.add(new Drawer("AlmaConnect", R.drawable.ic_alumni));
 
         if (SharedPref.getInt(getApplicationContext(), "clearance") != 2) {
-            adapter.add(new Drawer("Library Renewals", R.drawable.ic_book));
             adapter.add(new Drawer("Notification Settings", R.drawable.ic_notify_grey));
             adapter.add(new Drawer("Calendar", R.drawable.ic_calendar));
         }

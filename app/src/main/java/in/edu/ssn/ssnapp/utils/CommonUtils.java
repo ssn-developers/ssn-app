@@ -32,9 +32,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.res.ResourcesCompat;
 
@@ -54,6 +56,7 @@ import java.io.FileWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -145,6 +148,46 @@ public class CommonUtils {
         }
     }
 
+    public static void openCustomBrowser(Context context,String url){
+        try{
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            customTabsIntent.launchUrl(context, Uri.parse(url));
+            builder.setToolbarColor(context.getResources().getColor(R.color.colorAccent));
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static String getJoiningYear(int year)
+    {
+        int cur_year = Calendar.getInstance().get(Calendar.YEAR);
+        int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int joinYear=0;
+        switch(month){
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+                joinYear = (cur_year-year);
+                break;
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+                joinYear = (cur_year+1)-year;
+                break;
+        }
+        return String.valueOf(joinYear);
+
+    }
+
     public static void showWhatsNewDialog(Context context, Boolean darkModeEnabled){
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
 
@@ -212,17 +255,6 @@ public class CommonUtils {
     }
 
     /************************************************************************/
-
-    public static String getYear(String val){
-        if(val.equals("4"))
-            return Constants.fourth;
-        else if(val.equals("3"))
-            return Constants.third;
-        else if(val.equals("2"))
-            return Constants.second;
-        else
-            return Constants.first;
-    }
 
     public static String getNameFromEmail(String email){
         email = email.substring(0, email.indexOf("@"));
@@ -608,4 +640,7 @@ public class CommonUtils {
             e.printStackTrace();
         }
     }
+
+
+
 }

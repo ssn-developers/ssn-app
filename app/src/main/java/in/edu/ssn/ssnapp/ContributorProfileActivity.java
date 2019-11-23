@@ -124,8 +124,7 @@ public class ContributorProfileActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if(!CommonUtils.alerter(getApplicationContext())) {
-                    SharedPref.putString(getApplicationContext(), "url", link);
-                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    CommonUtils.openCustomBrowser(getApplicationContext(),link);
                     Bungee.slideLeft(ContributorProfileActivity.this);
                 }
                 else{

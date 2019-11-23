@@ -3,7 +3,6 @@ package in.edu.ssn.ssnapp.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,14 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.ContributorProfileActivity;
-import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.R;
-import in.edu.ssn.ssnapp.StudentHomeActivity;
-import in.edu.ssn.ssnapp.WebViewActivity;
 import in.edu.ssn.ssnapp.models.TeamDetails;
-import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
-import spencerstudios.com.bungeelib.Bungee;
 
 public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContributorAdapter.ContributionViewHolder>{
 

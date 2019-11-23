@@ -6,7 +6,8 @@
 
     <RelativeLayout
         android:id="@+id/layout_progress"
-        android:layout_width="match_parent"
+		android:layout_marginTop="@dimen/_60sdp"
+		android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <com.airbnb.lottie.LottieAnimationView
@@ -66,13 +67,111 @@
 			<include layout="@layout/student_post_item_shimmering"/>
 		</LinearLayout>
 	</com.facebook.shimmer.ShimmerFrameLayout>
-
-	<androidx.recyclerview.widget.RecyclerView
+	<androidx.core.widget.NestedScrollView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:clipToPadding="false"
-		android:id="@+id/feedsRV">
-	</androidx.recyclerview.widget.RecyclerView>
+		android:scrollbars="none">
+
+		<RelativeLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<LinearLayout
+				android:id="@+id/linearlayout1"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_below="@+id/layout1"
+				android:layout_marginStart="@dimen/_8sdp"
+				android:layout_marginEnd="@dimen/_8sdp"
+				android:orientation="horizontal">
+
+				<androidx.cardview.widget.CardView
+					android:id="@+id/syllabusCV"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/_12sdp"
+					android:layout_marginLeft="@dimen/_12sdp"
+					android:layout_marginRight="@dimen/_12sdp"
+					android:layout_weight="1"
+					android:clickable="true"
+					android:foreground="?selectableItemBackgroundBorderless"
+					app:cardBackgroundColor="@color/colorAccent"
+					app:cardCornerRadius="@dimen/_10sdp">
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/_80sdp"
+						android:orientation="vertical"
+						android:padding="@dimen/_10sdp">
+						<ImageView
+							android:layout_width="@dimen/_20sdp"
+							android:layout_height="@dimen/_20sdp"
+							android:tint="@android:color/white"
+							android:src="@drawable/ic_feedback_white"
+							android:id="@+id/iconIV1"/>
+						<TextView
+							android:id="@+id/linkTitleTV1"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:fontFamily="@font/open_sans_bold"
+							android:layout_marginTop="@dimen/_10sdp"
+							android:text="Syllabus"
+							android:textColor="#ffffff"
+							android:textSize="@dimen/_14sdp" />
+
+					</LinearLayout>
+				</androidx.cardview.widget.CardView>
+
+				<androidx.cardview.widget.CardView
+					android:id="@+id/libraryCV"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/_12sdp"
+					android:layout_marginLeft="@dimen/_12sdp"
+					android:layout_marginRight="@dimen/_12sdp"                    android:layout_weight="1"
+					android:clickable="true"
+					android:foreground="?selectableItemBackgroundBorderless"
+					app:cardBackgroundColor="@color/colorAccent"
+					app:cardCornerRadius="@dimen/_10sdp">
+
+					<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="@dimen/_80sdp"
+						android:orientation="vertical"
+						android:padding="@dimen/_10sdp">
+						<ImageView
+							android:layout_width="@dimen/_20sdp"
+							android:layout_height="@dimen/_20sdp"
+							android:tint="@android:color/white"
+							android:src="@drawable/ic_book_white"
+							android:id="@+id/iconIV2"/>
+
+						<TextView
+							android:id="@+id/linkTitleTV2"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:fontFamily="@font/open_sans_bold"
+							android:text="Library Renewal"
+							android:textColor="#ffffff"
+							android:textSize="@dimen/_14sdp" />
+
+					</LinearLayout>
+
+				</androidx.cardview.widget.CardView>
+
+			</LinearLayout>
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:clipToPadding="false"
+				android:layout_below="@+id/linearlayout1"
+				android:id="@+id/feedsRV">
+			</androidx.recyclerview.widget.RecyclerView>
+		</RelativeLayout>
+	</androidx.core.widget.NestedScrollView>
+
+
 
 	<TextView
 		android:layout_width="wrap_content"

@@ -83,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     LinearLayout layout_year_dept;
     int clearance;
     Boolean flag = true;
-    String flag1="", flag2="", flag0 = "ug";
+    String flag1="", flag2="", flag0 = "ug",flag3="";
     View dialogView;
 
     @Override
@@ -590,7 +590,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             tv.setBackgroundResource(R.drawable.bus_alert_detail_bg);
                         else {
                             tv.setBackgroundResource(R.drawable.bus_alert_detail_selected_bg);
-                            flag1 = CommonUtils.getYear(tv.getTag().toString());
+                            flag1=CommonUtils.getJoiningYear(Integer.parseInt(tv.getTag().toString()));
                         }
                     }
                     break;

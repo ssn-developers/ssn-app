@@ -29,6 +29,26 @@ public class Constants {
     public static final String second="2018";
     public static final String first="2019";
 
+    //syllabus for 2017 Regulations
+    public static final String cseAU="https://drive.google.com/uc?export=download&id=12nQ_pWliJnU12Wrh0jOyzwPGXHEzEPiV";
+    public static final String itAU="https://drive.google.com/uc?export=download&id=1y7kCjuE33FF4NjOJjvXvYVp7o_dnjvi_";
+    public static final String eceAU="https://drive.google.com/uc?export=download&id=1Dd8yqwa2l9zpkqSFeqAQUJ90Q7MgRWRm";
+    public static final String eeeAU="https://drive.google.com/uc?export=download&id=1_QoK6I71d9oaQdwioDGuP0JAq1FQrWab";
+    public static final String bmeAU="https://drive.google.com/uc?export=download&id=1ArP0io_-86M3WpYOU0Cq3Jvh92Tjs7Xw";
+    public static final String cheAU="https://drive.google.com/uc?export=download&id=1gQjYEmk_rx9W2m6ysBonJJAD715HW8cw";
+    public static final String civAU="https://drive.google.com/uc?export=download&id=1i_GNWJVzPhQGE8AwvUIVtLtZtMwMG9P6";
+    public static final String mecAU="https://drive.google.com/uc?export=download&id=1fx3qzOiTNmHJS2G8YHDYh6tQqB0yMwGn";
+
+    //Syllabus for autonomous
+    public static final String cseAN="";
+    public static final String itAN="";
+    public static final String eceAN="";
+    public static final String eeeAN="";
+    public static final String bmeAN="";
+    public static final String cheAN="";
+    public static final String civAN="";
+    public static final String mecAN="";
+
     //Share URL type
     public static final int post = 1;
     public static final int placement = 2;

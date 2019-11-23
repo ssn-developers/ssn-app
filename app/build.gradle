@@ -80,6 +80,7 @@ dependencies {
     implementation files('libs/com.sahurjt.objectcsv.jar')
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+    implementation 'androidx.browser:browser:1.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -17,12 +18,14 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
@@ -46,8 +49,11 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import in.edu.ssn.ssnapp.NoNetworkActivity;
+import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
+import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
@@ -66,6 +72,8 @@ public class StudentFeedFragment extends Fragment {
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
     private TextView newPostTV;
+    private CardView syllabusCV,libraryCV;
+    private String dept,year;
     boolean darkMode = false;
 
     @Override
@@ -95,6 +103,85 @@ public class StudentFeedFragment extends Fragment {
             public void onClick(View v) {
                 feedsRV.smoothScrollToPosition(0);
                 newPostTV.setVisibility(View.GONE);
+            }
+        });
+
+        dept = SharedPref.getString(getContext(),"dept");
+        year = String.valueOf(SharedPref.getInt(getContext(),"year"));
+        libraryCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (CommonUtils.checkWifiOnAndConnected(getContext(), "ssn")) {
+                    CommonUtils.openCustomBrowser(getContext(),"http://opac.ssn.net:8081/");
+                    Bungee.slideLeft(getContext());
+                } else {
+                    Toast toast = Toast.makeText(getContext(), "Please connect to SSN wifi ", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
+                }
+            }
+        });
+        syllabusCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(year.equals(Constants.third)||year.equals(Constants.fourth)){
+                    switch(dept)
+                    {
+                        case "cse":
+                            openSyllabus(Constants.cseAU);
+                            break;
+                        case "it":
+                            openSyllabus(Constants.itAU);
+                            break;
+                        case "ece":
+                            openSyllabus(Constants.eceAU);
+                            break;
+                        case "eee":
+                            openSyllabus(Constants.eeeAU);
+                            break;
+                        case "che":
+                            openSyllabus(Constants.cheAU);
+                            break;
+                        case "bme":
+                            openSyllabus(Constants.bmeAU);
+                            break;
+                        case "civ":
+                            openSyllabus(Constants.civAU);
+                            break;
+                        case "mec":
+                            openSyllabus(Constants.mecAU);
+                            break;
+                    }
+                }
+                else {
+                    switch(dept)
+                    {
+                        case "cse":
+                            openSyllabus(Constants.cseAN);
+                            break;
+                        case "it":
+                            openSyllabus(Constants.itAN);
+                            break;
+                        case "ece":
+                            openSyllabus(Constants.eceAN);
+                            break;
+                        case "eee":
+                            openSyllabus(Constants.eeeAN);
+                            break;
+                        case "che":
+                            openSyllabus(Constants.cheAN);
+                            break;
+                        case "bme":
+                            openSyllabus(Constants.bmeAN);
+                            break;
+                        case "civ":
+                            openSyllabus(Constants.civAN);
+                            break;
+                        case "mec":
+                            openSyllabus(Constants.mecAN);
+                            break;
+                    }
+                }
             }
         });
 
@@ -247,6 +334,8 @@ public class StudentFeedFragment extends Fragment {
         });
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
+        syllabusCV = view.findViewById(R.id.syllabusCV);
+        libraryCV = view.findViewById(R.id.libraryCV);
     }
 
     /*********************************************************/
@@ -274,6 +363,21 @@ public class StudentFeedFragment extends Fragment {
     }
 
     /*********************************************************/
+
+    public void openSyllabus (String url){
+        if (!CommonUtils.alerter(getContext())) {
+            Intent i = new Intent(getContext(), PdfViewerActivity.class);
+            i.putExtra(Constants.PDF_URL, url);
+            startActivity(i);
+            Bungee.fade(getContext());
+        }
+        else {
+            Intent intent = new Intent(getContext(), NoNetworkActivity.class);
+            intent.putExtra("key", "home");
+            startActivity(intent);
+            Bungee.fade(getContext());
+        }
+    }
 
     @Override
     public void onStart() {

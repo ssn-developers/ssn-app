@@ -63,10 +63,7 @@
 		<activity
 			android:name=".NoNetworkActivity"
 			android:screenOrientation="portrait" />
-		<activity
-			android:name=".SyllabusActivity"
-			android:screenOrientation="portrait" />
-		<activity
+        <activity
 			android:name=".SavedPostActivity"
 			android:screenOrientation="portrait"
 			android:theme="@style/AppTheme1" />
@@ -92,9 +89,6 @@
 			android:theme="@style/AppTheme1" />
 		<activity
 			android:name=".onboarding.OnboardingActivity"
-			android:screenOrientation="portrait" />
-		<activity
-			android:name=".WebViewActivity"
 			android:screenOrientation="portrait" />
 		<activity
 			android:name=".PdfViewerActivity"

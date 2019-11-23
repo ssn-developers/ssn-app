@@ -168,28 +168,23 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         if(!CommonUtils.alerter(getApplicationContext())) {
             switch (v.getId()) {
                 case R.id.webIV:
-                    SharedPref.putString(getApplicationContext(), "url", "http://www.ssn.edu.in");
-                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    CommonUtils.openCustomBrowser(getApplicationContext(),"http://www.ssn.edu.in");
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.fbIV:
-                    SharedPref.putString(getApplicationContext(), "url", "https://www.facebook.com/SSNInstitution");
-                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.facebook.com/SSNInstitution");
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.twitIV:
-                    SharedPref.putString(getApplicationContext(), "url", "https://twitter.com/ssninstitutions");
-                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    CommonUtils.openCustomBrowser(getApplicationContext(),"https://twitter.com/ssninstitutions");
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.linkedinIV:
-                    SharedPref.putString(getApplicationContext(), "url", "https://www.linkedin.com/school/ssn-college-of-engineering");
-                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.linkedin.com/school/ssn-college-of-engineering");
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.instaIV:
-                    SharedPref.putString(getApplicationContext(), "url", "https://www.instagram.com/ssninstitutions");
-                    startActivity(new Intent(getApplicationContext(), WebViewActivity.class));
+                    CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.instagram.com/ssninstitutions");
                     Bungee.slideLeft(AppInfoActivity.this);
                     break;
             }
