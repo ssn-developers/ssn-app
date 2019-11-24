@@ -92,17 +92,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
-                    app:cardBackgroundColor="@color/colorAccentLight"
                     app:cardCornerRadius="@dimen/_10sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
+                        android:background="@color/colorAccentAlpha"
                         android:orientation="vertical"
                         android:padding="@dimen/_10sdp">
                         <ImageView
@@ -133,17 +133,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginRight="@dimen/_12sdp"                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_4sdp"                    android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
-                    app:cardBackgroundColor="@color/colorAccentLight"
                     app:cardCornerRadius="@dimen/_10sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
                         android:orientation="vertical"
+                        android:background="@color/colorAccentAlpha"
                         android:padding="@dimen/_10sdp">
                         <ImageView
                             android:layout_width="@dimen/_20sdp"
@@ -185,18 +185,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:layout_marginRight="@dimen/_6sdp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
-                    app:cardBackgroundColor="@color/colorAccentLight"
                     app:cardCornerRadius="@dimen/_10sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
                         android:orientation="vertical"
+                        android:background="@color/colorAccentAlpha"
                         android:padding="@dimen/_10sdp">
                         <ImageView
                             android:layout_width="@dimen/_25sdp"
@@ -226,18 +226,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginRight="@dimen/_12sdp"                    android:layout_weight="1"
+                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:layout_marginRight="@dimen/_4sdp"                    android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
-                    app:cardBackgroundColor="@color/colorAccentLight"
                     app:cardCornerRadius="@dimen/_10sdp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
                         android:orientation="vertical"
-                        android:padding="@dimen/_10sdp">
+                        android:padding="@dimen/_10sdp"
+                        android:background="@color/colorAccentAlpha">
                         <ImageView
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
