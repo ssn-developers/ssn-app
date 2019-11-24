@@ -158,7 +158,7 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:fontFamily="@font/open_sans_bold"
-							android:text="Grade Calculator"
+							android:text="Pass Mark Calculator"
 							android:layout_marginTop="@dimen/_10sdp"
 							android:textColor="@color/colorAccentDark"
 							android:textSize="@dimen/_14sdp" />

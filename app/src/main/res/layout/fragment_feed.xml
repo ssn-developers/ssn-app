@@ -90,6 +90,7 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/syllabusCV"
                     android:layout_width="0dp"
+                    app:cardElevation="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
                     android:layout_marginLeft="@dimen/_4sdp"
@@ -134,7 +135,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
                     android:layout_marginLeft="@dimen/_6sdp"
-                    android:layout_marginRight="@dimen/_4sdp"                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/_4sdp"
+                    app:cardElevation="0dp"
+                    android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
                     app:cardCornerRadius="@dimen/_10sdp">
@@ -188,6 +191,7 @@
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_marginRight="@dimen/_6sdp"
                     android:layout_weight="1"
+                    app:cardElevation="0dp"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
                     app:cardCornerRadius="@dimen/_10sdp">
@@ -229,6 +233,7 @@
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:layout_marginRight="@dimen/_4sdp"                    android:layout_weight="1"
                     android:clickable="true"
+                    app:cardElevation="0dp"
                     android:foreground="?selectableItemBackgroundBorderless"
                     app:cardCornerRadius="@dimen/_10sdp">
 

@@ -93,6 +93,7 @@
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_marginRight="@dimen/_6sdp"
                     android:layout_weight="1"
+                    app:cardElevation="0dp"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
                     app:cardCornerRadius="@dimen/_10sdp">
@@ -134,6 +135,7 @@
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:layout_marginRight="@dimen/_4sdp"                    android:layout_weight="1"
                     android:clickable="true"
+                    app:cardElevation="0dp"
                     android:foreground="?selectableItemBackgroundBorderless"
                     app:cardCornerRadius="@dimen/_10sdp">
 
@@ -159,7 +161,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/open_sans_bold"
-                            android:text="Grade Calculator"
+                            android:text="Pass Mark Calculator"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_14sdp" />
