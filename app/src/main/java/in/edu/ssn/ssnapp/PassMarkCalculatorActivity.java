@@ -23,7 +23,6 @@ public class PassMarkCalculatorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        darkModeEnabled=true;
         if(darkModeEnabled){
             setContentView(R.layout.activity_pass_mark_calculator_dark);
             getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));

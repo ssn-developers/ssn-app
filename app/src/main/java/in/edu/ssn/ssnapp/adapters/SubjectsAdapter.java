@@ -41,7 +41,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
             subjectItem = layoutInflater.inflate(R.layout.subject_item_dark, parent, false);
         }
         else {
-            subjectItem = layoutInflater.inflate(R.layout.subject_item_dark, parent, false);
+            subjectItem = layoutInflater.inflate(R.layout.subject_item, parent, false);
         }
 
 

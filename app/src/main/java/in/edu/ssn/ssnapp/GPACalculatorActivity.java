@@ -32,6 +32,7 @@ public class GPACalculatorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gpa_calculator_dark);
 
+        darkModeEnabled=false;
         if(darkModeEnabled){
             setContentView(R.layout.activity_gpa_calculator_dark);
             getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));

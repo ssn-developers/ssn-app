@@ -10,13 +10,14 @@
     <color name="shimmering_front">#BEBCBC</color>
     <color name="shimmering_back">#E4E2E2</color>
     <color name="drawer_grey">#99727C8E</color>
-    <color name="light_grey">#d3d3d3</color>
+    <color name="light_grey">#D3D3D3</color>
 
     <color name="onboardingTextColor1">#504E49</color>
     <color name="onboardingTextColor2">#6B6456</color>
     <color name="pageColor1">#DB5E6E</color>
     <color name="pageColor2">#447097</color>
     <color name="pageColor3">#FA7919</color>
+    <color name="lightBlue">#ADD8E6</color>
 
     <color name="darkColor">#1B1B1B</color>
     <color name="darkColor1">#2B2B2B</color>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseSemesterActivity">
+
+    <RelativeLayout
+        android:id="@+id/cs_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_82sdp">
+
+        <ImageView
+            android:id="@+id/cs_bg"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_82sdp"
+            android:background="@drawable/tool_bar_curve" />
+
+        <ImageView
+            android:id="@+id/cs_back"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            app:srcCompat="@drawable/ic_back"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_22sdp"/>
+
+        <TextView
+            android:id="@+id/cs_title1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_toRightOf="@+id/cs_back"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="Choose Semester"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_16ssp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cs_layout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_60sdp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_110sdp"
+            app:cardCornerRadius="@dimen/_60sdp"
+            android:elevation="0dp"
+            android:id="@+id/sem4"
+            android:layout_marginStart="@dimen/_80sdp"
+            android:visibility="invisible"
+            android:layout_marginEnd="@dimen/_80sdp"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginBottom="@dimen/_100sdp"
+            android:backgroundTint="@color/colorAccent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="4"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"></TextView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:visibility="invisible"
+            app:cardCornerRadius="@dimen/_30sdp"
+            android:elevation="0dp"
+            android:id="@+id/sem1"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_45sdp"
+            android:backgroundTint="@color/colorAccent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/_20sdp"
+                android:textColor="@color/white"
+                android:text="1"
+                android:layout_gravity="center"></TextView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_90sdp"
+            app:cardCornerRadius="@dimen/_45sdp"
+            android:layout_toRightOf="@+id/sem1"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            android:id="@+id/sem2"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:backgroundTint="@color/lightBlue">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"></TextView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            app:cardCornerRadius="@dimen/_30sdp"
+            android:visibility="invisible"
+            android:elevation="0dp"
+            android:id="@+id/sem3"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:backgroundTint="@color/lightBlue">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"></TextView>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            app:cardCornerRadius="@dimen/_40sdp"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            android:id="@+id/sem6"
+            android:layout_marginTop="@dimen/_170sdp"
+            android:backgroundTint="@color/colorAccent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="6"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"></TextView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            app:cardCornerRadius="@dimen/_35sdp"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            android:id="@+id/sem8"
+            android:layout_marginTop="@dimen/_230sdp"
+            android:layout_marginStart="@dimen/_85sdp"
+            android:backgroundTint="@color/lightBlue">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="8"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"></TextView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_80sdp"
+            android:layout_height="@dimen/_80sdp"
+            app:cardCornerRadius="@dimen/_40sdp"
+            android:id="@+id/sem7"
+            android:visibility="invisible"
+            android:elevation="0dp"
+            android:layout_marginStart="@dimen/_180sdp"
+            android:layout_marginTop="@dimen/_190sdp"
+            android:backgroundTint="@color/colorAccent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="7"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"></TextView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            app:cardCornerRadius="@dimen/_40sdp"
+            android:elevation="0dp"
+            android:visibility="invisible"
+            android:id="@+id/sem5"
+            android:layout_marginStart="@dimen/_200sdp"
+            android:layout_marginTop="@dimen/_100sdp"
+            android:backgroundTint="@color/lightBlue">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="5"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_20sdp"></TextView>
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>
