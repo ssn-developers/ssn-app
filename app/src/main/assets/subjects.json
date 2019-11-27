@@ -1,0 +1,364 @@
+[
+  {
+    "dept" : "cse",
+    "sem" : [
+
+      {
+        "no": 1,
+        "subjects": [
+          {
+            "code" :"UEN1176",
+            "name" :"Communicative English",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UMA1176",
+            "name" :"Algebra and Calculus",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UPH1176",
+            "name" :"Engineering Physics",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCY1176",
+            "name" :"Engineering Chemistry",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UGE1176",
+            "name" :"Problem Solving and Programming in Python",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UGE1177",
+            "name" :"Engineering Graphics",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UGE1197",
+            "name" :"Programming Lab in Python",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UGS1197",
+            "name" :"Physics and Chemistry Lab",
+            "credits" :1.5,
+            "grade" : 6
+          }
+        ]
+      },
+      {
+        "no": 2,
+        "subjects": [
+          {
+            "code" :"UEN1276",
+            "name" :"Technical English",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UMA1276",
+            "name" :"Complex Functions and Laplace Transforms",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UPH1276",
+            "name" :"Physics for Information Science",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCY1276",
+            "name" :"Environmental Science",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UEE1276",
+            "name" :"Basic Electrical, Electronics and Measurement Engineering",
+            "credits" :3.5,
+            "grade" : 6
+          },{
+            "code" :"UCS1201",
+            "name" :"Programming in C",
+            "credits" :3.5,
+            "grade" : 6
+          },{
+            "code" :"UGE1297",
+            "name" :"Design Thinking and Engineering Practices Lab",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UCS1211",
+            "name" :"Programming in C Lab",
+            "credits" :1.5,
+            "grade" : 6
+          }
+        ]
+      },
+      {
+        "no": 3,
+        "subjects": [
+          {
+            "code" :"UMA1377",
+            "name" :"Discrete Mathematics",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UCS1301",
+            "name" :"Digital Principles and System Design",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1302",
+            "name" :"Data Structures",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1303",
+            "name" :"Object Oriented Programming using Java",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1304",
+            "name" :"UNIX and Shell Programming",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UEC1351",
+            "name" :"Principles of Communication Engineering",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1311",
+            "name" :"Digital Design Lab",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UCS1312",
+            "name" :"Data Structures Lab",
+            "credits" :2,
+            "grade" : 6
+          },{
+            "code" :"UCS1313",
+            "name" :"Object Oriented Programming using Java Lab",
+            "credits" :1.5,
+            "grade" : 6
+          }
+        ]
+      },
+      {
+        "no": 4,
+        "subjects": [
+          {
+            "code" :"UMA1478",
+            "name" :"Probability and Statistics",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UCS1401",
+            "name" :"Computer Organization and Architecture",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1402",
+            "name" :"Operating Systems",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1403",
+            "name" :"Design and Analysis of Algorithms",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UCS1404",
+            "name" :"Database Systems Management",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1405",
+            "name" :"Software Engineering",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1411",
+            "name" :"Operating Systems Lab",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UCS1412",
+            "name" :"Database Lab",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UEN1498",
+            "name" :"Interpersonal Skills",
+            "credits" :1,
+            "grade" : 6
+          }
+        ]
+      },
+      {
+        "no": 5,
+        "subjects": [
+          {
+            "code" :"UCS1501",
+            "name" :"Computer Networks",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1502",
+            "name" :"Microprocessors and Interfacing",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1503",
+            "name" :"Theory of Computation",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UCS1504",
+            "name" :"Artificial Intelligence",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UCS1505",
+            "name" :"Introduction to Cryptographic Techniques",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"Professional Elective - 1",
+            "name" :"",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1511",
+            "name" :"Networks Lab",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UCS1512",
+            "name" :"Microprocessors Lab",
+            "credits" :1.5,
+            "grade" : 6
+          }
+        ]
+      },
+      {
+        "no": 6,
+        "subjects": [
+          {
+            "code" :"UCS1601",
+            "name" :"Internet Programming",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1602",
+            "name" :"Compiler Design",
+            "credits" :4,
+            "grade" : 6
+          },{
+            "code" :"UCS1603",
+            "name" :"Introduction to Machine Learning",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1604",
+            "name" :"Object Oriented Analysis and Design",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"Professional Elective – 2",
+            "name" :"",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"Open Elective - 1",
+            "name" :"",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1611",
+            "name" :"Internet Programming Lab",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UCS1617",
+            "name" :"Mini Project",
+            "credits" :1.5,
+            "grade" : 6
+          }
+        ]
+      },
+      {
+        "no": 7,
+        "subjects": [
+          {
+            "code" :"UCS1701",
+            "name" :"Distributed Systems",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1702",
+            "name" :"Mobile Computing",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1703",
+            "name" :"Graphics and Multimedia",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1704",
+            "name" :"Management and Ethical Practices",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"Professional Elective - 3",
+            "name" :"",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"Professional Elective - 4",
+            "name" :"",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1711",
+            "name" :"Mobile Application Development Lab",
+            "credits" :1.5,
+            "grade" : 6
+          },{
+            "code" :"UCS1712",
+            "name" :"Graphics and Multimedia Lab",
+            "credits" :1.5,
+            "grade" : 6
+          }
+        ]
+      },
+      {
+        "no": 8,
+        "subjects": [
+          {
+            "code" :"Professional Elective - 5",
+            "name" :"",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"Open Elective – 2",
+            "name" :"",
+            "credits" :3,
+            "grade" : 6
+          },{
+            "code" :"UCS1818",
+            "name" :"Project Work",
+            "credits" :9,
+            "grade" : 6
+          }
+        ]
+      }
+
+    ]
+  }
+
+
+]

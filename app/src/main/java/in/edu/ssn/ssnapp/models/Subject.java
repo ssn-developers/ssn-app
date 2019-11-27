@@ -2,17 +2,16 @@ package in.edu.ssn.ssnapp.models;
 
 public class Subject {
 
-    private String code;
-    private String name;
-    private int credits;
-    private int grade;
+     String code;
+     String name;
+     float credits;
+     int grade;
 
     public Subject(String code,String name,int credits){
 
         this.code = code;
         this.name = name;
         this.credits = credits;
-        this.grade = 6;
 
     }
 
@@ -32,7 +31,7 @@ public class Subject {
         this.credits = credits;
     }
 
-    public int getCredits() {
+    public float getCredits() {
         return credits;
     }
 

@@ -21,7 +21,7 @@ public class ChooseSemesterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(!darkModeEnabled){
+        if(darkModeEnabled){
             setContentView(R.layout.activity_choose_semester_dark);
             getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
         }
@@ -58,6 +58,7 @@ public class ChooseSemesterActivity extends BaseActivity {
                         break;
                 }
                 startActivity(intent);
+                finish();
             }
         };
 

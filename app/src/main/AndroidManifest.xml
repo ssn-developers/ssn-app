@@ -17,11 +17,14 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SplashActivity"></activity>
-        <activity android:name=".PassMarkCalculatorActivity" />
-        <activity android:name=".GPACalculatorActivity" />
+        <activity android:name=".ChooseSemesterActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".PassMarkCalculatorActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".GPACalculatorActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".ChooseSemesterActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

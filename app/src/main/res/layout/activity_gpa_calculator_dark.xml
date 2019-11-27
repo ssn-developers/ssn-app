@@ -78,27 +78,27 @@
         android:id="@+id/gpa_output_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/calculate_gpa_card">
+        android:layout_below="@+id/calculate_gpa_card"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/gpa_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textColor="#ffffff"
             android:fontFamily="@font/open_sans_bold"
             android:text="8.2"
+            android:textColor="#ffffff"
             android:textSize="@dimen/_50ssp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_27sdp"
             android:layout_toRightOf="@id/gpa_value"
             android:text=" /10"
             android:textColor="#ffffff"
-            android:textSize="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_27sdp"
-            ></TextView>
+            android:textSize="@dimen/_25sdp"></TextView>
     </RelativeLayout>
 
 

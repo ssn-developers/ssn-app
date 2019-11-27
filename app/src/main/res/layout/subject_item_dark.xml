@@ -36,7 +36,7 @@
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_18sdp"
             android:textColor="#CECECE"
-            android:textSize="@dimen/_11sdp"
+            android:textSize="@dimen/_9sdp"
             ></TextView>
 
         <RelativeLayout
