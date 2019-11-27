@@ -313,12 +313,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 3",
+            "code" :"Professional Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 4",
+            "code" :"Professional Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -339,12 +339,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Professional Elective - 5",
+            "code" :"Professional Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective – 2",
+            "code" :"Open Elective – 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
