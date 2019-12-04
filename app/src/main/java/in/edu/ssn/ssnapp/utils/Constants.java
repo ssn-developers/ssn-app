@@ -30,7 +30,7 @@ public class Constants {
     public static final String second="2018";
     public static final String first="2019";
 
-    //syllabus for 2017 Regulations
+    //syllabus for 2017 Regulations Anna university
     public static final String cseAU="https://drive.google.com/uc?export=download&id=12nQ_pWliJnU12Wrh0jOyzwPGXHEzEPiV";
     public static final String itAU="https://drive.google.com/uc?export=download&id=1y7kCjuE33FF4NjOJjvXvYVp7o_dnjvi_";
     public static final String eceAU="https://drive.google.com/uc?export=download&id=1Dd8yqwa2l9zpkqSFeqAQUJ90Q7MgRWRm";
