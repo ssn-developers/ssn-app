@@ -2,7 +2,6 @@
   {
     "dept" : "cse",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -226,7 +225,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -267,12 +266,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective - 1",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -313,12 +312,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 2",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -339,12 +338,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective – 1",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -362,7 +361,6 @@
   {
     "dept" : "it",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -576,7 +574,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -617,12 +615,12 @@
             "credits" :4,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective - 1",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -658,17 +656,17 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective II",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - III",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - IV",
+            "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -689,12 +687,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Professional Elective - V",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - VI",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -712,7 +710,6 @@
   {
     "dept" : "ece",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -926,7 +923,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -972,7 +969,7 @@
             "credits" :4,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1013,17 +1010,17 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective I",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - III",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - IV",
+            "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1049,12 +1046,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Professional Elective - V",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective - II",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1072,7 +1069,6 @@
   {
     "dept" : "eee",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -1286,7 +1282,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1327,12 +1323,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1368,17 +1364,17 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective I",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - III",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - IV",
+            "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1399,12 +1395,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Professional Elective - V",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - VI",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1422,7 +1418,6 @@
   {
     "dept" : "bme",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -1641,7 +1636,7 @@
             "credits" :4,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1682,12 +1677,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective III",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1728,17 +1723,17 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective IV",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective V",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective 1",
+            "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1764,12 +1759,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Open Elective 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - VI",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -1787,7 +1782,6 @@
   {
     "dept" : "che",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -1996,12 +1990,12 @@
             "credits" :3.5,
             "grade" : 6
           },{
-            "code" :"Open Elective* I",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - 1",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2042,12 +2036,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective* II",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2088,12 +2082,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective III",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective IV",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2114,12 +2108,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Professional Elective V",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - VI",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2137,7 +2131,6 @@
   {
     "dept" : "civ",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -2305,7 +2298,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2346,12 +2339,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective* I",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective 2",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2397,7 +2390,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 3",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2443,12 +2436,12 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective 4",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective 2",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2469,12 +2462,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Professional Elective V",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - VI",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2492,7 +2485,6 @@
   {
     "dept" : "mec",
     "sem" : [
-
       {
         "no": 1,
         "subjects": [
@@ -2660,7 +2652,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective 1",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2706,7 +2698,7 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective 2",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2752,7 +2744,7 @@
             "credits" :4,
             "grade" : 6
           },{
-            "code" :"Professional Elective – 3",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2793,17 +2785,17 @@
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective 5",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective 4",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Open Elective 1",
+            "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
             "grade" : 6
@@ -2824,12 +2816,12 @@
         "no": 8,
         "subjects": [
           {
-            "code" :"Open Elective - 2",
+            "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
             "grade" : 6
           },{
-            "code" :"Professional Elective - VI",
+            "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
             "grade" : 6
