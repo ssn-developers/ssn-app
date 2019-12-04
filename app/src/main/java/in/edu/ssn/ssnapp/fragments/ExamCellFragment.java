@@ -42,6 +42,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import in.edu.ssn.ssnapp.ChooseSemesterActivity;
+import in.edu.ssn.ssnapp.PassMarkCalculatorActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
@@ -63,6 +65,7 @@ public class ExamCellFragment extends Fragment {
     LinearLayout cardLL;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
+    CardView gpaCV,passmarkCV;
     private TextView newPostTV;
 
     @Override
@@ -97,6 +100,21 @@ public class ExamCellFragment extends Fragment {
             public void onClick(View v) {
                 feedsRV.smoothScrollToPosition(0);
                 newPostTV.setVisibility(View.GONE);
+            }
+        });
+
+        gpaCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), ChooseSemesterActivity.class);
+                startActivity(intent);
+            }
+        });
+        passmarkCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), PassMarkCalculatorActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -242,6 +260,8 @@ public class ExamCellFragment extends Fragment {
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
         cardLL = view.findViewById(R.id.linearlayout1);
+        gpaCV = view.findViewById(R.id.gpaCV);
+        passmarkCV = view.findViewById(R.id.passmarkCV);
     }
 
     /*********************************************************/

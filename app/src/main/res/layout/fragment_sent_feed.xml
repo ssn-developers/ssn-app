@@ -86,7 +86,7 @@
                 android:orientation="horizontal">
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/syllabusCV"
+                    android:id="@+id/gpaCV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
@@ -128,7 +128,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/libraryCV"
+                    android:id="@+id/passmarkCV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
