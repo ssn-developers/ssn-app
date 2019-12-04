@@ -4,20 +4,15 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,33 +24,22 @@ import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.crashlytics.android.Crashlytics;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.common.ChangeEventType;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
-import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
-import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -71,7 +55,7 @@ public class StudentFeedFragment extends Fragment {
     private RelativeLayout layout_progress;
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
-    private TextView newPostTV;
+    private TextView newPostTV, linkTitleTV2;
     private CardView syllabusCV,libraryCV,calenderCV,lmsCV;
     private String dept,year;
     boolean darkMode = false;
@@ -82,21 +66,14 @@ public class StudentFeedFragment extends Fragment {
         darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
-            view = inflater.inflate(R.layout.fragment_feed_dark, container, false);
+            view = inflater.inflate(R.layout.fragment_student_feed_dark, container, false);
         }else{
-            view = inflater.inflate(R.layout.fragment_feed, container, false);
+            view = inflater.inflate(R.layout.fragment_student_feed, container, false);
         }
 
         CommonUtils.initFonts(getContext(),view);
         initUI(view);
         setupFireStore();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                feedsRV.smoothScrollToPosition(0);
-            }
-        },3000);
 
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,9 +130,8 @@ public class StudentFeedFragment extends Fragment {
         syllabusCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(year.equals(Constants.third)||year.equals(Constants.fourth)){
-                    switch(dept)
-                    {
+                if(year.equals(Constants.third) || year.equals(Constants.fourth)){
+                    switch(dept) {
                         case "cse":
                             openSyllabus(Constants.cseAU);
                             break;
@@ -183,8 +159,7 @@ public class StudentFeedFragment extends Fragment {
                     }
                 }
                 else {
-                    switch(dept)
-                    {
+                    switch(dept) {
                         case "cse":
                             openSyllabus(Constants.cseAN);
                             break;
@@ -356,7 +331,6 @@ public class StudentFeedFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (layoutManager.findFirstCompletelyVisibleItemPosition() == 0) {
-                    //Log.d("Feed","First item completely visible");
                     newPostTV.setVisibility(View.GONE);
                 }
             }
@@ -367,6 +341,9 @@ public class StudentFeedFragment extends Fragment {
         libraryCV = view.findViewById(R.id.libraryCV);
         lmsCV = view.findViewById(R.id.lmsCV);
         calenderCV = view.findViewById(R.id.calenderCV);
+
+        linkTitleTV2 = view.findViewById(R.id.linkTitleTV2);
+        linkTitleTV2.setSelected(true);
     }
 
     /*********************************************************/

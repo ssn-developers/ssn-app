@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.airbnb.lottie.LottieAnimationView;
 import com.crashlytics.android.Crashlytics;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.Arrays;
 
@@ -87,9 +88,12 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
                         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
 
-                        String names = downloadUri.getLastPathSegment();
-                        if (names != null && names.startsWith("post_bus"))
-                            names = names.substring(9);
+                        File file= new File(downloadUri.getPath());
+                        String names = file.getName();
+
+                        //Handle syllabus from drive link
+                        if(names.equals("uc"))
+                            names = "syllabus.pdf";
 
                         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
                                 .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS + "/SSN App/", names)

@@ -61,6 +61,7 @@ public class ExamCellFragment extends Fragment {
     public ExamCellFragment() { }
 
     RecyclerView feedsRV;
+    LinearLayoutManager layoutManager;
     RelativeLayout layout_progress;
     LinearLayout cardLL;
     ShimmerFrameLayout shimmer_view;
@@ -74,26 +75,17 @@ public class ExamCellFragment extends Fragment {
         darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
-            view = inflater.inflate(R.layout.fragment_sent_feed_dark, container, false);
+            view = inflater.inflate(R.layout.fragment_exam_feed_dark, container, false);
         }else {
-            view = inflater.inflate(R.layout.fragment_sent_feed, container, false);
+            view = inflater.inflate(R.layout.fragment_exam_feed, container, false);
         }
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
         setupFireStore();
         String year = String.valueOf(SharedPref.getInt(getContext(),"year"));
-        if(year.equals(Constants.third)||year.equals(Constants.fourth))
-        {
-
+        if(year.equals(Constants.third)||year.equals(Constants.fourth)) {
             cardLL.setVisibility(View.GONE);
         }
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                feedsRV.smoothScrollToPosition(0);
-            }
-        },3000);
 
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,8 +235,9 @@ public class ExamCellFragment extends Fragment {
 
     void initUI(View view){
         feedsRV = view.findViewById(R.id.feedsRV);
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
+
         newPostTV = view.findViewById(R.id.newPostTV);
         feedsRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
