@@ -74,7 +74,7 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    CardView cv_student, cv_faculty;
+    CardView studentCV, facultyCV;
     ImageView studentIV, facultyIV, gateIV, roadIV;
     FirebaseAuth mAuth;
     GoogleSignInClient mGoogleSignInClient;
@@ -95,8 +95,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     void initUI(){
-        cv_student = findViewById(R.id.cv_student);     cv_student.setOnClickListener(this);
-        cv_faculty = findViewById(R.id.cv_faculty);     cv_faculty.setOnClickListener(this);
+        studentCV = findViewById(R.id.studentCV);     studentCV.setOnClickListener(this);
+        facultyCV = findViewById(R.id.facultyCV);     facultyCV.setOnClickListener(this);
         studentIV = findViewById(R.id.studentIV);
         facultyIV = findViewById(R.id.facultyIV);
         gateIV = findViewById(R.id.gateIV);
@@ -127,11 +127,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
-                                        cv_student.setVisibility(View.VISIBLE);
-                                        cv_faculty.setVisibility(View.VISIBLE);
+                                        studentCV.setVisibility(View.VISIBLE);
+                                        facultyCV.setVisibility(View.VISIBLE);
 
-                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_student);
-                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(cv_faculty);
+                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(studentCV);
+                                        YoYo.with(Techniques.BounceIn).duration(1000).playOn(facultyCV);
                                     }
                                 },500);
                             }
@@ -532,10 +532,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         if (flag) {
             switch (v.getId()) {
-                case R.id.cv_student:
+                case R.id.studentCV:
                     clearance = 0;
                     break;
-                case R.id.cv_faculty:
+                case R.id.facultyCV:
                     clearance = 3;
 
                     Calendar calendar = Calendar.getInstance();

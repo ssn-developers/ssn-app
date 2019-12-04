@@ -16,7 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_iv_com"
+        android:id="@+id/commentUserIV"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
         android:background="@drawable/circle"
@@ -25,12 +25,12 @@
         android:src="@color/shimmering_front"/>
 
     <TextView
-        android:id="@+id/user_name_tv_com"
+        android:id="@+id/commentUserTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/user_iv_com"
+        android:layout_toRightOf="@id/commentUserIV"
         android:fontFamily="@font/open_sans"
         android:text="Club Name"
         android:textColor="#000000"
@@ -42,8 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="6dp"
-        android:layout_toRightOf="@id/user_iv_com"
-        android:layout_below="@id/user_name_tv_com"
+        android:layout_toRightOf="@id/commentUserIV"
+        android:layout_below="@id/commentUserTV"
         android:fontFamily="@font/open_sans"
         android:text="Club Name"
         android:textColor="#000000"
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_10sdp"
         android:layout_marginTop="6dp"
-        android:layout_toRightOf="@id/user_iv_com"
+        android:layout_toRightOf="@id/commentUserIV"
         android:layout_below="@id/comment_tv"
         android:fontFamily="@font/open_sans"
         android:text="reply"

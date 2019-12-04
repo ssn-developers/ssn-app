@@ -113,7 +113,6 @@ public class StudentFeedFragment extends Fragment {
             public void onClick(View view) {
                 if (CommonUtils.checkWifiOnAndConnected(getContext(), "ssn")) {
                     CommonUtils.openCustomBrowser(getContext(),"http://opac.ssn.net:8081/");
-                    Bungee.slideLeft(getContext());
                 } else {
                     Toast toast = Toast.makeText(getContext(), "Please connect to SSN wifi ", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
@@ -143,7 +142,6 @@ public class StudentFeedFragment extends Fragment {
             public void onClick(View view) {
                 if (!CommonUtils.alerter(getContext())) {
                     CommonUtils.openCustomBrowser(getContext(),Constants.lms);
-                    Bungee.slideLeft(getContext());
                 } else {
                     Intent intent = new Intent(getContext(), NoNetworkActivity.class);
                     intent.putExtra("key", "home");

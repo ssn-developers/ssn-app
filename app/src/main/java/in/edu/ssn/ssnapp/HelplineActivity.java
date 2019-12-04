@@ -18,7 +18,7 @@ import in.edu.ssn.ssnapp.models.HelplineDetails;
 public class HelplineActivity extends BaseActivity {
 
     ImageView backIV;
-    RecyclerView rv_helpline;
+    RecyclerView helplineRV;
 
     HelplineAdapter helplineAdapter;
     ArrayList<HelplineDetails> helplineDetailsList;
@@ -38,15 +38,15 @@ public class HelplineActivity extends BaseActivity {
 
     void initUI(){
         backIV = findViewById(R.id.backIV);
-        rv_helpline = findViewById(R.id.helplineRV);
+        helplineRV = findViewById(R.id.helplineRV);
 
         helplineDetailsList = new ArrayList<>();
         populateHelplineList();
         helplineAdapter = new HelplineAdapter(this,helplineDetailsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
-        rv_helpline.setLayoutManager(layoutManager);
-        rv_helpline.setNestedScrollingEnabled(false);
-        rv_helpline.setAdapter(helplineAdapter);
+        helplineRV.setLayoutManager(layoutManager);
+        helplineRV.setNestedScrollingEnabled(false);
+        helplineRV.setAdapter(helplineAdapter);
 
 
         backIV.setOnClickListener(new View.OnClickListener() {
@@ -74,12 +74,12 @@ public class HelplineActivity extends BaseActivity {
         helplineDetailsList.add(new HelplineDetails("Dr. S. Nanda","nandas@ssn.edu.in","Student Counsellor","nandas@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Dr. S. Narasimman","narasimmans@ssn.edu.in","COE","narasimmans@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Dr. Sunita Nair","sunitanair@ssn.edu.in","Professor & Head - Student affairs","sunitanair@ssn.edu.in"));
-        helplineDetailsList.add(new HelplineDetails("Mr. Amit Tyagi","amittyagi@ssn.edu.in","Associate Director - Marketing & Head - CDC","amittyagi@ssn.edu.in"));
+        helplineDetailsList.add(new HelplineDetails("Dr. S.T. Jothi Basu","placement@ssn.edu.in","Manager - CDC","amittyagi@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Mr. Arun Prakash","arunprakashsm@ssn.edu.in","Asst. Manager - Marketing & Alumni Relations","arunprakashsm@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Dr. Balaji Ponnalagar","balajip@ssn.edu.in","Physical Director","balajip@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Mr. Gopalakrishnan","gopalakrishnanr@ssn.edu.in","Admin Manager","gopalakrishnanr@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Mr. Gopalan","gopalann@ssn.edu.in","Administrative officer","gopalann@ssn.edu.in"));
-        helplineDetailsList.add(new HelplineDetails("Mr. NP Rajesh","rajeshnp@ssn.edu.in","Head - Warden","rajeshnp@ssn.edu.in"));
+        helplineDetailsList.add(new HelplineDetails("Mr. N.P. Rajesh","rajeshnp@ssn.edu.in","Head - Warden","rajeshnp@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Mr. Kannan","kannank@ssn.edu.in","Warden","kannank@ssn.edu.in"));
         helplineDetailsList.add(new HelplineDetails("Dr. Sachin","sachings@ssn.edu.in","Campus Doctor","sachings@ssn.edu.in"));
     }

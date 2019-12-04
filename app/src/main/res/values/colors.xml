@@ -25,7 +25,8 @@
     <color name="darkColorLight1">#292929</color>
     <color name="darkColorLight2">#4E4E4E</color>
     <color name="colorAccentDark">#7ABFFF</color>
-
+    <color name="darkTextColor">#A7A7A7</color>
+    <color name="darkTextColorLight">#CECECE</color>
 
     <color name="googleRedColor">#F7494D</color>
     <color name="githubColor">#333333</color>

@@ -196,7 +196,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         final TextView reply_selectedTV=activity.findViewById(R.id.reply_selectedTV);
         final TextView replier_nameTV=activity.findViewById(R.id.replier_nameTV);
         final ImageView cancel_replyIV=activity.findViewById(R.id.cancelIV);
-        final CardView cv_reply=activity.findViewById(R.id.cv_reply);
+        final CardView replyCV=activity.findViewById(R.id.replyCV);
 
 
         final TextDrawable.IBuilder builder = TextDrawable.builder()
@@ -217,7 +217,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 edt_comment.requestFocus();
                 InputMethodManager imm = (InputMethodManager) edt_comment.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(edt_comment, InputMethodManager.SHOW_IMPLICIT);
-                cv_reply.setVisibility(View.VISIBLE);
+                replyCV.setVisibility(View.VISIBLE);
 
                 if(comment.getAuthor().equals(SharedPref.getString(context,"email")))
                     replier_nameTV.setText("You");

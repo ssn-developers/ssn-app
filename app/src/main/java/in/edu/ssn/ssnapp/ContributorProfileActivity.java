@@ -125,7 +125,6 @@ public class ContributorProfileActivity extends BaseActivity {
             public void onClick(View v) {
                 if(!CommonUtils.alerter(getApplicationContext())) {
                     CommonUtils.openCustomBrowser(getApplicationContext(),link);
-                    Bungee.slideLeft(ContributorProfileActivity.this);
                 }
                 else{
                     Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);

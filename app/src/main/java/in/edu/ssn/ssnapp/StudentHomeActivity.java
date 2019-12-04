@@ -156,7 +156,6 @@ public class StudentHomeActivity extends BaseActivity {
                     case "AlmaConnect":
                         if (!CommonUtils.alerter(getApplicationContext())) {
                             CommonUtils.openCustomBrowser(getApplicationContext(),"https://ssn.almaconnect.com");
-                            Bungee.slideLeft(StudentHomeActivity.this);
                         } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                             intent.putExtra("key", "home");
@@ -200,7 +199,6 @@ public class StudentHomeActivity extends BaseActivity {
                     case "Privacy Policy":
                         if (!CommonUtils.alerter(getApplicationContext())) {
                             CommonUtils.openCustomBrowser(getApplicationContext(),Constants.termsfeed);
-                            Bungee.slideLeft(StudentHomeActivity.this);
                         } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                             intent.putExtra("key", "home");

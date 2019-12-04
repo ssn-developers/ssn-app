@@ -75,7 +75,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
     ChipGroup attachmentsChipGroup;
     RelativeLayout textGroupRL;
     EditText et_Comment;
-    CardView cv_reply;
+    CardView replyCV;
 
     ExpandableListView expandableListView;
     CustomExpandableListAdapter expandableListAdapter;
@@ -129,7 +129,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
         sendIV=findViewById(R.id.sendIV);
         et_Comment=findViewById(R.id.edt_comment);
         cancel_replyIV=findViewById(R.id.cancelIV);
-        cv_reply=findViewById(R.id.cv_reply);
+        replyCV=findViewById(R.id.replyCV);
 
         CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
 
@@ -137,7 +137,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 selected_replyTV.setText("");
-                cv_reply.setVisibility(View.GONE);
+                replyCV.setVisibility(View.GONE);
                 expandableListAdapter.setReplyingForComment(false);
             }
         });
@@ -175,7 +175,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
                         });
 
                         selected_replyTV.setText("");
-                        cv_reply.setVisibility(View.GONE);
+                        replyCV.setVisibility(View.GONE);
 
                         expandableListAdapter.setReplyingForComment(false);
                     }
@@ -186,7 +186,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
-        expandableListView =  findViewById(R.id.EV_comment);
+        expandableListView =  findViewById(R.id.commentEV);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {

@@ -25,10 +25,11 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class AppInfoActivity extends BaseActivity implements View.OnClickListener {
 
-    RecyclerView rv_items1, rv_items2, rv_items3;
+    RecyclerView items1RV, items2RV, items3RV;
     ArrayList<TeamDetails> teams1, teams2;
     ArrayList<AlumniDetails> alumni;
     ImageView webIV, fbIV, twitIV, linkedinIV, instaIV;
+    TextView textUrlTV, text6TV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,20 +47,20 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         TextView versionTV = findViewById(R.id.versionTV);
         versionTV.setText("v" + BuildConfig.VERSION_NAME);
 
-        rv_items1 = findViewById(R.id.rv_items1);
-        rv_items2 = findViewById(R.id.rv_items2);
-        rv_items3 = findViewById(R.id.rv_items3);
+        items1RV = findViewById(R.id.items1RV);
+        items2RV = findViewById(R.id.items2RV);
+        items3RV = findViewById(R.id.items3RV);
 
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(this);
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(this);
 
-        rv_items1.setLayoutManager(layoutManager1);
-        rv_items1.setNestedScrollingEnabled(false);
-        rv_items2.setLayoutManager(layoutManager2);
-        rv_items2.setNestedScrollingEnabled(false);
-        rv_items3.setLayoutManager(layoutManager3);
-        rv_items3.setNestedScrollingEnabled(false);
+        items1RV.setLayoutManager(layoutManager1);
+        items1RV.setNestedScrollingEnabled(false);
+        items2RV.setLayoutManager(layoutManager2);
+        items2RV.setNestedScrollingEnabled(false);
+        items3RV.setLayoutManager(layoutManager3);
+        items3RV.setNestedScrollingEnabled(false);
 
         teams1 = new ArrayList<>();
         teams2 = new ArrayList<>();
@@ -70,6 +71,10 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         twitIV = findViewById(R.id.twitIV);           twitIV.setOnClickListener(this);
         linkedinIV = findViewById(R.id.linkedinIV);   linkedinIV.setOnClickListener(this);
         instaIV = findViewById(R.id.instaIV);         instaIV.setOnClickListener(this);
+        textUrlTV = findViewById(R.id.textUrlTV);     textUrlTV.setOnClickListener(this);
+
+        text6TV = findViewById(R.id.text6TV);
+        text6TV.setSelected(true);
 
         setUpPreFinalContributors();
 
@@ -81,7 +86,6 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
     void setUpPreFinalContributors(){
         ArrayList<String> url = new ArrayList<>();
 
-        url= new ArrayList<>();
         url.add("ezhilprasanth17040@cse.ssn.edu.in");
         url.add("https://github.com/ezhilnero99");
         url.add("https://www.linkedin.com/in/ezhilnero-m");
@@ -99,19 +103,21 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
         teams1.add(new TeamDetails("Nandhini R","Web Development",R.drawable.nandhini_profile, url));
 
+        //TODO: Update URL-3 & photo
         url= new ArrayList<>();
-        url.add("sudhakar.jeeva7@gmail.com");
-        url.add("https://www.instagram.com/sudhakar_shady");
-        url.add("https://www.linkedin.com/in/sudhakar-j");
-        teams1.add(new TeamDetails("Sudhakar J","Web UI Designs",R.drawable.sudhakar_profile, url));
+        url.add("lksujins@gmail.com");
+        url.add("https://github.com/sujink1999");
+        url.add("");
+        teams1.add(new TeamDetails("Sujin K","App Development",R.drawable.nandhini_profile, url));
 
+        //TODO: Update URL-2,3 & photo
         url= new ArrayList<>();
-        url.add("yadhukrishnannair99@gmail.com");
-        url.add("https://www.facebook.com/yadhukrishnan.nair.5");
-        url.add("https://www.instagram.com/yk_2310");
-        teams1.add(new TeamDetails("Yadhukrishnan P","Web UI Designs",R.drawable.yadhuv_profile, url));
+        url.add("amrithasudharsan@gmail.com");
+        url.add("");
+        url.add("");
+        teams1.add(new TeamDetails("Amritha Sudharsan","App UI Designs",R.drawable.nandhini_profile, url));
 
-        rv_items1.setAdapter(new AboutContributorAdapter(this, teams1));
+        items1RV.setAdapter(new AboutContributorAdapter(this, teams1));
     }
 
     void setUpFinalContributors(){
@@ -120,7 +126,7 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         url.add("ddlogesh@gmail.com");
         url.add("https://github.com/ddlogesh");
         url.add("https://www.linkedin.com/in/logesh-dinakaran");
-        teams2.add(new TeamDetails("Logesh D","App Development",R.drawable.logesh_profile, url));
+        teams2.add(new TeamDetails("Logesh D","App & Web Development",R.drawable.logesh_profile, url));
 
         url= new ArrayList<>();
         url.add("harshavardhan.zodiac@gmail.com");
@@ -135,24 +141,12 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         teams2.add(new TeamDetails("Shrikanth Ravi","App Development",R.drawable.shrikanth_profile, url));
 
         url= new ArrayList<>();
-        url.add("jennifer.malathi@gmail.com");
-        url.add("https://www.behance.net/jenniferj1");
-        url.add("https://www.linkedin.com/in/jennifer-j-a77260142");
-        teams2.add(new TeamDetails("Jennifer J","App Illustrations",R.drawable.jenifer_profile, url));
-
-        url= new ArrayList<>();
-        url.add("https://dribbble.com/Shibikannan");
-        url.add("https://www.instagram.com/thechromaexplorer");
-        url.add("https://www.linkedin.com/in/shibikannan-t-m-a79493155");
-        teams2.add(new TeamDetails("Shibikannan T M","Motion Graphic Designs",R.drawable.shibi_profile, url));
-
-        url= new ArrayList<>();
         url.add("tarun.krithik@gmail.com");
         url.add("https://www.facebook.com/tarung.kangeyan");
         url.add("https://www.linkedin.com/in/tarun-ganesh-a35594181");
         teams2.add(new TeamDetails("Tarun Ganesh K","Web Development",R.drawable.tarun_profile, url));
 
-        rv_items2.setAdapter(new AboutContributorAdapter(this, teams2));
+        items2RV.setAdapter(new AboutContributorAdapter(this, teams2));
     }
 
     void setUpAlumni(){
@@ -160,7 +154,7 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         alumni.add(new AlumniDetails("Adithya J","adithya321@hotmail.com"));
         alumni.add(new AlumniDetails("Varun Ranganathan","dvarunranganathan@gmail.com"));
         alumni.add(new AlumniDetails("Muthu Annamalai CT","muthuct@outlook.com"));
-        rv_items3.setAdapter(new AboutAlumniAdapter(this, alumni));
+        items3RV.setAdapter(new AboutAlumniAdapter(this, alumni));
     }
 
     @Override
@@ -169,23 +163,21 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
             switch (v.getId()) {
                 case R.id.webIV:
                     CommonUtils.openCustomBrowser(getApplicationContext(),"http://www.ssn.edu.in");
-                    Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.fbIV:
                     CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.facebook.com/SSNInstitution");
-                    Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.twitIV:
                     CommonUtils.openCustomBrowser(getApplicationContext(),"https://twitter.com/ssninstitutions");
-                    Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.linkedinIV:
                     CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.linkedin.com/school/ssn-college-of-engineering");
-                    Bungee.slideLeft(AppInfoActivity.this);
                     break;
                 case R.id.instaIV:
                     CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.instagram.com/ssninstitutions");
-                    Bungee.slideLeft(AppInfoActivity.this);
+                    break;
+                case R.id.textUrlTV:
+                    CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.facebook.com/ssnceapp");
                     break;
             }
         }

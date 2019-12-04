@@ -81,7 +81,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
     private FirestoreRecyclerAdapter adapter;
     private ShimmerFrameLayout shimmer_view;
     private RecyclerView feedsRV;
-    private TextView tool_tv_count, following_textTV, followersTV, followers_textTV;
+    private TextView toolCountTV, following_textTV, followersTV, followers_textTV;
     private Club club;
     private TextView newPostTV;
 
@@ -127,7 +127,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         tool_shareIV.setOnClickListener(this);
         CircleImageView tool_dpIV = findViewById(R.id.tool_dpIV);
         TextView tool_titleTV = findViewById(R.id.tool_titleTV);
-        tool_tv_count = findViewById(R.id.tool_tv_count);
+        toolCountTV = findViewById(R.id.toolCountTV);
 
         setSupportActionBar(toolbar);
         startAlphaAnimation(toolbar, 0, View.INVISIBLE);
@@ -143,7 +143,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         ImageView shareIV = findViewById(R.id.shareIV);
         shareIV.setOnClickListener(this);
         ImageView cover_picIV = findViewById(R.id.cover_picIV);       cover_picIV.setOnClickListener(this);
-        CircleImageView dpIV_pic = findViewById(R.id.dpIV_pic);
+        CircleImageView dpIV = findViewById(R.id.dpIV);
 
         following_textTV = findViewById(R.id.following_textTV);
         lottie = findViewById(R.id.lottie);    lottie.setOnClickListener(this);
@@ -228,7 +228,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             followers_textTV.setText("Follower");
         }
 
-        Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(dpIV_pic);
+        Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(dpIV);
         Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(tool_dpIV);
         Glide.with(this).load(club.getCover_url()).placeholder(R.color.shimmering_back).into(cover_picIV);
     }
@@ -371,9 +371,9 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                 });
 
                 if(getItemCount() > 0)
-                    tool_tv_count.setText(getItemCount() + " posts");
+                    toolCountTV.setText(getItemCount() + " posts");
                 else
-                    tool_tv_count.setText("No posts");
+                    toolCountTV.setText("No posts");
                 shimmer_view.setVisibility(View.GONE);
                 layout_progress.setVisibility(View.GONE);
             }

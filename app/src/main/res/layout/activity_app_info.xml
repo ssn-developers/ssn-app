@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_app_icon"
+            android:id="@+id/appIconCV"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
             android:layout_marginLeft="@dimen/_10sdp"
@@ -35,7 +35,7 @@
             android:layout_height="@dimen/_70sdp"
             android:layout_marginLeft="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_toRightOf="@+id/cv_app_icon">
+            android:layout_toRightOf="@+id/appIconCV">
 
             <RelativeLayout
                 android:id="@+id/layout11"
@@ -156,7 +156,7 @@
             android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_items1"
+            android:id="@+id/items1RV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -168,7 +168,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-            android:layout_below="@+id/rv_items1"
+            android:layout_below="@+id/items1RV"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/final_years"
@@ -176,7 +176,7 @@
             android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_items2"
+            android:id="@+id/items2RV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -187,7 +187,7 @@
             android:id="@+id/text3TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rv_items2"
+            android:layout_below="@+id/items2RV"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
             android:layout_marginTop="@dimen/_10sdp"
@@ -196,7 +196,7 @@
             android:textSize="@dimen/_12ssp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_items3"
+            android:id="@+id/items3RV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipToPadding="false"
@@ -207,7 +207,7 @@
             android:id="@+id/text4TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rv_items3"
+            android:layout_below="@+id/items3RV"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
@@ -228,6 +228,7 @@
             android:text="CSE department &amp; Marketing team"/>
 
         <TextView
+            android:id="@+id/text6TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text5TV"
@@ -236,8 +237,36 @@
             android:fontFamily="@font/open_sans"
             android:textColor="#636363"
             android:textSize="@dimen/_10ssp"
-            android:layout_marginBottom="@dimen/_30sdp"
+            android:singleLine="true"
+            android:ellipsize="marquee"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:text="@string/additional_contributors"/>
+
+        <TextView
+            android:id="@+id/text7TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text6TV"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/open_sans"
+            android:textColor="#636363"
+            android:textSize="@dimen/_10ssp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:text="@string/fb_page_detail"/>
+
+        <TextView
+            android:id="@+id/textUrlTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/text7TV"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/app_fb_page"
+            android:textColor="@color/colorAccent"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:textSize="@dimen/_12ssp" />
 
     </RelativeLayout>
 

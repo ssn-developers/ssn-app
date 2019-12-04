@@ -70,7 +70,7 @@
                     android:layout_marginStart="@dimen/_20sdp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/dpIV_pic"
+                        android:id="@+id/dpIV"
                         android:layout_width="@dimen/_75sdp"
                         android:layout_height="@dimen/_75sdp"
                         app:civ_border_color="@color/white"
@@ -112,7 +112,7 @@
                         android:fontFamily="@font/open_sans_bold"
                         android:textSize="@dimen/_16ssp"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_below="@id/dpIV_pic" />
+                        android:layout_below="@id/dpIV" />
 
                     <TextView
                         android:id="@+id/descriptionTV"
@@ -229,7 +229,7 @@
                                 android:textColor="@color/colorAccent"
                                 android:textSize="@dimen/_14ssp" />
                             <TextView
-                                android:id="@+id/tool_tv_count"
+                                android:id="@+id/toolCountTV"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/colorAccentText"
