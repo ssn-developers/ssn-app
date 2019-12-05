@@ -165,8 +165,7 @@ public class FacultyHomeActivity extends BaseActivity {
                     case "Privacy Policy":
                         if(!CommonUtils.alerter(getApplicationContext())) {
                             CommonUtils.openCustomBrowser(getApplicationContext(),Constants.termsfeed);
-                        }
-                        else{
+                        }else{
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                             intent.putExtra("key","home");
                             startActivity(intent);

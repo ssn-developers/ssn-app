@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/darkColor"
     tools:context=".SettingsActivity">
 
     <RelativeLayout
@@ -16,7 +17,7 @@
             android:id="@+id/bgIV"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_82sdp"
-            android:background="@drawable/tool_bar_curve" />
+            android:background="@drawable/tool_bar_curve_dark"/>
 
         <ImageView
             android:id="@+id/backIV"
@@ -58,7 +59,7 @@
                 android:fontFamily="@font/open_sans_bold"
                 android:padding="@dimen/_10sdp"
                 android:text="Theme"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp" />
 
             <RelativeLayout
@@ -78,7 +79,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="Dark mode"
-                    android:textColor="@color/colorAccentText"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
 
                 <com.suke.widget.SwitchButton
@@ -88,7 +89,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/_12sdp"
-                    app:sb_background="@color/colorAccentLight"
+                    app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
 
@@ -110,7 +111,7 @@
                 android:fontFamily="@font/open_sans_bold"
                 android:padding="@dimen/_10sdp"
                 android:text="Notifications"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp" />
 
             <RelativeLayout
@@ -130,7 +131,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="All Posts"
-                    android:textColor="@color/colorAccentText"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
 
                 <com.suke.widget.SwitchButton
@@ -142,7 +143,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
+                    app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
             </RelativeLayout>
@@ -172,7 +173,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="Newsfeed"
-                    android:textColor="@color/colorAccentText"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
 
                 <com.suke.widget.SwitchButton
@@ -184,7 +185,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
+                    app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
             </RelativeLayout>
@@ -214,7 +215,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="Bus Alerts"
-                    android:textColor="@color/colorAccentText"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
 
                 <com.suke.widget.SwitchButton
@@ -226,7 +227,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
+                    app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
             </RelativeLayout>
@@ -248,7 +249,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="Examcell"
-                    android:textColor="@color/colorAccentText"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
 
                 <com.suke.widget.SwitchButton
@@ -260,7 +261,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
+                    app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
             </RelativeLayout>
@@ -290,7 +291,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="Placements"
-                    android:textColor="@color/colorAccentText"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
 
                 <com.suke.widget.SwitchButton
@@ -302,7 +303,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
+                    app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
             </RelativeLayout>
@@ -332,7 +333,7 @@
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
                     android:text="Events"
-                    android:textColor="@color/colorAccentText"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_13sdp" />
 
                 <com.suke.widget.SwitchButton
@@ -344,7 +345,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginRight="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
+                    app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
             </RelativeLayout>
@@ -364,7 +365,7 @@
                 android:fontFamily="@font/open_sans_bold"
                 android:padding="@dimen/_10sdp"
                 android:text="Communication"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp" />
 
             <TextView
@@ -375,12 +376,11 @@
                 android:layout_marginRight="@dimen/_5sdp"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/open_sans"
+                android:layout_marginTop="@dimen/_10sdp"                android:fontFamily="@font/open_sans"
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Almaconnect"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -401,7 +401,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Helpline"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -419,7 +419,7 @@
                 android:fontFamily="@font/open_sans_bold"
                 android:padding="@dimen/_10sdp"
                 android:text="About"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_14sdp" />
 
             <TextView
@@ -434,7 +434,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Contributors"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -455,7 +455,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Make a suggestion"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -465,7 +465,6 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
-
 
             <TextView
                 android:id="@+id/inviteTV"
@@ -477,7 +476,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Invite freinds"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -498,7 +497,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Rate our app"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -508,7 +507,6 @@
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
-
             <TextView
                 android:id="@+id/updatesTV"
                 android:layout_width="match_parent"
@@ -519,7 +517,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Check for updates"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -540,7 +538,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Privacy"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
@@ -561,7 +559,7 @@
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Logout"
-                android:textColor="@color/colorAccentText"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_13sdp" />
 
             <View
