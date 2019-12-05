@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".SettingsActivity">
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_82sdp">
+
+        <ImageView
+            android:id="@+id/bgIV"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_82sdp"
+            android:background="@drawable/tool_bar_curve" />
+
+        <ImageView
+            android:id="@+id/backIV"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_22sdp"
+            app:srcCompat="@drawable/ic_back" />
+
+        <TextView
+            android:id="@+id/title1TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_toRightOf="@+id/backIV"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="Settings"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_16ssp" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:padding="@dimen/_10sdp"
+        android:text="Theme"
+        android:textSize="@dimen/_14sdp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/sleep_titleTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:paddingRight="@dimen/_5sdp"
+            android:singleLine="true"
+            android:text="Dark mode"
+            android:textColor="#9A000000"
+            android:textSize="@dimen/_16ssp" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/darkModeSwitch"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_12sdp"
+            app:sb_background="@color/colorAccentLight"
+            app:sb_checked_color="@color/colorAccent"
+            app:sb_show_indicator="false" />
+
+        <View
+            android:id="@+id/view_sleep_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:layout_marginRight="@dimen/_15sdp"
+            android:background="#66C0C0C0" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:padding="@dimen/_10sdp"
+        android:text="Notifications"
+        android:textSize="@dimen/_14sdp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/posticonTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:paddingRight="@dimen/_5sdp"
+            android:singleLine="true"
+            android:text="All Posts"
+            android:textColor="#9A000000"
+            android:textSize="@dimen/_16ssp" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/switch_all"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:sb_background="@color/colorAccentLight"
+            app:sb_checked_color="@color/colorAccent"
+            app:sb_show_indicator="false" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/bus_alert_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:paddingRight="@dimen/_5sdp"
+            android:singleLine="true"
+            android:text="Bus Alerts"
+            android:textColor="#9A000000"
+            android:textSize="@dimen/_16ssp" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/switch_bus"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:sb_background="@color/colorAccentLight"
+            app:sb_checked_color="@color/colorAccent"
+            app:sb_show_indicator="false" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_5sdp">
+
+        <TextView
+            android:id="@+id/event_TV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_5sdp"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:paddingRight="@dimen/_5sdp"
+            android:singleLine="true"
+            android:text="Events"
+            android:textColor="#9A000000"
+            android:textSize="@dimen/_16ssp" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/switch_event"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            app:sb_background="@color/colorAccentLight"
+            app:sb_checked_color="@color/colorAccent"
+            app:sb_show_indicator="false" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:padding="@dimen/_10sdp"
+        android:text="Communication"
+        android:textSize="@dimen/_14sdp" />
+
+    <TextView
+        android:id="@+id/almaconnetTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semi_bold"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:text="Almaconnect"
+        android:textColor="#9A000000"
+        android:textSize="@dimen/_16ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+    <TextView
+        android:id="@+id/helplineTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semi_bold"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:text="Helpline"
+        android:textColor="#9A000000"
+        android:textSize="@dimen/_16ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:padding="@dimen/_10sdp"
+        android:text="Communication"
+        android:textSize="@dimen/_14sdp" />
+    <TextView
+        android:id="@+id/helplineTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semi_bold"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:text="Helpline"
+        android:textColor="#9A000000"
+        android:textSize="@dimen/_16ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+    <TextView
+        android:id="@+id/helplineTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semi_bold"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:text="Helpline"
+        android:textColor="#9A000000"
+        android:textSize="@dimen/_16ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+    <TextView
+        android:id="@+id/helplineTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semi_bold"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:text="Helpline"
+        android:textColor="#9A000000"
+        android:textSize="@dimen/_16ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+    <TextView
+        android:id="@+id/helplineTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semi_bold"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:text="Helpline"
+        android:textColor="#9A000000"
+        android:textSize="@dimen/_16ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+    <TextView
+        android:id="@+id/helplineTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/_5sdp"
+        android:fontFamily="@font/open_sans_semi_bold"
+        android:padding="@dimen/_5sdp"
+        android:singleLine="true"
+        android:text="Helpline"
+        android:textColor="#9A000000"
+        android:textSize="@dimen/_16ssp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_5sdp"
+        android:layout_marginRight="@dimen/_15sdp"
+        android:background="#66C0C0C0" />
+
+
+</LinearLayout>
