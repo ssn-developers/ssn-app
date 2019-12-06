@@ -12,8 +12,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:descendantFocusability="blocksDescendants">
 
             <LinearLayout
                 android:id="@+id/linearlayout1"
@@ -51,12 +50,14 @@
                             android:id="@+id/iconIV1"/>
                         <View
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_30sdp"
+                            android:layout_height="0dp"
                             android:layout_weight="1"/>
                         <TextView
                             android:id="@+id/linkTitleTV1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"
                             android:fontFamily="@font/open_sans_bold"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:text="GPA calculator"
@@ -92,7 +93,7 @@
                             android:id="@+id/iconIV2"/>
                         <View
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/_30sdp"
+                            android:layout_height="0dp"
                             android:layout_weight="1"/>
 
                         <TextView
@@ -152,63 +153,67 @@
                     android:layout_marginRight="@dimen/_20sdp"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"
-                    android:text="We'll let you know for new feeds till then stay tuned."
+                    android:text="We'll let you know for new posts till then stay tuned."
                     android:textColor="@color/colorAccentText"
                     android:textSize="@dimen/_12ssp" />
 
             </RelativeLayout>
 
-            <com.facebook.shimmer.ShimmerFrameLayout
-                android:id="@+id/shimmer_view"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/linearlayout1"
-                android:visibility="gone"
-                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearlayout1">
 
-                <LinearLayout
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <include layout="@layout/student_post_item_shimmering" />
+
+                        <include layout="@layout/student_post_item_shimmering" />
+
+                        <include layout="@layout/student_post_item_shimmering" />
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/feedsRV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:clipToPadding="false"/>
 
-                    <include layout="@layout/faculty_sent_post_item_shimmering" />
-
-                    <include layout="@layout/faculty_sent_post_item_shimmering" />
-
-                    <include layout="@layout/faculty_sent_post_item_shimmering" />
-                </LinearLayout>
-            </com.facebook.shimmer.ShimmerFrameLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/feedsRV"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linearlayout1"
-                android:clipToPadding="false"/>
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/newPostTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="@dimen/_16sdp"
+                android:layout_gravity="center"
                 android:background="@drawable/new_post_text_bg"
-                android:clickable="true"
-                android:drawableStart="@drawable/ic_arrow_upward_white_24dp"
-                android:drawablePadding="@dimen/_5sdp"
-                android:fontFamily="@font/open_sans_semi_bold"
-                android:foreground="?android:selectableItemBackground"
+                android:layout_margin="@dimen/_16sdp"
                 android:gravity="center"
-                android:padding="@dimen/_5sdp"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingTop="@dimen/_5sdp"
-                android:paddingEnd="@dimen/_10sdp"
-                android:text="New posts"
+                android:visibility="gone"
+                android:drawableStart="@drawable/ic_arrow_upward_white"
+                android:drawablePadding="@dimen/_5sdp"
+                android:layout_alignParentBottom="true"
+                android:clickable="true"
+                android:foreground="?android:selectableItemBackground"
+                android:id="@+id/newPostTV"
                 android:textColor="@android:color/white"
-                android:visibility="gone" />
+                android:fontFamily="@font/open_sans_semi_bold"
+                android:paddingStart="@dimen/_10sdp"
+                android:paddingEnd="@dimen/_10sdp"
+                android:paddingTop="@dimen/_5sdp"
+                android:padding="@dimen/_5sdp"
+                android:text="New posts"/>
 
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
-
 </RelativeLayout>

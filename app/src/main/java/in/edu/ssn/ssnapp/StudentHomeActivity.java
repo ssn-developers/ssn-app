@@ -4,10 +4,7 @@ import androidx.core.view.GravityCompat;
 import androidx.viewpager.widget.ViewPager;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -150,7 +147,7 @@ public class StudentHomeActivity extends BaseActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         break;
                     case "Favourites":
-                        startActivity(new Intent(getApplicationContext(), SavedPostActivity.class));
+                        startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
                         break;
                     case "AlmaConnect":

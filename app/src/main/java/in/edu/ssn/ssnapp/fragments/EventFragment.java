@@ -50,7 +50,6 @@ public class EventFragment extends Fragment {
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
     private TextView newPostTV;
-    LinearLayout cardLL1,cardLL2;
     boolean darkMode=false;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,16 +57,14 @@ public class EventFragment extends Fragment {
         darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
-            view = inflater.inflate(R.layout.fragment_student_feed_dark, container, false);
+            view = inflater.inflate(R.layout.fragment_placement_feed_dark, container, false);
         }else{
-            view = inflater.inflate(R.layout.fragment_student_feed, container, false);
+            view = inflater.inflate(R.layout.fragment_placement_feed, container, false);
         }
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
         setupFireStore();
-        cardLL1.setVisibility(View.GONE);
-        cardLL2.setVisibility(View.GONE);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -227,9 +224,6 @@ public class EventFragment extends Fragment {
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
-        cardLL1 = view.findViewById(R.id.linearlayout1);
-        cardLL2 = view.findViewById(R.id.linearlayout2);
-
     }
 
     /*********************************************************/

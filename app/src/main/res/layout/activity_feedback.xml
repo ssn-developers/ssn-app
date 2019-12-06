@@ -82,7 +82,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/_36sdp"
         app:cardCornerRadius="5dp"
         android:clickable="true"
         android:layout_below="@+id/et_feedback"
@@ -100,7 +100,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="@font/open_sans_bold"
-            android:textSize="18dp"
+            android:textSize="@dimen/_14ssp"
             android:textColor="@android:color/white"
             android:text="Submit"/>
     </androidx.cardview.widget.CardView>

@@ -33,7 +33,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/_36sdp"
         app:cardCornerRadius="5dp"
         android:clickable="true"
         android:id="@+id/retryCV"

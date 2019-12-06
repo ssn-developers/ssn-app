@@ -352,7 +352,7 @@
                 android:layout_margin="@dimen/_16sdp"
                 android:gravity="center"
                 android:visibility="gone"
-                android:drawableStart="@drawable/ic_arrow_upward_black_24dp"
+                android:drawableStart="@drawable/ic_arrow_upward_black"
                 android:drawablePadding="@dimen/_5sdp"
                 android:layout_alignParentBottom="true"
                 android:clickable="true"

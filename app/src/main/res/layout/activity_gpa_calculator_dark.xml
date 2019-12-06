@@ -8,18 +8,17 @@
     tools:context=".GPACalculatorActivity">
 
     <RelativeLayout
-        android:id="@+id/gpa_layout1"
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_82sdp">
 
         <ImageView
-            android:id="@+id/gpa_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_82sdp"
             android:background="@drawable/tool_bar_curve_dark" />
 
         <ImageView
-            android:id="@+id/gpa_back"
+            android:id="@+id/backIV"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
@@ -27,12 +26,11 @@
             android:layout_marginLeft="@dimen/_22sdp"/>
 
         <TextView
-            android:id="@+id/gpa_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_toRightOf="@+id/gpa_back"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
             android:text="GPA Calculator"
             android:textColor="#ffffff"
@@ -41,66 +39,77 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_285sdp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_below="@+id/gpa_layout1"
-        android:layout_margin="@dimen/_20sdp"
-        android:id="@+id/gpa_recycler_view"
-        ></androidx.recyclerview.widget.RecyclerView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:cardCornerRadius="5dp"
-        android:clickable="true"
-        android:layout_below="@+id/gpa_recycler_view"
-        android:id="@+id/calculate_gpa_card"
-        android:foreground="?attr/selectableItemBackground"
-        app:cardBackgroundColor="@color/colorAccent"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:focusable="true">
-
-        <TextView
-            android:id="@+id/calculate_gpa_TV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:fontFamily="@font/open_sans_bold"
-            android:textSize="18dp"
-            android:textColor="@android:color/white"
-            android:text="Calculate GPA"/>
-    </androidx.cardview.widget.CardView>
+        android:layout_below="@+id/layout1"
+        android:layout_above="@+id/layout2"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fadeScrollbars="false"
+        android:scrollbars="vertical"
+        android:scrollbarThumbVertical="@drawable/post_detail_bg_dark"
+        android:scrollbarSize="@dimen/_2sdp"
+        android:id="@+id/subjectsRV"/>
 
     <RelativeLayout
-        android:id="@+id/gpa_output_layout"
+        android:id="@+id/layout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/calculate_gpa_card"
-        android:visibility="invisible">
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp">
 
-        <TextView
-            android:id="@+id/gpa_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="@font/open_sans_bold"
-            android:text="8.2"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/_50ssp" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_36sdp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="0dp"
+            android:clickable="true"
+            android:id="@+id/calculateCV"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/colorAccent"
+            android:focusable="true">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:fontFamily="@font/open_sans_bold"
+                android:textSize="@dimen/_14ssp"
+                android:textColor="@android:color/white"
+                android:text="Calculate"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:id="@+id/gpaRL"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_27sdp"
-            android:layout_toRightOf="@id/gpa_value"
-            android:text=" /10"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/_25sdp"></TextView>
+            android:layout_below="@+id/calculateCV"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/gpaTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/open_sans_bold"
+                android:text="8.21"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_50ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/gpaTV"
+                android:layout_toRightOf="@id/gpaTV"
+                android:text=" /10"
+                android:fontFamily="@font/open_sans"
+                android:textColor="@color/darkTextColorLight"
+                android:textSize="@dimen/_22ssp"/>
+        </RelativeLayout>
+
     </RelativeLayout>
-
-
 
 </RelativeLayout>

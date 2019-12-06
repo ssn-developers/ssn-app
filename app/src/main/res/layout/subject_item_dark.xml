@@ -1,91 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/darkColor"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="@dimen/_38sdp"
+        app:cardBackgroundColor="@color/darkColor1"
         android:layout_marginBottom="@dimen/_10sdp"
-        android:backgroundTint="@color/darkColor1"
+        android:layout_marginEnd="@dimen/_7sdp"
         app:cardElevation="0dp"
-        android:id="@+id/subject_card"
         android:foreground="?selectableItemBackgroundBorderless"
         app:cardCornerRadius="@dimen/_5sdp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CS8501"
-            android:id="@+id/subject_code"
-            android:textColor="@color/colorAccentDark"
-            android:textSize="@dimen/_11ssp"
-            android:textStyle="bold"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_3sdp"></TextView>
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/subject_name"
-            android:text="Theory of Computation"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_18sdp"
-            android:textColor="#CECECE"
-            android:textSize="@dimen/_9sdp"
-            ></TextView>
-
         <RelativeLayout
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="match_parent"
-            android:layout_gravity="right">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/darkColorLight2"
-                app:cardElevation="0dp"
-                android:id="@+id/selection_card"
-                android:foreground="?selectableItemBackgroundBorderless"
-                app:cardCornerRadius="@dimen/_5sdp"
-                ></androidx.cardview.widget.CardView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_3sdp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="B"
-                android:id="@+id/grade_choose_TV"
-                android:layout_centerHorizontal="true"
-                android:textColor="#CECECE"
-                android:layout_centerVertical="true"
-                android:textSize="@dimen/_14ssp">
+                android:text="CS8501"
+                android:id="@+id/codeTV"
+                android:fontFamily="@font/open_sans_bold"
+                android:layout_toStartOf="@+id/gradeCV"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:textColor="@color/colorAccentDark"
+                android:textSize="@dimen/_11ssp" />
 
-            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nameTV"
+                android:text="Theory of Computation"
+                android:singleLine="true"
+                android:ellipsize="marquee"
+                android:layout_toStartOf="@+id/gradeCV"
+                android:layout_below="@+id/codeTV"
+                android:fontFamily="@font/open_sans"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginBottom="@dimen/_3sdp"
+                android:textColor="@color/darkTextColorLight"
+                android:textSize="@dimen/_9sdp" />
 
-            <ImageView
-                android:layout_width="@dimen/_18sdp"
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/_70sdp"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp"
-                android:clickable="true"
-                android:id="@+id/left_button"
-                ></ImageView>
+                android:layout_alignParentEnd="true"
+                app:cardBackgroundColor="@color/darkColorLight2"
+                app:cardElevation="0dp"
+                android:id="@+id/gradeCV"
+                android:foreground="?selectableItemBackgroundBorderless"
+                app:cardCornerRadius="@dimen/_5sdp">
 
-            <ImageView
-                android:layout_width="@dimen/_18sdp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
-                android:clickable="true"
-                android:layout_marginStart="@dimen/_52sdp"
-                android:id="@+id/right_button"
-                ></ImageView>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="A"
+                        android:fontFamily="@font/open_sans_semi_bold"
+                        android:id="@+id/gradeTV"
+                        android:textColor="@color/white"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/_14ssp"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_arrow_left"
+                        android:tint="@color/darkTextColorLight"
+                        android:clickable="true"
+                        android:id="@+id/leftIV"/>
+
+                    <ImageView
+                        android:layout_width="@dimen/_18sdp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/ic_arrow_right"
+                        android:tint="@color/darkTextColorLight"
+                        android:clickable="true"
+                        android:layout_alignParentEnd="true"
+                        android:id="@+id/rightIV"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
         </RelativeLayout>
-
-
     </androidx.cardview.widget.CardView>
-
-</LinearLayout>
+</RelativeLayout>

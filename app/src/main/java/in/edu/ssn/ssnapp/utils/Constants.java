@@ -30,7 +30,7 @@ public class Constants {
     public static final String second="2018";
     public static final String first="2019";
 
-    //syllabus for 2017 Regulations Anna university
+    //syllabus for AU 2017 Regulations
     public static final String cseAU="https://drive.google.com/uc?export=download&id=12nQ_pWliJnU12Wrh0jOyzwPGXHEzEPiV";
     public static final String itAU="https://drive.google.com/uc?export=download&id=1y7kCjuE33FF4NjOJjvXvYVp7o_dnjvi_";
     public static final String eceAU="https://drive.google.com/uc?export=download&id=1Dd8yqwa2l9zpkqSFeqAQUJ90Q7MgRWRm";
@@ -68,9 +68,6 @@ public class Constants {
     public static String collection_post_bus = "post_bus";
     public static String collection_post_club = "post_club";
     public static String collection_event = "event";
-
-    // default grade
-    public static String default_grade = "B";
 
     //TODO: modify when releasing the app
     //What's new stuff

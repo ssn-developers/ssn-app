@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp;
 import androidx.annotation.IntegerRes;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,6 +12,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import spencerstudios.com.bungeelib.Bungee;
+
 public class PassMarkCalculatorActivity extends BaseActivity {
 
     TextView OTV,APTV,ATV,BPTV,BTV,internalsTV;
@@ -18,20 +21,17 @@ public class PassMarkCalculatorActivity extends BaseActivity {
     ArrayList<Integer> values = new ArrayList<>();
     int internals;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if(darkModeEnabled){
             setContentView(R.layout.activity_pass_mark_calculator_dark);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
         }
-        else {
+        else
             setContentView(R.layout.activity_pass_mark_calculator);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
-        }
-
 
         initUI();
         right.setOnClickListener(new View.OnClickListener() {
@@ -39,8 +39,7 @@ public class PassMarkCalculatorActivity extends BaseActivity {
             public void onClick(View view) {
                 internals = Integer.parseInt(internalsTV.getText().toString());
 
-                if(internals<20)
-                {
+                if(internals<20) {
                     internalsTV.setText(Integer.toString(++internals));
                     getValues(internals);
                 }
@@ -59,20 +58,15 @@ public class PassMarkCalculatorActivity extends BaseActivity {
             public void onClick(View view) {
                 internals = Integer.parseInt(internalsTV.getText().toString());
 
-
                 if(internals>0) {
-                    internals--;
-                    internalsTV.setText(Integer.toString(internals));
+                    internalsTV.setText(Integer.toString(--internals));
                     getValues(internals);
                 }
-
             }
         });
-
     }
 
-    private void initUI()
-    {
+    private void initUI() {
         OTV = findViewById(R.id.OTV);
         APTV = findViewById(R.id.APTV);
         ATV = findViewById(R.id.ATV);
@@ -81,13 +75,11 @@ public class PassMarkCalculatorActivity extends BaseActivity {
         internalsTV = findViewById(R.id.internals_TV);
         right = findViewById(R.id.pm_right_button);
         left = findViewById(R.id.pm_left_button);
-        back = findViewById(R.id.pm_back);
+        back = findViewById(R.id.backIV);
         getValues(20);
-
     }
 
-    private void getValues(int mark)
-    {
+    private void getValues(int mark) {
         values.clear();
         values.add(0,0);
         values.add(1,0);
@@ -95,9 +87,7 @@ public class PassMarkCalculatorActivity extends BaseActivity {
         values.add(3,0);
         values.add(4,0);
 
-        for(int i=100;i>44;i--)
-        {
-
+        for(int i=100; i>44; i--) {
             int n= (int)(0.8 * i)+(mark);
             if(n>=91)
             {
@@ -138,11 +128,13 @@ public class PassMarkCalculatorActivity extends BaseActivity {
         ATV.setText(values.get(2).toString());
         BPTV.setText(values.get(3).toString());
         BTV.setText(values.get(4).toString());
-
     }
+
+    /********************************************************/
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
+        Bungee.slideRight(PassMarkCalculatorActivity.this);
     }
 }

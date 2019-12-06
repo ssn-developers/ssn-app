@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorAccentLight"
     tools:context=".PassMarkCalculatorActivity">
 
     <RelativeLayout
-        android:id="@+id/pm_layout1"
+        android:id="@+id/topRL"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_82sdp">
 
         <ImageView
-            android:id="@+id/pm_bg"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_82sdp"
             android:background="@drawable/tool_bar_curve" />
 
         <ImageView
-            android:id="@+id/pm_back"
+            android:id="@+id/backIV"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
@@ -26,12 +26,11 @@
             android:layout_marginLeft="@dimen/_22sdp"/>
 
         <TextView
-            android:id="@+id/pm_title1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_toRightOf="@+id/pm_back"
+            android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
             android:text="Pass Mark Calculator"
             android:textColor="#ffffff"
@@ -41,12 +40,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/open_sans"
         android:text="Internal marks"
+        android:textColor="@color/colorAccentText"
         android:id="@+id/internal_marksTV"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/_17sdp"
-        android:layout_below="@+id/pm_layout1"
-        android:layout_marginTop="@dimen/_30sdp"></TextView>
+        android:textSize="@dimen/_14sdp"
+        android:layout_below="@+id/topRL"
+        android:layout_marginTop="@dimen/_30sdp"/>
 
     <RelativeLayout
         android:layout_width="@dimen/_70sdp"
@@ -59,40 +60,38 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:backgroundTint="@color/shimmering_back"
+            app:cardBackgroundColor="@color/light_grey"
             app:cardElevation="0dp"
             android:id="@+id/internals_card"
             android:foreground="?selectableItemBackgroundBorderless"
-            app:cardCornerRadius="@dimen/_5sdp"
-            ></androidx.cardview.widget.CardView>
+            app:cardCornerRadius="@dimen/_5sdp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20"
+            android:fontFamily="@font/open_sans_semi_bold"
+            android:textColor="@color/black"
             android:id="@+id/internals_TV"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/_14ssp">
-
-        </TextView>
+            android:layout_centerInParent="true"
+            android:textSize="@dimen/_14ssp"/>
 
         <ImageView
             android:layout_width="@dimen/_18sdp"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/ic_keyboard_arrow_left_black_24dp"
+            app:srcCompat="@drawable/ic_arrow_left"
+            android:tint="#808080"
             android:clickable="true"
-            android:id="@+id/pm_left_button"
-            ></ImageView>
+            android:id="@+id/pm_left_button"/>
 
         <ImageView
             android:layout_width="@dimen/_18sdp"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/ic_keyboard_arrow_right_black_24dp"
+            app:srcCompat="@drawable/ic_arrow_right"
             android:clickable="true"
-            android:layout_marginStart="@dimen/_52sdp"
-            android:id="@+id/pm_right_button"
-            ></ImageView>
+            android:tint="#808080"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/pm_right_button"/>
 
     </RelativeLayout>
 
@@ -104,8 +103,7 @@
         android:layout_below="@+id/internal_markslayout"
         android:layout_centerHorizontal="true"
         android:orientation="vertical">
-
-
+        
         <LinearLayout
             android:layout_marginTop="@dimen/_1sdp"
             android:layout_marginStart="@dimen/_1sdp"
@@ -117,16 +115,18 @@
             <RelativeLayout
                 android:layout_width="@dimen/_130sdp"
                 android:layout_height="match_parent"
-                android:background="@color/shimmering_back"
+                android:background="@color/light_grey"
                 android:layout_marginEnd="@dimen/_1sdp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:text="Grade"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -134,15 +134,17 @@
             <RelativeLayout
                 android:layout_width="@dimen/_130sdp"
                 android:layout_height="match_parent"
-                android:background="@color/shimmering_back">
+                android:background="@color/light_grey">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:text="Pass Mark"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -154,8 +156,8 @@
             android:layout_marginEnd="@dimen/_1sdp"
             android:layout_height="@dimen/_40sdp"
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
+
             <RelativeLayout
                 android:layout_width="@dimen/_130sdp"
                 android:layout_height="match_parent"
@@ -166,9 +168,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:text="O"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -182,10 +186,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
-                    android:text=""
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:id="@+id/OTV"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -209,9 +214,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:text="A+"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -225,10 +232,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
-                    android:text=""
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:id="@+id/APTV"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -252,9 +260,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:text="A"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -268,10 +278,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
-                    android:text=""
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:id="@+id/ATV"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -295,9 +306,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:text="B+"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -311,10 +324,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
-                    android:text=""
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:id="@+id/BPTV"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -339,9 +353,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:text="B"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
 
@@ -355,23 +371,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/_12sdp"
-                    android:text=""
+                    android:fontFamily="@font/open_sans"
+                    android:textColor="@color/colorAccentText"
                     android:id="@+id/BTV"
                     android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"></TextView>
+                    android:layout_centerVertical="true"/>
 
             </RelativeLayout>
-
         </LinearLayout>
-
-
-
-
     </LinearLayout>
-
-
-
-
-
-
 </RelativeLayout>

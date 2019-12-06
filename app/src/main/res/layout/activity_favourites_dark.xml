@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".SavedPostActivity"
-    android:background="@android:color/white">
+    tools:context=".FavouritesActivity"
+    android:background="@color/darkColor">
 
     <ImageView
         android:id="@+id/bgIV"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_82sdp"
-        android:background="@drawable/tool_bar_curve"/>
+        android:background="@drawable/tool_bar_curve_dark"/>
 
     <RelativeLayout
         android:id="@+id/layout1"
@@ -75,7 +75,7 @@
             android:fontFamily="@font/open_sans_semi_bold"
             android:text="No Saved Posts"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/colorAccentText"
+            android:textColor="#f2f2f2"
             android:layout_marginTop="@dimen/_180sdp"
             android:layout_marginLeft="@dimen/_20sdp"
             android:layout_marginRight="@dimen/_20sdp"
@@ -89,7 +89,7 @@
             android:fontFamily="@font/open_sans"
             android:text="You haven't saved any posts at the moment."
             android:layout_centerHorizontal="true"
-            android:textColor="@color/colorAccentText"
+            android:textColor="#f2f2f2"
             android:layout_below="@+id/text1TV"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginLeft="@dimen/_20sdp"

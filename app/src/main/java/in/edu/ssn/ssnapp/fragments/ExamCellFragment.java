@@ -43,6 +43,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import in.edu.ssn.ssnapp.ChooseSemesterActivity;
+import in.edu.ssn.ssnapp.FacultyHomeActivity;
 import in.edu.ssn.ssnapp.PassMarkCalculatorActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
@@ -63,29 +64,24 @@ public class ExamCellFragment extends Fragment {
     RecyclerView feedsRV;
     LinearLayoutManager layoutManager;
     RelativeLayout layout_progress;
-    LinearLayout cardLL;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
     CardView gpaCV,passmarkCV;
-    private TextView newPostTV;
+    TextView newPostTV, linkTitleTV1, linkTitleTV2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CommonUtils.addScreen(getContext(),getActivity(),"ExamCellFragment");
         darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
-        if(darkMode){
-            view = inflater.inflate(R.layout.fragment_club, container, false);
-        }else {
-            view = inflater.inflate(R.layout.fragment_club, container, false);
-        }
+        if(darkMode)
+            view = inflater.inflate(R.layout.fragment_exam_feed_dark, container, false);
+        else
+            view = inflater.inflate(R.layout.fragment_exam_feed, container, false);
+
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
         setupFireStore();
-        String year = String.valueOf(SharedPref.getInt(getContext(),"year"));
-        if(year.equals(Constants.third)||year.equals(Constants.fourth)) {
-            cardLL.setVisibility(View.GONE);
-        }
 
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,6 +96,8 @@ public class ExamCellFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ChooseSemesterActivity.class);
                 startActivity(intent);
+                Bungee.slideLeft(getContext());
+
             }
         });
         passmarkCV.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +105,7 @@ public class ExamCellFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), PassMarkCalculatorActivity.class);
                 startActivity(intent);
+                Bungee.slideLeft(getContext());
             }
         });
 
@@ -252,9 +251,13 @@ public class ExamCellFragment extends Fragment {
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
-        cardLL = view.findViewById(R.id.linearlayout1);
         gpaCV = view.findViewById(R.id.gpaCV);
         passmarkCV = view.findViewById(R.id.passmarkCV);
+        linkTitleTV1 = view.findViewById(R.id.linkTitleTV1);
+        linkTitleTV2 = view.findViewById(R.id.linkTitleTV2);
+
+        linkTitleTV1.setSelected(true);
+        linkTitleTV2.setSelected(true);
     }
 
     /*********************************************************/

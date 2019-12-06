@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +33,7 @@ import in.edu.ssn.ssnapp.adapters.SubjectsAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.models.DepartmentSubjects;
 import in.edu.ssn.ssnapp.models.Subject;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class GPACalculatorActivity extends BaseActivity {
 
@@ -48,71 +50,47 @@ public class GPACalculatorActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gpa_calculator_dark);
 
         if(darkModeEnabled){
             setContentView(R.layout.activity_gpa_calculator_dark);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
         }
-        else {
+        else
             setContentView(R.layout.activity_gpa_calculator);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
-        }
 
-
-        semester = getIntent().getIntExtra("sem",1);
-        semester--;
+        semester = getIntent().getIntExtra("sem",0);
         new getDepartmentSubjects().execute();
-
-
-
-
-
-
     }
 
-    private void initUI()
-    {
-        gradeResult = findViewById(R.id.gpa_value);
-        backImage = findViewById(R.id.gpa_back);
-        gpaOutput = findViewById(R.id.gpa_output_layout);
-        calculateGPA = findViewById(R.id.calculate_gpa_card);
-        subjectsList = findViewById(R.id.gpa_recycler_view);
-        if(departmentSubjects!=null) {
+    private void initUI() {
+        gradeResult = findViewById(R.id.gpaTV);
+        backImage = findViewById(R.id.backIV);
+        gpaOutput = findViewById(R.id.gpaRL);
+        calculateGPA = findViewById(R.id.calculateCV);
+        subjectsList = findViewById(R.id.subjectsRV);
+        if(departmentSubjects != null)
             subjects = departmentSubjects.get(0).getSem().get(semester).getSubjects();
-        }
+
         subjectsAdapter = new SubjectsAdapter(getApplicationContext(),subjects);
-
-
-
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    private void calculateAndDisplay()
-    {
+    private void calculateAndDisplay() {
         float gpa=0;
         float totalCreditsGained=0;
         float totalCredits=0;
-        for(int i=0;i<subjects.size();i++)
-        {
+        for(int i=0;i<subjects.size();i++) {
             totalCreditsGained+=(float)subjects.get(i).getGrade() * subjects.get(i).getCredits();
             totalCredits+=(float)subjects.get(i).getCredits();
         }
+
         gpa = totalCreditsGained/totalCredits;
         gpaOutput.setVisibility(View.VISIBLE);
-        if(gpa%1>0.00) {
+        if(gpa%1 > 0.00)
             gradeResult.setText(String.format("%.2f", gpa));
-        }else
-        {
+        else
             gradeResult.setText(Integer.toString((int)gpa));
-        }
-
     }
-
 
     public class getDepartmentSubjects extends AsyncTask<Void, Void, Void> {
         @Override
@@ -130,14 +108,10 @@ public class GPACalculatorActivity extends BaseActivity {
                 departmentSubjects = new ArrayList<>();
 
                 for(int i=0; i<arr.length(); i++){
-                    Log.i("err","entered loop");
                     JSONObject obj = (JSONObject) arr.get(i);
                     DepartmentSubjects departmentSubject = new Gson().fromJson(obj.toString(), DepartmentSubjects.class);
-                    Log.i("string",obj.toString());
                     departmentSubjects.add(departmentSubject);
-
                 }
-
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -166,5 +140,13 @@ public class GPACalculatorActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    /********************************************************/
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(GPACalculatorActivity.this);
     }
 }
