@@ -1,41 +1,22 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.viewpager.widget.ViewPager;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.suke.widget.SwitchButton;
 
-
-import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import in.edu.ssn.ssnapp.adapters.DrawerAdapter;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
-import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
-import in.edu.ssn.ssnapp.models.Drawer;
-import in.edu.ssn.ssnapp.models.Faculty;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
-import in.edu.ssn.ssnapp.utils.Constants;
-import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 

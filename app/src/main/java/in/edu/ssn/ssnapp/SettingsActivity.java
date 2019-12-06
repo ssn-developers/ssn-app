@@ -3,14 +3,7 @@ package in.edu.ssn.ssnapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
 
-import com.suke.widget.SwitchButton;
-
-import in.edu.ssn.ssnapp.models.Drawer;
-import in.edu.ssn.ssnapp.utils.Constants;
-import in.edu.ssn.ssnapp.utils.FCMHelper;
-import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class SettingsActivity extends AppCompatActivity {
@@ -142,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 break;
             case "Helpline":
-                startActivity(new Intent(getApplicationContext(), HelplineActivity.class));
+                startActivity(new Intent(getApplicationContext(), FunctionalHeadsActivity.class));
                 Bungee.slideLeft(StudentHomeActivity.this);
                 break;
             case "Make a Suggestion":

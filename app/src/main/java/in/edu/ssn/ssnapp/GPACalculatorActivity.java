@@ -40,13 +40,13 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class GPACalculatorActivity extends BaseActivity {
 
-    TextView gradeResult;
-    ImageView backImage;
-    RelativeLayout gpaOutput;
+    TextView gpaTV;
+    ImageView backIV;
+    RelativeLayout gpaRL;
     ArrayList<Subject> subjects;
-    SubjectsAdapter subjectsAdapter;
-    CardView calculateGPA;
-    RecyclerView subjectsList;
+    SubjectsAdapter adapter;
+    CardView calculateCV;
+    RecyclerView subjectsRV;
     DepartmentSubjects.SemesterSubjects semesterSubjects;
     int semester, dept;
 
@@ -66,22 +66,22 @@ public class GPACalculatorActivity extends BaseActivity {
     }
 
     private void initUI() {
-        gradeResult = findViewById(R.id.gpaTV);
-        backImage = findViewById(R.id.backIV);
-        gpaOutput = findViewById(R.id.gpaRL);
-        calculateGPA = findViewById(R.id.calculateCV);
+        gpaTV = findViewById(R.id.gpaTV);
+        backIV = findViewById(R.id.backIV);
+        gpaRL = findViewById(R.id.gpaRL);
+        calculateCV = findViewById(R.id.calculateCV);
 
-        subjectsList = findViewById(R.id.subjectsRV);
-        subjectsList.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-        subjectsList.setAdapter(subjectsAdapter);
+        subjectsRV = findViewById(R.id.subjectsRV);
+        subjectsRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        subjectsRV.setAdapter(adapter);
 
-        backImage.setOnClickListener(new View.OnClickListener() {
+        backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
             }
         });
-        calculateGPA.setOnClickListener(new View.OnClickListener() {
+        calculateCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calculateAndDisplay();
@@ -99,8 +99,8 @@ public class GPACalculatorActivity extends BaseActivity {
         }
 
         gpa = totalCreditsGained/totalCredits;
-        gpaOutput.setVisibility(View.VISIBLE);
-        gradeResult.setText(String.format("%.2f", gpa));
+        gpaRL.setVisibility(View.VISIBLE);
+        gpaTV.setText(String.format("%.2f", gpa));
     }
 
     public class getDepartmentSubjects extends AsyncTask<Void, Void, Void> {
@@ -157,7 +157,7 @@ public class GPACalculatorActivity extends BaseActivity {
                 if(semesterSubjects != null)
                     subjects = semesterSubjects.getSubjects();
 
-                subjectsAdapter = new SubjectsAdapter(getApplicationContext(),subjects);
+                adapter = new SubjectsAdapter(getApplicationContext(),subjects);
             }
             catch (Exception e) {
                 e.printStackTrace();

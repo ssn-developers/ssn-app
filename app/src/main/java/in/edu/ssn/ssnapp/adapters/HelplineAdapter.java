@@ -18,19 +18,19 @@ import com.amulyakhare.textdrawable.util.ColorGenerator;
 import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.R;
-import in.edu.ssn.ssnapp.models.HelplineDetails;
+import in.edu.ssn.ssnapp.models.FuncHeadDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.ContributionViewHolder>{
 
-    private ArrayList<HelplineDetails> helplineDetails;
+    private ArrayList<FuncHeadDetails> funcHeadDetails;
     private Context context;
     private TextDrawable.IBuilder builder;
     boolean darkMode=false;
 
-    public HelplineAdapter(Context context, ArrayList<HelplineDetails> helplineDetails) {
+    public HelplineAdapter(Context context, ArrayList<FuncHeadDetails> funcHeadDetails) {
         this.context = context;
-        this.helplineDetails = helplineDetails;
+        this.funcHeadDetails = funcHeadDetails;
         builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
@@ -54,7 +54,7 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
 
     @Override
     public void onBindViewHolder(@NonNull HelplineAdapter.ContributionViewHolder holder, int position) {
-        final HelplineDetails drawer = (HelplineDetails) helplineDetails.get(position);
+        final FuncHeadDetails drawer = (FuncHeadDetails) funcHeadDetails.get(position);
 
         holder.nameTV.setText(drawer.getName());
         holder.positionTV.setText(drawer.getPosition());
@@ -77,7 +77,7 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
 
     @Override
     public int getItemCount() {
-        return helplineDetails.size();
+        return funcHeadDetails.size();
     }
 
     public class ContributionViewHolder extends RecyclerView.ViewHolder {

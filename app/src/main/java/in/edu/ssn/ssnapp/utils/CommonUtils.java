@@ -185,7 +185,6 @@ public class CommonUtils {
                 break;
         }
         return String.valueOf(joinYear);
-
     }
 
     public static void showWhatsNewDialog(Context context, Boolean darkModeEnabled){
