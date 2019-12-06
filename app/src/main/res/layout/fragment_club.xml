@@ -22,7 +22,6 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:clipToPadding="false"
-					android:paddingStart="@dimen/_5sdp"
 					android:visibility="invisible"
 					android:id="@+id/subs_RV"/>
 
@@ -89,7 +88,6 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:clipToPadding="false"
-				android:paddingStart="@dimen/_5sdp"
 				android:id="@+id/unsubs_RV"/>
 
 			<com.facebook.shimmer.ShimmerFrameLayout
@@ -167,7 +165,6 @@
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:clipToPadding="false"
-				android:paddingStart="@dimen/_5sdp"
 				android:id="@+id/feed_RV"/>
 
 		</LinearLayout>
