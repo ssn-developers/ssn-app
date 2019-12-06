@@ -24,8 +24,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import in.edu.ssn.ssnapp.adapters.BusRouteAdapter;
@@ -33,6 +35,7 @@ import in.edu.ssn.ssnapp.adapters.SubjectsAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.models.DepartmentSubjects;
 import in.edu.ssn.ssnapp.models.Subject;
+import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class GPACalculatorActivity extends BaseActivity {
@@ -45,7 +48,9 @@ public class GPACalculatorActivity extends BaseActivity {
     CardView calculateGPA;
     RecyclerView subjectsList;
     ArrayList<DepartmentSubjects> departmentSubjects;
+    DepartmentSubjects.SemesterSubjects semesterSubjects;
     int semester;
+    int dept  ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,19 @@ public class GPACalculatorActivity extends BaseActivity {
         else
             setContentView(R.layout.activity_gpa_calculator);
 
+        Map<String, Integer> deptMapping = new HashMap<>();
+        deptMapping.put("cse", 0);
+        deptMapping.put("it", 1);
+        deptMapping.put("ece", 2);
+        deptMapping.put("eee", 3);
+        deptMapping.put("bme", 4);
+        deptMapping.put("che", 5);
+        deptMapping.put("civ", 6);
+        deptMapping.put("mec", 7);
+
+
+        String department = SharedPref.getString(getApplicationContext(),"dept");
+        dept = deptMapping.get(department);
         semester = getIntent().getIntExtra("sem",0);
         new getDepartmentSubjects().execute();
     }
@@ -69,8 +87,8 @@ public class GPACalculatorActivity extends BaseActivity {
         gpaOutput = findViewById(R.id.gpaRL);
         calculateGPA = findViewById(R.id.calculateCV);
         subjectsList = findViewById(R.id.subjectsRV);
-        if(departmentSubjects != null)
-            subjects = departmentSubjects.get(0).getSem().get(semester).getSubjects();
+        if(semesterSubjects != null)
+            subjects = semesterSubjects.getSubjects();
 
         subjectsAdapter = new SubjectsAdapter(getApplicationContext(),subjects);
     }
@@ -103,15 +121,13 @@ public class GPACalculatorActivity extends BaseActivity {
                     sb.append(line + "\n");
                 }
 
-                final Set<String> linkedHashSet = new LinkedHashSet<>();
                 JSONArray arr = new JSONArray(sb.toString());
-                departmentSubjects = new ArrayList<>();
+                JSONObject obj1 = (JSONObject) arr.get(dept);
+                JSONArray arr1 = obj1.getJSONArray("sem");
+                JSONObject obj2 = (JSONObject) arr1.get(semester);
 
-                for(int i=0; i<arr.length(); i++){
-                    JSONObject obj = (JSONObject) arr.get(i);
-                    DepartmentSubjects departmentSubject = new Gson().fromJson(obj.toString(), DepartmentSubjects.class);
-                    departmentSubjects.add(departmentSubject);
-                }
+                semesterSubjects = new Gson().fromJson(obj2.toString(), DepartmentSubjects.SemesterSubjects.class);
+
             }
             catch (Exception e) {
                 e.printStackTrace();
