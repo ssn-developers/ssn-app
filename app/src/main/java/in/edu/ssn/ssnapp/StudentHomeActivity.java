@@ -213,6 +213,7 @@ public class StudentHomeActivity extends BaseActivity {
                         dbHelper.dropAllTables();
                         SharedPref.removeAll(getApplicationContext());
                         SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 1);
+
                         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         startActivity(intent);
                         finish();

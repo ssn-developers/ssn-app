@@ -75,9 +75,9 @@ public class ExamCellFragment extends Fragment {
         darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
         View view;
         if(darkMode){
-            view = inflater.inflate(R.layout.fragment_exam_feed_dark, container, false);
+            view = inflater.inflate(R.layout.fragment_club, container, false);
         }else {
-            view = inflater.inflate(R.layout.fragment_exam_feed, container, false);
+            view = inflater.inflate(R.layout.fragment_club, container, false);
         }
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
