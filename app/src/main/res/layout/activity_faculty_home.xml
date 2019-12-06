@@ -23,7 +23,6 @@
 
             <RelativeLayout
                 android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:layout_width="@dimen/_30sdp"
@@ -71,7 +70,6 @@
                 android:layout_height="@dimen/_30sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:padding="@dimen/_5sdp"
                 android:visibility="gone"
@@ -147,8 +145,8 @@
                 android:layout_below="@+id/emailTV"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:layout_marginLeft="@dimen/_15sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:background="@drawable/ic_drawer_bg">
 
@@ -156,8 +154,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp">
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
 
                     <ImageView
                         android:id="@+id/iconIV"
@@ -179,7 +177,7 @@
                         android:paddingRight="@dimen/_5sdp"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iconIV"
-                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:fontFamily="@font/open_sans_semi_bold"/>
 
                     <com.suke.widget.SwitchButton
@@ -188,7 +186,7 @@
                         app:sb_checked_color="@color/colorAccent"
                         app:sb_show_indicator="false"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
                         app:sb_background="@color/colorAccentLight"
                         android:layout_width="@dimen/_40sdp"
                         android:layout_height="@dimen/_20sdp"/>
@@ -199,8 +197,8 @@
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
                         android:layout_toRightOf="@+id/iconIV"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:layout_marginRight="@dimen/_15sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
                         android:background="#66C0C0C0"/>
 
                 </RelativeLayout>
@@ -209,8 +207,8 @@
                     android:id="@+id/lv_items"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
                     android:layout_marginBottom="@dimen/_5sdp"
                     android:scrollbars="none"
                     android:divider="@null"/>

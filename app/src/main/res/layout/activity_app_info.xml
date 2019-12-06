@@ -18,7 +18,7 @@
             android:id="@+id/appIconCV"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             app:cardCornerRadius="@dimen/_6sdp"
             app:cardElevation="0dp">
@@ -33,7 +33,7 @@
             android:id="@+id/layout1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_70sdp"
-            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_toRightOf="@+id/appIconCV">
 
@@ -57,7 +57,7 @@
                     android:layout_width="@dimen/_38sdp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
                     android:paddingTop="@dimen/_2sdp"
                     android:paddingBottom="@dimen/_2sdp"
                     android:layout_toRightOf="@+id/titleTV"
@@ -85,7 +85,7 @@
                     android:id="@+id/fbIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/webIV"
                     android:background="@drawable/ic_fb"
                     android:padding="@dimen/_5sdp" />
@@ -94,7 +94,7 @@
                     android:id="@+id/twitIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/fbIV"
                     android:background="@drawable/ic_twit"
                     android:padding="@dimen/_5sdp" />
@@ -103,7 +103,7 @@
                     android:id="@+id/linkedinIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/twitIV"
                     android:background="@drawable/ic_linkedin"
                     android:padding="@dimen/_5sdp" />
@@ -112,7 +112,7 @@
                     android:id="@+id/instaIV"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:layout_toRightOf="@+id/linkedinIV"
                     android:background="@drawable/ic_insta"
                     android:padding="@dimen/_5sdp" />

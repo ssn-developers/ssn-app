@@ -33,8 +33,8 @@
 					android:gravity="center"
 					android:layout_centerVertical="true"
 					android:layout_centerHorizontal="true"
-					android:layout_marginLeft="@dimen/_20sdp"
-					android:layout_marginRight="@dimen/_20sdp">
+					android:layout_marginStart="@dimen/_20sdp"
+					android:layout_marginEnd="@dimen/_20sdp">
 
 					<RelativeLayout
 						android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
 				android:fontFamily="@font/open_sans_bold"
 				android:textSize="@dimen/_14ssp"
 				android:textColor="@color/colorAccent"
-				android:layout_marginLeft="@dimen/_15sdp"
+				android:layout_marginStart="@dimen/_15sdp"
 				android:layout_marginBottom="@dimen/_10sdp"/>
 
 			<androidx.recyclerview.widget.RecyclerView
@@ -116,8 +116,8 @@
 				android:layout_height="wrap_content"
 				android:layout_gravity="center"
 				android:visibility="gone"
-				android:layout_marginLeft="@dimen/_20sdp"
-				android:layout_marginRight="@dimen/_20sdp">
+				android:layout_marginStart="@dimen/_20sdp"
+				android:layout_marginEnd="@dimen/_20sdp">
 
 				<RelativeLayout
 					android:layout_width="wrap_content"
@@ -169,28 +169,6 @@
 				android:clipToPadding="false"
 				android:paddingStart="@dimen/_5sdp"
 				android:id="@+id/feed_RV"/>
-
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_gravity="center"
-				android:background="@drawable/new_post_text_bg"
-				android:layout_margin="@dimen/_16sdp"
-				android:gravity="center"
-				android:visibility="gone"
-				android:drawableStart="@drawable/ic_arrow_upward_white"
-				android:drawablePadding="@dimen/_5sdp"
-				android:layout_alignParentBottom="true"
-				android:clickable="true"
-				android:foreground="?android:selectableItemBackground"
-				android:id="@+id/newPostTV"
-				android:textColor="@android:color/white"
-				android:fontFamily="@font/open_sans_semi_bold"
-				android:paddingStart="@dimen/_10sdp"
-				android:paddingEnd="@dimen/_10sdp"
-				android:paddingTop="@dimen/_5sdp"
-				android:padding="@dimen/_5sdp"
-				android:text="New posts"/>
 
 		</LinearLayout>
 

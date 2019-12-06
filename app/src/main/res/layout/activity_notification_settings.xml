@@ -25,7 +25,7 @@
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_22sdp"/>
+            android:layout_marginStart="@dimen/_22sdp"/>
 
         <TextView
             android:id="@+id/title1TV"
@@ -36,7 +36,7 @@
             android:textSize="@dimen/_16ssp"
             android:fontFamily="@font/open_sans_bold"
             android:layout_toRightOf="@+id/backIV"
-            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_15sdp"/>
 
         <TextView
@@ -50,7 +50,7 @@
             android:fontFamily="@font/open_sans"
             android:layout_toRightOf="@+id/backIV"
             android:layout_below="@+id/title1TV"
-            android:layout_marginLeft="@dimen/_12sdp" />
+            android:layout_marginStart="@dimen/_12sdp" />
 
     </RelativeLayout>
 
@@ -83,8 +83,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_12sdp"
-                    android:layout_marginRight="@dimen/_25sdp"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_25sdp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_centerVertical="true"
                     android:layout_marginBottom="@dimen/_10sdp"
@@ -98,7 +98,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_centerVertical="true"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false"
@@ -121,8 +121,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_12sdp"
-                android:layout_marginRight="@dimen/_12sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginBottom="@dimen/_10sdp">
@@ -150,7 +150,7 @@
                         <com.suke.widget.SwitchButton
                             android:id="@+id/switch_dept"
                             android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
                             android:layout_centerVertical="true"
                             app:sb_checked_color="@color/colorAccent"
                             app:sb_show_indicator="false"
@@ -191,7 +191,7 @@
                         <com.suke.widget.SwitchButton
                             android:id="@+id/switch_place"
                             android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
                             app:sb_checked_color="@color/colorAccent"
                             app:sb_show_indicator="false"
                             app:sb_background="@color/colorAccentLight"
@@ -223,7 +223,7 @@
                     <com.suke.widget.SwitchButton
                         android:id="@+id/switch_bus"
                         android:layout_alignParentRight="true"
-                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
                         android:layout_centerVertical="true"
                         app:sb_checked_color="@color/colorAccent"
                         app:sb_show_indicator="false"
@@ -262,7 +262,7 @@
                         <com.suke.widget.SwitchButton
                             android:id="@+id/switch_exam"
                             android:layout_alignParentRight="true"
-                            android:layout_marginRight="@dimen/_5sdp"
+                            android:layout_marginEnd="@dimen/_5sdp"
                             app:sb_checked_color="@color/colorAccent"
                             app:sb_show_indicator="false"
                             app:sb_background="@color/colorAccentLight"
@@ -293,7 +293,7 @@
                    <com.suke.widget.SwitchButton
                        android:id="@+id/switch_event"
                        android:layout_alignParentRight="true"
-                       android:layout_marginRight="@dimen/_5sdp"
+                       android:layout_marginEnd="@dimen/_5sdp"
                        app:sb_checked_color="@color/colorAccent"
                        app:sb_show_indicator="false"
                        app:sb_background="@color/colorAccentLight"

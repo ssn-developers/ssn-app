@@ -42,7 +42,7 @@
 			android:layout_height="@dimen/_35sdp"
 			app:srcCompat="@drawable/ic_back"
 			android:layout_centerVertical="true"
-			android:layout_marginLeft="@dimen/_22sdp"/>
+			android:layout_marginStart="@dimen/_22sdp"/>
 
 		<TextView
 			android:id="@+id/title1TV"
@@ -53,7 +53,7 @@
 			android:textSize="@dimen/_16ssp"
 			android:fontFamily="@font/open_sans_bold"
 			android:layout_toRightOf="@+id/backIV"
-			android:layout_marginLeft="@dimen/_12sdp"
+			android:layout_marginStart="@dimen/_12sdp"
 			android:layout_marginTop="@dimen/_15sdp"/>
 
 		<TextView
@@ -67,7 +67,7 @@
 			android:fontFamily="@font/open_sans"
 			android:layout_toRightOf="@+id/backIV"
 			android:layout_below="@+id/title1TV"
-			android:layout_marginLeft="@dimen/_12sdp" />
+			android:layout_marginStart="@dimen/_12sdp" />
 
 	</RelativeLayout>
 

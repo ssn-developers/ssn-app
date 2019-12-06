@@ -23,13 +23,13 @@
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_22sdp"/>
+            android:layout_marginStart="@dimen/_22sdp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
             android:text="Pass Mark Calculator"

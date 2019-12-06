@@ -23,7 +23,7 @@
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_22sdp"/>
+            android:layout_marginStart="@dimen/_22sdp"/>
 
         <TextView
             android:layout_width="wrap_content"

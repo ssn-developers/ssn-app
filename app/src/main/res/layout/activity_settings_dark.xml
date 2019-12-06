@@ -24,7 +24,7 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_22sdp"
+            android:layout_marginStart="@dimen/_22sdp"
             app:srcCompat="@drawable/ic_back" />
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
             android:text="Settings"
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout1"
-        android:layout_marginLeft="@dimen/_5sdp">
+        android:layout_marginStart="@dimen/_5sdp">
 
         <LinearLayout
             android:id="@+id/layout2"
@@ -65,16 +65,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/sleep_titleTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -88,7 +88,7 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
@@ -98,8 +98,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:background="#66C0C0C0" />
 
             </RelativeLayout>
@@ -117,16 +117,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/posticonTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -141,7 +141,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
@@ -152,23 +152,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/newsfeedTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -183,7 +183,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
@@ -194,23 +194,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/bus_alert_TV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -225,7 +225,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
@@ -235,16 +235,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/examcellTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -259,7 +259,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
@@ -270,23 +270,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/placementTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -301,7 +301,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
@@ -312,23 +312,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/event_TV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -343,7 +343,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     android:layout_marginBottom="@dimen/_10sdp"
                     app:sb_background="@color/colorAccentText"
                     app:sb_checked_color="@color/colorAccent"
@@ -354,8 +354,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -373,8 +373,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp"                android:fontFamily="@font/open_sans"
                 android:padding="@dimen/_5sdp"
@@ -387,8 +387,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -408,8 +408,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -427,8 +427,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_10sdp"                android:fontFamily="@font/open_sans"
                 android:padding="@dimen/_5sdp"
@@ -441,8 +441,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -462,8 +462,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -483,8 +483,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -504,8 +504,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
             <TextView
                 android:id="@+id/updatesTV"
@@ -524,8 +524,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -545,8 +545,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -566,8 +566,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <View

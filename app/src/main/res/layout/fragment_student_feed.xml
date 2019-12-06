@@ -28,8 +28,8 @@
                     app:cardElevation="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_4sdp"
-                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
                     android:layout_weight="1"
                     android:clickable="true"
                     android:foreground="?selectableItemBackgroundBorderless"
@@ -69,8 +69,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_6sdp"
-                    android:layout_marginRight="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
                     app:cardElevation="0dp"
                     android:layout_weight="1"
                     android:clickable="true"
@@ -126,8 +126,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_4sdp"
-                    android:layout_marginRight="@dimen/_6sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_6sdp"
                     android:layout_weight="1"
                     app:cardElevation="0dp"
                     android:clickable="true"
@@ -168,8 +168,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
-                    android:layout_marginLeft="@dimen/_6sdp"
-                    android:layout_marginRight="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_6sdp"
+                    android:layout_marginEnd="@dimen/_4sdp"
                     android:layout_weight="1"
                     android:clickable="true"
                     app:cardElevation="0dp"
@@ -229,9 +229,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_200sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
                     android:fontFamily="@font/open_sans_semi_bold"
                     android:gravity="center"
                     android:text="No Posts"
@@ -244,9 +244,9 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text1TV"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginLeft="@dimen/_20sdp"
+                    android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_20sdp"
+                    android:layout_marginEnd="@dimen/_20sdp"
                     android:fontFamily="@font/open_sans"
                     android:gravity="center"
                     android:text="We'll let you know for new posts till then stay tuned."
@@ -273,9 +273,7 @@
                         android:orientation="vertical">
 
                         <include layout="@layout/student_post_item_shimmering" />
-
                         <include layout="@layout/student_post_item_shimmering" />
-
                         <include layout="@layout/student_post_item_shimmering" />
                     </LinearLayout>
                 </com.facebook.shimmer.ShimmerFrameLayout>
@@ -285,7 +283,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"/>
-
             </RelativeLayout>
 
             <TextView

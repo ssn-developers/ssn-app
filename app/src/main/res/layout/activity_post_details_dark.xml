@@ -84,7 +84,7 @@
                 android:foreground="?attr/selectableItemBackground"
                 android:id="@+id/shareIV"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 app:srcCompat="@drawable/ic_share"
                 android:tint="@color/colorAccent"/>
 
@@ -103,7 +103,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:id="@+id/currentImageTV"
-        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_15sdp"
         android:background="@drawable/image_pos_bg"
         android:text="1 / 2"
@@ -123,8 +123,8 @@
         android:layout_below="@+id/viewPager">
 
         <RelativeLayout
-            android:layout_marginLeft="@dimen/_12sdp"
-            android:layout_marginRight="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
+            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_marginBottom="@dimen/_10sdp"
             android:id="@+id/textGroupRL"
             android:animateLayoutChanges="true"

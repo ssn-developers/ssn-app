@@ -26,8 +26,8 @@
         android:gravity="center"
         android:textColor="@color/colorAccentText"
         android:layout_below="@+id/lottie"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/_12ssp" />
 

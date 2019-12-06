@@ -27,8 +27,8 @@
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="@dimen/_12sdp"
-					android:layout_marginLeft="@dimen/_4sdp"
-					android:layout_marginRight="@dimen/_6sdp"
+					android:layout_marginStart="@dimen/_4sdp"
+					android:layout_marginEnd="@dimen/_6sdp"
 					android:layout_weight="1"
 					android:clickable="true"
 					android:foreground="?selectableItemBackgroundBorderless"
@@ -70,8 +70,8 @@
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="@dimen/_12sdp"
-					android:layout_marginLeft="@dimen/_6sdp"
-					android:layout_marginRight="@dimen/_4sdp"                    android:layout_weight="1"
+					android:layout_marginStart="@dimen/_6sdp"
+					android:layout_marginEnd="@dimen/_4sdp"                    android:layout_weight="1"
 					android:clickable="true"
 					android:foreground="?selectableItemBackgroundBorderless"
 					app:cardBackgroundColor="@color/darkColorLight"
@@ -135,8 +135,8 @@
 					android:layout_centerHorizontal="true"
 					android:textColor="#ffffff"
 					android:layout_marginTop="@dimen/_250sdp"
-					android:layout_marginLeft="@dimen/_20sdp"
-					android:layout_marginRight="@dimen/_20sdp"
+					android:layout_marginStart="@dimen/_20sdp"
+					android:layout_marginEnd="@dimen/_20sdp"
 					android:gravity="center"
 					android:textSize="@dimen/_14ssp" />
 
@@ -150,8 +150,8 @@
 					android:textColor="#B9B9B9"
 					android:layout_below="@+id/text1TV"
 					android:layout_marginTop="@dimen/_5sdp"
-					android:layout_marginLeft="@dimen/_20sdp"
-					android:layout_marginRight="@dimen/_20sdp"
+					android:layout_marginStart="@dimen/_20sdp"
+					android:layout_marginEnd="@dimen/_20sdp"
 					android:gravity="center"
 					android:textSize="@dimen/_12ssp" />
 
