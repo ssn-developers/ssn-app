@@ -104,16 +104,6 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
         return subjects.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return TimelineView.getTimeLineViewType(position, getItemCount());
-    }
-
     public class SubjectViewHolder extends RecyclerView.ViewHolder {
 
         public TextView codeTV,nameTV,gradeTV;
