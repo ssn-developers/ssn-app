@@ -74,9 +74,9 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     void initUI() {
         userImageIV = findViewById(R.id.userImageIV);
         viewPager = findViewById(R.id.viewPager);
-        chatIV = findViewById(R.id.chatIV);         //chatIV.setOnClickListener(this);
-        favIV = findViewById(R.id.favIV);           //favIV.setOnClickListener(this);
-        settingsIV = findViewById(R.id.settingsIV); //settingsIV.setOnClickListener(this);
+        chatIV = findViewById(R.id.chatIV);         chatIV.setOnClickListener(this);
+        favIV = findViewById(R.id.favIV);           favIV.setOnClickListener(this);
+        settingsIV = findViewById(R.id.settingsIV); settingsIV.setOnClickListener(this);
 
         try {
             Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);

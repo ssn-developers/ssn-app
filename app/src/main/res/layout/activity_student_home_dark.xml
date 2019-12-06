@@ -92,13 +92,12 @@
 			app:stl_underlineThickness="0dp"
 			app:stl_customTabTextLayoutId="@layout/custom_tab"
 			app:stl_customTabTextViewId="@+id/customTabTV" />
-	</RelativeLayout>
 
-	<androidx.viewpager.widget.ViewPager
-		android:id="@+id/viewPager"
-		android:layout_width="match_parent"
-		android:paddingTop="@dimen/_43sdp"
-		android:layout_height="match_parent"
-		android:layout_below="@+id/fakeAppbarLL" />
+		<androidx.viewpager.widget.ViewPager
+			android:id="@+id/viewPager"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_below="@+id/viewPagerTab" />
+	</RelativeLayout>
 
 </RelativeLayout>
