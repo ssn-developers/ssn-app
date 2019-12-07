@@ -1,6 +1,8 @@
 package in.edu.ssn.ssnapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,9 +11,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.suke.widget.SwitchButton;
+
+import java.util.Set;
 
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
@@ -173,11 +178,36 @@ public class SettingsActivity extends BaseActivity {
         updatesTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String latestVersion = CommonUtils.getLatestVersionName(getApplicationContext());
                 if (latestVersion != null && !BuildConfig.VERSION_NAME.equals(latestVersion)) {
                     //update available
+                    final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SettingsActivity.this);
+                    final View dialogView = getLayoutInflater().inflate(R.layout.custom_alert_dialog2, null);
+                    dialogBuilder.setView(dialogView);
+                    dialogBuilder.setCancelable(false);
+
+                    TextView okTV = dialogView.findViewById(R.id.okTV);
+                    TextView titleTV = dialogView.findViewById(R.id.titleTV);
+                    TextView messageTV = dialogView.findViewById(R.id.messageTV);
+
+                    titleTV.setText("New Update available!");
+                    messageTV.setText("Please update your app to the latest version: " + latestVersion );
+
+                    final AlertDialog alertDialog = dialogBuilder.create();
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                    alertDialog.show();
+
+                    okTV.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
+                            alertDialog.dismiss();
+                            finish();
+                        }
+                    });
                 } else {
-                    //no new updates
+                    Toast.makeText(SettingsActivity.this, "Already the latest version", Toast.LENGTH_SHORT).show();
                 }
             }
         });
