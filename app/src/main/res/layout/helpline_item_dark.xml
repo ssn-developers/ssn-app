@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/dpIV"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_3sdp">
+            android:layout_marginStart="@dimen/_3sdp">
 
             <TextView
                 android:id="@+id/nameTV"

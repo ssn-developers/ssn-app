@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:background="@color/darkColor"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+	android:layout_height="match_parent">
 
 	<androidx.core.widget.NestedScrollView
 		android:layout_width="match_parent"
@@ -12,19 +11,19 @@
 
 		<RelativeLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content">
+			android:layout_height="wrap_content"
+			android:descendantFocusability="blocksDescendants">
 
 			<LinearLayout
 				android:id="@+id/linearlayout1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:layout_below="@+id/layout1"
 				android:layout_marginStart="@dimen/_8sdp"
 				android:layout_marginEnd="@dimen/_8sdp"
 				android:orientation="horizontal">
 
 				<androidx.cardview.widget.CardView
-					android:id="@+id/syllabusCV"
+					android:id="@+id/gpaCV"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="@dimen/_12sdp"
@@ -45,7 +44,7 @@
 							android:layout_width="@dimen/_20sdp"
 							android:layout_height="@dimen/_20sdp"
 							android:tint="@color/colorAccentDark"
-							android:src="@drawable/ic_feedback_white"
+							android:src="@drawable/ic_calculator"
 							android:id="@+id/iconIV1"/>
 						<View
 							android:layout_width="wrap_content"
@@ -55,9 +54,11 @@
 							android:id="@+id/linkTitleTV1"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
+							android:ellipsize="marquee"
+							android:singleLine="true"
 							android:fontFamily="@font/open_sans_bold"
 							android:layout_marginTop="@dimen/_10sdp"
-							android:text="Syllabus"
+							android:text="GPA calculator"
 							android:textColor="@color/colorAccentDark"
 							android:textSize="@dimen/_14sdp" />
 
@@ -65,7 +66,7 @@
 				</androidx.cardview.widget.CardView>
 
 				<androidx.cardview.widget.CardView
-					android:id="@+id/libraryCV"
+					android:id="@+id/passmarkCV"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:layout_marginBottom="@dimen/_12sdp"
@@ -85,7 +86,7 @@
 							android:layout_width="@dimen/_20sdp"
 							android:layout_height="@dimen/_20sdp"
 							android:tint="@color/colorAccentDark"
-							android:src="@drawable/ic_book_white"
+							android:src="@drawable/ic_grade"
 							android:id="@+id/iconIV2"/>
 						<View
 							android:layout_width="wrap_content"
@@ -97,104 +98,9 @@
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"
 							android:fontFamily="@font/open_sans_bold"
-							android:text="Library Renewal"
 							android:ellipsize="marquee"
 							android:singleLine="true"
-							android:layout_marginTop="@dimen/_10sdp"
-							android:textColor="@color/colorAccentDark"
-							android:textSize="@dimen/_14sdp" />
-
-					</LinearLayout>
-
-				</androidx.cardview.widget.CardView>
-
-			</LinearLayout>
-
-			<LinearLayout
-				android:id="@+id/linearlayout2"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_below="@+id/linearlayout1"
-				android:layout_marginStart="@dimen/_8sdp"
-				android:layout_marginEnd="@dimen/_8sdp"
-				android:orientation="horizontal">
-
-				<androidx.cardview.widget.CardView
-					android:id="@+id/lmsCV"
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="@dimen/_12sdp"
-					android:layout_marginStart="@dimen/_4sdp"
-					android:layout_marginEnd="@dimen/_6sdp"
-					android:layout_weight="1"
-					android:clickable="true"
-					android:foreground="?selectableItemBackgroundBorderless"
-					app:cardBackgroundColor="@color/darkColorLight"
-					app:cardCornerRadius="@dimen/_10sdp">
-
-					<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="@dimen/_100sdp"
-						android:orientation="vertical"
-						android:padding="@dimen/_13sdp">
-						<ImageView
-							android:layout_width="@dimen/_25sdp"
-							android:layout_height="@dimen/_25sdp"
-							android:tint="@color/colorAccentDark"
-							android:src="@drawable/ic_lms"
-							android:id="@+id/iconIV3"/>
-						<View
-							android:layout_width="wrap_content"
-							android:layout_height="@dimen/_30sdp"
-							android:layout_weight="1"/>
-						<TextView
-							android:id="@+id/linkTitleTV3"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:fontFamily="@font/open_sans_bold"
-							android:layout_marginTop="@dimen/_8sdp"
-							android:text="LMS"
-							android:textColor="@color/colorAccentDark"
-							android:textSize="@dimen/_14sdp" />
-
-					</LinearLayout>
-				</androidx.cardview.widget.CardView>
-
-				<androidx.cardview.widget.CardView
-					android:id="@+id/calenderCV"
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_marginBottom="@dimen/_12sdp"
-					android:layout_marginStart="@dimen/_6sdp"
-					android:layout_marginEnd="@dimen/_4sdp"
-					android:layout_weight="1"
-					android:clickable="true"
-					android:foreground="?selectableItemBackgroundBorderless"
-					app:cardBackgroundColor="@color/darkColorLight"
-					app:cardCornerRadius="@dimen/_10sdp">
-
-					<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="@dimen/_100sdp"
-						android:orientation="vertical"
-						android:padding="@dimen/_13sdp">
-						<ImageView
-							android:layout_width="@dimen/_20sdp"
-							android:layout_height="@dimen/_20sdp"
-							android:tint="@color/colorAccentDark"
-							android:src="@drawable/ic_calendar_white"
-							android:id="@+id/iconIV4"/>
-						<View
-							android:layout_width="wrap_content"
-							android:layout_height="@dimen/_30sdp"
-							android:layout_weight="1"/>
-
-						<TextView
-							android:id="@+id/linkTitleTV4"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"
-							android:fontFamily="@font/open_sans_bold"
-							android:text="Calender"
+							android:text="Pass Mark Calculator"
 							android:layout_marginTop="@dimen/_10sdp"
 							android:textColor="@color/colorAccentDark"
 							android:textSize="@dimen/_14sdp" />
@@ -207,7 +113,6 @@
 
 			<RelativeLayout
 				android:id="@+id/layout_progress"
-				android:layout_below="@+id/linearlayout1"
 				android:layout_marginTop="@dimen/_50sdp"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent">
@@ -216,74 +121,66 @@
 					android:id="@+id/lottie"
 					android:layout_width="match_parent"
 					android:layout_height="@dimen/_250sdp"
-					app:lottie_autoPlay="true"
+					android:layout_marginTop="@dimen/_50sdp"
+					app:lottie_rawRes="@raw/posts"
 					app:lottie_loop="false"
-					app:lottie_rawRes="@raw/posts" />
+					app:lottie_autoPlay="true" />
 
 				<TextView
 					android:id="@+id/text1TV"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_centerHorizontal="true"
-					android:layout_marginStart="@dimen/_20sdp"
-					android:layout_marginTop="@dimen/_200sdp"
-					android:layout_marginEnd="@dimen/_20sdp"
-					android:fontFamily="@font/open_sans_semi_bold"
-					android:gravity="center"
+					android:fontFamily="@font/open_sans_bold"
 					android:text="No Posts"
-					android:textColor="@color/colorAccentText"
+					android:layout_centerHorizontal="true"
+					android:textColor="#ffffff"
+					android:layout_marginTop="@dimen/_250sdp"
+					android:layout_marginStart="@dimen/_20sdp"
+					android:layout_marginEnd="@dimen/_20sdp"
+					android:gravity="center"
 					android:textSize="@dimen/_14ssp" />
 
 				<TextView
 					android:id="@+id/text2TV"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_below="@+id/text1TV"
-					android:layout_centerHorizontal="true"
-					android:layout_marginStart="@dimen/_20sdp"
-					android:layout_marginTop="@dimen/_5sdp"
-					android:layout_marginEnd="@dimen/_20sdp"
 					android:fontFamily="@font/open_sans"
+					android:text="We'll let you know for new feeds till then stay tuned."
+					android:layout_centerHorizontal="true"
+					android:textColor="#B9B9B9"
+					android:layout_below="@+id/text1TV"
+					android:layout_marginTop="@dimen/_5sdp"
+					android:layout_marginStart="@dimen/_20sdp"
+					android:layout_marginEnd="@dimen/_20sdp"
 					android:gravity="center"
-					android:text="We'll let you know for new posts till then stay tuned."
-					android:textColor="@color/colorAccentText"
 					android:textSize="@dimen/_12ssp" />
 
 			</RelativeLayout>
 
-			<RelativeLayout
+			<com.facebook.shimmer.ShimmerFrameLayout
+				android:id="@+id/shimmer_view"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:visibility="gone"
+				app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+				<LinearLayout
+					android:orientation="vertical"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+
+					<include layout="@layout/faculty_sent_post_item_shimmering"/>
+					<include layout="@layout/faculty_sent_post_item_shimmering"/>
+					<include layout="@layout/faculty_sent_post_item_shimmering"/>
+				</LinearLayout>
+			</com.facebook.shimmer.ShimmerFrameLayout>
+
+			<androidx.recyclerview.widget.RecyclerView
+				android:id="@+id/feedsRV"
+				android:layout_below="@+id/linearlayout1"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:descendantFocusability="blocksDescendants"
-				android:layout_below="@+id/linearlayout2">
-
-				<com.facebook.shimmer.ShimmerFrameLayout
-					android:id="@+id/shimmer_view"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					android:visibility="gone"
-					app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-					<LinearLayout
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:orientation="vertical">
-
-						<include layout="@layout/student_post_item_shimmering" />
-
-						<include layout="@layout/student_post_item_shimmering" />
-
-						<include layout="@layout/student_post_item_shimmering" />
-					</LinearLayout>
-				</com.facebook.shimmer.ShimmerFrameLayout>
-
-				<androidx.recyclerview.widget.RecyclerView
-					android:id="@+id/feedsRV"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:clipToPadding="false"/>
-
-			</RelativeLayout>
+				android:clipToPadding="false"/>
 
 			<TextView
 				android:layout_width="wrap_content"
@@ -309,5 +206,4 @@
 
 		</RelativeLayout>
 	</androidx.core.widget.NestedScrollView>
-
 </RelativeLayout>

@@ -161,6 +161,7 @@ public class CommonUtils {
         }
     }
 
+    //Checks for joining year based on year of student.
     public static String getJoiningYear(int year)
     {
         int cur_year = Calendar.getInstance().get(Calendar.YEAR);
@@ -185,7 +186,6 @@ public class CommonUtils {
                 break;
         }
         return String.valueOf(joinYear);
-
     }
 
     public static void showWhatsNewDialog(Context context, Boolean darkModeEnabled){
@@ -365,21 +365,23 @@ public class CommonUtils {
                 if (entry.getValue().booleanValue()) {
 
                     //Change it yearly once using force_update
-                    switch (entry.getKey()){
-                        case Constants.fourth:
-                            years.add("IV");
-                            break;
-                        case Constants.third:
-                            years.add("III");
-                            break;
-                        case Constants.second:
-                            years.add("II");
-                            break;
-                        case Constants.first:
-                            years.add("I");
-                            break;
+                    if (entry.getKey().equals(Constants.fourth))
+                    {
+                        years.add("IV");
                     }
-                }
+                    else if (entry.getKey().equals(Constants.third))
+                    {
+                        years.add("III");
+                    }
+                    else if (entry.getKey().equals(Constants.second))
+                    {
+                        years.add("II");
+                    }
+                    else if (entry.getKey().equals(Constants.first))
+                    {
+                        years.add("I");
+                    }
+                                    }
             }
             if(years.size() > 1)
                 Collections.reverse(years);

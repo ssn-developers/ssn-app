@@ -26,14 +26,14 @@
             android:layout_height="@dimen/_35sdp"
             app:srcCompat="@drawable/ic_back"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_22sdp"/>
+            android:layout_marginStart="@dimen/_22sdp"/>
 
         <TextView
             android:id="@+id/title1TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
             android:text="Feedback"
@@ -75,14 +75,14 @@
         android:visibility="gone"
         android:layout_below="@+id/lottie"
         android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:gravity="center"
         android:textSize="@dimen/_12ssp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/_36sdp"
         app:cardCornerRadius="5dp"
         android:clickable="true"
         android:layout_below="@+id/et_feedback"
@@ -100,7 +100,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:fontFamily="@font/open_sans_bold"
-            android:textSize="18dp"
+            android:textSize="@dimen/_14ssp"
             android:textColor="@android:color/white"
             android:text="Submit"/>
     </androidx.cardview.widget.CardView>

@@ -9,42 +9,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -55,42 +55,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1276",
             "name" :"Physics for Information Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1276",
             "name" :"Basic Electrical, Electronics and Measurement Engineering",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1201",
             "name" :"Programming in C",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1211",
             "name" :"Programming in C Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -101,47 +101,47 @@
             "code" :"UMA1377",
             "name" :"Discrete Mathematics",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1301",
             "name" :"Digital Principles and System Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1302",
             "name" :"Data Structures",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1303",
             "name" :"Object Oriented Programming using Java",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1304",
             "name" :"UNIX and Shell Programming",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1351",
             "name" :"Principles of Communication Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1311",
             "name" :"Digital Design Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1312",
             "name" :"Data Structures Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1313",
             "name" :"Object Oriented Programming using Java Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -152,47 +152,47 @@
             "code" :"UMA1478",
             "name" :"Probability and Statistics",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1401",
             "name" :"Computer Organization and Architecture",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1402",
             "name" :"Operating Systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1403",
             "name" :"Design and Analysis of Algorithms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1404",
             "name" :"Database Systems Management",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1405",
             "name" :"Software Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1411",
             "name" :"Operating Systems Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1412",
             "name" :"Database Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEN1498",
             "name" :"Interpersonal Skills",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -203,42 +203,42 @@
             "code" :"UCS1501",
             "name" :"Computer Networks",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1502",
             "name" :"Microprocessors and Interfacing",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1503",
             "name" :"Theory of Computation",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1504",
             "name" :"Artificial Intelligence",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1505",
             "name" :"Introduction to Cryptographic Techniques",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1511",
             "name" :"Networks Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1512",
             "name" :"Microprocessors Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -249,42 +249,42 @@
             "code" :"UCS1601",
             "name" :"Internet Programming",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1602",
             "name" :"Compiler Design",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1603",
             "name" :"Introduction to Machine Learning",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1604",
             "name" :"Object Oriented Analysis and Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1611",
             "name" :"Internet Programming Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1617",
             "name" :"Mini Project",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -295,42 +295,42 @@
             "code" :"UCS1701",
             "name" :"Distributed Systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1702",
             "name" :"Mobile Computing",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1703",
             "name" :"Graphics and Multimedia",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1704",
             "name" :"Management and Ethical Practices",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1711",
             "name" :"Mobile Application Development Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1712",
             "name" :"Graphics and Multimedia Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -341,17 +341,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1818",
             "name" :"Project Work",
             "credits" :9,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }
@@ -368,42 +368,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -414,42 +414,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1276",
             "name" :"Physics for Information Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1276",
             "name" :"Basic Electrical, Electronics and Measurement Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1201",
             "name" :"Fundamentals of C Programming",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1211",
             "name" :"Programming in C Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -460,42 +460,42 @@
             "code" :"UMA1377",
             "name" :"Discrete Mathematics",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1301",
             "name" :"Digital Electronics",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1302",
             "name" :"Fundamentals of Data Structures",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1303",
             "name" :"Principles of Analog and Digital Communication",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1304",
             "name" :"Database Management Systems and Applications",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1304",
             "name" :"Computer Organization",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1311",
             "name" :"Programming and Data Structures Lab - I",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1312",
             "name" :"Database Management Systems and Applications Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -506,42 +506,42 @@
             "code" :"UMA1478",
             "name" :"Probability and Statistics",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1401",
             "name" :"Principles of Software Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1402",
             "name" :"Information Theory and Applications",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1403",
             "name" :"Microprocessors and Microcontrollers",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1404",
             "name" :"Advanced Data Structures",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1405",
             "name" :"Algorithm Design and Analysis",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1411",
             "name" :"Microprocessor and Microcontroller Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1412",
             "name" :"Programming and Data Structures Lab - II",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -552,42 +552,42 @@
             "code" :"UIT1501",
             "name" :"Finite Automata Theory",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1502",
             "name" :"Principles of Operating systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1503",
             "name" :"Computer Networks and Its Applications",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1504",
             "name" :"Introduction to Digital Signal Processing",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1505",
             "name" :"Artificial Intelligence Concepts and Algorithms",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1511",
             "name" :"Software Design Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1512",
             "name" :"Operating Systems Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -598,42 +598,42 @@
             "code" :"UIT1601",
             "name" :"Principles of Complier Design",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1602",
             "name" :"Web Programming",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1603",
             "name" :"Big Data Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1604",
             "name" :"Machine Learning Fundamentals",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEN1497",
             "name" :"Interpersonal Skills/Listening & Speaking",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1611",
             "name" :"Web Programming Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -644,42 +644,42 @@
             "code" :"UGE",
             "name" :"Management Principles and Practices",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1701",
             "name" :"Cloud Computing and Virtualization",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1702",
             "name" :"Network Security",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1711",
             "name" :"Mobile Application Development Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEN17",
             "name" :"Professional Communication Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -690,17 +690,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1818",
             "name" :"Project Work",
             "credits" :10,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }
@@ -717,42 +717,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -763,42 +763,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1276",
             "name" :"Physics for Information Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1253",
             "name" :"Basic Electrical and Instrumentation Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1201",
             "name" :"Circuit Analysis",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1202",
             "name" :"Electronic Devices",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1211",
             "name" :"Circuits and Devices Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -809,42 +809,42 @@
             "code" :"UMA1377",
             "name" :"Linear Algebra and Numerical Methods",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1301",
             "name" :"Electronic Circuits I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1302",
             "name" :"Digital System Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1303",
             "name" :"Signals and Systems",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1351",
             "name" :"Object Oriented Programming and Data Structures",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1304",
             "name" :"Electromagnetic Fields",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1371",
             "name" :"OOP and Data Structures Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1411",
             "name" :"Analog and Digital Circuits Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -855,42 +855,42 @@
             "code" :"UMA1477",
             "name" :"Probability Theory and Stochastic Processes",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1401",
             "name" :"Electronic Circuits II",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1402",
             "name" :"Digital Signal Processing",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1403",
             "name" :"Linear Integrated Circuits",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1404",
             "name" :"Principles of Communication Systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1411",
             "name" :"Electronic Circuits II and LIC Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1412",
             "name" :"Digital Signal Processing Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -901,47 +901,47 @@
             "code" :"UEC1501",
             "name" :"Digital Communication",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1502",
             "name" :"Microprocessor and Microcontroller",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1503",
             "name" :"Transmission Lines and Waveguides",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCS1551",
             "name" :"Computer Architecture and Organization",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1551",
             "name" :"Control Systems Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1511",
             "name" :"Analog and Digital Communication Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1512",
             "name" :"Microprocessor and Microcontroller Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEN1597",
             "name" :"Professional Communications Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -952,42 +952,42 @@
             "code" :"UEC1601",
             "name" :"Principles of VLSI Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1602",
             "name" :"Wireless Communications",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1603",
             "name" :"System Design for IoT",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1604",
             "name" :"Communication Networks",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1605",
             "name" :"Machine Learning",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1611",
             "name" :"VLSI Design Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1612",
             "name" :"System Design for IoT Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -998,47 +998,47 @@
             "code" :"UEC1701",
             "name" :"High Frequency Communication Systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1702",
             "name" :"Microwave Engineering and Antennas",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1703",
             "name" :"Professional Ethics and Management Practices",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1711",
             "name" :"Wireless Communication Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1712",
             "name" :"Microwave and Antennas Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1718",
             "name" :"Project Work Stage – I",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1049,17 +1049,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEC1818",
             "name" :"Project Work Stage – II",
             "credits" :9,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }
@@ -1076,42 +1076,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1122,42 +1122,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1277",
             "name" :"Physics for Electronics Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1276",
             "name" :"Basic Civil and Mechanical Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1201",
             "name" :"Electric Circuit Analysis",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1211",
             "name" :"Electric Circuits Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1168,42 +1168,42 @@
             "code" :"UMA1376",
             "name" :"Transform Techniques and Partial Differential Equations",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1301",
             "name" :"Electrical Machines I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1302",
             "name" :"Electromagnetic Theory",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1303",
             "name" :"Electronics Devices and Circuits",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1304",
             "name" :"Object Oriented Programming",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1305",
             "name" :"Modern Power Plant Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1311",
             "name" :"Electrical Machines Lab - I",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1312",
             "name" :"Object Oriented Programming Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1214,42 +1214,42 @@
             "code" :"UMA1451",
             "name" :"Numerical methods",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1401",
             "name" :"Electrical Machines – II",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1402",
             "name" :"Transmission and Distribution",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1403",
             "name" :"Control Systems",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1404",
             "name" :"Digital Logic System Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1405",
             "name" :"Analog Electronic Circuits",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1411",
             "name" :"Electrical Machines Lab – II",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1412",
             "name" :"Analog and Digital electronic circuits Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1260,42 +1260,42 @@
             "code" :"UEE1501",
             "name" :"Power System Analysis",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1502",
             "name" :"Discrete Time Signals and Systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1503",
             "name" :"Microprocessor and Microcontroller - Theory and Applications",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1504",
             "name" :"Power Electronics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1505",
             "name" :"Electrical Measurements and Instrumentation Systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1511",
             "name" :"Control and Instrumentation Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1512",
             "name" :"Microprocessor and Microcontroller Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1306,42 +1306,42 @@
             "code" :"UEE1601",
             "name" :"Solid State Drives",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1602",
             "name" :"Communication Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1603",
             "name" :"Protection and Switch Gear",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1604",
             "name" :"Power System Operation and Control",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1611",
             "name" :"Power Electronics and Drives Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1612",
             "name" :"Power System Simulation Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1352,42 +1352,42 @@
             "code" :"UEE1701",
             "name" :"Electrical Machine Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1702",
             "name" :"High voltage Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1703",
             "name" :"Special Electrical Machines",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1711",
             "name" :"Advanced Electrical Engineering Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1718",
             "name" :"Project work - Phase I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1398,17 +1398,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1818",
             "name" :"Project Work Stage – II",
             "credits" :8,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }
@@ -1425,42 +1425,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1471,42 +1471,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1254",
             "name" :"Physics for Biomedical Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1276",
             "name" :"Basic Civil and Mechanical Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1202",
             "name" :"Electronic Devices and Circuits",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1201",
             "name" :"Circuit Theory",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1211",
             "name" :"Electron Devices and Electric circuits Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1517,42 +1517,42 @@
             "code" :"UMA1376",
             "name" :"Transform Techniques and Partial Differential Equations",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1301",
             "name" :"Sensors for Healthcare",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1351",
             "name" :"OOPS and Java Programming",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1302",
             "name" :"Fundamentals of Biochemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1303",
             "name" :"Human Anatomy and Physiology",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1352",
             "name" :"Basics of Electrical Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1311",
             "name" :"Biochemistry and Human Physiology Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UIT1371",
             "name" :"OOPS and Java Programming Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1563,47 +1563,47 @@
             "code" :"UMA1477",
             "name" :"Probability Theory and Stochastic Processes",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1401",
             "name" :"Pathology and Microbiology",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1402",
             "name" :"Fundamentals of Signals and Systems",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1403",
             "name" :"Analog and Digital ICs",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1404",
             "name" :"Analog and Digital Communication",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1405",
             "name" :"Biomaterials",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1411",
             "name" :"Pathology and Microbiology Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1412",
             "name" :"Analog and Digital Integrated circuits Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEN1497",
             "name" :"Interpersonal Skills/Listening & Speaking",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1614,42 +1614,42 @@
             "code" :"UBM1501",
             "name" :"Biocontrol systems",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1502",
             "name" :"Medical Instrumentation",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1503",
             "name" :"Radiological Equipment",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1504",
             "name" :"Principles of Biomechanics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1505",
             "name" :"Principles of Digital Signal Processing",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1511",
             "name" :"Biomedical Instrumentation Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1512",
             "name" :"Digital Signal Processing Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1660,47 +1660,47 @@
             "code" :"UBM1601",
             "name" :"Medical Image Processing",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1602",
             "name" :"Diagnostic Equipment",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1603",
             "name" :"Microcontroller and Embedded System Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1611",
             "name" :"Microcontroller and Embedded System Design Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1612",
             "name" :"Medical Image Processing Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1617",
             "name" :"Mini Project",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1711,47 +1711,47 @@
             "code" :"UBM1701",
             "name" :"Applied Soft Computing",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1702",
             "name" :"Surgical and Critical Care Equipment",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1703",
             "name" :"Rehabilitation Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1711",
             "name" :"Diagnostic and Therapeutic Equipment Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1712",
             "name" :"Medical System Design and Modelling Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1713",
             "name" :"Hospital Training",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1762,17 +1762,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UBM1818",
             "name" :"Project Work",
             "credits" :10,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }
@@ -1789,42 +1789,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1835,42 +1835,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1253",
             "name" :"Physics of Materials",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1251",
             "name" :"Chemistry for Technologists",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1251",
             "name" :"Basic Mechanical Engineering",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1201",
             "name" :"Principles of Chemical Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1211",
             "name" :"Chemical Analysis Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1881,42 +1881,42 @@
             "code" :"UMA1376",
             "name" :"Transform Techniques and Partial Differential Equations",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1301",
             "name" :"Chemical Process Calculations",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1302",
             "name" :"Fluid Mechanics for Chemical Engineers",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1351",
             "name" :"Physical & Organic Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1351",
             "name" :"Principles of Electrical and Electronics Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1351",
             "name" :"Solid Mechanics for Technologists",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1371",
             "name" :"Electrical Engineering Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1371",
             "name" :"Mechanical Engineering Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1927,42 +1927,42 @@
             "code" :"UMA1476",
             "name" :"Statistics and Numerical Methods",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1401",
             "name" :"Chemical Engineering Thermodynamics I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1402",
             "name" :"Mechanical Operations",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1403",
             "name" :"Chemical Process Industries",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1404",
             "name" :"Heat Transfer",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1411",
             "name" :"Fluid Mechanics Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1471",
             "name" :"Organic Chemistry Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -1973,42 +1973,42 @@
             "code" :"UCH1501",
             "name" :"Industrial Process Plant Safety",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1502",
             "name" :"Chemical Engineering Thermodynamics II",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1503",
             "name" :"Mass Transfer I",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1504",
             "name" :"Chemical Reaction Engineering I",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1511",
             "name" :"Mechanical Operations Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1512",
             "name" :"Heat Transfer Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2019,42 +2019,42 @@
             "code" :"UCH1601",
             "name" :"Chemical Reaction Engineering II",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1602",
             "name" :"Mass Transfer II",
             "credits" :3.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1603",
             "name" :"Process Dynamics and Control",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1604",
             "name" :"Instrumental Methods of Analysis",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1611",
             "name" :"Chemical Reaction Engineering Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1612",
             "name" :"Mass Transfer Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2065,42 +2065,42 @@
             "code" :"UCH1701",
             "name" :"Transport Phenomena",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1702",
             "name" :"Process Equipment Design",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1703",
             "name" :"Process Engineering Economics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1704",
             "name" :"Chemical Process Modelling and Simulation",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1711",
             "name" :"Process Control Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1712",
             "name" :"Computational Programming Laboratory for Chemical Engineers",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2111,17 +2111,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCH1818",
             "name" :"Project Work",
             "credits" :10,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }
@@ -2138,42 +2138,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2184,42 +2184,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1251",
             "name" :"Physics for Civil Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1252",
             "name" :"Basic Electrical and Electronics Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1201",
             "name" :"Engineering Mechanics for Civil Engineering",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1211",
             "name" :"Computer Aided Building Drawing",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2230,42 +2230,42 @@
             "code" :"UMA1376",
             "name" :"Transform Techniques and Partial Differential Equations",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1301",
             "name" :"Mechanics of Solids I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1302",
             "name" :"Mechanics of Fluids",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1303",
             "name" :"Surveying",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1304",
             "name" :"Construction Materials",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1305",
             "name" :"Engineering Geology",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1311",
             "name" :"Surveying Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1312",
             "name" :"Construction Materials Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2276,42 +2276,42 @@
             "code" :"UMA1451",
             "name" :"Numerical Methods in Civil Engineering",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1401",
             "name" :"Mechanics of Solids II",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1402",
             "name" :"Applied Hydraulic Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1403",
             "name" :"Geotechnical Engineering I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1404",
             "name" :"Construction Techniques, Equipment and Practices",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1411",
             "name" :"Strength of Materials Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1412",
             "name" :"Hydraulic Engineering Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2322,47 +2322,47 @@
             "code" :"UCE1501",
             "name" :"Structural Analysis I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1502",
             "name" :"Geotechnical Engineering II",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1503",
             "name" :"Reinforced Cement Concrete Design",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1504",
             "name" :"Water Supply Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1511",
             "name" :"Soil Mechanics Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1512",
             "name" :"Advanced Surveying Lab*",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEN1597",
             "name" :"Professional Communications Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2373,42 +2373,42 @@
             "code" :"UCE1601",
             "name" :"Structural Analysis II",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1602",
             "name" :"Design of Steel Structures",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1603",
             "name" :"Transportation Engineering I",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1604",
             "name" :"Wastewater Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1605",
             "name" :"Irrigation and Water Resources Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1611",
             "name" :"Irrigation and Environmental Engineering Drawing",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1612",
             "name" :"Water and Wastewater Analysis Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2419,42 +2419,42 @@
             "code" :"UCE1701",
             "name" :"Construction Economics and Project Management",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1702",
             "name" :"Structural Design and Drawing",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1703",
             "name" :"Estimation and Quantity Surveying",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1704",
             "name" :"Transportation Engineering II",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1717",
             "name" :"Innovative Design Project",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1716",
             "name" :"Industrial Training",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2465,17 +2465,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1818",
             "name" :"Project Work",
             "credits" :10,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }
@@ -2492,42 +2492,42 @@
             "code" :"UEN1176",
             "name" :"Communicative English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1176",
             "name" :"Algebra and Calculus",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1176",
             "name" :"Engineering Physics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1176",
             "name" :"Engineering Chemistry",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1176",
             "name" :"Problem Solving and Programming in Python",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1177",
             "name" :"Engineering Graphics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1197",
             "name" :"Programming Lab in Python",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGS1197",
             "name" :"Physics and Chemistry Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2538,42 +2538,42 @@
             "code" :"UEN1276",
             "name" :"Technical English",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UMA1276",
             "name" :"Complex Functions and Laplace Transforms",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UPH1252",
             "name" :"Material Science for Mechanical Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCY1276",
             "name" :"Environmental Science",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1201",
             "name" :"Engineering Mechanics",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1251",
             "name" :"Fundamentals of Electrical and Electronics Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1297",
             "name" :"Design Thinking and Engineering Practices Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEE1271",
             "name" :"Electrical and Electronics Engineering Lab",
             "credits" :2,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2584,42 +2584,42 @@
             "code" :"UMA1376",
             "name" :"Transform Techniques and Partial Differential Equations",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1301",
             "name" :"Engineering Thermodynamics",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1302",
             "name" :"Fluid Mechanics and Machinery",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1303",
             "name" :"Manufacturing Processes I",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1304",
             "name" :"Strength of Materials",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1305",
             "name" :"Kinematics of Machinery",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1311",
             "name" :"Fluid Mechanics and Machinery Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1312",
             "name" :"Strength of Materials Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2630,42 +2630,42 @@
             "code" :"UMA1476",
             "name" :"Statistics and Numerical Methods",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1401",
             "name" :"Engineering Metallurgy",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1402",
             "name" :"Manufacturing Processes II",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1403",
             "name" :"Thermal Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1404",
             "name" :"Dynamics of Machines",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1411",
             "name" :"Thermal Engineering Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1412",
             "name" :"Dynamics Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2676,42 +2676,42 @@
             "code" :"UME1501",
             "name" :"Metrology and Measurements",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1502",
             "name" :"Computer Aided Design and Manufacturing",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1503",
             "name" :"Design of Machine Elements",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1504",
             "name" :"Heat and Mass Transfer",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UGE1576",
             "name" :"Professional Ethics",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1511",
             "name" :"Heat Transfer Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1512",
             "name" :"Computer Aided Design and Manufacturing Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2722,47 +2722,47 @@
             "code" :"UME1601",
             "name" :"Design of Mechanical Drives",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1602",
             "name" :"Finite Element Analysis",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1603",
             "name" :"Automobile engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1604",
             "name" :"Power Plant Engineering",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1605",
             "name" :"Operations Research",
             "credits" :4,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1611",
             "name" :"Simulation Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1612",
             "name" :"Designand Fabrication Project",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UEN1597",
             "name" :"Professional Communications Lab",
             "credits" :1,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2773,42 +2773,42 @@
             "code" :"UME1701",
             "name" :"Mechatronics and Automation",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1702",
             "name" :"Computer Integrated Manufacturing",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Industrial Practices",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 3",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1711",
             "name" :"Mechatronics and Automation Lab",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UME1718",
             "name" :"Project Work – Phase I",
             "credits" :1.5,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       },
@@ -2819,17 +2819,17 @@
             "code" :"Elective - 1",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"Elective - 2",
             "name" :"",
             "credits" :3,
-            "grade" : 6
+            "grade" : 8
           },{
             "code" :"UCE1818",
             "name" :"Project Work Phase II",
             "credits" :10,
-            "grade" : 6
+            "grade" : 8
           }
         ]
       }

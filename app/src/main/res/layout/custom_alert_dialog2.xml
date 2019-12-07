@@ -42,7 +42,7 @@
                         android:textColor="#000000"
                         android:layout_centerVertical="true"
                         android:layout_toRightOf="@+id/iconIV"
-                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:layout_marginStart="@dimen/_5sdp"
                         android:fontFamily="@font/open_sans"
                         android:textSize="@dimen/_14ssp" />
                 </RelativeLayout>

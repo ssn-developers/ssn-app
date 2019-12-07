@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
+
+import spencerstudios.com.bungeelib.Bungee;
 
 public class ChooseSemesterActivity extends BaseActivity {
 
@@ -23,41 +26,45 @@ public class ChooseSemesterActivity extends BaseActivity {
 
         if(darkModeEnabled){
             setContentView(R.layout.activity_choose_semester_dark);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
         }
-        else {
+        else
             setContentView(R.layout.activity_choose_semester);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
-        }
 
 
         onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getApplicationContext(),GPACalculatorActivity.class);
-                switch(view.getId())
-                {
-                    case R.id.sem1 : intent.putExtra("sem",1);
-                                     break;
-                    case R.id.sem2 : intent.putExtra("sem",2);
+                switch(view.getId()) {
+                    case R.id.sem1 :
+                        intent.putExtra("sem",0);
+                         break;
+                    case R.id.sem2 :
+                        intent.putExtra("sem",1);
                         break;
-                    case R.id.sem3 : intent.putExtra("sem",3);
+                    case R.id.sem3 :
+                        intent.putExtra("sem",2);
                         break;
-
-                    case R.id.sem4 : intent.putExtra("sem",4);
+                    case R.id.sem4 :
+                        intent.putExtra("sem",3);
                         break;
-                    case R.id.sem5 : intent.putExtra("sem",5);
+                    case R.id.sem5 :
+                        intent.putExtra("sem",4);
                         break;
-
-                    case R.id.sem6 : intent.putExtra("sem",6);
+                    case R.id.sem6 :
+                        intent.putExtra("sem",5);
                         break;
-                    case R.id.sem7 : intent.putExtra("sem",7);
+                    case R.id.sem7 :
+                        intent.putExtra("sem",6);
                         break;
-                    case R.id.sem8 : intent.putExtra("sem",8);
+                    case R.id.sem8 :
+                        intent.putExtra("sem",7);
                         break;
                 }
                 startActivity(intent);
+                Bungee.slideLeft(ChooseSemesterActivity.this);
                 finish();
             }
         };
@@ -66,9 +73,7 @@ public class ChooseSemesterActivity extends BaseActivity {
         setListeners();
     }
 
-
-    private void initUI()
-    {
+    private void initUI() {
         sem1 = findViewById(R.id.sem1);
         sem2 = findViewById(R.id.sem2);
         sem3 = findViewById(R.id.sem3);
@@ -77,8 +82,7 @@ public class ChooseSemesterActivity extends BaseActivity {
         sem6 = findViewById(R.id.sem6);
         sem7 = findViewById(R.id.sem7);
         sem8 = findViewById(R.id.sem8);
-        back = findViewById(R.id.cs_back);
-
+        back = findViewById(R.id.backIV);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -87,7 +91,6 @@ public class ChooseSemesterActivity extends BaseActivity {
                 sem7.setVisibility(View.VISIBLE);
                 YoYo.with(Techniques.ZoomIn).duration(500).playOn(sem1);
                 YoYo.with(Techniques.ZoomIn).duration(500).playOn(sem7);
-
 
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -140,9 +143,11 @@ public class ChooseSemesterActivity extends BaseActivity {
         });
     }
 
+    /********************************************************/
+
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
+        Bungee.slideRight(ChooseSemesterActivity.this);
     }
 }
-

@@ -1,311 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:id="@+id/drawerLayout"
 	android:background="@android:color/white"
 	tools:context=".StudentHomeActivity">
 
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/fakeAppbarLL"
+		android:paddingTop="@dimen/_3sdp"
+		android:paddingBottom="@dimen/_3sdp"
+		android:layout_marginTop="@dimen/_8sdp"
+		android:layout_marginBottom="@dimen/_8sdp"
+		android:orientation="horizontal">
+
+		<de.hdodenhof.circleimageview.CircleImageView
+			android:layout_marginStart="@dimen/_8sdp"
+			android:layout_width="@dimen/_30sdp"
+			android:layout_height="@dimen/_30sdp"
+			app:civ_circle_background_color="#D8D7D7"
+			app:srcCompat="@drawable/ic_user_white"
+			android:id="@+id/userImageIV" />
+
+		<RelativeLayout
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:layout_gravity="center">
+			<ImageView
+				android:layout_width="@dimen/_65sdp"
+				android:layout_height="@dimen/_22sdp"
+				app:srcCompat="@drawable/ssn_logo"
+				android:tint="@color/colorAccent" />
+		</RelativeLayout>
+
+		<ImageView
+			android:layout_width="@dimen/_30sdp"
+			android:layout_height="@dimen/_30sdp"
+			android:padding="@dimen/_5sdp"
+			android:tint="@color/colorAccent"
+			app:srcCompat="@drawable/ic_chat"
+			android:id="@+id/chatIV" />
+
+		<ImageView
+			android:layout_width="@dimen/_30sdp"
+			android:layout_height="@dimen/_30sdp"
+			android:padding="@dimen/_5sdp"
+			android:tint="@color/colorAccent"
+			app:srcCompat="@drawable/ic_fav"
+			android:id="@+id/favIV" />
+
+		<ImageView
+			android:layout_width="@dimen/_30sdp"
+			android:layout_height="@dimen/_30sdp"
+			android:layout_marginEnd="@dimen/_5sdp"
+			android:padding="@dimen/_5sdp"
+			android:tint="@color/colorAccent"
+			app:srcCompat="@drawable/ic_settings"
+			android:id="@+id/settingsIV" />
+
+	</LinearLayout>
+
 	<RelativeLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="wrap_content"
+		android:layout_below="@id/fakeAppbarLL"
+		android:background="#FAFFFFFF">
 
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:id="@+id/fakeAppbarLL"
-			android:paddingTop="@dimen/_3sdp"
-			android:paddingBottom="@dimen/_3sdp"
-			android:orientation="horizontal">
-
-			<RelativeLayout
-				android:layout_marginStart="@dimen/_8sdp"
-				android:layout_marginLeft="@dimen/_8sdp"
-				android:layout_marginTop="@dimen/_8sdp"
-				android:layout_marginBottom="@dimen/_8sdp"
-				android:layout_width="@dimen/_30sdp"
-				android:layout_height="@dimen/_30sdp">
-
-				<de.hdodenhof.circleimageview.CircleImageView
-					android:layout_width="match_parent"
-					android:layout_height="match_parent"
-					app:civ_circle_background_color="#D8D7D7"
-					app:srcCompat="@drawable/ic_user_white"
-					android:id="@+id/userImageIV" />
-
-				<androidx.cardview.widget.CardView
-					android:layout_width="@dimen/_10sdp"
-					android:layout_height="@dimen/_10sdp"
-					android:layout_alignParentBottom="true"
-					android:layout_alignParentRight="true"
-					app:cardCornerRadius="@dimen/_5sdp"
-					app:cardBackgroundColor="@color/colorAccent">
-
-					<ImageView
-						android:layout_width="match_parent"
-						android:layout_height="match_parent"
-						android:layout_margin="@dimen/_1sdp"
-						app:srcCompat="@drawable/ic_menu"/>
-				</androidx.cardview.widget.CardView>
-			</RelativeLayout>
-
-			<ImageView
-				android:layout_width="@dimen/_32sdp"
-				android:layout_height="@dimen/_32sdp"
-				android:padding="@dimen/_4sdp"
-				android:id="@+id/menuIV"
-				android:layout_marginTop="@dimen/_8sdp"
-				android:layout_marginStart="@dimen/_8sdp"
-				android:layout_marginLeft="@dimen/_8sdp"
-				android:layout_marginBottom="@dimen/_8sdp"
-				android:layout_gravity="center"
-				android:tint="@color/colorAccent"
-				android:clickable="true"
-				android:focusable="true"
-				android:visibility="gone"
-				android:foreground="?selectableItemBackground"
-				app:srcCompat="@drawable/ic_menu"
-				android:contentDescription="@string/menu_button" />
-
-			<RelativeLayout
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_weight="1"
-				android:layout_gravity="center">
-				<ImageView
-					android:layout_width="@dimen/_65sdp"
-					android:layout_height="@dimen/_22sdp"
-					app:srcCompat="@drawable/ssn_logo"
-					android:tint="@color/colorAccent" />
-			</RelativeLayout>
-
-			<ImageView
-				android:layout_width="@dimen/_30sdp"
-				android:layout_height="@dimen/_30sdp"
-				android:layout_marginEnd="@dimen/_8sdp"
-				android:layout_marginRight="@dimen/_8sdp"
-				android:layout_marginTop="@dimen/_8sdp"
-				android:layout_marginBottom="@dimen/_8sdp"
-				android:padding="@dimen/_5sdp"
-				android:visibility="gone"
-				android:tint="@color/colorAccent"
-				app:srcCompat="@drawable/ic_notify"
-				android:id="@+id/notifUI" />
-
-		</LinearLayout>
+		<com.ogaclejapan.smarttablayout.SmartTabLayout
+			android:id="@+id/viewPagerTab"
+			android:paddingStart="@dimen/_14sdp"
+			android:paddingEnd="@dimen/_14sdp"
+			android:clipToPadding="false"
+			android:layout_width="wrap_content"
+			android:layout_height="@dimen/_35sdp"
+			android:layout_marginBottom="10dp"
+			android:layout_gravity="bottom|center_horizontal"
+			app:stl_clickable="true"
+			app:stl_dividerColor="@android:color/transparent"
+			app:stl_dividerThickness="0dp"
+			app:stl_indicatorColor="@color/colorAccent"
+			app:stl_indicatorCornerRadius="@dimen/_18sdp"
+			app:stl_indicatorGravity="center"
+			app:stl_indicatorInterpolation="linear"
+			app:stl_indicatorThickness="@dimen/_28sdp"
+			app:stl_underlineColor="@android:color/transparent"
+			app:stl_underlineThickness="0dp"
+			app:stl_customTabTextLayoutId="@layout/custom_tab"
+			app:stl_customTabTextViewId="@+id/customTabTV" />
 
 		<androidx.viewpager.widget.ViewPager
 			android:id="@+id/viewPager"
-			android:paddingTop="@dimen/_43sdp"
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:layout_below="@+id/fakeAppbarLL" />
-
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/fakeAppbarLL"
-			android:background="#FAFFFFFF">
-
-			<com.ogaclejapan.smarttablayout.SmartTabLayout
-				android:id="@+id/viewPagerTab"
-				android:paddingStart="@dimen/_14sdp"
-				android:paddingEnd="@dimen/_14sdp"
-				android:clipToPadding="false"
-				android:layout_width="wrap_content"
-				android:layout_height="@dimen/_35sdp"
-				android:layout_marginBottom="10dp"
-				android:layout_gravity="bottom|center_horizontal"
-				app:stl_clickable="true"
-				app:stl_dividerColor="@android:color/transparent"
-				app:stl_dividerThickness="0dp"
-				app:stl_indicatorColor="@color/colorAccent"
-				app:stl_indicatorCornerRadius="@dimen/_18sdp"
-				app:stl_indicatorGravity="center"
-				app:stl_indicatorInterpolation="linear"
-				app:stl_indicatorThickness="@dimen/_28sdp"
-				app:stl_underlineColor="@android:color/transparent"
-				app:stl_underlineThickness="0dp"
-				app:stl_customTabTextLayoutId="@layout/custom_tab"
-				app:stl_customTabTextViewId="@+id/customTabTV" />
-		</RelativeLayout>
-
+			android:layout_below="@+id/viewPagerTab" />
 	</RelativeLayout>
 
-	<com.google.android.material.navigation.NavigationView
-		android:id="@+id/navigationView"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:layout_gravity="start"
-		android:background="#ffffff">
-
-		<RelativeLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent">
-
-			<de.hdodenhof.circleimageview.CircleImageView
-				android:id="@+id/profileIV"
-				android:layout_width="@dimen/_80sdp"
-				android:layout_height="@dimen/_80sdp"
-				android:layout_centerHorizontal="true"
-				android:layout_marginTop="@dimen/_15sdp" />
-
-			<TextView
-				android:id="@+id/nameTV"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:singleLine="true"
-				android:textColor="@color/colorAccent"
-				android:textSize="@dimen/_14ssp"
-				android:fontFamily="@font/open_sans_bold"
-				android:layout_centerHorizontal="true"
-				android:layout_below="@+id/profileIV" />
-
-			<TextView
-				android:id="@+id/emailTV"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:singleLine="true"
-				android:textColor="#69000000"
-				android:textSize="@dimen/_10ssp"
-				android:fontFamily="@font/open_sans"
-				android:layout_centerHorizontal="true"
-				android:layout_below="@+id/nameTV" />
-
-			<LinearLayout
-				android:layout_width="match_parent"
-				android:layout_height="match_parent"
-				android:layout_below="@+id/emailTV"
-				android:orientation="vertical"
-				android:layout_marginTop="@dimen/_15sdp"
-				android:layout_marginLeft="@dimen/_15sdp"
-				android:layout_marginRight="@dimen/_15sdp"
-				android:layout_marginBottom="@dimen/_10sdp"
-				android:background="@drawable/ic_drawer_bg">
-
-				<RelativeLayout
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/_40sdp"
-					android:layout_marginTop="@dimen/_5sdp"
-					android:layout_marginLeft="@dimen/_5sdp"
-					android:layout_marginRight="@dimen/_5sdp">
-
-					<ImageView
-						android:id="@+id/sleep_iconIV"
-						app:srcCompat="@drawable/ic_sleep"
-						android:tint="@color/drawer_grey"
-						android:layout_width="@dimen/_14sdp"
-						android:layout_height="@dimen/_14sdp"
-						android:layout_margin="@dimen/_13sdp"/>
-
-					<TextView
-						android:id="@+id/sleep_titleTV"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:text="Dark mode"
-						android:textColor="#9A000000"
-						android:textSize="@dimen/_12ssp"
-						android:singleLine="true"
-						android:paddingRight="@dimen/_5sdp"
-						android:layout_centerVertical="true"
-						android:layout_toRightOf="@+id/sleep_iconIV"
-						android:layout_marginLeft="@dimen/_5sdp"
-						android:fontFamily="@font/open_sans_semi_bold"/>
-
-					<com.suke.widget.SwitchButton
-						android:id="@+id/darkModeSwitch"
-						android:layout_alignParentRight="true"
-						app:sb_checked_color="@color/colorAccent"
-						app:sb_show_indicator="false"
-						android:layout_centerVertical="true"
-						android:layout_marginRight="@dimen/_12sdp"
-						app:sb_background="@color/colorAccentLight"
-						android:layout_width="@dimen/_40sdp"
-						android:layout_height="@dimen/_20sdp"/>
-
-					<View
-						android:id="@+id/view_sleep_line"
-						android:layout_width="match_parent"
-						android:layout_height="1dp"
-						android:layout_alignParentBottom="true"
-						android:layout_toRightOf="@+id/sleep_iconIV"
-						android:layout_marginLeft="@dimen/_5sdp"
-						android:layout_marginRight="@dimen/_15sdp"
-						android:background="#66C0C0C0"/>
-
-				</RelativeLayout>
-
-				<RelativeLayout
-					android:id="@+id/layout_alum_notif"
-					android:visibility="gone"
-					android:layout_width="match_parent"
-					android:layout_height="@dimen/_40sdp"
-					android:layout_marginTop="@dimen/_5sdp"
-					android:layout_marginLeft="@dimen/_5sdp"
-					android:layout_marginRight="@dimen/_5sdp">
-
-					<ImageView
-						android:id="@+id/notif_iconIV"
-						app:srcCompat="@drawable/ic_notify_grey"
-						android:tint="@color/drawer_grey"
-						android:layout_width="@dimen/_14sdp"
-						android:layout_height="@dimen/_14sdp"
-						android:layout_margin="@dimen/_13sdp"/>
-
-					<TextView
-						android:id="@+id/titleTV"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:text="Notification"
-						android:textColor="#9A000000"
-						android:textSize="@dimen/_12ssp"
-						android:singleLine="true"
-						android:paddingRight="@dimen/_5sdp"
-						android:layout_centerVertical="true"
-						android:layout_toRightOf="@+id/notif_iconIV"
-						android:layout_marginLeft="@dimen/_5sdp"
-						android:fontFamily="@font/open_sans_semi_bold"/>
-
-					<com.suke.widget.SwitchButton
-						android:id="@+id/notifSwitch"
-						android:layout_alignParentRight="true"
-						app:sb_checked_color="@color/colorAccent"
-						app:sb_show_indicator="false"
-						android:layout_centerVertical="true"
-						android:layout_marginRight="@dimen/_12sdp"
-						app:sb_background="@color/colorAccentLight"
-						android:layout_width="@dimen/_40sdp"
-						android:layout_height="@dimen/_20sdp"/>
-
-					<View
-						android:id="@+id/view_line"
-						android:layout_width="match_parent"
-						android:layout_height="1dp"
-						android:layout_alignParentBottom="true"
-						android:layout_toRightOf="@+id/notif_iconIV"
-						android:layout_marginLeft="@dimen/_5sdp"
-						android:layout_marginRight="@dimen/_15sdp"
-						android:background="#66C0C0C0"/>
-
-				</RelativeLayout>
-
-				<ListView
-					android:id="@+id/lv_items"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginLeft="@dimen/_5sdp"
-					android:layout_marginRight="@dimen/_5sdp"
-					android:layout_marginBottom="@dimen/_5sdp"
-					android:scrollbars="none"
-					android:divider="@null"/>
-
-			</LinearLayout>
-
-		</RelativeLayout>
-
-	</com.google.android.material.navigation.NavigationView>
-
-</androidx.drawerlayout.widget.DrawerLayout>
+</RelativeLayout>

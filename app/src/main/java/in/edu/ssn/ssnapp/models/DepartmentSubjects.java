@@ -19,8 +19,6 @@ public class DepartmentSubjects {
     }
 
     public class SemesterSubjects{
-
-        int no;
         ArrayList<Subject> subjects;
 
 

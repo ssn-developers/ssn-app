@@ -12,13 +12,12 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:weightSum="1"
-		android:layout_marginTop="@dimen/_4sdp"
 		android:orientation="horizontal">
 
 		<androidx.cardview.widget.CardView
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/_14sdp"
+			android:layout_marginBottom="@dimen/_5sdp"
 			android:layout_weight="1"
 			app:cardCornerRadius="@dimen/_8sdp"
 			app:cardBackgroundColor="@color/darkColorLight"
@@ -26,8 +25,8 @@
 			android:id="@+id/busRoutesCV"
 			android:clickable="true"
 			android:foreground="?attr/selectableItemBackground"
-			android:layout_marginStart="@dimen/_14sdp"
-			android:layout_marginEnd="@dimen/_14sdp">
+			android:layout_marginStart="@dimen/_12sdp"
+			android:layout_marginEnd="@dimen/_12sdp">
 			<ImageView
 				android:layout_width="match_parent"
 				android:layout_height="@dimen/_112sdp"
@@ -68,8 +67,8 @@
 			android:id="@+id/shimmer_view"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="@dimen/_9sdp"
-			android:layout_marginRight="@dimen/_9sdp"
+			android:layout_marginStart="@dimen/_5sdp"
+			android:layout_marginEnd="@dimen/_5sdp"
 			app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
 			<LinearLayout
@@ -87,8 +86,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:clipToPadding="false"
-			android:layout_marginLeft="@dimen/_9sdp"
-			android:layout_marginRight="@dimen/_9sdp"
+			android:layout_marginStart="@dimen/_5sdp"
+			android:layout_marginEnd="@dimen/_5sdp"
 			android:id="@+id/alertRV"/>
 
 	</RelativeLayout>

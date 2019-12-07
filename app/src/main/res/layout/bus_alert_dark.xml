@@ -43,7 +43,7 @@
         android:fontFamily="@font/open_sans"
         android:layout_marginTop="@dimen/_8sdp"
         android:textColor="@color/colorAccentDark"
-        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
         android:textSize="@dimen/_10ssp"/>
 
 

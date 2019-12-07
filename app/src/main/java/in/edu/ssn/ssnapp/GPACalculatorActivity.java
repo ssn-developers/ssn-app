@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,8 +24,10 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import in.edu.ssn.ssnapp.adapters.BusRouteAdapter;
@@ -32,112 +35,129 @@ import in.edu.ssn.ssnapp.adapters.SubjectsAdapter;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.models.DepartmentSubjects;
 import in.edu.ssn.ssnapp.models.Subject;
+import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class GPACalculatorActivity extends BaseActivity {
 
-    TextView gradeResult;
-    ImageView backImage;
-    RelativeLayout gpaOutput;
+    TextView gpaTV;
+    ImageView backIV;
+    RelativeLayout gpaRL;
     ArrayList<Subject> subjects;
-    SubjectsAdapter subjectsAdapter;
-    CardView calculateGPA;
-    RecyclerView subjectsList;
-    ArrayList<DepartmentSubjects> departmentSubjects;
-    int semester;
+    SubjectsAdapter adapter;
+    CardView calculateCV;
+    RecyclerView subjectsRV;
+    DepartmentSubjects.SemesterSubjects semesterSubjects;
+    int semester, dept;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_gpa_calculator_dark);
 
         if(darkModeEnabled){
             setContentView(R.layout.activity_gpa_calculator_dark);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
         }
-        else {
+        else
             setContentView(R.layout.activity_gpa_calculator);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccent));
-        }
 
-
-        semester = getIntent().getIntExtra("sem",1);
-        semester--;
         new getDepartmentSubjects().execute();
-
-
-
-
-
-
     }
 
-    private void initUI()
-    {
-        gradeResult = findViewById(R.id.gpa_value);
-        backImage = findViewById(R.id.gpa_back);
-        gpaOutput = findViewById(R.id.gpa_output_layout);
-        calculateGPA = findViewById(R.id.calculate_gpa_card);
-        subjectsList = findViewById(R.id.gpa_recycler_view);
-        if(departmentSubjects!=null) {
-            subjects = departmentSubjects.get(0).getSem().get(semester).getSubjects();
-        }
-        subjectsAdapter = new SubjectsAdapter(getApplicationContext(),subjects);
+    private void initUI() {
+        gpaTV = findViewById(R.id.gpaTV);
+        backIV = findViewById(R.id.backIV);
+        gpaRL = findViewById(R.id.gpaRL);
+        calculateCV = findViewById(R.id.calculateCV);
 
+        subjectsRV = findViewById(R.id.subjectsRV);
+        subjectsRV.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        subjectsRV.setAdapter(adapter);
 
-
+        backIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+        calculateCV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                calculateAndDisplay();
+            }
+        });
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
-
-    private void calculateAndDisplay()
-    {
+    private void calculateAndDisplay() {
         float gpa=0;
-        float totalCreditsGained=0;
-        float totalCredits=0;
-        for(int i=0;i<subjects.size();i++)
-        {
-            totalCreditsGained+=(float)subjects.get(i).getGrade() * subjects.get(i).getCredits();
-            totalCredits+=(float)subjects.get(i).getCredits();
+        float totalCreditsGained = 0;
+        float totalCredits = 0;
+        for(int i=0; i<subjects.size(); i++) {
+            totalCreditsGained += subjects.get(i).getGrade() * subjects.get(i).getCredits();
+            totalCredits += subjects.get(i).getCredits();
         }
+
         gpa = totalCreditsGained/totalCredits;
-        gpaOutput.setVisibility(View.VISIBLE);
-        if(gpa%1>0.00) {
-            gradeResult.setText(String.format("%.2f", gpa));
-        }else
-        {
-            gradeResult.setText(Integer.toString((int)gpa));
-        }
-
+        gpaRL.setVisibility(View.VISIBLE);
+        gpaTV.setText(String.format("%.2f", gpa));
     }
-
 
     public class getDepartmentSubjects extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            semester = getIntent().getIntExtra("sem",0);
+            String department = SharedPref.getString(getApplicationContext(),"dept");
+            switch (department){
+                case "cse":
+                    dept=0;
+                    break;
+                case "it":
+                    dept=1;
+                    break;
+                case "ece":
+                    dept=2;
+                    break;
+                case "eee":
+                    dept=3;
+                    break;
+                case "bme":
+                    dept=4;
+                    break;
+                case "che":
+                    dept=5;
+                    break;
+                case "civ":
+                    dept=6;
+                    break;
+                case "mec":
+                    dept=7;
+                    break;
+            }
+        }
+
         @Override
         protected Void doInBackground(Void... voids) {
             try {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(getAssets().open("subjects.json")));
                 StringBuilder sb = new StringBuilder();
-                String line = null;
-                while ((line = reader.readLine()) != null) {
+                String line;
+                while ((line = reader.readLine()) != null)
                     sb.append(line + "\n");
-                }
 
-                final Set<String> linkedHashSet = new LinkedHashSet<>();
                 JSONArray arr = new JSONArray(sb.toString());
-                departmentSubjects = new ArrayList<>();
+                JSONObject obj1 = (JSONObject) arr.get(dept);
+                JSONArray arr1 = obj1.getJSONArray("sem");
+                JSONObject obj2 = (JSONObject) arr1.get(semester);
 
-                for(int i=0; i<arr.length(); i++){
-                    Log.i("err","entered loop");
-                    JSONObject obj = (JSONObject) arr.get(i);
-                    DepartmentSubjects departmentSubject = new Gson().fromJson(obj.toString(), DepartmentSubjects.class);
-                    Log.i("string",obj.toString());
-                    departmentSubjects.add(departmentSubject);
+                semesterSubjects = new Gson().fromJson(obj2.toString(), DepartmentSubjects.SemesterSubjects.class);
+                if(semesterSubjects != null)
+                    subjects = semesterSubjects.getSubjects();
 
-                }
-
+                adapter = new SubjectsAdapter(getApplicationContext(),subjects);
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -149,22 +169,16 @@ public class GPACalculatorActivity extends BaseActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
+
             initUI();
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-            subjectsList.setLayoutManager(layoutManager);
-            subjectsList.setAdapter(subjectsAdapter);
-            backImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onBackPressed();
-                }
-            });
-            calculateGPA.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    calculateAndDisplay();
-                }
-            });
         }
+    }
+
+    /********************************************************/
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(GPACalculatorActivity.this);
     }
 }

@@ -23,7 +23,7 @@
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_22sdp"
+            android:layout_marginStart="@dimen/_22sdp"
             app:srcCompat="@drawable/ic_back" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginStart="@dimen/_12sdp"
             android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
             android:text="Settings"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout1"
-        android:layout_marginLeft="@dimen/_5sdp">
+        android:layout_marginStart="@dimen/_5sdp">
 
         <LinearLayout
             android:id="@+id/layout2"
@@ -64,16 +64,16 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:layout_marginEnd="@dimen/_5sdp">
 
                 <TextView
                     android:id="@+id/sleep_titleTV"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/open_sans"
                     android:paddingRight="@dimen/_5sdp"
                     android:singleLine="true"
@@ -87,7 +87,7 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_12sdp"
+                    android:layout_marginEnd="@dimen/_12sdp"
                     app:sb_background="@color/colorAccentLight"
                     app:sb_checked_color="@color/colorAccent"
                     app:sb_show_indicator="false" />
@@ -97,265 +97,290 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:layout_marginRight="@dimen/_15sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
                     android:background="#66C0C0C0" />
 
             </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/open_sans_bold"
-                android:padding="@dimen/_10sdp"
-                android:text="Notifications"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_14sdp" />
-
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/notificationLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/posticonTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:fontFamily="@font/open_sans_bold"
+                    android:padding="@dimen/_10sdp"
+                    android:text="Notifications"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_14sdp" />
+
+                <RelativeLayout
+                    android:id="@+id/allpostRL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:singleLine="true"
-                    android:text="All Posts"
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
 
-                <com.suke.widget.SwitchButton
-                    android:id="@+id/switch_all"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
-                    app:sb_checked_color="@color/colorAccent"
-                    app:sb_show_indicator="false" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/posticonTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="All Posts"
+                        android:textColor="@color/colorAccentText"
+                        android:textSize="@dimen/_13sdp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:background="#66C0C0C0" />
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/switch_all"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:sb_background="@color/colorAccentLight"
+                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_show_indicator="false" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="#66C0C0C0" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
 
-                <TextView
-                    android:id="@+id/newsfeedTV"
+
+                <RelativeLayout
+                    android:id="@+id/newsfeedRL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:singleLine="true"
-                    android:text="Newsfeed"
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
 
-                <com.suke.widget.SwitchButton
-                    android:id="@+id/switch_dept"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
-                    app:sb_checked_color="@color/colorAccent"
-                    app:sb_show_indicator="false" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/newsfeedTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Newsfeed"
+                        android:textColor="@color/colorAccentText"
+                        android:textSize="@dimen/_13sdp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:background="#66C0C0C0" />
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/switch_dept"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:sb_background="@color/colorAccentLight"
+                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_show_indicator="false" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="#66C0C0C0" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
 
-                <TextView
-                    android:id="@+id/bus_alert_TV"
+
+                <RelativeLayout
+                    android:id="@+id/busalertRL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:singleLine="true"
-                    android:text="Bus Alerts"
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
 
-                <com.suke.widget.SwitchButton
-                    android:id="@+id/switch_bus"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
-                    app:sb_checked_color="@color/colorAccent"
-                    app:sb_show_indicator="false" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/bus_alert_TV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Bus Alerts"
+                        android:textColor="@color/colorAccentText"
+                        android:textSize="@dimen/_13sdp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/switch_bus"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:sb_background="@color/colorAccentLight"
+                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_show_indicator="false" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="#66C0C0C0" />
+                </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/examcellTV"
+                <RelativeLayout
+                    android:id="@+id/examcellRL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:singleLine="true"
-                    android:text="Examcell"
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
 
-                <com.suke.widget.SwitchButton
-                    android:id="@+id/switch_exam"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
-                    app:sb_checked_color="@color/colorAccent"
-                    app:sb_show_indicator="false" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/examcellTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Examcell"
+                        android:textColor="@color/colorAccentText"
+                        android:textSize="@dimen/_13sdp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:background="#66C0C0C0" />
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/switch_exam"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:sb_background="@color/colorAccentLight"
+                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_show_indicator="false" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="#66C0C0C0" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
 
-                <TextView
-                    android:id="@+id/placementTV"
+
+                <RelativeLayout
+                    android:id="@+id/placementRL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:singleLine="true"
-                    android:text="Placements"
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
 
-                <com.suke.widget.SwitchButton
-                    android:id="@+id/switch_place"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
-                    app:sb_checked_color="@color/colorAccent"
-                    app:sb_show_indicator="false" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/placementTV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Placements"
+                        android:textColor="@color/colorAccentText"
+                        android:textSize="@dimen/_13sdp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:background="#66C0C0C0" />
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/switch_place"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:sb_background="@color/colorAccentLight"
+                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_show_indicator="false" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="#66C0C0C0" />
+                </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_5sdp">
 
-                <TextView
-                    android:id="@+id/event_TV"
+
+                <RelativeLayout
+                    android:id="@+id/eventRL"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/_5sdp"
-                    android:fontFamily="@font/open_sans"
-                    android:paddingRight="@dimen/_5sdp"
-                    android:singleLine="true"
-                    android:text="Events"
-                    android:textColor="@color/colorAccentText"
-                    android:textSize="@dimen/_13sdp" />
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
 
-                <com.suke.widget.SwitchButton
-                    android:id="@+id/switch_event"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_20sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_marginRight="@dimen/_12sdp"
-                    android:layout_marginBottom="@dimen/_10sdp"
-                    app:sb_background="@color/colorAccentLight"
-                    app:sb_checked_color="@color/colorAccent"
-                    app:sb_show_indicator="false" />
-            </RelativeLayout>
+                    <TextView
+                        android:id="@+id/event_TV"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Events"
+                        android:textColor="@color/colorAccentText"
+                        android:textSize="@dimen/_13sdp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:background="#66C0C0C0" />
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/switch_event"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:sb_background="@color/colorAccentLight"
+                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_show_indicator="false" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="#66C0C0C0" />
+                </RelativeLayout>
+
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -367,29 +392,36 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_14sdp" />
 
-            <TextView
-                android:id="@+id/almaconnetTV"
+            <LinearLayout
+                android:id="@+id/almaconnetLL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/open_sans"
-                android:padding="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="Almaconnect"
-                android:textColor="@color/colorAccentText"
-                android:textSize="@dimen/_13sdp" />
+                android:orientation="vertical">
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
-                android:background="#66C0C0C0" />
+                <TextView
+                    android:id="@+id/almaconnetTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:fontFamily="@font/open_sans"
+                    android:padding="@dimen/_5sdp"
+                    android:singleLine="true"
+                    android:text="Almaconnect"
+                    android:textColor="@color/colorAccentText"
+                    android:textSize="@dimen/_13sdp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:background="#66C0C0C0" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/helplineTV"
@@ -408,8 +440,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -427,10 +459,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/_5sdp"
-                android:layout_marginLeft="@dimen/_5sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_10sdp"                android:fontFamily="@font/open_sans"
+                android:fontFamily="@font/open_sans"
                 android:padding="@dimen/_5sdp"
                 android:singleLine="true"
                 android:text="Contributors"
@@ -441,8 +474,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -462,8 +495,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
 
@@ -484,8 +517,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -505,8 +538,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -526,8 +559,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -547,8 +580,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <TextView
@@ -568,8 +601,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/_5sdp"
-                android:layout_marginRight="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
                 android:background="#66C0C0C0" />
 
             <View

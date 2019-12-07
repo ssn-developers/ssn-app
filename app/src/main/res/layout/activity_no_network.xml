@@ -26,14 +26,14 @@
         android:gravity="center"
         android:textColor="@color/colorAccentText"
         android:layout_below="@+id/lottie"
-        android:layout_marginLeft="@dimen/_20sdp"
-        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/_12ssp" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/_36sdp"
         app:cardCornerRadius="5dp"
         android:clickable="true"
         android:id="@+id/retryCV"

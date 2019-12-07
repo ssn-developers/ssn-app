@@ -7,12 +7,11 @@ public class Subject {
      float credits;
      int grade;
 
-    public Subject(String code,String name,int credits){
-
+    public Subject(String code,String name,float credits, int grade){
         this.code = code;
         this.name = name;
         this.credits = credits;
-
+        this.grade = grade;
     }
 
     public String getCode() {
@@ -27,7 +26,7 @@ public class Subject {
         return name;
     }
 
-    public void setCredits(int credits) {
+    public void setCredits(float credits) {
         this.credits = credits;
     }
 

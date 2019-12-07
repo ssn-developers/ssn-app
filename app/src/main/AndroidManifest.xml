@@ -17,19 +17,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SettingsActivity"
-            android:screenOrientation="portrait">
 
-        </activity>
-        <activity
-            android:name=".ChooseSemesterActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PassMarkCalculatorActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".GPACalculatorActivity"
-            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashActivity"
             android:screenOrientation="portrait">
@@ -50,8 +38,24 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".HelplineActivity"
+            android:name=".GroupChatActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".SettingsActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ChooseSemesterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".PassMarkCalculatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".GPACalculatorActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FunctionalHeadsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
         <activity
@@ -75,7 +79,7 @@
             android:name=".NoNetworkActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SavedPostActivity"
+            android:name=".FavouritesActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1" />
         <activity
@@ -94,10 +98,6 @@
         <activity
             android:name=".AppInfoActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".NotificationSettings"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme1" />
         <activity
             android:name=".onboarding.OnboardingActivity"
             android:screenOrientation="portrait" />

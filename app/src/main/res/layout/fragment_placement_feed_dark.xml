@@ -27,8 +27,8 @@
 			android:layout_centerHorizontal="true"
 			android:textColor="#ffffff"
 			android:layout_marginTop="@dimen/_250sdp"
-			android:layout_marginLeft="@dimen/_20sdp"
-			android:layout_marginRight="@dimen/_20sdp"
+			android:layout_marginStart="@dimen/_20sdp"
+			android:layout_marginEnd="@dimen/_20sdp"
 			android:gravity="center"
 			android:textSize="@dimen/_14ssp" />
 
@@ -42,8 +42,8 @@
 			android:textColor="#B9B9B9"
 			android:layout_below="@+id/text1TV"
 			android:layout_marginTop="@dimen/_5sdp"
-			android:layout_marginLeft="@dimen/_20sdp"
-			android:layout_marginRight="@dimen/_20sdp"
+			android:layout_marginStart="@dimen/_20sdp"
+			android:layout_marginEnd="@dimen/_20sdp"
 			android:gravity="center"
 			android:textSize="@dimen/_12ssp" />
 
@@ -81,7 +81,7 @@
 		android:layout_margin="@dimen/_16sdp"
 		android:gravity="center"
 		android:visibility="gone"
-		android:drawableStart="@drawable/ic_arrow_upward_black_24dp"
+		android:drawableStart="@drawable/ic_arrow_upward_black"
 		android:drawablePadding="@dimen/_5sdp"
 		android:layout_alignParentBottom="true"
 		android:clickable="true"

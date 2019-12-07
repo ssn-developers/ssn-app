@@ -24,11 +24,9 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.SubjectViewHolder> {
     private ArrayList<Subject> subjects;
-    private Context context;
     boolean darkMode=false;
 
     public SubjectsAdapter(Context context, ArrayList<Subject> subjects) {
-        this.context = context;
         this.subjects = subjects;
         darkMode = SharedPref.getBoolean(context,"dark_mode");
 
@@ -44,21 +42,18 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
             subjectItem = layoutInflater.inflate(R.layout.subject_item, parent, false);
         }
 
-
         return new SubjectsAdapter.SubjectViewHolder(subjectItem,viewType);
     }
 
     @Override
     public void onBindViewHolder(final SubjectsAdapter.SubjectViewHolder holder, final int position) {
-
-        holder.subjectCodeTV.setText(subjects.get(position).getCode());
-        holder.subjectNameTV.setText(subjects.get(position).getName());
+        holder.codeTV.setText(subjects.get(position).getCode());
+        holder.nameTV.setText(subjects.get(position).getName());
 
         holder.leftIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (holder.gradeTV.getText().toString())
-                {
+                switch (holder.gradeTV.getText().toString()) {
                     case "O" : holder.gradeTV.setText("A+");
                                 subjects.get(position).setGrade(9);
                                 return;
@@ -74,7 +69,6 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
                     case "B" : holder.gradeTV.setText("RA");
                                 subjects.get(position).setGrade(0);
                                 return;
-
                 }
             }
         });
@@ -84,9 +78,6 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
             public void onClick(View view) {
                 switch (holder.gradeTV.getText().toString())
                 {
-                    case "RA" : holder.gradeTV.setText("B");
-                        subjects.get(position).setGrade(6);
-                        return;
                     case "A+" : holder.gradeTV.setText("O");
                         subjects.get(position).setGrade(10);
                         return;
@@ -99,7 +90,9 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
                     case "B" : holder.gradeTV.setText("B+");
                         subjects.get(position).setGrade(7);
                         return;
-
+                    case "RA" : holder.gradeTV.setText("B");
+                        subjects.get(position).setGrade(6);
+                        return;
                 }
             }
         });
@@ -111,29 +104,21 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
         return subjects.size();
     }
 
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return TimelineView.getTimeLineViewType(position, getItemCount());
-    }
-
     public class SubjectViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView subjectCodeTV,subjectNameTV,gradeTV;
+        public TextView codeTV,nameTV,gradeTV;
         ImageView leftIV,rightIV;
 
         public SubjectViewHolder(View itemView, int viewType) {
             super(itemView);
 
-            subjectCodeTV = itemView.findViewById(R.id.subject_code);
-            subjectNameTV = itemView.findViewById(R.id.subject_name);
-            gradeTV = itemView.findViewById(R.id.grade_choose_TV);
-            leftIV = itemView.findViewById(R.id.left_button);
-            rightIV = itemView.findViewById(R.id.right_button);
+            codeTV = itemView.findViewById(R.id.codeTV);
+            nameTV = itemView.findViewById(R.id.nameTV);
+            gradeTV = itemView.findViewById(R.id.gradeTV);
+            leftIV = itemView.findViewById(R.id.leftIV);
+            rightIV = itemView.findViewById(R.id.rightIV);
+
+            nameTV.setSelected(true);
         }
     }
 }

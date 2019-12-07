@@ -1,11 +1,11 @@
 package in.edu.ssn.ssnapp.models;
 
-public class HelplineDetails {
+public class FuncHeadDetails {
     String name, email, position, extn;
 
-    public HelplineDetails() { }
+    public FuncHeadDetails() { }
 
-    public HelplineDetails(String name, String email, String position, String extn) {
+    public FuncHeadDetails(String name, String email, String position, String extn) {
         this.name = name;
         this.email = email;
         this.position = position;
