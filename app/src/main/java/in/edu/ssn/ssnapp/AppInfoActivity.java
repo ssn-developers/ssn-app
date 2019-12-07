@@ -103,19 +103,17 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
         teams1.add(new TeamDetails("Nandhini R","Web Development",R.drawable.nandhini_profile, url));
 
-        //TODO: Update URL-3 & photo
         url= new ArrayList<>();
         url.add("lksujins@gmail.com");
         url.add("https://github.com/sujink1999");
-        url.add("");
-        teams1.add(new TeamDetails("Sujin K","App Development",R.drawable.nandhini_profile, url));
+        url.add("https://www.linkedin.com/in/sujin-kingselin");
+        teams1.add(new TeamDetails("Sujin K","App Development",R.drawable.sujin_profile, url));
 
-        //TODO: Update URL-2,3 & photo
         url= new ArrayList<>();
         url.add("amrithasudharsan@gmail.com");
-        url.add("");
-        url.add("");
-        teams1.add(new TeamDetails("Amritha Sudharsan","App UI Designs",R.drawable.nandhini_profile, url));
+        url.add("https://www.instagram.com/amrithahaha");
+        url.add("https://www.linkedin.com/in/amrithasudharsan");
+        teams1.add(new TeamDetails("Amritha Sudharsan","App UI Designs",R.drawable.amirtha_profile, url));
 
         items1RV.setAdapter(new AboutContributorAdapter(this, teams1));
     }
