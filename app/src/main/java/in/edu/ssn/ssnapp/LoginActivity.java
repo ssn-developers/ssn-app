@@ -284,7 +284,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
         FCMHelper.SubscribeToTopic(this, Constants.Event);
-        SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
 
@@ -309,7 +308,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
 
         FCMHelper.SubscribeToTopic(this, Constants.Event);
-        SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
+        SharedPref.putBoolean(getApplicationContext(), "notif_switch", true);
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
@@ -356,6 +355,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
 
+        FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
+        SharedPref.putBoolean(getApplicationContext(), "notif_switch", true);
+
         layout_progress.setVisibility(View.GONE);
         flag = true;
         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
@@ -366,7 +368,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     /************************************************************************/
 
     public void setUpNotification() {
-        SharedPref.putBoolean(getApplicationContext(), "switch_all", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_dept", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
@@ -380,8 +381,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FCMHelper.SubscribeToTopic(context, Constants.Event);
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
-        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
-            FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "place");
+
+        try {
+            if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
+                FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "place");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
         // add user property in firebase analytics
         try{

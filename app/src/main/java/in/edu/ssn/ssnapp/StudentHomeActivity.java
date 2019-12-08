@@ -121,14 +121,14 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        if(darkModeEnabled!=SharedPref.getBoolean(getApplicationContext(),"dark_mode")) {
-            startActivity(getIntent());
-        }
         if (CommonUtils.alerter(getApplicationContext())) {
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
             intent.putExtra("key", "home");
             startActivity(intent);
             Bungee.fade(StudentHomeActivity.this);
+        }
+        else if(darkModeEnabled != SharedPref.getBoolean(getApplicationContext(),"dark_mode")) {
+            startActivity(getIntent());
         }
     }
 
@@ -143,7 +143,8 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
             startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(startMain);
             finish();
-        } else {
+        }
+        else {
             count++;
             Toast toast = Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);

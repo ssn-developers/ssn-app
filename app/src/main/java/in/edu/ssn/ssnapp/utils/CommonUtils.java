@@ -119,7 +119,8 @@ public class CommonUtils {
     public static void UnSubscribeToAlerts(Context context) {
         if(SharedPref.getInt(context,"clearance") != 2)
             FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        FCMHelper.UnSubscribeToTopic(context, Constants.Event);
+        if(SharedPref.getInt(context,"clearance") != 3)
+            FCMHelper.UnSubscribeToTopic(context, Constants.Event);
         if(SharedPref.getInt(context,"clearance") == 0) {
             FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
             FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
@@ -162,11 +163,10 @@ public class CommonUtils {
     }
 
     //Checks for joining year based on year of student.
-    public static String getJoiningYear(int year)
-    {
+    public static String getJoiningYear(int year) {
         int cur_year = Calendar.getInstance().get(Calendar.YEAR);
         int month = Calendar.getInstance().get(Calendar.MONTH) + 1;
-        int joinYear=0;
+        int joinYear = 0;
         switch(month){
             case 1:
             case 2:

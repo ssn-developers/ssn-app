@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 import in.edu.ssn.ssnapp.adapters.HelplineAdapter;
 import in.edu.ssn.ssnapp.models.FuncHeadDetails;
+import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class FunctionalHeadsActivity extends BaseActivity {
 
@@ -80,5 +82,11 @@ public class FunctionalHeadsActivity extends BaseActivity {
         funcHeadDetailsList.add(new FuncHeadDetails("Mr. N.P. Rajesh","rajeshnp@ssn.edu.in","Head - Warden","rajeshnp@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Mr. Kannan","kannank@ssn.edu.in","Warden","kannank@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Dr. Sachin","sachings@ssn.edu.in","Campus Doctor","sachings@ssn.edu.in"));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(FunctionalHeadsActivity.this);
     }
 }

@@ -7,7 +7,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,10 +30,12 @@ import spencerstudios.com.bungeelib.Bungee;
 public class SettingsActivity extends BaseActivity {
 
     private int clearance = 0;
-    SwitchButton darkmodeSB, allpostSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB;
+    SwitchButton darkmodeSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB, notifSwitch;
     TextView eventsTV, almaconnectTV, helplineTV, contributorTV, feedbackTV, inviteTV, ratingTV, updatesTV, privacyTV, logoutTV;
-    RelativeLayout allpostsRL, newsfeedRL, busalertRL, examcellRL, placementsRL, eventsRL;
-    LinearLayout notificationLL, almaconnectLL;
+    RelativeLayout newsfeedRL, busalertRL, examcellRL, placementsRL, eventsRL;
+    LinearLayout notificationLL;
+    RelativeLayout almaconnectRL, facultyRL;
+    ImageView backIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,20 +69,6 @@ public class SettingsActivity extends BaseActivity {
                 }
             }
         });
-
-        //all posts switch change handling
-        allpostSB.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                newsfeedSB.setChecked(isChecked);
-                busalertSB.setChecked(isChecked);
-                examcellSB.setChecked(isChecked);
-                if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
-                    placementsSB.setChecked(isChecked);
-                eventsSB.setChecked(isChecked);
-            }
-        });
-
 
         //almaconnect
         almaconnectTV.setOnClickListener(new View.OnClickListener() {
@@ -178,45 +168,28 @@ public class SettingsActivity extends BaseActivity {
         updatesTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String latestVersion = CommonUtils.getLatestVersionName(getApplicationContext());
                 if (latestVersion != null && !BuildConfig.VERSION_NAME.equals(latestVersion)) {
-                    //update available
-                    final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(SettingsActivity.this);
-                    final View dialogView = getLayoutInflater().inflate(R.layout.custom_alert_dialog2, null);
-                    dialogBuilder.setView(dialogView);
-                    dialogBuilder.setCancelable(false);
-
-                    TextView okTV = dialogView.findViewById(R.id.okTV);
-                    TextView titleTV = dialogView.findViewById(R.id.titleTV);
-                    TextView messageTV = dialogView.findViewById(R.id.messageTV);
-
-                    titleTV.setText("New Update available!");
-                    messageTV.setText("Please update your app to the latest version: " + latestVersion );
-
-                    final AlertDialog alertDialog = dialogBuilder.create();
-                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-                    alertDialog.show();
-
-                    okTV.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
-                            alertDialog.dismiss();
-                            finish();
-                        }
-                    });
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
                 } else {
-                    Toast.makeText(SettingsActivity.this, "Already the latest version", Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(getApplicationContext(), "Already the latest version!", Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 }
+            }
+        });
+        
+        backIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
 
     public void initUI(int clearance) {
-
         darkmodeSB = (SwitchButton) findViewById(R.id.darkModeSwitch);
-        allpostSB = (SwitchButton) findViewById(R.id.switch_all);
+        notifSwitch = (SwitchButton) findViewById(R.id.notifSwitch);
         newsfeedSB = (SwitchButton) findViewById(R.id.switch_dept);
         busalertSB = (SwitchButton) findViewById(R.id.switch_bus);
         examcellSB = (SwitchButton) findViewById(R.id.switch_exam);
@@ -234,7 +207,6 @@ public class SettingsActivity extends BaseActivity {
         updatesTV = (TextView) findViewById(R.id.updatesTV);
         contributorTV = (TextView) findViewById(R.id.contributors_TV);
 
-        allpostsRL = (RelativeLayout) findViewById(R.id.allpostRL);
         newsfeedRL = (RelativeLayout) findViewById(R.id.newsfeedRL);
         busalertRL = (RelativeLayout) findViewById(R.id.busalertRL);
         examcellRL = (RelativeLayout) findViewById(R.id.examcellRL);
@@ -242,7 +214,10 @@ public class SettingsActivity extends BaseActivity {
         eventsRL = (RelativeLayout) findViewById(R.id.eventRL);
 
         notificationLL = (LinearLayout) findViewById(R.id.notificationLL);
-        almaconnectLL = (LinearLayout) findViewById(R.id.almaconnetLL);
+        almaconnectRL = (RelativeLayout) findViewById(R.id.almaconnetLL);
+        facultyRL = (RelativeLayout) findViewById(R.id.facultyRL);
+
+        backIV = (ImageView) findViewById(R.id.backIV);
 
         //darkmode switch handling
         if (darkModeEnabled)
@@ -253,9 +228,6 @@ public class SettingsActivity extends BaseActivity {
         //buttons visibility setting
         //for UnderGraduate...
         if (clearance == 0) {
-            allpostSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_all"));
-            allpostsRL.setVisibility(View.VISIBLE);
-
             newsfeedSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_dept"));
             newsfeedRL.setVisibility(View.VISIBLE);
 
@@ -271,14 +243,13 @@ public class SettingsActivity extends BaseActivity {
             if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth)) {
                 placementsSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_place"));
                 placementsRL.setVisibility(View.VISIBLE);
-            } else
+            }
+            else
                 placementsRL.setVisibility(View.GONE);
         }
+
         //for PostGraduate...
         if (clearance == 1) {
-            allpostSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_all"));
-            allpostsRL.setVisibility(View.VISIBLE);
-
             busalertSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_bus"));
             busalertRL.setVisibility(View.VISIBLE);
 
@@ -289,22 +260,12 @@ public class SettingsActivity extends BaseActivity {
             newsfeedRL.setVisibility(View.GONE);
             examcellRL.setVisibility(View.GONE);
         }
+        
         //for Alumni...
-        if (clearance == 2) {
-            eventsSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_event"));
-            eventsTV.setText("Notification");
-            eventsRL.setVisibility(View.VISIBLE);
-
-            placementsRL.setVisibility(View.GONE);
-            newsfeedRL.setVisibility(View.GONE);
-            examcellRL.setVisibility(View.GONE);
-            allpostsRL.setVisibility(View.GONE);
-            busalertRL.setVisibility(View.GONE);
-        }
-        //for faculty...
-        if (clearance == 2) {
+        if (clearance == 2 || clearance == 3) {
+            notifSwitch.setChecked(SharedPref.getBoolean(getApplicationContext(), "notif_switch"));
+            facultyRL.setVisibility(View.VISIBLE);
             notificationLL.setVisibility(View.GONE);
-            almaconnectLL.setVisibility(View.GONE);
         }
     }
 
@@ -312,49 +273,68 @@ public class SettingsActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
 
-        SharedPref.putBoolean(getApplicationContext(), "switch_all", allpostSB.isChecked());
-        SharedPref.putBoolean(getApplicationContext(), "switch_dept", newsfeedSB.isChecked());
-        SharedPref.putBoolean(getApplicationContext(), "switch_bus", busalertSB.isChecked());
-        SharedPref.putBoolean(getApplicationContext(), "switch_exam", examcellSB.isChecked());
-        if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
-            SharedPref.putBoolean(getApplicationContext(), "switch_place", placementsSB.isChecked());
-        SharedPref.putBoolean(getApplicationContext(), "switch_event", eventsSB.isChecked());
         if (clearance == 0) {
+            SharedPref.putBoolean(getApplicationContext(), "switch_dept", newsfeedSB.isChecked());
+            SharedPref.putBoolean(getApplicationContext(), "switch_exam", examcellSB.isChecked());
+
             if (newsfeedSB.isChecked())
                 FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year"));
             else
                 FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year"));
+
             if (examcellSB.isChecked())
                 FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "exam");
             else
                 FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "exam");
-
         }
 
-        if (busalertSB.isChecked()) {
-            FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
-        } else
-            FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
+        if(clearance < 2) {
+            SharedPref.putBoolean(getApplicationContext(), "switch_bus", busalertSB.isChecked());
+            SharedPref.putBoolean(getApplicationContext(), "switch_event", eventsSB.isChecked());
 
+            if (busalertSB.isChecked()) {
+                FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
+            } else
+                FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
+
+            if (eventsSB.isChecked())
+                FCMHelper.SubscribeToTopic(this, Constants.Event);
+            else
+                FCMHelper.UnSubscribeToTopic(this, Constants.Event);
+        }
 
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth)) {
+            SharedPref.putBoolean(getApplicationContext(), "switch_place", placementsSB.isChecked());
+
             if (placementsSB.isChecked())
                 FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "place");
             else
                 FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "place");
         }
 
-        if (eventsSB.isChecked())
-            FCMHelper.SubscribeToTopic(this, Constants.Event);
-        else
-            FCMHelper.UnSubscribeToTopic(this, Constants.Event);
+        if (clearance == 2) {
+            SharedPref.putBoolean(getApplicationContext(), "notif_switch", notifSwitch.isChecked());
+
+            if (notifSwitch.isChecked())
+                FCMHelper.SubscribeToTopic(this, Constants.Event);
+            else
+                FCMHelper.UnSubscribeToTopic(this, Constants.Event);
+        }
+        else if (clearance == 3) {
+            SharedPref.putBoolean(getApplicationContext(), "notif_switch", notifSwitch.isChecked());
+
+            if (notifSwitch.isChecked())
+                FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
+            else
+                FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
+        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        
         super.darkModeEnabled = SharedPref.getBoolean(getApplicationContext(), "dark_mode");
         Bungee.slideRight(SettingsActivity.this);
-        finish();
     }
 }

@@ -70,7 +70,7 @@ public class OnboardingActivity extends AppCompatActivity {
         signInCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPref.putInt(getApplicationContext(),"is_logged_in",1);
+                SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",1);
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 Bungee.slideLeft(OnboardingActivity.this);
                 finish();
