@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.animation.LayoutTransition;
+import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -356,6 +357,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     @Override
     protected void onResume() {
         super.onResume();
+        clearChatNotification();
         SharedPref.putBoolean(getApplicationContext(),"isChatActive",true);
     }
 
@@ -560,6 +562,15 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         if (pos != -1) {
             messageList.set(pos, changedMsg);
             adapter.notifyItemChanged(pos);
+        }
+    }
+
+    void clearChatNotification(){
+        try {
+            NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancelAll();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

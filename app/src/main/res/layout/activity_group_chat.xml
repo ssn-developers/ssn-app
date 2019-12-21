@@ -124,7 +124,6 @@
 		android:padding="8dp"
 		android:elevation="10dp"
 		android:id="@+id/messageEditLL"
-		android:fitsSystemWindows="true"
 		android:background="#FDFDFD"
 		android:animateLayoutChanges="true"
 		android:layout_alignParentBottom="true"
