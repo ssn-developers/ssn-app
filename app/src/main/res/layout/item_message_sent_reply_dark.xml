@@ -51,6 +51,7 @@
 		android:layout_height="wrap_content"
 		android:layout_gravity="end"
 		android:layout_marginStart="53dp"
+		android:id="@+id/bgLL"
 		android:background="@drawable/bg_sent_message_dark"
 		android:orientation="vertical">
 		<LinearLayout

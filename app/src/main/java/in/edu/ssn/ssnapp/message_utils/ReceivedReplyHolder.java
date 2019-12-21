@@ -42,6 +42,7 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
     public ImageView avatarIV;
     public CardView avatarCV;
     public LinearLayout replyLL;
+    public LinearLayout bgLL;
     public TextView replyTimeTV;
     private final TextDrawable.IBuilder builder;
     public boolean darkMode;
@@ -60,6 +61,7 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
         avatarCV = itemView.findViewById(R.id.avatarCV);
         replyLL = itemView.findViewById(R.id.replyLL);
         replyTimeTV = itemView.findViewById(R.id.replyTimeTV);
+        bgLL = itemView.findViewById(R.id.bgLL);
         this.builder = builder;
         this.user = user;
     }
@@ -76,11 +78,11 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
             }else{
                 messageTV.setCompoundDrawablesWithIntrinsicBounds( R.drawable.chat_ic_slash, 0, 0, 0);
             }
-            messageTV.setAlpha(0.8F);
+            bgLL.setAlpha(0.7F);
         }else{
             messageTV.setText(message.getMessage());
             messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);
-            messageTV.setAlpha(1);
+            bgLL.setAlpha(1);
         }
         timeTV.setText(getTime(new Date(Long.valueOf(message.getTimestamp()))));
         nameTV.setText(message.getSenderName());

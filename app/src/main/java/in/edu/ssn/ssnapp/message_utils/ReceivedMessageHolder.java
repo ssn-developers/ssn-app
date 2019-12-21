@@ -63,7 +63,7 @@ public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
             }else{
                 messageTV.setCompoundDrawablesWithIntrinsicBounds( R.drawable.chat_ic_slash, 0, 0, 0);
             }
-            messageTV.setAlpha(0.8F);
+            messageTV.setAlpha(0.7F);
         }else{
             messageTV.setText(message.getMessage());
             messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);

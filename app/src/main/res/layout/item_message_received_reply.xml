@@ -72,6 +72,7 @@
 			android:layout_height="wrap_content"
 			android:layout_gravity="end"
 			android:layout_marginEnd="53dp"
+			android:id="@+id/bgLL"
 			android:background="@drawable/bg_received_message"
 			android:orientation="vertical">
 			<LinearLayout
@@ -118,7 +119,7 @@
 				<TextView
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:textColor="@android:color/tab_indicator_text"
+					android:textColor="@color/replyTimeColor"
 					android:textStyle="bold"
 					android:layout_gravity="end"
 					android:visibility="gone"

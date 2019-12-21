@@ -51,7 +51,7 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
                 messageTV.setText("This message was deleted");
             }
             messageTV.setCompoundDrawablesWithIntrinsicBounds( R.drawable.chat_ic_slash_white, 0, 0, 0);
-            messageTV.setAlpha(0.8F);
+            messageTV.setAlpha(0.7F);
         }else{
             messageTV.setText(message.getMessage());
             messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);

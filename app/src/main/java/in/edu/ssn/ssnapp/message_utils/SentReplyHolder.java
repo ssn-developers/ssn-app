@@ -36,6 +36,7 @@ public class SentReplyHolder extends RecyclerView.ViewHolder {
     public TextView replyNameTV, replyMessageTV;
     public RelativeLayout dividerLL;
     public LinearLayout replyLL;
+    public LinearLayout bgLL;
     public TextView replyTimeTV;
     private final TextDrawable.IBuilder builder;
     public boolean darkMode;
@@ -51,6 +52,7 @@ public class SentReplyHolder extends RecyclerView.ViewHolder {
         dividerTV = itemView.findViewById(R.id.dateTV);
         replyLL = itemView.findViewById(R.id.replyLL);
         replyTimeTV = itemView.findViewById(R.id.replyTimeTV);
+        bgLL = itemView.findViewById(R.id.bgLL);
         this.builder = builder;
         this.user = user;
     }
@@ -63,11 +65,11 @@ public class SentReplyHolder extends RecyclerView.ViewHolder {
                 messageTV.setText("This message was deleted");
             }
             messageTV.setCompoundDrawablesWithIntrinsicBounds( R.drawable.chat_ic_slash_white, 0, 0, 0);
-            messageTV.setAlpha(0.8F);
+            bgLL.setAlpha(0.7F);
         }else{
             messageTV.setText(message.getMessage());
             messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);
-            messageTV.setAlpha(1);
+            bgLL.setAlpha(1);
         }
         timeTV.setText(getTime(new Date(Long.valueOf(message.getTimestamp()))));
         if(message.getReplyMessage().getSenderId().equals(user.getUid())){
