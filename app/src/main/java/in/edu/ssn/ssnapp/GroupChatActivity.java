@@ -47,51 +47,40 @@ import in.edu.ssn.ssnapp.message_utils.ChatHelper;
 import in.edu.ssn.ssnapp.message_utils.ISwipeControllerActions;
 import in.edu.ssn.ssnapp.message_utils.Message;
 import in.edu.ssn.ssnapp.message_utils.MessageAdapter;
+import in.edu.ssn.ssnapp.message_utils.MessageListener;
 import in.edu.ssn.ssnapp.message_utils.ReceivedReplyHolder;
 import in.edu.ssn.ssnapp.message_utils.SentReplyHolder;
 import in.edu.ssn.ssnapp.message_utils.SwipeController;
 import in.edu.ssn.ssnapp.message_utils.Utils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class GroupChatActivity extends AppCompatActivity {
+public class GroupChatActivity extends BaseActivity implements MessageListener {
 
     //Views
     RecyclerView chatRV;
     SocialEditText messageET;
-    ImageView sendIV;
-    LinearLayout replyMessageLL, editMessageLL;
-    TextView replyNameTV, replyMessageTV;
-    ImageView closeIV;
-    LinearLayout appbarContentLL;
-    LinearLayout messageOptionsLL;
+    ImageView sendIV, closeOptionIV, copyIV, replyIV, deleteIV, backIV, closeIV;
+    LinearLayout replyMessageLL, editMessageLL, appbarContentLL, messageOptionsLL;
+    TextView replyNameTV, replyMessageTV, newMessageTV;
     ViewGroup appbarRL;
-    ImageView closeOptionIV,copyIV,replyIV,deleteIV,backIV;
-    TextView newMessageTV;
     ProgressBar loadingPB;
     CounterFab newMessageFAB;
+    View selectedMessageView=null;
 
     //Vars
     ChatHelper chatHelper;
     MessageAdapter adapter;
-    boolean replyMode = false;
-    Message replyMessage = null;
-    FirebaseFirestore db;
-    FirebaseUser user;
-    Vibrator vibrator;
-    List<Message> messageList = new ArrayList<>();
-    private int lastScrollPosition=-1;
-    private int prevLastScrollPos=-1;
     LinearLayoutManager layoutManager;
-    int newMessageCount=0;
-    int newMessagePos=-1;
-    boolean firstRun=false;
-    //int lastSeenMessagePosition=-1;
-    private boolean fullChatRead=false;
-    boolean pageLoaded=true;
-    int page=0;
+    FirebaseUser user;
+    Message replyMessage = null;
+    List<Message> messageList = new ArrayList<>();
+    FirebaseFirestore db;
     Query next;
-    int pageSize = 20;
-    boolean darkMode;
+    boolean replyMode , firstRun, fullChatRead, pageLoaded=true, darkMode, optionsMode=false;
+    private int lastScrollPosition=-1, prevLastScrollPos=-1, newMessageCount=0, newMessagePos=-1, page=0, pageSize = 20, prevNewMsgCount=0;
+    Vibrator vibrator;
+    View.OnClickListener scrollToBottomListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,15 +88,12 @@ public class GroupChatActivity extends AppCompatActivity {
         darkMode = SharedPref.getBoolean(getApplicationContext(),"dark_mode");
         if(darkMode){
             setContentView(R.layout.activity_group_chat_dark);
+            clearLightStatusBar(this);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.appbar_color1_chat));
         }else{
             setContentView(R.layout.activity_group_chat);
         }
-        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        db = FirebaseFirestore.getInstance();
-        chatHelper = new ChatHelper(getApplicationContext(),db,user);
         initUI();
         initMessages();
         sendIV.setOnClickListener(new View.OnClickListener() {
@@ -137,97 +123,7 @@ public class GroupChatActivity extends AppCompatActivity {
     void initMessages(){
         Query first = db.collection("global_chat").orderBy("timestamp", Query.Direction.DESCENDING).limit(pageSize);
         getMessages(first);
-        CollectionReference messageRef = db.collection("global_chat");
-        messageRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if (e != null) {
-                    Log.w("Message event listener", "Listen failed.", e);
-                    return;
-                }
-                for (int i=0;i<queryDocumentSnapshots.getDocumentChanges().size();i++) {
-                    DocumentChange dc = queryDocumentSnapshots.getDocumentChanges().get(i);
-                    switch (dc.getType()) {
-                        case ADDED: {
-                            // handle added documents...
-                            if (lastScrollPosition != -1) {
-                                if (Math.abs(lastScrollPosition - messageList.size()) == 1) {
-                                    Message newMessage = dc.getDocument().toObject(Message.class);
-                                    newMessage.setMessageId(dc.getDocument().getId());
-                                    if (!newMessage.getSenderId().equals(user.getUid()) && newMessage.getType() == 1) {
-                                        newMessage.setType(0);
-                                    } else if (!newMessage.getSenderId().equals(user.getUid()) && newMessage.getType() == 3) {
-                                        newMessage.setType(2);
-                                    }
-                                    messageList.add(newMessage);
-                                    adapter.notifyItemInserted(messageList.size() - 1);
-                                    chatRV.smoothScrollToPosition(messageList.size() - 1);
-                                } else {
-                                    Message newMessage = dc.getDocument().toObject(Message.class);
-                                    newMessage.setMessageId(dc.getDocument().getId());
-                                    if (!newMessage.getSenderId().equals(user.getUid()) && newMessage.getType() == 1) {
-                                        newMessage.setType(0);
-                                    } else if (!newMessage.getSenderId().equals(user.getUid()) && newMessage.getType() == 3) {
-                                        newMessage.setType(2);
-                                    }
-                                    messageList.add(newMessage);
-                                    adapter.notifyItemInserted(messageList.size() - 1);
-                                    if (newMessage.getSenderId().equals(user.getUid())) {
-                                        chatRV.smoothScrollToPosition(messageList.size() - 1);
-                                    } else {
-                                        newMessageCount++;
-                                        prevNewMsgCount = newMessageCount;
-                                        if (newMessageCount == 1) {
-                                            newMessagePos = messageList.size() - 1;
-                                        }
-                                        updateNewMessageUI();
-                                    }
-                                }
-                            }
-                            break;
-                        }
-                        case MODIFIED: {
-                            // handle modified documents...
-                            String id = dc.getDocument().getId();
-                            Message changedMsg = dc.getDocument().toObject(Message.class);
-                            changedMsg.setMessageId(id);
-                            if (!changedMsg.getSenderId().equals(user.getUid()) && changedMsg.getType() == 1) {
-                                changedMsg.setType(0);
-                            } else if (!changedMsg.getSenderId().equals(user.getUid()) && changedMsg.getType() == 3) {
-                                changedMsg.setType(2);
-                            }
-                            int pos = findMessageById(id);
-                            if (pos != -1) {
-                                messageList.set(pos, changedMsg);
-                                adapter.notifyItemChanged(pos);
-                            }
-                            break;
-                        }
-                        case REMOVED: {
-                            // handle removed documents...
-                            String id = dc.getDocument().getId();
-                            int pos = findMessageById(id);
-                            if (pos != -1) {
-                                messageList.remove(pos);
-                                adapter.notifyItemRemoved(pos);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    int findMessageById(String id){
-        int pos = -1;
-        for(int i=0;i<messageList.size();i++){
-            if(messageList.get(i).getMessageId().equals(id)){
-                pos = i;
-                break;
-            }
-        }
-        return pos;
+        chatHelper.listenForMessages();
     }
 
     void addMessagesToChatRV(List<DocumentSnapshot> documentSnapshots){
@@ -275,7 +171,6 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
 
-    int prevNewMsgCount=0;
     void updateNewMessageUI(){
         newMessageFAB.setCount(newMessageCount);
         newMessageFAB.show();
@@ -285,8 +180,6 @@ public class GroupChatActivity extends AppCompatActivity {
                 newMessageFAB.hide();
                 newMessageFAB.setCount(0);
                 try {
-                    //((Message) adapter.getItem(newMessagePos)).newMessageBlink = true;
-                    //((Message) adapter.getItem(newMessagePos)).newMessageCount = prevNewMsgCount;
                     messageList.get(newMessagePos).newMessageBlink = true;
                     messageList.get(newMessagePos).newMessageCount = newMessageCount;
                     adapter.notifyItemChanged(newMessagePos);
@@ -371,7 +264,6 @@ public class GroupChatActivity extends AppCompatActivity {
         deleteIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //chatHelper.removeMessage(message.getMessageId());
                 chatHelper.removeMessage(message);
                 closeMessageOptionUI();
             }
@@ -442,12 +334,6 @@ public class GroupChatActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        //adapter.startListening();
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         //SharedPref.putInt(getApplicationContext(), "lastSeenMessagePosition", lastSeenMessagePosition);
@@ -457,11 +343,8 @@ public class GroupChatActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         //SharedPref.putInt(getApplicationContext(), "lastSeenMessagePosition", lastSeenMessagePosition);
-        //adapter.stopListening();
     }
 
-    boolean optionsMode=false;
-    View selectedMessageView=null;
     @Override
     public void onBackPressed() {
         if(optionsMode){
@@ -472,8 +355,12 @@ public class GroupChatActivity extends AppCompatActivity {
         }
     }
 
-    View.OnClickListener scrollToBottomListener;
+
     private void initUI(){
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+        chatHelper = new ChatHelper(getApplicationContext(),db,user,this);
         newMessageFAB = findViewById(R.id.newMessageFAB);
         newMessageFAB.hide();
         appbarRL = findViewById(R.id.appbarRL);
@@ -509,19 +396,14 @@ public class GroupChatActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
         layoutManager.setStackFromEnd(true);
         chatRV.setLayoutManager(layoutManager);
-        //ScaleInAnimator animator = new ScaleInAnimator();
-        //animator.setAddDuration(100);
-        //chatRV.setItemAnimator(animator);
         chatRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastScrollPosition = layoutManager.findLastCompletelyVisibleItemPosition();
                 if(lastScrollPosition<messageList.size()-1){
-                    //newMessageTV.setVisibility(View.VISIBLE);
                     newMessageFAB.show();
                 }else{
-                    //newMessageTV.setVisibility(View.GONE);
                     newMessageFAB.hide();
                 }
                 if(newMessageCount!=0 && lastScrollPosition==newMessagePos){
@@ -530,6 +412,7 @@ public class GroupChatActivity extends AppCompatActivity {
                 }
                 int id = layoutManager.findFirstCompletelyVisibleItemPosition();
                 if(id==0 && !fullChatRead && pageLoaded){
+                    //getting next page when scrolled to top
                     pageLoaded=false;
                     getMessages(next);
                 }
@@ -549,7 +432,6 @@ public class GroupChatActivity extends AppCompatActivity {
         SwipeController controller = new SwipeController(getApplicationContext(), new ISwipeControllerActions() {
             @Override
             public void onSwipePerformed(int position) {
-                //System.out.println("Swiped pos "+position);
                 messageSwiped(messageList.get(position));
             }
         });
@@ -568,13 +450,14 @@ public class GroupChatActivity extends AppCompatActivity {
                     @Override
                     public void onReplyMessageClicked(final View view, int position) {
                         try{
-                            final int pos = findMessageById(messageList.get(position).getReplyMessage().getMessageId());
+                            final int pos = chatHelper.findMessageById(messageList.get(position).getReplyMessage().getMessageId(),messageList);
                             if(pos!=-1){
+                                //If replied message is there in the message list, scroll to that message
                                 chatRV.scrollToPosition(pos);
                                 messageList.get(pos).setBlinkReply(true);
                                 adapter.notifyItemChanged(pos);
                             }else{
-                                //TODO Expand message and show time on reply message
+                                //If replied message is not in the message list, expand the message and show time
                                 RecyclerView.ViewHolder holder = chatRV.findViewHolderForLayoutPosition(position);
                                 switch(holder.getItemViewType()){
                                     case 2:{
@@ -611,5 +494,50 @@ public class GroupChatActivity extends AppCompatActivity {
                     }
                 });
         chatRV.setAdapter(adapter);
+    }
+
+    @Override
+    public void onMessageAdded(Message newMessage) {
+        //New Message received
+        if (lastScrollPosition != -1) {
+            if (Math.abs(lastScrollPosition - messageList.size()) == 1) {
+                messageList.add(newMessage);
+                adapter.notifyItemInserted(messageList.size() - 1);
+                chatRV.smoothScrollToPosition(messageList.size() - 1);
+            } else {
+                messageList.add(newMessage);
+                adapter.notifyItemInserted(messageList.size() - 1);
+                if (newMessage.getSenderId().equals(user.getUid())) {
+                    chatRV.smoothScrollToPosition(messageList.size() - 1);
+                } else {
+                    newMessageCount++;
+                    prevNewMsgCount = newMessageCount;
+                    if (newMessageCount == 1) {
+                        newMessagePos = messageList.size() - 1;
+                    }
+                    updateNewMessageUI();
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onMessageRemoved(String id) {
+        //Message has been removed
+        int pos = chatHelper.findMessageById(id,messageList);
+        if (pos != -1) {
+            messageList.remove(pos);
+            adapter.notifyItemRemoved(pos);
+        }
+    }
+
+    @Override
+    public void onMessageModified(String id, Message changedMsg) {
+        //Message content has been modified
+        int pos = chatHelper.findMessageById(id,messageList);
+        if (pos != -1) {
+            messageList.set(pos, changedMsg);
+            adapter.notifyItemChanged(pos);
+        }
     }
 }
