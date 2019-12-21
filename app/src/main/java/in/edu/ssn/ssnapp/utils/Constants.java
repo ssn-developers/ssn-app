@@ -22,6 +22,7 @@ public class Constants {
     // FCM topics
     public static final String BUS_ALERTS="busalerts";
     public static final String Event="event";
+    public static final String GLOBAL_CHAT="global_chat";
 
     //year
     //create composite query accordingly when modified
@@ -68,6 +69,7 @@ public class Constants {
     public static String collection_post_bus = "post_bus";
     public static String collection_post_club = "post_club";
     public static String collection_event = "event";
+    public static String collection_global_chat = "global_chat";
 
     //TODO: modify when releasing the app
     //What's new stuff

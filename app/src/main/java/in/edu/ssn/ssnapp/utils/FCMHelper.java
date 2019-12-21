@@ -45,13 +45,16 @@ public class FCMHelper {
         if(Constants.debug_mode)
             topic = "debug_" + topic;
 
+        final String finalTopic = topic;
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        String msg = "subscribe success";
+                        String msg = finalTopic+" subscribe success";
+                        System.out.println(msg);
                         if (!task.isSuccessful()) {
-                            msg = "subscribe failed";
+                            msg = finalTopic+" subscribe failed";
+                            System.out.println(msg);
                         }
                     }
                 });
@@ -103,6 +106,37 @@ public class FCMHelper {
                     .setContentIntent(pendingIntent);
 
             notificationManager.notify(1,nbuilder.build());
+        }
+    }
+
+    public static void showChatNotification(String title, String message, Context context, Intent intent){
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_ONE_SHOT);
+        NotificationManager notificationManager=(NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(new NotificationChannel("7698","global_chat",NotificationManager.IMPORTANCE_HIGH));
+            Notification.Builder nbuilder=new Notification.Builder(context,"7698")
+                    .setContentTitle(title)
+                    .setSmallIcon(R.drawable.ssn_logo)
+                    .setContentText(message)
+                    .setChannelId("7698")
+                    .setAutoCancel(true)
+                    .setSound(alarmSound)
+                    .setContentIntent(pendingIntent);
+
+            notificationManager.notify(1,nbuilder.build());
+        }
+        else {
+            Notification.Builder nbuilder=new Notification.Builder(context)
+                    .setContentTitle(title)
+                    .setSmallIcon(R.drawable.ssn_logo)
+                    .setContentText(message)
+                    .setAutoCancel(true)
+                    .setSound(alarmSound)
+                    .setContentIntent(pendingIntent);
+
+            notificationManager.notify(7698,nbuilder.build());
         }
     }
 }

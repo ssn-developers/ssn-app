@@ -15,6 +15,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -23,11 +25,13 @@ import java.util.Map;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.ClubPostDetailsActivity;
+import in.edu.ssn.ssnapp.GroupChatActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.SplashActivity;
 import in.edu.ssn.ssnapp.StudentHomeActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
+import in.edu.ssn.ssnapp.message_utils.NewMessageEvent;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
@@ -100,6 +104,29 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 HashMap<String, Object> hmp = new HashMap<>();
                 hmp.put("post_id", vac);
                 FetchPostById(vca, collectionName, hmp, type, this);
+            } else if(collectionName.equals(Constants.collection_global_chat)){
+                try{
+                    int new_message_count = SharedPref.getInt(getApplicationContext(),"new_message_count");
+                    new_message_count+=1;
+                    SharedPref.putInt(getApplicationContext(),"new_message_count",new_message_count);
+                    Intent intent=new Intent(this, GroupChatActivity.class);
+                    String title = "Group Chat";
+                    String msg = "";
+                    if(new_message_count==1){
+                        msg="1 new message";
+                    }else{
+                        msg=new_message_count+ " new messages";
+                    }
+                    if(SharedPref.getBoolean(getApplicationContext(),"isStudHomeActive")){
+                        //update message count in student home activity and show notification
+                        EventBus.getDefault().post(new NewMessageEvent(new_message_count));
+                        FCMHelper.showChatNotification(title,msg,this,intent);
+                    }else if(!SharedPref.getBoolean(getApplicationContext(),"isChatActive")){
+                        FCMHelper.showChatNotification(title,msg,this,intent);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             else{
                 FetchPostById(vca, collectionName, new HashMap<String, Object>(),type, this);

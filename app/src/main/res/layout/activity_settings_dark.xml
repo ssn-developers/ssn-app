@@ -339,6 +339,46 @@
                         android:layout_marginEnd="@dimen/_15sdp"
                         android:background="@color/divider_line_color_dark" />
                 </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/chatRL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp">
+
+                    <TextView
+                        android:id="@+id/chat_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:fontFamily="@font/open_sans"
+                        android:paddingRight="@dimen/_5sdp"
+                        android:singleLine="true"
+                        android:text="Global Chat"
+                        android:textColor="@color/darkTextColorLight"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <com.suke.widget.SwitchButton
+                        android:id="@+id/switch_chat"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:layout_marginBottom="@dimen/_10sdp"
+                        app:sb_background="@color/colorAccentLight"
+                        app:sb_checked_color="@color/colorAccent"
+                        app:sb_show_indicator="false" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:background="@color/divider_line_color_dark" />
+                </RelativeLayout>
 
             </LinearLayout>
 

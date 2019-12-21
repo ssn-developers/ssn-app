@@ -30,9 +30,9 @@ import spencerstudios.com.bungeelib.Bungee;
 public class SettingsActivity extends BaseActivity {
 
     private int clearance = 0;
-    SwitchButton darkmodeSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB, notifSwitch;
+    SwitchButton darkmodeSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB, chatSB, notifSwitch;
     TextView eventsTV, almaconnectTV, helplineTV, contributorTV, feedbackTV, inviteTV, ratingTV, updatesTV, privacyTV, logoutTV;
-    RelativeLayout newsfeedRL, busalertRL, examcellRL, placementsRL, eventsRL;
+    RelativeLayout newsfeedRL, busalertRL, examcellRL, placementsRL, eventsRL, chatRL;
     LinearLayout notificationLL;
     RelativeLayout almaconnectRL, facultyRL;
     ImageView backIV;
@@ -197,6 +197,7 @@ public class SettingsActivity extends BaseActivity {
         examcellSB = (SwitchButton) findViewById(R.id.switch_exam);
         placementsSB = (SwitchButton) findViewById(R.id.switch_place);
         eventsSB = (SwitchButton) findViewById(R.id.switch_event);
+        chatSB = findViewById(R.id.switch_chat);
 
         eventsTV = (TextView) findViewById(R.id.event_TV);
         almaconnectTV = (TextView) findViewById(R.id.almaconnetTV);
@@ -214,6 +215,7 @@ public class SettingsActivity extends BaseActivity {
         examcellRL = (RelativeLayout) findViewById(R.id.examcellRL);
         placementsRL = (RelativeLayout) findViewById(R.id.placementRL);
         eventsRL = (RelativeLayout) findViewById(R.id.eventRL);
+        chatRL = findViewById(R.id.chatRL);
 
         notificationLL = (LinearLayout) findViewById(R.id.notificationLL);
         almaconnectRL = (RelativeLayout) findViewById(R.id.almaconnetLL);
@@ -268,6 +270,13 @@ public class SettingsActivity extends BaseActivity {
             notifSwitch.setChecked(SharedPref.getBoolean(getApplicationContext(), "notif_switch"));
             facultyRL.setVisibility(View.VISIBLE);
             notificationLL.setVisibility(View.GONE);
+        }
+
+        if(clearance!=3){
+            chatSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_global_chat"));
+            chatRL.setVisibility(View.VISIBLE);
+        }else{
+            chatRL.setVisibility(View.GONE);
         }
     }
 
@@ -329,6 +338,16 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
             else
                 FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
+        }
+
+        //Saving global chat preference
+        if(clearance!=3){
+            SharedPref.putBoolean(getApplicationContext(), "switch_global_chat",chatSB.isChecked());
+            if(chatSB.isChecked()){
+                FCMHelper.SubscribeToTopic(getApplicationContext(),Constants.GLOBAL_CHAT);
+            }else{
+                FCMHelper.UnSubscribeToTopic(getApplicationContext(),Constants.GLOBAL_CHAT);
+            }
         }
     }
 

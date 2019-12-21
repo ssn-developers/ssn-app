@@ -58,6 +58,8 @@
 				android:layout_height="wrap_content"
 				android:textSize="@dimen/_6sdp"
 				android:elevation="1dp"
+				android:visibility="gone"
+				android:id="@+id/newMessageCountTV"
 				android:layout_marginStart="@dimen/_18sdp"
 				android:textColor="@android:color/white"
 				android:paddingStart="@dimen/_4sdp"

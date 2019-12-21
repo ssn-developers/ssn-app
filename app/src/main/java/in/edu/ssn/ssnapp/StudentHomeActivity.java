@@ -8,12 +8,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
@@ -23,8 +28,10 @@ import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.PlacementFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
 import in.edu.ssn.ssnapp.fragments.EventFragment;
+import in.edu.ssn.ssnapp.message_utils.NewMessageEvent;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
+import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -33,7 +40,9 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     ViewPager viewPager;
     private static int count = 0;
     ImageView chatIV, favIV,settingsIV;
+    TextView newMessageCountTV;
 
+    int newMessageCount=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +64,15 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
             CommonUtils.showWhatsNewDialog(this,darkModeEnabled);
         }
 
+        //First time subscription to global chat
+        boolean chat_sub = SharedPref.getBoolean(getApplicationContext(),"chat_first_sub");
+        if(!chat_sub){
+            System.out.println("global_chat first time sub triggered");
+            FCMHelper.SubscribeToTopic(getApplicationContext(),Constants.GLOBAL_CHAT);
+            SharedPref.putBoolean(getApplicationContext(), "switch_global_chat",true);
+            SharedPref.putBoolean(getApplicationContext(),"chat_first_sub",true);
+        }
+
 
 
     }
@@ -64,6 +82,7 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     void initUI() {
         userImageIV = findViewById(R.id.userImageIV);
         viewPager = findViewById(R.id.viewPager);
+        newMessageCountTV = findViewById(R.id.newMessageCountTV);
         chatIV = findViewById(R.id.chatIV);         chatIV.setOnClickListener(this);
         favIV = findViewById(R.id.favIV);           favIV.setOnClickListener(this);
         settingsIV = findViewById(R.id.settingsIV); settingsIV.setOnClickListener(this);
@@ -116,11 +135,40 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
+
+
+
     /*********************************************************/
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPref.putBoolean(getApplicationContext(),"isStudHomeActive",false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPref.putBoolean(getApplicationContext(),"isStudHomeActive",false);
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        updateNewMessageUI();
+        SharedPref.putBoolean(getApplicationContext(),"isStudHomeActive",true);
         if (CommonUtils.alerter(getApplicationContext())) {
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
             intent.putExtra("key", "home");
@@ -151,4 +199,24 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
             toast.show();
         }
     }
+
+    public void updateNewMessageUI(){
+        if(newMessageCountTV!=null) {
+            newMessageCount = SharedPref.getInt(getApplicationContext(), "new_message_count");
+            if (newMessageCount > 0) {
+                newMessageCountTV.setText(String.valueOf(newMessageCount));
+                newMessageCountTV.setVisibility(View.VISIBLE);
+            } else {
+                newMessageCountTV.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    //Updating the new message count received from firebase messaging service
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(NewMessageEvent event) {
+        updateNewMessageUI();
+    }
+
+
 }

@@ -123,6 +123,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     void initMessages(){
         Query first = db.collection("global_chat").orderBy("timestamp", Query.Direction.DESCENDING).limit(pageSize);
         getMessages(first);
+        SharedPref.putInt(getApplicationContext(),"new_message_count",0);
         chatHelper.listenForMessages();
     }
 
@@ -334,15 +335,28 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        SharedPref.putInt(getApplicationContext(),"new_message_count",0);
+        SharedPref.putBoolean(getApplicationContext(),"isChatActive",false);
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
-        //SharedPref.putInt(getApplicationContext(), "lastSeenMessagePosition", lastSeenMessagePosition);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //SharedPref.putInt(getApplicationContext(), "lastSeenMessagePosition", lastSeenMessagePosition);
+        SharedPref.putInt(getApplicationContext(),"new_message_count",0);
+        SharedPref.putBoolean(getApplicationContext(),"isChatActive",false);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPref.putBoolean(getApplicationContext(),"isChatActive",true);
     }
 
     @Override
@@ -350,7 +364,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         if(optionsMode){
             closeMessageOptionUI();
         }else{
-            //SharedPref.putInt(getApplicationContext(),"lastSeenMessagePosition",lastSeenMessagePosition);
+            SharedPref.putInt(getApplicationContext(),"new_message_count",0);
             super.onBackPressed();
         }
     }
