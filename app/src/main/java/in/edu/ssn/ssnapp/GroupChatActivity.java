@@ -73,7 +73,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     LinearLayoutManager layoutManager;
     FirebaseUser user;
     Message replyMessage = null;
-    List<Message> messageList = new ArrayList<>();
+    public List<Message> messageList = new ArrayList<>();
     FirebaseFirestore db;
     Query next;
     boolean replyMode , firstRun, fullChatRead, pageLoaded=true, darkMode, optionsMode=false;
@@ -184,12 +184,12 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                     messageList.get(newMessagePos).newMessageCount = newMessageCount;
                     adapter.notifyItemChanged(newMessagePos);
                     if(prevNewMsgCount>1){
-                        chatRV.smoothScrollToPosition(newMessagePos+1);
+                        chatRV.scrollToPosition(newMessagePos+1);
                     }else{
-                        chatRV.smoothScrollToPosition(newMessagePos);
+                        chatRV.scrollToPosition(newMessagePos);
                     }
                 }catch (Exception e){
-                    chatRV.smoothScrollToPosition(adapter.getItemCount()-1);
+                    chatRV.scrollToPosition(adapter.getItemCount()-1);
                 }
                 prevNewMsgCount=0;
                 newMessageCount=0;
@@ -205,7 +205,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 messageList.get(newMessagePos).newMessageCount = prevNewMsgCount;
                 adapter.notifyItemChanged(newMessagePos);
             }catch (Exception e){
-                chatRV.smoothScrollToPosition(adapter.getItemCount()-1);
+                chatRV.scrollToPosition(adapter.getItemCount()-1);
             }
             prevNewMsgCount=0;
             newMessagePos=-1;
@@ -450,7 +450,13 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                     @Override
                     public void onReplyMessageClicked(final View view, int position) {
                         try{
-                            final int pos = chatHelper.findMessageById(messageList.get(position).getReplyMessage().getMessageId(),messageList);
+                            int pos;
+                            if(messageList.get(position).getReplyMessage()!=null){
+                                pos = chatHelper.findMessageById(messageList.get(position).getReplyMessage().getMessageId(),messageList);
+                            }else{
+                                pos =-1;
+                            }
+
                             if(pos!=-1){
                                 //If replied message is there in the message list, scroll to that message
                                 chatRV.scrollToPosition(pos);
@@ -459,30 +465,32 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                             }else{
                                 //If replied message is not in the message list, expand the message and show time
                                 RecyclerView.ViewHolder holder = chatRV.findViewHolderForLayoutPosition(position);
-                                switch(holder.getItemViewType()){
-                                    case 2:{
-                                        if(((ReceivedReplyHolder) holder).replyMessageTV.getMaxLines()==Integer.MAX_VALUE){
-                                            ((ReceivedReplyHolder) holder).replyMessageTV.setMaxLines(3);
-                                            ((ReceivedReplyHolder) holder).replyMessageTV.setEllipsize(TextUtils.TruncateAt.END);
-                                            ((ReceivedReplyHolder) holder).replyTimeTV.setVisibility(View.GONE);
-                                        }else{
-                                            ((ReceivedReplyHolder) holder).replyMessageTV.setMaxLines(Integer.MAX_VALUE);
-                                            ((ReceivedReplyHolder) holder).replyMessageTV.setEllipsize(null);
-                                            ((ReceivedReplyHolder) holder).replyTimeTV.setVisibility(View.VISIBLE);
+                                if(holder!=null) {
+                                    switch (holder.getItemViewType()) {
+                                        case 2: {
+                                            if (((ReceivedReplyHolder) holder).replyMessageTV.getMaxLines() == Integer.MAX_VALUE) {
+                                                ((ReceivedReplyHolder) holder).replyMessageTV.setMaxLines(3);
+                                                ((ReceivedReplyHolder) holder).replyMessageTV.setEllipsize(TextUtils.TruncateAt.END);
+                                                ((ReceivedReplyHolder) holder).replyTimeTV.setVisibility(View.GONE);
+                                            } else {
+                                                ((ReceivedReplyHolder) holder).replyMessageTV.setMaxLines(Integer.MAX_VALUE);
+                                                ((ReceivedReplyHolder) holder).replyMessageTV.setEllipsize(null);
+                                                ((ReceivedReplyHolder) holder).replyTimeTV.setVisibility(View.VISIBLE);
+                                            }
+                                            break;
                                         }
-                                        break;
-                                    }
-                                    case 3:{
-                                        if(((SentReplyHolder) holder).replyMessageTV.getMaxLines()==Integer.MAX_VALUE){
-                                            ((SentReplyHolder) holder).replyMessageTV.setMaxLines(3);
-                                            ((SentReplyHolder) holder).replyMessageTV.setEllipsize(TextUtils.TruncateAt.END);
-                                            ((SentReplyHolder) holder).replyTimeTV.setVisibility(View.GONE);
-                                        }else{
-                                            ((SentReplyHolder) holder).replyMessageTV.setMaxLines(Integer.MAX_VALUE);
-                                            ((SentReplyHolder) holder).replyMessageTV.setEllipsize(null);
-                                            ((SentReplyHolder) holder).replyTimeTV.setVisibility(View.VISIBLE);
+                                        case 3: {
+                                            if (((SentReplyHolder) holder).replyMessageTV.getMaxLines() == Integer.MAX_VALUE) {
+                                                ((SentReplyHolder) holder).replyMessageTV.setMaxLines(3);
+                                                ((SentReplyHolder) holder).replyMessageTV.setEllipsize(TextUtils.TruncateAt.END);
+                                                ((SentReplyHolder) holder).replyTimeTV.setVisibility(View.GONE);
+                                            } else {
+                                                ((SentReplyHolder) holder).replyMessageTV.setMaxLines(Integer.MAX_VALUE);
+                                                ((SentReplyHolder) holder).replyMessageTV.setEllipsize(null);
+                                                ((SentReplyHolder) holder).replyTimeTV.setVisibility(View.VISIBLE);
+                                            }
+                                            break;
                                         }
-                                        break;
                                     }
                                 }
                             }
@@ -503,12 +511,12 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
             if (Math.abs(lastScrollPosition - messageList.size()) == 1) {
                 messageList.add(newMessage);
                 adapter.notifyItemInserted(messageList.size() - 1);
-                chatRV.smoothScrollToPosition(messageList.size() - 1);
+                chatRV.scrollToPosition(messageList.size() - 1);
             } else {
                 messageList.add(newMessage);
                 adapter.notifyItemInserted(messageList.size() - 1);
                 if (newMessage.getSenderId().equals(user.getUid())) {
-                    chatRV.smoothScrollToPosition(messageList.size() - 1);
+                    chatRV.scrollToPosition(messageList.size() - 1);
                 } else {
                     newMessageCount++;
                     prevNewMsgCount = newMessageCount;

@@ -148,7 +148,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((ReceivedMessageHolder) holder).itemView,position);
+                        onItemLongClickListener.onMessageLongClicked(((ReceivedMessageHolder) holder).itemView,holder.getAdapterPosition());
                         return true;
                     }
                 };
@@ -161,7 +161,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((SentMessageHolder) holder).itemView,position);
+                        onItemLongClickListener.onMessageLongClicked(((SentMessageHolder) holder).itemView,holder.getAdapterPosition());
                         return true;
                     }
                 };
@@ -174,14 +174,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((ReceivedReplyHolder) holder).itemView,position);
+                        onItemLongClickListener.onMessageLongClicked(((ReceivedReplyHolder) holder).itemView,holder.getAdapterPosition());
                         return true;
                     }
                 };
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onReplyItemClickListener.onReplyMessageClicked(((ReceivedReplyHolder) holder).itemView,position);
+                        onReplyItemClickListener.onReplyMessageClicked(((ReceivedReplyHolder) holder).itemView,holder.getAdapterPosition());
                     }
                 };
                 ((ReceivedReplyHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
@@ -194,14 +194,14 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((SentReplyHolder) holder).itemView,position);
+                        onItemLongClickListener.onMessageLongClicked(((SentReplyHolder) holder).itemView,holder.getAdapterPosition());
                         return true;
                     }
                 };
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onReplyItemClickListener.onReplyMessageClicked(((SentReplyHolder) holder).itemView,position);
+                        onReplyItemClickListener.onReplyMessageClicked(((SentReplyHolder) holder).itemView,holder.getAdapterPosition());
                     }
                 };
                 ((SentReplyHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);

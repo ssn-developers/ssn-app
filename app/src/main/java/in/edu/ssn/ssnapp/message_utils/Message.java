@@ -21,11 +21,11 @@ public class Message {
 
     boolean messageDeleted=false;
     int type;
-    String messageId;
-    String senderId;
-    String senderName;
-    String message;
-    String timestamp;
+    String messageId="";
+    String senderId="";
+    String senderName="";
+    String message="";
+    String timestamp="";
     Message replyMessage=null;
 
     public int getType() {
