@@ -5,8 +5,10 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="@android:color/white"
+	android:background="@color/darkColorChat"
+	android:theme="@style/AppTheme1"
 	tools:context=".GroupChatActivity">
+
 	<androidx.recyclerview.widget.RecyclerView
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
@@ -23,7 +25,7 @@
 		<LinearLayout
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
-			android:background="#EBFFFFFF"
+			android:background="@color/appbar_color_chat"
 			android:id="@+id/appbarContentLL"
 			android:orientation="horizontal">
 			<ImageView
@@ -34,7 +36,7 @@
 				android:layout_marginStart="8dp"
 				android:foreground="?android:selectableItemBackground"
 				android:id="@+id/backIV"
-				android:tint="@android:color/black"
+				android:tint="@android:color/white"
 				android:src="@drawable/chat_ic_back"/>
 			<TextView
 				android:layout_width="wrap_content"
@@ -44,7 +46,7 @@
 				android:textStyle="bold"
 				android:layout_weight="1"
 				android:textSize="16sp"
-				android:textColor="@android:color/black"
+				android:textColor="@android:color/white"
 				android:fontFamily="@font/open_sans_extrabold"
 				android:text="Global chat"/>
 			<ProgressBar
@@ -124,7 +126,7 @@
 		android:padding="8dp"
 		android:elevation="10dp"
 		android:id="@+id/messageEditLL"
-		android:background="#FDFDFD"
+		android:background="@color/darkColor1Chat"
 		android:animateLayoutChanges="true"
 		android:layout_alignParentBottom="true"
 		android:orientation="vertical">
@@ -137,7 +139,7 @@
 			android:elevation="0dp"
 			android:visibility="gone"
 			android:id="@+id/replyMessageLL"
-			android:background="@drawable/bg_edit_message_reply"
+			android:background="@drawable/bg_edit_message_reply_dark"
 			android:orientation="vertical">
 			<LinearLayout
 				android:layout_width="match_parent"
@@ -155,12 +157,12 @@
 					android:gravity="start"
 					android:singleLine="true"
 					android:text="Shrikanth Ravi"
-					android:textColor="@color/text_color_chat"
+					android:textColor="@color/dim_white_chat"
 					android:textSize="14sp" />
 				<ImageView
 					android:layout_width="28dp"
 					android:layout_height="28dp"
-					android:tint="@android:color/black"
+					android:tint="@color/dim_white_chat"
 					android:clickable="true"
 					android:id="@+id/closeIV"
 					android:background="?selectableItemBackgroundBorderless"
@@ -181,7 +183,7 @@
 				android:layout_marginStart="8dp"
 				android:layout_marginEnd="8dp"
 				android:layout_marginBottom="4dp"
-				android:textColor="@color/text_color_chat"
+				android:textColor="@color/dim_white_chat"
 				android:textSize="12sp" />
 
 		</LinearLayout>
@@ -191,7 +193,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:elevation="1dp"
-			android:background="#FDFDFD"
+			android:background="@color/darkColor1Chat"
 			android:orientation="horizontal">
 			<ImageView
 				android:layout_width="40dp"
@@ -205,8 +207,6 @@
 				android:id="@+id/messageET"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:focusable="true"
-				android:focusableInTouchMode="true"
 				android:layout_gravity="center"
 				android:layout_weight="1"
 				android:maxLines="7"
@@ -222,7 +222,8 @@
 				app:hashtagColor="@color/colorAccentChat"
 				app:hyperlinkColor="@color/colorAccentChat"
 				android:padding="8dp"
-				android:textColor="@color/text_color_chat"
+				android:textColorHint="@android:color/tab_indicator_text"
+				android:textColor="@color/dim_white_chat"
 				android:textSize="16sp" />
 			<ImageView
 				android:layout_width="32dp"
@@ -253,7 +254,6 @@
 		android:layout_centerHorizontal="true"
 		android:layout_above="@id/messageEditLL"
 		android:layout_marginBottom="16dp"
-		android:layout_marginEnd="16dp"
 		android:drawablePadding="8dp"
 		android:gravity="center"
 		android:drawableStart="@drawable/chat_ic_down"
@@ -276,4 +276,5 @@
 		android:layout_above="@id/messageEditLL"
 		app:backgroundTint="@color/fab_color_chat"
 		android:src="@drawable/chat_ic_down_black" />
+
 </RelativeLayout>

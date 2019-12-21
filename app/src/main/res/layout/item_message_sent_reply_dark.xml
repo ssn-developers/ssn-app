@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_gravity="end"
+	android:paddingStart="8dp"
+	android:paddingTop="8dp"
+	android:paddingEnd="8dp"
+	android:paddingBottom="8dp">
+	<include layout="@layout/item_date_divider_dark"/>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="4dp"
+		android:layout_marginStart="96dp"
+		android:layout_gravity="end"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/tab_indicator_text"
+			android:textStyle="bold"
+			android:singleLine="true"
+			android:layout_gravity="center"
+			android:paddingTop="2dp"
+			android:layout_marginEnd="8dp"
+			android:gravity="center"
+			android:textSize="8sp"
+			android:id="@+id/timeTV"
+			android:fontFamily="@font/open_sans"
+			android:text="17:14"/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="12sp"
+			android:gravity="center"
+			android:singleLine="true"
+			android:layout_weight="1"
+			android:layout_gravity="start|center"
+			android:layout_marginEnd="8dp"
+			android:textColor="#646464"
+			android:fontFamily="@font/open_sans_semibold"
+			android:text="You"/>
+	</LinearLayout>
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="end"
+		android:layout_marginStart="53dp"
+		android:background="@drawable/bg_sent_message_dark"
+		android:orientation="vertical">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginEnd="8dp"
+			android:id="@+id/replyLL"
+			android:layout_marginTop="8dp"
+			android:padding="6dp"
+			android:background="@drawable/bg_sent_message_reply"
+			android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/replyNameTV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="8dp"
+				android:layout_weight="1"
+				android:textStyle="bold"
+				android:gravity="start"
+				android:fontFamily="@font/open_sans_extrabold"
+				android:singleLine="true"
+				android:text="Logesh Dinakaran"
+				android:textColor="@android:color/white"
+				android:textSize="14sp" />
+			<TextView
+				android:id="@+id/replyMessageTV"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="start|center"
+				android:layout_weight="1"
+				android:fontFamily="@font/open_sans"
+				android:gravity="start"
+				android:maxLines="3"
+				android:ellipsize="end"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="8dp"
+				android:text="Enjoy panra da"
+				android:textColor="@android:color/white"
+				android:textSize="12sp" />
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textColor="@android:color/white"
+				android:textStyle="bold"
+				android:layout_gravity="end"
+				android:singleLine="true"
+				android:paddingTop="2dp"
+				android:layout_marginStart="8dp"
+				android:layout_marginEnd="8dp"
+				android:gravity="center"
+				android:visibility="gone"
+				android:textSize="8sp"
+				android:id="@+id/replyTimeTV"
+				android:fontFamily="@font/open_sans"
+				android:text="17:14"/>
+
+
+		</LinearLayout>
+		<com.hendraanggrian.appcompat.widget.SocialTextView
+			app:socialFlags="hashtag|hyperlink"
+			app:hashtagColor="@android:color/white"
+			app:hyperlinkColor="@android:color/white"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:textSize="16sp"
+			android:minWidth="96dp"
+			android:gravity="start"
+			android:id="@+id/messageTV"
+			android:drawablePadding="12dp"
+			android:padding="12dp"
+			android:fontFamily="@font/open_sans_semibold"
+			android:text="Hello world"/>
+
+	</LinearLayout>
+
+
+</LinearLayout>

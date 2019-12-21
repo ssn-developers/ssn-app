@@ -38,18 +38,19 @@
 
 					<LinearLayout
 						android:layout_width="match_parent"
-						android:layout_height="@dimen/_100sdp"
+						android:layout_height="wrap_content"
 						android:orientation="vertical"
 						android:padding="@dimen/_13sdp">
 						<ImageView
 							android:layout_width="@dimen/_20sdp"
 							android:layout_height="@dimen/_20sdp"
 							android:tint="@color/colorAccentDark"
-							android:src="@drawable/ic_feedback_white"
+							android:src="@drawable/ic_book_open"
 							android:id="@+id/iconIV1"/>
 						<View
 							android:layout_width="wrap_content"
 							android:layout_height="@dimen/_30sdp"
+							android:visibility="gone"
 							android:layout_weight="1"/>
 						<TextView
 							android:id="@+id/linkTitleTV1"
@@ -78,7 +79,7 @@
 
 					<LinearLayout
 						android:layout_width="match_parent"
-						android:layout_height="@dimen/_100sdp"
+						android:layout_height="wrap_content"
 						android:orientation="vertical"
 						android:padding="@dimen/_13sdp">
 						<ImageView
@@ -90,6 +91,7 @@
 						<View
 							android:layout_width="wrap_content"
 							android:layout_height="@dimen/_30sdp"
+							android:visibility="gone"
 							android:layout_weight="1"/>
 
 						<TextView
@@ -134,7 +136,7 @@
 
 					<LinearLayout
 						android:layout_width="match_parent"
-						android:layout_height="@dimen/_100sdp"
+						android:layout_height="wrap_content"
 						android:orientation="vertical"
 						android:padding="@dimen/_13sdp">
 						<ImageView
@@ -146,6 +148,7 @@
 						<View
 							android:layout_width="wrap_content"
 							android:layout_height="@dimen/_30sdp"
+							android:visibility="gone"
 							android:layout_weight="1"/>
 						<TextView
 							android:id="@+id/linkTitleTV3"
@@ -175,7 +178,7 @@
 
 					<LinearLayout
 						android:layout_width="match_parent"
-						android:layout_height="@dimen/_100sdp"
+						android:layout_height="wrap_content"
 						android:orientation="vertical"
 						android:padding="@dimen/_13sdp">
 						<ImageView
@@ -187,6 +190,7 @@
 						<View
 							android:layout_width="wrap_content"
 							android:layout_height="@dimen/_30sdp"
+							android:visibility="gone"
 							android:layout_weight="1"/>
 
 						<TextView
@@ -231,7 +235,7 @@
 					android:fontFamily="@font/open_sans_semi_bold"
 					android:gravity="center"
 					android:text="No Posts"
-					android:textColor="@color/colorAccentText"
+					android:textColor="@color/white"
 					android:textSize="@dimen/_14ssp" />
 
 				<TextView
@@ -246,7 +250,7 @@
 					android:fontFamily="@font/open_sans"
 					android:gravity="center"
 					android:text="We'll let you know for new posts till then stay tuned."
-					android:textColor="@color/colorAccentText"
+					android:textColor="@android:color/tab_indicator_text"
 					android:textSize="@dimen/_12ssp" />
 
 			</RelativeLayout>

@@ -9,49 +9,18 @@
     android:background="@color/white"
     tools:context=".SettingsActivity">
 
-    <ImageView
-        android:id="@+id/bgIV"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_82sdp"
-        android:background="@drawable/tool_bar_curve"/>
-
-    <RelativeLayout
-        android:id="@+id/layout1"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_82sdp">
-
-        <ImageView
-            android:id="@+id/backIV"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            app:srcCompat="@drawable/ic_back"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="@dimen/_22sdp"/>
-
-        <TextView
-            android:id="@+id/title1TV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"
-            android:textColor="#ffffff"
-            android:textSize="@dimen/_16ssp"
-            android:layout_centerVertical="true"
-            android:fontFamily="@font/open_sans_bold"
-            android:layout_toRightOf="@+id/backIV"
-            android:layout_marginStart="@dimen/_12sdp" />
-
-    </RelativeLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout1"
-        android:layout_marginStart="@dimen/_5sdp">
+        android:paddingTop="@dimen/_82sdp"
+        android:clipToPadding="false"
+        >
 
         <LinearLayout
             android:id="@+id/layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:orientation="vertical">
 
@@ -102,7 +71,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/divider_line_color" />
 
             </RelativeLayout>
 
@@ -145,7 +114,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/divider_line_color" />
 
             </RelativeLayout>
 
@@ -204,7 +173,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@color/light_grey" />
+                        android:background="@color/divider_line_color" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -245,7 +214,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@color/light_grey" />
+                        android:background="@color/divider_line_color" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -286,7 +255,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@color/light_grey" />
+                        android:background="@color/divider_line_color" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -327,7 +296,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@color/light_grey" />
+                        android:background="@color/divider_line_color" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -368,7 +337,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_marginStart="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_15sdp"
-                        android:background="@color/light_grey" />
+                        android:background="@color/divider_line_color" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -410,7 +379,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_15sdp"
-                    android:background="@color/light_grey" />
+                    android:background="@color/divider_line_color" />
             </RelativeLayout>
 
             <TextView
@@ -432,7 +401,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -463,7 +432,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
             <TextView
                 android:id="@+id/suggestionTV"
@@ -483,7 +452,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
             <TextView
                 android:id="@+id/updatesTV"
@@ -503,7 +472,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
             <TextView
                 android:id="@+id/inviteTV"
@@ -523,7 +492,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
             <TextView
                 android:id="@+id/rateTV"
@@ -543,7 +512,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
             <TextView
                 android:id="@+id/privacyTV"
@@ -563,7 +532,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
             <TextView
                 android:id="@+id/logoutTV"
@@ -584,10 +553,45 @@
                 android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
                 android:layout_marginBottom="@dimen/_100sdp"
-                android:background="@color/light_grey" />
+                android:background="@color/divider_line_color" />
 
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <ImageView
+        android:id="@+id/bgIV"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_82sdp"
+        android:background="@drawable/tool_bar_curve"/>
+
+    <RelativeLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_82sdp">
+
+        <ImageView
+            android:id="@+id/backIV"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            app:srcCompat="@drawable/ic_back"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_22sdp"/>
+
+        <TextView
+            android:id="@+id/title1TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_16ssp"
+            android:layout_centerVertical="true"
+            android:fontFamily="@font/open_sans_bold"
+            android:layout_toRightOf="@+id/backIV"
+            android:layout_marginStart="@dimen/_12sdp" />
+
+    </RelativeLayout>
+
 
 </RelativeLayout>

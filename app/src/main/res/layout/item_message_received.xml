@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_gravity="start"
+	android:paddingStart="8dp"
+	android:paddingTop="8dp"
+	android:paddingEnd="6dp"
+	android:paddingBottom="8dp">
+	<include layout="@layout/item_date_divider"/>
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="4dp"
+		android:layout_marginEnd="96dp"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="12sp"
+			android:gravity="center"
+			android:singleLine="true"
+			android:layout_weight="1"
+			android:id="@+id/nameTV"
+			android:layout_gravity="start|center"
+			android:layout_marginEnd="8dp"
+			android:textColor="#646464"
+			android:fontFamily="@font/open_sans_semibold"
+			android:text="Logesh Dinakaran"/>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/tab_indicator_text"
+			android:textStyle="bold"
+			android:singleLine="true"
+			android:layout_gravity="center"
+			android:paddingTop="2dp"
+			android:layout_marginEnd="8dp"
+			android:gravity="center"
+			android:textSize="8sp"
+			android:id="@+id/timeTV"
+			android:fontFamily="@font/open_sans"
+			android:text="17:14"/>
+	</LinearLayout>
+
+
+
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal">
+		<androidx.cardview.widget.CardView
+			android:layout_width="35dp"
+			android:layout_height="35dp"
+			app:cardElevation="0dp"
+			android:id="@+id/avatarCV"
+			app:cardCornerRadius="17.5dp"
+			android:layout_marginEnd="8dp"
+			android:layout_marginTop="3dp"
+			app:cardBackgroundColor="#B6B6B6"
+			android:layout_gravity="top|start">
+			<ImageView
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:id="@+id/avatarIV"/>
+		</androidx.cardview.widget.CardView>
+		<com.hendraanggrian.appcompat.widget.SocialTextView
+			app:socialFlags="hashtag|hyperlink"
+			app:hashtagColor="@color/colorAccentChat"
+			app:hyperlinkColor="@color/colorAccentChat"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:drawablePadding="12dp"
+			android:minWidth="64dp"
+			android:textColor="@color/text_color_chat"
+			android:background="@drawable/bg_received_message"
+			android:textSize="16sp"
+			android:padding="12dp"
+			android:layout_marginEnd="53dp"
+			android:id="@+id/messageTV"
+			android:fontFamily="@font/open_sans_semibold"
+			android:text="Hello world"/>
+
+	</LinearLayout>
+</LinearLayout>

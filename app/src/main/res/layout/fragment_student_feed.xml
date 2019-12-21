@@ -37,7 +37,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
                         android:background="@color/colorAccentAlpha"
                         android:orientation="vertical"
                         android:padding="@dimen/_10sdp">
@@ -45,11 +45,12 @@
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:tint="@color/colorAccent"
-                            android:src="@drawable/ic_feedback_white"
+                            android:src="@drawable/ic_book_open"
                             android:id="@+id/iconIV1"/>
                         <View
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_30sdp"
+                            android:visibility="gone"
                             android:layout_weight="1"/>
                         <TextView
                             android:id="@+id/linkTitleTV1"
@@ -79,7 +80,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:background="@color/colorAccentAlpha"
                         android:padding="@dimen/_10sdp">
@@ -92,6 +93,7 @@
                         <View
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_30sdp"
+                            android:visibility="gone"
                             android:layout_weight="1"/>
 
                         <TextView
@@ -136,19 +138,21 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:background="@color/colorAccentAlpha"
                         android:padding="@dimen/_10sdp">
                         <ImageView
                             android:layout_width="@dimen/_25sdp"
                             android:layout_height="@dimen/_25sdp"
+                            android:layout_marginStart="-5dp"
                             android:tint="@color/colorAccent"
                             android:src="@drawable/ic_lms"
                             android:id="@+id/iconIV3"/>
                         <View
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_30sdp"
+                            android:visibility="gone"
                             android:layout_weight="1"/>
                         <TextView
                             android:id="@+id/linkTitleTV3"
@@ -178,7 +182,7 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="@dimen/_10sdp"
                         android:background="@color/colorAccentAlpha">
@@ -191,6 +195,7 @@
                         <View
                             android:layout_width="wrap_content"
                             android:layout_height="@dimen/_30sdp"
+                            android:visibility="gone"
                             android:layout_weight="1"/>
 
                         <TextView

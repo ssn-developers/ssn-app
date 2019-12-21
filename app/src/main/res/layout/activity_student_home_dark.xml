@@ -38,18 +38,44 @@
 				android:tint="@color/colorAccent" />
 		</RelativeLayout>
 
-		<ImageView
-			android:layout_width="@dimen/_30sdp"
-			android:layout_height="@dimen/_30sdp"
-			android:padding="@dimen/_5sdp"
-			android:tint="@color/colorAccent"
-			app:srcCompat="@drawable/ic_chat"
-			android:id="@+id/chatIV" />
+		<RelativeLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="@dimen/_5sdp">
+			<ImageView
+				android:layout_width="@dimen/_30sdp"
+				android:layout_height="@dimen/_30sdp"
+				android:paddingStart="@dimen/_5sdp"
+				android:paddingEnd="@dimen/_5sdp"
+				android:paddingTop="@dimen/_5sdp"
+				android:paddingBottom="@dimen/_3sdp"
+				android:tint="@color/colorAccent"
+				app:srcCompat="@drawable/ic_chat"
+				android:id="@+id/chatIV" />
+
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:textSize="@dimen/_6sdp"
+				android:elevation="1dp"
+				android:layout_marginStart="@dimen/_18sdp"
+				android:textColor="@android:color/white"
+				android:paddingStart="@dimen/_4sdp"
+				android:paddingTop="@dimen/_2sdp"
+				android:paddingBottom="@dimen/_2sdp"
+				android:paddingEnd="@dimen/_4sdp"
+				android:textStyle="bold"
+				android:background="@drawable/chat_count_bg"
+				android:text="23"/>
+
+
+		</RelativeLayout>
 
 		<ImageView
 			android:layout_width="@dimen/_30sdp"
 			android:layout_height="@dimen/_30sdp"
 			android:padding="@dimen/_5sdp"
+			android:layout_marginEnd="@dimen/_5sdp"
 			android:tint="@color/colorAccent"
 			app:srcCompat="@drawable/ic_fav"
 			android:id="@+id/favIV" />

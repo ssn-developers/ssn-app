@@ -37,4 +37,28 @@
     <color name="behanceColor">#053eff</color>
     <color name="dribbbleColor">#ea4c89</color>
 
+    //Global chat colors
+    <color name="colorAccentChat">#317BC0</color>
+    <color name="colorAccentDarkChat">#005AA3</color>
+    <color name="colorAccentLightChat">#5683AD</color>
+    <color name="colorAccentAlphaChat">#80008CFF</color>
+    <color name="colorAccentAlpha1Chat">#40000000</color>
+    <color name="colorAccentAlpha2Chat">#14000000</color>
+    <color name="colorAccentAlpha3Chat">#26008CFF</color>
+    <color name="dim_white_chat">#ECECEC</color>
+    <color name="text_color_chat">#3C3C3C</color>
+    <color name="fab_color_chat">#BFD6D6D6</color>
+
+    <color name="darkColorChat">#1B1B1B</color>
+    <color name="darkColor1Chat">#2B2B2B</color>
+    <color name="darkColorLightChat">#3D3D3D</color>
+    <color name="darkColorLight1Chat">#292929</color>
+    <color name="darkColorLight2Chat">#4E4E4E</color>
+    <color name="darkTextColorChat">#A7A7A7</color>
+    <color name="darkTextColorLightChat">#CECECE</color>
+	<color name="appbar_color_chat">#EB2B2B2B</color>
+    <color name="appbar_color1_chat">#2B2B2B</color>
+    <color name="divider_line_color">#EBEBEB</color>
+    <color name="divider_line_color_dark">#303030</color>
+
 </resources>
