@@ -18,6 +18,7 @@ import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -55,6 +56,7 @@ import in.edu.ssn.ssnapp.message_utils.SentReplyHolder;
 import in.edu.ssn.ssnapp.message_utils.SwipeController;
 import in.edu.ssn.ssnapp.message_utils.Utils;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
+import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
@@ -114,10 +116,12 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                         Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                         intent.putExtra("key", "home");
                         startActivity(intent);
-                        Bungee.fade(GroupChatActivity.this);
+                        Bungee.slideRight(GroupChatActivity.this);
                     }
                 }else{
-                    Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                     onBackPressed();
                 }
             }
@@ -283,7 +287,9 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
             public void onClick(View v) {
                 if(!CommonUtils.alerter(getApplicationContext())) {
                     if(CommonUtils.getGlobal_chat_is_blocked()){
-                        Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                         onBackPressed();
                     }else{
                         chatHelper.removeMessage(message);
@@ -295,7 +301,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                     Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                     intent.putExtra("key", "home");
                     startActivity(intent);
-                    Bungee.fade(GroupChatActivity.this);
+                    Bungee.slideRight(GroupChatActivity.this);
                 }
             }
         });
@@ -392,7 +398,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
             intent.putExtra("key", "home");
             startActivity(intent);
-            Bungee.fade(GroupChatActivity.this);
+            Bungee.slideRight(GroupChatActivity.this);
         }
         /*if(CommonUtils.getGlobal_chat_is_blocked()){
             onBackPressed();
@@ -406,6 +412,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         }else{
             SharedPref.putInt(getApplicationContext(),"new_message_count",0);
             super.onBackPressed();
+            Bungee.slideLeft(GroupChatActivity.this);
         }
     }
 
@@ -468,7 +475,9 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 if(id==0 && !fullChatRead && pageLoaded){
                     //getting next page when scrolled to top
                     if(CommonUtils.getGlobal_chat_is_blocked()){
-                        Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                        Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                         onBackPressed();
                     }else {
                         if(!CommonUtils.alerter(getApplicationContext())) {
@@ -478,7 +487,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                             intent.putExtra("key", "home");
                             startActivity(intent);
-                            Bungee.fade(GroupChatActivity.this);
+                            Bungee.slideRight(GroupChatActivity.this);
                         }
                     }
                 }

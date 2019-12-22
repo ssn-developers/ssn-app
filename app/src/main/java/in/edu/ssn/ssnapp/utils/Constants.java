@@ -69,6 +69,8 @@ public class Constants {
             "s8ssnfamily@gmail.com", "ssns9@yahoo.com", "s10ssn2k19@gmail.com",
             "engchems11@gmail.com", "s12ssn2019@gmail.com", "ssnsection13@gmail.com"));
 
+    public static String global_chat_error_maintenance = "Global chat is under maintenance. Please try again after some time";
+
     // collection name
     public static String collection_club="club";
     public static String collection_feedback="feedback";

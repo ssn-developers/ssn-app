@@ -121,14 +121,18 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             case R.id.chatIV:
                 if(CommonUtils.getGlobal_chat_is_blocked()){
-                    Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                    Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                     chatIV.setVisibility(View.GONE);
                     newMessageCountTV.setVisibility(View.GONE);
-                }else {
+                }
+                else {
                     if(!CommonUtils.alerter(getApplicationContext())){
                         startActivity(new Intent(getApplicationContext(), GroupChatActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
-                    }else{
+                    }
+                    else{
                         Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                         intent.putExtra("key", "home");
                         startActivity(intent);
