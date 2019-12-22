@@ -230,7 +230,13 @@ public class ClubFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if(queryDocumentSnapshots!=null) {
-                    String email = SharedPref.getString(getContext(), "email");
+                    String email = "";
+                    try {
+                        email = SharedPref.getString(getContext(), "email");
+                    }
+                    catch (Exception e1){
+                        e1.printStackTrace();
+                    }
                     clubs = queryDocumentSnapshots.toObjects(Club.class);
 
                     subscribed_clubs.clear();
