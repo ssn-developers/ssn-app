@@ -413,7 +413,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         }else{
             SharedPref.putInt(getApplicationContext(),"new_message_count",0);
             super.onBackPressed();
-            Bungee.slideLeft(GroupChatActivity.this);
+            Bungee.slideRight(GroupChatActivity.this);
         }
     }
 
