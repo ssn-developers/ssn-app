@@ -56,6 +56,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import in.edu.ssn.ssnapp.adapters.CustomExpandableListAdapter;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
@@ -103,6 +104,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
     /*****************************************************************/
 
     void initUI() {
+        Objects.requireNonNull(getSupportActionBar()).hide();
         id = getIntent().getStringExtra("data");
         club = getIntent().getParcelableExtra("club");
         post = new ClubPost();
