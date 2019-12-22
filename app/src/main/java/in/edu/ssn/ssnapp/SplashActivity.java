@@ -234,10 +234,28 @@ public class SplashActivity extends AppCompatActivity {
                 try {
                     CommonUtils.setIs_blocked((Boolean) nodes.get("overall"));
                     CommonUtils.setGlobal_chat_is_blocked((Boolean) nodes.get("global_chat"));
+                    CommonUtils.setNon_ssn_email_is_blocked((Boolean) nodes.get("non_ssn_email"));
 
                     if(CommonUtils.getIs_blocked()){
                         startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
                         Bungee.fade(SplashActivity.this);
+                    }
+
+                    try {
+                        if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2 && Constants.fresher_email.contains(SharedPref.getString(getApplicationContext(), "email")) && CommonUtils.getNon_ssn_email_is_blocked()) {
+                            FirebaseAuth.getInstance().signOut();
+                            CommonUtils.UnSubscribeToAlerts(getApplicationContext());
+                            DataBaseHelper dbHelper = DataBaseHelper.getInstance(SplashActivity.this);
+                            dbHelper.dropAllTables();
+                            SharedPref.removeAll(getApplicationContext());
+
+                            SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 1);
+                            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                            Bungee.fade(SplashActivity.this);
+                        }
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
                     }
                 }
                 catch (Exception e){
