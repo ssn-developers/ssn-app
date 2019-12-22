@@ -443,7 +443,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         replyMessageTV = findViewById(R.id.replyMessageTV);
         closeIV = findViewById(R.id.closeIV);
         newMessageTV = findViewById(R.id.newMessageTV);
-        final ViewGroup layout = findViewById(R.id.messageEditLL);
+        /*final ViewGroup layout = findViewById(R.id.messageEditLL);
         LayoutTransition layoutTransition = layout.getLayoutTransition();
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
         layoutTransition.addTransitionListener(new LayoutTransition.TransitionListener() {
@@ -453,7 +453,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
             public void endTransition(LayoutTransition transition, ViewGroup container, View view, int transitionType) {
                 messageET.requestFocus();
             }
-        });
+        });*/
         layoutManager = new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
         layoutManager.setStackFromEnd(true);
         chatRV.setLayoutManager(layoutManager);
@@ -461,7 +461,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                lastScrollPosition = layoutManager.findLastCompletelyVisibleItemPosition();
+                lastScrollPosition = layoutManager.findLastVisibleItemPosition();
                 if(lastScrollPosition<messageList.size()-1){
                     newMessageFAB.show();
                 }else{
