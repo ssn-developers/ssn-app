@@ -139,12 +139,6 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 onBackPressed();
             }
         });
-        chatRV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                System.out.println("Chat view clicked");
-            }
-        });
     }
 
     void initMessages(){
