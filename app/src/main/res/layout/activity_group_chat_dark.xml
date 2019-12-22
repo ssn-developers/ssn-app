@@ -48,7 +48,7 @@
 				android:textSize="16sp"
 				android:textColor="@android:color/white"
 				android:fontFamily="@font/open_sans_extrabold"
-				android:text="Group chat"/>
+				android:text="Global chat"/>
 			<ProgressBar
 				android:layout_width="20dp"
 				android:layout_height="20dp"
