@@ -231,7 +231,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 nodes = (Map<String, Object>) dataSnapshot.getValue();
-                CommonUtils.setIs_blocked((Boolean) nodes.get("is_block"));
+                try {
+                    CommonUtils.setIs_blocked((Boolean) nodes.get("overall"));
+                    CommonUtils.setGlobal_chat_is_blocked((Boolean) nodes.get("global_chat"));
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+
                 if(CommonUtils.getIs_blocked()){
                     startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
                     Bungee.fade(SplashActivity.this);

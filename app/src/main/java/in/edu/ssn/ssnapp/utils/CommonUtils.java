@@ -77,6 +77,7 @@ import static com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBeha
 public class CommonUtils {
 
     private static Boolean is_blocked = false;
+    private static Boolean global_chat_is_blocked = false;
     public static Typeface regular, bold, semi_bold;
 
     public static void initFonts(Context context, View view){
@@ -592,8 +593,16 @@ public class CommonUtils {
         return is_blocked;
     }
 
+    public static Boolean getGlobal_chat_is_blocked() {
+        return global_chat_is_blocked;
+    }
+
     public static void setIs_blocked(Boolean is_blocked) {
         CommonUtils.is_blocked = is_blocked;
+    }
+
+    public static void setGlobal_chat_is_blocked(Boolean is_blocked) {
+        CommonUtils.global_chat_is_blocked= is_blocked;
     }
 
     public static void isDebug(){
