@@ -104,3 +104,8 @@
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
 }
+
+-keep class in.edu.ssn.ssnapp.message_utils.** {*;}
+-keepclasseswithmembers class * {
+    @in.edu.ssn.ssnapp.message_utils.* <methods>;
+}
