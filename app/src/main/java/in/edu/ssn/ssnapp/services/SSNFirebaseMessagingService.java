@@ -110,7 +110,7 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                     new_message_count+=1;
                     SharedPref.putInt(getApplicationContext(),"new_message_count",new_message_count);
                     Intent intent=new Intent(this, GroupChatActivity.class);
-                    String title = "Group Chat";
+                    String title = "Global Chat";
                     String msg = "";
                     if(new_message_count==1){
                         msg="1 new message";
