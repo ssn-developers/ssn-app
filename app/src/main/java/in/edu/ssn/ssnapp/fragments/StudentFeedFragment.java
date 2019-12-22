@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,16 +31,21 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.firebase.ui.firestore.SnapshotParser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
 
+import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
+import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -56,8 +62,8 @@ public class StudentFeedFragment extends Fragment {
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
     private TextView newPostTV, linkTitleTV2;
-    private CardView syllabusCV,libraryCV,calenderCV,lmsCV;
-    private String dept,year;
+    private CardView syllabusCV,libraryCV,lakshyaCV,lmsCV;
+    private String dept;
     boolean darkMode = false;
 
     @Override
@@ -84,7 +90,6 @@ public class StudentFeedFragment extends Fragment {
         });
 
         dept = SharedPref.getString(getContext(),"dept");
-        year = String.valueOf(SharedPref.getInt(getContext(),"year"));
         libraryCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,14 +102,24 @@ public class StudentFeedFragment extends Fragment {
                 }
             }
         });
-        calenderCV.setOnClickListener(new View.OnClickListener() {
+        lakshyaCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (!CommonUtils.alerter(getContext())) {
-                    Intent i = new Intent(getContext(), PdfViewerActivity.class);
-                    i.putExtra(Constants.PDF_URL, Constants.calendar);
-                    startActivity(i);
-                    Bungee.fade(getContext());
+                    FirebaseFirestore.getInstance().collection(Constants.collection_club).whereEqualTo("name", Constants.lakshya).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        @Override
+                        public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                            if(queryDocumentSnapshots != null) {
+                                DocumentSnapshot ds = queryDocumentSnapshots.getDocuments().get(0);
+                                Club model = CommonUtils.getClubFromSnapshot(getContext(), ds);
+
+                                Intent intent = new Intent(getContext(), ClubPageActivity.class);
+                                intent.putExtra("data", model);
+                                getContext().startActivity(intent);
+                                Bungee.slideLeft(getContext());
+                            }
+                        }
+                    });
                 }
                 else {
                     Intent intent = new Intent(getContext(), NoNetworkActivity.class);
@@ -130,7 +145,8 @@ public class StudentFeedFragment extends Fragment {
         syllabusCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(year.equals(Constants.third) || year.equals(Constants.fourth)){
+                int year = SharedPref.getInt(getContext(),"year");
+                if(year == 2016 || year == 2017) {
                     switch(dept) {
                         case "cse":
                             openSyllabus(Constants.cseAU);
@@ -340,7 +356,7 @@ public class StudentFeedFragment extends Fragment {
         syllabusCV = view.findViewById(R.id.syllabusCV);
         libraryCV = view.findViewById(R.id.libraryCV);
         lmsCV = view.findViewById(R.id.lmsCV);
-        calenderCV = view.findViewById(R.id.calenderCV);
+        lakshyaCV = view.findViewById(R.id.lakshyaCV);
 
         linkTitleTV2 = view.findViewById(R.id.linkTitleTV2);
         linkTitleTV2.setSelected(true);

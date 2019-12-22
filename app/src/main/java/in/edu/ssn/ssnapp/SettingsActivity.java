@@ -31,7 +31,7 @@ public class SettingsActivity extends BaseActivity {
 
     private int clearance = 0;
     SwitchButton darkmodeSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB, chatSB, notifSwitch;
-    TextView eventsTV, almaconnectTV, helplineTV, contributorTV, feedbackTV, inviteTV, ratingTV, updatesTV, privacyTV, logoutTV;
+    TextView eventsTV, almaconnectTV, helplineTV, contributorTV, feedbackTV, inviteTV, ratingTV, updatesTV, privacyTV, logoutTV, calendar_TV;
     RelativeLayout newsfeedRL, busalertRL, examcellRL, placementsRL, eventsRL, chatRL;
     LinearLayout notificationLL;
     RelativeLayout almaconnectRL, facultyRL;
@@ -47,7 +47,6 @@ public class SettingsActivity extends BaseActivity {
         } else
             setContentView(R.layout.activity_settings);
 
-        //login clearance
         clearance = SharedPref.getInt(getApplicationContext(), "clearance");
 
         initUI(clearance);
@@ -100,6 +99,16 @@ public class SettingsActivity extends BaseActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), AppInfoActivity.class));
                 Bungee.slideLeft(SettingsActivity.this);
+            }
+        });
+
+        calendar_TV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), PdfViewerActivity.class);
+                i.putExtra(Constants.PDF_URL, Constants.calendar);
+                startActivity(i);
+                Bungee.fade(SettingsActivity.this);
             }
         });
         //make a suggestion
@@ -180,7 +189,7 @@ public class SettingsActivity extends BaseActivity {
                 }
             }
         });
-        
+
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,6 +218,7 @@ public class SettingsActivity extends BaseActivity {
         logoutTV = (TextView) findViewById(R.id.logoutTV);
         updatesTV = (TextView) findViewById(R.id.updatesTV);
         contributorTV = (TextView) findViewById(R.id.contributors_TV);
+        calendar_TV = (TextView) findViewById(R.id.calendar_TV);
 
         newsfeedRL = (RelativeLayout) findViewById(R.id.newsfeedRL);
         busalertRL = (RelativeLayout) findViewById(R.id.busalertRL);
@@ -247,9 +257,11 @@ public class SettingsActivity extends BaseActivity {
             if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth)) {
                 placementsSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_place"));
                 placementsRL.setVisibility(View.VISIBLE);
-            }
-            else
+            } else
                 placementsRL.setVisibility(View.GONE);
+
+            chatSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_global_chat"));
+            chatRL.setVisibility(View.VISIBLE);
         }
 
         //for PostGraduate...
@@ -260,23 +272,18 @@ public class SettingsActivity extends BaseActivity {
             eventsSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_event"));
             eventsRL.setVisibility(View.VISIBLE);
 
+            chatSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_global_chat"));
+            chatRL.setVisibility(View.VISIBLE);
+
             placementsRL.setVisibility(View.GONE);
             newsfeedRL.setVisibility(View.GONE);
             examcellRL.setVisibility(View.GONE);
         }
-        
-        //for Alumni...
+
         if (clearance == 2 || clearance == 3) {
             notifSwitch.setChecked(SharedPref.getBoolean(getApplicationContext(), "notif_switch"));
             facultyRL.setVisibility(View.VISIBLE);
             notificationLL.setVisibility(View.GONE);
-        }
-
-        if(clearance!=3){
-            chatSB.setChecked(SharedPref.getBoolean(getApplicationContext(), "switch_global_chat"));
-            chatRL.setVisibility(View.VISIBLE);
-        }else{
-            chatRL.setVisibility(View.GONE);
         }
     }
 
@@ -287,6 +294,9 @@ public class SettingsActivity extends BaseActivity {
         if (clearance == 0) {
             SharedPref.putBoolean(getApplicationContext(), "switch_dept", newsfeedSB.isChecked());
             SharedPref.putBoolean(getApplicationContext(), "switch_exam", examcellSB.isChecked());
+            SharedPref.putBoolean(getApplicationContext(), "switch_bus", busalertSB.isChecked());
+            SharedPref.putBoolean(getApplicationContext(), "switch_event", eventsSB.isChecked());
+            SharedPref.putBoolean(getApplicationContext(), "switch_global_chat", chatSB.isChecked());
 
             if (newsfeedSB.isChecked())
                 FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year"));
@@ -297,11 +307,6 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.SubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "exam");
             else
                 FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "exam");
-        }
-
-        if(clearance < 2) {
-            SharedPref.putBoolean(getApplicationContext(), "switch_bus", busalertSB.isChecked());
-            SharedPref.putBoolean(getApplicationContext(), "switch_event", eventsSB.isChecked());
 
             if (busalertSB.isChecked()) {
                 FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
@@ -312,6 +317,11 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.SubscribeToTopic(this, Constants.Event);
             else
                 FCMHelper.UnSubscribeToTopic(this, Constants.Event);
+
+            if (chatSB.isChecked())
+                FCMHelper.SubscribeToTopic(getApplicationContext(), Constants.GLOBAL_CHAT);
+            else
+                FCMHelper.UnSubscribeToTopic(getApplicationContext(), Constants.GLOBAL_CHAT);
         }
 
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth)) {
@@ -323,15 +333,40 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "place");
         }
 
-        if (clearance == 2) {
-            SharedPref.putBoolean(getApplicationContext(), "notif_switch", notifSwitch.isChecked());
+        if(clearance == 1){
+            SharedPref.putBoolean(getApplicationContext(), "switch_bus", busalertSB.isChecked());
+            SharedPref.putBoolean(getApplicationContext(), "switch_event", eventsSB.isChecked());
+            SharedPref.putBoolean(getApplicationContext(), "switch_global_chat", chatSB.isChecked());
 
-            if (notifSwitch.isChecked())
+            if (busalertSB.isChecked()) {
+                FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
+            } else
+                FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
+
+            if (eventsSB.isChecked())
                 FCMHelper.SubscribeToTopic(this, Constants.Event);
             else
                 FCMHelper.UnSubscribeToTopic(this, Constants.Event);
+
+            if (chatSB.isChecked())
+                FCMHelper.SubscribeToTopic(getApplicationContext(), Constants.GLOBAL_CHAT);
+            else
+                FCMHelper.UnSubscribeToTopic(getApplicationContext(), Constants.GLOBAL_CHAT);
         }
-        else if (clearance == 3) {
+
+        if (clearance == 2) {
+            SharedPref.putBoolean(getApplicationContext(), "notif_switch", notifSwitch.isChecked());
+
+            if (notifSwitch.isChecked()) {
+                FCMHelper.SubscribeToTopic(this, Constants.Event);
+                FCMHelper.SubscribeToTopic(this, Constants.GLOBAL_CHAT);
+            } else {
+                FCMHelper.UnSubscribeToTopic(this, Constants.Event);
+                FCMHelper.UnSubscribeToTopic(this, Constants.GLOBAL_CHAT);
+            }
+        }
+
+        if (clearance == 3) {
             SharedPref.putBoolean(getApplicationContext(), "notif_switch", notifSwitch.isChecked());
 
             if (notifSwitch.isChecked())
@@ -339,22 +374,12 @@ public class SettingsActivity extends BaseActivity {
             else
                 FCMHelper.UnSubscribeToTopic(this, Constants.BUS_ALERTS);
         }
-
-        //Saving global chat preference
-        if(clearance!=3){
-            SharedPref.putBoolean(getApplicationContext(), "switch_global_chat",chatSB.isChecked());
-            if(chatSB.isChecked()){
-                FCMHelper.SubscribeToTopic(getApplicationContext(),Constants.GLOBAL_CHAT);
-            }else{
-                FCMHelper.UnSubscribeToTopic(getApplicationContext(),Constants.GLOBAL_CHAT);
-            }
-        }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        
+
         super.darkModeEnabled = SharedPref.getBoolean(getApplicationContext(), "dark_mode");
         Bungee.slideRight(SettingsActivity.this);
     }

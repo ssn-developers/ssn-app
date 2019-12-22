@@ -160,19 +160,18 @@ public class ClubFragment extends Fragment {
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
                 holder.nameTV.setText(model.getName());
                 holder.descriptionTV.setText(model.getDescription());
-                FCMHelper.SubscribeToTopic(getContext(),"club_" + model.getId());
+                FCMHelper.SubscribeToTopic(getContext(), "club_" + model.getId());
 
                 try {
                     Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.dpIV);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     holder.dpIV.setImageResource(R.color.shimmering_back);
                 }
 
                 holder.lottie.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String email = SharedPref.getString(getContext(),"email");
+                        String email = SharedPref.getString(getContext(), "email");
                         FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(email));
                         model.getFollowers().remove(email);
                         subscribed_clubs.add(model);
@@ -239,13 +238,14 @@ public class ClubFragment extends Fragment {
                         Club c = clubs.get(i);
                         if (email != null && c.getFollowers().contains(email)) {
                             shimmer_view.setVisibility(View.VISIBLE);
-                            FCMHelper.SubscribeToTopic(getContext(),"club_" + c.getId());
+                            FCMHelper.SubscribeToTopic(getContext(), "club_" + c.getId());
                             subscribed_clubs.add(c);
                             clubs.remove(i);
                             i--;
                         }
                         else
-                            FCMHelper.UnSubscribeToTopic(getContext(),"club_" + c.getId());
+                            FCMHelper.UnSubscribeToTopic(getContext(), "club_" + c.getId());
+
                     }
                     adapter = new UnSubscribeAdapter(getContext(), clubs);
                     unsubs_RV.setAdapter(adapter);
@@ -331,7 +331,7 @@ public class ClubFragment extends Fragment {
 
         public FeedViewHolder(View itemView) {
             super(itemView);
-            
+
             nameTV = itemView.findViewById(R.id.nameTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
             dpIV = itemView.findViewById(R.id.dpIV);

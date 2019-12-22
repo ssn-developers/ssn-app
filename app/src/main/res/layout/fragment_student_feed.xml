@@ -168,7 +168,7 @@
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/calenderCV"
+                    android:id="@+id/lakshyaCV"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_12sdp"
@@ -190,7 +190,7 @@
                             android:layout_width="@dimen/_20sdp"
                             android:layout_height="@dimen/_20sdp"
                             android:tint="@color/colorAccent"
-                            android:src="@drawable/ic_calendar_white"
+                            android:src="@drawable/ic_people"
                             android:id="@+id/iconIV4"/>
                         <View
                             android:layout_width="wrap_content"
@@ -203,7 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/open_sans_bold"
-                            android:text="Calender"
+                            android:text="Lakshya"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/_14sdp" />

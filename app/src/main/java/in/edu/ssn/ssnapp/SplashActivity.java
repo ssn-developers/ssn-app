@@ -246,7 +246,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     void setUpCrashReport() {
-        // only enable bug tracking in release version
+        //only enable bug tracking in release version
         if (!BuildConfig.DEBUG) {
             //https://stackoverflow.com/a/49836972/10664312
             Fabric.with(this, new Crashlytics());

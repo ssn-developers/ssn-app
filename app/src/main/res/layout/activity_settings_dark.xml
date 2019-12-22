@@ -455,6 +455,26 @@
                 android:textSize="@dimen/_14sdp" />
 
             <TextView
+                android:id="@+id/calendar_TV"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_40sdp"
+                android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:fontFamily="@font/open_sans"
+                android:singleLine="true"
+                android:text="Calendar"
+                android:textColor="@color/darkTextColorLight"
+                android:textSize="@dimen/_13sdp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:background="@color/divider_line_color_dark" />
+
+            <TextView
                 android:id="@+id/contributors_TV"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_40sdp"

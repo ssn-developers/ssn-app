@@ -78,6 +78,7 @@
             android:theme="@style/AppTheme1" />
         <activity
             android:name=".ClubPostDetailsActivity"
+            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NoNetworkActivity"

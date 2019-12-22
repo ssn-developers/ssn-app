@@ -2,6 +2,9 @@ package in.edu.ssn.ssnapp.utils;
 
 // All the immutable constants must be included in this file
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Constants {
 
     //TODO: change to 'false' when releasing the app
@@ -58,6 +61,13 @@ public class Constants {
     public static final int post_club = 4;
     public static final int exam_cell = 5;
     public static final int event = 6;
+
+    public static final String lakshya = "Lakshya";
+    public static ArrayList<String> fresher_email = new ArrayList<String>(Arrays.asList(
+            "ssnsection1@gmail.com", "ssn2019_s2@googlegroups.com", "s3ssn2019@gmail.com",
+            "ssns4.1923@gmail.com", "ssns62019@gmail.com", "ssnsections7@gmail.com",
+            "s8ssnfamily@gmail.com", "ssns9@yahoo.com", "s10ssn2k19@gmail.com",
+            "engchems11@gmail.com", "s12ssn2019@gmail.com", "ssnsection13@gmail.com"));
 
     // collection name
     public static String collection_club="club";

@@ -119,8 +119,10 @@ public class CommonUtils {
     public static void UnSubscribeToAlerts(Context context) {
         if(SharedPref.getInt(context,"clearance") != 2)
             FCMHelper.UnSubscribeToTopic(context, Constants.BUS_ALERTS);
-        if(SharedPref.getInt(context,"clearance") != 3)
+        if(SharedPref.getInt(context,"clearance") != 3) {
             FCMHelper.UnSubscribeToTopic(context, Constants.Event);
+            FCMHelper.UnSubscribeToTopic(context, Constants.GLOBAL_CHAT);
+        }
         if(SharedPref.getInt(context,"clearance") == 0) {
             FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
             FCMHelper.UnSubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");

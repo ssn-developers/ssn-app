@@ -63,6 +63,7 @@ public class ExamCellFragment extends Fragment {
 
     RecyclerView feedsRV;
     LinearLayoutManager layoutManager;
+    LinearLayout linearlayout1;
     RelativeLayout layout_progress;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
@@ -251,6 +252,14 @@ public class ExamCellFragment extends Fragment {
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
+        linearlayout1 = view.findViewById(R.id.linearlayout1);
+
+        int year = SharedPref.getInt(getContext(),"year");
+        if(year > 2017)
+            linearlayout1.setVisibility(View.VISIBLE);
+        else
+            linearlayout1.setVisibility(View.GONE);
+
         gpaCV = view.findViewById(R.id.gpaCV);
         passmarkCV = view.findViewById(R.id.passmarkCV);
         linkTitleTV1 = view.findViewById(R.id.linkTitleTV1);

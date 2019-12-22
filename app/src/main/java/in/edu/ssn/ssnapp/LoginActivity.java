@@ -168,14 +168,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
                 Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
                 Matcher m_s = pat_s.matcher(acct.getEmail());
-                Pattern pat_s1 = Pattern.compile("(@ssn.in)$");
-                Matcher m_s1 = pat_s1.matcher(acct.getEmail());
 
                 Pattern pat_f = Pattern.compile("(@ssn.edu.in)$");
                 Matcher m_f = pat_f.matcher(acct.getEmail());
 
                 if(clearance == 0) {
-                    if (m_s.find() || m_s1.find()) {
+                    if (m_s.find() || Constants.fresher_email.contains(acct.getEmail())) {
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -284,8 +282,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
         FCMHelper.SubscribeToTopic(this, Constants.Event);
+        FCMHelper.SubscribeToTopic(this, Constants.GLOBAL_CHAT);
+
         SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_global_chat",true);
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
@@ -308,6 +309,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putInt(getApplicationContext(),"dont_delete","is_logged_in",2);
 
         FCMHelper.SubscribeToTopic(this, Constants.Event);
+        FCMHelper.SubscribeToTopic(this, Constants.GLOBAL_CHAT);
         SharedPref.putBoolean(getApplicationContext(), "notif_switch", true);
 
         layout_progress.setVisibility(View.GONE);
@@ -374,11 +376,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             SharedPref.putBoolean(getApplicationContext(), "switch_place", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_exam", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
+        SharedPref.putBoolean(getApplicationContext(), "switch_global_chat",true);
     }
 
     public void SubscribeToAlerts(Context context){
         FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.Event);
+        FCMHelper.SubscribeToTopic(context, Constants.GLOBAL_CHAT);
+
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
 
