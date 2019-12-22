@@ -54,12 +54,11 @@ public class GPACalculatorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(darkModeEnabled){
+        if (darkModeEnabled) {
             setContentView(R.layout.activity_gpa_calculator_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
-        }
-        else
+        } else
             setContentView(R.layout.activity_gpa_calculator);
 
         new getDepartmentSubjects().execute();
@@ -90,15 +89,15 @@ public class GPACalculatorActivity extends BaseActivity {
     }
 
     private void calculateAndDisplay() {
-        float gpa=0;
+        float gpa = 0;
         float totalCreditsGained = 0;
         float totalCredits = 0;
-        for(int i=0; i<subjects.size(); i++) {
+        for (int i = 0; i < subjects.size(); i++) {
             totalCreditsGained += subjects.get(i).getGrade() * subjects.get(i).getCredits();
             totalCredits += subjects.get(i).getCredits();
         }
 
-        gpa = totalCreditsGained/totalCredits;
+        gpa = totalCreditsGained / totalCredits;
         gpaRL.setVisibility(View.VISIBLE);
         gpaTV.setText(String.format("%.2f", gpa));
     }
@@ -109,32 +108,32 @@ public class GPACalculatorActivity extends BaseActivity {
         protected void onPreExecute() {
             super.onPreExecute();
 
-            semester = getIntent().getIntExtra("sem",0);
-            String department = SharedPref.getString(getApplicationContext(),"dept");
-            switch (department){
+            semester = getIntent().getIntExtra("sem", 0);
+            String department = SharedPref.getString(getApplicationContext(), "dept");
+            switch (department) {
                 case "cse":
-                    dept=0;
+                    dept = 0;
                     break;
                 case "it":
-                    dept=1;
+                    dept = 1;
                     break;
                 case "ece":
-                    dept=2;
+                    dept = 2;
                     break;
                 case "eee":
-                    dept=3;
+                    dept = 3;
                     break;
                 case "bme":
-                    dept=4;
+                    dept = 4;
                     break;
                 case "che":
-                    dept=5;
+                    dept = 5;
                     break;
                 case "civ":
-                    dept=6;
+                    dept = 6;
                     break;
                 case "mec":
-                    dept=7;
+                    dept = 7;
                     break;
             }
         }
@@ -154,12 +153,11 @@ public class GPACalculatorActivity extends BaseActivity {
                 JSONObject obj2 = (JSONObject) arr1.get(semester);
 
                 semesterSubjects = new Gson().fromJson(obj2.toString(), DepartmentSubjects.SemesterSubjects.class);
-                if(semesterSubjects != null)
+                if (semesterSubjects != null)
                     subjects = semesterSubjects.getSubjects();
 
-                adapter = new SubjectsAdapter(getApplicationContext(),subjects);
-            }
-            catch (Exception e) {
+                adapter = new SubjectsAdapter(getApplicationContext(), subjects);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
