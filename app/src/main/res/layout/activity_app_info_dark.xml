@@ -256,7 +256,7 @@
             android:text="@string/fb_page_detail"/>
 
         <TextView
-            android:id="@+id/textUrlTV"
+            android:id="@+id/textfbUrlTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text7TV"
@@ -264,6 +264,18 @@
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/open_sans_bold"
             android:text="@string/app_fb_page"
+            android:textColor="@color/colorAccentDark"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:id="@+id/textinstaUrlTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textfbUrlTV"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/app_insta_page"
             android:textColor="@color/colorAccentDark"
             android:layout_marginBottom="@dimen/_10sdp"
             android:textSize="@dimen/_12ssp" />
