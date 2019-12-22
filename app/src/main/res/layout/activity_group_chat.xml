@@ -232,6 +232,7 @@
 				android:padding="4dp"
 				android:id="@+id/sendIV"
 				android:visibility="visible"
+				android:fitsSystemWindows="true"
 				android:clickable="true"
 				android:background="?selectableItemBackgroundBorderless"
 				android:layout_gravity="center"

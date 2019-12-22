@@ -120,8 +120,22 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.chatIV:
-                startActivity(new Intent(getApplicationContext(), GroupChatActivity.class));
-                Bungee.slideLeft(StudentHomeActivity.this);
+                if(CommonUtils.getGlobal_chat_is_blocked()){
+                    Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                    chatIV.setVisibility(View.GONE);
+                    newMessageCountTV.setVisibility(View.GONE);
+                }else {
+                    if(!CommonUtils.alerter(getApplicationContext())){
+                        startActivity(new Intent(getApplicationContext(), GroupChatActivity.class));
+                        Bungee.slideLeft(StudentHomeActivity.this);
+                    }else{
+                        Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                        intent.putExtra("key", "home");
+                        startActivity(intent);
+                        Bungee.fade(StudentHomeActivity.this);
+                    }
+
+                }
                 break;
             case R.id.favIV:
                 startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
@@ -163,7 +177,15 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onResume() {
         super.onResume();
-        updateNewMessageUI();
+        if(!CommonUtils.getGlobal_chat_is_blocked()){
+            newMessageCountTV.setVisibility(View.VISIBLE);
+            chatIV.setVisibility(View.VISIBLE);
+            updateNewMessageUI();
+        }else{
+            newMessageCountTV.setVisibility(View.GONE);
+            chatIV.setVisibility(View.GONE);
+        }
+
         SharedPref.putBoolean(getApplicationContext(),"isStudHomeActive",true);
         if (CommonUtils.alerter(getApplicationContext())) {
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);

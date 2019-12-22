@@ -11,6 +11,7 @@ import android.app.NotificationManager;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -53,7 +54,9 @@ import in.edu.ssn.ssnapp.message_utils.ReceivedReplyHolder;
 import in.edu.ssn.ssnapp.message_utils.SentReplyHolder;
 import in.edu.ssn.ssnapp.message_utils.SwipeController;
 import in.edu.ssn.ssnapp.message_utils.Utils;
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
+import spencerstudios.com.bungeelib.Bungee;
 
 public class GroupChatActivity extends BaseActivity implements MessageListener {
 
@@ -100,10 +103,22 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         sendIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!TextUtils.isEmpty(messageET.getText().toString().trim())) {
-                    chatHelper.sendMessage(messageET.getText().toString(),replyMode,replyMessage);
-                    messageET.setText("");
-                    closeReplyUI();
+                if(!CommonUtils.getGlobal_chat_is_blocked()) {
+                    if(!CommonUtils.alerter(getApplicationContext())) {
+                        if (!TextUtils.isEmpty(messageET.getText().toString().trim())) {
+                            chatHelper.sendMessage(messageET.getText().toString(), replyMode, replyMessage);
+                            messageET.setText("");
+                            closeReplyUI();
+                        }
+                    }else {
+                        Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                        intent.putExtra("key", "home");
+                        startActivity(intent);
+                        Bungee.fade(GroupChatActivity.this);
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
             }
         });
@@ -266,8 +281,22 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         deleteIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chatHelper.removeMessage(message);
-                closeMessageOptionUI();
+                if(!CommonUtils.alerter(getApplicationContext())) {
+                    if(CommonUtils.getGlobal_chat_is_blocked()){
+                        Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }else{
+                        chatHelper.removeMessage(message);
+                        closeMessageOptionUI();
+                    }
+
+                }
+                else {
+                    Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                    intent.putExtra("key", "home");
+                    startActivity(intent);
+                    Bungee.fade(GroupChatActivity.this);
+                }
             }
         });
 
@@ -359,6 +388,15 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         super.onResume();
         clearChatNotification();
         SharedPref.putBoolean(getApplicationContext(),"isChatActive",true);
+        if(CommonUtils.alerter(getApplicationContext())) {
+            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+            intent.putExtra("key", "home");
+            startActivity(intent);
+            Bungee.fade(GroupChatActivity.this);
+        }
+        /*if(CommonUtils.getGlobal_chat_is_blocked()){
+            onBackPressed();
+        }*/
     }
 
     @Override
@@ -429,8 +467,20 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 int id = layoutManager.findFirstCompletelyVisibleItemPosition();
                 if(id==0 && !fullChatRead && pageLoaded){
                     //getting next page when scrolled to top
-                    pageLoaded=false;
-                    getMessages(next);
+                    if(CommonUtils.getGlobal_chat_is_blocked()){
+                        Toast.makeText(getApplicationContext(),"Global chat is under maintenance. Please try again after some time",Toast.LENGTH_SHORT).show();
+                        onBackPressed();
+                    }else {
+                        if(!CommonUtils.alerter(getApplicationContext())) {
+                            pageLoaded = false;
+                            getMessages(next);
+                        }else{
+                            Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
+                            intent.putExtra("key", "home");
+                            startActivity(intent);
+                            Bungee.fade(GroupChatActivity.this);
+                        }
+                    }
                 }
             }
         });

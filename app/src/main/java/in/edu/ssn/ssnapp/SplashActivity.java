@@ -234,14 +234,14 @@ public class SplashActivity extends AppCompatActivity {
                 try {
                     CommonUtils.setIs_blocked((Boolean) nodes.get("overall"));
                     CommonUtils.setGlobal_chat_is_blocked((Boolean) nodes.get("global_chat"));
+
+                    if(CommonUtils.getIs_blocked()){
+                        startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
+                        Bungee.fade(SplashActivity.this);
+                    }
                 }
                 catch (Exception e){
                     e.printStackTrace();
-                }
-
-                if(CommonUtils.getIs_blocked()){
-                    startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
-                    Bungee.fade(SplashActivity.this);
                 }
             }
 
