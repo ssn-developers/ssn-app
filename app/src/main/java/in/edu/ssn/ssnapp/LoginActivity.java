@@ -173,7 +173,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Matcher m_f = pat_f.matcher(acct.getEmail());
 
                 if(clearance == 0) {
-                    if (m_s.find() || Constants.fresher_email.contains(acct.getEmail())) {
+                    if (m_s.find() || (Constants.fresher_email.contains(acct.getEmail()) && !CommonUtils.getNon_ssn_email_is_blocked())) {
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override

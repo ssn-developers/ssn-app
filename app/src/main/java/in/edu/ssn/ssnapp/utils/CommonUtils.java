@@ -78,6 +78,7 @@ public class CommonUtils {
 
     private static Boolean is_blocked = false;
     private static Boolean global_chat_is_blocked = false;
+    private static Boolean non_ssn_email_is_blocked = false;
     public static Typeface regular, bold, semi_bold;
 
     public static void initFonts(Context context, View view){
@@ -149,7 +150,6 @@ public class CommonUtils {
                     .first()
                     .ownText();
 
-            Log.d("test_set", version);
             return version;
         } catch (Exception e) {
             e.printStackTrace();
@@ -164,7 +164,6 @@ public class CommonUtils {
             customTabsIntent.intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             customTabsIntent.launchUrl(context, Uri.parse(url));
             builder.setToolbarColor(context.getResources().getColor(R.color.colorAccent));
-
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -597,12 +596,20 @@ public class CommonUtils {
         return global_chat_is_blocked;
     }
 
+    public static Boolean getNon_ssn_email_is_blocked() {
+        return non_ssn_email_is_blocked;
+    }
+
     public static void setIs_blocked(Boolean is_blocked) {
         CommonUtils.is_blocked = is_blocked;
     }
 
     public static void setGlobal_chat_is_blocked(Boolean is_blocked) {
-        CommonUtils.global_chat_is_blocked= is_blocked;
+        CommonUtils.global_chat_is_blocked = is_blocked;
+    }
+
+    public static void setNon_ssn_email_is_blocked(Boolean is_blocked) {
+        CommonUtils.non_ssn_email_is_blocked = is_blocked;
     }
 
     public static void isDebug(){

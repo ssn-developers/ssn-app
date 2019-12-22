@@ -61,7 +61,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.2.1'
     implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-database:19.2.0'
-    implementation 'com.google.firebase:firebase-firestore:21.3.0'
+    implementation 'com.google.firebase:firebase-firestore:21.3.1'
     implementation 'com.google.firebase:firebase-storage:19.1.0'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
     implementation 'com.google.firebase:firebase-analytics:17.2.1'
@@ -83,6 +83,8 @@ dependencies {
     implementation files('libs/com.sahurjt.objectcsv.jar')
     implementation 'com.github.zcweng:switch-button:0.0.3@aar'
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
+    //check once after updating the library as 1.2.0 not working!
     implementation 'androidx.browser:browser:1.0.0'
 }
 
