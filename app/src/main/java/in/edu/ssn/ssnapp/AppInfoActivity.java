@@ -29,7 +29,7 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
     ArrayList<TeamDetails> teams1, teams2;
     ArrayList<AlumniDetails> alumni;
     ImageView webIV, fbIV, twitIV, linkedinIV, instaIV;
-    TextView textUrlTV, text6TV;
+    TextView textfbUrlTV,textinstaUrlTV , text6TV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +37,9 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         if(darkModeEnabled){
             setContentView(R.layout.activity_app_info_dark);
             clearLightStatusBar(this);
-        }else {
-            setContentView(R.layout.activity_app_info);
         }
+        else
+            setContentView(R.layout.activity_app_info);
 
         ScrollView scroll_view = findViewById(R.id.scroll_view);
         scroll_view.smoothScrollTo(0,0);
@@ -71,7 +71,8 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         twitIV = findViewById(R.id.twitIV);           twitIV.setOnClickListener(this);
         linkedinIV = findViewById(R.id.linkedinIV);   linkedinIV.setOnClickListener(this);
         instaIV = findViewById(R.id.instaIV);         instaIV.setOnClickListener(this);
-        textUrlTV = findViewById(R.id.textUrlTV);     textUrlTV.setOnClickListener(this);
+        textfbUrlTV = findViewById(R.id.textfbUrlTV);           textfbUrlTV.setOnClickListener(this);
+        textinstaUrlTV = findViewById(R.id.textinstaUrlTV);     textinstaUrlTV.setOnClickListener(this);
 
         text6TV = findViewById(R.id.text6TV);
         text6TV.setSelected(true);
@@ -174,8 +175,11 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
                 case R.id.instaIV:
                     CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.instagram.com/ssninstitutions");
                     break;
-                case R.id.textUrlTV:
+                case R.id.textfbUrlTV:
                     CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.facebook.com/ssnceapp");
+                    break;
+                case R.id.textinstaUrlTV:
+                    CommonUtils.openCustomBrowser(getApplicationContext(),"https://www.instagram.com/ssnce_app");
                     break;
             }
         }
