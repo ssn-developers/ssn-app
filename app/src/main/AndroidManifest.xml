@@ -42,7 +42,8 @@
 
         <activity
             android:name=".GroupChatActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/ChatTheme"/>
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait"

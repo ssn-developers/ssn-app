@@ -56,4 +56,14 @@
 		<item name="android:fontFamily">@font/open_sans</item>
 	</style>
 
+	<style name="ChatTheme" parent="Theme.MaterialComponents.Light">
+		<!-- Customize your theme here. -->
+		<item name="colorPrimary">@android:color/white</item>
+		<item name="colorPrimaryDark">@android:color/white</item>
+		<item name="colorAccent">@color/colorAccent</item>
+		<item name="android:windowLightStatusBar">true</item>
+		<item name="android:windowContentTransitions">true</item>
+	</style>
+
+
 </resources>

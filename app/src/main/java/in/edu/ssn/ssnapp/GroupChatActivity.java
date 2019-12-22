@@ -45,6 +45,7 @@ import com.hendraanggrian.appcompat.widget.SocialEditText;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import in.edu.ssn.ssnapp.message_utils.ChatHelper;
 import in.edu.ssn.ssnapp.message_utils.ISwipeControllerActions;
@@ -418,6 +419,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
 
 
     private void initUI(){
+        Objects.requireNonNull(getSupportActionBar()).hide();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
