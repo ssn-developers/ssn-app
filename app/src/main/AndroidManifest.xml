@@ -42,7 +42,6 @@
 
         <activity
             android:name=".GroupChatActivity"
-            android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SettingsActivity"
