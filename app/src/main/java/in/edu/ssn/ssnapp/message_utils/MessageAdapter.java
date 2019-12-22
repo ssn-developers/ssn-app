@@ -29,11 +29,13 @@ public class MessageAdapter extends RecyclerView.Adapter {
 
     public MessageAdapter(Context context,
                           List<Message> messageList,
+                          OnItemClickListener onItemClickListener,
                           OnItemLongClickListener onItemLongClickListener,
                           OnReplyItemClickListener onReplyItemClickListener) {
         darkMode = SharedPref.getBoolean(context,"dark_mode");
         mContext = context;
         this.messageList = messageList;
+        this.onItemClickListener = onItemClickListener;
         this.onItemLongClickListener = onItemLongClickListener;
         this.onReplyItemClickListener = onReplyItemClickListener;
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -48,6 +50,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<Message> messageList;
     private TextDrawable.IBuilder builder;
+    private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
     private OnReplyItemClickListener onReplyItemClickListener;
 
@@ -152,8 +155,16 @@ public class MessageAdapter extends RecyclerView.Adapter {
                         return true;
                     }
                 };
+                View.OnClickListener onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onMessageClicked(((ReceivedMessageHolder) holder).itemView,holder.getAdapterPosition());
+                    }
+                };
                 ((ReceivedMessageHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
                 ((ReceivedMessageHolder) holder).itemView.setOnLongClickListener(onLongClickListener);
+                ((ReceivedMessageHolder) holder).messageTV.setOnClickListener(onClickListener);
+                ((ReceivedMessageHolder) holder).itemView.setOnClickListener(onClickListener);
                 break;
             }
             case 1:{
@@ -165,8 +176,16 @@ public class MessageAdapter extends RecyclerView.Adapter {
                         return true;
                     }
                 };
+                View.OnClickListener onClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        onItemClickListener.onMessageClicked(((SentMessageHolder) holder).itemView,holder.getAdapterPosition());
+                    }
+                };
                 ((SentMessageHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
                 ((SentMessageHolder) holder).itemView.setOnLongClickListener(onLongClickListener);
+                ((SentMessageHolder) holder).messageTV.setOnClickListener(onClickListener);
+                ((SentMessageHolder) holder).itemView.setOnClickListener(onClickListener);
                 break;
             }
             case 2:{
@@ -181,12 +200,20 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        onItemClickListener.onMessageClicked(((ReceivedReplyHolder) holder).itemView,holder.getAdapterPosition());
+                    }
+                };
+                View.OnClickListener onReplyClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         onReplyItemClickListener.onReplyMessageClicked(((ReceivedReplyHolder) holder).itemView,holder.getAdapterPosition());
                     }
                 };
                 ((ReceivedReplyHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
                 ((ReceivedReplyHolder) holder).itemView.setOnLongClickListener(onLongClickListener);
-                ((ReceivedReplyHolder) holder).replyLL.setOnClickListener(onClickListener);
+                ((ReceivedReplyHolder) holder).messageTV.setOnClickListener(onClickListener);
+                ((ReceivedReplyHolder) holder).itemView.setOnClickListener(onClickListener);
+                ((ReceivedReplyHolder) holder).replyLL.setOnClickListener(onReplyClickListener);
                 break;
             }
             case 3:{
@@ -201,15 +228,27 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        onItemClickListener.onMessageClicked(((SentReplyHolder) holder).itemView,holder.getAdapterPosition());
+                    }
+                };
+                View.OnClickListener onReplyClickListener = new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         onReplyItemClickListener.onReplyMessageClicked(((SentReplyHolder) holder).itemView,holder.getAdapterPosition());
                     }
                 };
                 ((SentReplyHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
                 ((SentReplyHolder) holder).itemView.setOnLongClickListener(onLongClickListener);
-                ((SentReplyHolder) holder).replyLL.setOnClickListener(onClickListener);
+                ((SentReplyHolder) holder).messageTV.setOnClickListener(onClickListener);
+                ((SentReplyHolder) holder).itemView.setOnClickListener(onClickListener);
+                ((SentReplyHolder) holder).replyLL.setOnClickListener(onReplyClickListener);
                 break;
             }
         }
+    }
+
+    public interface OnItemClickListener {
+        void onMessageClicked(View view, int position);
     }
 
     public interface OnItemLongClickListener {

@@ -139,6 +139,12 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 onBackPressed();
             }
         });
+        chatRV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Chat view clicked");
+            }
+        });
     }
 
     void initMessages(){
@@ -517,6 +523,14 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         adapter = new MessageAdapter(
                 getApplicationContext(),
                 messageList,
+                new MessageAdapter.OnItemClickListener() {
+                    @Override
+                    public void onMessageClicked(View view, int position) {
+                        if(optionsMode){
+                            closeMessageOptionUI();
+                        }
+                    }
+                },
                 new MessageAdapter.OnItemLongClickListener() {
                     @Override
                     public void onMessageLongClicked(View view, int position) {
