@@ -127,6 +127,7 @@
 		android:elevation="10dp"
 		android:id="@+id/messageEditLL"
 		android:background="@color/darkColor1Chat"
+		android:animateLayoutChanges="true"
 		android:layout_alignParentBottom="true"
 		android:orientation="vertical">
 
