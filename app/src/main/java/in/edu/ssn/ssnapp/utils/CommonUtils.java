@@ -81,11 +81,16 @@ public class CommonUtils {
     public static Typeface regular, bold, semi_bold;
 
     public static void initFonts(Context context, View view){
-        regular = ResourcesCompat.getFont(context, R.font.open_sans);
-        bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
-        semi_bold = ResourcesCompat.getFont(context, R.font.open_sans_semi_bold);
+        try {
+            regular = ResourcesCompat.getFont(context, R.font.open_sans);
+            bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
+            semi_bold = ResourcesCompat.getFont(context, R.font.open_sans_semi_bold);
 
-        FontChanger fontChanger = new FontChanger(bold);
+            FontChanger fontChanger = new FontChanger(bold);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     /************************************************************************/
@@ -270,7 +275,6 @@ public class CommonUtils {
         Date now = new Date();
         Long t = now.getTime() - time.getTime();
 
-        String diff_time;
         if(t < 60000)
             return Long.toString(t / 1000) + "s ago";
         else if(t < 3600000)

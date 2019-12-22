@@ -189,6 +189,12 @@ public class Post implements Parcelable {
         dest.writeString(this.author);
         dest.writeString(this.author_image_url);
         dest.writeString(this.position);
-        dest.writeLong(this.time.getTime());
+        try {
+            dest.writeLong(this.time.getTime());
+        }
+        catch (Exception e){
+            dest.writeLong(new Date().getTime());
+            e.printStackTrace();
+        }
     }
 }
