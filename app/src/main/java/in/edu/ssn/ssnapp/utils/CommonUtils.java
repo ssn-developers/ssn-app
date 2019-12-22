@@ -327,11 +327,6 @@ public class CommonUtils {
                     String name = files.get(i).get("name").trim();
                     name = name.replaceAll("%20", " ");
 
-                    StringBuffer text = new StringBuffer(name);
-                    int indexofper = name.lastIndexOf(".");
-
-                    name =  String.valueOf(text.replace( indexofper - 13, indexofper,""));
-
                     fileName.add(name);
                     fileUrl.add(files.get(i).get("url"));
                 }
@@ -367,8 +362,6 @@ public class CommonUtils {
             TreeMap<String, Boolean> sorted_year = new TreeMap<>(year);
             for (Map.Entry<String, Boolean> entry : sorted_year.entrySet()) {
                 if (entry.getValue().booleanValue()) {
-
-                    //Change it yearly once using force_update
                     if (entry.getKey().equals(Constants.fourth))
                     {
                         years.add("IV");
@@ -475,7 +468,10 @@ public class CommonUtils {
                 ArrayList<String> fileUrl = new ArrayList<>();
 
                 for (int i = 0; i < files.size(); i++) {
-                    fileName.add(files.get(i).get("name"));
+                    String name = files.get(i).get("name").trim();
+                    name = name.replaceAll("%20", " ");
+
+                    fileName.add(name);
                     fileUrl.add(files.get(i).get("url"));
                 }
                 post.setFileName(fileName);
