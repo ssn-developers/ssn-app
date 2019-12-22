@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
@@ -52,7 +53,19 @@ public class ChatHelper {
     public void sendMessage(String text, boolean replyMode, Message replyMessage){
         Message message = new Message();
         message.setSenderId(user.getUid());
-        message.setSenderName(user.getDisplayName());
+        String senderName = user.getDisplayName();
+        try {
+            System.out.println("Sender name before: " + senderName);
+            assert senderName != null;
+            senderName = senderName.replaceAll("[0-9]", "");
+            String s1 = senderName.substring(0, 1).toUpperCase();
+            String nameCapitalized = s1 + senderName.substring(1);
+            System.out.println("Sender name after: " + nameCapitalized);
+            message.setSenderName(nameCapitalized);
+        }catch (Exception e){
+            e.printStackTrace();
+            message.setSenderName(CommonUtils.getNameFromEmail(user.getEmail()));
+        }
         message.setMessage(text);
         message.setTimestamp(String.valueOf(new Date().getTime()));
         if(replyMode){
