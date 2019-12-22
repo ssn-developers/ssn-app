@@ -275,7 +275,6 @@ public class CommonUtils {
         Date now = new Date();
         Long t = now.getTime() - time.getTime();
 
-        String diff_time;
         if(t < 60000)
             return Long.toString(t / 1000) + "s ago";
         else if(t < 3600000)

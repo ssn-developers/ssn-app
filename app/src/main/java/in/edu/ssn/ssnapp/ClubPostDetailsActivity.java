@@ -346,12 +346,17 @@ public class ClubPostDetailsActivity extends BaseActivity {
         likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
-                    likeIV.setImageResource(R.drawable.blue_heart);
-                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
-                } else {
-                    likeIV.setImageResource(R.drawable.heart);
-                    FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+                try {
+                    if (!post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+                        likeIV.setImageResource(R.drawable.blue_heart);
+                        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
+                    } else {
+                        likeIV.setImageResource(R.drawable.heart);
+                        FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
                 }
             }
         });
