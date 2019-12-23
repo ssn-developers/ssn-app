@@ -136,9 +136,6 @@ public class GradeCalculatorActivity extends BaseActivity {
         if(values.get(4)==0)
         {
             BTV.setText("N/A");
-        }else if(values.get(4)>50)
-        {
-            BTV.setText("50");
         }else {
             BTV.setText(values.get(4).toString());
         }

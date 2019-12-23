@@ -21,7 +21,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".SplashActivity"
+            android:name=".GradeCalculatorActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,7 +54,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1"/>
         <activity
-            android:name=".GradeCalculatorActivity"
+            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1"/>
         <activity
