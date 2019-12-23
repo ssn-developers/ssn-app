@@ -30,12 +30,8 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void clearLightStatusBar(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            int flags = activity.getWindow().getDecorView().getSystemUiVisibility(); // get current flag
-            flags = flags ^ View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR; // use XOR here for remove LIGHT_STATUS_BAR from flags
-            activity.getWindow().getDecorView().setSystemUiVisibility(flags);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
-        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+            activity.getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
     }
 
 }
