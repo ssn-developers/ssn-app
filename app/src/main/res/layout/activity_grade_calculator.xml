@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccentLight"
-    tools:context=".PassMarkCalculatorActivity">
+    tools:context=".GradeCalculatorActivity">
 
     <RelativeLayout
         android:id="@+id/topRL"
@@ -32,7 +32,7 @@
             android:layout_marginStart="@dimen/_12sdp"
             android:layout_toRightOf="@+id/backIV"
             android:fontFamily="@font/open_sans_bold"
-            android:text="Pass Mark Calculator"
+            android:text="Grade Calculator"
             android:textColor="#ffffff"
             android:textSize="@dimen/_16ssp" />
     </RelativeLayout>

@@ -1,20 +1,16 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.annotation.IntegerRes;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import spencerstudios.com.bungeelib.Bungee;
 
-public class PassMarkCalculatorActivity extends BaseActivity {
+public class GradeCalculatorActivity extends BaseActivity {
 
     TextView OTV,APTV,ATV,BPTV,BTV,internalsTV;
     ImageView right, left,back;
@@ -26,12 +22,12 @@ public class PassMarkCalculatorActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         if(darkModeEnabled){
-            setContentView(R.layout.activity_pass_mark_calculator_dark);
+            setContentView(R.layout.activity_gradecalculator_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
         }
         else
-            setContentView(R.layout.activity_pass_mark_calculator);
+            setContentView(R.layout.activity_grade_calculator);
 
         initUI();
         right.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +35,7 @@ public class PassMarkCalculatorActivity extends BaseActivity {
             public void onClick(View view) {
                 internals = Integer.parseInt(internalsTV.getText().toString());
 
-                if(internals<20) {
+                if(internals<40) {
                     internalsTV.setText(Integer.toString(++internals));
                     getValues(internals);
                 }
@@ -87,8 +83,8 @@ public class PassMarkCalculatorActivity extends BaseActivity {
         values.add(3,0);
         values.add(4,0);
 
-        for(int i=100; i>44; i--) {
-            int n= (int)(0.8 * i)+(mark);
+        for(int i=100; i>49; i--) {
+            int n= (int)(0.6 * i)+(mark);
             if(n>=91)
             {
                 values.remove(0);
@@ -125,9 +121,29 @@ public class PassMarkCalculatorActivity extends BaseActivity {
         }else {
             APTV.setText(values.get(1).toString());
         }
-        ATV.setText(values.get(2).toString());
-        BPTV.setText(values.get(3).toString());
-        BTV.setText(values.get(4).toString());
+        if(values.get(2)==0)
+        {
+            ATV.setText("N/A");
+        }else {
+            ATV.setText(values.get(2).toString());
+        }
+        if(values.get(3)==0)
+        {
+            BPTV.setText("N/A");
+        }else {
+            BPTV.setText(values.get(3).toString());
+        }
+        if(values.get(4)==0)
+        {
+            BTV.setText("N/A");
+        }else if(values.get(4)>50)
+        {
+            BTV.setText("50");
+        }else {
+            BTV.setText(values.get(4).toString());
+        }
+
+
     }
 
     /********************************************************/
@@ -135,6 +151,6 @@ public class PassMarkCalculatorActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Bungee.slideRight(PassMarkCalculatorActivity.this);
+        Bungee.slideRight(GradeCalculatorActivity.this);
     }
 }
