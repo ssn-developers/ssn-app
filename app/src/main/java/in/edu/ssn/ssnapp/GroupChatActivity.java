@@ -95,7 +95,6 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         darkMode = SharedPref.getBoolean(getApplicationContext(),"dark_mode");
         if(darkMode){
             setContentView(R.layout.activity_group_chat_dark);
-            clearLightStatusBar(this);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.appbar_color1_chat));
         }else{
