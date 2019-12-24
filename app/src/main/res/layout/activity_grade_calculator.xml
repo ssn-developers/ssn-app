@@ -69,7 +69,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="20"
+            android:text="35"
             android:fontFamily="@font/open_sans_semi_bold"
             android:textColor="@color/black"
             android:id="@+id/internals_TV"
@@ -142,7 +142,7 @@
                     android:textSize="@dimen/_12sdp"
                     android:fontFamily="@font/open_sans"
                     android:textColor="@color/colorAccentText"
-                    android:text="Pass Mark"
+                    android:text="Min Mark"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"/>
 
