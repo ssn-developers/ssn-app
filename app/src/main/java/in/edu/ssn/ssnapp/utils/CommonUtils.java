@@ -620,6 +620,8 @@ public class CommonUtils {
             Constants.collection_post_bus = "debug_post_bus";
             Constants.collection_post_club = "debug_post_club";
             Constants.collection_event = "debug_event";
+            Constants.COLLECTION_GLOBAL_CHAT = "debug_global_chat";
+            Constants.GLOBAL_CHAT = "debug_global_chat";
         }
         else{
             Constants.collection_exam_cell = "examcell";
@@ -628,6 +630,8 @@ public class CommonUtils {
             Constants.collection_post_bus = "post_bus";
             Constants.collection_post_club = "post_club";
             Constants.collection_event = "event";
+            Constants.COLLECTION_GLOBAL_CHAT = "global_chat";
+            Constants.GLOBAL_CHAT = "global_chat";
         }
     }
 

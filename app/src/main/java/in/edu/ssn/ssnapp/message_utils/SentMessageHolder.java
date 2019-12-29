@@ -26,6 +26,7 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class SentMessageHolder extends RecyclerView.ViewHolder {
     private final FirebaseUser user;
+    public TextView readMoreTV;
     public RelativeLayout dividerLL;
     public TextView dividerTV;
     public SocialTextView messageTV;
@@ -36,6 +37,7 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
         super(itemView);
         darkMode = SharedPref.getBoolean(itemView.getContext(),"dark_mode");
         messageTV = itemView.findViewById(R.id.messageTV);
+        readMoreTV = itemView.findViewById(R.id.readMoreTV);
         timeTV = itemView.findViewById(R.id.timeTV);
         dividerLL = itemView.findViewById(R.id.dividerLL);
         dividerTV = itemView.findViewById(R.id.dateTV);
@@ -53,7 +55,28 @@ public class SentMessageHolder extends RecyclerView.ViewHolder {
             messageTV.setCompoundDrawablesWithIntrinsicBounds( R.drawable.chat_ic_slash_white, 0, 0, 0);
             messageTV.setAlpha(0.7F);
         }else{
-            messageTV.setText(message.getMessage());
+            messageTV.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(messageTV.getLineCount()>5){
+                        messageTV.setMaxLines(5);
+                        readMoreTV.setVisibility(View.VISIBLE);
+                        readMoreTV.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(readMoreTV.getText().toString().equals("Read more")){
+                                    messageTV.setMaxLines(Integer.MAX_VALUE);
+                                    readMoreTV.setText("Read less");
+                                }else{
+                                    messageTV.setMaxLines(5);
+                                    readMoreTV.setText("Read more");
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            messageTV.setText(message.getMessage().trim());
             messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);
             messageTV.setAlpha(1);
         }

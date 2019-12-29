@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tool="http://schemas.android.com/tools"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -150,6 +151,19 @@
 				android:padding="12dp"
 				android:fontFamily="@font/open_sans_semibold"
 				android:text="Fun panra da"/>
+			<TextView
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:layout_gravity="end"
+				android:gravity="end"
+				android:paddingEnd="12dp"
+				android:paddingStart="12dp"
+				android:paddingBottom="12dp"
+				android:textColor="@android:color/tab_indicator_text"
+				android:id="@+id/readMoreTV"
+				android:visibility="gone"
+				tool:visibility="visible"
+				android:text="Read more"/>
 
 		</LinearLayout>
 

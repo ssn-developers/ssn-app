@@ -25,7 +25,8 @@ public class Constants {
     // FCM topics
     public static final String BUS_ALERTS="busalerts";
     public static final String Event="event";
-    public static final String GLOBAL_CHAT="global_chat";
+    public static String GLOBAL_CHAT="global_chat";
+    public static String COLLECTION_GLOBAL_CHAT="global_chat";
 
     //year
     //create composite query accordingly when modified

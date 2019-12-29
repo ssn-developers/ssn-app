@@ -75,7 +75,7 @@ public class ChatHelper {
             message.setType(1);
             message.setReplyMessage(null);
         }
-        db.collection("global_chat").add(message).addOnFailureListener(new OnFailureListener() {
+        db.collection(Constants.COLLECTION_GLOBAL_CHAT).add(message).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 System.out.println("Error when sending message "+e.getMessage());
@@ -88,7 +88,7 @@ public class ChatHelper {
         RequestQueue mRequestQue = Volley.newRequestQueue(context);
         JSONObject json = new JSONObject();
         try {
-            json.put("to", "/topics/" + Constants.GLOBAL_CHAT);
+            json.put("to", "/topics/" + Constants.COLLECTION_GLOBAL_CHAT);
             JSONObject notificationObj = new JSONObject();
             notificationObj.put("message", message.getMessage());
             notificationObj.put("sender_name", message.getSenderName());
@@ -123,20 +123,20 @@ public class ChatHelper {
     }
 
     public void removeMessage(Message message){
-        //db.collection("global_chat").document(id).delete();
+        //db.collection(Constants.COLLECTION_GLOBAL_CHAT).document(id).delete();
         String id = message.getMessageId();
         message.setMessageDeleted(true);
-        db.collection("global_chat").document(id).set(message);
+        db.collection(Constants.COLLECTION_GLOBAL_CHAT).document(id).set(message);
     }
 
     public void removeMessages(List<String> ids){
         for(String id:ids){
-            db.collection("global_chat").document(id).delete();
+            db.collection(Constants.COLLECTION_GLOBAL_CHAT).document(id).delete();
         }
     }
 
     public void listenForMessages(){
-        CollectionReference messageRef = db.collection("global_chat");
+        CollectionReference messageRef = db.collection(Constants.COLLECTION_GLOBAL_CHAT);
         messageRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {

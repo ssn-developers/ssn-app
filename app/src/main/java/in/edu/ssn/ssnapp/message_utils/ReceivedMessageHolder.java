@@ -2,8 +2,12 @@ package in.edu.ssn.ssnapp.message_utils;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -32,7 +36,7 @@ public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
     public RelativeLayout dividerLL;
     public TextView dividerTV;
     public SocialTextView messageTV;
-    public TextView timeTV, nameTV;
+    public TextView timeTV, nameTV, readMoreTV;
     public ImageView avatarIV;
     public CardView avatarCV;
     public TextDrawable.IBuilder builder;
@@ -42,6 +46,7 @@ public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
         darkMode = SharedPref.getBoolean(itemView.getContext(),"dark_mode");
         messageTV = itemView.findViewById(R.id.messageTV);
         timeTV = itemView.findViewById(R.id.timeTV);
+        readMoreTV = itemView.findViewById(R.id.readMoreTV);
         nameTV = itemView.findViewById(R.id.nameTV);
         avatarIV = itemView.findViewById(R.id.avatarIV);
         dividerLL = itemView.findViewById(R.id.dividerLL);
@@ -65,7 +70,28 @@ public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
             }
             messageTV.setAlpha(0.7F);
         }else{
-            messageTV.setText(message.getMessage());
+            messageTV.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(messageTV.getLineCount()>5){
+                        messageTV.setMaxLines(5);
+                        readMoreTV.setVisibility(View.VISIBLE);
+                        readMoreTV.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(readMoreTV.getText().toString().equals("Read more")){
+                                    messageTV.setMaxLines(Integer.MAX_VALUE);
+                                    readMoreTV.setText("Read less");
+                                }else{
+                                    messageTV.setMaxLines(5);
+                                    readMoreTV.setText("Read more");
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+            messageTV.setText(message.getMessage().trim());
             messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);
             messageTV.setAlpha(1);
         }

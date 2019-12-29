@@ -141,7 +141,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     }
 
     void initMessages(){
-        Query first = db.collection("global_chat").orderBy("timestamp", Query.Direction.DESCENDING).limit(pageSize);
+        Query first = db.collection(Constants.COLLECTION_GLOBAL_CHAT).orderBy("timestamp", Query.Direction.DESCENDING).limit(pageSize);
         getMessages(first);
         SharedPref.putInt(getApplicationContext(),"new_message_count",0);
         chatHelper.listenForMessages();
@@ -179,7 +179,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                     DocumentSnapshot lastVisible = queryDocumentSnapshots.getDocuments()
                             .get(queryDocumentSnapshots.size() - 1);
                     addMessagesToChatRV(queryDocumentSnapshots.getDocuments());
-                    next = db.collection("global_chat")
+                    next = db.collection(Constants.COLLECTION_GLOBAL_CHAT)
                             .orderBy("timestamp", Query.Direction.DESCENDING)
                             .startAfter(lastVisible)
                             .limit(pageSize);
@@ -519,7 +519,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 new MessageAdapter.OnItemClickListener() {
                     @Override
                     public void onMessageClicked(View view, int position) {
-                        if(optionsMode){
+                        if(optionsMode) {
                             closeMessageOptionUI();
                         }
                     }
