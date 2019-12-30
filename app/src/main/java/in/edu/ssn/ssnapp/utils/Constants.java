@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Constants {
 
     //TODO: change to 'false' when releasing the app
-    public static final Boolean debug_mode = false;
+    public static final Boolean debug_mode = true;
 
     public static final String PDF_URL = "pdf_url";
 
@@ -25,7 +25,7 @@ public class Constants {
     // FCM topics
     public static final String BUS_ALERTS="busalerts";
     public static final String Event="event";
-    public static final String GLOBAL_CHAT="global_chat";
+    public static String GLOBAL_CHAT="global_chat";
 
     //year
     //create composite query accordingly when modified
