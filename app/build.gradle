@@ -7,7 +7,7 @@ android {
         applicationId "in.edu.ssn.ssnapp"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 12
+        versionCode 13
         versionName "1.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
