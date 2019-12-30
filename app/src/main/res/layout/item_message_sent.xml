@@ -52,6 +52,7 @@
 		android:layout_height="wrap_content"
 		android:orientation="vertical"
 		android:layout_marginStart="53dp"
+		android:layout_gravity="end"
 		android:background="@drawable/bg_sent_message"
 		android:padding="12dp">
 		<com.hendraanggrian.appcompat.widget.SocialTextView
