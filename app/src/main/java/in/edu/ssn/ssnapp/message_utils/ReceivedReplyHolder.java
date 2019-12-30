@@ -100,6 +100,8 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
                                 }
                             }
                         });
+                    }else{
+                        readMoreTV.setVisibility(View.GONE);
                     }
                 }
             });

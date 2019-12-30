@@ -88,6 +88,8 @@ public class ReceivedMessageHolder extends RecyclerView.ViewHolder {
                                 }
                             }
                         });
+                    }else{
+                        readMoreTV.setVisibility(View.GONE);
                     }
                 }
             });
