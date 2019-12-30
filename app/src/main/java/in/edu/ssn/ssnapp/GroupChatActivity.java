@@ -67,7 +67,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     RecyclerView chatRV;
     SocialEditText messageET;
     ImageView sendIV, closeOptionIV, copyIV, replyIV, deleteIV, backIV, closeIV;
-    LinearLayout replyMessageLL, editMessageLL, appbarContentLL, messageOptionsLL;
+    LinearLayout replyMessageLL, appbarContentLL, messageOptionsLL;
     TextView replyNameTV, replyMessageTV, newMessageTV;
     ViewGroup appbarRL;
     ProgressBar loadingPB;
