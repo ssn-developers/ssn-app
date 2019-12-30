@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Constants {
 
     //TODO: change to 'false' when releasing the app
-    public static final Boolean debug_mode = false;
+    public static final Boolean debug_mode = true;
 
     public static final String PDF_URL = "pdf_url";
 
@@ -26,7 +26,6 @@ public class Constants {
     public static final String BUS_ALERTS="busalerts";
     public static final String Event="event";
     public static String GLOBAL_CHAT="global_chat";
-    public static String COLLECTION_GLOBAL_CHAT="global_chat";
 
     //year
     //create composite query accordingly when modified
@@ -82,9 +81,9 @@ public class Constants {
     public static String collection_post_bus = "post_bus";
     public static String collection_post_club = "post_club";
     public static String collection_event = "event";
-    public static String collection_global_chat = "global_chat";
+    public static String COLLECTION_GLOBAL_CHAT="global_chat";
 
     //TODO: modify when releasing the app
     //What's new stuff
-    public static String changelog = "\u2022 Global Chat\n\u2022 GPA and Pass Mark Calculator\n\u2022 Settings screen\n\u2022 Bug fixes\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
+    public static String changelog = "\u2022 Read more in Global Chat\n\u2022 Bug fixes\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
 }

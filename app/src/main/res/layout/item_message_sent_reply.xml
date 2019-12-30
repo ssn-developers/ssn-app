@@ -145,7 +145,7 @@
 			android:id="@+id/readMoreTV"
 			android:visibility="gone"
 			tool:visibility="visible"
-			android:textColor="@color/black"
+			android:textColor="@color/colorAccentLight"
 			android:text="Read more"/>
 
 

@@ -298,7 +298,7 @@ public class CommonUtils {
             case 5 : return Constants.collection_exam_cell;
             case 6 : return Constants.collection_event;
             case 7 : return Constants.collection_post_bus;
-            case 8 : return Constants.collection_global_chat;
+            case 8 : return Constants.COLLECTION_GLOBAL_CHAT;
             default : return Constants.collection_post;
         }
     }
@@ -665,8 +665,4 @@ public class CommonUtils {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

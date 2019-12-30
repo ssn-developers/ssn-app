@@ -115,7 +115,7 @@ public class FCMHelper {
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationManager.createNotificationChannel(new NotificationChannel("7698","global_chat",NotificationManager.IMPORTANCE_HIGH));
+            notificationManager.createNotificationChannel(new NotificationChannel("7698",Constants.GLOBAL_CHAT,NotificationManager.IMPORTANCE_HIGH));
             Notification.Builder nbuilder=new Notification.Builder(context,"7698")
                     .setContentTitle(title)
                     .setSmallIcon(R.drawable.ssn_logo)

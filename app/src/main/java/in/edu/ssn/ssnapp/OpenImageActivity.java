@@ -64,7 +64,7 @@ public class OpenImageActivity extends BaseActivity {
                         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
 
                         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS + "/SSN App/", f.getName())
+                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS + "/SSNCE/", f.getName())
                                 .setTitle(downloadUri.getLastPathSegment()).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
                         dm.enqueue(request);
