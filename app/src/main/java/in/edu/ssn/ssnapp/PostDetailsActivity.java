@@ -265,7 +265,7 @@ public class PostDetailsActivity extends BaseActivity {
                         DownloadManager.Request request = new DownloadManager.Request(downloadUri);
 
                         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS + "/SSNCE/", file_name)
+                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, file_name)
                                 .setTitle(file_name)
                                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 

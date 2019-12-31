@@ -96,7 +96,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                             names = "syllabus.pdf";
 
                         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS + "/SSNCE/", names)
+                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, names)
                                 .setTitle(names).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
                         dm.enqueue(request);
