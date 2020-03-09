@@ -34,6 +34,7 @@ import static in.edu.ssn.ssnapp.message_utils.Utils.isYesterday;
 
 public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
     private final FirebaseUser user;
+    public TextView readMoreTV;
     public RelativeLayout dividerLL;
     public TextView dividerTV;
     public SocialTextView messageTV;
@@ -52,6 +53,7 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
         darkMode = SharedPref.getBoolean(itemView.getContext(),"dark_mode");
         messageTV = itemView.findViewById(R.id.messageTV);
         timeTV = itemView.findViewById(R.id.timeTV);
+        readMoreTV = itemView.findViewById(R.id.readMoreTV);
         nameTV = itemView.findViewById(R.id.nameTV);
         avatarIV = itemView.findViewById(R.id.avatarIV);
         replyNameTV = itemView.findViewById(R.id.replyNameTV);
@@ -80,7 +82,30 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
             }
             bgLL.setAlpha(0.7F);
         }else{
-            messageTV.setText(message.getMessage());
+            messageTV.post(new Runnable() {
+                @Override
+                public void run() {
+                    if(messageTV.getLineCount()>5){
+                        messageTV.setMaxLines(5);
+                        readMoreTV.setVisibility(View.VISIBLE);
+                        readMoreTV.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if(readMoreTV.getText().toString().equals("Read more")){
+                                    messageTV.setMaxLines(Integer.MAX_VALUE);
+                                    readMoreTV.setText("Read less");
+                                }else{
+                                    messageTV.setMaxLines(5);
+                                    readMoreTV.setText("Read more");
+                                }
+                            }
+                        });
+                    }else{
+                        readMoreTV.setVisibility(View.GONE);
+                    }
+                }
+            });
+            messageTV.setText(message.getMessage().trim());
             messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);
             bgLL.setAlpha(1);
         }

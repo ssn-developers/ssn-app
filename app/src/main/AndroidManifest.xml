@@ -54,7 +54,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1"/>
         <activity
-            android:name=".PassMarkCalculatorActivity"
+            android:name=".GradeCalculatorActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme1"/>
         <activity

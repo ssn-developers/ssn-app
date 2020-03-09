@@ -31,7 +31,7 @@ public class SettingsActivity extends BaseActivity {
 
     private int clearance = 0;
     SwitchButton darkmodeSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB, chatSB, notifSwitch;
-    TextView eventsTV, almaconnectTV, helplineTV, contributorTV, feedbackTV, inviteTV, ratingTV, updatesTV, privacyTV, logoutTV, calendar_TV;
+    TextView eventsTV, almaconnectTV, helplineTV, contributorTV, feedbackTV, inviteTV, ratingTV, privacyTV, logoutTV, calendar_TV;
     RelativeLayout newsfeedRL, busalertRL, examcellRL, placementsRL, eventsRL, chatRL;
     LinearLayout notificationLL;
     RelativeLayout almaconnectRL, facultyRL;
@@ -175,20 +175,6 @@ public class SettingsActivity extends BaseActivity {
                 Bungee.slideLeft(SettingsActivity.this);
             }
         });
-        //check for new updates
-        updatesTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String latestVersion = CommonUtils.getLatestVersionName(getApplicationContext());
-                if (latestVersion != null && !BuildConfig.VERSION_NAME.equals(latestVersion)) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + getPackageName())));
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Already the latest version!", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
-                }
-            }
-        });
 
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,7 +202,6 @@ public class SettingsActivity extends BaseActivity {
         ratingTV = (TextView) findViewById(R.id.rateTV);
         privacyTV = (TextView) findViewById(R.id.privacyTV);
         logoutTV = (TextView) findViewById(R.id.logoutTV);
-        updatesTV = (TextView) findViewById(R.id.updatesTV);
         contributorTV = (TextView) findViewById(R.id.contributors_TV);
         calendar_TV = (TextView) findViewById(R.id.calendar_TV);
 

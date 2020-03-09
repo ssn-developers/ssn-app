@@ -49,6 +49,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -149,7 +152,6 @@ public class CommonUtils {
                     .select("div.hAyfc:nth-child(4) > span:nth-child(2) > div:nth-child(1) > span:nth-child(1)")
                     .first()
                     .ownText();
-
             return version;
         } catch (Exception e) {
             e.printStackTrace();
@@ -298,7 +300,7 @@ public class CommonUtils {
             case 5 : return Constants.collection_exam_cell;
             case 6 : return Constants.collection_event;
             case 7 : return Constants.collection_post_bus;
-            case 8 : return Constants.collection_global_chat;
+            case 8 : return Constants.COLLECTION_GLOBAL_CHAT;
             default : return Constants.collection_post;
         }
     }
@@ -620,6 +622,8 @@ public class CommonUtils {
             Constants.collection_post_bus = "debug_post_bus";
             Constants.collection_post_club = "debug_post_club";
             Constants.collection_event = "debug_event";
+            Constants.COLLECTION_GLOBAL_CHAT = "debug_global_chat";
+            Constants.GLOBAL_CHAT = "debug_global_chat";
         }
         else{
             Constants.collection_exam_cell = "examcell";
@@ -628,6 +632,8 @@ public class CommonUtils {
             Constants.collection_post_bus = "post_bus";
             Constants.collection_post_club = "post_club";
             Constants.collection_event = "event";
+            Constants.COLLECTION_GLOBAL_CHAT = "global_chat";
+            Constants.GLOBAL_CHAT = "global_chat";
         }
     }
 
@@ -661,8 +667,4 @@ public class CommonUtils {
             e.printStackTrace();
         }
     }
-
-
-
-
 }

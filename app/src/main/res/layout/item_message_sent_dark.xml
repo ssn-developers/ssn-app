@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tool="http://schemas.android.com/tools"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -46,22 +47,38 @@
 			android:text="You"/>
 	</LinearLayout>
 
-	<com.hendraanggrian.appcompat.widget.SocialTextView
-		app:socialFlags="hashtag|hyperlink"
-		app:hashtagColor="@android:color/white"
-		app:hyperlinkColor="@android:color/white"
+	<LinearLayout
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:textColor="@android:color/white"
-		android:drawablePadding="12dp"
-		android:textSize="16sp"
-		android:minWidth="64dp"
+		android:background="@drawable/bg_sent_message_dark"
+		android:padding="12dp"
 		android:layout_gravity="end"
 		android:layout_marginStart="53dp"
-		android:background="@drawable/bg_sent_message_dark"
-		android:id="@+id/messageTV"
-		android:padding="12dp"
-		android:fontFamily="@font/open_sans_semibold"
-		android:text="Hello world"/>
+		android:orientation="vertical">
+		<com.hendraanggrian.appcompat.widget.SocialTextView
+			app:socialFlags="hashtag|hyperlink"
+			app:hashtagColor="@android:color/white"
+			app:hyperlinkColor="@android:color/white"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textColor="@android:color/white"
+			android:drawablePadding="12dp"
+			android:textSize="16sp"
+			android:minWidth="64dp"
+			android:layout_gravity="end"
+			android:id="@+id/messageTV"
+			android:fontFamily="@font/open_sans_semibold"
+			android:text="Hello world"/>
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="end"
+			android:id="@+id/readMoreTV"
+			android:visibility="gone"
+			tool:visibility="visible"
+			android:textColor="@color/colorAccentLight"
+			android:layout_marginTop="8dp"
+			android:text="Read more"/>
 
+	</LinearLayout>
 </LinearLayout>
