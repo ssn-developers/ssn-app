@@ -2,16 +2,8 @@ package in.edu.ssn.ssnapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.model.Document;
-import com.google.firebase.firestore.model.value.ReferenceValue;
-
-import java.lang.ref.Reference;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Post implements Parcelable {
     private Date time;
