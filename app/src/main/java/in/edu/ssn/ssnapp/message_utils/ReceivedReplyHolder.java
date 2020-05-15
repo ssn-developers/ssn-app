@@ -34,6 +34,7 @@ import static in.edu.ssn.ssnapp.message_utils.Utils.isYesterday;
 
 public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
     private final FirebaseUser user;
+    private final TextDrawable.IBuilder builder;
     public TextView readMoreTV;
     public RelativeLayout dividerLL;
     public TextView dividerTV;
@@ -45,12 +46,11 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
     public LinearLayout replyLL;
     public LinearLayout bgLL;
     public TextView replyTimeTV;
-    private final TextDrawable.IBuilder builder;
     public boolean darkMode;
 
     ReceivedReplyHolder(View itemView, TextDrawable.IBuilder builder, FirebaseUser user) {
         super(itemView);
-        darkMode = SharedPref.getBoolean(itemView.getContext(),"dark_mode");
+        darkMode = SharedPref.getBoolean(itemView.getContext(), "dark_mode");
         messageTV = itemView.findViewById(R.id.messageTV);
         timeTV = itemView.findViewById(R.id.timeTV);
         readMoreTV = itemView.findViewById(R.id.readMoreTV);
@@ -69,71 +69,71 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(final Message message) {
-        if(message.isMessageDeleted()){
-            if(user.getUid().equals(message.getSenderId())){
+        if (message.isMessageDeleted()) {
+            if (user.getUid().equals(message.getSenderId())) {
                 messageTV.setText("You deleted this message");
-            }else{
+            } else {
                 messageTV.setText("This message was deleted");
             }
-            if(darkMode){
-                messageTV.setCompoundDrawablesWithIntrinsicBounds( R.drawable.chat_ic_slash_white, 0, 0, 0);
-            }else{
-                messageTV.setCompoundDrawablesWithIntrinsicBounds( R.drawable.chat_ic_slash, 0, 0, 0);
+            if (darkMode) {
+                messageTV.setCompoundDrawablesWithIntrinsicBounds(R.drawable.chat_ic_slash_white, 0, 0, 0);
+            } else {
+                messageTV.setCompoundDrawablesWithIntrinsicBounds(R.drawable.chat_ic_slash, 0, 0, 0);
             }
             bgLL.setAlpha(0.7F);
-        }else{
+        } else {
             messageTV.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(messageTV.getLineCount()>5){
+                    if (messageTV.getLineCount() > 5) {
                         messageTV.setMaxLines(5);
                         readMoreTV.setVisibility(View.VISIBLE);
                         readMoreTV.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                if(readMoreTV.getText().toString().equals("Read more")){
+                                if (readMoreTV.getText().toString().equals("Read more")) {
                                     messageTV.setMaxLines(Integer.MAX_VALUE);
                                     readMoreTV.setText("Read less");
-                                }else{
+                                } else {
                                     messageTV.setMaxLines(5);
                                     readMoreTV.setText("Read more");
                                 }
                             }
                         });
-                    }else{
+                    } else {
                         readMoreTV.setVisibility(View.GONE);
                     }
                 }
             });
             messageTV.setText(message.getMessage().trim());
-            messageTV.setCompoundDrawablesWithIntrinsicBounds( 0, 0, 0, 0);
+            messageTV.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
             bgLL.setAlpha(1);
         }
         timeTV.setText(getTime(new Date(Long.valueOf(message.getTimestamp()))));
         nameTV.setText(message.getSenderName());
-        if(message.getReplyMessage().getSenderId().equals(user.getUid())){
+        if (message.getReplyMessage().getSenderId().equals(user.getUid())) {
             replyNameTV.setText("You");
-        }else{
+        } else {
             replyNameTV.setText(message.getReplyMessage().getSenderName());
         }
-        if(message.getReplyMessage().isMessageDeleted()) {
+        if (message.getReplyMessage().isMessageDeleted()) {
             if (user.getUid().equals(message.getReplyMessage().getSenderId())) {
                 replyMessageTV.setText("You deleted this message");
             } else {
                 replyMessageTV.setText("This message was deleted");
             }
-        }else {
+        } else {
             replyMessageTV.setText(message.getReplyMessage().getMessage().trim());
         }
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(message.getSenderName());
-        String textDrawable=String.valueOf(message.getSenderName().charAt(0));
+        String textDrawable = String.valueOf(message.getSenderName().charAt(0));
         TextDrawable ic1 = builder.build(textDrawable, color);
         avatarIV.setImageDrawable(ic1);
-        if(message.isShowDivider()){
+        if (message.isShowDivider()) {
             dividerLL.setVisibility(View.VISIBLE);
             dividerTV.setText(message.getDividerText());
-        }else{
+        } else {
             dividerLL.setVisibility(View.GONE);
         }
         messageTV.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
@@ -147,13 +147,13 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
                 messageTV.getContext().startActivity(intent);
             }
         });
-        if(message.newMessageBlink){
-            message.newMessageBlink=false;
+        if (message.newMessageBlink) {
+            message.newMessageBlink = false;
             dividerLL.setVisibility(View.VISIBLE);
-            if(message.newMessageCount==1){
+            if (message.newMessageCount == 1) {
                 dividerTV.setText("New message");
-            }else{
-                dividerTV.setText(message.newMessageCount+" New messages");
+            } else {
+                dividerTV.setText(message.newMessageCount + " New messages");
 
             }
             new Handler().postDelayed(new Runnable() {
@@ -162,39 +162,40 @@ public class ReceivedReplyHolder extends RecyclerView.ViewHolder {
                     try {
                         if (dividerLL != null) {
                             dividerLL.setVisibility(View.GONE);
-                            message.newMessageCount=0;
+                            message.newMessageCount = 0;
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
 
                     }
                 }
-            },4000);
+            }, 4000);
         }
-        if(message.isBlinkReply()){
+        if (message.isBlinkReply()) {
             message.setBlinkReply(false);
-            itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),R.color.colorAccentAlpha3Chat));
+            itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), R.color.colorAccentAlpha3Chat));
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         itemView.setBackgroundColor(ContextCompat.getColor(itemView.getContext(), android.R.color.transparent));
-                    }catch (Exception e){}
+                    } catch (Exception e) {
+                    }
                 }
-            },1000);
+            }, 1000);
         }
 
-        if(DateUtils.isToday(Long.valueOf(message.getReplyMessage().getTimestamp()))){
-            replyTimeTV.setText("Today, "+getTime(new Date(Long.valueOf(message.getReplyMessage().getTimestamp()))));
-        }else{
-            if(isYesterday(new Date(Long.valueOf(message.getTimestamp())))){
-                replyTimeTV.setText("Yesterday, "+getTime(new Date(Long.valueOf(message.getReplyMessage().getTimestamp()))));
-            }else{
-                replyTimeTV.setText(getDate(new Date(Long.valueOf(message.getReplyMessage().getTimestamp())))+", "+getTime(new Date(Long.valueOf(message.getReplyMessage().getTimestamp()))));
+        if (DateUtils.isToday(Long.valueOf(message.getReplyMessage().getTimestamp()))) {
+            replyTimeTV.setText("Today, " + getTime(new Date(Long.valueOf(message.getReplyMessage().getTimestamp()))));
+        } else {
+            if (isYesterday(new Date(Long.valueOf(message.getTimestamp())))) {
+                replyTimeTV.setText("Yesterday, " + getTime(new Date(Long.valueOf(message.getReplyMessage().getTimestamp()))));
+            } else {
+                replyTimeTV.setText(getDate(new Date(Long.valueOf(message.getReplyMessage().getTimestamp()))) + ", " + getTime(new Date(Long.valueOf(message.getReplyMessage().getTimestamp()))));
             }
         }
     }
 
-    public String getTime(Date time){
+    public String getTime(Date time) {
         @SuppressLint("SimpleDateFormat") DateFormat dateFormat = new SimpleDateFormat("hh:mm aa");
         return dateFormat.format(time);
     }

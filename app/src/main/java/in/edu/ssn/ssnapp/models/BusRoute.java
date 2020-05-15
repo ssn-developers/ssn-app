@@ -3,15 +3,37 @@ package in.edu.ssn.ssnapp.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BusRoute implements Parcelable, Comparable {
+    public static final Parcelable.Creator<BusRoute> CREATOR = new Parcelable.Creator<BusRoute>() {
+        @Override
+        public BusRoute createFromParcel(Parcel source) {
+            return new BusRoute(source);
+        }
+
+        @Override
+        public BusRoute[] newArray(int size) {
+            return new BusRoute[size];
+        }
+    };
     int id;
     String name;
     List<String> stop;
     List<String> time;
+
+    public BusRoute() {
+    }
+
+    protected BusRoute(Parcel in) {
+        this.id = in.readInt();
+        this.name = in.readString();
+        this.stop = new ArrayList<String>();
+        this.time = new ArrayList<String>();
+        in.readList(this.stop, String.class.getClassLoader());
+        in.readList(this.time, String.class.getClassLoader());
+    }
 
     public int getId() {
         return id;
@@ -58,33 +80,9 @@ public class BusRoute implements Parcelable, Comparable {
         dest.writeList(this.time);
     }
 
-    public BusRoute() {
-    }
-
-    protected BusRoute(Parcel in) {
-        this.id = in.readInt();
-        this.name = in.readString();
-        this.stop = new ArrayList<String>();
-        this.time = new ArrayList<String>();
-        in.readList(this.stop, String.class.getClassLoader());
-        in.readList(this.time, String.class.getClassLoader());
-    }
-
-    public static final Parcelable.Creator<BusRoute> CREATOR = new Parcelable.Creator<BusRoute>() {
-        @Override
-        public BusRoute createFromParcel(Parcel source) {
-            return new BusRoute(source);
-        }
-
-        @Override
-        public BusRoute[] newArray(int size) {
-            return new BusRoute[size];
-        }
-    };
-
     @Override
     public int compareTo(Object o) {
-        if(this.getId() > ((BusRoute)o).getId())
+        if (this.getId() > ((BusRoute) o).getId())
             return 1;
         return -1;
     }

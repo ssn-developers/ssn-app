@@ -1,14 +1,13 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.cardview.widget.CardView;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -17,50 +16,50 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class ChooseSemesterActivity extends BaseActivity {
 
-    CardView sem1,sem2,sem3,sem4,sem5,sem6,sem7,sem8;
+    CardView sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8;
     ImageView back;
     View.OnClickListener onClickListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(darkModeEnabled){
+        if (darkModeEnabled) {
             setContentView(R.layout.activity_choose_semester_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
-        }
-        else
+        } else
             setContentView(R.layout.activity_choose_semester);
 
 
         onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),GPACalculatorActivity.class);
-                switch(view.getId()) {
-                    case R.id.sem1 :
-                        intent.putExtra("sem",0);
-                         break;
-                    case R.id.sem2 :
-                        intent.putExtra("sem",1);
+                Intent intent = new Intent(getApplicationContext(), GPACalculatorActivity.class);
+                switch (view.getId()) {
+                    case R.id.sem1:
+                        intent.putExtra("sem", 0);
                         break;
-                    case R.id.sem3 :
-                        intent.putExtra("sem",2);
+                    case R.id.sem2:
+                        intent.putExtra("sem", 1);
                         break;
-                    case R.id.sem4 :
-                        intent.putExtra("sem",3);
+                    case R.id.sem3:
+                        intent.putExtra("sem", 2);
                         break;
-                    case R.id.sem5 :
-                        intent.putExtra("sem",4);
+                    case R.id.sem4:
+                        intent.putExtra("sem", 3);
                         break;
-                    case R.id.sem6 :
-                        intent.putExtra("sem",5);
+                    case R.id.sem5:
+                        intent.putExtra("sem", 4);
                         break;
-                    case R.id.sem7 :
-                        intent.putExtra("sem",6);
+                    case R.id.sem6:
+                        intent.putExtra("sem", 5);
                         break;
-                    case R.id.sem8 :
-                        intent.putExtra("sem",7);
+                    case R.id.sem7:
+                        intent.putExtra("sem", 6);
+                        break;
+                    case R.id.sem8:
+                        intent.putExtra("sem", 7);
                         break;
                 }
                 startActivity(intent);
@@ -116,17 +115,16 @@ public class ChooseSemesterActivity extends BaseActivity {
                                         YoYo.with(Techniques.ZoomIn).duration(500).playOn(sem8);
                                         YoYo.with(Techniques.ZoomIn).duration(500).playOn(sem3);
                                     }
-                                },300);
+                                }, 300);
                             }
-                        },300);
+                        }, 300);
                     }
-                },300);
+                }, 300);
             }
         }, 300);
     }
 
-    private void setListeners()
-    {
+    private void setListeners() {
         sem1.setOnClickListener(onClickListener);
         sem2.setOnClickListener(onClickListener);
         sem3.setOnClickListener(onClickListener);

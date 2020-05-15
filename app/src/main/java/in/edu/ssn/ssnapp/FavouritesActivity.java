@@ -26,11 +26,11 @@ public class FavouritesActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(darkModeEnabled){
+        if (darkModeEnabled) {
             setContentView(R.layout.activity_favourites_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
-        }else {
+        } else {
             setContentView(R.layout.activity_favourites);
         }
 
@@ -38,7 +38,7 @@ public class FavouritesActivity extends BaseActivity {
         layout_progress = findViewById(R.id.layout_progress);
         backIV = findViewById(R.id.backIV);
         savedPostAdapter = new SavedPostAdapter(this, new ArrayList<Post>());
-        dbHelper=DataBaseHelper.getInstance(this);
+        dbHelper = DataBaseHelper.getInstance(this);
         lv_savedPost.setAdapter(savedPostAdapter);
 
         backIV.setOnClickListener(new View.OnClickListener() {
@@ -53,16 +53,15 @@ public class FavouritesActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         savedPostAdapter.clear();
-        ArrayList<Post> savedPostList=dbHelper.getSavedPostList();
+        ArrayList<Post> savedPostList = dbHelper.getSavedPostList();
         Collections.reverse(savedPostList);
         savedPostAdapter.addAll(savedPostList);
         savedPostAdapter.notifyDataSetChanged();
 
-        if(savedPostList.size() > 0){
+        if (savedPostList.size() > 0) {
             layout_progress.setVisibility(View.GONE);
             lv_savedPost.setVisibility(View.VISIBLE);
-        }
-        else{
+        } else {
             layout_progress.setVisibility(View.VISIBLE);
             lv_savedPost.setVisibility(View.GONE);
         }

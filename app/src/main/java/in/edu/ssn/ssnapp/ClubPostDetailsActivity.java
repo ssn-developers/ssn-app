@@ -1,39 +1,31 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.chip.Chip;
@@ -50,12 +42,9 @@ import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.hendraanggrian.appcompat.widget.SocialView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 import in.edu.ssn.ssnapp.adapters.CustomExpandableListAdapter;
@@ -69,9 +58,9 @@ import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class ClubPostDetailsActivity extends BaseActivity {
-    ImageView backIV, userImageIV, likeIV, commentIV, shareIV,sendIV,cancel_replyIV;
+    ImageView backIV, userImageIV, likeIV, commentIV, shareIV, sendIV, cancel_replyIV;
     ViewPager viewPager;
-    TextView authorTV, nameTV, timeTV, titleTV, current_imageTV,attachmentsTV, likeTV, commentTV,selected_replyTV;
+    TextView authorTV, nameTV, timeTV, titleTV, current_imageTV, attachmentsTV, likeTV, commentTV, selected_replyTV;
     SocialTextView descriptionTV;
     ChipGroup attachmentsChipGroup;
     RelativeLayout textGroupRL;
@@ -81,7 +70,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
     ExpandableListView expandableListView;
     CustomExpandableListAdapter expandableListAdapter;
     ListenerRegistration listenerRegistration;
-    ArrayList<Comments> commentsArrayList=new ArrayList<>();
+    ArrayList<Comments> commentsArrayList = new ArrayList<>();
 
     String id;
     ClubPost post;
@@ -90,10 +79,10 @@ public class ClubPostDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(darkModeEnabled){
+        if (darkModeEnabled) {
             setContentView(R.layout.activity_club_post_details_dark);
             clearLightStatusBar(this);
-        }else{
+        } else {
             setContentView(R.layout.activity_club_post_details);
         }
 
@@ -112,13 +101,13 @@ public class ClubPostDetailsActivity extends BaseActivity {
         backIV = findViewById(R.id.backIV);
         userImageIV = findViewById(R.id.userImageIV);
         authorTV = findViewById(R.id.authorTV);
-        nameTV= findViewById(R.id.nameTV);
+        nameTV = findViewById(R.id.nameTV);
         timeTV = findViewById(R.id.timeTV);
         titleTV = findViewById(R.id.titleTV);
         descriptionTV = findViewById(R.id.descriptionTV);
         current_imageTV = findViewById(R.id.currentImageTV);
         attachmentsTV = findViewById(R.id.attachmentTV);
-        selected_replyTV=findViewById(R.id.reply_selectedTV);
+        selected_replyTV = findViewById(R.id.reply_selectedTV);
         viewPager = findViewById(R.id.viewPager);
         attachmentsChipGroup = findViewById(R.id.attachmentsGroup);
         textGroupRL = findViewById(R.id.textGroupRL);
@@ -128,10 +117,10 @@ public class ClubPostDetailsActivity extends BaseActivity {
         commentIV = findViewById(R.id.commentIV);
         commentTV = findViewById(R.id.commentTV);
         shareIV = findViewById(R.id.shareIV);
-        sendIV=findViewById(R.id.sendIV);
-        et_Comment=findViewById(R.id.edt_comment);
-        cancel_replyIV=findViewById(R.id.cancelIV);
-        replyCV=findViewById(R.id.replyCV);
+        sendIV = findViewById(R.id.sendIV);
+        et_Comment = findViewById(R.id.edt_comment);
+        cancel_replyIV = findViewById(R.id.cancelIV);
+        replyCV = findViewById(R.id.replyCV);
 
         CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
 
@@ -147,7 +136,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
         sendIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(et_Comment.getText().toString().trim().length()>1) {
+                if (et_Comment.getText().toString().trim().length() > 1) {
                     Boolean replyingForComment = expandableListAdapter.getReplyingForComment();
 
                     if (replyingForComment == null)
@@ -188,7 +177,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
-        expandableListView =  findViewById(R.id.commentEV);
+        expandableListView = findViewById(R.id.commentEV);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -211,23 +200,23 @@ public class ClubPostDetailsActivity extends BaseActivity {
         });
     }
 
-    void setUpFirestore(){
-        listenerRegistration= FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+    void setUpFirestore() {
+        listenerRegistration = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                post = CommonUtils.getClubPostFromSnapshot(getApplicationContext(),documentSnapshot);
+                post = CommonUtils.getClubPostFromSnapshot(getApplicationContext(), documentSnapshot);
                 updateData();
 
-                ArrayList<HashMap<Object,Object>> comment_data=(ArrayList<HashMap<Object,Object>>) documentSnapshot.get("comment");
+                ArrayList<HashMap<Object, Object>> comment_data = (ArrayList<HashMap<Object, Object>>) documentSnapshot.get("comment");
                 commentsArrayList.clear();
-                for(HashMap<Object,Object> i:comment_data){
-                    Comments tempComment=new Comments((String)i.get("author"),(String)i.get("message"),((Timestamp)i.get("time")).toDate(),(ArrayList<HashMap<String, Object>>) i.get("reply"));
+                for (HashMap<Object, Object> i : comment_data) {
+                    Comments tempComment = new Comments((String) i.get("author"), (String) i.get("message"), ((Timestamp) i.get("time")).toDate(), (ArrayList<HashMap<String, Object>>) i.get("reply"));
                     commentsArrayList.add(tempComment);
                 }
 
-                expandableListAdapter=null;
+                expandableListAdapter = null;
                 Collections.sort(commentsArrayList);
-                expandableListAdapter=new CustomExpandableListAdapter(ClubPostDetailsActivity.this,commentsArrayList,post,(Activity)ClubPostDetailsActivity.this);
+                expandableListAdapter = new CustomExpandableListAdapter(ClubPostDetailsActivity.this, commentsArrayList, post, ClubPostDetailsActivity.this);
                 expandableListView.setAdapter(expandableListAdapter);
                 expandableListView.setNestedScrollingEnabled(true);
                 setListViewHeight(commentsArrayList.size());
@@ -235,7 +224,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
         });
     }
 
-    void updateData(){
+    void updateData() {
         authorTV.setText(CommonUtils.getNameFromEmail(post.getAuthor()));
         nameTV.setText(club.getName());
         Glide.with(ClubPostDetailsActivity.this).load(club.getDp_url()).into(userImageIV);
@@ -244,18 +233,17 @@ public class ClubPostDetailsActivity extends BaseActivity {
         timeTV.setText(CommonUtils.getTime(post.getTime()));
         descriptionTV.setText(post.getDescription().trim());
 
-        if(post.getImg_urls() != null && post.getImg_urls().size() != 0) {
+        if (post.getImg_urls() != null && post.getImg_urls().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
 
-            final ImageAdapter imageAdapter = new ImageAdapter(ClubPostDetailsActivity.this, post.getImg_urls(),0);
+            final ImageAdapter imageAdapter = new ImageAdapter(ClubPostDetailsActivity.this, post.getImg_urls(), 0);
             viewPager.setAdapter(imageAdapter);
 
-            if(post.getImg_urls().size()==1){
+            if (post.getImg_urls().size() == 1) {
                 current_imageTV.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 current_imageTV.setVisibility(View.VISIBLE);
-                current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(post.getImg_urls().size()));
+                current_imageTV.setText(1 + " / " + post.getImg_urls().size());
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -264,7 +252,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onPageSelected(int pos) {
-                        current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(post.getImg_urls().size()));
+                        current_imageTV.setText((pos + 1) + " / " + post.getImg_urls().size());
                     }
 
                     @Override
@@ -273,8 +261,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
                     }
                 });
             }
-        }
-        else {
+        } else {
             viewPager.setVisibility(View.GONE);
             current_imageTV.setVisibility(View.GONE);
         }
@@ -282,17 +269,16 @@ public class ClubPostDetailsActivity extends BaseActivity {
         ArrayList<String> fileName = post.getFileName();
         ArrayList<String> fileUrl = post.getFileUrl();
 
-        if(fileName != null && fileName.size() > 0){
+        if (fileName != null && fileName.size() > 0) {
             attachmentsTV.setVisibility(View.VISIBLE);
             attachmentsChipGroup.setVisibility(View.VISIBLE);
             attachmentsChipGroup.removeAllViews();
 
-            for(int i=0; i<fileName.size(); i++){
+            for (int i = 0; i < fileName.size(); i++) {
                 Chip chip = getFilesChip(attachmentsChipGroup, fileName.get(i), fileUrl.get(i));
                 attachmentsChipGroup.addView(chip);
             }
-        }
-        else {
+        } else {
             attachmentsTV.setVisibility(View.GONE);
             attachmentsChipGroup.setVisibility(View.GONE);
         }
@@ -311,18 +297,18 @@ public class ClubPostDetailsActivity extends BaseActivity {
                 if (!url.startsWith("http") && !url.startsWith("https")) {
                     url = "http://" + url;
                 }
-                CommonUtils.openCustomBrowser(getApplicationContext(),url);
+                CommonUtils.openCustomBrowser(getApplicationContext(), url);
             }
         });
 
-        try{
+        try {
 
-            if (post.getLike()!=null && post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
+            if (post.getLike() != null && post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                 likeIV.setImageResource(R.drawable.blue_heart);
             } else {
                 likeIV.setImageResource(R.drawable.heart);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
             likeIV.setImageResource(R.drawable.heart);
         }
@@ -330,8 +316,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
 
         try {
             likeTV.setText(Integer.toString(post.getLike().size()));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             likeTV.setText("0");
         }
@@ -354,8 +339,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
                         likeIV.setImageResource(R.drawable.heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -375,7 +359,6 @@ public class ClubPostDetailsActivity extends BaseActivity {
 
     /*****************************************************************/
     //Files
-
     private Chip getFilesChip(final ChipGroup entryChipGroup, final String file_name, final String url) {
         final Chip chip = new Chip(this);
         chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.file_name_chip));
@@ -383,12 +366,11 @@ public class ClubPostDetailsActivity extends BaseActivity {
         chip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!CommonUtils.hasPermissions(ClubPostDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                if (!CommonUtils.hasPermissions(ClubPostDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     ActivityCompat.requestPermissions(ClubPostDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                }
-                else{
+                } else {
                     Toast toast = Toast.makeText(ClubPostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     try {
                         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -401,10 +383,9 @@ public class ClubPostDetailsActivity extends BaseActivity {
                                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
                         dm.enqueue(request);
-                    }
-                    catch (Exception ex) {
-                        toast = Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                    } catch (Exception ex) {
+                        toast = Toast.makeText(getApplicationContext(), "Download failed!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         ex.printStackTrace();
                     }

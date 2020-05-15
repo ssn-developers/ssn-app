@@ -1,28 +1,23 @@
 package in.edu.ssn.ssnapp.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class ClubPost{
+public class ClubPost {
     String author;
     String cid;
     ArrayList<Comments> comment;
     String description;
-    private ArrayList<String> fileName;
-    private ArrayList<String> fileUrl;
     ArrayList<String> img_urls;
     ArrayList<String> like;
     Date time;
     String title;
     String id;
+    private ArrayList<String> fileName;
+    private ArrayList<String> fileUrl;
 
-    public ClubPost() { }
+    public ClubPost() {
+    }
 
     public String getAuthor() {
         return author;
@@ -109,7 +104,7 @@ public class ClubPost{
     }
 
     public void setLike(ArrayList<String> like) {
-        if(like==null)
+        if (like == null)
             this.like = new ArrayList<>();
         else
             this.like = like;

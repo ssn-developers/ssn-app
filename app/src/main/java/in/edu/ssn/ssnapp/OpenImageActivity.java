@@ -1,23 +1,19 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.app.DownloadManager;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.core.app.ActivityCompat;
+
 import com.bumptech.glide.Glide;
 import com.crashlytics.android.Crashlytics;
-
 
 import java.io.File;
 
@@ -29,21 +25,21 @@ public class OpenImageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(darkModeEnabled){
+        if (darkModeEnabled) {
             setContentView(R.layout.activity_open_image_dark);
             clearLightStatusBar(this);
-        }else{
+        } else {
             setContentView(R.layout.activity_open_image);
         }
 
 
-        ImageView imageIV=findViewById(R.id.imageIV);
-        ImageView backIV=findViewById(R.id.backIV);
-        ImageView downloadIV=findViewById(R.id.downloadIV);
+        ImageView imageIV = findViewById(R.id.imageIV);
+        ImageView backIV = findViewById(R.id.backIV);
+        ImageView downloadIV = findViewById(R.id.downloadIV);
 
         String url = getIntent().getStringExtra("url");
         final Uri downloadUri = Uri.parse(url);
-        final File f= new File(downloadUri.getPath());
+        final File f = new File(downloadUri.getPath());
 
         Glide.with(this).load(url).into(imageIV);
 
@@ -51,13 +47,13 @@ public class OpenImageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if(!CommonUtils.hasPermissions(OpenImageActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                if (!CommonUtils.hasPermissions(OpenImageActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     ActivityCompat.requestPermissions(OpenImageActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                }else{
+                } else {
 
                     try {
                         Toast toast = Toast.makeText(OpenImageActivity.this, "Downloading...", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
 
                         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -68,13 +64,12 @@ public class OpenImageActivity extends BaseActivity {
                                 .setTitle(downloadUri.getLastPathSegment()).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
                         dm.enqueue(request);
-                    }
-                    catch (Exception ex) {
-                        Toast toast = Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                    } catch (Exception ex) {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Download failed!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         ex.printStackTrace();
-                        Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
+                        Crashlytics.log("stackTrace: " + ex.getStackTrace() + " \n Error: " + ex.getMessage());
                     }
 
                 }

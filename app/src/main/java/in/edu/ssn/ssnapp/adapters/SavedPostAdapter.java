@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,30 +20,23 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.common.internal.service.Common;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
-
 import java.util.ArrayList;
-import java.util.Date;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
-import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class SavedPostAdapter extends ArrayAdapter<Post> {
-    boolean darkMode=false;
+    boolean darkMode = false;
+
     public SavedPostAdapter(@NonNull Context context, ArrayList<Post> resource) {
-        super(context,0,resource);
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        super(context, 0, resource);
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
     @Override
@@ -56,7 +47,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        final Post model=getItem(position);
+        final Post model = getItem(position);
 
         final TextView authorTV, positionTV, titleTV, timeTV, current_imageTV;
         SocialTextView descriptionTV;
@@ -64,11 +55,11 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         RelativeLayout feed_view;
         ViewPager viewPager;
 
-        if(convertView==null){
-            if(darkMode){
-                convertView= LayoutInflater.from(getContext()).inflate(R.layout.student_post_item_dark, parent,false);
-            }else {
-                convertView= LayoutInflater.from(getContext()).inflate(R.layout.student_post_item, parent,false);
+        if (convertView == null) {
+            if (darkMode) {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.student_post_item_dark, parent, false);
+            } else {
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.student_post_item, parent, false);
             }
 
         }
@@ -101,29 +92,27 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
 
         timeTV.setText(CommonUtils.getTime(model.getTime()));
 
-        if(model.getDescription().length() > 100) {
+        if (model.getDescription().length() > 100) {
             SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
             ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
             ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
             descriptionTV.setText(ss);
-        }
-        else
+        } else
             descriptionTV.setText(model.getDescription().trim());
 
-        if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
+        if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
 
-            int type=Integer.parseInt(DataBaseHelper.getInstance(getContext()).getPostType(model.getId()));
+            int type = Integer.parseInt(DataBaseHelper.getInstance(getContext()).getPostType(model.getId()));
 
-            final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),type, model);
+            final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(), type, model);
             viewPager.setAdapter(imageAdapter);
 
-            if(model.getImageUrl().size()==1){
+            if (model.getImageUrl().size() == 1) {
                 current_imageTV.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 current_imageTV.setVisibility(View.VISIBLE);
-                current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -132,7 +121,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
 
                     @Override
                     public void onPageSelected(int pos) {
-                        current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        current_imageTV.setText((pos + 1) + " / " + model.getImageUrl().size());
                     }
 
                     @Override
@@ -141,8 +130,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
                     }
                 });
             }
-        }
-        else {
+        } else {
             viewPager.setVisibility(View.GONE);
             current_imageTV.setVisibility(View.GONE);
         }
@@ -152,8 +140,8 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                 intent.putExtra("post", model);
-                int type=Integer.parseInt(DataBaseHelper.getInstance(getContext()).getPostType(model.getId()));
-                intent.putExtra("type",type);
+                int type = Integer.parseInt(DataBaseHelper.getInstance(getContext()).getPostType(model.getId()));
+                intent.putExtra("type", type);
                 getContext().startActivity(intent);
             }
         });

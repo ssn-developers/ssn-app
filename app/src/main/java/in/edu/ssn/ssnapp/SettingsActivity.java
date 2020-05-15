@@ -1,24 +1,17 @@
 package in.edu.ssn.ssnapp;
 
-import android.app.AlertDialog;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.suke.widget.SwitchButton;
-
-import java.util.Set;
 
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
@@ -29,13 +22,13 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class SettingsActivity extends BaseActivity {
 
-    private int clearance = 0;
     SwitchButton darkmodeSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB, chatSB, notifSwitch;
     TextView eventsTV, almaconnectTV, helplineTV, contributorTV, feedbackTV, inviteTV, ratingTV, privacyTV, logoutTV, calendar_TV;
     RelativeLayout newsfeedRL, busalertRL, examcellRL, placementsRL, eventsRL, chatRL;
     LinearLayout notificationLL;
     RelativeLayout almaconnectRL, facultyRL;
     ImageView backIV;
+    private int clearance = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -185,38 +178,38 @@ public class SettingsActivity extends BaseActivity {
     }
 
     public void initUI(int clearance) {
-        darkmodeSB = (SwitchButton) findViewById(R.id.darkModeSwitch);
-        notifSwitch = (SwitchButton) findViewById(R.id.notifSwitch);
-        newsfeedSB = (SwitchButton) findViewById(R.id.switch_dept);
-        busalertSB = (SwitchButton) findViewById(R.id.switch_bus);
-        examcellSB = (SwitchButton) findViewById(R.id.switch_exam);
-        placementsSB = (SwitchButton) findViewById(R.id.switch_place);
-        eventsSB = (SwitchButton) findViewById(R.id.switch_event);
+        darkmodeSB = findViewById(R.id.darkModeSwitch);
+        notifSwitch = findViewById(R.id.notifSwitch);
+        newsfeedSB = findViewById(R.id.switch_dept);
+        busalertSB = findViewById(R.id.switch_bus);
+        examcellSB = findViewById(R.id.switch_exam);
+        placementsSB = findViewById(R.id.switch_place);
+        eventsSB = findViewById(R.id.switch_event);
         chatSB = findViewById(R.id.switch_chat);
 
-        eventsTV = (TextView) findViewById(R.id.event_TV);
-        almaconnectTV = (TextView) findViewById(R.id.almaconnetTV);
-        helplineTV = (TextView) findViewById(R.id.helplineTV);
-        feedbackTV = (TextView) findViewById(R.id.suggestionTV);
-        inviteTV = (TextView) findViewById(R.id.inviteTV);
-        ratingTV = (TextView) findViewById(R.id.rateTV);
-        privacyTV = (TextView) findViewById(R.id.privacyTV);
-        logoutTV = (TextView) findViewById(R.id.logoutTV);
-        contributorTV = (TextView) findViewById(R.id.contributors_TV);
-        calendar_TV = (TextView) findViewById(R.id.calendar_TV);
+        eventsTV = findViewById(R.id.event_TV);
+        almaconnectTV = findViewById(R.id.almaconnetTV);
+        helplineTV = findViewById(R.id.helplineTV);
+        feedbackTV = findViewById(R.id.suggestionTV);
+        inviteTV = findViewById(R.id.inviteTV);
+        ratingTV = findViewById(R.id.rateTV);
+        privacyTV = findViewById(R.id.privacyTV);
+        logoutTV = findViewById(R.id.logoutTV);
+        contributorTV = findViewById(R.id.contributors_TV);
+        calendar_TV = findViewById(R.id.calendar_TV);
 
-        newsfeedRL = (RelativeLayout) findViewById(R.id.newsfeedRL);
-        busalertRL = (RelativeLayout) findViewById(R.id.busalertRL);
-        examcellRL = (RelativeLayout) findViewById(R.id.examcellRL);
-        placementsRL = (RelativeLayout) findViewById(R.id.placementRL);
-        eventsRL = (RelativeLayout) findViewById(R.id.eventRL);
+        newsfeedRL = findViewById(R.id.newsfeedRL);
+        busalertRL = findViewById(R.id.busalertRL);
+        examcellRL = findViewById(R.id.examcellRL);
+        placementsRL = findViewById(R.id.placementRL);
+        eventsRL = findViewById(R.id.eventRL);
         chatRL = findViewById(R.id.chatRL);
 
-        notificationLL = (LinearLayout) findViewById(R.id.notificationLL);
-        almaconnectRL = (RelativeLayout) findViewById(R.id.almaconnetLL);
-        facultyRL = (RelativeLayout) findViewById(R.id.facultyRL);
+        notificationLL = findViewById(R.id.notificationLL);
+        almaconnectRL = findViewById(R.id.almaconnetLL);
+        facultyRL = findViewById(R.id.facultyRL);
 
-        backIV = (ImageView) findViewById(R.id.backIV);
+        backIV = findViewById(R.id.backIV);
 
         //darkmode switch handling
         if (darkModeEnabled)
@@ -318,7 +311,7 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "place");
         }
 
-        if(clearance == 1){
+        if (clearance == 1) {
             SharedPref.putBoolean(getApplicationContext(), "switch_bus", busalertSB.isChecked());
             SharedPref.putBoolean(getApplicationContext(), "switch_event", eventsSB.isChecked());
             SharedPref.putBoolean(getApplicationContext(), "switch_global_chat", chatSB.isChecked());

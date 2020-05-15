@@ -21,12 +21,12 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.AlumniDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.ContributionViewHolder>{
+public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.ContributionViewHolder> {
 
+    boolean darkMode = false;
     private ArrayList<AlumniDetails> alumniDetails;
     private Context context;
     private TextDrawable.IBuilder builder;
-    boolean darkMode=false;
 
     public AboutAlumniAdapter(Context context, ArrayList<AlumniDetails> alumniDetails) {
         this.context = context;
@@ -36,7 +36,7 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
                 .toUpperCase()
                 .endConfig()
                 .round();
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
     @NonNull
@@ -44,9 +44,9 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
     public AboutAlumniAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem;
-        if(darkMode){
+        if (darkMode) {
             listItem = layoutInflater.inflate(R.layout.alumni_item_dark, parent, false);
-        }else {
+        } else {
             listItem = layoutInflater.inflate(R.layout.alumni_item, parent, false);
         }
         return new AboutAlumniAdapter.ContributionViewHolder(listItem);
@@ -54,7 +54,7 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AboutAlumniAdapter.ContributionViewHolder holder, int position) {
-        final AlumniDetails drawer = (AlumniDetails) alumniDetails.get(position);
+        final AlumniDetails drawer = alumniDetails.get(position);
 
         holder.nameTV.setText(drawer.getName());
         holder.emailTV.setText(drawer.getEmail());

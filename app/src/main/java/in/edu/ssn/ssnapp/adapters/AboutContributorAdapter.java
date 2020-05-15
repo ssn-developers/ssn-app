@@ -22,16 +22,16 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.TeamDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContributorAdapter.ContributionViewHolder>{
+public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContributorAdapter.ContributionViewHolder> {
 
+    boolean darkMode = false;
     private ArrayList<TeamDetails> teamDetails;
     private Context context;
-    boolean darkMode=false;
 
     public AboutContributorAdapter(Context context, ArrayList<TeamDetails> teamDetails) {
         this.context = context;
         this.teamDetails = teamDetails;
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
     @NonNull
@@ -39,9 +39,9 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     public AboutContributorAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem;
-        if(darkMode){
+        if (darkMode) {
             listItem = layoutInflater.inflate(R.layout.contributor_item_dark, parent, false);
-        }else {
+        } else {
             listItem = layoutInflater.inflate(R.layout.contributor_item, parent, false);
         }
         return new AboutContributorAdapter.ContributionViewHolder(listItem);
@@ -49,7 +49,7 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
 
     @Override
     public void onBindViewHolder(@NonNull final AboutContributorAdapter.ContributionViewHolder holder, int position) {
-        final TeamDetails drawer = (TeamDetails) teamDetails.get(position);
+        final TeamDetails drawer = teamDetails.get(position);
 
         holder.nameTV.setText(drawer.getName());
         holder.positionTV.setText(drawer.getPosition());
@@ -59,17 +59,16 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ContributorProfileActivity.class);
-                intent.putExtra("Contributor",drawer);
+                intent.putExtra("Contributor", drawer);
                 ActivityOptionsCompat options = null;
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             (Activity) context,
                             holder.dpIV,
                             holder.dpIV.getTransitionName()
-                            );
+                    );
                     ActivityCompat.startActivity(context, intent, options.toBundle());
-                }
-                else
+                } else
                     context.startActivity(intent);
             }
         });

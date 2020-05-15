@@ -1,7 +1,9 @@
 package in.edu.ssn.ssnapp.message_utils;
 
 public interface MessageListener {
-    public void onMessageAdded(Message message);
-    public void onMessageRemoved(String id);
-    public void onMessageModified(String id, Message message);
+    void onMessageAdded(Message message);
+
+    void onMessageRemoved(String id);
+
+    void onMessageModified(String id, Message message);
 }

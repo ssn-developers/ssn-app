@@ -44,25 +44,24 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class ExamCellFragment extends Fragment {
 
-    boolean darkMode=false;
-
-    public ExamCellFragment() { }
-
+    boolean darkMode = false;
     RecyclerView feedsRV;
     LinearLayoutManager layoutManager;
     LinearLayout linearlayout1;
     RelativeLayout layout_progress;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
-    CardView gpaCV,passmarkCV;
+    CardView gpaCV, passmarkCV;
     TextView newPostTV, linkTitleTV1, linkTitleTV2;
+    public ExamCellFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        CommonUtils.addScreen(getContext(),getActivity(),"ExamCellFragment");
-        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
+        CommonUtils.addScreen(getContext(), getActivity(), "ExamCellFragment");
+        darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
         View view;
-        if(darkMode)
+        if (darkMode)
             view = inflater.inflate(R.layout.fragment_exam_feed_dark, container, false);
         else
             view = inflater.inflate(R.layout.fragment_exam_feed, container, false);
@@ -102,18 +101,18 @@ public class ExamCellFragment extends Fragment {
 
     /*********************************************************/
 
-    void setupFireStore(){
-        String dept = SharedPref.getString(getContext(),"dept");
-        String year = "year." + SharedPref.getInt(getContext(),"year");
+    void setupFireStore() {
+        String dept = SharedPref.getString(getContext(), "dept");
+        String year = "year." + SharedPref.getInt(getContext(), "year");
 
-        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_exam_cell).whereArrayContains("dept", dept).whereEqualTo(year,true).orderBy("time", Query.Direction.DESCENDING);
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_exam_cell).whereArrayContains("dept", dept).whereEqualTo(year, true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
 
-                final Post post = CommonUtils.getPostFromSnapshot(getContext(),snapshot);
+                final Post post = CommonUtils.getPostFromSnapshot(getContext(), snapshot);
                 post.setAuthor_image_url("examcell@ssn.edu.in");
                 post.setAuthor("SSNCE COE");
                 post.setPosition("Exam cell Coordinator");
@@ -121,7 +120,7 @@ public class ExamCellFragment extends Fragment {
                 return post;
             }
         })
-        .build();
+                .build();
 
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
@@ -129,27 +128,25 @@ public class ExamCellFragment extends Fragment {
                 holder.titleTV.setText(model.getTitle());
                 holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
-                if(model.getDescription().length() > 100) {
+                if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.descriptionTV.setText(ss);
-                }
-                else
+                } else
                     holder.descriptionTV.setText(model.getDescription().trim());
 
-                if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
+                if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),5, model);
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(), 5, model);
                     holder.viewPager.setAdapter(imageAdapter);
 
-                    if(model.getImageUrl().size()==1){
+                    if (model.getImageUrl().size() == 1) {
                         holder.current_imageTV.setVisibility(View.GONE);
-                    }
-                    else {
+                    } else {
                         holder.current_imageTV.setVisibility(View.VISIBLE);
-                        holder.current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        holder.current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -158,7 +155,7 @@ public class ExamCellFragment extends Fragment {
 
                             @Override
                             public void onPageSelected(int pos) {
-                                holder.current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
+                                holder.current_imageTV.setText((pos + 1) + " / " + model.getImageUrl().size());
                             }
 
                             @Override
@@ -167,8 +164,7 @@ public class ExamCellFragment extends Fragment {
                             }
                         });
                     }
-                }
-                else {
+                } else {
                     holder.viewPager.setVisibility(View.GONE);
                     holder.current_imageTV.setVisibility(View.GONE);
                 }
@@ -186,7 +182,7 @@ public class ExamCellFragment extends Fragment {
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        CommonUtils.handleBottomSheet(v,model,5,getContext());
+                        CommonUtils.handleBottomSheet(v, model, 5, getContext());
                         return true;
                     }
                 });
@@ -198,9 +194,9 @@ public class ExamCellFragment extends Fragment {
             @Override
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
                 View view;
-                if(darkMode){
+                if (darkMode) {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item_dark, group, false);
-                }else{
+                } else {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
                 }
 
@@ -210,7 +206,7 @@ public class ExamCellFragment extends Fragment {
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
-                if(type==ChangeEventType.CHANGED){
+                if (type == ChangeEventType.CHANGED) {
                     // New post added (Show new post available text)
                     newPostTV.setVisibility(View.VISIBLE);
                 }
@@ -220,7 +216,7 @@ public class ExamCellFragment extends Fragment {
         feedsRV.setAdapter(adapter);
     }
 
-    void initUI(View view){
+    void initUI(View view) {
         feedsRV = view.findViewById(R.id.feedsRV);
         layoutManager = new LinearLayoutManager(getContext());
         feedsRV.setLayoutManager(layoutManager);
@@ -241,8 +237,8 @@ public class ExamCellFragment extends Fragment {
         layout_progress = view.findViewById(R.id.layout_progress);
         linearlayout1 = view.findViewById(R.id.linearlayout1);
 
-        int year = SharedPref.getInt(getContext(),"year");
-        if(year > 2017)
+        int year = SharedPref.getInt(getContext(), "year");
+        if (year > 2017)
             linearlayout1.setVisibility(View.VISIBLE);
         else
             linearlayout1.setVisibility(View.GONE);
@@ -254,6 +250,26 @@ public class ExamCellFragment extends Fragment {
 
         linkTitleTV1.setSelected(true);
         linkTitleTV2.setSelected(true);
+    }
+
+    /*********************************************************/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null)
+            adapter.stopListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     /*********************************************************/
@@ -278,25 +294,5 @@ public class ExamCellFragment extends Fragment {
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
         }
-    }
-
-    /*********************************************************/
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(adapter!=null)
-            adapter.stopListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 }

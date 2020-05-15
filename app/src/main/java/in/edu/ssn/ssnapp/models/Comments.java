@@ -5,22 +5,29 @@ import android.os.Parcelable;
 
 import com.google.firebase.Timestamp;
 
-import org.w3c.dom.Comment;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Comments implements Parcelable,Comparable{
+public class Comments implements Parcelable, Comparable {
 
+    public static final Creator<Comments> CREATOR = new Creator<Comments>() {
+        @Override
+        public Comments createFromParcel(Parcel in) {
+            return new Comments(in);
+        }
+
+        @Override
+        public Comments[] newArray(int size) {
+            return new Comments[size];
+        }
+    };
     String author;
     String message;
     Date time;
-    ArrayList<HashMap<String,Object>> reply;
+    ArrayList<HashMap<String, Object>> reply;
 
     public Comments() {
     }
@@ -33,12 +40,12 @@ public class Comments implements Parcelable,Comparable{
         //Collections.sort(reply,new MapComparator("time"));
     }
 
+
     public Comments(String author, String message, ArrayList<HashMap<String, Object>> reply) {
         this.author = author;
         this.message = message;
         this.reply = reply;
     }
-
 
     protected Comments(Parcel in) {
         author = in.readString();
@@ -55,18 +62,6 @@ public class Comments implements Parcelable,Comparable{
     public int describeContents() {
         return 0;
     }
-
-    public static final Creator<Comments> CREATOR = new Creator<Comments>() {
-        @Override
-        public Comments createFromParcel(Parcel in) {
-            return new Comments(in);
-        }
-
-        @Override
-        public Comments[] newArray(int size) {
-            return new Comments[size];
-        }
-    };
 
     public String getAuthor() {
         return author;
@@ -103,28 +98,25 @@ public class Comments implements Parcelable,Comparable{
     @Override
     public int compareTo(Object o) {
 
-        if(this.getTime().compareTo(((Comments)o).getTime())>0)
+        if (this.getTime().compareTo(((Comments) o).getTime()) > 0)
             return -1;
         else
             return 1;
 
     }
 
-    class MapComparator implements Comparator<Map<String, Object>>
-    {
+    class MapComparator implements Comparator<Map<String, Object>> {
         private final String key;
 
-        public MapComparator(String key)
-        {
+        public MapComparator(String key) {
             this.key = key;
         }
 
-        public int compare(Map<String, Object> first, Map<String, Object> second)
-        {
+        public int compare(Map<String, Object> first, Map<String, Object> second) {
             //((Timestamp)i.get("time")).toDate()
-            Date firstValue = ((Timestamp)first.get(key)).toDate();
-            Date secondValue = ((Timestamp)first.get(key)).toDate();
-            if(firstValue.compareTo(secondValue)>0)
+            Date firstValue = ((Timestamp) first.get(key)).toDate();
+            Date secondValue = ((Timestamp) first.get(key)).toDate();
+            if (firstValue.compareTo(secondValue) > 0)
                 return -1;
             else
                 return 1;

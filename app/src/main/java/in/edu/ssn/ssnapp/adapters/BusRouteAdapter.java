@@ -17,25 +17,25 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
-public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRouteViewHolder>{
+public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRouteViewHolder> {
 
+    boolean darkMode = false;
     private ArrayList<BusRoute> busRoutes;
     private Context context;
-    boolean darkMode=false;
 
     public BusRouteAdapter(Context context, ArrayList<BusRoute> busRoutes) {
         this.context = context;
         this.busRoutes = busRoutes;
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
     @NonNull
     @Override
     public BusRouteAdapter.BusRouteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(darkMode){
+        if (darkMode) {
             view = LayoutInflater.from(context).inflate(R.layout.bus_route_item_dark, parent, false);
-        }else {
+        } else {
             view = LayoutInflater.from(context).inflate(R.layout.bus_route_item, parent, false);
         }
         return new BusRouteViewHolder(view);
@@ -43,7 +43,7 @@ public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRou
 
     @Override
     public void onBindViewHolder(@NonNull BusRouteAdapter.BusRouteViewHolder holder, int position) {
-        BusRoute busRoute = (BusRoute) busRoutes.get(position);
+        BusRoute busRoute = busRoutes.get(position);
         holder.routeNameTV.setText("Route " + busRoute.getName());
         holder.busStopsRV.setAdapter(new BusStopAdapter(context, busRoute));
     }
@@ -64,7 +64,7 @@ public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRou
             routeNameTV = convertView.findViewById(R.id.routeNameTV);
             busStopsRV = convertView.findViewById(R.id.busStopsRV);
             busRouteCV = convertView.findViewById(R.id.busRouteCV);
-            LinearLayoutManager layoutManager = new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
             busStopsRV.setHasFixedSize(true);
             busStopsRV.setLayoutManager(layoutManager);
         }

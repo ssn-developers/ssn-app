@@ -1,13 +1,11 @@
 package in.edu.ssn.ssnapp.services;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -17,20 +15,14 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.ClubPostDetailsActivity;
 import in.edu.ssn.ssnapp.GroupChatActivity;
+import in.edu.ssn.ssnapp.PdfViewerActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.SplashActivity;
-import in.edu.ssn.ssnapp.StudentHomeActivity;
-import in.edu.ssn.ssnapp.PdfViewerActivity;
-import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.message_utils.NewMessageEvent;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.Post;
@@ -38,8 +30,6 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
-
-import static com.google.firebase.firestore.DocumentSnapshot.ServerTimestampBehavior.ESTIMATE;
 
 
 public class SSNFirebaseMessagingService extends FirebaseMessagingService {

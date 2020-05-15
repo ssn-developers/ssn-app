@@ -2,14 +2,14 @@ package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
-
-import androidx.cardview.widget.CardView;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+import androidx.core.content.res.ResourcesCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.github.vipulasri.timelineview.TimelineView;
 
@@ -20,12 +20,12 @@ import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
 public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder> {
+    Typeface regular, bold;
+    boolean darkMode = false;
     private List<String> stops;
     private List<String> time;
     private BusRoute model;
     private Context context;
-    Typeface regular, bold;
-    boolean darkMode=false;
 
     public BusStopAdapter(Context context, BusRoute model) {
         this.context = context;
@@ -34,18 +34,19 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
         this.model = model;
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
         bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
+
     @Override
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listitem;
-        if(darkMode){
+        if (darkMode) {
             listitem = layoutInflater.inflate(R.layout.bus_stop_item_dark, parent, false);
-        }else {
+        } else {
             listitem = layoutInflater.inflate(R.layout.bus_stop_item, parent, false);
         }
-        return new TimeLineViewHolder(listitem,viewType);
+        return new TimeLineViewHolder(listitem, viewType);
     }
 
     @Override
@@ -67,8 +68,8 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
     }
 
     public class TimeLineViewHolder extends RecyclerView.ViewHolder {
-        public  TimelineView mTimelineView;
-        public TextView titleTV,timeTV;
+        public TimelineView mTimelineView;
+        public TextView titleTV, timeTV;
         public CardView busStopsCV;
 
         public TimeLineViewHolder(View itemView, int viewType) {

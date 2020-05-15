@@ -1,21 +1,13 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.viewpager.widget.ViewPager;
-
 import android.Manifest;
 import android.animation.LayoutTransition;
 import android.app.DownloadManager;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Parcel;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,36 +15,34 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.viewpager.widget.ViewPager;
+
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.crashlytics.android.Crashlytics;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
-import com.google.gson.Gson;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 import com.hendraanggrian.appcompat.widget.SocialView;
 
-
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import in.edu.ssn.ssnapp.adapters.ImageAdapter;
 import in.edu.ssn.ssnapp.database.DataBaseHelper;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
-import in.edu.ssn.ssnapp.utils.Constants;
-import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class PostDetailsActivity extends BaseActivity {
 
-    final static String TAG="PostDetails";
+    final static String TAG = "PostDetails";
     Post post;
-    ImageView backIV, userImageIV, shareIV,bookmarkIV;
+    ImageView backIV, userImageIV, shareIV, bookmarkIV;
     ViewPager imageViewPager;
-    TextView authorTV, positionTV, timeTV, titleTV, current_imageTV,attachmentsTV;
+    TextView authorTV, positionTV, timeTV, titleTV, current_imageTV, attachmentsTV;
     SocialTextView descriptionTV;
     ChipGroup attachmentsChipGroup, yearChipGroup, deptChipGroup;
     RelativeLayout textGroupRL, layout_receive;
@@ -60,15 +50,15 @@ public class PostDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(darkModeEnabled){
+        if (darkModeEnabled) {
             setContentView(R.layout.activity_post_details_dark);
             clearLightStatusBar(this);
-        }else {
+        } else {
             setContentView(R.layout.activity_post_details);
         }
 
         post = getIntent().getParcelableExtra("post");
-        final int type = getIntent().getIntExtra("type",0);
+        final int type = getIntent().getIntExtra("type", 0);
 
         initUI();
 
@@ -88,22 +78,21 @@ public class PostDetailsActivity extends BaseActivity {
             int color = generator.getColor(post.getAuthor_image_url());
             TextDrawable ic1 = builder.build(String.valueOf(post.getAuthor().charAt(0)), color);
             userImageIV.setImageDrawable(ic1);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(post.getImageUrl()!=null && post.getImageUrl().size()!=0){
+        if (post.getImageUrl() != null && post.getImageUrl().size() != 0) {
             imageViewPager.setVisibility(View.VISIBLE);
             current_imageTV.setVisibility(View.VISIBLE);
-            final ImageAdapter imageAdapter = new ImageAdapter(PostDetailsActivity.this, post.getImageUrl(),0);
+            final ImageAdapter imageAdapter = new ImageAdapter(PostDetailsActivity.this, post.getImageUrl(), 0);
             imageViewPager.setAdapter(imageAdapter);
 
-            if(post.getImageUrl().size()==1)
+            if (post.getImageUrl().size() == 1)
                 current_imageTV.setVisibility(View.GONE);
             else {
                 current_imageTV.setVisibility(View.VISIBLE);
-                current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(post.getImageUrl().size()));
+                current_imageTV.setText(1 + " / " + post.getImageUrl().size());
                 imageViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -112,7 +101,7 @@ public class PostDetailsActivity extends BaseActivity {
 
                     @Override
                     public void onPageSelected(int pos) {
-                        current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(post.getImageUrl().size()));
+                        current_imageTV.setText((pos + 1) + " / " + post.getImageUrl().size());
                     }
 
                     @Override
@@ -121,8 +110,7 @@ public class PostDetailsActivity extends BaseActivity {
                     }
                 });
             }
-        }
-        else {
+        } else {
             imageViewPager.setVisibility(View.GONE);
             current_imageTV.setVisibility(View.GONE);
         }
@@ -130,16 +118,15 @@ public class PostDetailsActivity extends BaseActivity {
         ArrayList<String> fileName = post.getFileName();
         ArrayList<String> fileUrl = post.getFileUrl();
 
-        if(fileName != null && fileName.size() > 0){
+        if (fileName != null && fileName.size() > 0) {
             attachmentsTV.setVisibility(View.VISIBLE);
             attachmentsChipGroup.setVisibility(View.VISIBLE);
 
-            for(int i=0; i<fileName.size(); i++){
+            for (int i = 0; i < fileName.size(); i++) {
                 Chip chip = getFilesChip(attachmentsChipGroup, fileName.get(i), fileUrl.get(i));
                 attachmentsChipGroup.addView(chip);
             }
-        }
-        else {
+        } else {
             attachmentsTV.setVisibility(View.GONE);
             attachmentsChipGroup.setVisibility(View.GONE);
         }
@@ -185,7 +172,7 @@ public class PostDetailsActivity extends BaseActivity {
                 if (!url.startsWith("http") && !url.startsWith("https")) {
                     url = "http://" + url;
                 }
-                CommonUtils.openCustomBrowser(getApplicationContext(),url);
+                CommonUtils.openCustomBrowser(getApplicationContext(), url);
             }
         });
 
@@ -203,15 +190,15 @@ public class PostDetailsActivity extends BaseActivity {
         bookmarkIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(checkSavedPost(post))
+                if (checkSavedPost(post))
                     unSavePost(post);
                 else
-                    savePost(post,Integer.toString(type));
+                    savePost(post, Integer.toString(type));
             }
         });
     }
 
-    void initUI(){
+    void initUI() {
         backIV = findViewById(R.id.backIV);
         userImageIV = findViewById(R.id.userImageIV);
         authorTV = findViewById(R.id.authorTV);
@@ -229,22 +216,20 @@ public class PostDetailsActivity extends BaseActivity {
         textGroupRL = findViewById(R.id.textGroupRL);
         layout_receive = findViewById(R.id.layout_receive);
         textGroupRL.getLayoutTransition().enableTransitionType(LayoutTransition.CHANGING);
-        bookmarkIV=findViewById(R.id.bookmarkIV);
+        bookmarkIV = findViewById(R.id.bookmarkIV);
 
         try {
             if (checkSavedPost(post))
                 bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
             else
                 bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
         }
     }
 
     /*****************************************************************/
     //Files
-
     private Chip getFilesChip(final ChipGroup entryChipGroup, final String file_name, final String url) {
         final Chip chip = new Chip(this);
         chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.file_name_chip));
@@ -252,12 +237,11 @@ public class PostDetailsActivity extends BaseActivity {
         chip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!CommonUtils.hasPermissions(PostDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)){
+                if (!CommonUtils.hasPermissions(PostDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     ActivityCompat.requestPermissions(PostDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                }
-                else{
+                } else {
                     Toast toast = Toast.makeText(PostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     try {
                         DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
@@ -270,13 +254,12 @@ public class PostDetailsActivity extends BaseActivity {
                                 .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
 
                         dm.enqueue(request);
-                    }
-                    catch (Exception ex) {
-                        toast = Toast.makeText(getApplicationContext(),"Download failed!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER,0,0);
+                    } catch (Exception ex) {
+                        toast = Toast.makeText(getApplicationContext(), "Download failed!", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         ex.printStackTrace();
-                        Crashlytics.log("stackTrace: "+ex.getStackTrace()+" \n Error: "+ex.getMessage());
+                        Crashlytics.log("stackTrace: " + ex.getStackTrace() + " \n Error: " + ex.getMessage());
                     }
 
                 }
@@ -290,7 +273,6 @@ public class PostDetailsActivity extends BaseActivity {
 
     /*****************************************************************/
     //Year & Dept
-
     private Chip getDataChip(final ChipGroup entryChipGroup, final String data) {
         final Chip chip = new Chip(this);
         chip.setChipDrawable(ChipDrawable.createFromResource(this, R.xml.year_chip));
@@ -299,38 +281,38 @@ public class PostDetailsActivity extends BaseActivity {
         return chip;
     }
 
-    public Boolean savePost(Post post,String type){
-        try{
-            DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-            dataBaseHelper.addPost(post,type);
+    public Boolean savePost(Post post, String type) {
+        try {
+            DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
+            dataBaseHelper.addPost(post, type);
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
 
         Toast toast = Toast.makeText(this, "Post saved!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER,0,0);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
         return true;
     }
 
-    void unSavePost(Post post){
+    void unSavePost(Post post) {
         // updating the post status to not saved in shared preference
 
-        DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
-        Log.d(TAG,"post type : "+dataBaseHelper.getPostType(post.getId()));
+        DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
+        Log.d(TAG, "post type : " + dataBaseHelper.getPostType(post.getId()));
         dataBaseHelper.deletePost(post.getId());
         bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
 
         Toast toast = Toast.makeText(this, "Post unsaved!", Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER,0,0);
+        toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
 
-    Boolean checkSavedPost(Post post){
-        DataBaseHelper dataBaseHelper=DataBaseHelper.getInstance(this);
+    Boolean checkSavedPost(Post post) {
+        DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
         return dataBaseHelper.checkPost(post.getId());
     }
 

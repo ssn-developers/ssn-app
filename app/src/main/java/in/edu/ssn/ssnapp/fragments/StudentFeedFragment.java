@@ -3,20 +3,9 @@ package in.edu.ssn.ssnapp.fragments;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
-
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +14,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
@@ -41,7 +38,6 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
-
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.NoNetworkActivity;
 import in.edu.ssn.ssnapp.PdfViewerActivity;
@@ -57,9 +53,8 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class StudentFeedFragment extends Fragment {
 
-    public StudentFeedFragment() {
-    }
-
+    private static final String TAG = "StudentFeedFragmentTest";
+    boolean darkMode = false;
     private RecyclerView feedsRV;
     private LinearLayoutManager layoutManager;
     private RelativeLayout layout_progress;
@@ -68,9 +63,9 @@ public class StudentFeedFragment extends Fragment {
     private TextView newPostTV, linkTitleTV2;
     private CardView syllabusCV, libraryCV, lakshyaCV, lmsCV;
     private String dept;
-    boolean darkMode = false;
 
-    private static final String TAG = "StudentFeedFragmentTest";
+    public StudentFeedFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -265,7 +260,7 @@ public class StudentFeedFragment extends Fragment {
                         holder.current_imageTV.setVisibility(View.GONE);
                     } else {
                         holder.current_imageTV.setVisibility(View.VISIBLE);
-                        holder.current_imageTV.setText(String.valueOf(1) + " / " + String.valueOf(model.getImageUrl().size()));
+                        holder.current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -274,7 +269,7 @@ public class StudentFeedFragment extends Fragment {
 
                             @Override
                             public void onPageSelected(int pos) {
-                                holder.current_imageTV.setText(String.valueOf(pos + 1) + " / " + String.valueOf(model.getImageUrl().size()));
+                                holder.current_imageTV.setText((pos + 1) + " / " + model.getImageUrl().size());
                             }
 
                             @Override
@@ -363,30 +358,6 @@ public class StudentFeedFragment extends Fragment {
 
     /*********************************************************/
 
-    public class FeedViewHolder extends RecyclerView.ViewHolder {
-        public TextView authorTV, positionTV, titleTV, timeTV, current_imageTV;
-        public SocialTextView descriptionTV;
-        public ImageView userImageIV;
-        public RelativeLayout feed_view;
-        public ViewPager viewPager;
-
-        public FeedViewHolder(View itemView) {
-            super(itemView);
-
-            authorTV = itemView.findViewById(R.id.authorTV);
-            positionTV = itemView.findViewById(R.id.positionTV);
-            titleTV = itemView.findViewById(R.id.titleTV);
-            descriptionTV = itemView.findViewById(R.id.descriptionTV);
-            timeTV = itemView.findViewById(R.id.timeTV);
-            current_imageTV = itemView.findViewById(R.id.currentImageTV);
-            userImageIV = itemView.findViewById(R.id.userImageIV);
-            feed_view = itemView.findViewById(R.id.feed_view);
-            viewPager = itemView.findViewById(R.id.viewPager);
-        }
-    }
-
-    /*********************************************************/
-
     public void openSyllabus(String url) {
         if (!CommonUtils.alerter(getContext())) {
             Intent i = new Intent(getContext(), PdfViewerActivity.class);
@@ -417,5 +388,29 @@ public class StudentFeedFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+    }
+
+    /*********************************************************/
+
+    public class FeedViewHolder extends RecyclerView.ViewHolder {
+        public TextView authorTV, positionTV, titleTV, timeTV, current_imageTV;
+        public SocialTextView descriptionTV;
+        public ImageView userImageIV;
+        public RelativeLayout feed_view;
+        public ViewPager viewPager;
+
+        public FeedViewHolder(View itemView) {
+            super(itemView);
+
+            authorTV = itemView.findViewById(R.id.authorTV);
+            positionTV = itemView.findViewById(R.id.positionTV);
+            titleTV = itemView.findViewById(R.id.titleTV);
+            descriptionTV = itemView.findViewById(R.id.descriptionTV);
+            timeTV = itemView.findViewById(R.id.timeTV);
+            current_imageTV = itemView.findViewById(R.id.currentImageTV);
+            userImageIV = itemView.findViewById(R.id.userImageIV);
+            feed_view = itemView.findViewById(R.id.feed_view);
+            viewPager = itemView.findViewById(R.id.viewPager);
+        }
     }
 }

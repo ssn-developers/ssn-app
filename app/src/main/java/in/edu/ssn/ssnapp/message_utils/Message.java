@@ -13,20 +13,25 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class Message {
 
-    @Exclude public boolean newMessageBlink=false;
-    @Exclude public int newMessageCount=0;
-    @Exclude boolean showDivider=false;
-    @Exclude boolean blinkReply=false;
-    @Exclude String dividerText;
+    @Exclude
+    public boolean newMessageBlink = false;
+    @Exclude
+    public int newMessageCount = 0;
+    @Exclude
+    boolean showDivider = false;
+    @Exclude
+    boolean blinkReply = false;
+    @Exclude
+    String dividerText;
 
-    boolean messageDeleted=false;
+    boolean messageDeleted = false;
     int type;
-    String messageId="";
-    String senderId="";
-    String senderName="";
-    String message="";
-    String timestamp="";
-    Message replyMessage=null;
+    String messageId = "";
+    String senderId = "";
+    String senderName = "";
+    String message = "";
+    String timestamp = "";
+    Message replyMessage = null;
 
     public int getType() {
         return type;
@@ -141,7 +146,6 @@ public class Message {
     public void setBlinkReply(boolean blinkReply) {
         this.blinkReply = blinkReply;
     }
-
 
 
 }

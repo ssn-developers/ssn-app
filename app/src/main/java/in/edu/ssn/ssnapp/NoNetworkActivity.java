@@ -1,11 +1,11 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
@@ -28,9 +28,9 @@ public class NoNetworkActivity extends AppCompatActivity {
         retryCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!CommonUtils.alerter(getApplicationContext())) {
+                if (!CommonUtils.alerter(getApplicationContext())) {
                     if (key.equals("splash")) {
-                        if(!CommonUtils.getIs_blocked()) {
+                        if (!CommonUtils.getIs_blocked()) {
                             if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
                                 if (SharedPref.getInt(getApplicationContext(), "clearance") == 3) {
                                     startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
@@ -50,16 +50,13 @@ public class NoNetworkActivity extends AppCompatActivity {
                                 finish();
                                 Bungee.slideLeft(NoNetworkActivity.this);
                             }
-                        }
-                        else{
-                            Intent intent = new Intent(NoNetworkActivity.this,BlockScreenActivity.class);
+                        } else {
+                            Intent intent = new Intent(NoNetworkActivity.this, BlockScreenActivity.class);
                             startActivity(intent);
                         }
-                    }
-                    else
+                    } else
                         onBackPressed();
-                }
-                else
+                } else
                     lottie.playAnimation();
             }
         });
@@ -67,11 +64,10 @@ public class NoNetworkActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(!CommonUtils.alerter(getApplicationContext())) {
+        if (!CommonUtils.alerter(getApplicationContext())) {
             super.onBackPressed();
             Bungee.fade(NoNetworkActivity.this);
-        }
-        else{
+        } else {
             Intent startMain = new Intent(Intent.ACTION_MAIN);
             startMain.addCategory(Intent.CATEGORY_HOME);
             startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
