@@ -7,7 +7,7 @@ android {
         applicationId "in.edu.ssn.ssnapp"
         minSdkVersion 19
         targetSdkVersion 29
-        versionCode 14
+        versionCode 15
         versionName "1.2"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -53,21 +53,21 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
 
-    implementation 'com.airbnb.android:lottie:3.3.1'
+    implementation 'com.airbnb.android:lottie:3.4.0'
     implementation 'com.github.Binary-Finery:Bungee:1.0'
     implementation 'com.daimajia.easing:library:2.1@aar'
     implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
-    implementation 'com.google.firebase:firebase-core:17.2.3'
-    implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'com.google.firebase:firebase-database:19.2.1'
-    implementation 'com.google.firebase:firebase-firestore:21.4.1'
+    implementation 'com.google.firebase:firebase-core:17.4.1'
+    implementation 'com.google.firebase:firebase-auth:19.3.1'
+    implementation 'com.google.firebase:firebase-database:19.3.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.3'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
-    implementation 'com.google.firebase:firebase-messaging:20.1.1'
-    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation 'com.google.firebase:firebase-messaging:20.1.7'
+    implementation 'com.google.firebase:firebase-analytics:17.4.1'
     implementation 'com.crashlytics.sdk.android:crashlytics:2.10.1'
     implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
-    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:18.0.0'
     implementation 'com.android.volley:volley:1.1.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
 

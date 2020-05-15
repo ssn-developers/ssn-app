@@ -70,7 +70,6 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         boolean chat_sub = SharedPref.getBoolean(getApplicationContext(),"chat_first_sub");
         if(!chat_sub && !Constants.fresher_email.contains(SharedPref.getString(getApplicationContext(),"email"))){
             SharedPref.putBoolean(getApplicationContext(),"chat_first_sub",true);
-            System.out.println("global_chat first time sub triggered");
             FCMHelper.SubscribeToTopic(getApplicationContext(),Constants.GLOBAL_CHAT);
             SharedPref.putBoolean(getApplicationContext(), "switch_global_chat",true);
         }
