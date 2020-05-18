@@ -74,8 +74,7 @@ public class FunctionalHeadsActivity extends BaseActivity {
         funcHeadDetailsList.add(new FuncHeadDetails("Dr. S. Nanda", "nandas@ssn.edu.in", "Student Counsellor", "nandas@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Dr. S. Narasimman", "narasimmans@ssn.edu.in", "COE", "narasimmans@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Dr. Sunita Nair", "sunitanair@ssn.edu.in", "Professor & Head - Student affairs", "sunitanair@ssn.edu.in"));
-        funcHeadDetailsList.add(new FuncHeadDetails("Dr. S.T. Jothi Basu", "placement@ssn.edu.in", "Manager - CDC", "amittyagi@ssn.edu.in"));
-        funcHeadDetailsList.add(new FuncHeadDetails("Mr. Arun Prakash", "arunprakashsm@ssn.edu.in", "Asst. Manager - Marketing & Alumni Relations", "arunprakashsm@ssn.edu.in"));
+        funcHeadDetailsList.add(new FuncHeadDetails("Dr. S.T. Jothi Basu", "placement@ssn.edu.in", "Manager - Placement", "placement@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Dr. Balaji Ponnalagar", "balajip@ssn.edu.in", "Physical Director", "balajip@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Mr. Gopalakrishnan", "gopalakrishnanr@ssn.edu.in", "Admin Manager", "gopalakrishnanr@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Mr. Gopalan", "gopalann@ssn.edu.in", "Administrative officer", "gopalann@ssn.edu.in"));
