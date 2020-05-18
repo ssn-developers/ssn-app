@@ -79,7 +79,7 @@ public class SplashActivity extends AppCompatActivity {
 
         initUI();
         checkIsBlocked();
-        forceUpdate();
+        new checkForceUpdate().execute();
         setUpCrashReport();
 
         try {
@@ -140,15 +140,6 @@ public class SplashActivity extends AppCompatActivity {
 
     /**********************************************************************/
     // check current version and force update
-    public void forceUpdate() {
-        String latestVersion = CommonUtils.getLatestVersionName(getApplicationContext());
-        if (latestVersion != null && !BuildConfig.VERSION_NAME.equals(latestVersion)) {
-            isUpdateAvailable = true;
-            showForceUpdateDialog(latestVersion);
-        } else
-            isUpdateAvailable = false;
-    }
-
     public void showForceUpdateDialog(String latestVersion) {
         final AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View dialogView = getLayoutInflater().inflate(R.layout.custom_alert_dialog2, null);
@@ -493,6 +484,30 @@ public class SplashActivity extends AppCompatActivity {
                 Bungee.fade(SplashActivity.this);
             }
             return null;
+        }
+    }
+
+    public class checkForceUpdate extends AsyncTask<Void, Void, Void> {
+        String latestVersion = null;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            latestVersion = CommonUtils.getLatestVersionName(getApplicationContext());
+            if (latestVersion != null && !BuildConfig.VERSION_NAME.equals(latestVersion)) {
+                isUpdateAvailable = true;
+            } else {
+                isUpdateAvailable = false;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if(isUpdateAvailable){
+                showForceUpdateDialog(latestVersion);
+            }
+
         }
     }
 }
