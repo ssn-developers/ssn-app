@@ -578,7 +578,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
-            Glide.with(LoginActivity.this).asFile().load("https://ssnportal.cf/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
+            Glide.with(LoginActivity.this).asFile().load("https://ssnportal.netlify.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
                 @Override
                 public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
                     File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "SSNCE");

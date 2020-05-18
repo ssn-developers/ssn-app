@@ -345,8 +345,8 @@ public class SplashActivity extends AppCompatActivity {
                     Bungee.fade(SplashActivity.this);
                 }
             } else if (collectionName.equals(Constants.collection_post_club)) {
-                // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
-                // http://ssnportal.cf/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
+                // http://ssnportal.netlify.app/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
+                // http://ssnportal.netlify.app/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
 
                 //vca ==> id [club_id]
                 //vac ==> id [post_id]
@@ -433,7 +433,7 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             if (!CommonUtils.alerter(getApplicationContext())) {
-                Glide.with(SplashActivity.this).asFile().load("https://ssnportal.cf/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
+                Glide.with(SplashActivity.this).asFile().load("https://ssnportal.netlify.app/scripts/data_faculty.csv").into(new SimpleTarget<File>() {
                     @Override
                     public void onResourceReady(@NonNull File resource, @Nullable Transition<? super File> transition) {
                         File dir = new File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "SSNCE");

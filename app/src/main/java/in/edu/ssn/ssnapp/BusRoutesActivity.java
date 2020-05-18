@@ -61,8 +61,7 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         } else {
             setContentView(R.layout.activity_bus_route);
         }
-
-
+        recyclerList = new ArrayList<>();
         initUI();
         new getBusRoute().execute();
 
@@ -154,10 +153,13 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            for (BusRoute b : busRoutesList)
+            for (BusRoute b : busRoutesList) {
                 Collections.addAll(recyclerList, b);
+            }
 
-            adapter.notifyDataSetChanged();
+            if(adapter!=null) {
+                adapter.notifyDataSetChanged();
+            }
         } else if (Character.isDigit(val.charAt(0))) {
             clearIV.setVisibility(View.VISIBLE);
             chipCloud.removeAllViews();
@@ -174,7 +176,9 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             } else {
                 busRoutesRV.setVisibility(View.VISIBLE);
                 layout_empty.setVisibility(View.GONE);
-                adapter.notifyDataSetChanged();
+                if(adapter!=null) {
+                    adapter.notifyDataSetChanged();
+                }
             }
         } else {
             clearIV.setVisibility(View.VISIBLE);
@@ -205,7 +209,9 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
                                             Collections.addAll(recyclerList, b);
                                     }
                                 }
-                                adapter.notifyDataSetChanged();
+                                if(adapter!=null) {
+                                    adapter.notifyDataSetChanged();
+                                }
                             }
                         });
                     }

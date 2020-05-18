@@ -315,7 +315,7 @@ public class CommonUtils {
                 post.setFileUrl(new ArrayList<String>());
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             post.setFileName(new ArrayList<String>());
             post.setFileUrl(new ArrayList<String>());
         }
@@ -327,7 +327,7 @@ public class CommonUtils {
             else
                 post.setDept(new ArrayList<String>());
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             post.setDept(new ArrayList<String>());
         }
 
@@ -352,7 +352,7 @@ public class CommonUtils {
                 Collections.reverse(years);
             post.setYear(years);
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             post.setYear(new ArrayList<String>());
         }
 
@@ -376,7 +376,7 @@ public class CommonUtils {
             else
                 post.setPosition("Faculty");
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             post.setAuthor_image_url("");
             post.setAuthor("");
             post.setPosition("Faculty");
@@ -395,13 +395,13 @@ public class CommonUtils {
         try {
             club.setFollowers((ArrayList<String>) snapshot.get("followers"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             club.setFollowers(null);
         }
         try {
             club.setHead((ArrayList<String>) snapshot.get("head"));
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             club.setHead(null);
         }
         return club;
@@ -443,7 +443,7 @@ public class CommonUtils {
                 post.setFileUrl(new ArrayList<String>());
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             post.setFileName(new ArrayList<String>());
             post.setFileUrl(new ArrayList<String>());
         }
@@ -457,7 +457,7 @@ public class CommonUtils {
             else
                 post.setLike(new ArrayList<String>());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             post.setLike(new ArrayList<String>());
         }
 
@@ -468,7 +468,7 @@ public class CommonUtils {
             else
                 post.setComment(new ArrayList<Comments>());
         } catch (Exception ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             post.setComment(new ArrayList<Comments>());
         }
 
@@ -522,7 +522,7 @@ public class CommonUtils {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hi all! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssnportal.cf/share.html?type=" + type + "&vca=" + post.getId();
+                String shareBody = "Hi all! New posts from " + post.getAuthor().trim() + ". Check it out: https://ssnportal.netlify.app/share.html?type=" + type + "&vca=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
@@ -596,15 +596,6 @@ public class CommonUtils {
         try {
             FirebaseAnalytics analytics = FirebaseAnalytics.getInstance(context);
             analytics.setUserProperty(propertyName, propertyValue);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void addEvent(Context context, String propertyName, Bundle propertyValue) {
-
-        try {
-            FirebaseAnalytics.getInstance(context).logEvent(propertyName, propertyValue);
         } catch (Exception e) {
             e.printStackTrace();
         }

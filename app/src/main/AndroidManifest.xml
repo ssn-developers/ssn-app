@@ -33,9 +33,12 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="ssnportal.cf"
+                    android:pathPrefix="/share.html"
+                    android:scheme="https" />
+                <data
+                    android:host="ssnportal.netlify.app"
                     android:pathPrefix="/share.html"
                     android:scheme="https" />
             </intent-filter>

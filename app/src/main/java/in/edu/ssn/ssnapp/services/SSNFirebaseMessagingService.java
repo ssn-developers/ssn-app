@@ -82,8 +82,8 @@ public class SSNFirebaseMessagingService extends FirebaseMessagingService {
                 intent.putExtra(Constants.PDF_URL, pdfUrl);
                 FCMHelper.showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody(), this, intent);
             } else if (collectionName.equals(Constants.collection_post_club)) {
-                // http://ssnportal.cf/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
-                // http://ssnportal.cf/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
+                // http://ssnportal.netlify.app/share.html?vca =     K1gFiFwA3A2Y2O30PJUA & type=4  & acv=5d &  vac=43
+                // http://ssnportal.netlify.app/share.html?club_id = K1gFiFwA3A2Y2O30PJUA & type=4  & time=5d & post_id=43
 
                 //vca ==> id [club_id]
                 //acv ==> id [time]

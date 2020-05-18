@@ -350,7 +350,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hi all! New posts from " + club.getName() + ". Check it out: https://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + post.getId();
+                String shareBody = "Hi all! New posts from " + club.getName() + ". Check it out: https://ssnportal.netlify.app/share.html?type=4&vca=" + club.getId() + "&vac=" + post.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
