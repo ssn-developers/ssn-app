@@ -37,8 +37,8 @@
 				android:scaleX="0"
 				android:scaleY="0"
 				android:alpha="0"
-				android:translationY="@dimen/_150sdp"
 				android:layout_centerInParent="true" />
+			<!--				android:translationY="@dimen/_150sdp"-->
 			<ImageView
 				android:layout_width="@dimen/boarding_image_size"
 				android:layout_height="@dimen/boarding_image_size"

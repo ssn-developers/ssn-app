@@ -26,10 +26,8 @@
 				android:layout_width="@dimen/boarding_image_size"
 				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/towerIV"
+				android:translationX="-60dp"
 				android:alpha="0"
-				android:scaleX="0.5"
-				android:scaleY="0.5"
-				android:translationY="@dimen/_300sdp"
 				android:layout_centerInParent="true" />
 			<ImageView
 				android:layout_width="@dimen/boarding_image_size"
