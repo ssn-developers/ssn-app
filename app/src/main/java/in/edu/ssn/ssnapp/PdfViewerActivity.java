@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -16,6 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
@@ -45,6 +48,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
 
     ImageView backIV, downloadIV;
     GifImageView progress;
+    Uri downloadUri = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +67,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
             }
         });
 
-        final Uri downloadUri = Uri.parse(url);
+        downloadUri = Uri.parse(url);
         downloadIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,33 +75,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
                 if (!CommonUtils.hasPermissions(PdfViewerActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     ActivityCompat.requestPermissions(PdfViewerActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
                 } else {
-                    try {
-                        Toast toast = Toast.makeText(PdfViewerActivity.this, "Downloading...", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-
-                        DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                        DownloadManager.Request request = new DownloadManager.Request(downloadUri);
-
-                        File file = new File(downloadUri.getPath());
-                        String names = file.getName();
-
-                        //Handle syllabus from drive link
-                        if (names.equals("uc"))
-                            names = "syllabus.pdf";
-
-                        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
-                                .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, names)
-                                .setTitle(names).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-
-                        dm.enqueue(request);
-                    } catch (Exception ex) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Download failed!", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 0);
-                        toast.show();
-                        ex.printStackTrace();
-                        Crashlytics.log("stackTrace: " + Arrays.toString(ex.getStackTrace()) + " \n Error: " + ex.getMessage());
-                    }
+                    downloadFile();
                 }
             }
         });
@@ -111,6 +89,36 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         backIV = findViewById(R.id.backIV);
         downloadIV = findViewById(R.id.downloadIV);
         progress = findViewById(R.id.progress);
+    }
+
+    private void downloadFile(){
+        try {
+            Toast toast = Toast.makeText(PdfViewerActivity.this, "Downloading...", Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+
+            DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+            DownloadManager.Request request = new DownloadManager.Request(downloadUri);
+
+            File file = new File(downloadUri.getPath());
+            String names = file.getName();
+
+            //Handle syllabus from drive link
+            if (names.equals("uc"))
+                names = "syllabus.pdf";
+
+            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI | DownloadManager.Request.NETWORK_MOBILE)
+                    .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, names)
+                    .setTitle(names).setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+
+            dm.enqueue(request);
+        } catch (Exception ex) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Download failed!", Toast.LENGTH_LONG);
+            toast.setGravity(Gravity.CENTER, 0, 0);
+            toast.show();
+            ex.printStackTrace();
+            Crashlytics.log("stackTrace: " + Arrays.toString(ex.getStackTrace()) + " \n Error: " + ex.getMessage());
+        }
     }
 
     private void setupPdf() {
@@ -146,45 +154,25 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     public void onFailure(Exception e) {
         progress.setVisibility(View.GONE);
         Log.d(TAG, e.getMessage());
-        showAlertDialog();
+        Toast.makeText(getApplicationContext(), "Error occurred opening the file", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onProgressUpdate(int progress, int total) {
     }
 
-    void showAlertDialog() {
-        final Dialog dialog = new Dialog(PdfViewerActivity.this);
-        dialog.setContentView(R.layout.custom_alert_dialog2);
-        dialog.setCancelable(false);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-        TextView titleTV = dialog.findViewById(R.id.titleTV);
-        TextView messageTV = dialog.findViewById(R.id.messageTV);
-        TextView okTV = dialog.findViewById(R.id.okTV);
-
-        if (CommonUtils.alerter(getApplicationContext())) {
-            titleTV.setText("Network error!");
-            messageTV.setText("Please check your mobile data or Wi-Fi connection.");
-        } else {
-            titleTV.setText("Can't open the file!");
-            messageTV.setText("Sorry, we were unable to open the file at the moment. So, please try again later.");
-        }
-        okTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                onBackPressed();
-            }
-        });
-
-        dialog.show();
-    }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         Bungee.slideRight(PdfViewerActivity.this);
-        finish();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(grantResults.length>0&& grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode==1){
+            downloadFile();
+        }
     }
 }
