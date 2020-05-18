@@ -115,7 +115,7 @@ public class OnboardingActivity extends AppCompatActivity {
                         break;
                     }
 
-                    default:{
+                    default: {
                         dotsIndicator.setSelectedPointColor(getResources().getColor(R.color.colorAccent));
                         dotsIndicator.animate().scaleY(1).scaleX(1).setDuration(500);
                         signInCV.animate().scaleX(0).scaleY(0).setDuration(500);
