@@ -76,7 +76,7 @@ public class ChatHelper {
                 System.out.println("Error when sending message " + e.getMessage());
             }
         });
-        //sendPushNotification(message);
+        sendPushNotification(message);
     }
 
     private void sendPushNotification(Message message) {

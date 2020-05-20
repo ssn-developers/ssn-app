@@ -24,8 +24,9 @@ public class FCMHelper {
 
     public static void SubscribeToTopic(final Context context, String topic) {
 
-        if (Constants.debug_mode)
+        if (Constants.debug_mode && !topic.startsWith("debug_")) {
             topic = "debug_" + topic;
+        }
 
         final String finalTopic = topic;
         FirebaseMessaging.getInstance().subscribeToTopic(topic)
@@ -44,8 +45,9 @@ public class FCMHelper {
 
     public static void UnSubscribeToTopic(final Context context, String topic) {
 
-        if (Constants.debug_mode)
+        if (Constants.debug_mode && !topic.startsWith("debug_")) {
             topic = "debug_" + topic;
+        }
 
         FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
