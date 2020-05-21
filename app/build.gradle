@@ -13,7 +13,25 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+
+// TODO : Make sure signingConfig is commented before pushing
+//    def props = new Properties()
+//    file("$projectDir/build.properties").withInputStream { props.load(it) }
+//
+//    signingConfigs {
+//        debug {
+//            storeFile file(props.getProperty("storeFile"))
+//            storePassword props.getProperty("storePassword")
+//            keyAlias props.getProperty("keyAlias")
+//            keyPassword props.getProperty("keyPassword")
+//        }
+//    }
+
     buildTypes {
+        debug{
+            // TODO : Make sure signingConfig is commented before pushing
+            // signingConfig signingConfigs.debug
+        }
         release {
             ext.enableCrashlytics = true
             minifyEnabled true
