@@ -6,27 +6,7 @@ import datetime
 
 # TODO: Replace JSON_PATH here
 cred = credentials.Certificate("firebase_SA.json")
-# TODO: Replace DATABASE_URL here
-firebase_admin.initialize_app(cred,{
-    'databaseURL': 'https://test-ssnce.firebaseio.com/'
-})
-
-# firebase realtime data
-
-ref = db.reference('/')
-ref.set({
-
-    "block_screen": {
-        "global_chat": False,
-        "is_block": False,
-        "non_ssn_email": True,
-        "overall": False,
-
-    }
-})
-
-print ('firebase realtime data added successfully')
-
+firebase_admin.initialize_app(cred)
 testdb = firestore.client()
 
 # Club collection
