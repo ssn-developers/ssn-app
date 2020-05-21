@@ -108,7 +108,7 @@ public class ChatHelper {
                 public Map<String, String> getHeaders() {
                     Map<String, String> header = new HashMap<>();
                     header.put("content-type", "application/json");
-                    header.put("authorization", "key=AIzaSyAc8HvX2uqX9k59Tb_Q89NlR8ERRLvEJ0c");
+                    header.put("authorization", Constants.SERVER_KEY);
                     return header;
                 }
             };

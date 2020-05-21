@@ -17,6 +17,9 @@ public class Constants {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_PWD = "TEST_PWD";
 
+    //TODO: Replace with actual Server key
+    public static final String SERVER_KEY = "key=AIz_ezhilsujinharshalogesh_J0c";
+
     //URLs
     public static final String calendar = "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/utils%2FCollege%20Calendar%202019%20-20.pdf?alt=media&token=c99c10cd-c124-405c-9a8d-ef6f39ee5e56";
     public static final String termsfeed = "https://www.termsfeed.com/privacy-policy/77e3f0a8a5b350afc54dc2b8c2af568b";
