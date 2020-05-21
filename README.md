@@ -30,17 +30,18 @@ SSNCE App allows you to get timely updates on feeds, events, workshops, clubs an
 
 #### Fork Project
 
-* [Fork](https://github.com/ssn-developers/ssn-app/fork) the Main Repository
+* [Fork](https://github.com/ssn-developers/ssn-app/fork) the Main Repository.
 
 * Clone the forked repository `git clone forked_repo_url`
+
+* Import the cloned project into Android Studio.
 
 #### Setup Firebase
 
 * Create a firebase project and [add](https://firebase.google.com/docs/android/setup) your android app to that project.
 
 * Enable Google Sign-In in the Firebase console:
-    * In the Firebase [console](https://console.firebase.google.com/), Choose your project and open the **Authentication** section.
-    * On the **Sign-in method** tab, enable the Google sign-in method and click **Save**.
+    * On the **Authentication** section, choose the **Sign-in method** tab and enable the Google sign-in method.
     
 * Add your app's SHA-1 fingerprint:
     * [Generate](https://stackoverflow.com/a/36257777/10489902) SHA-1 key in android studio.
@@ -49,13 +50,17 @@ SSNCE App allows you to get timely updates on feeds, events, workshops, clubs an
 * Enable [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart#create) database and [Storage](https://firebase.google.com/docs/storage/android/start#create-default-bucket) in your firebase project.
 
 * Populate mock data:
-    * Run
-
-#### Run
-
-* Import the cloned project into Android Studio.
-
-* Run the project into an emulator or a physical device.
+    * Install firebase-admin SDK
+        ```
+        pip3 install --upgrade setuptools
+        pip3 install --upgrade gcloud
+        pip3 install --upgrade firebase-admin
+        ```
+    * In the Firebase console, open **Settings > Service Accounts** and click **Generate New Private Key**
+    * Open the python script [mockdata.py](https://github.com/ssn-developers/ssn-app/blob/master/mockdata.py).
+    * Replace the value of the **JSON_PATH** variable with the downloaded JSON file path in the script.
+    * Run the python script now `python3 mockdata.py`
+    * Run the android project in an emulator or a physical device.
 
 #### Note
 
