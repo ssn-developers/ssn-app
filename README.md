@@ -21,7 +21,7 @@
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-green"></a>
     <a href="https://github.com/ssn-developers/ssn-app/pulls"><img alt="PRs Welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"></a>
   <a href="https://github.com/ssn-developers/ssn-app/issues"><img alt="Issues" src="https://img.shields.io/github/issues-raw/ssn-developers/ssn-app?style=flat-square"></a>
-    <a href="https://github.com/ddlogesh/zinger-framework/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement"><img alt="Enhancement Welcome" src="https://img.shields.io/badge/enhancement-welcome-green.svg?style=flat-square"></a>
+    <a href="https://github.com/ssn-developers/ssn-app/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement"><img alt="Enhancement Welcome" src="https://img.shields.io/badge/enhancement-welcome-green.svg?style=flat-square"></a>
 </p>
 
 SSNCE App allows you to get timely updates on feeds, events, workshops, clubs and placements from respective departments and exam cell.
