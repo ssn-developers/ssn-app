@@ -24,7 +24,7 @@
     <a href="https://github.com/ddlogesh/zinger-framework/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement"><img alt="Enhancement Welcome" src="https://img.shields.io/badge/enhancement-welcome-green.svg?style=flat-square"></a>
 </p>
 
-SSNCE App allows you to get timely updates on feeds, events, workshops, clubs and placements from respective departments &amp; exam cell.
+SSNCE App allows you to get timely updates on feeds, events, workshops, clubs and placements from respective departments and exam cell.
 
 ## Installation Setup
 
@@ -47,20 +47,11 @@ SSNCE App allows you to get timely updates on feeds, events, workshops, clubs an
     * [Generate](https://stackoverflow.com/a/36257777/10489902) SHA-1 key in android studio.
     * Go to **Settings** page of the Firebase console and add your SHA-1 key under **SHA certificate fingerprints**.
     
-* Enable [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart#create) database and [Storage](https://firebase.google.com/docs/storage/android/start#create-default-bucket) in your firebase project.
+* Enable [Cloud Firestore](https://firebase.google.com/docs/firestore/quickstart#create) database (in **test** mode) and [Storage](https://firebase.google.com/docs/storage/android/start#create-default-bucket) in your firebase project.
 
-* Populate mock data:
-    * Install firebase-admin SDK
-        ```
-        pip3 install --upgrade setuptools
-        pip3 install --upgrade gcloud
-        pip3 install --upgrade firebase-admin
-        ```
-    * In the Firebase console, open **Settings > Service Accounts** and click **Generate New Private Key**
-    * Open the python script [mockdata.py](https://github.com/ssn-developers/ssn-app/blob/master/mockdata.py).
-    * Replace the value of the **JSON_PATH** variable with the downloaded JSON file path in the script.
-    * Run the python script now `python3 mockdata.py`
-    * Run the android project in an emulator or a physical device.
+* Populate mock data by the running the python [script](SSNCE_App_Mock_data.ipynb) in colab.
+
+* Run the android project in an emulator or a physical device.
 
 #### Note
 
@@ -69,7 +60,7 @@ SSNCE App allows you to get timely updates on feeds, events, workshops, clubs an
 
 ## Enhancement
 
-![Cover Image](ssn_app_cover.png)
+![Cover Image](enhancement_project_corner.png)
 
 #### Project corner
 
