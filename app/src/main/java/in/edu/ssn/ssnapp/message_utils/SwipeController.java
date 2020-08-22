@@ -31,7 +31,7 @@ public class SwipeController extends ItemTouchHelper.Callback {
     private float mDx = 0f;
 
     private float mReplyButtonProgress = 0f;
-    private long  mLastReplyButtonAnimationTime = 0;
+    private long mLastReplyButtonAnimationTime = 0;
 
     private boolean mSwipeBack = false;
     private boolean mIsVibrating = false;
@@ -44,7 +44,7 @@ public class SwipeController extends ItemTouchHelper.Callback {
     private int mReplyIconXOffset = 12;
     private int mReplyIconYOffset = 11;
 
-    public SwipeController(Context context, ISwipeControllerActions swipeControllerActions){
+    public SwipeController(Context context, ISwipeControllerActions swipeControllerActions) {
         mContext = context;
         mSwipeControllerActions = swipeControllerActions;
 
@@ -53,7 +53,7 @@ public class SwipeController extends ItemTouchHelper.Callback {
     }
 
 
-    public SwipeController(Context context, ISwipeControllerActions swipeControllerActions, int replyIcon, int replyIconBackground, int backgroundColor){
+    public SwipeController(Context context, ISwipeControllerActions swipeControllerActions, int replyIcon, int replyIconBackground, int backgroundColor) {
         mContext = context;
         mSwipeControllerActions = swipeControllerActions;
 
@@ -79,8 +79,8 @@ public class SwipeController extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public int convertToAbsoluteDirection(int flags, int layoutDirection){
-        if (mSwipeBack){
+    public int convertToAbsoluteDirection(int flags, int layoutDirection) {
+        if (mSwipeBack) {
             mSwipeBack = false;
             return 0;
         }
@@ -88,11 +88,11 @@ public class SwipeController extends ItemTouchHelper.Callback {
     }
 
     @Override
-    public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive){
-        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE){
+    public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+        if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
             setTouchListener(recyclerView, viewHolder);
         }
-        if (mView.getTranslationX() < convertToDp(130) || dX < mDx ){
+        if (mView.getTranslationX() < convertToDp(130) || dX < mDx) {
             super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             mDx = dX;
             mStartTracking = true;
@@ -102,17 +102,13 @@ public class SwipeController extends ItemTouchHelper.Callback {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private void setTouchListener(RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder){
+    private void setTouchListener(RecyclerView recyclerView, final RecyclerView.ViewHolder viewHolder) {
         recyclerView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP){
-                    mSwipeBack = true;
-                } else{
-                    mSwipeBack = false;
-                }
-                if (mSwipeBack){
-                    if (Math.abs(mView.getTranslationX()) >= convertToDp(100)){
+                mSwipeBack = event.getAction() == MotionEvent.ACTION_CANCEL || event.getAction() == MotionEvent.ACTION_UP;
+                if (mSwipeBack) {
+                    if (Math.abs(mView.getTranslationX()) >= convertToDp(100)) {
                         mSwipeControllerActions.onSwipePerformed(viewHolder.getAdapterPosition());
                     }
                 }
@@ -121,13 +117,13 @@ public class SwipeController extends ItemTouchHelper.Callback {
         });
     }
 
-    private int convertToDp(int pixels){
+    private int convertToDp(int pixels) {
         return Utils.getDP((float) pixels, mContext);
     }
 
 
-    private void drawReplyButton(Canvas canvas){
-        if (mCurrentViewHolder == null){
+    private void drawReplyButton(Canvas canvas) {
+        if (mCurrentViewHolder == null) {
             return;
         }
 
@@ -136,26 +132,26 @@ public class SwipeController extends ItemTouchHelper.Callback {
         long dt = Math.min(17, newTime - mLastReplyButtonAnimationTime);
         mLastReplyButtonAnimationTime = newTime;
         boolean showing = false;
-        if (translationX >= convertToDp(30)){
+        if (translationX >= convertToDp(30)) {
             showing = true;
         }
-        if (showing){
-            if (mReplyButtonProgress < 1.0f){
+        if (showing) {
+            if (mReplyButtonProgress < 1.0f) {
                 mReplyButtonProgress += dt / 180.0f;
-                if (mReplyButtonProgress > 1.0f){
+                if (mReplyButtonProgress > 1.0f) {
                     mReplyButtonProgress = 1.0f;
                 } else {
                     mView.invalidate();
                 }
             }
-        } else if (translationX <= 0.0f){
+        } else if (translationX <= 0.0f) {
             mReplyButtonProgress = 0f;
             mStartTracking = false;
             mIsVibrating = false;
         } else {
-            if (mReplyButtonProgress > 0.0f){
+            if (mReplyButtonProgress > 0.0f) {
                 mReplyButtonProgress -= dt / 180.0f;
-                if (mReplyButtonProgress < 0.1f){
+                if (mReplyButtonProgress < 0.1f) {
                     mReplyButtonProgress = 0f;
                 }
             }
@@ -163,21 +159,21 @@ public class SwipeController extends ItemTouchHelper.Callback {
         }
         int alpha;
         float scale;
-        if (showing){
-            if (mReplyButtonProgress <= 0.8f){
+        if (showing) {
+            if (mReplyButtonProgress <= 0.8f) {
                 scale = 1.2f * (mReplyButtonProgress / 0.8f);
-            } else{
+            } else {
                 scale = 1.2f - 0.2f * ((mReplyButtonProgress - 0.8f) / 0.2f);
             }
-            alpha = Math.min(255, 255 * ((int)(mReplyButtonProgress / 0.8f)));
-        } else{
+            alpha = Math.min(255, 255 * ((int) (mReplyButtonProgress / 0.8f)));
+        } else {
             scale = mReplyButtonProgress;
-            alpha = Math.min(255, 255 * (int)mReplyButtonProgress);
+            alpha = Math.min(255, 255 * (int) mReplyButtonProgress);
         }
         mReplyIconBackground.setAlpha(alpha);
         mReplyIcon.setAlpha(alpha);
-        if (mStartTracking){
-            if (!mIsVibrating && mView.getTranslationX() >= convertToDp(100)){
+        if (mStartTracking) {
+            if (!mIsVibrating && mView.getTranslationX() >= convertToDp(100)) {
                 mView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP, HapticFeedbackConstants.FLAG_IGNORE_GLOBAL_SETTING);
             }
             mIsVibrating = true;
@@ -185,29 +181,28 @@ public class SwipeController extends ItemTouchHelper.Callback {
 
         int x;
         float y;
-        if (mView.getTranslationX() > convertToDp(130)){
+        if (mView.getTranslationX() > convertToDp(130)) {
             x = convertToDp(130) / 2;
-        }
-        else {
-            x = (int) mView.getTranslationX() /2;
+        } else {
+            x = (int) mView.getTranslationX() / 2;
         }
 
-        y = mView.getTop() + ((float) mView.getMeasuredHeight() /2);
+        y = mView.getTop() + ((float) mView.getMeasuredHeight() / 2);
         mReplyIconBackground.setColorFilter(mBackgroundColor, PorterDuff.Mode.MULTIPLY);
 
         mReplyIconBackground.setBounds(new Rect(
-                (int)(x - convertToDp(mReplyBackgroundOffset) * scale),
-                (int)(y - convertToDp(mReplyBackgroundOffset) * scale),
-                (int)(x + convertToDp(mReplyBackgroundOffset) * scale),
-                (int)(y + convertToDp(mReplyBackgroundOffset) * scale)
+                (int) (x - convertToDp(mReplyBackgroundOffset) * scale),
+                (int) (y - convertToDp(mReplyBackgroundOffset) * scale),
+                (int) (x + convertToDp(mReplyBackgroundOffset) * scale),
+                (int) (y + convertToDp(mReplyBackgroundOffset) * scale)
         ));
         mReplyIconBackground.draw(canvas);
 
         mReplyIcon.setBounds(new Rect(
-                (int)(x - convertToDp(mReplyIconXOffset) * scale),
-                (int)(y - convertToDp(mReplyIconYOffset) * scale),
-                (int)(x + convertToDp(mReplyIconXOffset) * scale),
-                (int)(y + convertToDp(mReplyIconYOffset) * scale)
+                (int) (x - convertToDp(mReplyIconXOffset) * scale),
+                (int) (y - convertToDp(mReplyIconYOffset) * scale),
+                (int) (x + convertToDp(mReplyIconXOffset) * scale),
+                (int) (y + convertToDp(mReplyIconYOffset) * scale)
         ));
         mReplyIcon.draw(canvas);
 

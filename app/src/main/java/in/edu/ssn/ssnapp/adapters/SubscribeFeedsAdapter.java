@@ -1,19 +1,15 @@
 package in.edu.ssn.ssnapp.adapters;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Handler;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,41 +17,36 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.hendraanggrian.appcompat.widget.SocialTextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.ClubPostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Club;
 import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
-import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAdapter.FeedViewHolder>{
+public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAdapter.FeedViewHolder> {
 
+    boolean darkMode;
     private ArrayList<ClubPost> posts;
     private ArrayList<Club> clubs;
     private Context context;
-    boolean darkMode;
     private TextDrawable.IBuilder builder;
 
     public SubscribeFeedsAdapter(Context context, ArrayList<Club> clubs, ArrayList<ClubPost> posts) {
         this.context = context;
         this.clubs = clubs;
         this.posts = posts;
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
         builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
@@ -67,7 +58,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(darkMode)
+        if (darkMode)
             view = LayoutInflater.from(context).inflate(R.layout.club_post_item_dark, parent, false);
         else
             view = LayoutInflater.from(context).inflate(R.layout.club_post_item, parent, false);
@@ -76,8 +67,8 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
 
     @Override
     public void onBindViewHolder(@NonNull final FeedViewHolder holder, final int position) {
-        final ClubPost model = (ClubPost) posts.get(position);
-        final Club club = (Club) clubs.get(position);
+        final ClubPost model = posts.get(position);
+        final Club club = clubs.get(position);
 
         holder.authorTV.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
         holder.titleTV.setText(model.getTitle());
@@ -87,13 +78,13 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
         TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
         holder.userImageIV.setImageDrawable(ic1);
 
-        try{
+        try {
             if (model.getLike().contains(SharedPref.getString(context, "email"))) {
                 holder.likeIV.setImageResource(R.drawable.blue_heart);
             } else {
                 holder.likeIV.setImageResource(R.drawable.heart);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             holder.likeIV.setImageResource(R.drawable.heart);
         }
 
@@ -110,14 +101,14 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
         if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
             holder.viewPager.setVisibility(View.VISIBLE);
 
-            final ImageAdapter imageAdapter = new ImageAdapter(context, model.getImg_urls(),4, club, model.getId());
+            final ImageAdapter imageAdapter = new ImageAdapter(context, model.getImg_urls(), 4, club, model.getId());
             holder.viewPager.setAdapter(imageAdapter);
 
             if (model.getImg_urls().size() == 1) {
                 holder.current_imageTV.setVisibility(View.GONE);
             } else {
                 holder.current_imageTV.setVisibility(View.VISIBLE);
-                holder.current_imageTV.setText(String.valueOf(1) + " / " + String.valueOf(model.getImg_urls().size()));
+                holder.current_imageTV.setText(1 + " / " + model.getImg_urls().size());
                 holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                     @Override
                     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -126,7 +117,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
 
                     @Override
                     public void onPageSelected(int pos) {
-                        holder.current_imageTV.setText(String.valueOf(pos + 1) + " / " + String.valueOf(model.getImg_urls().size()));
+                        holder.current_imageTV.setText((pos + 1) + " / " + model.getImg_urls().size());
                     }
 
                     @Override
@@ -168,7 +159,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
         holder.likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try{
+                try {
                     if (!model.getLike().contains(SharedPref.getString(context, "email"))) {
                         holder.likeIV.setImageResource(R.drawable.blue_heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(context, "email")));
@@ -177,7 +168,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(context, "email")));
                     }
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -188,7 +179,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             public void onClick(View view) {
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                String shareBody = "Hi all! New posts from " + club.getName() + ". Check it out: https://ssnportal.cf/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
+                String shareBody = "Hi all! New posts from " + club.getName() + ". Check it out: https://ssnportal.netlify.app/share.html?type=4&vca=" + club.getId() + "&vac=" + model.getId();
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 context.startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }

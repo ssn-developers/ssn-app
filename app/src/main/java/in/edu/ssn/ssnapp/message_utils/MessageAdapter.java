@@ -26,13 +26,19 @@ import static in.edu.ssn.ssnapp.message_utils.Utils.isYesterday;
 public class MessageAdapter extends RecyclerView.Adapter {
 
     boolean darkMode = false;
-
+    FirebaseUser user;
+    private Context mContext;
+    private List<Message> messageList;
+    private TextDrawable.IBuilder builder;
+    private OnItemClickListener onItemClickListener;
+    private OnItemLongClickListener onItemLongClickListener;
+    private OnReplyItemClickListener onReplyItemClickListener;
     public MessageAdapter(Context context,
                           List<Message> messageList,
                           OnItemClickListener onItemClickListener,
                           OnItemLongClickListener onItemLongClickListener,
                           OnReplyItemClickListener onReplyItemClickListener) {
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
         mContext = context;
         this.messageList = messageList;
         this.onItemClickListener = onItemClickListener;
@@ -46,15 +52,6 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 .round();
     }
 
-    FirebaseUser user;
-    private Context mContext;
-    private List<Message> messageList;
-    private TextDrawable.IBuilder builder;
-    private OnItemClickListener onItemClickListener;
-    private OnItemLongClickListener onItemLongClickListener;
-    private OnReplyItemClickListener onReplyItemClickListener;
-
-
     @Override
     public int getItemCount() {
         return messageList.size();
@@ -63,7 +60,7 @@ public class MessageAdapter extends RecyclerView.Adapter {
     // Determines the appropriate ViewType according to the sender of the message.
     @Override
     public int getItemViewType(int position) {
-        Message message =  messageList.get(position);
+        Message message = messageList.get(position);
         return message.getType();
     }
 
@@ -72,40 +69,40 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
 
-        if(viewType==0) {
-            if(darkMode){
+        if (viewType == 0) {
+            if (darkMode) {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_received_dark, parent, false);
-            }else{
+            } else {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_received, parent, false);
             }
-            return new ReceivedMessageHolder(view,builder,user);
+            return new ReceivedMessageHolder(view, builder, user);
         }
 
-        if(viewType==1) {
-            if(darkMode) {
+        if (viewType == 1) {
+            if (darkMode) {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent_dark, parent, false);
-            }else{
+            } else {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent, parent, false);
             }
-            return new SentMessageHolder(view,builder,user);
+            return new SentMessageHolder(view, builder, user);
         }
 
-        if(viewType==2) {
-            if(darkMode) {
+        if (viewType == 2) {
+            if (darkMode) {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_received_reply_dark, parent, false);
-            }else{
+            } else {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_received_reply, parent, false);
             }
-            return new ReceivedReplyHolder(view,builder,user);
+            return new ReceivedReplyHolder(view, builder, user);
         }
 
-        if(viewType==3) {
-            if(darkMode) {
+        if (viewType == 3) {
+            if (darkMode) {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent_reply_dark, parent, false);
-            }else{
+            } else {
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message_sent_reply, parent, false);
             }
-            return new SentReplyHolder(view,builder,user);
+            return new SentReplyHolder(view, builder, user);
         }
 
         return null;
@@ -116,49 +113,49 @@ public class MessageAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         final Message message = messageList.get(position);
 
-        if(position-1>=0){
-            Message prevMessage = messageList.get(position-1);
+        if (position - 1 >= 0) {
+            Message prevMessage = messageList.get(position - 1);
             long diff = differenceBetweenDates(new Date(Long.valueOf(prevMessage.getTimestamp())), new Date(Long.valueOf(message.getTimestamp())));
-            if(diff>0){
+            if (diff > 0) {
                 System.out.println(diff);
                 message.setShowDivider(true);
-                if(DateUtils.isToday(Long.valueOf(message.getTimestamp()))){
+                if (DateUtils.isToday(Long.valueOf(message.getTimestamp()))) {
                     message.setDividerText("Today");
-                }else{
-                    if(isYesterday(new Date(Long.valueOf(message.getTimestamp())))){
+                } else {
+                    if (isYesterday(new Date(Long.valueOf(message.getTimestamp())))) {
                         message.setDividerText("Yesterday");
-                    }else{
+                    } else {
                         message.setDividerText(getDate(new Date(Long.valueOf(message.getTimestamp()))));
                     }
                 }
             }
-        }else{
+        } else {
             message.setShowDivider(true);
-            if(DateUtils.isToday(Long.valueOf(message.getTimestamp()))){
+            if (DateUtils.isToday(Long.valueOf(message.getTimestamp()))) {
                 message.setDividerText("Today");
-            }else{
-                if(isYesterday(new Date(Long.valueOf(message.getTimestamp())))){
+            } else {
+                if (isYesterday(new Date(Long.valueOf(message.getTimestamp())))) {
                     message.setDividerText("Yesterday");
-                }else{
+                } else {
                     message.setDividerText(getDate(new Date(Long.valueOf(message.getTimestamp()))));
                 }
             }
 
         }
         switch (holder.getItemViewType()) {
-            case 0:{
+            case 0: {
                 ((ReceivedMessageHolder) holder).bind(message);
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((ReceivedMessageHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemLongClickListener.onMessageLongClicked(((ReceivedMessageHolder) holder).itemView, holder.getAdapterPosition());
                         return true;
                     }
                 };
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.onMessageClicked(((ReceivedMessageHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemClickListener.onMessageClicked(((ReceivedMessageHolder) holder).itemView, holder.getAdapterPosition());
                     }
                 };
                 ((ReceivedMessageHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
@@ -167,19 +164,19 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 ((ReceivedMessageHolder) holder).itemView.setOnClickListener(onClickListener);
                 break;
             }
-            case 1:{
+            case 1: {
                 ((SentMessageHolder) holder).bind(message);
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((SentMessageHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemLongClickListener.onMessageLongClicked(((SentMessageHolder) holder).itemView, holder.getAdapterPosition());
                         return true;
                     }
                 };
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.onMessageClicked(((SentMessageHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemClickListener.onMessageClicked(((SentMessageHolder) holder).itemView, holder.getAdapterPosition());
                     }
                 };
                 ((SentMessageHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
@@ -188,25 +185,25 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 ((SentMessageHolder) holder).itemView.setOnClickListener(onClickListener);
                 break;
             }
-            case 2:{
+            case 2: {
                 ((ReceivedReplyHolder) holder).bind(message);
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((ReceivedReplyHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemLongClickListener.onMessageLongClicked(((ReceivedReplyHolder) holder).itemView, holder.getAdapterPosition());
                         return true;
                     }
                 };
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.onMessageClicked(((ReceivedReplyHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemClickListener.onMessageClicked(((ReceivedReplyHolder) holder).itemView, holder.getAdapterPosition());
                     }
                 };
                 View.OnClickListener onReplyClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onReplyItemClickListener.onReplyMessageClicked(((ReceivedReplyHolder) holder).itemView,holder.getAdapterPosition());
+                        onReplyItemClickListener.onReplyMessageClicked(((ReceivedReplyHolder) holder).itemView, holder.getAdapterPosition());
                     }
                 };
                 ((ReceivedReplyHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);
@@ -216,25 +213,25 @@ public class MessageAdapter extends RecyclerView.Adapter {
                 ((ReceivedReplyHolder) holder).replyLL.setOnClickListener(onReplyClickListener);
                 break;
             }
-            case 3:{
+            case 3: {
                 ((SentReplyHolder) holder).bind(message);
                 View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        onItemLongClickListener.onMessageLongClicked(((SentReplyHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemLongClickListener.onMessageLongClicked(((SentReplyHolder) holder).itemView, holder.getAdapterPosition());
                         return true;
                     }
                 };
                 View.OnClickListener onClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onItemClickListener.onMessageClicked(((SentReplyHolder) holder).itemView,holder.getAdapterPosition());
+                        onItemClickListener.onMessageClicked(((SentReplyHolder) holder).itemView, holder.getAdapterPosition());
                     }
                 };
                 View.OnClickListener onReplyClickListener = new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        onReplyItemClickListener.onReplyMessageClicked(((SentReplyHolder) holder).itemView,holder.getAdapterPosition());
+                        onReplyItemClickListener.onReplyMessageClicked(((SentReplyHolder) holder).itemView, holder.getAdapterPosition());
                     }
                 };
                 ((SentReplyHolder) holder).messageTV.setOnLongClickListener(onLongClickListener);

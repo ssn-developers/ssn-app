@@ -40,27 +40,27 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class PlacementFragment extends Fragment {
 
-    public PlacementFragment() { }
-
+    boolean darkMode = false;
     private RecyclerView feedsRV;
     private RelativeLayout layout_progress;
     private ShimmerFrameLayout shimmer_view;
     private FirestoreRecyclerAdapter adapter;
     private TextView newPostTV;
-    boolean darkMode=false;
+    public PlacementFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        CommonUtils.addScreen(getContext(),getActivity(),"PlacementFragment");
-        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
+        CommonUtils.addScreen(getContext(), getActivity(), "PlacementFragment");
+        darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
         View view;
-        if(darkMode){
+        if (darkMode) {
             view = inflater.inflate(R.layout.fragment_placement_feed_dark, container, false);
-        }else {
+        } else {
             view = inflater.inflate(R.layout.fragment_placement_feed, container, false);
         }
 
-        CommonUtils.initFonts(getContext(),view);
+        CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
         setupFireStore();
@@ -70,7 +70,7 @@ public class PlacementFragment extends Fragment {
             public void run() {
                 feedsRV.smoothScrollToPosition(0);
             }
-        },3000);
+        }, 3000);
 
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,8 +85,8 @@ public class PlacementFragment extends Fragment {
 
     /*********************************************************/
 
-    void setupFireStore(){
-        String dept = SharedPref.getString(getContext(),"dept");
+    void setupFireStore() {
+        String dept = SharedPref.getString(getContext(), "dept");
 
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_placement).whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
@@ -95,7 +95,7 @@ public class PlacementFragment extends Fragment {
             public Post parseSnapshot(@NonNull DocumentSnapshot snapshot) {
                 shimmer_view.setVisibility(View.VISIBLE);
 
-                Post post = CommonUtils.getPostFromSnapshot(getContext(),snapshot);
+                Post post = CommonUtils.getPostFromSnapshot(getContext(), snapshot);
                 post.setAuthor_image_url("placement@ssn.edu.in");
                 post.setAuthor("SSN Career Development Centre");
                 post.setPosition("Placement Coordinator");
@@ -103,7 +103,7 @@ public class PlacementFragment extends Fragment {
                 return post;
             }
         })
-        .build();
+                .build();
 
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
@@ -111,27 +111,25 @@ public class PlacementFragment extends Fragment {
                 holder.titleTV.setText(model.getTitle());
                 holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
-                if(model.getDescription().length() > 100) {
+                if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.descriptionTV.setText(ss);
-                }
-                else
+                } else
                     holder.descriptionTV.setText(model.getDescription().trim());
 
-                if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
+                if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),2, model);
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(), 2, model);
                     holder.viewPager.setAdapter(imageAdapter);
 
-                    if(model.getImageUrl().size()==1){
+                    if (model.getImageUrl().size() == 1) {
                         holder.current_imageTV.setVisibility(View.GONE);
-                    }
-                    else {
+                    } else {
                         holder.current_imageTV.setVisibility(View.VISIBLE);
-                        holder.current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        holder.current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -140,7 +138,7 @@ public class PlacementFragment extends Fragment {
 
                             @Override
                             public void onPageSelected(int pos) {
-                                holder.current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
+                                holder.current_imageTV.setText((pos + 1) + " / " + model.getImageUrl().size());
                             }
 
                             @Override
@@ -149,8 +147,7 @@ public class PlacementFragment extends Fragment {
                             }
                         });
                     }
-                }
-                else {
+                } else {
                     holder.viewPager.setVisibility(View.GONE);
                     holder.current_imageTV.setVisibility(View.GONE);
                 }
@@ -181,9 +178,9 @@ public class PlacementFragment extends Fragment {
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view;
-                if(darkMode){
+                if (darkMode) {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item_dark, group, false);
-                }else{
+                } else {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
                 }
                 return new FeedViewHolder(view);
@@ -192,7 +189,7 @@ public class PlacementFragment extends Fragment {
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
-                if(type==ChangeEventType.CHANGED){
+                if (type == ChangeEventType.CHANGED) {
                     // New post added (Show new post available text)
                     newPostTV.setVisibility(View.VISIBLE);
                 }
@@ -202,7 +199,7 @@ public class PlacementFragment extends Fragment {
         feedsRV.setAdapter(adapter);
     }
 
-    void initUI(View view){
+    void initUI(View view) {
         feedsRV = view.findViewById(R.id.feedsRV);
         newPostTV = view.findViewById(R.id.newPostTV);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -224,6 +221,26 @@ public class PlacementFragment extends Fragment {
 
     /*********************************************************/
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null)
+            adapter.stopListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    /*********************************************************/
+
     public class FeedViewHolder extends RecyclerView.ViewHolder {
         public TextView titleTV, timeTV, current_imageTV;
         public SocialTextView descriptionTV;
@@ -240,25 +257,5 @@ public class PlacementFragment extends Fragment {
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
         }
-    }
-
-    /*********************************************************/
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(adapter!=null)
-            adapter.stopListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 }

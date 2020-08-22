@@ -1,28 +1,17 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.cardview.widget.CardView;
+
 import com.airbnb.lottie.LottieAnimationView;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -47,10 +36,10 @@ public class FeedbackActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(darkModeEnabled){
+        if (darkModeEnabled) {
             setContentView(R.layout.activity_feedback_dark);
             getWindow().setStatusBarColor(getResources().getColor(R.color.darkColorLight));
-        }else {
+        } else {
             setContentView(R.layout.activity_feedback);
         }
 
@@ -73,10 +62,10 @@ public class FeedbackActivity extends BaseActivity {
         submitCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!CommonUtils.alerter(getApplicationContext())) {
+                if (!CommonUtils.alerter(getApplicationContext())) {
                     if (buttonTV.getText().equals("Submit")) {
                         String et_text = et_feedback.getEditableText().toString().trim();
-                        if(et_text.length() > 1) {
+                        if (et_text.length() > 1) {
                             final Map<String, Object> feedback_details = new HashMap<>();
                             feedback_details.put("email", SharedPref.getString(getApplicationContext(), "email"));
                             feedback_details.put("text", et_text);
@@ -89,19 +78,16 @@ public class FeedbackActivity extends BaseActivity {
                             CommonUtils.hideKeyboard(FeedbackActivity.this);
 
                             db.collection(Constants.collection_feedback).add(feedback_details);
-                        }
-                        else {
+                        } else {
                             Toast toast = Toast.makeText(FeedbackActivity.this, "Feedback cannot be empty!", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
-                    }
-                    else
+                    } else
                         onBackPressed();
-                }
-                else{
+                } else {
                     Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
-                    intent.putExtra("key","feedback");
+                    intent.putExtra("key", "feedback");
                     startActivity(intent);
                     Bungee.fade(FeedbackActivity.this);
                 }

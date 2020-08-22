@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -43,22 +42,23 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class EventFragment extends Fragment {
 
-    public EventFragment() { }
-
     RecyclerView feedsRV;
     RelativeLayout layout_progress;
     ShimmerFrameLayout shimmer_view;
     FirestoreRecyclerAdapter adapter;
+    boolean darkMode = false;
     private TextView newPostTV;
-    boolean darkMode=false;
+    public EventFragment() {
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        CommonUtils.addScreen(getContext(),getActivity(),"EventFragment");
-        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
+        CommonUtils.addScreen(getContext(), getActivity(), "EventFragment");
+        darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
         View view;
-        if(darkMode){
+        if (darkMode) {
             view = inflater.inflate(R.layout.fragment_placement_feed_dark, container, false);
-        }else{
+        } else {
             view = inflater.inflate(R.layout.fragment_placement_feed, container, false);
         }
         CommonUtils.initFonts(getContext(), view);
@@ -71,7 +71,7 @@ public class EventFragment extends Fragment {
             public void run() {
                 feedsRV.smoothScrollToPosition(0);
             }
-        },3000);
+        }, 3000);
 
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +86,7 @@ public class EventFragment extends Fragment {
 
     /*********************************************************/
 
-    void setupFireStore(){
+    void setupFireStore() {
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
@@ -108,7 +108,7 @@ public class EventFragment extends Fragment {
                 return post;
             }
         })
-        .build();
+                .build();
 
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
@@ -116,27 +116,25 @@ public class EventFragment extends Fragment {
                 holder.titleTV.setText(model.getTitle());
                 holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
-                if(model.getDescription().length() > 100) {
+                if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.descriptionTV.setText(ss);
-                }
-                else
+                } else
                     holder.descriptionTV.setText(model.getDescription().trim());
 
-                if(model.getImageUrl() != null && model.getImageUrl().size() != 0) {
+                if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
-                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(),6, model);
+                    final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(), 6, model);
                     holder.viewPager.setAdapter(imageAdapter);
 
-                    if(model.getImageUrl().size()==1){
+                    if (model.getImageUrl().size() == 1) {
                         holder.current_imageTV.setVisibility(View.GONE);
-                    }
-                    else {
+                    } else {
                         holder.current_imageTV.setVisibility(View.VISIBLE);
-                        holder.current_imageTV.setText(String.valueOf(1)+" / "+String.valueOf(model.getImageUrl().size()));
+                        holder.current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
                             @Override
                             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -145,7 +143,7 @@ public class EventFragment extends Fragment {
 
                             @Override
                             public void onPageSelected(int pos) {
-                                holder.current_imageTV.setText(String.valueOf(pos+1)+" / "+String.valueOf(model.getImageUrl().size()));
+                                holder.current_imageTV.setText((pos + 1) + " / " + model.getImageUrl().size());
                             }
 
                             @Override
@@ -154,8 +152,7 @@ public class EventFragment extends Fragment {
                             }
                         });
                     }
-                }
-                else {
+                } else {
                     holder.viewPager.setVisibility(View.GONE);
                     holder.current_imageTV.setVisibility(View.GONE);
                 }
@@ -165,7 +162,7 @@ public class EventFragment extends Fragment {
                     public void onClick(View v) {
                         Intent intent = new Intent(getContext(), PostDetailsActivity.class);
                         intent.putExtra("post", model);
-                        intent.putExtra("type",Constants.event);
+                        intent.putExtra("type", Constants.event);
                         startActivity(intent);
                         Bungee.slideLeft(getContext());
                     }
@@ -173,7 +170,7 @@ public class EventFragment extends Fragment {
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
-                        CommonUtils.handleBottomSheet(v,model,Constants.event, getContext());
+                        CommonUtils.handleBottomSheet(v, model, Constants.event, getContext());
                         return true;
                     }
                 });
@@ -185,9 +182,9 @@ public class EventFragment extends Fragment {
             @Override
             public FeedViewHolder onCreateViewHolder(ViewGroup group, int i) {
                 View view;
-                if(darkMode) {
+                if (darkMode) {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item_dark, group, false);
-                }else {
+                } else {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item, group, false);
                 }
                 return new FeedViewHolder(view);
@@ -196,7 +193,7 @@ public class EventFragment extends Fragment {
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
-                if(type==ChangeEventType.CHANGED){
+                if (type == ChangeEventType.CHANGED) {
                     // New post added (Show new post available text)
                     newPostTV.setVisibility(View.VISIBLE);
                 }
@@ -206,7 +203,7 @@ public class EventFragment extends Fragment {
         feedsRV.setAdapter(adapter);
     }
 
-    void initUI(View view){
+    void initUI(View view) {
         feedsRV = view.findViewById(R.id.feedsRV);
         newPostTV = view.findViewById(R.id.newPostTV);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -224,6 +221,26 @@ public class EventFragment extends Fragment {
 
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
+    }
+
+    /*********************************************************/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (adapter != null)
+            adapter.stopListening();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     /*********************************************************/
@@ -248,25 +265,5 @@ public class EventFragment extends Fragment {
             feed_view = itemView.findViewById(R.id.feed_view);
             viewPager = itemView.findViewById(R.id.viewPager);
         }
-    }
-
-    /*********************************************************/
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        adapter.startListening();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(adapter!=null)
-            adapter.stopListening();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 }

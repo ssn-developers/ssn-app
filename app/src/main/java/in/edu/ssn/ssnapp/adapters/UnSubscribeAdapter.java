@@ -1,15 +1,12 @@
 package in.edu.ssn.ssnapp.adapters;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +27,7 @@ import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.FeedViewHolder>{
+public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.FeedViewHolder> {
 
     private List<Club> clubs;
     private Context context;
@@ -39,14 +36,14 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
     public UnSubscribeAdapter(Context context, List<Club> clubs) {
         this.context = context;
         this.clubs = clubs;
-        darkMode = SharedPref.getBoolean(context,"dark_mode");
+        darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
     @NonNull
     @Override
     public UnSubscribeAdapter.FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(darkMode)
+        if (darkMode)
             view = LayoutInflater.from(context).inflate(R.layout.club_item_dark, parent, false);
         else
             view = LayoutInflater.from(context).inflate(R.layout.club_item, parent, false);
@@ -56,22 +53,21 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final UnSubscribeAdapter.FeedViewHolder holder, final int position) {
-        final Club model = (Club) clubs.get(position);
+        final Club model = clubs.get(position);
         holder.nameTV.setText(model.getName());
         holder.descriptionTV.setText(model.getDescription());
-        FCMHelper.UnSubscribeToTopic(context,"club_" + model.getId());
+        FCMHelper.UnSubscribeToTopic(context, "club_" + model.getId());
 
         try {
             Glide.with(context).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.dpIV);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             holder.dpIV.setImageResource(R.color.shimmering_back);
         }
 
         holder.lottie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(context,"email")));
+                FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(context, "email")));
                 clubs.remove(position);
                 notifyDataSetChanged();
             }

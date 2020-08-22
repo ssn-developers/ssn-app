@@ -2,35 +2,44 @@ package in.edu.ssn.ssnapp.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.Date;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Post implements Parcelable {
-    private Date time;
+    public static final Creator<Post> CREATOR = new Creator<Post>() {
+        @Override
+        public Post createFromParcel(Parcel in) {
+            return new Post(in);
+        }
 
+        @Override
+        public Post[] newArray(int size) {
+            return new Post[size];
+        }
+    };
+    private Date time;
     private String id;
     private String title;
     private String description;
-
     private ArrayList<String> dept;
     private ArrayList<String> year;
     private ArrayList<String> imageUrl;
-
     private ArrayList<String> fileName;
     private ArrayList<String> fileUrl;
-
     private String author;
     private String author_image_url;
     private String position;
 
-    public Post() { }
+    public Post() {
+    }
 
-    public Post(String title, String author_image_url, Date time,String id,String FileUrl) {
+    public Post(String title, String author_image_url, Date time, String id, String FileUrl) {
         this.title = title;
         this.author_image_url = author_image_url;
         this.time = time;
-        this.id=id;
-        this.fileUrl=new ArrayList<>();
+        this.id = id;
+        this.fileUrl = new ArrayList<>();
         this.fileUrl.add(FileUrl);
     }
 
@@ -49,20 +58,8 @@ public class Post implements Parcelable {
         author = in.readString();
         author_image_url = in.readString();
         position = in.readString();
-        time=new Date(in.readLong());
+        time = new Date(in.readLong());
     }
-
-    public static final Creator<Post> CREATOR = new Creator<Post>() {
-        @Override
-        public Post createFromParcel(Parcel in) {
-            return new Post(in);
-        }
-
-        @Override
-        public Post[] newArray(int size) {
-            return new Post[size];
-        }
-    };
 
     public String getTitle() {
         return title;
@@ -183,8 +180,7 @@ public class Post implements Parcelable {
         dest.writeString(this.position);
         try {
             dest.writeLong(this.time.getTime());
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             dest.writeLong(new Date().getTime());
             e.printStackTrace();
         }

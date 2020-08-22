@@ -1,11 +1,5 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.animation.LayoutTransition;
 import android.app.NotificationManager;
 import android.content.ClipData;
@@ -17,7 +11,6 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,16 +21,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.andremion.counterfab.CounterFab;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.hendraanggrian.appcompat.widget.SocialEditText;
@@ -63,6 +56,7 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class GroupChatActivity extends BaseActivity implements MessageListener {
 
+    public List<Message> messageList = new ArrayList<>();
     //Views
     RecyclerView chatRV;
     SocialEditText messageET;
@@ -72,32 +66,29 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     ViewGroup appbarRL;
     ProgressBar loadingPB;
     CounterFab newMessageFAB;
-    View selectedMessageView=null;
-
+    View selectedMessageView = null;
     //Vars
     ChatHelper chatHelper;
     MessageAdapter adapter;
     LinearLayoutManager layoutManager;
     FirebaseUser user;
     Message replyMessage = null;
-    public List<Message> messageList = new ArrayList<>();
     FirebaseFirestore db;
     Query next;
-    boolean replyMode , firstRun, fullChatRead, pageLoaded=true, darkMode, optionsMode=false;
-    private int lastScrollPosition=-1, prevLastScrollPos=-1, newMessageCount=0, newMessagePos=-1, page=0, pageSize = 20, prevNewMsgCount=0;
+    boolean replyMode, firstRun, fullChatRead, pageLoaded = true, darkMode, optionsMode = false;
     Vibrator vibrator;
     View.OnClickListener scrollToBottomListener;
-
+    private int lastScrollPosition = -1, prevLastScrollPos = -1, newMessageCount = 0, newMessagePos = -1, page = 0, pageSize = 20, prevNewMsgCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        darkMode = SharedPref.getBoolean(getApplicationContext(),"dark_mode");
-        if(darkMode){
+        darkMode = SharedPref.getBoolean(getApplicationContext(), "dark_mode");
+        if (darkMode) {
             setContentView(R.layout.activity_group_chat_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
                 getWindow().setStatusBarColor(getResources().getColor(R.color.appbar_color1_chat));
-        }else{
+        } else {
             setContentView(R.layout.activity_group_chat);
         }
         initUI();
@@ -105,20 +96,20 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         sendIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!CommonUtils.getGlobal_chat_is_blocked()) {
-                    if(!CommonUtils.alerter(getApplicationContext())) {
+                if (!CommonUtils.getGlobal_chat_is_blocked()) {
+                    if (!CommonUtils.alerter(getApplicationContext())) {
                         if (!TextUtils.isEmpty(messageET.getText().toString().trim())) {
                             chatHelper.sendMessage(messageET.getText().toString(), replyMode, replyMessage);
                             messageET.setText("");
                             closeReplyUI();
                         }
-                    }else {
+                    } else {
                         Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                         intent.putExtra("key", "home");
                         startActivity(intent);
                         Bungee.slideRight(GroupChatActivity.this);
                     }
-                }else{
+                } else {
                     Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
@@ -140,42 +131,42 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         });
     }
 
-    void initMessages(){
+    void initMessages() {
         Query first = db.collection(Constants.COLLECTION_GLOBAL_CHAT).orderBy("timestamp", Query.Direction.DESCENDING).limit(pageSize);
         getMessages(first);
-        SharedPref.putInt(getApplicationContext(),"new_message_count",0);
+        SharedPref.putInt(getApplicationContext(), "new_message_count", 0);
         chatHelper.listenForMessages();
     }
 
-    void addMessagesToChatRV(List<DocumentSnapshot> documentSnapshots){
+    void addMessagesToChatRV(List<DocumentSnapshot> documentSnapshots) {
         List<Message> messagesTemp = new ArrayList<>();
-        for(DocumentSnapshot ds: documentSnapshots){
+        for (DocumentSnapshot ds : documentSnapshots) {
             Message temp = ds.toObject(Message.class);
             temp.setMessageId(ds.getId());
-            if(!temp.getSenderId().equals(user.getUid())&&temp.getType()==1){
+            if (!temp.getSenderId().equals(user.getUid()) && temp.getType() == 1) {
                 temp.setType(0);
-            }else if(!temp.getSenderId().equals(user.getUid())&&temp.getType()==3){
+            } else if (!temp.getSenderId().equals(user.getUid()) && temp.getType() == 3) {
                 temp.setType(2);
             }
             messagesTemp.add(temp);
         }
         Collections.reverse(messagesTemp);
-        messageList.addAll(0,messagesTemp);
-        adapter.notifyItemRangeInserted(0,messagesTemp.size());
-        if(messageList.size()>messagesTemp.size()){
+        messageList.addAll(0, messagesTemp);
+        adapter.notifyItemRangeInserted(0, messagesTemp.size());
+        if (messageList.size() > messagesTemp.size()) {
             messageList.get(messagesTemp.size()).setShowDivider(false);
             adapter.notifyItemChanged(messagesTemp.size());
         }
 
     }
 
-    public void getMessages(Query query){
+    public void getMessages(Query query) {
         loadingPB.setVisibility(View.VISIBLE);
         query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 loadingPB.setVisibility(View.INVISIBLE);
-                if(queryDocumentSnapshots.size()>0) {
+                if (queryDocumentSnapshots.size() > 0) {
                     DocumentSnapshot lastVisible = queryDocumentSnapshots.getDocuments()
                             .get(queryDocumentSnapshots.size() - 1);
                     addMessagesToChatRV(queryDocumentSnapshots.getDocuments());
@@ -183,16 +174,16 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                             .orderBy("timestamp", Query.Direction.DESCENDING)
                             .startAfter(lastVisible)
                             .limit(pageSize);
-                }else{
-                    fullChatRead=true;
+                } else {
+                    fullChatRead = true;
                 }
-                pageLoaded=true;
+                pageLoaded = true;
             }
         });
     }
 
 
-    void updateNewMessageUI(){
+    void updateNewMessageUI() {
         newMessageFAB.setCount(newMessageCount);
         newMessageFAB.show();
         newMessageFAB.setOnClickListener(new View.OnClickListener() {
@@ -204,55 +195,54 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                     messageList.get(newMessagePos).newMessageBlink = true;
                     messageList.get(newMessagePos).newMessageCount = newMessageCount;
                     adapter.notifyItemChanged(newMessagePos);
-                    if(prevNewMsgCount>1){
-                        chatRV.scrollToPosition(newMessagePos+1);
-                    }else{
+                    if (prevNewMsgCount > 1) {
+                        chatRV.scrollToPosition(newMessagePos + 1);
+                    } else {
                         chatRV.scrollToPosition(newMessagePos);
                     }
-                }catch (Exception e){
-                    chatRV.scrollToPosition(adapter.getItemCount()-1);
+                } catch (Exception e) {
+                    chatRV.scrollToPosition(adapter.getItemCount() - 1);
                 }
-                prevNewMsgCount=0;
-                newMessageCount=0;
-                newMessagePos=-1;
+                prevNewMsgCount = 0;
+                newMessageCount = 0;
+                newMessagePos = -1;
                 newMessageFAB.setOnClickListener(scrollToBottomListener);
             }
         });
-        if(newMessageCount==0){
+        if (newMessageCount == 0) {
             newMessageFAB.hide();
             newMessageFAB.setCount(0);
             try {
                 messageList.get(newMessagePos).newMessageBlink = true;
                 messageList.get(newMessagePos).newMessageCount = prevNewMsgCount;
                 adapter.notifyItemChanged(newMessagePos);
-            }catch (Exception e){
-                chatRV.scrollToPosition(adapter.getItemCount()-1);
+            } catch (Exception e) {
+                chatRV.scrollToPosition(adapter.getItemCount() - 1);
             }
-            prevNewMsgCount=0;
-            newMessagePos=-1;
+            prevNewMsgCount = 0;
+            newMessagePos = -1;
             newMessageFAB.setOnClickListener(scrollToBottomListener);
         }
     }
 
 
-
-    void showMessageOptionsMenu(View v, final Message message, final int pos){
-        optionsMode=true;
+    void showMessageOptionsMenu(View v, final Message message, final int pos) {
+        optionsMode = true;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             getWindow().setStatusBarColor(getResources().getColor(R.color.colorAccentDarkChat));
 
-        if(user.getUid().equals(message.getSenderId())&& !message.isMessageDeleted() && Utils.canDeleteMsg(message.getTimestamp())){
+        if (user.getUid().equals(message.getSenderId()) && !message.isMessageDeleted() && Utils.canDeleteMsg(message.getTimestamp())) {
             deleteIV.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             deleteIV.setVisibility(View.GONE);
         }
-        if(message.isMessageDeleted()){
+        if (message.isMessageDeleted()) {
             copyIV.setVisibility(View.GONE);
-        }else{
+        } else {
             copyIV.setVisibility(View.VISIBLE);
         }
-        if(selectedMessageView!=null)
+        if (selectedMessageView != null)
             selectedMessageView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
 
         selectedMessageView = v;
@@ -269,10 +259,10 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
             @Override
             public void onClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("SSN_Global_Chat",message.getMessage());
+                ClipData clip = ClipData.newPlainText("SSN_Global_Chat", message.getMessage());
                 assert clipboard != null;
                 clipboard.setPrimaryClip(clip);
-                Toast.makeText(getApplicationContext(),"Message copied",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Message copied", Toast.LENGTH_SHORT).show();
                 closeMessageOptionUI();
             }
         });
@@ -285,19 +275,18 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         deleteIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!CommonUtils.alerter(getApplicationContext())) {
-                    if(CommonUtils.getGlobal_chat_is_blocked()){
+                if (!CommonUtils.alerter(getApplicationContext())) {
+                    if (CommonUtils.getGlobal_chat_is_blocked()) {
                         Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         onBackPressed();
-                    }else{
+                    } else {
                         chatHelper.removeMessage(message);
                         closeMessageOptionUI();
                     }
 
-                }
-                else {
+                } else {
                     Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                     intent.putExtra("key", "home");
                     startActivity(intent);
@@ -308,32 +297,31 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
 
     }
 
-    void messageSwiped(Message message){
+    void messageSwiped(Message message) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE));
         }
         closeMessageOptionUI();
         replyMessage = message;
-        replyMode=true;
+        replyMode = true;
         updateReplyUI();
     }
 
 
-    private void updateReplyUI(){
+    private void updateReplyUI() {
 
-        if(replyMessage.getSenderId().equals(user.getUid()))
+        if (replyMessage.getSenderId().equals(user.getUid()))
             replyNameTV.setText("You");
         else
             replyNameTV.setText(replyMessage.getSenderName());
 
-        if(replyMessage.isMessageDeleted()) {
-            if(user.getUid().equals(replyMessage.getSenderId())) {
+        if (replyMessage.isMessageDeleted()) {
+            if (user.getUid().equals(replyMessage.getSenderId())) {
                 replyMessageTV.setText("You deleted this message");
-            }
-            else{
+            } else {
                 replyMessageTV.setText("This message was deleted");
             }
-        }else{
+        } else {
             replyMessageTV.setText(replyMessage.getMessage());
         }
 
@@ -343,17 +331,17 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         imm.showSoftInput(messageET, InputMethodManager.SHOW_IMPLICIT);
     }
 
-    private void closeReplyUI(){
+    private void closeReplyUI() {
         replyMode = false;
         replyMessage = null;
         replyMessageLL.setVisibility(View.GONE);
     }
 
-    private void closeMessageOptionUI(){
+    private void closeMessageOptionUI() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if(darkMode){
+            if (darkMode) {
                 getWindow().setStatusBarColor(getResources().getColor(R.color.appbar_color1_chat));
-            }else{
+            } else {
                 getWindow().setStatusBarColor(getResources().getColor(android.R.color.white));
             }
         }
@@ -364,17 +352,17 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 selectedMessageView.setBackgroundColor(getResources().getColor(android.R.color.transparent));
                 selectedMessageView = null;
             }
-        }catch (Exception e){
-            selectedMessageView=null;
+        } catch (Exception e) {
+            selectedMessageView = null;
         }
-        optionsMode=false;
+        optionsMode = false;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPref.putInt(getApplicationContext(),"new_message_count",0);
-        SharedPref.putBoolean(getApplicationContext(),"isChatActive",false);
+        SharedPref.putInt(getApplicationContext(), "new_message_count", 0);
+        SharedPref.putBoolean(getApplicationContext(), "isChatActive", false);
     }
 
     @Override
@@ -385,16 +373,16 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPref.putInt(getApplicationContext(),"new_message_count",0);
-        SharedPref.putBoolean(getApplicationContext(),"isChatActive",false);
+        SharedPref.putInt(getApplicationContext(), "new_message_count", 0);
+        SharedPref.putBoolean(getApplicationContext(), "isChatActive", false);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         clearChatNotification();
-        SharedPref.putBoolean(getApplicationContext(),"isChatActive",true);
-        if(CommonUtils.alerter(getApplicationContext())) {
+        SharedPref.putBoolean(getApplicationContext(), "isChatActive", true);
+        if (CommonUtils.alerter(getApplicationContext())) {
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
             intent.putExtra("key", "home");
             startActivity(intent);
@@ -407,22 +395,22 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
 
     @Override
     public void onBackPressed() {
-        if(optionsMode){
+        if (optionsMode) {
             closeMessageOptionUI();
-        }else{
-            SharedPref.putInt(getApplicationContext(),"new_message_count",0);
+        } else {
+            SharedPref.putInt(getApplicationContext(), "new_message_count", 0);
             super.onBackPressed();
             Bungee.slideRight(GroupChatActivity.this);
         }
     }
 
 
-    private void initUI(){
+    private void initUI() {
         Objects.requireNonNull(getSupportActionBar()).hide();
         vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
         user = FirebaseAuth.getInstance().getCurrentUser();
         db = FirebaseFirestore.getInstance();
-        chatHelper = new ChatHelper(getApplicationContext(),db,user,this);
+        chatHelper = new ChatHelper(getApplicationContext(), db, user, this);
         newMessageFAB = findViewById(R.id.newMessageFAB);
         newMessageFAB.hide();
         appbarRL = findViewById(R.id.appbarRL);
@@ -449,13 +437,15 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
         layoutTransition.addTransitionListener(new LayoutTransition.TransitionListener() {
             @Override
-            public void startTransition(LayoutTransition transition, ViewGroup container, View view, int transitionType) {}
+            public void startTransition(LayoutTransition transition, ViewGroup container, View view, int transitionType) {
+            }
+
             @Override
             public void endTransition(LayoutTransition transition, ViewGroup container, View view, int transitionType) {
                 messageET.requestFocus();
             }
         });
-        layoutManager = new LinearLayoutManager(getApplicationContext(),RecyclerView.VERTICAL,false);
+        layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         layoutManager.setStackFromEnd(true);
         chatRV.setLayoutManager(layoutManager);
         chatRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -463,28 +453,28 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastScrollPosition = layoutManager.findLastVisibleItemPosition();
-                if(lastScrollPosition<messageList.size()-1){
+                if (lastScrollPosition < messageList.size() - 1) {
                     newMessageFAB.show();
-                }else{
+                } else {
                     newMessageFAB.hide();
                 }
-                if(newMessageCount!=0 && lastScrollPosition==newMessagePos){
-                    newMessageCount=0;
+                if (newMessageCount != 0 && lastScrollPosition == newMessagePos) {
+                    newMessageCount = 0;
                     updateNewMessageUI();
                 }
                 int id = layoutManager.findFirstCompletelyVisibleItemPosition();
-                if(id==0 && !fullChatRead && pageLoaded){
+                if (id == 0 && !fullChatRead && pageLoaded) {
                     //getting next page when scrolled to top
-                    if(CommonUtils.getGlobal_chat_is_blocked()){
+                    if (CommonUtils.getGlobal_chat_is_blocked()) {
                         Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         onBackPressed();
-                    }else {
-                        if(!CommonUtils.alerter(getApplicationContext())) {
+                    } else {
+                        if (!CommonUtils.alerter(getApplicationContext())) {
                             pageLoaded = false;
                             getMessages(next);
-                        }else{
+                        } else {
                             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                             intent.putExtra("key", "home");
                             startActivity(intent);
@@ -497,9 +487,9 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
         scrollToBottomListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(messageList.size()-1>=0){
+                if (messageList.size() - 1 >= 0) {
                     newMessageFAB.hide();
-                    chatRV.scrollToPosition(messageList.size()-1);
+                    chatRV.scrollToPosition(messageList.size() - 1);
                 }
             }
         };
@@ -519,7 +509,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 new MessageAdapter.OnItemClickListener() {
                     @Override
                     public void onMessageClicked(View view, int position) {
-                        if(optionsMode) {
+                        if (optionsMode) {
                             closeMessageOptionUI();
                         }
                     }
@@ -533,23 +523,23 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                 new MessageAdapter.OnReplyItemClickListener() {
                     @Override
                     public void onReplyMessageClicked(final View view, int position) {
-                        try{
+                        try {
                             int pos;
-                            if(messageList.get(position).getReplyMessage()!=null){
-                                pos = chatHelper.findMessageById(messageList.get(position).getReplyMessage().getMessageId(),messageList);
-                            }else{
-                                pos =-1;
+                            if (messageList.get(position).getReplyMessage() != null) {
+                                pos = chatHelper.findMessageById(messageList.get(position).getReplyMessage().getMessageId(), messageList);
+                            } else {
+                                pos = -1;
                             }
 
-                            if(pos!=-1){
+                            if (pos != -1) {
                                 //If replied message is there in the message list, scroll to that message
                                 chatRV.scrollToPosition(pos);
                                 messageList.get(pos).setBlinkReply(true);
                                 adapter.notifyItemChanged(pos);
-                            }else{
+                            } else {
                                 //If replied message is not in the message list, expand the message and show time
                                 RecyclerView.ViewHolder holder = chatRV.findViewHolderForLayoutPosition(position);
-                                if(holder!=null) {
+                                if (holder != null) {
                                     switch (holder.getItemViewType()) {
                                         case 2: {
                                             if (((ReceivedReplyHolder) holder).replyMessageTV.getMaxLines() == Integer.MAX_VALUE) {
@@ -578,7 +568,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
                                     }
                                 }
                             }
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             System.out.println("Error occurred while navigating to reply message");
                             e.printStackTrace();
                         }
@@ -616,7 +606,7 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     @Override
     public void onMessageRemoved(String id) {
         //Message has been removed
-        int pos = chatHelper.findMessageById(id,messageList);
+        int pos = chatHelper.findMessageById(id, messageList);
         if (pos != -1) {
             messageList.remove(pos);
             adapter.notifyItemRemoved(pos);
@@ -626,18 +616,18 @@ public class GroupChatActivity extends BaseActivity implements MessageListener {
     @Override
     public void onMessageModified(String id, Message changedMsg) {
         //Message content has been modified
-        int pos = chatHelper.findMessageById(id,messageList);
+        int pos = chatHelper.findMessageById(id, messageList);
         if (pos != -1) {
             messageList.set(pos, changedMsg);
             adapter.notifyItemChanged(pos);
         }
     }
 
-    void clearChatNotification(){
+    void clearChatNotification() {
         try {
             NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
             notificationManager.cancelAll();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

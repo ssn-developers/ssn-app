@@ -3,7 +3,8 @@ package in.edu.ssn.ssnapp.models;
 public class AlumniDetails {
     String name, email;
 
-    public AlumniDetails() { }
+    public AlumniDetails() {
+    }
 
     public AlumniDetails(String name, String email) {
         this.name = name;

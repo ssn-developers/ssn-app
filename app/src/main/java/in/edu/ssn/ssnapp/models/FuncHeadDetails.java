@@ -3,7 +3,8 @@ package in.edu.ssn.ssnapp.models;
 public class FuncHeadDetails {
     String name, email, position, extn;
 
-    public FuncHeadDetails() { }
+    public FuncHeadDetails() {
+    }
 
     public FuncHeadDetails(String name, String email, String position, String extn) {
         this.name = name;

@@ -4,31 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Club implements Parcelable {
-
-    private String id;
-    private String dp_url;
-    private String cover_url;
-    private String name;
-    private ArrayList<String> followers;
-    private String contact;
-    private ArrayList<String> head;
-    private String description;
-
-    public Club() { }
-
-    protected Club(Parcel in) {
-        id = in.readString();
-        dp_url = in.readString();
-        cover_url = in.readString();
-        name = in.readString();
-        followers = in.createStringArrayList();
-        contact = in.readString();
-        head = in.createStringArrayList();
-        description = in.readString();
-    }
 
     public static final Creator<Club> CREATOR = new Creator<Club>() {
         @Override
@@ -41,6 +18,28 @@ public class Club implements Parcelable {
             return new Club[size];
         }
     };
+    private String id;
+    private String dp_url;
+    private String cover_url;
+    private String name;
+    private ArrayList<String> followers;
+    private String contact;
+    private ArrayList<String> head;
+    private String description;
+
+    public Club() {
+    }
+
+    protected Club(Parcel in) {
+        id = in.readString();
+        dp_url = in.readString();
+        cover_url = in.readString();
+        name = in.readString();
+        followers = in.createStringArrayList();
+        contact = in.readString();
+        head = in.createStringArrayList();
+        description = in.readString();
+    }
 
     public String getId() {
         return id;

@@ -1,20 +1,18 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.viewpager.widget.ViewPager;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.viewpager.widget.ViewPager;
+
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
-
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -24,10 +22,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import in.edu.ssn.ssnapp.adapters.ViewPagerAdapter;
 import in.edu.ssn.ssnapp.fragments.BusAlertsFragment;
 import in.edu.ssn.ssnapp.fragments.ClubFragment;
+import in.edu.ssn.ssnapp.fragments.EventFragment;
 import in.edu.ssn.ssnapp.fragments.ExamCellFragment;
 import in.edu.ssn.ssnapp.fragments.PlacementFragment;
 import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
-import in.edu.ssn.ssnapp.fragments.EventFragment;
 import in.edu.ssn.ssnapp.message_utils.NewMessageEvent;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -35,14 +33,15 @@ import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
-public class StudentHomeActivity extends BaseActivity implements View.OnClickListener{
+public class StudentHomeActivity extends BaseActivity implements View.OnClickListener {
+    private static int count = 0;
     CircleImageView userImageIV;
     ViewPager viewPager;
-    private static int count = 0;
-    ImageView chatIV, favIV,settingsIV;
+    ImageView chatIV, favIV, settingsIV;
     TextView newMessageCountTV;
 
-    int newMessageCount=0;
+    int newMessageCount = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +49,7 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         if (darkModeEnabled) {
             setContentView(R.layout.activity_student_home_dark);
             clearLightStatusBar(this);
-        }
-        else
+        } else
             setContentView(R.layout.activity_student_home);
 
         initUI();
@@ -59,20 +57,19 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         /******************************************************************/
         //What's new
 
-        if(BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(),"dont_delete","current_version_code")){
-            SharedPref.putInt(getApplicationContext(),"dont_delete","current_version_code", BuildConfig.VERSION_CODE);
-            CommonUtils.showWhatsNewDialog(this,darkModeEnabled);
+        if (BuildConfig.VERSION_CODE > SharedPref.getInt(getApplicationContext(), "dont_delete", "current_version_code")) {
+            SharedPref.putInt(getApplicationContext(), "dont_delete", "current_version_code", BuildConfig.VERSION_CODE);
+            CommonUtils.showWhatsNewDialog(this, darkModeEnabled);
         }
 
         /******************************************************************/
         //First time subscription to global chat
 
-        boolean chat_sub = SharedPref.getBoolean(getApplicationContext(),"chat_first_sub");
-        if(!chat_sub && !Constants.fresher_email.contains(SharedPref.getString(getApplicationContext(),"email"))){
-            SharedPref.putBoolean(getApplicationContext(),"chat_first_sub",true);
-            System.out.println("global_chat first time sub triggered");
-            FCMHelper.SubscribeToTopic(getApplicationContext(),Constants.GLOBAL_CHAT);
-            SharedPref.putBoolean(getApplicationContext(), "switch_global_chat",true);
+        boolean chat_sub = SharedPref.getBoolean(getApplicationContext(), "chat_first_sub");
+        if (!chat_sub && !Constants.fresher_email.contains(SharedPref.getString(getApplicationContext(), "email"))) {
+            SharedPref.putBoolean(getApplicationContext(), "chat_first_sub", true);
+            FCMHelper.SubscribeToTopic(getApplicationContext(), Constants.GLOBAL_CHAT);
+            SharedPref.putBoolean(getApplicationContext(), "switch_global_chat", true);
         }
     }
 
@@ -82,9 +79,12 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         userImageIV = findViewById(R.id.userImageIV);
         viewPager = findViewById(R.id.viewPager);
         newMessageCountTV = findViewById(R.id.newMessageCountTV);
-        chatIV = findViewById(R.id.chatIV);         chatIV.setOnClickListener(this);
-        favIV = findViewById(R.id.favIV);           favIV.setOnClickListener(this);
-        settingsIV = findViewById(R.id.settingsIV); settingsIV.setOnClickListener(this);
+        chatIV = findViewById(R.id.chatIV);
+        chatIV.setOnClickListener(this);
+        favIV = findViewById(R.id.favIV);
+        favIV.setOnClickListener(this);
+        settingsIV = findViewById(R.id.settingsIV);
+        settingsIV.setOnClickListener(this);
 
         try {
             Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
@@ -97,14 +97,14 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
 
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        if(SharedPref.getInt(getApplicationContext(),"clearance") == 0)
+        if (SharedPref.getInt(getApplicationContext(), "clearance") == 0)
             adapter.addFragment(new StudentFeedFragment(), "News feed");
         adapter.addFragment(new ClubFragment(), "Club");
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
             adapter.addFragment(new PlacementFragment(), "Placement");
-        if(SharedPref.getInt(getApplicationContext(),"clearance") != 2)
+        if (SharedPref.getInt(getApplicationContext(), "clearance") != 2)
             adapter.addFragment(new BusAlertsFragment(), "Bus alert");
-        if(SharedPref.getInt(getApplicationContext(),"clearance") == 0)
+        if (SharedPref.getInt(getApplicationContext(), "clearance") == 0)
             adapter.addFragment(new ExamCellFragment(), "Exam cell");
         adapter.addFragment(new EventFragment(), "Event");
         viewPager.setAdapter(adapter);
@@ -118,21 +118,19 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.chatIV:
-                if(CommonUtils.getGlobal_chat_is_blocked()){
+                if (CommonUtils.getGlobal_chat_is_blocked()) {
                     Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     chatIV.setVisibility(View.GONE);
                     newMessageCountTV.setVisibility(View.GONE);
-                }
-                else {
-                    if(!CommonUtils.alerter(getApplicationContext())){
+                } else {
+                    if (!CommonUtils.alerter(getApplicationContext())) {
                         startActivity(new Intent(getApplicationContext(), GroupChatActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
-                    }
-                    else{
+                    } else {
                         Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                         intent.putExtra("key", "home");
                         startActivity(intent);
@@ -169,35 +167,34 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onPause() {
         super.onPause();
-        SharedPref.putBoolean(getApplicationContext(),"isStudHomeActive",false);
+        SharedPref.putBoolean(getApplicationContext(), "isStudHomeActive", false);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        SharedPref.putBoolean(getApplicationContext(),"isStudHomeActive",false);
+        SharedPref.putBoolean(getApplicationContext(), "isStudHomeActive", false);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(!CommonUtils.getGlobal_chat_is_blocked()){
+        if (!CommonUtils.getGlobal_chat_is_blocked()) {
             newMessageCountTV.setVisibility(View.VISIBLE);
             chatIV.setVisibility(View.VISIBLE);
             updateNewMessageUI();
-        }else{
+        } else {
             newMessageCountTV.setVisibility(View.GONE);
             chatIV.setVisibility(View.GONE);
         }
 
-        SharedPref.putBoolean(getApplicationContext(),"isStudHomeActive",true);
+        SharedPref.putBoolean(getApplicationContext(), "isStudHomeActive", true);
         if (CommonUtils.alerter(getApplicationContext())) {
             Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
             intent.putExtra("key", "home");
             startActivity(intent);
             Bungee.fade(StudentHomeActivity.this);
-        }
-        else if(darkModeEnabled != SharedPref.getBoolean(getApplicationContext(),"dark_mode")) {
+        } else if (darkModeEnabled != SharedPref.getBoolean(getApplicationContext(), "dark_mode")) {
             startActivity(getIntent());
         }
     }
@@ -213,8 +210,7 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
             startMain.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(startMain);
             finish();
-        }
-        else {
+        } else {
             count++;
             Toast toast = Toast.makeText(getApplicationContext(), "Press back once again to exit!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -222,8 +218,8 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    public void updateNewMessageUI(){
-        if(newMessageCountTV!=null) {
+    public void updateNewMessageUI() {
+        if (newMessageCountTV != null) {
             newMessageCount = SharedPref.getInt(getApplicationContext(), "new_message_count");
             if (newMessageCount > 0) {
                 newMessageCountTV.setText(String.valueOf(newMessageCount));

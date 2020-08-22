@@ -1,19 +1,16 @@
 package in.edu.ssn.ssnapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
 
@@ -23,16 +20,8 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import in.edu.ssn.ssnapp.adapters.BusRouteAdapter;
 import in.edu.ssn.ssnapp.adapters.SubjectsAdapter;
-import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.models.DepartmentSubjects;
 import in.edu.ssn.ssnapp.models.Subject;
 import in.edu.ssn.ssnapp.utils.SharedPref;
@@ -100,6 +89,14 @@ public class GPACalculatorActivity extends BaseActivity {
         gpa = totalCreditsGained / totalCredits;
         gpaRL.setVisibility(View.VISIBLE);
         gpaTV.setText(String.format("%.2f", gpa));
+    }
+
+    /********************************************************/
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Bungee.slideRight(GPACalculatorActivity.this);
     }
 
     public class getDepartmentSubjects extends AsyncTask<Void, Void, Void> {
@@ -170,13 +167,5 @@ public class GPACalculatorActivity extends BaseActivity {
 
             initUI();
         }
-    }
-
-    /********************************************************/
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Bungee.slideRight(GPACalculatorActivity.this);
     }
 }

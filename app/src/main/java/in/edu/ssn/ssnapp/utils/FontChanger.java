@@ -13,18 +13,17 @@ import android.widget.TextView;
 public class FontChanger {
     private Typeface typeface;
 
-    public FontChanger(Typeface typeface){
+    public FontChanger(Typeface typeface) {
         this.typeface = typeface;
     }
 
-    public void replaceFonts(ViewGroup viewTree){
+    public void replaceFonts(ViewGroup viewTree) {
         View child;
-        for(int i=0;i<viewTree.getChildCount();++i){
+        for (int i = 0; i < viewTree.getChildCount(); ++i) {
             child = viewTree.getChildAt(i);
-            if(child instanceof ViewGroup){
+            if (child instanceof ViewGroup) {
                 replaceFonts((ViewGroup) child);
-            }
-            else if(child instanceof TextView){
+            } else if (child instanceof TextView) {
                 ((TextView) child).setTypeface(typeface);
             }
         }

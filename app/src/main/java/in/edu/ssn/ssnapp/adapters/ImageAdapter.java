@@ -2,34 +2,23 @@ package in.edu.ssn.ssnapp.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.List;
 
-import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.ClubPostDetailsActivity;
 import in.edu.ssn.ssnapp.OpenImageActivity;
 import in.edu.ssn.ssnapp.PostDetailsActivity;
 import in.edu.ssn.ssnapp.R;
-import in.edu.ssn.ssnapp.database.DataBaseHelper;
-import in.edu.ssn.ssnapp.fragments.StudentFeedFragment;
 import in.edu.ssn.ssnapp.models.Club;
-import in.edu.ssn.ssnapp.models.ClubPost;
 import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
@@ -49,7 +38,7 @@ public class ImageAdapter extends PagerAdapter {
     public ImageAdapter(Context context, List<String> images, int flag, Post model) {
         this.context = context;
         this.images = images;
-        this.model= model;
+        this.model = model;
         this.flag = flag;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -57,7 +46,7 @@ public class ImageAdapter extends PagerAdapter {
     public ImageAdapter(Context context, List<String> images, int flag, Club c_model, String id) {
         this.context = context;
         this.images = images;
-        this.c_model= c_model;
+        this.c_model = c_model;
         this.id = id;
         this.flag = flag;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -77,7 +66,7 @@ public class ImageAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((RelativeLayout) object);
+        return view == object;
     }
 
     @Override
@@ -87,7 +76,7 @@ public class ImageAdapter extends PagerAdapter {
         ImageView imageView = itemView.findViewById(R.id.imageView);
         container.addView(itemView);
 
-        if(getCount() == 0)
+        if (getCount() == 0)
             imageView.setVisibility(View.GONE);
         else
             Glide.with(context).load(images.get(position)).into(imageView);
@@ -95,19 +84,17 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(flag == 0){
+                if (flag == 0) {
                     Intent intent = new Intent(context, OpenImageActivity.class);
                     intent.putExtra("url", images.get(position));
                     intent.addFlags(FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                     try {
                         Bungee.slideLeft(context);
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                else if(flag == Constants.post_club){
+                } else if (flag == Constants.post_club) {
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
                     intent.putExtra("data", id);
                     intent.putExtra("club", c_model);
@@ -115,12 +102,10 @@ public class ImageAdapter extends PagerAdapter {
                     context.startActivity(intent);
                     try {
                         Bungee.slideLeft(context);
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
-                else {
+                } else {
                     Intent intent = new Intent(context, PostDetailsActivity.class);
                     intent.putExtra("post", model);
                     intent.putExtra("type", flag);
@@ -128,8 +113,7 @@ public class ImageAdapter extends PagerAdapter {
                     context.startActivity(intent);
                     try {
                         Bungee.slideLeft(context);
-                    }
-                    catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -139,8 +123,8 @@ public class ImageAdapter extends PagerAdapter {
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                if(flag != 0 && flag != Constants.post_club)
-                    CommonUtils.handleBottomSheet(v,model,flag,context);
+                if (flag != 0 && flag != Constants.post_club)
+                    CommonUtils.handleBottomSheet(v, model, flag, context);
                 return true;
             }
         });

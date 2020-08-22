@@ -28,7 +28,6 @@
 				android:id="@+id/towerIV"
 				android:scaleX="0"
 				android:scaleY="0"
-				android:translationY="@dimen/_100sdp"
 				android:layout_centerInParent="true" />
 			<ImageView
 				android:layout_width="@dimen/boarding_image_size"
@@ -37,17 +36,7 @@
 				android:scaleX="0"
 				android:scaleY="0"
 				android:alpha="0"
-				android:translationY="@dimen/_150sdp"
 				android:layout_centerInParent="true" />
-			<ImageView
-				android:layout_width="@dimen/boarding_image_size"
-				android:layout_height="@dimen/boarding_image_size"
-				android:id="@+id/landIV"
-				android:scaleY="0"
-				android:scaleX="0"
-				android:translationY="@dimen/_175sdp"
-				android:layout_centerInParent="true" />
-
 		</RelativeLayout>
 		<LinearLayout
 			android:layout_width="match_parent"

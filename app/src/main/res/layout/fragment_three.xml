@@ -26,7 +26,7 @@
 				android:layout_width="@dimen/boarding_image_size"
 				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/hand1IV"
-				android:translationY="@dimen/boarding_image_size"
+				android:translationY="@dimen/_30sdp"
 				android:scaleX="0"
 				android:scaleY="0"
 				android:layout_centerInParent="true" />
@@ -34,7 +34,7 @@
 				android:layout_width="@dimen/boarding_image_size"
 				android:layout_height="@dimen/boarding_image_size"
 				android:id="@+id/hand2IV"
-				android:translationY="@dimen/boarding_image_size"
+				android:translationY="@dimen/_70sdp"
 				android:scaleX="0"
 				android:scaleY="0"
 				android:layout_centerInParent="true" />
@@ -46,15 +46,6 @@
 				android:scaleX="0"
 				android:scaleY="0"
 				android:layout_centerInParent="true" />
-			<ImageView
-				android:layout_width="@dimen/boarding_image_size"
-				android:layout_height="@dimen/boarding_image_size"
-				android:id="@+id/landIV"
-				android:scaleY="0"
-				android:scaleX="0"
-				android:translationY="@dimen/_175sdp"
-				android:layout_centerInParent="true" />
-
 		</RelativeLayout>
 		<LinearLayout
 			android:layout_width="match_parent"

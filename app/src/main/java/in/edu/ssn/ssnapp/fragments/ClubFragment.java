@@ -1,11 +1,8 @@
 package in.edu.ssn.ssnapp.fragments;
 
-import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,12 +36,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
-import java.util.concurrent.ExecutionException;
 
 import in.edu.ssn.ssnapp.ClubPageActivity;
 import in.edu.ssn.ssnapp.R;
@@ -61,32 +54,31 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class ClubFragment extends Fragment {
 
-    public ClubFragment() { }
-
+    Map<String, Object> mClub;
+    ListenerRegistration feedsListener, clubListener;
     private RecyclerView subs_RV, unsubs_RV, feed_RV;
     private TextView suggestionTV;
     private RelativeLayout layout_subscribed, layout_empty_feed;
     private FirestoreRecyclerAdapter subs_adap;
-
     private boolean darkMode;
     private List<Club> clubs, subscribed_clubs;
     private List<ClubPost> post;
-    Map<String, Object> mClub;
     private List<Map<String, Object>> subscribe_post;
 
     private UnSubscribeAdapter adapter;
     private SubscribeFeedsAdapter subscribe_adapter;
     private ShimmerFrameLayout shimmer_view;
-    ListenerRegistration feedsListener, clubListener;
+    private TextView text1TV, text2TV, text11TV, text22TV;
 
-    private TextView text1TV,text2TV,text11TV,text22TV;
+    public ClubFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        CommonUtils.addScreen(getContext(),getActivity(),"ClubFragment");
+        CommonUtils.addScreen(getContext(), getActivity(), "ClubFragment");
         View view = inflater.inflate(R.layout.fragment_club, container, false);
         CommonUtils.initFonts(getContext(), view);
-        darkMode = SharedPref.getBoolean(getContext(),"dark_mode");
+        darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
 
         initUI(view);
         setupFireStore();
@@ -110,14 +102,13 @@ public class ClubFragment extends Fragment {
         text11TV = view.findViewById(R.id.text11TV);
         text22TV = view.findViewById(R.id.text22TV);
 
-        if(darkMode){
+        if (darkMode) {
             text1TV.setTextColor(Color.WHITE);
             text2TV.setTextColor(Color.WHITE);
             text11TV.setTextColor(Color.WHITE);
             text22TV.setTextColor(Color.WHITE);
             suggestionTV.setTextColor(getResources().getColor(R.color.colorAccentDark));
-        }
-        else{
+        } else {
             text1TV.setTextColor(getResources().getColor(R.color.colorAccentText));
             text2TV.setTextColor(getResources().getColor(R.color.colorAccentText));
             text11TV.setTextColor(getResources().getColor(R.color.colorAccentText));
@@ -125,11 +116,11 @@ public class ClubFragment extends Fragment {
             suggestionTV.setTextColor(getResources().getColor(R.color.colorAccent));
         }
 
-        subs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        subs_RV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         subs_RV.setNestedScrollingEnabled(false);
-        unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.HORIZONTAL,false));
+        unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         unsubs_RV.setNestedScrollingEnabled(false);
-        feed_RV.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        feed_RV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         feed_RV.setNestedScrollingEnabled(false);
 
         subscribed_clubs = new ArrayList<Club>();
@@ -146,12 +137,12 @@ public class ClubFragment extends Fragment {
     }
 
     private void setUpSubcriptions() {
-        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_club).whereArrayContains("followers",SharedPref.getString(getContext(),"email"));
+        Query query = FirebaseFirestore.getInstance().collection(Constants.collection_club).whereArrayContains("followers", SharedPref.getString(getContext(), "email"));
         final FirestoreRecyclerOptions<Club> options = new FirestoreRecyclerOptions.Builder<Club>().setQuery(query, new SnapshotParser<Club>() {
             @NonNull
             @Override
             public Club parseSnapshot(@NonNull DocumentSnapshot snapshot) {
-                return CommonUtils.getClubFromSnapshot(getContext(),snapshot);
+                return CommonUtils.getClubFromSnapshot(getContext(), snapshot);
             }
         }).build();
 
@@ -197,7 +188,7 @@ public class ClubFragment extends Fragment {
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view;
-                if(darkMode)
+                if (darkMode)
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.club_item_dark, group, false);
                 else
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.club_item, group, false);
@@ -217,7 +208,7 @@ public class ClubFragment extends Fragment {
 
             @Override
             public void onChildViewDetachedFromWindow(@NonNull View view) {
-                if(subs_adap.getItemCount() == 0){
+                if (subs_adap.getItemCount() == 0) {
                     layout_subscribed.setVisibility(View.VISIBLE);
                     subs_RV.setVisibility(View.INVISIBLE);
                 }
@@ -225,16 +216,15 @@ public class ClubFragment extends Fragment {
         });
     }
 
-    private void setUpUnSubcriptions(){
+    private void setUpUnSubcriptions() {
         clubListener = FirebaseFirestore.getInstance().collection(Constants.collection_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(queryDocumentSnapshots!=null) {
+                if (queryDocumentSnapshots != null) {
                     String email = "";
                     try {
                         email = SharedPref.getString(getContext(), "email");
-                    }
-                    catch (Exception e1){
+                    } catch (Exception e1) {
                         e1.printStackTrace();
                     }
                     clubs = queryDocumentSnapshots.toObjects(Club.class);
@@ -248,8 +238,7 @@ public class ClubFragment extends Fragment {
                             subscribed_clubs.add(c);
                             clubs.remove(i);
                             i--;
-                        }
-                        else
+                        } else
                             FCMHelper.UnSubscribeToTopic(getContext(), "club_" + c.getId());
 
                     }
@@ -267,30 +256,30 @@ public class ClubFragment extends Fragment {
         });
     }
 
-    private void setUpFeeds(){
+    private void setUpFeeds() {
         feedsListener = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                try{
-                    if(queryDocumentSnapshots != null){
+                try {
+                    if (queryDocumentSnapshots != null) {
                         post = queryDocumentSnapshots.toObjects(ClubPost.class);
 
                         subscribe_post.clear();
 
-                        for(int i = 0; i< post.size(); i++) {
+                        for (int i = 0; i < post.size(); i++) {
                             ClubPost c = post.get(i);
-                            for(int j=0; j<subscribed_clubs.size(); j++){
-                                if(c.getCid().equals(subscribed_clubs.get(j).getId())){
+                            for (int j = 0; j < subscribed_clubs.size(); j++) {
+                                if (c.getCid().equals(subscribed_clubs.get(j).getId())) {
                                     mClub = new HashMap<>();
-                                    mClub.put("club",subscribed_clubs.get(j));
-                                    mClub.put("post",c);
+                                    mClub.put("club", subscribed_clubs.get(j));
+                                    mClub.put("post", c);
                                     subscribe_post.add(mClub);
                                     break;
                                 }
                             }
                         }
 
-                        Collections.sort(subscribe_post, new Comparator<Map<String, Object>> () {
+                        Collections.sort(subscribe_post, new Comparator<Map<String, Object>>() {
                             public int compare(Map<String, Object> m1, Map<String, Object> m2) {
                                 return (((ClubPost) m2.get("post")).getTime()).compareTo(((ClubPost) m1.get("post")).getTime());
                             }
@@ -299,9 +288,9 @@ public class ClubFragment extends Fragment {
                         ArrayList<Club> s_club = new ArrayList<>();
                         ArrayList<ClubPost> s_post = new ArrayList<>();
 
-                        for(Map<String, Object> map:subscribe_post){
+                        for (Map<String, Object> map : subscribe_post) {
                             for (Map.Entry<String, Object> entry : map.entrySet()) {
-                                if(entry.getKey().equals("club"))
+                                if (entry.getKey().equals("club"))
                                     s_club.add((Club) entry.getValue());
                                 else
                                     s_post.add((ClubPost) entry.getValue());
@@ -312,19 +301,62 @@ public class ClubFragment extends Fragment {
                         feed_RV.setAdapter(subscribe_adapter);
 
                         shimmer_view.setVisibility(View.GONE);
-                        if(subscribe_post.size() == 0)
+                        if (subscribe_post.size() == 0)
                             layout_empty_feed.setVisibility(View.VISIBLE);
                         else
                             layout_empty_feed.setVisibility(View.GONE);
-                    }
-                    else
+                    } else
                         shimmer_view.setVisibility(View.GONE);
-                }
-                catch (Exception ex){
+                } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         });
+    }
+
+    /*********************************************************/
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        subs_adap.startListening();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if (adapter != null)
+            subs_adap.stopListening();
+
+        if (feedsListener != null)
+            feedsListener.remove();
+
+        if (clubListener != null)
+            clubListener.remove();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (SharedPref.getBoolean(getContext(), "subs_changes_made")) {
+            SharedPref.remove(getContext(), "subs_changes_made");
+
+            try {
+                final FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                fragmentTransaction.detach(this);
+                fragmentTransaction.attach(this);
+                fragmentTransaction.commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     /*********************************************************/
@@ -346,51 +378,5 @@ public class ClubFragment extends Fragment {
 
             lottie.setProgress(0.61f);
         }
-    }
-
-    /*********************************************************/
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        subs_adap.startListening();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        if(adapter!=null)
-            subs_adap.stopListening();
-
-        if(feedsListener!=null)
-            feedsListener.remove();
-
-        if(clubListener!=null)
-            clubListener.remove();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if(SharedPref.getBoolean(getContext(),"subs_changes_made")) {
-            SharedPref.remove(getContext(),"subs_changes_made");
-
-            try {
-                final FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.detach(this);
-                fragmentTransaction.attach(this);
-                fragmentTransaction.commit();
-            }
-            catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 }
