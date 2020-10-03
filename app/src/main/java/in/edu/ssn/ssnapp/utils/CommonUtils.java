@@ -201,7 +201,7 @@ public class CommonUtils {
     /************************************************************************/
     // checks if wifi is connected to a particular network
     public static boolean checkWifiOnAndConnected(Context context, String ssid) {
-        WifiManager wifiMgr = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
+        WifiManager wifiMgr = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
 
         if (wifiMgr.isWifiEnabled()) { // Wi-Fi adapter is ON
             WifiInfo wifiInfo = wifiMgr.getConnectionInfo();

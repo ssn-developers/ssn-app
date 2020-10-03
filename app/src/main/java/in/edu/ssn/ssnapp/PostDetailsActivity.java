@@ -21,7 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
@@ -46,6 +46,7 @@ public class PostDetailsActivity extends BaseActivity {
     SocialTextView descriptionTV;
     ChipGroup attachmentsChipGroup, yearChipGroup, deptChipGroup;
     RelativeLayout textGroupRL, layout_receive;
+    FirebaseCrashlytics crashlytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,9 +57,10 @@ public class PostDetailsActivity extends BaseActivity {
         } else {
             setContentView(R.layout.activity_post_details);
         }
-
+        crashlytics = FirebaseCrashlytics.getInstance();
         post = getIntent().getParcelableExtra("post");
         final int type = getIntent().getIntExtra("type", 0);
+
 
         initUI();
 
@@ -259,7 +261,9 @@ public class PostDetailsActivity extends BaseActivity {
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         ex.printStackTrace();
-                        Crashlytics.log("stackTrace: " + ex.getStackTrace() + " \n Error: " + ex.getMessage());
+
+
+                        crashlytics.log("stackTrace: " + ex.getStackTrace() + " \n Error: " + ex.getMessage());
                     }
 
                 }

@@ -13,7 +13,7 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 
 import com.bumptech.glide.Glide;
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 
@@ -21,6 +21,8 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import spencerstudios.com.bungeelib.Bungee;
 
 public class OpenImageActivity extends BaseActivity {
+
+    FirebaseCrashlytics crashlytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class OpenImageActivity extends BaseActivity {
             setContentView(R.layout.activity_open_image);
         }
 
+        crashlytics = FirebaseCrashlytics.getInstance();
 
         ImageView imageIV = findViewById(R.id.imageIV);
         ImageView backIV = findViewById(R.id.backIV);
@@ -69,7 +72,7 @@ public class OpenImageActivity extends BaseActivity {
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         ex.printStackTrace();
-                        Crashlytics.log("stackTrace: " + ex.getStackTrace() + " \n Error: " + ex.getMessage());
+                        crashlytics.log("stackTrace: " + ex.getStackTrace() + " \n Error: " + ex.getMessage());
                     }
 
                 }

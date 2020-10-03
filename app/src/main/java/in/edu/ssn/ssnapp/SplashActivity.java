@@ -20,7 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,7 +52,6 @@ import in.edu.ssn.ssnapp.onboarding.OnboardingActivity;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
-import io.fabric.sdk.android.Fabric;
 import pl.droidsonroids.gif.AnimationListener;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
@@ -213,7 +212,7 @@ public class SplashActivity extends AppCompatActivity {
         //only enable bug tracking in release version
         if (!BuildConfig.DEBUG) {
             //https://stackoverflow.com/a/49836972/10664312
-            Fabric.with(this, new Crashlytics());
+            FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         }
     }
 

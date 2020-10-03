@@ -22,7 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
-import com.crashlytics.android.Crashlytics;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 import java.io.File;
 import java.util.Arrays;
@@ -49,11 +49,13 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     ImageView backIV, downloadIV;
     GifImageView progress;
     Uri downloadUri = null;
+    FirebaseCrashlytics crashlytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_viewer);
+        crashlytics = FirebaseCrashlytics.getInstance();
 
         initUI();
 
@@ -91,7 +93,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
         progress = findViewById(R.id.progress);
     }
 
-    private void downloadFile(){
+    private void downloadFile() {
         try {
             Toast toast = Toast.makeText(PdfViewerActivity.this, "Downloading...", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -117,7 +119,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
             ex.printStackTrace();
-            Crashlytics.log("stackTrace: " + Arrays.toString(ex.getStackTrace()) + " \n Error: " + ex.getMessage());
+            crashlytics.log("stackTrace: " + Arrays.toString(ex.getStackTrace()) + " \n Error: " + ex.getMessage());
         }
     }
 
@@ -171,7 +173,7 @@ public class PdfViewerActivity extends BaseActivity implements DownloadFile.List
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults.length>0&& grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode==1){
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED && requestCode == 1) {
             downloadFile();
         }
     }

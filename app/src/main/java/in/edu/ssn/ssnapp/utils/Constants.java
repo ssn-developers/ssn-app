@@ -83,5 +83,5 @@ public class Constants {
 
     //TODO: modify when releasing the app
     //What's new stuff
-    public static String changelog = "\u2022 Onboarding animations\n\u2022 Bug fixes\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
+    public static String changelog = "\u2022 Bug fixes\n\u2022 UI/UX improvements\n\u2022 Performance improvements";
 }

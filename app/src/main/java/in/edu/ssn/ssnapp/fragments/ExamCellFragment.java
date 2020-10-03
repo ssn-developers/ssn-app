@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,6 +45,7 @@ import spencerstudios.com.bungeelib.Bungee;
 
 public class ExamCellFragment extends Fragment {
 
+    private static final String TAG = "testtt";
     boolean darkMode = false;
     RecyclerView feedsRV;
     LinearLayoutManager layoutManager;
@@ -58,6 +60,8 @@ public class ExamCellFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log.i(TAG, "onCreateView: "+SharedPref.getString(getContext(), "dept"));
+        Log.i(TAG, "onCreateView: "+SharedPref.getInt(getContext(), "year"));
         CommonUtils.addScreen(getContext(), getActivity(), "ExamCellFragment");
         darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
         View view;
@@ -104,7 +108,7 @@ public class ExamCellFragment extends Fragment {
     void setupFireStore() {
         String dept = SharedPref.getString(getContext(), "dept");
         String year = "year." + SharedPref.getInt(getContext(), "year");
-
+        Log.i(TAG, "setupFireStore: "+year +"\nsetupFireStore: "+Constants.collection_exam_cell+"\nsetupFireStore: "+dept);
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_exam_cell).whereArrayContains("dept", dept).whereEqualTo(year, true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
