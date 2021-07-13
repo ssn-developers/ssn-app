@@ -60,10 +60,14 @@ import spencerstudios.com.bungeelib.Bungee;
 public class SplashActivity extends AppCompatActivity {
 
     private final static String TAG = "test_set";
+    //    In worstcase scenarios
     private static Boolean worst_case = true;
+    //    To check the version number available in playstore against the apps version.
     private static Boolean isUpdateAvailable = false;
+
     Intent intent, notif_intent;
     private GifDrawable gifFromResource;
+    //    For the apps api version
     private int currentApiVersion;
     private Map<String, Object> nodes = new HashMap<>();
 
@@ -74,11 +78,18 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        //  To Check whether the app is in debug mode.( Used while testing )
         CommonUtils.isDebug();
 
         initUI();
+
+        //  To Check for BLOCK variables in firebase.
         checkIsBlocked();
+
+        //  To implement Force update ( if a newer version is available.)
         new checkForceUpdate().execute();
+
+        //  To create crash reports in firebase.
         setUpCrashReport();
 
         try {
@@ -89,6 +100,7 @@ public class SplashActivity extends AppCompatActivity {
             gifFromResource.addAnimationListener(new AnimationListener() {
                 @Override
                 public void onAnimationCompleted(int loopNumber) {
+                    // Once the animation is completed we call "passIntent" if there is no update available.
                     gifFromResource.stop();
                     if (!isUpdateAvailable) {
                         passIntent();
@@ -99,19 +111,27 @@ public class SplashActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Get the current login time.
         Calendar calendar = Calendar.getInstance();
         Long current = calendar.getTimeInMillis();
+
+        //Get the last login time.
         Long prev = SharedPref.getLong(getApplicationContext(), "dont_delete", "db_update");
+
+        //If the difference is greater than 7 days( 7 days = 604800000 milliseconds) update the faculty Json file.
         if (current - prev > 604800000) {
             new updateFaculty().execute();
+            //Update the last login time to latest entry.
             SharedPref.putLong(getApplicationContext(), "dont_delete", "db_update", current);
         }
+
         if (!isUpdateAvailable)
             handleIntent();
     }
 
     void initUI() {
         currentApiVersion = Build.VERSION.SDK_INT;
+
         final int flags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -119,6 +139,7 @@ public class SplashActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;
 
+        // To make the Splash activity go full screen for the animations.
         if (currentApiVersion >= Build.VERSION_CODES.KITKAT) {
             getWindow().getDecorView().setSystemUiVisibility(flags);
             final View decorView = getWindow().getDecorView();
@@ -503,7 +524,7 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            if(isUpdateAvailable){
+            if (isUpdateAvailable) {
                 showForceUpdateDialog(latestVersion);
             }
 

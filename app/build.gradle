@@ -18,24 +18,24 @@ android {
 
 // TODO : Make sure signingConfig is commented before pushing
     //Start Comment
-    def props = new Properties()
-    file("$projectDir/build.properties").withInputStream { props.load(it) }
-
-    signingConfigs {
-        debug {
-            storeFile file(props.getProperty("storeFile"))
-            storePassword props.getProperty("storePassword")
-            keyAlias props.getProperty("keyAlias")
-            keyPassword props.getProperty("keyPassword")
-        }
-    }
+//    def props = new Properties()
+//    file("$projectDir/build.properties").withInputStream { props.load(it) }
+//
+//    signingConfigs {
+//        debug {
+//            storeFile file(props.getProperty("storeFile"))
+//            storePassword props.getProperty("storePassword")
+//            keyAlias props.getProperty("keyAlias")
+//            keyPassword props.getProperty("keyPassword")
+//        }
+//    }
     //End comment
 
     buildTypes {
         debug{
             // TODO : Make sure signingConfig is commented before pushing
             //Start Comment
-             signingConfig signingConfigs.debug
+//             signingConfig signingConfigs.debug
             //End Comment
         }
         release {
