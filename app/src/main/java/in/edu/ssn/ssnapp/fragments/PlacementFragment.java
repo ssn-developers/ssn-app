@@ -52,17 +52,22 @@ public class PlacementFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CommonUtils.addScreen(getContext(), getActivity(), "PlacementFragment");
+        //get the darkmode variable
         darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
         View view;
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkMode) {
             view = inflater.inflate(R.layout.fragment_placement_feed_dark, container, false);
         } else {
             view = inflater.inflate(R.layout.fragment_placement_feed, container, false);
         }
 
+        //instantiate fonts
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
+        //Load up firestore collection.
         setupFireStore();
 
         new Handler().postDelayed(new Runnable() {
@@ -85,10 +90,14 @@ public class PlacementFragment extends Fragment {
 
     /*********************************************************/
 
+    /************************************************************************/
+    //loads placements posts for the students.
     void setupFireStore() {
         String dept = SharedPref.getString(getContext(), "dept");
 
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_placement).whereArrayContains("dept", dept).orderBy("time", Query.Direction.DESCENDING);
+
+        //Get placement posts from the Firestore.
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
             @Override
@@ -102,32 +111,40 @@ public class PlacementFragment extends Fragment {
 
                 return post;
             }
-        })
-                .build();
+        }).build();
 
+        //Assign placement posts details to UI elements.
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
                 holder.titleTV.setText(model.getTitle());
                 holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
+                //creating a short version of description less then 100 letters for display.
+                //if description > 100 letters, shrink it.
                 if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.descriptionTV.setText(ss);
-                } else
+                }
+                //if description < 100 letters then directly assign it.
+                else
                     holder.descriptionTV.setText(model.getDescription().trim());
 
+                //if the post has one or more images.
                 if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
                     final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(), 2, model);
                     holder.viewPager.setAdapter(imageAdapter);
 
+                    //if the number of images is 1
                     if (model.getImageUrl().size() == 1) {
                         holder.current_imageTV.setVisibility(View.GONE);
-                    } else {
+                    }
+                    //if there are more than 1 images.
+                    else {
                         holder.current_imageTV.setVisibility(View.VISIBLE);
                         holder.current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -147,11 +164,14 @@ public class PlacementFragment extends Fragment {
                             }
                         });
                     }
-                } else {
+                }
+                //if the post contains no images.
+                else {
                     holder.viewPager.setVisibility(View.GONE);
                     holder.current_imageTV.setVisibility(View.GONE);
                 }
 
+                //proceed to post Details Screen on clicking the post.
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -162,6 +182,8 @@ public class PlacementFragment extends Fragment {
                         Bungee.slideLeft(getContext());
                     }
                 });
+
+                //Long click for favourite and share options.
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
@@ -174,10 +196,12 @@ public class PlacementFragment extends Fragment {
                 shimmer_view.setVisibility(View.GONE);
             }
 
+            //Get the placements_post_Item layout.
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view;
+                //Get the appropriate placements_post_Item layout based on the darkmode preference.
                 if (darkMode) {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.faculty_post_item_dark, group, false);
                 } else {
@@ -186,6 +210,7 @@ public class PlacementFragment extends Fragment {
                 return new FeedViewHolder(view);
             }
 
+            //When a new post is sensed.
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
@@ -198,7 +223,10 @@ public class PlacementFragment extends Fragment {
 
         feedsRV.setAdapter(adapter);
     }
+    /************************************************************************/
 
+    /************************************************************************/
+    // Initiate variables and UI elements.
     void initUI(View view) {
         feedsRV = view.findViewById(R.id.feedsRV);
         newPostTV = view.findViewById(R.id.newPostTV);
@@ -218,9 +246,9 @@ public class PlacementFragment extends Fragment {
         shimmer_view = view.findViewById(R.id.shimmer_view);
         layout_progress = view.findViewById(R.id.layout_progress);
     }
+    /************************************************************************/
 
     /*********************************************************/
-
     @Override
     public void onStart() {
         super.onStart();
@@ -238,7 +266,6 @@ public class PlacementFragment extends Fragment {
     public void onStop() {
         super.onStop();
     }
-
     /*********************************************************/
 
     public class FeedViewHolder extends RecyclerView.ViewHolder {

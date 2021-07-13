@@ -46,18 +46,25 @@ public class BusAlertsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         CommonUtils.addScreen(getContext(), getActivity(), "BusAlertsFragment");
+        //get the darkmode variable
         darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
         View view;
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkMode) {
             view = inflater.inflate(R.layout.fragment_bus_alerts_dark, container, false);
         } else {
             view = inflater.inflate(R.layout.fragment_bus_alerts, container, false);
         }
+
+        //instantiate fonts
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
 
+        //Load up firestore collection.
         setupFireStore();
 
+        //Bus Routes.
         busRoutesCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,11 +76,12 @@ public class BusAlertsFragment extends Fragment {
         return view;
     }
 
-    /*********************************************************/
-
+    /************************************************************************/
+    //loads Bus alert posts for the students.
     void setupFireStore() {
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post_bus).orderBy("time", Query.Direction.DESCENDING).limit(5);
 
+        //Get bus alerts from the Firestore.
         FirestoreRecyclerOptions<BusPost> options = new FirestoreRecyclerOptions.Builder<BusPost>().setQuery(query, new SnapshotParser<BusPost>() {
             @NonNull
             @Override
@@ -88,6 +96,7 @@ public class BusAlertsFragment extends Fragment {
         })
                 .build();
 
+        //Assign bus alerts details to UI elements.
         adapter = new FirestoreRecyclerAdapter<BusPost, BusAlertHolder>(options) {
             @Override
             public void onBindViewHolder(final BusAlertHolder holder, int position, final BusPost model) {
@@ -95,15 +104,19 @@ public class BusAlertsFragment extends Fragment {
                 holder.descTV.setText(model.getDesc());
                 holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
+                //clicking on the bus alert proceed to view PDF
                 holder.rl_bus_alert_item.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //Active internet connection
                         if (!CommonUtils.alerter(getContext())) {
                             Intent i = new Intent(getContext(), PdfViewerActivity.class);
                             i.putExtra(Constants.PDF_URL, model.getUrl());
                             startActivity(i);
                             Bungee.fade(getContext());
-                        } else {
+                        }
+                        //No active internet connection
+                        else {
                             Intent intent = new Intent(getContext(), NoNetworkActivity.class);
                             intent.putExtra("key", "home");
                             startActivity(intent);
@@ -114,9 +127,11 @@ public class BusAlertsFragment extends Fragment {
                 shimmer_view.setVisibility(View.GONE);
             }
 
+            //Get the bus_alert_Item layout.
             @Override
             public BusAlertHolder onCreateViewHolder(ViewGroup group, int i) {
                 View view;
+                //Get the appropriate bus_alert_item layout based on the darkmode preference.
                 if (darkMode) {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.bus_alert_dark, group, false);
                 } else {
@@ -129,7 +144,10 @@ public class BusAlertsFragment extends Fragment {
 
         alertRV.setAdapter(adapter);
     }
+    /************************************************************************/
 
+    /************************************************************************/
+    // Initiate variables and UI elements.
     void initUI(View view) {
         busRoutesCV = view.findViewById(R.id.busRoutesCV);
         alertRV = view.findViewById(R.id.alertRV);
@@ -139,9 +157,9 @@ public class BusAlertsFragment extends Fragment {
         shimmer_view = view.findViewById(R.id.shimmer_view);
         shimmer_view.setVisibility(View.VISIBLE);
     }
+    /************************************************************************/
 
     /*********************************************************/
-
     @Override
     public void onStart() {
         super.onStart();
@@ -159,7 +177,6 @@ public class BusAlertsFragment extends Fragment {
     public void onStop() {
         super.onStop();
     }
-
     /*********************************************************/
 
     public class BusAlertHolder extends RecyclerView.ViewHolder {

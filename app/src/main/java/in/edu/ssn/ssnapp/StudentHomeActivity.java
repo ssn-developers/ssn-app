@@ -32,7 +32,7 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
-
+// Extends Base activity for darkmode variable and status bar.
 public class StudentHomeActivity extends BaseActivity implements View.OnClickListener {
     private static int count = 0;
     CircleImageView userImageIV;
@@ -46,6 +46,7 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_student_home_dark);
             clearLightStatusBar(this);
@@ -73,8 +74,8 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    /*********************************************************/
-
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         userImageIV = findViewById(R.id.userImageIV);
         viewPager = findViewById(R.id.viewPager);
@@ -87,50 +88,78 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
         settingsIV.setOnClickListener(this);
 
         try {
+            //try loading DP using firebase Auth instance.
             Glide.with(this).load(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString()).placeholder(R.drawable.ic_user_white).into(userImageIV);
         } catch (Exception e) {
             e.printStackTrace();
+            //If for some reasons there was a error use dpUrl stored in sharedpref.
             Glide.with(this).load(SharedPref.getString(getApplicationContext(), "dp_url")).placeholder(R.drawable.ic_user_white).into(userImageIV);
         }
         setupViewPager();
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //setting-up fragments viewpager.
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        //Newsfeed for Ug students
         if (SharedPref.getInt(getApplicationContext(), "clearance") == 0)
             adapter.addFragment(new StudentFeedFragment(), "News feed");
+
+        //club for ug/pg/alumni
         adapter.addFragment(new ClubFragment(), "Club");
+
+        //placements for Ug final year
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth))
             adapter.addFragment(new PlacementFragment(), "Placement");
+
+        //bus alerts for Ug & PG except Almuni
         if (SharedPref.getInt(getApplicationContext(), "clearance") != 2)
             adapter.addFragment(new BusAlertsFragment(), "Bus alert");
+
+        //Examcell for Ug
         if (SharedPref.getInt(getApplicationContext(), "clearance") == 0)
             adapter.addFragment(new ExamCellFragment(), "Exam cell");
+
+        //Events for ug/pg/alumni
         adapter.addFragment(new EventFragment(), "Event");
+
+        //set the adapter
         viewPager.setAdapter(adapter);
 
         SmartTabLayout viewPagerTab = findViewById(R.id.viewPagerTab);
         viewPagerTab.setViewPager(viewPager);
         viewPager.setOffscreenPageLimit(3);
     }
+    /**********************************************************************/
 
     /*********************************************************/
-
+    //When clicking any buttons on the page this function is called.
     @Override
     public void onClick(View v) {
+        // On click function is differentiated for different buttons using the buttons ID.
         switch (v.getId()) {
+            //global chat
             case R.id.chatIV:
+                //if global_chat_is blocked make error msg.
                 if (CommonUtils.getGlobal_chat_is_blocked()) {
                     Toast toast = Toast.makeText(getApplicationContext(), Constants.global_chat_error_maintenance, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                     chatIV.setVisibility(View.GONE);
                     newMessageCountTV.setVisibility(View.GONE);
-                } else {
+                }
+                //if not blocked
+                else {
+                    //if there is a active network connection.
                     if (!CommonUtils.alerter(getApplicationContext())) {
                         startActivity(new Intent(getApplicationContext(), GroupChatActivity.class));
                         Bungee.slideLeft(StudentHomeActivity.this);
-                    } else {
+                    }
+                    //if there is not a active network connection.
+                    else {
                         Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                         intent.putExtra("key", "home");
                         startActivity(intent);
@@ -139,10 +168,12 @@ public class StudentHomeActivity extends BaseActivity implements View.OnClickLis
 
                 }
                 break;
+            // favorites
             case R.id.favIV:
                 startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
                 Bungee.slideLeft(StudentHomeActivity.this);
                 break;
+            //Settings
             case R.id.settingsIV:
                 startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
                 Bungee.slideLeft(StudentHomeActivity.this);

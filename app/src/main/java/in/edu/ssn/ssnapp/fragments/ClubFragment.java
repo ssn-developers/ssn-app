@@ -77,17 +77,24 @@ public class ClubFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CommonUtils.addScreen(getContext(), getActivity(), "ClubFragment");
         View view = inflater.inflate(R.layout.fragment_club, container, false);
+
+        //instantiate fonts
         CommonUtils.initFonts(getContext(), view);
+
+        //get the darkmode variable
         darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
 
         initUI(view);
+
+        //Load up firestore collection.
         setupFireStore();
 
         return view;
     }
-
     /*********************************************************/
 
+    /************************************************************************/
+    // Initiate variables and UI elements.
     private void initUI(View view) {
         subs_RV = view.findViewById(R.id.subs_RV);
         unsubs_RV = view.findViewById(R.id.unsubs_RV);
@@ -116,10 +123,15 @@ public class ClubFragment extends Fragment {
             suggestionTV.setTextColor(getResources().getColor(R.color.colorAccent));
         }
 
+        //Subscribed Recycler View - Horizontal scrollable
         subs_RV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         subs_RV.setNestedScrollingEnabled(false);
+
+        //Un-Subscribed Recycler View - Horizontal scrollable
         unsubs_RV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         unsubs_RV.setNestedScrollingEnabled(false);
+
+        //Subscribed Posts Recycler View - Vertical scrollable
         feed_RV.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
         feed_RV.setNestedScrollingEnabled(false);
 
@@ -128,16 +140,23 @@ public class ClubFragment extends Fragment {
         post = new ArrayList<ClubPost>();
         clubs = new ArrayList<>();
     }
+    /************************************************************************/
 
-    /*********************************************************/
-
+    /************************************************************************/
+    //load Clubs for the students .
     private void setupFireStore() {
+        //Subscribed Clubs
         setUpSubcriptions();
+        //Un-Subscribed clubs
         setUpUnSubcriptions();
     }
 
+    //Setting up the Subscribed Clubs Recycler View.
     private void setUpSubcriptions() {
+        //Checking for clubs with Students Subscription.(i.e., student present in followers list)
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_club).whereArrayContains("followers", SharedPref.getString(getContext(), "email"));
+
+        //Getting the Club details
         final FirestoreRecyclerOptions<Club> options = new FirestoreRecyclerOptions.Builder<Club>().setQuery(query, new SnapshotParser<Club>() {
             @NonNull
             @Override
@@ -146,6 +165,7 @@ public class ClubFragment extends Fragment {
             }
         }).build();
 
+        //Assign Club details to UI elements
         subs_adap = new FirestoreRecyclerAdapter<Club, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Club model) {
@@ -153,16 +173,19 @@ public class ClubFragment extends Fragment {
                 holder.descriptionTV.setText(model.getDescription());
                 FCMHelper.SubscribeToTopic(getContext(), "club_" + model.getId());
 
+                //Setting Clubs DP image.
                 try {
                     Glide.with(getContext()).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.dpIV);
                 } catch (Exception e) {
                     holder.dpIV.setImageResource(R.color.shimmering_back);
                 }
 
+                //Un-Subscribe
                 holder.lottie.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String email = SharedPref.getString(getContext(), "email");
+                        //Remove student from the followers list.
                         FirebaseFirestore.getInstance().collection(Constants.collection_club).document(model.getId()).update("followers", FieldValue.arrayRemove(email));
                         model.getFollowers().remove(email);
                         subscribed_clubs.add(model);
@@ -170,6 +193,7 @@ public class ClubFragment extends Fragment {
                     }
                 });
 
+                //Clicking on club proceeds to club Page screen.
                 holder.club_RL.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -184,10 +208,12 @@ public class ClubFragment extends Fragment {
                 layout_subscribed.setVisibility(View.GONE);
             }
 
+            //Get the club_Item layout.
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view;
+                //Get the appropriate club_Item layout based on the darkmode preference.
                 if (darkMode)
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.club_item_dark, group, false);
                 else
@@ -198,6 +224,9 @@ public class ClubFragment extends Fragment {
 
         subs_RV.setAdapter(subs_adap);
 
+        //when you Subscribe a club, it is removed from Un-subscribed club recycler view and added to this view.
+        //or
+        //when you Un-subscribe a club, it is removed from this view and added to Un-subscribed club recycler view.
         subs_RV.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
 
             @Override
@@ -216,11 +245,14 @@ public class ClubFragment extends Fragment {
         });
     }
 
+    //Setting up the Un-Subscribed Clubs Recycler View.
     private void setUpUnSubcriptions() {
+        //Read all the clubs available
         clubListener = FirebaseFirestore.getInstance().collection(Constants.collection_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if (queryDocumentSnapshots != null) {
+                    //get students email from shared pref.
                     String email = "";
                     try {
                         email = SharedPref.getString(getContext(), "email");
@@ -229,6 +261,7 @@ public class ClubFragment extends Fragment {
                     }
                     clubs = queryDocumentSnapshots.toObjects(Club.class);
 
+                    //filter the Un-subscribed clubs.
                     subscribed_clubs.clear();
                     for (int i = 0; i < clubs.size(); i++) {
                         Club c = clubs.get(i);
@@ -242,21 +275,28 @@ public class ClubFragment extends Fragment {
                             FCMHelper.UnSubscribeToTopic(getContext(), "club_" + c.getId());
 
                     }
+
+                    //Call the Un-Subscribed Adapter.
                     adapter = new UnSubscribeAdapter(getContext(), clubs);
+                    //Setting up the unSubscribed Clubs Recycler view.
                     unsubs_RV.setAdapter(adapter);
+
 
                     if (clubs.size() > 0)
                         suggestionTV.setVisibility(View.VISIBLE);
                     else
                         suggestionTV.setVisibility(View.GONE);
 
+                    // feeds from the subscribed clubs.
                     setUpFeeds();
                 }
             }
         });
     }
 
+    //Setting up the Subscribed club's Posts Recycler View.
     private void setUpFeeds() {
+        //Read all the clubs available
         feedsListener = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -266,6 +306,7 @@ public class ClubFragment extends Fragment {
 
                         subscribe_post.clear();
 
+                        //filter only posts from the subscribed clubs.
                         for (int i = 0; i < post.size(); i++) {
                             ClubPost c = post.get(i);
                             for (int j = 0; j < subscribed_clubs.size(); j++) {
@@ -278,6 +319,7 @@ public class ClubFragment extends Fragment {
                                 }
                             }
                         }
+
 
                         Collections.sort(subscribe_post, new Comparator<Map<String, Object>>() {
                             public int compare(Map<String, Object> m1, Map<String, Object> m2) {
@@ -297,7 +339,9 @@ public class ClubFragment extends Fragment {
                             }
                         }
 
+                        //Call the Subscribe club's posts adapter to apply all the details to the UI elements.
                         subscribe_adapter = new SubscribeFeedsAdapter(getContext(), s_club, s_post);
+                        //Setting up the unSubscribed Club's posts Recycler view.
                         feed_RV.setAdapter(subscribe_adapter);
 
                         shimmer_view.setVisibility(View.GONE);

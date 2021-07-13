@@ -18,9 +18,11 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
+        //gets the Dark mode variables.
         darkModeEnabled = SharedPref.getBoolean(getApplicationContext(), "dark_mode");
     }
 
+    //make a status bar with white background and dark texts & icons.
     public void clearLightStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             activity.getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));

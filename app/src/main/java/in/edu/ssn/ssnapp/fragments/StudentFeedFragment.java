@@ -70,18 +70,25 @@ public class StudentFeedFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         CommonUtils.addScreen(getContext(), getActivity(), "StudentFeedFragment");
+        //get the darkmode variable
         darkMode = SharedPref.getBoolean(getContext(), "dark_mode");
         View view;
+
+        //check if the darkmode enabled and open respective layout.
         if (darkMode) {
             view = inflater.inflate(R.layout.fragment_student_feed_dark, container, false);
         } else {
             view = inflater.inflate(R.layout.fragment_student_feed, container, false);
         }
 
+        //instantiate fonts
         CommonUtils.initFonts(getContext(), view);
         initUI(view);
+
+        //Load up firestore collection.
         setupFireStore();
 
+        //Referesh page for new posts
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,22 +98,35 @@ public class StudentFeedFragment extends Fragment {
         });
 
         dept = SharedPref.getString(getContext(), "dept");
+
+        /************************************************************************/
+        //CARDVIEWS - SYLLABUS, LIBRARY, LMS, LAKSHYA
+
+        //Library renewal
         libraryCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //if connected to SSN WIFI.
                 if (CommonUtils.checkWifiOnAndConnected(getContext(), "ssn")) {
+                    //redirect to ssn library intranet.
                     CommonUtils.openCustomBrowser(getContext(), "http://opac.ssn.net:8081/");
-                } else {
+                }
+                //if not connected to SSN WIFI.
+                else {
                     Toast toast = Toast.makeText(getContext(), "Please connect to SSN wifi ", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
                 }
             }
         });
+
+        //SSN Lakshya
         lakshyaCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //if we have an active internet connection
                 if (!CommonUtils.alerter(getContext())) {
+                    //Redirect to Lakshya club page.
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).whereEqualTo("name", Constants.lakshya).addSnapshotListener(new EventListener<QuerySnapshot>() {
                         @Override
                         public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -121,7 +141,9 @@ public class StudentFeedFragment extends Fragment {
                             }
                         }
                     });
-                } else {
+                }
+                //if we don't have an active internet connection
+                else {
                     Intent intent = new Intent(getContext(), NoNetworkActivity.class);
                     intent.putExtra("key", "home");
                     startActivity(intent);
@@ -129,12 +151,18 @@ public class StudentFeedFragment extends Fragment {
                 }
             }
         });
+
+        //SSN LMS SYSTEM
         lmsCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //if we have an active internet connection
                 if (!CommonUtils.alerter(getContext())) {
+                    //redirect to ssn lms page.
                     CommonUtils.openCustomBrowser(getContext(), Constants.lms);
-                } else {
+                }
+                //if we don't have an active internet connection
+                else {
                     Intent intent = new Intent(getContext(), NoNetworkActivity.class);
                     intent.putExtra("key", "home");
                     startActivity(intent);
@@ -142,10 +170,14 @@ public class StudentFeedFragment extends Fragment {
                 }
             }
         });
+
+        //Syllabus
         syllabusCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //get year
                 int year = SharedPref.getInt(getContext(), "year");
+                //2017 Anna university(AU) regulation
                 if (year == 2016 || year == 2017) {
                     switch (dept) {
                         case "cse":
@@ -173,7 +205,9 @@ public class StudentFeedFragment extends Fragment {
                             openSyllabus(Constants.mecAU);
                             break;
                     }
-                } else {
+                }
+                //autonomous(AN) sullabus
+                else {
                     switch (dept) {
                         case "cse":
                             openSyllabus(Constants.cseAN);
@@ -203,22 +237,28 @@ public class StudentFeedFragment extends Fragment {
                 }
             }
         });
+        /************************************************************************/
+
 
         return view;
     }
-
     /*********************************************************/
 
+    /************************************************************************/
+    //load Feed posts for the students based on their dept and year.
     private void setupFireStore() {
+        //get dept & year from shared pref.
         String dept = SharedPref.getString(getContext(), "dept");
         String year = "year." + SharedPref.getInt(getContext(), "year");
 
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
                 .endConfig()
                 .round();
 
+        //Get posts from the Firestore.
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post).whereArrayContains("dept", dept).whereEqualTo(year, true).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<Post> options = new FirestoreRecyclerOptions.Builder<Post>().setQuery(query, new SnapshotParser<Post>() {
             @NonNull
@@ -228,11 +268,14 @@ public class StudentFeedFragment extends Fragment {
                 return CommonUtils.getPostFromSnapshot(getContext(), snapshot);
             }
         }).build();
+
+        //Assign post details to UI elements
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final Post model) {
                 holder.authorTV.setText(model.getAuthor());
 
+                //Icon creator from the first letter of a word. To create DP's using a Letter.
                 ColorGenerator generator = ColorGenerator.MATERIAL;
                 int color = generator.getColor(model.getAuthor_image_url());
                 TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
@@ -242,23 +285,31 @@ public class StudentFeedFragment extends Fragment {
                 holder.titleTV.setText(model.getTitle());
                 holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
+                //creating a short version of description less then 100 letters for display.
+                //if description > 100 letters, shrink it.
                 if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.descriptionTV.setText(ss);
-                } else
+                }
+                //if description < 100 letters then directly assign it.
+                else
                     holder.descriptionTV.setText(model.getDescription().trim());
 
+                //if the post has one or more images.
                 if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
                     holder.viewPager.setVisibility(View.VISIBLE);
 
                     final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(), 1, model);
                     holder.viewPager.setAdapter(imageAdapter);
 
+                    //if the number of images is 1
                     if (model.getImageUrl().size() == 1) {
                         holder.current_imageTV.setVisibility(View.GONE);
-                    } else {
+                    }
+                    //if there are more than 1 images.
+                    else {
                         holder.current_imageTV.setVisibility(View.VISIBLE);
                         holder.current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -278,11 +329,14 @@ public class StudentFeedFragment extends Fragment {
                             }
                         });
                     }
-                } else {
+                }
+                //if the post contains no images.
+                else {
                     holder.viewPager.setVisibility(View.GONE);
                     holder.current_imageTV.setVisibility(View.GONE);
                 }
 
+                //proceed to post Details Screen on clicking the post.
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -293,6 +347,8 @@ public class StudentFeedFragment extends Fragment {
                         Bungee.slideLeft(getContext());
                     }
                 });
+
+                //Long click for favourites and share options.
                 holder.feed_view.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
@@ -305,10 +361,12 @@ public class StudentFeedFragment extends Fragment {
                 shimmer_view.setVisibility(View.GONE);
             }
 
+            //Get the post_Item layout.
             @NonNull
             @Override
             public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup group, int i) {
                 View view;
+                //Get the appropriate post_item layout based on the darkmode preference.
                 if (SharedPref.getBoolean(getContext(), "dark_mode")) {
                     view = LayoutInflater.from(group.getContext()).inflate(R.layout.student_post_item_dark, group, false);
                 } else {
@@ -318,7 +376,7 @@ public class StudentFeedFragment extends Fragment {
                 return new FeedViewHolder(view);
             }
 
-
+            //When a new post is sensed.
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
@@ -330,7 +388,10 @@ public class StudentFeedFragment extends Fragment {
         };
         feedsRV.setAdapter(adapter);
     }
+    /************************************************************************/
 
+    /************************************************************************/
+    // Initiate variables and UI elements.
     private void initUI(View view) {
         feedsRV = view.findViewById(R.id.feedsRV);
         newPostTV = view.findViewById(R.id.newPostTV);
@@ -355,22 +416,27 @@ public class StudentFeedFragment extends Fragment {
         linkTitleTV2 = view.findViewById(R.id.linkTitleTV2);
         linkTitleTV2.setSelected(true);
     }
-
     /*********************************************************/
 
+    /*********************************************************/
+    // open syllabus PDF from the url.
     public void openSyllabus(String url) {
+        //Active network connection
         if (!CommonUtils.alerter(getContext())) {
             Intent i = new Intent(getContext(), PdfViewerActivity.class);
             i.putExtra(Constants.PDF_URL, url);
             startActivity(i);
             Bungee.fade(getContext());
-        } else {
+        }
+        //No active network connection
+        else {
             Intent intent = new Intent(getContext(), NoNetworkActivity.class);
             intent.putExtra("key", "home");
             startActivity(intent);
             Bungee.fade(getContext());
         }
     }
+    /*********************************************************/
 
     @Override
     public void onStart() {
