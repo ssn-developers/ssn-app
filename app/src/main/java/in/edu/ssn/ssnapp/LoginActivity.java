@@ -83,6 +83,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initUI();
     }
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         studentCV = findViewById(R.id.studentCV);
         studentCV.setOnClickListener(this);
@@ -94,6 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         roadIV = findViewById(R.id.roadIV);
         layout_progress = findViewById(R.id.layout_progress);
 
+        // Login Page animation
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -132,6 +135,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         }, 300);
     }
+    /**********************************************************************/
 
     /************************************************************************/
     // Google Signin
@@ -147,23 +151,31 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+    /**********************************************************************/
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //When the request code match.(just a security case)
         if (requestCode == RC_SIGN_IN) {
             Log.i(TAG, "onActivityResult:1 ");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
+                // pattern matching to validate email as an ssn mail id.(Student)
                 Pattern pat_s = Pattern.compile("@[a-z]{2,8}(.ssn.edu.in)$");
                 Matcher m_s = pat_s.matcher(acct.getEmail());
 
+                // pattern matching to validate email as an ssn mail id.(Faculty)
                 Pattern pat_f = Pattern.compile("(@ssn.edu.in)$");
                 Matcher m_f = pat_f.matcher(acct.getEmail());
 
+                //student login ( UG, PG, Alumni un-filtered )
                 if (clearance == 0) {
+                    //if its a valid SSN mail id.
                     if (m_s.find() || (Constants.fresher_email.contains(acct.getEmail()) && !CommonUtils.getNon_ssn_email_is_blocked())) {
                         Log.i(TAG, "onActivityResult:2 ");
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -171,10 +183,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    // Log-In Success.
                                     Log.i(TAG, "onComplete: ");
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    // Dialog box asking for UG, PG, Alumni filteration.
                                     promptDetailsDialog(user);
                                 } else {
+                                    // Log-In Error.
                                     Log.d(TAG, task.toString());
                                     Log.d(TAG, "signInWithCredential:failured_1");
                                     layout_progress.setVisibility(View.GONE);
@@ -184,33 +199,44 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                // Error message or reason.
                                 Log.d(TAG,e.toString());
                             }
                         });
-                    } else {
+                    }
+                    //if its not a valid SSN mail id.
+                    else {
                         layout_progress.setVisibility(View.GONE);
                         flag = true;
                         Toast toast = Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                     }
-                } else if (clearance == 3) {
+                }
+                //Faculty Login
+                else if (clearance == 3) {
+                    //if its a valid SSN mail id.
                     if (m_f.find()) {
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    //log-in Success
                                     FirebaseUser user = mAuth.getCurrentUser();
+                                    //Check for faculty in our faculty database list.
                                     checkForFaculty(user);
                                 } else {
+                                    //log-in failed
                                     Log.d(TAG, "signInWithCredential:failure_2");
                                     layout_progress.setVisibility(View.GONE);
                                     flag = true;
                                 }
                             }
                         });
-                    } else {
+                    }
+                    //if its not a valid SSN mail id.
+                    else {
                         Toast toast = Toast.makeText(this, "Please use SSN mail ID", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
@@ -223,7 +249,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 flag = true;
                 Log.d(TAG, "error" + e.toString());
             }
-        } else {
+        }
+        // If the request code does not match.
+        else {
             layout_progress.setVisibility(View.GONE);
             flag = true;
         }
@@ -231,6 +259,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     /*****************************************************************/
     //Student signin
+
+    //UG STUDENT(clearance  = 0)
     public void signInUgStudent(FirebaseUser user) {
         String email = user.getEmail();
         String id = user.getUid();
@@ -248,16 +278,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putInt(getApplicationContext(), "year", year);
         SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 2);
 
+        //Notification Alerts
+        //Subscribe to all alerts
         SubscribeToAlerts(this);
         setUpNotification();
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
+        //Proceed to student activity
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
         finish();
         Bungee.slideLeft(LoginActivity.this);
     }
 
+    //PG STUDENT(clearance = 1)
     public void signInPgStudent(FirebaseUser user) {
         String email = user.getEmail();
         String id = user.getUid();
@@ -271,21 +305,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 2);
 
+        //Notification Alerts
+        //Subscribe to alerts allowed for PG.
         FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
         FCMHelper.SubscribeToTopic(this, Constants.Event);
         FCMHelper.SubscribeToTopic(this, Constants.GLOBAL_CHAT);
-
         SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_global_chat", true);
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
+        //Proceed to student activity
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
         finish();
         Bungee.slideLeft(LoginActivity.this);
     }
 
+    //ALUMNI STUDENT(clearance = 2)
     public void signInAlumni(FirebaseUser user) {
         String email = user.getEmail();
         String id = user.getUid();
@@ -299,29 +336,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 2);
 
+        //Notification Alerts
+        //Subscribe to alerts allowed for Alumni.
         FCMHelper.SubscribeToTopic(this, Constants.Event);
         FCMHelper.SubscribeToTopic(this, Constants.GLOBAL_CHAT);
         SharedPref.putBoolean(getApplicationContext(), "notif_switch", true);
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
+        //Proceed to student activity
         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
         finish();
         Bungee.slideLeft(LoginActivity.this);
     }
+    /*****************************************************************/
+
 
     /*****************************************************************/
     //Faculty signin
     public void checkForFaculty(final FirebaseUser user) {
         String email = user.getEmail();
-
         String name = SharedPref.getString(getApplicationContext(), "faculty_name", email);
         if (name != null)
+            //if faculty name available.
             signInFaculty(user);
         else {
+            //if faculty name not available.
             flag = true;
             layout_progress.setVisibility(View.GONE);
+            //clear user
             user.delete();
+            //pop_up msg
             Toast toast = Toast.makeText(LoginActivity.this, "Please contact Admin for login issues!", Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.CENTER, 0, 0);
             toast.show();
@@ -347,18 +392,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putString(getApplicationContext(), "name", name);
         SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 2);
 
+        //Notification Alerts
+        //Subscribe to alerts allowed for Alumni.
         FCMHelper.SubscribeToTopic(this, Constants.BUS_ALERTS);
         SharedPref.putBoolean(getApplicationContext(), "notif_switch", true);
 
         layout_progress.setVisibility(View.GONE);
         flag = true;
+        //Proceed to faculty home.
         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
         finish();
         Bungee.slideLeft(LoginActivity.this);
     }
-
     /************************************************************************/
 
+    /************************************************************************/
+    // Turn on all notifications for newly logged-in users
     public void setUpNotification() {
         SharedPref.putBoolean(getApplicationContext(), "switch_dept", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_bus", true);
@@ -368,12 +417,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SharedPref.putBoolean(getApplicationContext(), "switch_event", true);
         SharedPref.putBoolean(getApplicationContext(), "switch_global_chat", true);
     }
+    /************************************************************************/
+
+    /************************************************************************/
 
     public void SubscribeToAlerts(Context context) {
         FCMHelper.SubscribeToTopic(context, Constants.BUS_ALERTS);
         FCMHelper.SubscribeToTopic(context, Constants.Event);
         FCMHelper.SubscribeToTopic(context, Constants.GLOBAL_CHAT);
-
+        //HomePost alerts :: eg: CSE-thirdyear
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year"));
         FCMHelper.SubscribeToTopic(context, SharedPref.getString(context, "dept") + SharedPref.getInt(context, "year") + "exam");
 

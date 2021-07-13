@@ -129,6 +129,9 @@ public class SplashActivity extends AppCompatActivity {
             handleIntent();
     }
 
+
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         currentApiVersion = Build.VERSION.SDK_INT;
 
@@ -153,10 +156,13 @@ public class SplashActivity extends AppCompatActivity {
             });
         }
 
+        //Create Firebase reference for the BLOCK variables.
         mDatabase = FirebaseDatabase.getInstance().getReference("block_screen");
         intent = getIntent();
         notif_intent = null;
     }
+    /**********************************************************************/
+
 
     /**********************************************************************/
     // check current version and force update
@@ -180,29 +186,40 @@ public class SplashActivity extends AppCompatActivity {
         okTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //redirects to Google Play Store.
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + getPackageName())));
                 alertDialog.dismiss();
                 finish();
             }
         });
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Check for BLOCK variables and block respective screens.
     public void checkIsBlocked() {
+        //Use the Firebase reference created for the BLOCK variables.
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
+            //Is called whenever you change any variables in the cloud storage in realtime database.
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 nodes = (Map<String, Object>) dataSnapshot.getValue();
                 try {
+                    // overall - to block entire app.
                     CommonUtils.setIs_blocked((Boolean) nodes.get("overall"));
+                    // to block global chat.
                     CommonUtils.setGlobal_chat_is_blocked((Boolean) nodes.get("global_chat"));
+                    // to block ppl with non-ssn mail ids.
                     CommonUtils.setNon_ssn_email_is_blocked((Boolean) nodes.get("non_ssn_email"));
 
+                    // when overall is blocked redirect to blockscreen.
                     if (CommonUtils.getIs_blocked()) {
                         startActivity(new Intent(getApplicationContext(), BlockScreenActivity.class));
                         Bungee.fade(SplashActivity.this);
                     }
 
                     try {
+                        //  If a fresher has been logged in already clear all the data and signout.
                         if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2 && Constants.fresher_email.contains(SharedPref.getString(getApplicationContext(), "email")) && CommonUtils.getNon_ssn_email_is_blocked()) {
                             FirebaseAuth.getInstance().signOut();
                             CommonUtils.UnSubscribeToAlerts(getApplicationContext());
@@ -210,6 +227,7 @@ public class SplashActivity extends AppCompatActivity {
                             dbHelper.dropAllTables();
                             SharedPref.removeAll(getApplicationContext());
 
+                            //update logged_in status to signed out and redirect to login screen.
                             SharedPref.putInt(getApplicationContext(), "dont_delete", "is_logged_in", 1);
                             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                             Bungee.fade(SplashActivity.this);
@@ -228,7 +246,10 @@ public class SplashActivity extends AppCompatActivity {
             }
         });
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Setup firebase crashlytics to track Bugs.
     void setUpCrashReport() {
         //only enable bug tracking in release version
         if (!BuildConfig.DEBUG) {
@@ -236,7 +257,10 @@ public class SplashActivity extends AppCompatActivity {
             FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
         }
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Get a post requested if the app is opened with a shared link via whatsapp or other social media.
     public void FetchPostById(final String postId, final String collectionName, final String post_id, final int type) {
         String collection = collectionName;
         if (collectionName.equals(Constants.collection_post_club))
@@ -300,9 +324,11 @@ public class SplashActivity extends AppCompatActivity {
             Bungee.fade(SplashActivity.this);
         }
     }
-
     /**********************************************************************/
 
+    /**********************************************************************/
+    //To Handle a Share link. When the app opens from a link shared via whatsapp or other social media for a particular post.
+    // Each collection has a particular type id and each post has a post id.
     void handleIntent() {
         int type = 1;
         String pdfUrl = "";
@@ -377,37 +403,53 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    // Check the different status of the application and proceed to next screen accordingly
     public void passIntent() {
+        //check whether the app is blocked.
         if (!CommonUtils.getIs_blocked()) {
             worst_case = false;
             if (notif_intent != null) {
                 startActivity(notif_intent);
                 finish();
                 Bungee.slideLeft(SplashActivity.this);
-            } else if (!CommonUtils.alerter(getApplicationContext())) {
+            }
+            // If we have a active network connection.
+            else if (!CommonUtils.alerter(getApplicationContext())) {
+                // if already loggedin
                 if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
+                    //if its a professor
                     if (SharedPref.getInt(getApplicationContext(), "clearance") == 3) {
                         startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
                         finish();
                         Bungee.fade(this);
-                    } else {
+                    }
+                    //it its a student ( UG, PG, Alumni)
+                    else {
                         startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
                         finish();
                         Bungee.fade(this);
                     }
-                } else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
+                }
+                // if Already Signed Out
+                else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     intent.putExtra("is_log_in", true);
                     startActivity(intent);
                     finish();
                     Bungee.slideLeft(this);
-                } else {
+                }
+                // If completely new (If they dont have any shared preferences stored)
+                else {
                     startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
                     finish();
                     Bungee.slideLeft(this);
                 }
-            } else {
+            }
+            //If we don't have a active network connection
+            else {
                 Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                 intent.putExtra("key", "splash");
                 startActivity(intent);
@@ -448,7 +490,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     /**********************************************************************/
-
+    // Update faculty details fetched from a json file present in portal
     public class updateFaculty extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -513,6 +555,7 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... voids) {
             latestVersion = CommonUtils.getLatestVersionName(getApplicationContext());
+            // if the version in PlayStore not matches our app version we make suggest update.
             if (latestVersion != null && !BuildConfig.VERSION_NAME.equals(latestVersion)) {
                 isUpdateAvailable = true;
             } else {
