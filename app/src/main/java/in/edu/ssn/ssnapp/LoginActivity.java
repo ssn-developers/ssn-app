@@ -33,6 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -152,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            Log.i(TAG, "onActivityResult: ");
+            Log.i(TAG, "onActivityResult:1 ");
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 final GoogleSignInAccount acct = task.getResult(ApiException.class);
@@ -164,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 if (clearance == 0) {
                     if (m_s.find() || (Constants.fresher_email.contains(acct.getEmail()) && !CommonUtils.getNon_ssn_email_is_blocked())) {
-                        Log.i(TAG, "onActivityResult:");
+                        Log.i(TAG, "onActivityResult:2 ");
                         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
                         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                             @Override
@@ -174,10 +175,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     promptDetailsDialog(user);
                                 } else {
-                                    Log.d(TAG, "signInWithCredential:failure");
+                                    Log.d(TAG, task.toString());
+                                    Log.d(TAG, "signInWithCredential:failured_1");
                                     layout_progress.setVisibility(View.GONE);
                                     flag = true;
                                 }
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d(TAG,e.toString());
                             }
                         });
                     } else {
@@ -197,7 +204,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     FirebaseUser user = mAuth.getCurrentUser();
                                     checkForFaculty(user);
                                 } else {
-                                    Log.d(TAG, "signInWithCredential:failure");
+                                    Log.d(TAG, "signInWithCredential:failure_2");
                                     layout_progress.setVisibility(View.GONE);
                                     flag = true;
                                 }
@@ -211,7 +218,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         flag = true;
                     }
                 }
-            } catch (ApiException e) {
+            } catch (Exception e) {
                 layout_progress.setVisibility(View.GONE);
                 flag = true;
                 Log.d(TAG, "error" + e.toString());

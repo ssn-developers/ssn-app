@@ -98,7 +98,13 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         url.add("ezhilprasanth17040@cse.ssn.edu.in");
         url.add("https://github.com/ezhilnero99");
         url.add("https://www.linkedin.com/in/ezhilnero-m");
-        teams2.add(new TeamDetails("Ezhil Prasanth M", "App Development", R.drawable.ezhil_profile, url));
+        teams2.add(new TeamDetails("Ezhil Prasanth M", "App Development", R.drawable.ezhil_profile_new, url));
+
+        url = new ArrayList<>();
+        url.add("lksujins@gmail.com");
+        url.add("https://github.com/sujink1999");
+        url.add("https://www.linkedin.com/in/sujin-kingselin");
+        teams2.add(new TeamDetails("Sujin K", "App Development", R.drawable.sujin_profile, url));
 
         url = new ArrayList<>();
         url.add("pavikaramanchu@gmail.com");
@@ -111,12 +117,6 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         url.add("https://github.com/nandy20");
         url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
         teams2.add(new TeamDetails("Nandhini R", "Web Development", R.drawable.nandhini_profile, url));
-
-        url = new ArrayList<>();
-        url.add("lksujins@gmail.com");
-        url.add("https://github.com/sujink1999");
-        url.add("https://www.linkedin.com/in/sujin-kingselin");
-        teams2.add(new TeamDetails("Sujin K", "App Development", R.drawable.sujin_profile, url));
 
         url = new ArrayList<>();
         url.add("amrithasudharsan@gmail.com");
