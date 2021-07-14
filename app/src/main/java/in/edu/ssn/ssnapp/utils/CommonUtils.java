@@ -1,5 +1,7 @@
 package in.edu.ssn.ssnapp.utils;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -130,6 +132,7 @@ public class CommonUtils {
         }
     }
 
+    //Opens a Browser inside the app itself using a external library.
     public static void openCustomBrowser(Context context, String url) {
         try {
             CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
@@ -218,6 +221,7 @@ public class CommonUtils {
     }
 
     private static String findSSIDForWifiInfo(WifiManager manager, WifiInfo wifiInfo) {
+        @SuppressLint("MissingPermission")
         List<WifiConfiguration> listOfConfigurations = manager.getConfiguredNetworks();
         for (int index = 0; index < listOfConfigurations.size(); index++) {
             WifiConfiguration configuration = listOfConfigurations.get(index);

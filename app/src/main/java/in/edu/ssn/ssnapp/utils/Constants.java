@@ -17,7 +17,8 @@ public class Constants {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_PWD = "TEST_PWD";
 
-    //TODO: Replace with actual Server key
+    //TODO: Replace with actual Server key when releasing the app
+    //TODO: Replace with Fake gibberish before Pushing to git
     public static final String SERVER_KEY = "key=AIz_ezhilsujinharshalogesh_J0c";
 
     //URLs
@@ -61,6 +62,10 @@ public class Constants {
     public static final int event = 6;
     public static final String lakshya = "Lakshya";
     public static String GLOBAL_CHAT = "global_chat";
+
+    //TODO: Replace with new freshers group mail ids.
+    //freshers/first year's group mail id
+    //freshers won't be having seperate ssn mail ids.
     public static ArrayList<String> fresher_email = new ArrayList<String>(Arrays.asList(
             "ssnsection1@gmail.com", "ssn2019_s2@googlegroups.com", "s3ssn2019@gmail.com",
             "ssns4.1923@gmail.com", "ssns62019@gmail.com", "ssnsections7@gmail.com",
@@ -72,7 +77,6 @@ public class Constants {
     // collection name
     public static String collection_club = "club";
     public static String collection_feedback = "feedback";
-
     public static String collection_exam_cell = "examcell";
     public static String collection_placement = "placement";
     public static String collection_post = "post";
