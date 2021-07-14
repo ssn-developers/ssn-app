@@ -15,12 +15,14 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.Subject;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used in GPACalculatorActivity to Show the Subjects list and get the grades obtained.
 public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.SubjectViewHolder> {
     boolean darkMode = false;
     private ArrayList<Subject> subjects;
 
     public SubjectsAdapter(Context context, ArrayList<Subject> subjects) {
         this.subjects = subjects;
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
 
     }
@@ -29,6 +31,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
     public SubjectsAdapter.SubjectViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View subjectItem;
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode) {
             subjectItem = layoutInflater.inflate(R.layout.subject_item_dark, parent, false);
         } else {
@@ -43,6 +46,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
         holder.codeTV.setText(subjects.get(position).getCode());
         holder.nameTV.setText(subjects.get(position).getName());
 
+        //Decrease the grades from O, A+, A, B+, B
         holder.leftIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +75,7 @@ public class SubjectsAdapter extends RecyclerView.Adapter<SubjectsAdapter.Subjec
             }
         });
 
+        //Increase the grades from B, B+, A, A+, O
         holder.rightIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

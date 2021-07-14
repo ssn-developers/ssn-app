@@ -21,6 +21,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.AlumniDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used in AppInfoActivity to Show the info about Alumni Contributors.
 public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.ContributionViewHolder> {
 
     boolean darkMode = false;
@@ -31,19 +32,25 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
     public AboutAlumniAdapter(Context context, ArrayList<AlumniDetails> alumniDetails) {
         this.context = context;
         this.alumniDetails = alumniDetails;
+
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
                 .endConfig()
                 .round();
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
     @NonNull
     @Override
     public AboutAlumniAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem;
+
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode) {
             listItem = layoutInflater.inflate(R.layout.alumni_item_dark, parent, false);
         } else {
@@ -59,12 +66,13 @@ public class AboutAlumniAdapter extends RecyclerView.Adapter<AboutAlumniAdapter.
         holder.nameTV.setText(drawer.getName());
         holder.emailTV.setText(drawer.getEmail());
 
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(drawer.getEmail());
         TextDrawable ic1 = builder.build(String.valueOf(drawer.getName().charAt(0)), color);
         holder.dpIV.setImageDrawable(ic1);
 
-
+        //Redirect to Gmail.
         holder.emailTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

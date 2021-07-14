@@ -373,12 +373,12 @@ public class ClubPostDetailsActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    //if user not present in the "likes" list he is Liking the post.
+                    //if user not present in the "likes" list, he is now Liking the post.
                     if (!post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                         likeIV.setImageResource(R.drawable.blue_heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                     }
-                    //if user already present in the "likes" list he is Un-Liking the post.
+                    //if user already present in the "likes" list, he is now Un-Liking the post.
                     else {
                         likeIV.setImageResource(R.drawable.heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));

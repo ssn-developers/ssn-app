@@ -21,6 +21,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.FuncHeadDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used in FunctionalHeadsActivity to Show the info about Department HOD's and other office heads.
 public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.ContributionViewHolder> {
 
     boolean darkMode = false;
@@ -31,11 +32,15 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
     public HelplineAdapter(Context context, ArrayList<FuncHeadDetails> funcHeadDetails) {
         this.context = context;
         this.funcHeadDetails = funcHeadDetails;
+
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
                 .endConfig()
                 .round();
+
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
@@ -44,6 +49,8 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
     public HelplineAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem;
+
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode) {
             listItem = layoutInflater.inflate(R.layout.helpline_item_dark, parent, false);
         } else {
@@ -61,12 +68,14 @@ public class HelplineAdapter extends RecyclerView.Adapter<HelplineAdapter.Contri
         holder.positionTV.setSelected(true);
         holder.extnTV.setText(drawer.getEmail());
 
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(drawer.getEmail());
         String textDrawable = String.valueOf(drawer.getEmail().charAt(0));
         TextDrawable ic1 = builder.build(textDrawable, color);
         holder.dpIV.setImageDrawable(ic1);
 
+        //Redirect to Gmail.
         holder.mailIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

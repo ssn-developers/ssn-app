@@ -26,6 +26,7 @@ import spencerstudios.com.bungeelib.Bungee;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
+//this Adapter is Used by all activities/fragments showing IMAGES.
 public class ImageAdapter extends PagerAdapter {
     Context context;
     List<String> images;
@@ -76,14 +77,17 @@ public class ImageAdapter extends PagerAdapter {
         ImageView imageView = itemView.findViewById(R.id.imageView);
         container.addView(itemView);
 
+        //if there is no image available
         if (getCount() == 0)
             imageView.setVisibility(View.GONE);
+        //if there are images available
         else
             Glide.with(context).load(images.get(position)).into(imageView);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //If the adapter is used by post_details/club_post_details page proceed to OpenImageActivity.
                 if (flag == 0) {
                     Intent intent = new Intent(context, OpenImageActivity.class);
                     intent.putExtra("url", images.get(position));
@@ -94,7 +98,9 @@ public class ImageAdapter extends PagerAdapter {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else if (flag == Constants.post_club) {
+                }
+                //If the adapter is used in the Club page proceed to club_post_Details page
+                else if (flag == Constants.post_club) {
                     Intent intent = new Intent(context, ClubPostDetailsActivity.class);
                     intent.putExtra("data", id);
                     intent.putExtra("club", c_model);
@@ -105,7 +111,9 @@ public class ImageAdapter extends PagerAdapter {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                } else {
+                }
+                //If the adapter is used in the newsfeed, events, examcell, placements  proceed to post_Details page
+                else {
                     Intent intent = new Intent(context, PostDetailsActivity.class);
                     intent.putExtra("post", model);
                     intent.putExtra("type", flag);
@@ -120,6 +128,7 @@ public class ImageAdapter extends PagerAdapter {
             }
         });
 
+        //Long press for favourites and share.
         imageView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {

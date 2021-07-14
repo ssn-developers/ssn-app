@@ -31,11 +31,13 @@ import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used in FavoritesActivity to Show the bookmarked/Favourite posts.
 public class SavedPostAdapter extends ArrayAdapter<Post> {
     boolean darkMode = false;
 
     public SavedPostAdapter(@NonNull Context context, ArrayList<Post> resource) {
         super(context, 0, resource);
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
@@ -56,6 +58,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
         ViewPager viewPager;
 
         if (convertView == null) {
+            //check if the darkmode enabled and open respective Item layout.
             if (darkMode) {
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.student_post_item_dark, parent, false);
             } else {
@@ -77,6 +80,7 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
 
         authorTV.setText(model.getAuthor());
 
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
@@ -92,14 +96,19 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
 
         timeTV.setText(CommonUtils.getTime(model.getTime()));
 
+        //creating a short version of description less then 100 letters for display.
+        //if description > 100 letters, shrink it.
         if (model.getDescription().length() > 100) {
             SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
             ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
             ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
             descriptionTV.setText(ss);
-        } else
+        }
+        //if description < 100 letters then directly assign it.
+        else
             descriptionTV.setText(model.getDescription().trim());
 
+        //if the post has one or more images.
         if (model.getImageUrl() != null && model.getImageUrl().size() != 0) {
             viewPager.setVisibility(View.VISIBLE);
 
@@ -108,9 +117,12 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
             final ImageAdapter imageAdapter = new ImageAdapter(getContext(), model.getImageUrl(), type, model);
             viewPager.setAdapter(imageAdapter);
 
+            //if the number of images is 1
             if (model.getImageUrl().size() == 1) {
                 current_imageTV.setVisibility(View.GONE);
-            } else {
+            }
+            //if there are more than 1 images.
+            else {
                 current_imageTV.setVisibility(View.VISIBLE);
                 current_imageTV.setText(1 + " / " + model.getImageUrl().size());
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -130,11 +142,14 @@ public class SavedPostAdapter extends ArrayAdapter<Post> {
                     }
                 });
             }
-        } else {
+        }
+        //if the post contains no images.
+        else {
             viewPager.setVisibility(View.GONE);
             current_imageTV.setVisibility(View.GONE);
         }
 
+        //Clicking the post leads to Post Details Screen
         feed_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

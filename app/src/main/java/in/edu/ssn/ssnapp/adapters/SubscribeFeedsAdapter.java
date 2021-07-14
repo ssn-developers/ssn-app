@@ -34,6 +34,7 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
+//this Adapter is Used in ClubFragment to Show the posts from all the subscribed clubs.
 public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAdapter.FeedViewHolder> {
 
     boolean darkMode;
@@ -46,7 +47,11 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
         this.context = context;
         this.clubs = clubs;
         this.posts = posts;
+
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
+
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
@@ -58,6 +63,8 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
     @Override
     public FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
+
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode)
             view = LayoutInflater.from(context).inflate(R.layout.club_post_item_dark, parent, false);
         else
@@ -73,12 +80,15 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
         holder.authorTV.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
         holder.titleTV.setText(model.getTitle());
 
+        //Icon creator from the first letter of a word. To create DP's using a Letter.
         ColorGenerator generator = ColorGenerator.MATERIAL;
         int color = generator.getColor(model.getAuthor());
         TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
         holder.userImageIV.setImageDrawable(ic1);
 
+        //Check if the post is already liked by the user or not.
         try {
+            //check if the user's email is present in the 'likes' list in firestore.
             if (model.getLike().contains(SharedPref.getString(context, "email"))) {
                 holder.likeIV.setImageResource(R.drawable.blue_heart);
             } else {
@@ -88,25 +98,34 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             holder.likeIV.setImageResource(R.drawable.heart);
         }
 
+        //Set the posted time ( eg: 1min ago, 1year ago)
         holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
+        //creating a short version of description less then 100 letters for display.
+        //if description > 100 letters, shrink it.
         if (model.getDescription().length() > 100) {
             SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
             ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
             ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
             holder.descriptionTV.setText(ss);
-        } else
+        }
+        //if description < 100 letters then directly assign it.
+        else
             holder.descriptionTV.setText(model.getDescription().trim());
 
+        //if the post has one or more images.
         if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
             holder.viewPager.setVisibility(View.VISIBLE);
 
             final ImageAdapter imageAdapter = new ImageAdapter(context, model.getImg_urls(), 4, club, model.getId());
             holder.viewPager.setAdapter(imageAdapter);
 
+            //if the number of images is 1
             if (model.getImg_urls().size() == 1) {
                 holder.current_imageTV.setVisibility(View.GONE);
-            } else {
+            }
+            //if there are more than 1 images.
+            else {
                 holder.current_imageTV.setVisibility(View.VISIBLE);
                 holder.current_imageTV.setText(1 + " / " + model.getImg_urls().size());
                 holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -126,11 +145,14 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
                     }
                 });
             }
-        } else {
+        }
+        //if the post contains no images.
+        else {
             holder.viewPager.setVisibility(View.GONE);
             holder.current_imageTV.setVisibility(View.GONE);
         }
 
+        //No. Of. Likes obtained by the post
         try {
             holder.likeTV.setText(Integer.toString(model.getLike().size()));
         } catch (Exception e) {
@@ -138,6 +160,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             holder.likeTV.setText("0");
         }
 
+        //No. Of. Comments obtained by the post
         try {
             holder.commentTV.setText(Integer.toString(model.getComment().size()));
         } catch (Exception e) {
@@ -145,6 +168,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             holder.commentTV.setText("0");
         }
 
+        //Clicking on the post proceed to the club post Details Screen.
         holder.feed_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,14 +180,18 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             }
         });
 
+        //Liking or Unliking a Post
         holder.likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
+                    //if user not present in the "likes" list, he is now Liking the post.
                     if (!model.getLike().contains(SharedPref.getString(context, "email"))) {
                         holder.likeIV.setImageResource(R.drawable.blue_heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(context, "email")));
-                    } else {
+                    }
+                    //if user already present in the "likes" list, he is now Un-Liking the post.
+                    else {
                         holder.likeIV.setImageResource(R.drawable.heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(context, "email")));
                     }
@@ -174,6 +202,7 @@ public class SubscribeFeedsAdapter extends RecyclerView.Adapter<SubscribeFeedsAd
             }
         });
 
+        //Share Button prompts sharing options to share the link for that particular post.
         holder.shareIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

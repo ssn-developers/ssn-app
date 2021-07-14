@@ -27,6 +27,7 @@ import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
+//this Adapter is Used in ClubFragment to Show the Clubs that are Not-Subscribed by the user.
 public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.FeedViewHolder> {
 
     private List<Club> clubs;
@@ -36,6 +37,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
     public UnSubscribeAdapter(Context context, List<Club> clubs) {
         this.context = context;
         this.clubs = clubs;
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
@@ -43,6 +45,8 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
     @Override
     public UnSubscribeAdapter.FeedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
+
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode)
             view = LayoutInflater.from(context).inflate(R.layout.club_item_dark, parent, false);
         else
@@ -53,17 +57,22 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull final UnSubscribeAdapter.FeedViewHolder holder, final int position) {
+
         final Club model = clubs.get(position);
         holder.nameTV.setText(model.getName());
         holder.descriptionTV.setText(model.getDescription());
+
+        //Subscribe to the club's notifications in Firebase cloud messaging.
         FCMHelper.UnSubscribeToTopic(context, "club_" + model.getId());
 
+        //Set club DP.
         try {
             Glide.with(context).load(model.getDp_url()).placeholder(R.color.shimmering_back).into(holder.dpIV);
         } catch (Exception e) {
             holder.dpIV.setImageResource(R.color.shimmering_back);
         }
 
+        //Subscribing to CLub By clicking on Bell icon.
         holder.lottie.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +82,7 @@ public class UnSubscribeAdapter extends RecyclerView.Adapter<UnSubscribeAdapter.
             }
         });
 
+        //clicking on the entire Card proceeds to club activity
         holder.club_RL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

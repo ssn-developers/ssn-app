@@ -17,6 +17,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used in BusRoutesActivity to Show the bus routes.
 public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRouteViewHolder> {
 
     boolean darkMode = false;
@@ -26,6 +27,7 @@ public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRou
     public BusRouteAdapter(Context context, ArrayList<BusRoute> busRoutes) {
         this.context = context;
         this.busRoutes = busRoutes;
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
@@ -33,6 +35,8 @@ public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRou
     @Override
     public BusRouteAdapter.BusRouteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
+
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode) {
             view = LayoutInflater.from(context).inflate(R.layout.bus_route_item_dark, parent, false);
         } else {
@@ -43,8 +47,12 @@ public class BusRouteAdapter extends RecyclerView.Adapter<BusRouteAdapter.BusRou
 
     @Override
     public void onBindViewHolder(@NonNull BusRouteAdapter.BusRouteViewHolder holder, int position) {
+        //route number
         BusRoute busRoute = busRoutes.get(position);
         holder.routeNameTV.setText("Route " + busRoute.getName());
+
+        //route details such as stops and timings
+        //This is a nested Adapter.
         holder.busStopsRV.setAdapter(new BusStopAdapter(context, busRoute));
     }
 

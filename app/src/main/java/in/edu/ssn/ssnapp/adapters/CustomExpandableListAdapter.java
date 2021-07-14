@@ -31,6 +31,7 @@ import in.edu.ssn.ssnapp.models.Comments;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used in ClubPostDetailsActivity to Show the comments and reply to comments.
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     ClubPost clubPost;
@@ -50,6 +51,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
         this.commentArrayList = data;
         this.activity = activity;
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 

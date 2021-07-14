@@ -22,6 +22,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.TeamDetails;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used in AppInfoActivity to Show the info about Final and Pre-final year Student Contributors.
 public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContributorAdapter.ContributionViewHolder> {
 
     boolean darkMode = false;
@@ -31,6 +32,7 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     public AboutContributorAdapter(Context context, ArrayList<TeamDetails> teamDetails) {
         this.context = context;
         this.teamDetails = teamDetails;
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
@@ -39,6 +41,8 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
     public AboutContributorAdapter.ContributionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listItem;
+
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode) {
             listItem = layoutInflater.inflate(R.layout.contributor_item_dark, parent, false);
         } else {
@@ -55,12 +59,15 @@ public class AboutContributorAdapter extends RecyclerView.Adapter<AboutContribut
         holder.positionTV.setText(drawer.getPosition());
         holder.dpIV.setImageResource(drawer.getDp());
 
+        //clicking the item proceeds to Contributor Profile Screen.
         holder.containerRL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ContributorProfileActivity.class);
                 intent.putExtra("Contributor", drawer);
                 ActivityOptionsCompat options = null;
+
+                //Dp itransition animation
                 if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
                     options = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             (Activity) context,

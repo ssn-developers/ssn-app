@@ -19,6 +19,7 @@ import in.edu.ssn.ssnapp.R;
 import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 
+//this Adapter is Used by 'BusRouteAdapter' which is used in "BusRoutesActivity" to Show the bus routes.
 public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLineViewHolder> {
     Typeface regular, bold;
     boolean darkMode = false;
@@ -34,6 +35,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
         this.model = model;
         regular = ResourcesCompat.getFont(context, R.font.open_sans);
         bold = ResourcesCompat.getFont(context, R.font.open_sans_bold);
+        //get darkmode preference
         darkMode = SharedPref.getBoolean(context, "dark_mode");
     }
 
@@ -41,6 +43,7 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
     public TimeLineViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View listitem;
+        //check if the darkmode enabled and open respective Item layout.
         if (darkMode) {
             listitem = layoutInflater.inflate(R.layout.bus_stop_item_dark, parent, false);
         } else {
@@ -53,7 +56,9 @@ public class BusStopAdapter extends RecyclerView.Adapter<BusStopAdapter.TimeLine
     public void onBindViewHolder(TimeLineViewHolder holder, int position) {
         final String stop_data = stops.get(position);
         final String time_data = time.get(position);
+        //stop name
         holder.titleTV.setText(stop_data);
+        //stop timing
         holder.timeTV.setText(time_data);
     }
 
