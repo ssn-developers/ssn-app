@@ -14,6 +14,7 @@ import in.edu.ssn.ssnapp.adapters.HelplineAdapter;
 import in.edu.ssn.ssnapp.models.FuncHeadDetails;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class FunctionalHeadsActivity extends BaseActivity {
 
     ImageView backIV;
@@ -25,6 +26,8 @@ public class FunctionalHeadsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_functional_heads_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -36,16 +39,23 @@ public class FunctionalHeadsActivity extends BaseActivity {
         initUI();
     }
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         backIV = findViewById(R.id.backIV);
         helplineRV = findViewById(R.id.helplineRV);
 
         funcHeadDetailsList = new ArrayList<>();
         populateHelplineList();
+
+        //Calling the adapter for the recycler View.
         helplineAdapter = new HelplineAdapter(this, funcHeadDetailsList);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), RecyclerView.VERTICAL, false);
         helplineRV.setLayoutManager(layoutManager);
         helplineRV.setNestedScrollingEnabled(false);
+
+        //Setting the adapter to the Recycler view.
         helplineRV.setAdapter(helplineAdapter);
 
 
@@ -56,7 +66,10 @@ public class FunctionalHeadsActivity extends BaseActivity {
             }
         });
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Department HOD'S and other important office heads in SSNCE
     void populateHelplineList() {
         funcHeadDetailsList.clear();
         funcHeadDetailsList.add(new FuncHeadDetails("Dr. S. Chitra", "chitra@ssn.edu.in", "Professor & HOD - CSE", "chitra@ssn.edu.in"));
@@ -82,6 +95,8 @@ public class FunctionalHeadsActivity extends BaseActivity {
         funcHeadDetailsList.add(new FuncHeadDetails("Mr. Kannan", "kannank@ssn.edu.in", "Warden", "kannank@ssn.edu.in"));
         funcHeadDetailsList.add(new FuncHeadDetails("Dr. Sachin", "sachings@ssn.edu.in", "Campus Doctor", "sachings@ssn.edu.in"));
     }
+    /**********************************************************************/
+
 
     @Override
     public void onBackPressed() {

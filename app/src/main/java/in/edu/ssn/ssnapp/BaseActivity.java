@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
         darkModeEnabled = SharedPref.getBoolean(getApplicationContext(), "dark_mode");
     }
 
-    //make a status bar with white background and dark texts & icons.
+    //make the status bar white with dark colored texts & icons.
     public void clearLightStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             activity.getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));

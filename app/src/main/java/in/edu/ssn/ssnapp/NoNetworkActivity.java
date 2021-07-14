@@ -21,6 +21,7 @@ public class NoNetworkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_no_network);
 
+        //Get key from previous screen via intent extra
         final String key = getIntent().getStringExtra("key");
         final LottieAnimationView lottie = findViewById(R.id.lottie);
         CardView retryCV = findViewById(R.id.retryCV);
@@ -28,35 +29,50 @@ public class NoNetworkActivity extends AppCompatActivity {
         retryCV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //if we have an active internet connection
                 if (!CommonUtils.alerter(getApplicationContext())) {
+                    //if we are redirected from the splash screen to no-network screen, again check necessary conditions before proceeding.
                     if (key.equals("splash")) {
+                        //if the app is not blocked
                         if (!CommonUtils.getIs_blocked()) {
+                            //if already logged in.
                             if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 2) {
+                                //If its a Faculty
                                 if (SharedPref.getInt(getApplicationContext(), "clearance") == 3) {
                                     startActivity(new Intent(getApplicationContext(), FacultyHomeActivity.class));
                                     finish();
                                     Bungee.fade(NoNetworkActivity.this);
-                                } else {
+                                }
+                                //If its a Student.(ug/pg/alumni)
+                                else {
                                     startActivity(new Intent(getApplicationContext(), StudentHomeActivity.class));
                                     finish();
                                     Bungee.fade(NoNetworkActivity.this);
                                 }
-                            } else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
+                            }
+                            //if Signed Out.
+                            else if (SharedPref.getInt(getApplicationContext(), "dont_delete", "is_logged_in") == 1) {
                                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                                 finish();
                                 Bungee.slideLeft(NoNetworkActivity.this);
-                            } else {
+                            }
+                            //if New to app show On-boarding Screen...
+                            else {
                                 startActivity(new Intent(getApplicationContext(), OnboardingActivity.class));
                                 finish();
                                 Bungee.slideLeft(NoNetworkActivity.this);
                             }
-                        } else {
+                        }
+                        //if the app is blocked
+                        else {
                             Intent intent = new Intent(NoNetworkActivity.this, BlockScreenActivity.class);
                             startActivity(intent);
                         }
                     } else
                         onBackPressed();
-                } else
+                }
+                //No active internet connection
+                else
                     lottie.playAnimation();
             }
         });

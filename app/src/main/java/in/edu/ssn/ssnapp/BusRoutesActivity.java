@@ -2,6 +2,7 @@ package in.edu.ssn.ssnapp;
 
 import android.animation.LayoutTransition;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +39,7 @@ import in.edu.ssn.ssnapp.models.BusRoute;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class BusRoutesActivity extends BaseActivity implements TextWatcher {
     ImageView backIV;
     RecyclerView busRoutesRV;
@@ -52,9 +55,12 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
     ArrayList<BusRoute> busRoutesList, recyclerList;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_bus_route_dark);
             getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor1));
@@ -80,8 +86,8 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         });
     }
 
-    /********************************************************/
-
+    /***********************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         backIV = findViewById(R.id.backIV);
         et_num = findViewById(R.id.et_num);
@@ -104,7 +110,10 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         busRoutesRV.setLayoutManager(layoutManager);
         busRoutesRV.setHasFixedSize(true);
     }
+    /***********************************************************/
 
+    /***********************************************************/
+    //Suggestion chips seen while searching for a Bus stop.
     private Chip getChip(final ChipGroup entryChipGroup, String text) {
         final Chip chip = new Chip(this);
         if (darkModeEnabled) {
@@ -126,7 +135,6 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         });
         return chip;
     }
-
     /********************************************************/
 
     @Override
@@ -139,20 +147,26 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
 
     }
 
+    /***********************************************************/
+    // Searching for a stop
     @Override
     public void afterTextChanged(Editable s) {
         busRoutesRV.setVisibility(View.VISIBLE);
         layout_empty.setVisibility(View.GONE);
 
         String val = s.toString().trim().toLowerCase();
+        //if the search bar has no texts or cleared.
         if (val.equals("")) {
             clearIV.setVisibility(View.GONE);
+            //No Suggestion chips.
             chipCloud.removeAllViews();
             try {
                 recyclerList.clear();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            //Show all the bus routes.
             for (BusRoute b : busRoutesList) {
                 Collections.addAll(recyclerList, b);
             }
@@ -160,28 +174,41 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             if(adapter!=null) {
                 adapter.notifyDataSetChanged();
             }
-        } else if (Character.isDigit(val.charAt(0))) {
+        }
+        //if the search key is a number then show route with respective number(i.e., for search key '6' shows 'route 6')
+        else if (Character.isDigit(val.charAt(0))) {
             clearIV.setVisibility(View.VISIBLE);
+
+            //No suggestion chips.
             chipCloud.removeAllViews();
 
+            //Add routes with number that matches the search key to the list.
             recyclerList.clear();
             for (BusRoute b : busRoutesList) {
                 if (b.getName().equalsIgnoreCase(val))
                     Collections.addAll(recyclerList, b);
             }
 
+            //check whether the routes list is empty or has some routes.(i.e., for search key '6' adds 'route 6' But for search key '88' there is nothing to add to the list)
             if (recyclerList.size() == 0) {
+                //Show sorry msg.
                 busRoutesRV.setVisibility(View.GONE);
                 layout_empty.setVisibility(View.VISIBLE);
             } else {
+                //Show the bus route.
                 busRoutesRV.setVisibility(View.VISIBLE);
                 layout_empty.setVisibility(View.GONE);
+                //refresh adapter to show results.
                 if(adapter!=null) {
                     adapter.notifyDataSetChanged();
                 }
             }
-        } else {
+        }
+        //if the search key is a String then show bus route with respective Bus Stops that match the string
+        else {
             clearIV.setVisibility(View.VISIBLE);
+
+            //Show suggestion chips for bus stops available in our JSON list.(assets/data_bus.json)
             if (val.length() > 2) {
                 chipCloud.removeAllViews();
                 chipCloud.setVisibility(View.VISIBLE);
@@ -192,16 +219,19 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
                         chipCloud.addView(chip);
                         final int finalI = i;
 
+                        //when selecting one of the suggested chip, make that string as the search key and display routes with that bus stops.
                         chip.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 CommonUtils.hideKeyboard(BusRoutesActivity.this);
                                 chipCloud.removeAllViews();
 
+                                //Set the string as search key in the Search edittext.
                                 et_num.removeTextChangedListener(BusRoutesActivity.this);
                                 et_num.setText(suggestions.get(finalI));
                                 et_num.addTextChangedListener(BusRoutesActivity.this);
 
+                                //Add routes with Bus Stops that matches the search key to the list.
                                 recyclerList.clear();
                                 for (BusRoute b : busRoutesList) {
                                     for (String s : b.getStop()) {
@@ -209,6 +239,8 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
                                             Collections.addAll(recyclerList, b);
                                     }
                                 }
+
+                                //refresh the adapter to show the results.
                                 if(adapter!=null) {
                                     adapter.notifyDataSetChanged();
                                 }
@@ -229,7 +261,6 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             }
         }
     }
-
     /********************************************************/
 
     @Override
@@ -238,6 +269,8 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
         Bungee.slideRight(BusRoutesActivity.this);
     }
 
+    /***********************************************************/
+    // Getting the bus route details from the JSON file.(assets/data_bus.json)
     public class getBusRoute extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... voids) {
@@ -283,4 +316,6 @@ public class BusRoutesActivity extends BaseActivity implements TextWatcher {
             return null;
         }
     }
+    /***********************************************************/
+
 }

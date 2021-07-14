@@ -27,6 +27,7 @@ import in.edu.ssn.ssnapp.models.Subject;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class GPACalculatorActivity extends BaseActivity {
 
     TextView gpaTV;
@@ -43,6 +44,7 @@ public class GPACalculatorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_gpa_calculator_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -53,6 +55,8 @@ public class GPACalculatorActivity extends BaseActivity {
         new getDepartmentSubjects().execute();
     }
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     private void initUI() {
         gpaTV = findViewById(R.id.gpaTV);
         backIV = findViewById(R.id.backIV);
@@ -76,7 +80,10 @@ public class GPACalculatorActivity extends BaseActivity {
             }
         });
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Calculate the GPA using the credits obtained from the json file and grades entered by the student.
     private void calculateAndDisplay() {
         float gpa = 0;
         float totalCreditsGained = 0;
@@ -90,8 +97,8 @@ public class GPACalculatorActivity extends BaseActivity {
         gpaRL.setVisibility(View.VISIBLE);
         gpaTV.setText(String.format("%.2f", gpa));
     }
+    /**********************************************************************/
 
-    /********************************************************/
 
     @Override
     public void onBackPressed() {
@@ -99,14 +106,19 @@ public class GPACalculatorActivity extends BaseActivity {
         Bungee.slideRight(GPACalculatorActivity.this);
     }
 
+    /********************************************************/
+    //Get Students dept and Semester and load the necessary details about the subjects and credits.(assets/subjects.json)
     public class getDepartmentSubjects extends AsyncTask<Void, Void, Void> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
 
+            //Get the semester number passed from the previous Screen via Intent extra.
             semester = getIntent().getIntExtra("sem", 0);
+            //get dept from shared pref.
             String department = SharedPref.getString(getApplicationContext(), "dept");
+            //convert the department names into a integer key that matches the JSON file.(assets/subjects.json)
             switch (department) {
                 case "cse":
                     dept = 0;
@@ -135,6 +147,7 @@ public class GPACalculatorActivity extends BaseActivity {
             }
         }
 
+        //Open the Json file and read the subjects based on the students Dept and semester choosen.(assets/subjects.json)
         @Override
         protected Void doInBackground(Void... voids) {
             try {
@@ -168,4 +181,6 @@ public class GPACalculatorActivity extends BaseActivity {
             initUI();
         }
     }
+    /********************************************************/
+
 }

@@ -32,6 +32,7 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
+
 // Extends Base activity for darkmode variable and status bar.
 public class StudentHomeActivity extends BaseActivity implements View.OnClickListener {
     private static int count = 0;

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class GradeCalculatorActivity extends BaseActivity {
 
     TextView OTV, APTV, ATV, BPTV, BTV, internalsTV;
@@ -21,6 +22,7 @@ public class GradeCalculatorActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //check if dark mode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_grade_calculator_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -29,13 +31,30 @@ public class GradeCalculatorActivity extends BaseActivity {
             setContentView(R.layout.activity_grade_calculator);
 
         initUI();
+
+        //Increase the internal marks.
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 internals = Integer.parseInt(internalsTV.getText().toString());
 
+                //increase the internal by 1 upto 40.
                 if (internals < 40) {
                     internalsTV.setText(Integer.toString(++internals));
+                    getValues(internals);
+                }
+            }
+        });
+
+        //Decrease the internal marks.
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                internals = Integer.parseInt(internalsTV.getText().toString());
+
+                //Decrease the internal by 1 upto 0.
+                if (internals > 0) {
+                    internalsTV.setText(Integer.toString(--internals));
                     getValues(internals);
                 }
             }
@@ -48,19 +67,10 @@ public class GradeCalculatorActivity extends BaseActivity {
             }
         });
 
-        left.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                internals = Integer.parseInt(internalsTV.getText().toString());
-
-                if (internals > 0) {
-                    internalsTV.setText(Integer.toString(--internals));
-                    getValues(internals);
-                }
-            }
-        });
     }
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     private void initUI() {
         OTV = findViewById(R.id.OTV);
         APTV = findViewById(R.id.APTV);
@@ -73,7 +83,10 @@ public class GradeCalculatorActivity extends BaseActivity {
         back = findViewById(R.id.backIV);
         getValues(35);
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    // Get min marks for various grades using the internals.
     private void getValues(int mark) {
         values.clear();
         values.add(0, 0);
@@ -82,6 +95,11 @@ public class GradeCalculatorActivity extends BaseActivity {
         values.add(3, 0);
         values.add(4, 0);
 
+        //Calculate the min marks for grades using internals.
+        //Formula:
+        //O grade: (0.6 * your mark) + internal should be greater than 91
+        //A+ grade: (0.6 * your mark) + internal should be greater than 81
+        //...etc
         for (int i = 100; i > 49; i--) {
             int n = (int) (0.6 * i) + (mark);
             if (n >= 91) {
@@ -101,32 +119,44 @@ public class GradeCalculatorActivity extends BaseActivity {
                 values.add(4, i);
             }
         }
+
+        /*************************************************/
+        //If the values is '0', set the Textview as 'N/A'
+        //or
+        //If the values is not '0', set the Textview as value.
+
+        //O Grade
         if (values.get(0) == 0) {
             OTV.setText("N/A");
         } else {
             OTV.setText(values.get(0).toString());
         }
-
+        //A+ Grade
         if (values.get(1) == 0) {
             APTV.setText("N/A");
         } else {
             APTV.setText(values.get(1).toString());
         }
+        //A Grade
         if (values.get(2) == 0) {
             ATV.setText("N/A");
         } else {
             ATV.setText(values.get(2).toString());
         }
+        //B+ Grade
         if (values.get(3) == 0) {
             BPTV.setText("N/A");
         } else {
             BPTV.setText(values.get(3).toString());
         }
+        //B Grade
         if (values.get(4) == 0) {
             BTV.setText("N/A");
         } else {
             BTV.setText(values.get(4).toString());
         }
+        /*************************************************/
+
     }
 
     /********************************************************/

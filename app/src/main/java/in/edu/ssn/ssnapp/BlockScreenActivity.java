@@ -11,6 +11,7 @@ public class BlockScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_block_screen);
+        //This screen is just a UI Element screen that shows the app is blocked for maintenance reasons.
     }
 
     @Override

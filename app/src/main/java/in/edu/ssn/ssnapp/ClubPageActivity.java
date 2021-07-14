@@ -51,6 +51,7 @@ import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener, View.OnClickListener {
 
     private boolean mIsTheTitleVisible = false;
@@ -76,10 +77,13 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         alphaAnimation.setFillAfter(true);
         v.startAnimation(alphaAnimation);
     }
+    /****************************************************/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_club_page_dark);
         } else {
@@ -88,6 +92,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
 
         initUI();
 
+        //Load up firestore collection.
         setupFireStore();
 
         new Handler().postDelayed(new Runnable() {
@@ -97,6 +102,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             }
         }, 3000);
 
+        //Referesh page for new posts
         newPostTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,11 +110,10 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                 newPostTV.setVisibility(View.GONE);
             }
         });
-
-
-        /****************************************************/
     }
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     private void initUI() {
         //Toolbar
 
@@ -170,21 +175,25 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             }
         });
 
-        /****************************************************/
-        //Update Data
-
+        //Get the Details of the Club passed from the Previous Screen via the Intent Extra.
         club = getIntent().getParcelableExtra("data");
 
+        //Check whether you have subscribed to the club or not
+        //If subscribed change text as "Following"
         if (club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
             following_textTV.setText("Following");
+            //Set Text color mode based on darkmode preferences.
             if (darkModeEnabled) {
                 following_textTV.setTextColor(Color.WHITE);
             } else {
                 following_textTV.setTextColor(Color.BLACK);
             }
 
-        } else {
+        }
+        //If Not Subscribed Change text to "Follow"
+        else {
             following_textTV.setText("Follow");
+            //Set Text color mode based on darkmode preferences.
             if (darkModeEnabled) {
                 following_textTV.setTextColor(getResources().getColor(R.color.colorAccentDark));
             } else {
@@ -192,6 +201,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             }
         }
 
+        //Bell Icon Animation
         lottie.addAnimatorUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
@@ -221,19 +231,25 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             followers_textTV.setText("Follower");
         }
 
+        //Setting the DP and cover images
         Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(dpIV);
         Glide.with(this).load(club.getDp_url()).placeholder(R.color.shimmering_front).into(tool_dpIV);
         Glide.with(this).load(club.getCover_url()).placeholder(R.color.shimmering_back).into(cover_picIV);
     }
+    /**********************************************************************/
 
+    /************************************************************************/
+    //load club posts for the students.
     private void setupFireStore() {
 
+        //Icon creator from the first letter of a word. To create DP using a Letter.
         final TextDrawable.IBuilder builder = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
                 .endConfig()
                 .round();
 
+        //Get posts from the Firestore.
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).whereEqualTo("cid", club.getId()).orderBy("time", Query.Direction.DESCENDING);
         FirestoreRecyclerOptions<ClubPost> options = new FirestoreRecyclerOptions.Builder<ClubPost>().setQuery(query, new SnapshotParser<ClubPost>() {
             @NonNull
@@ -244,18 +260,22 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
             }
         }).build();
 
+        //Assign post details to UI elements
         adapter = new FirestoreRecyclerAdapter<ClubPost, FeedViewHolder>(options) {
             @Override
             public void onBindViewHolder(final FeedViewHolder holder, final int position, final ClubPost model) {
                 holder.authorTV.setText(CommonUtils.getNameFromEmail(model.getAuthor()));
                 holder.titleTV.setText(model.getTitle());
 
+                //Icon creator from the first letter of a word. To create DP using a Letter.
                 ColorGenerator generator = ColorGenerator.MATERIAL;
                 int color = generator.getColor(model.getAuthor());
                 TextDrawable ic1 = builder.build(String.valueOf(model.getAuthor().charAt(0)), color);
                 holder.userImageIV.setImageDrawable(ic1);
 
+                //Check if the post is already liked by the user or not.
                 try {
+                    //check if the user's email is present in the 'likes' list in firestore.
                     if (model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                         holder.likeIV.setImageResource(R.drawable.blue_heart);
                     } else {
@@ -265,25 +285,35 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     holder.likeIV.setImageResource(R.drawable.heart);
                 }
 
+                //Set the posted time ( eg: 1min ago, 1year ago)
                 holder.timeTV.setText(CommonUtils.getTime(model.getTime()));
 
+                //creating a short version of description less then 100 letters for display.
+                //if description > 100 letters, shrink it.
                 if (model.getDescription().length() > 100) {
                     SpannableString ss = new SpannableString(model.getDescription().substring(0, 100) + "... see more");
                     ss.setSpan(new RelativeSizeSpan(0.9f), ss.length() - 12, ss.length(), 0);
                     ss.setSpan(new ForegroundColorSpan(Color.parseColor("#404040")), ss.length() - 12, ss.length(), 0);
                     holder.descriptionTV.setText(ss);
-                } else
+                }
+                //if description < 100 letters then directly assign it.
+                else
                     holder.descriptionTV.setText(model.getDescription().trim());
 
+                //if the post has one or more images.
                 if (model.getImg_urls() != null && model.getImg_urls().size() != 0) {
+                    //Making The ImageViewPager Visible.
                     holder.viewPager.setVisibility(View.VISIBLE);
 
                     final ImageAdapter imageAdapter = new ImageAdapter(ClubPageActivity.this, model.getImg_urls(), 4, club, model.getId());
                     holder.viewPager.setAdapter(imageAdapter);
 
+                    //if the number of images is 1
                     if (model.getImg_urls().size() == 1) {
                         holder.current_imageTV.setVisibility(View.GONE);
-                    } else {
+                    }
+                    //if there are more than 1 images.
+                    else {
                         holder.current_imageTV.setVisibility(View.VISIBLE);
                         holder.current_imageTV.setText(1 + " / " + model.getImg_urls().size());
                         holder.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -303,11 +333,14 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                             }
                         });
                     }
-                } else {
+                }
+                //if the post contains no images.
+                else {
                     holder.viewPager.setVisibility(View.GONE);
                     holder.current_imageTV.setVisibility(View.GONE);
                 }
 
+                //No. Of. Likes obtained by the post
                 try {
                     holder.likeTV.setText(Integer.toString(model.getLike().size()));
                 } catch (Exception e) {
@@ -315,6 +348,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     holder.likeTV.setText("0");
                 }
 
+                //No. Of. Comments obtained by the post
                 try {
                     holder.commentTV.setText(Integer.toString(model.getComment().size()));
                 } catch (Exception e) {
@@ -322,6 +356,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     holder.commentTV.setText("0");
                 }
 
+                //Clicking on the post proceed to the club post Details Screen.
                 holder.feed_view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -333,14 +368,18 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     }
                 });
 
+                //Liking or Unliking a Post
                 holder.likeIV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         try {
+                            //if user not present in the "likes" list he is Liking the post.
                             if (!model.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                                 holder.likeIV.setImageResource(R.drawable.blue_heart);
                                 FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
-                            } else {
+                            }
+                            //if user already present in the "likes" list he is Un-Liking the post.
+                            else {
                                 holder.likeIV.setImageResource(R.drawable.heart);
                                 FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(model.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                             }
@@ -351,6 +390,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     }
                 });
 
+                //Share Button prompts sharing options to share the link for that particular post.
                 holder.shareIV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -384,6 +424,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                 return new FeedViewHolder(view);
             }
 
+            //if a new post is sensed.
             @Override
             public void onChildChanged(@NonNull ChangeEventType type, @NonNull DocumentSnapshot snapshot, int newIndex, int oldIndex) {
                 super.onChildChanged(type, snapshot, newIndex, oldIndex);
@@ -399,19 +440,25 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
 
     /****************************************************/
 
+    /************************************************************************/
+    //When clicking any buttons on the page this function is called.
     @Override
     public void onClick(View view) {
+        // On click function is differentiated for different buttons using the buttons ID.
         switch (view.getId()) {
             case R.id.cover_picIV:
+                //Downloading the cover pic of the Club.
                 Intent intent = new Intent(getApplicationContext(), OpenImageActivity.class);
                 intent.putExtra("url", club.getCover_url());
                 startActivity(intent);
                 Bungee.slideLeft(ClubPageActivity.this);
                 break;
+            //Back Buttons
             case R.id.backIV:
             case R.id.tool_backIV:
                 onBackPressed();
                 break;
+            //Share Buttons
             case R.id.shareIV:
             case R.id.tool_shareIV:
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
@@ -420,7 +467,9 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
                 break;
+            //Contact the club admin upon clicking the phone number.
             case R.id.contactTV:
+                //Check for app permission to make a call from the phone.
                 if (!CommonUtils.hasPermissions(ClubPageActivity.this, Manifest.permission.CALL_PHONE)) {
                     ActivityCompat.requestPermissions(ClubPageActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1);
                 } else {
@@ -431,13 +480,16 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     }
                 }
                 break;
+            //Clicking on the bell icon subscribes or un-subscribes the club.
             case R.id.lottie:
                 isSubscriptionChange = !isSubscriptionChange;
                 lottie.playAnimation();
 
+                //if user not present in the "followers" list, he is Subscribing the post.
                 if (!club.getFollowers().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
                     FCMHelper.SubscribeToTopic(getApplicationContext(), "club_" + club.getId());
+                    //add to user to followers.
                     club.getFollowers().add(SharedPref.getString(getApplicationContext(), "email"));
                     following_textTV.setText("Following");
                     if (darkModeEnabled) {
@@ -445,9 +497,12 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
                     } else {
                         following_textTV.setTextColor(Color.BLACK);
                     }
-                } else {
+                }
+                //if user present in the "followers" list, he is Un-Subscribing the post.
+                else {
                     FirebaseFirestore.getInstance().collection(Constants.collection_club).document(club.getId()).update("followers", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                     FCMHelper.UnSubscribeToTopic(getApplicationContext(), "club_" + club.getId());
+                    //remove user from followers.
                     club.getFollowers().remove(SharedPref.getString(getApplicationContext(), "email"));
                     following_textTV.setText("Follow");
                     if (darkModeEnabled) {
@@ -468,6 +523,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         }
     }
 
+    //For animation
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int offset) {
         int maxScroll = appBarLayout.getTotalScrollRange();
@@ -477,6 +533,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         handleToolbarTitleVisibility(percentage);
     }
 
+    //For animation
     private void handleToolbarTitleVisibility(float percentage) {
         if (percentage >= 0.8f) {
             if (!mIsTheTitleVisible) {
@@ -492,6 +549,7 @@ public class ClubPageActivity extends BaseActivity implements AppBarLayout.OnOff
         }
     }
 
+    //for animation
     private void handleAlphaOnTitle(float percentage) {
         if (percentage >= 0.8f) {
             if (mIsTheTitleContainerVisible) {

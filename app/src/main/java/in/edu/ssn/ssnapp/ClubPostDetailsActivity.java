@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
@@ -57,6 +59,7 @@ import in.edu.ssn.ssnapp.utils.Constants;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class ClubPostDetailsActivity extends BaseActivity {
     ImageView backIV, userImageIV, likeIV, commentIV, shareIV, sendIV, cancel_replyIV;
     ViewPager viewPager;
@@ -79,6 +82,8 @@ public class ClubPostDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_club_post_details_dark);
             clearLightStatusBar(this);
@@ -90,12 +95,16 @@ public class ClubPostDetailsActivity extends BaseActivity {
         initUI();
     }
 
-    /*****************************************************************/
-
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         Objects.requireNonNull(getSupportActionBar()).hide();
+
+        //Get the Details of the post passed from the Previous Screen via the Intent Extra.
         id = getIntent().getStringExtra("data");
+        //Get the Details of the Club passed from the Previous Screen via the Intent Extra.
         club = getIntent().getParcelableExtra("club");
+
         post = new ClubPost();
 
         backIV = findViewById(R.id.backIV);
@@ -124,6 +133,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
 
         CommonUtils.hideKeyboard(ClubPostDetailsActivity.this);
 
+        //Cancel your reply to a comment.
         cancel_replyIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,19 +143,25 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
+        //post a comment or a reply to a comment
         sendIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (et_Comment.getText().toString().trim().length() > 1) {
+                    //If the expandable List is triggered it means it is a reply to a comment.
                     Boolean replyingForComment = expandableListAdapter.getReplyingForComment();
 
                     if (replyingForComment == null)
                         replyingForComment = false;
 
+                    //Checking whether it is a comment or a reply to comment.
+                    //If its a comment.
                     if (!replyingForComment) {
                         Comments temp = new Comments(SharedPref.getString(ClubPostDetailsActivity.this, "email"), et_Comment.getEditableText().toString(), Calendar.getInstance().getTime(), new ArrayList<HashMap<String, Object>>());
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).update("comment", FieldValue.arrayUnion(temp));
-                    } else {
+                    }
+                    //If its a reply to comment.
+                    else {
 
                         HashMap<String, Object> temp = new HashMap<>();
                         temp.put("author", SharedPref.getString(ClubPostDetailsActivity.this, "email"));
@@ -177,7 +193,10 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
+        //Expandable List View used to create a nested list view that holds the comments and its replies.
         expandableListView = findViewById(R.id.commentEV);
+
+        //Change the Lists height if a comment is expanded to show its replies.
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
@@ -185,6 +204,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
+        //Change the Lists height if a comment is shriked to hide its replies.
         expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
@@ -199,9 +219,13 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
     }
+    /**********************************************************************/
 
+    /************************************************************************/
+    //load Feed posts for the students based on their dept and year.
     void setUpFirestore() {
         listenerRegistration = FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(id).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 post = CommonUtils.getClubPostFromSnapshot(getApplicationContext(), documentSnapshot);
@@ -223,7 +247,10 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
     }
+    /************************************************************************/
 
+    /************************************************************************/
+    //Assign the post and club details obtained via Intent to the respective UI elements.
     void updateData() {
         authorTV.setText(CommonUtils.getNameFromEmail(post.getAuthor()));
         nameTV.setText(club.getName());
@@ -233,15 +260,20 @@ public class ClubPostDetailsActivity extends BaseActivity {
         timeTV.setText(CommonUtils.getTime(post.getTime()));
         descriptionTV.setText(post.getDescription().trim());
 
+        //if the post has one or more images.
         if (post.getImg_urls() != null && post.getImg_urls().size() != 0) {
+            //Making The ImageViewPager Visible.
             viewPager.setVisibility(View.VISIBLE);
 
             final ImageAdapter imageAdapter = new ImageAdapter(ClubPostDetailsActivity.this, post.getImg_urls(), 0);
             viewPager.setAdapter(imageAdapter);
 
+            //if the number of images is 1
             if (post.getImg_urls().size() == 1) {
                 current_imageTV.setVisibility(View.GONE);
-            } else {
+            }
+            //if there are more than 1 images.
+            else {
                 current_imageTV.setVisibility(View.VISIBLE);
                 current_imageTV.setText(1 + " / " + post.getImg_urls().size());
                 viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -261,7 +293,9 @@ public class ClubPostDetailsActivity extends BaseActivity {
                     }
                 });
             }
-        } else {
+        }
+        //if the post contains no images.
+        else {
             viewPager.setVisibility(View.GONE);
             current_imageTV.setVisibility(View.GONE);
         }
@@ -269,11 +303,13 @@ public class ClubPostDetailsActivity extends BaseActivity {
         ArrayList<String> fileName = post.getFileName();
         ArrayList<String> fileUrl = post.getFileUrl();
 
+        //If the posts Have some attached files.
         if (fileName != null && fileName.size() > 0) {
             attachmentsTV.setVisibility(View.VISIBLE);
             attachmentsChipGroup.setVisibility(View.VISIBLE);
             attachmentsChipGroup.removeAllViews();
 
+            //attachment List
             for (int i = 0; i < fileName.size(); i++) {
                 Chip chip = getFilesChip(attachmentsChipGroup, fileName.get(i), fileUrl.get(i));
                 attachmentsChipGroup.addView(chip);
@@ -290,6 +326,8 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
+        //If the Description contains any link or Social media annotations.
+        //Clicking the link opens browser.
         descriptionTV.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
             @Override
             public void onClick(@NonNull SocialView view, @NonNull CharSequence text) {
@@ -301,19 +339,20 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
+        //Check if the post is already liked by the user or not.
         try {
-
+            //check if the user's email is present in the 'likes' list in firestore.
             if (post.getLike() != null && post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                 likeIV.setImageResource(R.drawable.blue_heart);
             } else {
                 likeIV.setImageResource(R.drawable.heart);
             }
         } catch (Exception e) {
-
             likeIV.setImageResource(R.drawable.heart);
         }
 
 
+        //No. Of. Likes obtained by the post
         try {
             likeTV.setText(Integer.toString(post.getLike().size()));
         } catch (Exception e) {
@@ -321,6 +360,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             likeTV.setText("0");
         }
 
+        //No. Of. Comments obtained by the post
         try {
             commentTV.setText(Integer.toString(post.getComment().size()));
         } catch (Exception e) {
@@ -328,14 +368,18 @@ public class ClubPostDetailsActivity extends BaseActivity {
             commentTV.setText("0");
         }
 
+        //Liking or Unliking a Post
         likeIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 try {
+                    //if user not present in the "likes" list he is Liking the post.
                     if (!post.getLike().contains(SharedPref.getString(getApplicationContext(), "email"))) {
                         likeIV.setImageResource(R.drawable.blue_heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayUnion(SharedPref.getString(getApplicationContext(), "email")));
-                    } else {
+                    }
+                    //if user already present in the "likes" list he is Un-Liking the post.
+                    else {
                         likeIV.setImageResource(R.drawable.heart);
                         FirebaseFirestore.getInstance().collection(Constants.collection_post_club).document(post.getId()).update("like", FieldValue.arrayRemove(SharedPref.getString(getApplicationContext(), "email")));
                     }
@@ -345,6 +389,7 @@ public class ClubPostDetailsActivity extends BaseActivity {
             }
         });
 
+        //Share Button prompts sharing options to share the link for that particular post.
         shareIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -366,9 +411,13 @@ public class ClubPostDetailsActivity extends BaseActivity {
         chip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Checking whether write permission is granted by the user to save the attachments.
+                //If not, request for permission.
                 if (!CommonUtils.hasPermissions(ClubPostDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     ActivityCompat.requestPermissions(ClubPostDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                } else {
+                }
+                //If already Granted, Download the file.
+                else {
                     Toast toast = Toast.makeText(ClubPostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
@@ -395,9 +444,10 @@ public class ClubPostDetailsActivity extends BaseActivity {
 
         return chip;
     }
-
     /*****************************************************************/
 
+    /*****************************************************************/
+    //Adjusting the listviews Height based on whether the comments is expanded to reveal replies or is shrinked to hide the replies.
     private void setListViewHeight(int group) {
         int totalHeight = 0;
         int desiredWidth = View.MeasureSpec.makeMeasureSpec(expandableListView.getWidth(), View.MeasureSpec.EXACTLY);

@@ -36,6 +36,7 @@ import in.edu.ssn.ssnapp.models.Post;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class PostDetailsActivity extends BaseActivity {
 
     final static String TAG = "PostDetails";
@@ -51,13 +52,19 @@ public class PostDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_post_details_dark);
             clearLightStatusBar(this);
         } else {
             setContentView(R.layout.activity_post_details);
         }
+
+        //Setting Up the Crashlytics report.
         crashlytics = FirebaseCrashlytics.getInstance();
+
+        //Get the Details of the post passed from the Previous Screen via the Intent Extra.
         post = getIntent().getParcelableExtra("post");
         final int type = getIntent().getIntExtra("type", 0);
 
@@ -70,6 +77,7 @@ public class PostDetailsActivity extends BaseActivity {
         positionTV.setText(post.getPosition().trim());
         timeTV.setText(CommonUtils.getTime(post.getTime()));
 
+        //Icon creator from the first letter of a word. To create DP using a Letter.
         try {
             final TextDrawable.IBuilder builder = TextDrawable.builder()
                     .beginConfig()
@@ -84,14 +92,18 @@ public class PostDetailsActivity extends BaseActivity {
             e.printStackTrace();
         }
 
+        //if the post has one or more images.
         if (post.getImageUrl() != null && post.getImageUrl().size() != 0) {
+            //Making The ImageViewPager Visible.
             imageViewPager.setVisibility(View.VISIBLE);
             current_imageTV.setVisibility(View.VISIBLE);
             final ImageAdapter imageAdapter = new ImageAdapter(PostDetailsActivity.this, post.getImageUrl(), 0);
             imageViewPager.setAdapter(imageAdapter);
 
+            //if the number of images is 1
             if (post.getImageUrl().size() == 1)
                 current_imageTV.setVisibility(View.GONE);
+            //if there are more than 1 images.
             else {
                 current_imageTV.setVisibility(View.VISIBLE);
                 current_imageTV.setText(1 + " / " + post.getImageUrl().size());
@@ -112,7 +124,9 @@ public class PostDetailsActivity extends BaseActivity {
                     }
                 });
             }
-        } else {
+        }
+        //if the post contains no images.
+        else {
             imageViewPager.setVisibility(View.GONE);
             current_imageTV.setVisibility(View.GONE);
         }
@@ -120,10 +134,12 @@ public class PostDetailsActivity extends BaseActivity {
         ArrayList<String> fileName = post.getFileName();
         ArrayList<String> fileUrl = post.getFileUrl();
 
+        //If the posts Have some attached files.
         if (fileName != null && fileName.size() > 0) {
             attachmentsTV.setVisibility(View.VISIBLE);
             attachmentsChipGroup.setVisibility(View.VISIBLE);
 
+            //attachment List
             for (int i = 0; i < fileName.size(); i++) {
                 Chip chip = getFilesChip(attachmentsChipGroup, fileName.get(i), fileUrl.get(i));
                 attachmentsChipGroup.addView(chip);
@@ -132,6 +148,9 @@ public class PostDetailsActivity extends BaseActivity {
             attachmentsTV.setVisibility(View.GONE);
             attachmentsChipGroup.setVisibility(View.GONE);
         }
+
+        /**********************************************************************/
+        //NOT USED BATCH OF CODE... Kindly Ignore.
 
         /*List<String> depts = post.getDept();
         List<String> year = post.getYear();
@@ -160,6 +179,9 @@ public class PostDetailsActivity extends BaseActivity {
         else
             layout_receive.setVisibility(View.GONE);*/
 
+        /**********************************************************************/
+
+
         backIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +189,8 @@ public class PostDetailsActivity extends BaseActivity {
             }
         });
 
+        //If the Description contains any link or Social media annotations.
+        //Clicking the link opens browser.
         descriptionTV.setOnHyperlinkClickListener(new SocialView.OnClickListener() {
             @Override
             public void onClick(@NonNull SocialView view, @NonNull CharSequence text) {
@@ -178,6 +202,10 @@ public class PostDetailsActivity extends BaseActivity {
             }
         });
 
+        /**********************************************************************/
+        // Share & Bookmark/Favourite
+
+        //Share Button prompts sharing options to share the link for that particular post.
         shareIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,17 +217,24 @@ public class PostDetailsActivity extends BaseActivity {
             }
         });
 
+        //Favorite or bookmark a post
         bookmarkIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //If it is already in bookmarks list, Remove it from bookmark/Favourite.
                 if (checkSavedPost(post))
                     unSavePost(post);
+                //If it is not in bookmarks list. Add it to bookmark/Favourite.
                 else
                     savePost(post, Integer.toString(type));
             }
         });
+        /**********************************************************************/
     }
 
+
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         backIV = findViewById(R.id.backIV);
         userImageIV = findViewById(R.id.userImageIV);
@@ -229,6 +264,8 @@ public class PostDetailsActivity extends BaseActivity {
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
         }
     }
+    /**********************************************************************/
+
 
     /*****************************************************************/
     //Files
@@ -239,9 +276,13 @@ public class PostDetailsActivity extends BaseActivity {
         chip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Checking whether write permission is granted by the user to save the attachments.
+                //If not, request for permission.
                 if (!CommonUtils.hasPermissions(PostDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     ActivityCompat.requestPermissions(PostDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                } else {
+                }
+                //If already Granted, Download the file.
+                else {
                     Toast toast = Toast.makeText(PostDetailsActivity.this, "Downloading...", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
@@ -267,8 +308,6 @@ public class PostDetailsActivity extends BaseActivity {
                     }
 
                 }
-
-
             }
         });
 
@@ -284,11 +323,16 @@ public class PostDetailsActivity extends BaseActivity {
         chip.setText(data);
         return chip;
     }
+    /*****************************************************************/
 
+    /*****************************************************************/
+    //Save the post in the Local Database.
     public Boolean savePost(Post post, String type) {
         try {
             DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
+            //add post to DB
             dataBaseHelper.addPost(post, type);
+            //change bookmark Icon
             bookmarkIV.setImageResource(R.drawable.ic_bookmark_saved);
 
         } catch (Exception e) {
@@ -301,24 +345,34 @@ public class PostDetailsActivity extends BaseActivity {
         toast.show();
         return true;
     }
+    /*****************************************************************/
 
+    /*****************************************************************/
+    //Remove the post in the Local Database.
     void unSavePost(Post post) {
         // updating the post status to not saved in shared preference
 
         DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
         Log.d(TAG, "post type : " + dataBaseHelper.getPostType(post.getId()));
+        //remove post from DB
         dataBaseHelper.deletePost(post.getId());
+        //Change bookmark Icon
         bookmarkIV.setImageResource(R.drawable.ic_bookmark_unsaved);
 
         Toast toast = Toast.makeText(this, "Post unsaved!", Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+    /*****************************************************************/
 
+    /*****************************************************************/
+    //Check Whether the post is amongst the Saved Posts in our Local DB.
     Boolean checkSavedPost(Post post) {
         DataBaseHelper dataBaseHelper = DataBaseHelper.getInstance(this);
         return dataBaseHelper.checkPost(post.getId());
     }
+    /*****************************************************************/
+
 
     @Override
     public void onBackPressed() {

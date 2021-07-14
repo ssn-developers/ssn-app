@@ -14,6 +14,7 @@ import in.edu.ssn.ssnapp.models.TeamDetails;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class ContributorProfileActivity extends BaseActivity {
 
     ImageView backIV, userImageIV, iconIV1, iconIV2, iconIV3;
@@ -24,6 +25,8 @@ public class ContributorProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_contributor_profile_dark);
             clearLightStatusBar(this);
@@ -35,6 +38,8 @@ public class ContributorProfileActivity extends BaseActivity {
         updateUI();
     }
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         backIV = findViewById(R.id.backIV);
         userImageIV = findViewById(R.id.userImageIV);
@@ -59,7 +64,10 @@ public class ContributorProfileActivity extends BaseActivity {
             }
         });
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Setting up the contributors details such name and contributions and Three of their social media links.
     void updateUI() {
         teamDetails = (TeamDetails) getIntent().getSerializableExtra("Contributor");
         nameTV.setText(teamDetails.getName());
@@ -69,45 +77,65 @@ public class ContributorProfileActivity extends BaseActivity {
         updateLinks(teamDetails.getUrl().get(1), linkCV2, iconIV2, linkTitleTV2, linkTV2);
         updateLinks(teamDetails.getUrl().get(2), linkCV3, iconIV3, linkTitleTV3, linkTV3);
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Identify The links and assign Icons and Texts to them.
     void updateLinks(final String link, CardView cardView, ImageView imageView, TextView textView1, TextView textView2) {
         textView2.setText(link);
+
+        //If its a Email
         if (link.contains("@")) {
             cardView.setCardBackgroundColor(getResources().getColor(R.color.googleRedColor));
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.mail_icon));
             textView1.setText("Mail");
+            //redirect to gmail
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto", link, null)));
                 }
             });
-        } else if (link.contains("github")) {
+        }
+        //If its a github link
+        else if (link.contains("github")) {
             cardView.setCardBackgroundColor(getResources().getColor(R.color.githubColor));
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.github_icon));
             textView1.setText("Github");
+            //redirect to github page
             openLink(link, cardView);
-        } else if (link.contains("facebook")) {
+        }
+        //If its a FB link
+        else if (link.contains("facebook")) {
             cardView.setCardBackgroundColor(getResources().getColor(R.color.facebookColor));
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.facebook_icon));
             textView1.setText("Facebook");
+            //redirect to FB page
             openLink(link, cardView);
-        } else if (link.contains("instagram")) {
+        }
+        //If its a Insta link
+        else if (link.contains("instagram")) {
             cardView.setCardBackgroundColor(getResources().getColor(R.color.instagramColor));
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.instagram_icon));
             textView1.setText("Instagram");
             openLink(link, cardView);
-        } else if (link.contains("linkedin")) {
+        }
+        //If its a Linkedin link
+        else if (link.contains("linkedin")) {
             cardView.setCardBackgroundColor(getResources().getColor(R.color.linkedinColor));
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.linkedin_icon));
             textView1.setText("Linkedin");
             openLink(link, cardView);
-        } else if (link.contains("behance")) {
+        }
+        //If its a Behance link
+        else if (link.contains("behance")) {
             cardView.setCardBackgroundColor(getResources().getColor(R.color.behanceColor));
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.behance_icon));
             textView1.setText("Behance");
             openLink(link, cardView);
-        } else if (link.contains("dribbble")) {
+        }
+        //If its a Dribble link
+        else if (link.contains("dribbble")) {
             cardView.setCardBackgroundColor(getResources().getColor(R.color.dribbbleColor));
             imageView.setImageDrawable(getResources().getDrawable(R.drawable.dribbble_icon));
             textView1.setText("Dribbble");
@@ -115,14 +143,20 @@ public class ContributorProfileActivity extends BaseActivity {
         }
 
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Open the Links in the browser
     void openLink(final String link, CardView cardView) {
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Active internet connection.
                 if (!CommonUtils.alerter(getApplicationContext())) {
                     CommonUtils.openCustomBrowser(getApplicationContext(), link);
-                } else {
+                }
+                //No Active Internet Connections.
+                else {
                     Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                     intent.putExtra("key", "contributor_profile");
                     startActivity(intent);
@@ -131,6 +165,8 @@ public class ContributorProfileActivity extends BaseActivity {
             }
         });
     }
+    /**********************************************************************/
+
 
     @Override
     public void onBackPressed() {

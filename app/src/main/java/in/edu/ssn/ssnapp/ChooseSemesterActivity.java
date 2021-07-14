@@ -14,6 +14,7 @@ import com.daimajia.androidanimations.library.YoYo;
 
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class ChooseSemesterActivity extends BaseActivity {
 
     CardView sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8;
@@ -24,6 +25,7 @@ public class ChooseSemesterActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_choose_semester_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -31,13 +33,16 @@ public class ChooseSemesterActivity extends BaseActivity {
         } else
             setContentView(R.layout.activity_choose_semester);
 
-
+        /************************************************************************/
+        //When clicking any buttons on the page this function is called.
         onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), GPACalculatorActivity.class);
+                // On click function is differentiated for different buttons using the buttons ID.
                 switch (view.getId()) {
                     case R.id.sem1:
+                        //passing the semester number an intent extra
                         intent.putExtra("sem", 0);
                         break;
                     case R.id.sem2:
@@ -67,11 +72,14 @@ public class ChooseSemesterActivity extends BaseActivity {
                 finish();
             }
         };
+        /************************************************************************/
 
         initUI();
         setListeners();
     }
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     private void initUI() {
         sem1 = findViewById(R.id.sem1);
         sem2 = findViewById(R.id.sem2);
@@ -83,6 +91,8 @@ public class ChooseSemesterActivity extends BaseActivity {
         sem8 = findViewById(R.id.sem8);
         back = findViewById(R.id.backIV);
 
+        /************************************************************************/
+        //Animation
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -122,8 +132,13 @@ public class ChooseSemesterActivity extends BaseActivity {
                 }, 300);
             }
         }, 300);
-    }
+        /************************************************************************/
 
+    }
+    /**********************************************************************/
+
+    /**********************************************************************/
+    //Setting the listener function to all the buttons.
     private void setListeners() {
         sem1.setOnClickListener(onClickListener);
         sem2.setOnClickListener(onClickListener);
@@ -140,8 +155,7 @@ public class ChooseSemesterActivity extends BaseActivity {
             }
         });
     }
-
-    /********************************************************/
+    /**********************************************************************/
 
     @Override
     public void onBackPressed() {

@@ -19,6 +19,7 @@ import in.edu.ssn.ssnapp.utils.CommonUtils;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class FacultyHomeActivity extends BaseActivity {
 
     private static int count = 0;
@@ -30,6 +31,7 @@ public class FacultyHomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_faculty_home_dark);
             clearLightStatusBar(this);
@@ -49,6 +51,8 @@ public class FacultyHomeActivity extends BaseActivity {
 
     /*********************************************************/
 
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     void initUI() {
         settingsIV = findViewById(R.id.settingsIV);
         userImageIV = findViewById(R.id.userImageIV);
@@ -71,13 +75,16 @@ public class FacultyHomeActivity extends BaseActivity {
             }
         });
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //setting-up fragments viewpager.
     void setupViewPager() {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        //Faculty only be receiving bus alerts.
         adapter.addFragment(new BusAlertsFragment(), "Bus alert");
         viewPager.setAdapter(adapter);
     }
-
     /*********************************************************/
 
     @Override

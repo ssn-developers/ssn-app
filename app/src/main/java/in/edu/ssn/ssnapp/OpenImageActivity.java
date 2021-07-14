@@ -20,6 +20,7 @@ import java.io.File;
 import in.edu.ssn.ssnapp.utils.CommonUtils;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class OpenImageActivity extends BaseActivity {
 
     FirebaseCrashlytics crashlytics;
@@ -27,6 +28,8 @@ public class OpenImageActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_open_image_dark);
             clearLightStatusBar(this);
@@ -34,26 +37,33 @@ public class OpenImageActivity extends BaseActivity {
             setContentView(R.layout.activity_open_image);
         }
 
+        //Setting up firebase crashlytics.
         crashlytics = FirebaseCrashlytics.getInstance();
 
         ImageView imageIV = findViewById(R.id.imageIV);
         ImageView backIV = findViewById(R.id.backIV);
         ImageView downloadIV = findViewById(R.id.downloadIV);
 
+        //Getting the image url from the previous screen via intent extra.
         String url = getIntent().getStringExtra("url");
         final Uri downloadUri = Uri.parse(url);
         final File f = new File(downloadUri.getPath());
 
+        //Loading the image into a image view.
         Glide.with(this).load(url).into(imageIV);
 
+        //downloading the image.
         downloadIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //No app permission to write data into phone storage.
                 if (!CommonUtils.hasPermissions(OpenImageActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    //request for permission
                     ActivityCompat.requestPermissions(OpenImageActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                } else {
-
+                }
+                //If write permission already granted, proceed with the download.
+                else {
                     try {
                         Toast toast = Toast.makeText(OpenImageActivity.this, "Downloading...", Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER, 0, 0);
@@ -74,9 +84,7 @@ public class OpenImageActivity extends BaseActivity {
                         ex.printStackTrace();
                         crashlytics.log("stackTrace: " + ex.getStackTrace() + " \n Error: " + ex.getMessage());
                     }
-
                 }
-
             }
         });
 

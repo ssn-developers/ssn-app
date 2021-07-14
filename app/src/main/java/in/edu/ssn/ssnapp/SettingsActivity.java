@@ -20,6 +20,7 @@ import in.edu.ssn.ssnapp.utils.FCMHelper;
 import in.edu.ssn.ssnapp.utils.SharedPref;
 import spencerstudios.com.bungeelib.Bungee;
 
+// Extends Base activity for darkmode variable and status bar.
 public class SettingsActivity extends BaseActivity {
 
     SwitchButton darkmodeSB, newsfeedSB, busalertSB, examcellSB, placementsSB, eventsSB, chatSB, notifSwitch;
@@ -33,6 +34,8 @@ public class SettingsActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //check if darkmode is enabled and open the appropriate layout.
         if (darkModeEnabled) {
             setContentView(R.layout.activity_settings_dark);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -40,11 +43,12 @@ public class SettingsActivity extends BaseActivity {
         } else
             setContentView(R.layout.activity_settings);
 
+        //Get the User type such as Ug student[0], PG student[1], Alumni[2] or Faculty[3]
         clearance = SharedPref.getInt(getApplicationContext(), "clearance");
 
         initUI(clearance);
 
-        //darkmode switch handling
+        //on/off switch handling for DarkMode.
         darkmodeSB.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
@@ -64,13 +68,16 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
-        //almaconnect
+        //almaconnect.
         almaconnectTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //Active internet connection
                 if (!CommonUtils.alerter(getApplicationContext())) {
                     CommonUtils.openCustomBrowser(getApplicationContext(), "https://ssn.almaconnect.com");
-                } else {
+                }
+                //No Active internet connection
+                else {
                     Intent intent = new Intent(getApplicationContext(), NoNetworkActivity.class);
                     intent.putExtra("key", "home");
                     startActivity(intent);
@@ -78,7 +85,8 @@ public class SettingsActivity extends BaseActivity {
                 }
             }
         });
-        //helpline
+
+        //helpline.
         helplineTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +94,8 @@ public class SettingsActivity extends BaseActivity {
                 Bungee.slideLeft(SettingsActivity.this);
             }
         });
-        //contributors
+
+        //contributors.
         contributorTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +104,7 @@ public class SettingsActivity extends BaseActivity {
             }
         });
 
+        //SSN Academic Calender.
         calendar_TV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,6 +114,7 @@ public class SettingsActivity extends BaseActivity {
                 Bungee.fade(SettingsActivity.this);
             }
         });
+
         //make a suggestion
         feedbackTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +123,7 @@ public class SettingsActivity extends BaseActivity {
                 Bungee.slideLeft(SettingsActivity.this);
             }
         });
+
         //invite friends
         inviteTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +135,7 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(Intent.createChooser(sharingIntent, "Share via"));
             }
         });
+
         //rate our app
         ratingTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,6 +150,7 @@ public class SettingsActivity extends BaseActivity {
                 }
             }
         });
+
         //privacy documentation
         privacyTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +165,7 @@ public class SettingsActivity extends BaseActivity {
                 }
             }
         });
+
         //logout
         logoutTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,6 +192,9 @@ public class SettingsActivity extends BaseActivity {
         });
     }
 
+
+    /**********************************************************************/
+    // Initiate variables and UI elements.
     public void initUI(int clearance) {
         darkmodeSB = findViewById(R.id.darkModeSwitch);
         notifSwitch = findViewById(R.id.notifSwitch);
@@ -258,17 +276,24 @@ public class SettingsActivity extends BaseActivity {
             examcellRL.setVisibility(View.GONE);
         }
 
+        //for Alumni and Faculty...
         if (clearance == 2 || clearance == 3) {
             notifSwitch.setChecked(SharedPref.getBoolean(getApplicationContext(), "notif_switch"));
             facultyRL.setVisibility(View.VISIBLE);
             notificationLL.setVisibility(View.GONE);
         }
     }
+    /**********************************************************************/
 
+    /**********************************************************************/
+    //Setting up Firebase cloud Messaging for notification subcriptions.
     @Override
     protected void onPause() {
         super.onPause();
 
+        /**********************************************************************/
+        //For Undergraduate
+        //Newsfeed, Examcell, BusAlert, Events, Chats
         if (clearance == 0) {
             SharedPref.putBoolean(getApplicationContext(), "switch_dept", newsfeedSB.isChecked());
             SharedPref.putBoolean(getApplicationContext(), "switch_exam", examcellSB.isChecked());
@@ -302,6 +327,8 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.UnSubscribeToTopic(getApplicationContext(), Constants.GLOBAL_CHAT);
         }
 
+        //For Undergraduate Final year
+        //(Newsfeed, Examcell, BusAlert, Events, Chats) + PLACEMENTS
         if (SharedPref.getInt(getApplicationContext(), "year") == Integer.parseInt(Constants.fourth)) {
             SharedPref.putBoolean(getApplicationContext(), "switch_place", placementsSB.isChecked());
 
@@ -311,6 +338,8 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.UnSubscribeToTopic(this, SharedPref.getString(getApplicationContext(), "dept") + SharedPref.getInt(getApplicationContext(), "year") + "place");
         }
 
+        //For Postgraduate
+        //BusAlert, Events, Chats
         if (clearance == 1) {
             SharedPref.putBoolean(getApplicationContext(), "switch_bus", busalertSB.isChecked());
             SharedPref.putBoolean(getApplicationContext(), "switch_event", eventsSB.isChecked());
@@ -332,6 +361,8 @@ public class SettingsActivity extends BaseActivity {
                 FCMHelper.UnSubscribeToTopic(getApplicationContext(), Constants.GLOBAL_CHAT);
         }
 
+        //For Alumni
+        //Events, Chats
         if (clearance == 2) {
             SharedPref.putBoolean(getApplicationContext(), "notif_switch", notifSwitch.isChecked());
 
@@ -344,6 +375,8 @@ public class SettingsActivity extends BaseActivity {
             }
         }
 
+        //For Faculty
+        //BusAlert
         if (clearance == 3) {
             SharedPref.putBoolean(getApplicationContext(), "notif_switch", notifSwitch.isChecked());
 
