@@ -60,8 +60,8 @@ public class ExamCellFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        Log.i(TAG, "onCreateView: "+SharedPref.getString(getContext(), "dept"));
-        Log.i(TAG, "onCreateView: "+SharedPref.getInt(getContext(), "year"));
+        Log.i(TAG, "onCreateView:"+SharedPref.getString(getContext(), "dept"));
+        Log.i(TAG, "onCreateView:"+SharedPref.getInt(getContext(), "year"));
         CommonUtils.addScreen(getContext(), getActivity(), "ExamCellFragment");
 
         //get the darkmode variable
@@ -121,7 +121,8 @@ public class ExamCellFragment extends Fragment {
         //get dept & year from shared pref.
         String dept = SharedPref.getString(getContext(), "dept");
         String year = "year." + SharedPref.getInt(getContext(), "year");
-        Log.i(TAG, "setupFireStore: "+year +"\nsetupFireStore: "+Constants.collection_exam_cell+"\nsetupFireStore: "+dept);
+
+        Log.i(TAG, "setupFireStore:"+year +"\nsetupFireStore:"+Constants.collection_exam_cell+"\nsetupFireStore:"+dept);
 
         Query query = FirebaseFirestore.getInstance().collection(Constants.collection_exam_cell).whereArrayContains("dept", dept).whereEqualTo(year, true).orderBy("time", Query.Direction.DESCENDING);
 
@@ -136,11 +137,11 @@ public class ExamCellFragment extends Fragment {
                 post.setAuthor_image_url("examcell@ssn.edu.in");
                 post.setAuthor("SSNCE COE");
                 post.setPosition("Exam cell Coordinator");
+                Log.i(TAG, "parseSnapshot: "+post.getId());
 
                 return post;
             }
-        })
-                .build();
+        }).build();
 
         //Assign Exam_cell_posts details to UI elements
         adapter = new FirestoreRecyclerAdapter<Post, FeedViewHolder>(options) {

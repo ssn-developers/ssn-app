@@ -252,7 +252,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             } catch (Exception e) {
                 layout_progress.setVisibility(View.GONE);
                 flag = true;
-                Log.d(TAG, "error" + e.toString());
+                Log.d(TAG, "error : " + e.toString());
             }
         }
         // If the request code does not match.
