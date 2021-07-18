@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Constants {
 
-    //TODO: change to 'false' when releasing the app
+    //TODO: RELEASE: change to 'false' when releasing the app
     public static final Boolean debug_mode = false;
 
     public static final String PDF_URL = "pdf_url";
@@ -17,9 +17,9 @@ public class Constants {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_PWD = "TEST_PWD";
 
-    //TODO: Replace with actual Server key when releasing the app
-    //TODO: Replace with Fake gibberish before Pushing to git
-    public static final String SERVER_KEY = "key=AIz_ezhilsujinharshalogesh_J0c";
+    //TODO: RELEASE: Replace with actual Server key when releasing the app
+    //TODO: PUSHING: Replace with Fake gibberish before Pushing to git
+    public static final String SERVER_KEY = "key=AIz_satheeshSanthosh_J0c";
 
     //URLs
     public static final String calendar = "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/utils%2FCollege%20Calendar%202019%20-20.pdf?alt=media&token=c99c10cd-c124-405c-9a8d-ef6f39ee5e56";
@@ -63,7 +63,7 @@ public class Constants {
     public static final String lakshya = "Lakshya";
     public static String GLOBAL_CHAT = "global_chat";
 
-    //TODO: Replace with new freshers group mail ids.
+    //TODO: RELEASE: Replace with new freshers group mail ids.(ONCE EVERY YEAR)
     //freshers/first year's group mail id
     //freshers won't be having seperate ssn mail ids.
     public static ArrayList<String> fresher_email = new ArrayList<String>(Arrays.asList(
@@ -85,7 +85,7 @@ public class Constants {
     public static String collection_event = "event";
     public static String COLLECTION_GLOBAL_CHAT = "global_chat";
 
-    //TODO: modify when releasing the app
+    //TODO: RELEASE: modify when releasing the app
     //What's new stuff
     public static String changelog = "\u2022 Bug fixes";
 }

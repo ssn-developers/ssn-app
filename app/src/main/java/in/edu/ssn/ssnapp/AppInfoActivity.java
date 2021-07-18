@@ -111,21 +111,18 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
     void setUpPreFinalContributors() {
         ArrayList<String> url = new ArrayList<>();
 
-        // TODO: Add pre final year students data here and set visibilty in xml
-        //Un-comment these Samples and alter details corresponding to the respective students when you have your prefinal year students.
+        // TODO: RELEASE: Add pre final year students data here.(ONCE EVERY YEAR)
 
-        /*
-        url.add("ezhilprasanth17040@cse.ssn.edu.in");
-        url.add("https://github.com/ezhilnero99");
-        url.add("https://www.linkedin.com/in/ezhilnero-m");
-        teams1.add(new TeamDetails("Ezhil Prasanth M", "App Development", R.drawable.ezhil_profile_new, url));
+        url.add("karun19049@cse.ssn.edu.in");
+        url.add("https://www.linkedin.com/in/karun84");
+        url.add("https://github.com/Karun842002");
+        teams1.add(new TeamDetails("Karun Anantharaman", "App Developer", R.drawable.karun_profile, url));
 
         url = new ArrayList<>();
-        url.add("lksujins@gmail.com");
-        url.add("https://github.com/sujink1999");
-        url.add("https://www.linkedin.com/in/sujin-kingselin");
-        teams2.add(new TeamDetails("Sujin K", "App Development", R.drawable.sujin_profile, url));
-         */
+        url.add("lokesh19055@cse.ssn.edu.in");
+        url.add("https://www.linkedin.com/in/lokesh-n-n/");
+        url.add("https://github.com/lokeshn011101");
+        teams1.add(new TeamDetails("Lokesh N N", "App Developer", R.drawable.lokesh_n_profile, url));
 
         items1RV.setAdapter(new AboutContributorAdapter(this, teams1));
     }
@@ -133,34 +130,46 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
     void setUpFinalContributors() {
         ArrayList<String> url = new ArrayList<>();
 
-        url.add("ezhilprasanth17040@cse.ssn.edu.in");
-        url.add("https://github.com/ezhilnero99");
-        url.add("https://www.linkedin.com/in/ezhilnero-m");
-        teams2.add(new TeamDetails("Ezhil Prasanth M", "App Development", R.drawable.ezhil_profile_new, url));
+        url.add("satheeshkumar18136@cse.ssn.edu.in");
+        url.add("https://www.linkedin.com/in/satheesh-kumar-g-r");
+        url.add("https://github.com/satheesh18");
+        teams2.add(new TeamDetails("Satheesh Kumar G R", "App Developer", R.drawable.satheesh_profile, url));
 
         url = new ArrayList<>();
-        url.add("lksujins@gmail.com");
-        url.add("https://github.com/sujink1999");
-        url.add("https://www.linkedin.com/in/sujin-kingselin");
-        teams2.add(new TeamDetails("Sujin K", "App Development", R.drawable.sujin_profile, url));
+        url.add("santhosh18135@cse.ssn.edu.in");
+        url.add("https://www.instagram.com/imsanthosh.r");
+        url.add("https://twitter.com/imsanthoshR");
+        teams2.add(new TeamDetails("Santhosh R", "App Developer", R.drawable.santhosh_profile, url));
 
         url = new ArrayList<>();
-        url.add("pavikaramanchu@gmail.com");
-        url.add("https://github.com/pavithrakarumanchi");
-        url.add("https://www.linkedin.com/in/pavithra-karumanchi-0420b9166");
-        teams2.add(new TeamDetails("Pavithra N", "Web Development", R.drawable.pavithra_profile, url));
+        url.add("krishnakumar18079@cse.ssn.edu.in");
+        url.add("https://github.com/krishnakanna18");
+        url.add("https://www.linkedin.com/in/krishna-kumar-b5319316b/");
+        teams2.add(new TeamDetails("Krishnakumar K", "Web Developer", R.drawable.krishnakumar_profile, url));
 
         url = new ArrayList<>();
-        url.add("nandhiniraja208@gmail.com");
-        url.add("https://github.com/nandy20");
-        url.add("https://www.linkedin.com/in/nandhini-raja-8b71b4143");
-        teams2.add(new TeamDetails("Nandhini R", "Web Development", R.drawable.nandhini_profile, url));
+        url.add("kumaresh18081@cse.ssn.edu.in");
+        url.add("https://github.com/Kumaresh1");
+        url.add("https://www.linkedin.com/in/kumaresh12");
+        teams2.add(new TeamDetails("Kumaresh V", "Web Developer", R.drawable.kumaresh_profile, url));
 
         url = new ArrayList<>();
-        url.add("amrithasudharsan@gmail.com");
-        url.add("https://www.instagram.com/amrithahaha");
-        url.add("https://www.linkedin.com/in/amrithasudharsan");
-        teams2.add(new TeamDetails("Amritha Sudharsan", "App UI Designs", R.drawable.amirtha_profile, url));
+        url.add("saiaashish18130@cse.ssn.edu.in");
+        url.add("https://github.com/Aashish0330");
+        url.add("https://www.linkedin.com/in/sai-aashish-p/");
+        teams2.add(new TeamDetails("Sai Aashish P", "Web Developer", R.drawable.sai_profile, url));
+
+        url = new ArrayList<>();
+        url.add("mohamedhashim18094@cse.ssn.edu.in");
+        url.add("https://www.linkedin.com/in/hashimrawther/");
+        url.add("https://github.com/HashimRawther");
+        teams2.add(new TeamDetails("Mohamed Hashim G", "Web Developer", R.drawable.hashim_profile, url));
+
+        url = new ArrayList<>();
+        url.add("sudharshan18173@cse.ssn.edu.in");
+        url.add("https://github.com/exploring-curiosity");
+        url.add("https://www.linkedin.com/in/sudharshanramesh/");
+        teams2.add(new TeamDetails("Sudharshan R", "Web Developer", R.drawable.sudarshan_profile, url));
 
         items2RV.setAdapter(new AboutContributorAdapter(this, teams2));
     }
@@ -171,7 +180,11 @@ public class AppInfoActivity extends BaseActivity implements View.OnClickListene
         //add ur details here when you finish your final year of college.
 
         //2017 batch
-
+        alumni.add(new AlumniDetails("Sujin K", "lksujins@gmail.com"));
+        alumni.add(new AlumniDetails("Ezhil Prasanth M", "ezhil99mutsun@gmail.com"));
+        alumni.add(new AlumniDetails("Pavithra N", "pavikaramanchu@gmail.com"));
+        alumni.add(new AlumniDetails("Nandhini R", "nandhiniraja208@gmail.com"));
+        alumni.add(new AlumniDetails("Amritha Sudharsan", "amrithasudharsan@gmail.com"));
 
         //2016 batch
         alumni.add(new AlumniDetails("Logesh Dinakaran", "ddlogesh@gmail.com"));

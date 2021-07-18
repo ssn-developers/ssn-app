@@ -18,7 +18,7 @@
             android:id="@+id/reply_dpIV"
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:background="@drawable/sujin_profile"
+            android:background="@drawable/satheesh_profile"
             android:layout_centerVertical="true"/>
 
         <androidx.cardview.widget.CardView

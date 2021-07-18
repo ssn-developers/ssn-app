@@ -141,6 +141,13 @@ public class ContributorProfileActivity extends BaseActivity {
             textView1.setText("Dribbble");
             openLink(link, cardView);
         }
+        //If its a Dribble link
+        else if (link.contains("twitter")) {
+            cardView.setCardBackgroundColor(getResources().getColor(R.color.twitterColor));
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.twitter_icon));
+            textView1.setText("Twitter");
+            openLink(link, cardView);
+        }
 
     }
     /**********************************************************************/

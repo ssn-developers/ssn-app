@@ -144,34 +144,10 @@
             android:textSize="@dimen/_16ssp" />
 
         <TextView
-            android:id="@+id/text1TV"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_2sdp"
-            android:layout_below="@+id/text0TV"
-            android:fontFamily="@font/open_sans_bold"
-            android:text="@string/pre_final_years"
-            android:textColor="@android:color/tab_indicator_text"
-            android:textSize="@dimen/_12ssp" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/items1RV"
-            tools:visibility="visible"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:clipToPadding="false"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:layout_below="@+id/text1TV" />
-
-        <TextView
             android:id="@+id/text2TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/items1RV"
+            android:layout_below="@+id/text0TV"
             android:layout_marginStart="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_2sdp"
             android:fontFamily="@font/open_sans_bold"
@@ -188,10 +164,30 @@
             android:layout_below="@+id/text2TV" />
 
         <TextView
+            android:id="@+id/text1TV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_below="@+id/items2RV"
+            android:fontFamily="@font/open_sans_bold"
+            android:text="@string/pre_final_years"
+            android:textColor="@android:color/tab_indicator_text"
+            android:textSize="@dimen/_12ssp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/items1RV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_below="@+id/text1TV" />
+
+        <TextView
             android:id="@+id/text3TV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/items2RV"
+            android:layout_below="@+id/items1RV"
             android:layout_marginStart="@dimen/_10sdp"
             android:fontFamily="@font/open_sans_bold"
             android:layout_marginTop="@dimen/_10sdp"

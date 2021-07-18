@@ -10,8 +10,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         //change version number for every release.
-        versionCode 19
-        versionName "1.3.3"
+        versionCode 20
+        versionName "1.3.4"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
