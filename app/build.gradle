@@ -10,8 +10,8 @@ android {
         minSdkVersion 19
         targetSdkVersion 30
         //change version number for every release.
-        versionCode 20
-        versionName "1.3.4"
+        versionCode 21
+        versionName "1.3.5"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
@@ -19,7 +19,7 @@ android {
 
 // TODO : Make sure signingConfig is commented before pushing & release
     //Start Comment
-//    def props = new Properties()
+//   def props = new Properties()
 //    file("$projectDir/build.properties").withInputStream { props.load(it) }
 //
 //    signingConfigs {

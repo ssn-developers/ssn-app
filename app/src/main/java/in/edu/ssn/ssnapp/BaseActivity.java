@@ -3,6 +3,7 @@ package in.edu.ssn.ssnapp;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,12 +21,15 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         //gets the Dark mode variables.
         darkModeEnabled = SharedPref.getBoolean(getApplicationContext(), "dark_mode");
+
     }
 
     //make the status bar white with dark colored texts & icons.
     public void clearLightStatusBar(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
             activity.getWindow().setStatusBarColor(getResources().getColor(R.color.darkColor));
-    }
+            activity.getWindow().getDecorView().setSystemUiVisibility(0);
+
+   }
 
 }

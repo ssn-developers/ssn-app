@@ -19,7 +19,7 @@ public class Constants {
 
     //TODO: RELEASE: Replace with actual Server key when releasing the app
     //TODO: PUSHING: Replace with Fake gibberish before Pushing to git
-    public static final String SERVER_KEY = "key=AIz_satheeshSanthosh_J0c";
+    public static final String SERVER_KEY = "key=AIitachiuchihaoftheleaf0c";
 
     //URLs
     public static final String calendar = "https://firebasestorage.googleapis.com/v0/b/ssn-app-web.appspot.com/o/utils%2FCollege%20Calendar%202019%20-20.pdf?alt=media&token=c99c10cd-c124-405c-9a8d-ef6f39ee5e56";
